@@ -1,0 +1,59 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TodoApp2">
+
+    <Color x:Key="ContentBackground">#1f1f1f</Color>
+    <SolidColorBrush x:Key="ContentBackgroundBrush" Color="{StaticResource ContentBackground}" />
+
+    <Color x:Key="TitleBarBackground">#292929</Color>
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackground}" />
+    
+    <Color x:Key="TitleBarButtonForeground">#ffffff</Color>
+    <SolidColorBrush x:Key="TitleBarButtonForegroundBrush" Color="{StaticResource TitleBarButtonForeground}" />
+    
+    <Color x:Key="CategoryTitleForeground">#ffffff</Color>
+    <SolidColorBrush x:Key="CategoryTitleForegroundBrush" Color="{StaticResource CategoryTitleForeground}" />
+
+    <Color x:Key="DescriptionForeground">#bdbdbd</Color>
+    <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="{StaticResource DescriptionForeground}" />
+
+    <Color x:Key="TitleBarHoverButtonBackground">#333333</Color>
+    <SolidColorBrush x:Key="TitleBarHoverButtonBackgroundBrush" Color="{StaticResource TitleBarHoverButtonBackground}" />
+
+
+
+
+<SolidColorBrush x:Key="MyDarkBackgroundBrush" Color="#2d2d2d" />
+    <SolidColorBrush x:Key="MyDarkDarkerBackgroundBrush" Color="#262626" />
+    <SolidColorBrush x:Key="MyDarkPanelBrush" Color="#424242" />
+    <SolidColorBrush x:Key="MyDarkTextWhiteBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="MyDarkTextLightGrayBrush" Color="#C7C7C7" />
+    <SolidColorBrush x:Key="MyDarkNavigatorBackgroundBrush" Color="#191919" />
+
+    <SolidColorBrush x:Key="MyDarkTomatoBrush" Color="#F44236" />
+    <SolidColorBrush x:Key="MyDarkCrimsonBrush" Color="#EA1E63" />
+    <SolidColorBrush x:Key="MyDarkDarkOrchidBrush" Color="#9C28B1" />
+    <SolidColorBrush x:Key="MyDarkStateBlueBrush" Color="#673BB7" />
+    <SolidColorBrush x:Key="MyDarkDarkTurquoiseBrush" Color="#00BCD5" />
+    <SolidColorBrush x:Key="MyDarkDeepSkyBlueBrush" Color="#03A9F5" />
+    <SolidColorBrush x:Key="MyDarkDodgerBlueBrush" Color="#2196F3" />
+    <SolidColorBrush x:Key="MyDarkSteelBlueBrush" Color="#3F51B5" />
+    <SolidColorBrush x:Key="MyDarkDarkCyanBrush" Color="#009788" />
+    <SolidColorBrush x:Key="MyDarkMediumSeaGreenBrush" Color="#4CB050" />
+    <SolidColorBrush x:Key="MyDarkYellowGreenBrush" Color="#8BC24A" />
+    <SolidColorBrush x:Key="MyDarkYellowGreenLightBrush" Color="#CDDC39" />
+    <SolidColorBrush x:Key="MyDarkDarkOrangeBrush" Color="#FE5722" />
+    <SolidColorBrush x:Key="MyDarkOrangeBrush" Color="#FF9700" />
+    <SolidColorBrush x:Key="MyDarkGoldBrush" Color="#FEC107" />
+    <SolidColorBrush x:Key="MyDarkGoldLightBrush" Color="#FFEB3C" />
+    <SolidColorBrush x:Key="MyDarkSiennaBrush" Color="#795547" />
+    <SolidColorBrush x:Key="MyDarkDarkGrayBrush" Color="#9E9E9E" />
+    <SolidColorBrush x:Key="MyDarkStateGrayBrush" Color="#607D8B" />
+    <SolidColorBrush x:Key="MyDarkBlackBrush" Color="#191919" />
+
+    <SolidColorBrush x:Key="MyDarkBorderBrush" Color="#00232323" />
+
+    <SolidColorBrush x:Key="MyDarkTransparentBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="MyDarkGrayBrush" Color="#C7C7C7" />
+
+</ResourceDictionary>
