@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using TodoApp2.DataModels;
 
 namespace TodoApp2.ViewModel
 {
@@ -13,8 +14,14 @@ namespace TodoApp2.ViewModel
         #region Private Fields
 
         private readonly Window m_Window;
-        private int m_OuterMarginSize = 10;
+        private readonly WindowResizer m_Resizer;
+        private int m_OuterMarginSize = 2;
         private int m_WindowRadius = 0;
+
+        /// <summary>
+        /// The last known dock position
+        /// </summary>
+        private WindowDockPosition m_DockPosition = WindowDockPosition.Undocked;
 
         #endregion
 
@@ -25,18 +32,23 @@ namespace TodoApp2.ViewModel
         public ICommand CloseCommand { get; set; }
         public ICommand NavigatorCommand { get; set; }
 
-
         #endregion
 
         #region Public Properties
 
         public double WindowMinimumWidth { get; set; } = 320;
         public double WindowMinimumHeight { get; set; } = 400;
+        public double ContentPadding { get; set; } = 0;
+
+        /// <summary>
+        /// The padding of the inner content of the main window
+        /// </summary>
+        public Thickness InnerContentPadding => new Thickness(ContentPadding);
 
         /// <summary>
         /// The size of the resize border around the window
         /// </summary>
-        public int ResizeBorder { get; } = 12;
+        public int ResizeBorder { get; } = 4;
 
         /// <summary>
         /// The size of the resize border around the window, taking into account the outer margin
@@ -48,7 +60,8 @@ namespace TodoApp2.ViewModel
         /// </summary>
         public int OuterMarginSize
         {
-            get => m_Window.WindowState == WindowState.Maximized ? 0 : m_OuterMarginSize;
+            // If it is maximized or docked, no border
+            get => Borderless ? 0 : m_OuterMarginSize;
             set => m_OuterMarginSize = value;
         }
 
@@ -62,9 +75,15 @@ namespace TodoApp2.ViewModel
         /// </summary>
         public int WindowRadius
         {
-            get => m_Window.WindowState == WindowState.Maximized ? 0 : m_WindowRadius;
+            // If it is maximized or docked, no border
+            get => Borderless ? 0 : m_WindowRadius;
             set => m_WindowRadius = value;
         }
+
+        /// <summary>
+        /// True if the window should be borderless because it is docked or maximized
+        /// </summary>
+        public bool Borderless => IsDocked || m_Window.WindowState == WindowState.Maximized || m_DockPosition != WindowDockPosition.Undocked;
 
         /// <summary>
         /// The radius of the edges of the window
@@ -76,7 +95,19 @@ namespace TodoApp2.ViewModel
         /// </summary>
         public int TitleBarHeight { get; set; } = 35;
 
+        /// <summary>
+        /// The height of the TitleBar of the window
+        /// </summary>
         public GridLength TitleBarGridHeight => new GridLength(TitleBarHeight);
+
+        /// <summary>
+        /// The current page of the application
+        /// </summary>
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Task;
+
+        public bool IsNavigatorOpen { get; set; }
+
+        public bool IsDocked { get; set; }
 
         #endregion
 
@@ -93,8 +124,19 @@ namespace TodoApp2.ViewModel
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
-            //NavigatorCommand = 
             // TODO: implement navigatorcommand
+
+            // Fix window resize issue
+            m_Resizer = new WindowResizer(m_Window);
+
+            m_Resizer.WindowDockChanged += OnWindowDockChanged;
+            m_Resizer.IsDockedChanged += ResizerOnIsDockedChanged;
+        }
+
+        private void ResizerOnIsDockedChanged(object sender, DockChangeEventArgs e)
+        {
+            IsDocked = e.IsDocked;
+            WindowResized();
         }
 
         #endregion
@@ -109,10 +151,19 @@ namespace TodoApp2.ViewModel
             OnPropertyChanged(nameof(OuterMarginThickness));
             OnPropertyChanged(nameof(WindowCornerRadius));
             OnPropertyChanged(nameof(WindowRadius));
+            WindowResized();
+        }
+
+        private void OnWindowDockChanged(WindowDockPosition dockPosition)
+        {
+            // Store last position
+            m_DockPosition = dockPosition;
+
+            // Fire off resize events
+            WindowResized();
         }
 
         #endregion
-
 
         #region Private helpers
 
@@ -127,6 +178,21 @@ namespace TodoApp2.ViewModel
 
             // Adds the window position so its a "ToScreen"
             return new Point(position.X + m_Window.Left, position.Y + m_Window.Top);
+        }
+
+        /// <summary>
+        /// If the window resizes to a special position (docked or maximized)
+        /// this will update all required property change events to set the borders and radius values
+        /// </summary>
+        private void WindowResized()
+        {
+            // Fire off events for all properties that are affected by a resize
+            OnPropertyChanged(nameof(Borderless));
+            OnPropertyChanged(nameof(ResizeBorderThickness));
+            OnPropertyChanged(nameof(OuterMarginSize));
+            OnPropertyChanged(nameof(OuterMarginThickness));
+            OnPropertyChanged(nameof(WindowRadius));
+            OnPropertyChanged(nameof(WindowCornerRadius));
         }
 
         #endregion

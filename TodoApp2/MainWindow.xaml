@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
-        Title="TodoApp" Height="520" Width="400">
+        Title="TodoApp" Height="500" Width="380">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
@@ -19,7 +19,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--Outer border with the dropshadow margin-->
-                        <Border Padding="{Binding OuterMarginThickness, FallbackValue=10}">
+                        <Border Padding="{Binding OuterMarginThickness}" >
 
                             <!--Main window outline-->
                             <Grid >
@@ -36,8 +36,6 @@
 
                                             <!--Title Bar-->
                                             <RowDefinition Height="{Binding TitleBarGridHeight, FallbackValue=35}"/>
-                                            <!--Drop Shadow-->
-                                            <RowDefinition Height="Auto"/>
                                             <!--Window Content-->
                                             <RowDefinition Height="*"/>
 
@@ -45,8 +43,7 @@
 
                                         <!--Title Bar-->
                                         <Grid Grid.Column="0" Panel.ZIndex="1" 
-                                              Background="{StaticResource TitleBarBackgroundBrush}"
-                                              >
+                                              Background="{StaticResource TitleBarBackgroundBrush}">
                                             <Grid.ColumnDefinitions>
 
                                                 <!--Navigator button column-->
@@ -60,31 +57,46 @@
 
                                             <!--Navigator button-->
                                             <Button Grid.Column="0"
-                                                    Command="{Binding NavigatorCommand}"
                                                     Style="{StaticResource TitleBarButtonStyle}"
-                                                    Content="&#xE700;"
+                                                    Content="{StaticResource SegoeIconMenu}"
                                             />
-
-
                                             <!--Here could be the window title-->
-
-
 
                                             <!--Window buttons-->
                                             <StackPanel Grid.Column="2" Orientation="Horizontal">
                                                 <Button Command="{Binding MinimizeCommand}"
                                                     Style="{StaticResource WindowButtonStyle}"
-                                                    Content="&#xE921;"/>
+                                                    Content="{StaticResource SegoeIconMinimizeWindow}"/>
                                                 <Button Command="{Binding MaximizeCommand}"
                                                         Style="{StaticResource WindowButtonStyle}"
-                                                        Content="&#xE922;"/>
+                                                        Content="{StaticResource SegoeIconMaximizeWindow}"/>
                                                 <Button Command="{Binding CloseCommand}"
                                                         Style="{StaticResource WindowButtonStyle}"
-                                                        Content="&#xE8BB;"/>
+                                                        Content="{StaticResource SegoeIconCloseWindow}"/>
                                             </StackPanel>
 
-
                                         </Grid>
+
+                                        <!--Page content-->
+                                        <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                        </Border>
+
+                                        <!--Navigator content overlay (the darker background)-->
+                                        <Border Grid.Row="1" 
+                                                x:Name="NavigatorContentOverlayPanel"
+                                                Visibility="Hidden"
+                                                Background="{StaticResource NavigatorContentOverlayBrush}" />
+
+                                        <!--Navigator menu-->
+                                        <!--<Border Grid.Row="1" 
+                                                x:Name="NavigatorContentBorder"
+                                                Background="{StaticResource NavigatorBackgroundBrush}" 
+                                                Width="300" 
+                                                HorizontalAlignment="Left"
+                                                >
+
+                                        </Border>-->
 
                                     </Grid>
 
@@ -108,7 +120,8 @@
     </WindowChrome.WindowChrome>
 
 
-    <Border  Background="MediumVioletRed" >
-
+    <Border Background="{StaticResource ApplicationBackgroundBrush}" >
+        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:ApplicationPageValueConverter}}"></Frame>
     </Border>
+
 </Window>

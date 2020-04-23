@@ -17,13 +17,50 @@
     <Color x:Key="DescriptionForeground">#bdbdbd</Color>
     <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="{StaticResource DescriptionForeground}" />
 
+    <Color x:Key="TimestampForeground">#bdbdbd</Color>
+    <SolidColorBrush x:Key="TimestampForegroundBrush" Color="{StaticResource TimestampForeground}" />
+
     <Color x:Key="TitleBarHoverButtonBackground">#333333</Color>
     <SolidColorBrush x:Key="TitleBarHoverButtonBackgroundBrush" Color="{StaticResource TitleBarHoverButtonBackground}" />
 
+    <Color x:Key="ApplicationBackground">#1f1f1f</Color>
+    <SolidColorBrush x:Key="ApplicationBackgroundBrush" Color="{StaticResource ApplicationBackground}" />
+
+    <Color x:Key="TaskItemBackground">#282828</Color>
+    <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{StaticResource TaskItemBackground}" />
+
+    <Color x:Key="TaskItemBackgroundHatch">#4d4d4d</Color>
+    <SolidColorBrush x:Key="TaskItemBackgroundHatchBrush" Color="{StaticResource TaskItemBackgroundHatch}" />
+
+    <Color x:Key="IconLabelForeground">#ffffff</Color>
+    <SolidColorBrush x:Key="IconLabelForegroundBrush" Color="{StaticResource IconLabelForeground}" />
+
+    <Color x:Key="InputTextBoxForeground">#E1E1E1</Color>
+    <SolidColorBrush x:Key="InputTextBoxForegroundBrush" Color="{StaticResource InputTextBoxForeground}" />
+
+    <Color x:Key="TextBoxPlaceholderForeground">#A8A8A8</Color>
+    <SolidColorBrush x:Key="TextBoxPlaceholderForegroundBrush" Color="{StaticResource TextBoxPlaceholderForeground}" />
+
+    <Color x:Key="NavigatorBackground">#333333</Color>
+    <SolidColorBrush x:Key="NavigatorBackgroundBrush" Color="{StaticResource NavigatorBackground}" />
+
+    <Color x:Key="NavigatorContentOverlay">#991f1f1f</Color>
+    <SolidColorBrush x:Key="NavigatorContentOverlayBrush" Color="{StaticResource NavigatorContentOverlay}" />
+
+    <Color x:Key="CheckBoxBorder">#7e7e7e</Color>
+    <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{StaticResource CheckBoxBorder}" />
 
 
+    <Color x:Key="ScrollbarStatic">#474747</Color>
+    <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="{StaticResource ScrollbarStatic}" />
 
-<SolidColorBrush x:Key="MyDarkBackgroundBrush" Color="#2d2d2d" />
+    <Color x:Key="ScrollbarMouseOver">#474747</Color>
+    <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="{StaticResource ScrollbarMouseOver}" />
+
+    <Color x:Key="ScrollbarPressed">#474747</Color>
+    <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="{StaticResource ScrollbarPressed}" />
+
+    <!--<SolidColorBrush x:Key="MyDarkBackgroundBrush" Color="#2d2d2d" />
     <SolidColorBrush x:Key="MyDarkDarkerBackgroundBrush" Color="#262626" />
     <SolidColorBrush x:Key="MyDarkPanelBrush" Color="#424242" />
     <SolidColorBrush x:Key="MyDarkTextWhiteBrush" Color="#FFFFFF" />
@@ -54,6 +91,6 @@
     <SolidColorBrush x:Key="MyDarkBorderBrush" Color="#00232323" />
 
     <SolidColorBrush x:Key="MyDarkTransparentBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="MyDarkGrayBrush" Color="#C7C7C7" />
+    <SolidColorBrush x:Key="MyDarkGrayBrush" Color="#C7C7C7" />-->
 
 </ResourceDictionary>
