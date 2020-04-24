@@ -57,23 +57,23 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Border x:Name="checkBoxBorder" 
-                                BorderBrush="{StaticResource CheckBoxBorderBrush}" 
-                                BorderThickness="2" 
-                                Background="{StaticResource TaskItemBackgroundBrush}" 
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Margin="1"
-                                CornerRadius="30"
-                                Height="20"
-                                Width="20"
-                                >
+                                    BorderBrush="{StaticResource CheckBoxBorderBrush}" 
+                                    BorderThickness="2" 
+                                    Background="{StaticResource TaskItemBackgroundBrush}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Margin="1"
+                                    CornerRadius="30"
+                                    Height="20"
+                                    Width="20"
+                                    >
                             <Grid x:Name="markGrid">
                                 <Path x:Name="optionMark" 
-                                      Data="F1 M 0 7.89 L 1.665 5.82 L 6.39 9.6 L 10.935 1.33 L 12.85 2.68 6.885 13.2 Z" 
-                                      Fill="{StaticResource CategoryTitleForegroundBrush}"
-                                      Margin="1" 
-                                      Opacity="0" 
-                                      Stretch="None"/>
+                                          Data="F1 M 0 7.89 L 1.665 5.82 L 6.39 9.6 L 10.935 1.33 L 12.85 2.68 6.885 13.2 Z" 
+                                          Fill="{StaticResource TaskItemBackgroundBrush}"
+                                          Margin="3" 
+                                          Opacity="0" 
+                                          Stretch="None"/>
                                 <Rectangle x:Name="indeterminateMark" Fill="{StaticResource OptionMark.Static.Glyph}" Margin="2" Opacity="0"/>
                             </Grid>
                         </Border>
@@ -81,29 +81,22 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasContent" Value="true">
                             <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
-                            <Setter Property="Padding" Value="4,-1,0,0"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Border}"/>
-                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
-                            <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
+                            <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource CheckBoxCheckBrush}"/>
+                            <Setter Property="Margin" TargetName="optionMark" Value="1"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Disabled.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Disabled.Border}"/>
-                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.Disabled.Glyph}"/>
-                            <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.Disabled.Glyph}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Pressed.Border}"/>
-                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.Pressed.Glyph}"/>
-                            <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.Pressed.Glyph}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource CheckBoxBorderBrush}"/>
+                            <Setter Property="BorderThickness" TargetName="checkBoxBorder" Value="0"/>
                             <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
                             <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
+                            <Setter Property="Margin" TargetName="optionMark" Value="3"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}">
                             <Setter Property="Opacity" TargetName="optionMark" Value="0"/>

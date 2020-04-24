@@ -19,7 +19,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--Outer border with the dropshadow margin-->
-                        <Border Padding="{Binding OuterMarginThickness}" >
+                        <Border Margin="{Binding OuterMarginThickness}" >
 
                             <!--Main window outline-->
                             <Grid >
@@ -59,6 +59,7 @@
                                             <Button Grid.Column="0"
                                                     Style="{StaticResource TitleBarButtonStyle}"
                                                     Content="{StaticResource SegoeIconMenu}"
+                                                    Click="ButtonBase_OnClick"
                                             />
                                             <!--Here could be the window title-->
 
@@ -82,21 +83,7 @@
                                             <ContentPresenter Content="{TemplateBinding Content}"/>
                                         </Border>
 
-                                        <!--Navigator content overlay (the darker background)-->
-                                        <Border Grid.Row="1" 
-                                                x:Name="NavigatorContentOverlayPanel"
-                                                Visibility="Hidden"
-                                                Background="{StaticResource NavigatorContentOverlayBrush}" />
-
-                                        <!--Navigator menu-->
-                                        <!--<Border Grid.Row="1" 
-                                                x:Name="NavigatorContentBorder"
-                                                Background="{StaticResource NavigatorBackgroundBrush}" 
-                                                Width="300" 
-                                                HorizontalAlignment="Left"
-                                                >
-
-                                        </Border>-->
+                        
 
                                     </Grid>
 
@@ -121,7 +108,34 @@
 
 
     <Border Background="{StaticResource ApplicationBackgroundBrush}" >
-        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:ApplicationPageValueConverter}}"></Frame>
+        <Grid>
+
+
+        <Frame x:Name="MainFrame" Content="{Binding MyApplicationViewModel.CurrentPage, ElementName=AppWindow, Converter={local:ApplicationPageValueConverter}}"></Frame>
+
+
+            <!--Navigator content overlay (the darker background)-->
+            <!--<Border Grid.Row="1" 
+                    x:Name="NavigatorContentOverlayPanel"
+                    Visibility="Hidden"
+                    Background="{StaticResource NavigatorContentOverlayBrush}" />-->
+
+            <!--Navigator menu-->
+            <local:SideMenuBackgroundControl
+                local:AnimateFadeInOutProperty.Value="{Binding MyApplicationViewModel.SideMenuVisible, ElementName=AppWindow}"
+                MouseLeftButtonDown="UIElement_OnMouseDown"/>
+
+            <local:SideMenuControl 
+                local:AnimateSlideInFromLeftProperty.Value="{Binding MyApplicationViewModel.SideMenuVisible, ElementName=AppWindow}">
+                
+            <!--CONTENT GOES HERE-->
+            <Frame Source="Pages/Page1.xaml"></Frame>
+
+            </local:SideMenuControl>
+
+
+        </Grid>
     </Border>
+
 
 </Window>

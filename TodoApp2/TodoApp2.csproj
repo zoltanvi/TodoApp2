@@ -65,8 +65,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Animation\PageAnimation.cs" />
+    <Compile Include="Animation\FrameworkElementAnimations.cs" />
     <Compile Include="Animation\PageAnimations.cs" />
     <Compile Include="Animation\StoryboardHelpers.cs" />
+    <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
+    <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
+    <Compile Include="Controls\SideMenuBackgroundControl.xaml.cs">
+      <DependentUpon>SideMenuBackgroundControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SideMenuControl.xaml.cs">
+      <DependentUpon>SideMenuControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TaskListControl.xaml.cs">
       <DependentUpon>TaskListControl.xaml</DependentUpon>
     </Compile>
@@ -75,6 +84,9 @@
     </Compile>
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="Pages\BasePage.cs" />
+    <Compile Include="Pages\Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TaskPage.xaml.cs">
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
@@ -92,6 +104,14 @@
     <Compile Include="ViewModel\TaskViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Controls\SideMenuBackgroundControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SideMenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TaskListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -112,6 +132,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\TaskPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
