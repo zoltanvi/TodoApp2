@@ -15,11 +15,10 @@
                     Background="{StaticResource NavigatorBackgroundBrush}" 
                     Width="300" 
                     HorizontalAlignment="Left">
-                    
+
                     <ContentPresenter>
 
                     </ContentPresenter>
-
                 </Border>
 
         </ControlTemplate>

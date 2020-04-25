@@ -115,13 +115,18 @@ namespace TodoApp2.Core
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
-            // TODO: implement navigatorcommand
+            NavigatorCommand = new RelayCommand(OpenCloseNavigatorAsync);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
 
             m_Resizer.WindowDockChanged += OnWindowDockChanged;
             m_Resizer.IsDockedChanged += ResizerOnIsDockedChanged;
+        }
+
+        private void OpenCloseNavigatorAsync()
+        {
+            IoC.Get<ApplicationViewModel>().SideMenuVisible ^= true;
         }
 
         private void ResizerOnIsDockedChanged(object sender, DockChangeEventArgs e)

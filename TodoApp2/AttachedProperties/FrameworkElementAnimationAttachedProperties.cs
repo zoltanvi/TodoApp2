@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 
 namespace TodoApp2
 {
@@ -107,13 +108,12 @@ namespace TodoApp2
             if (value)
             {
                 // Animate in
-                await element.FadeInAsync(BasicAnimationDuration);
+               await element.FadeInAsync(BasicAnimationDuration);
             }
             else
             {
                 // Animate out
                 await element.FadeOutAsync(BasicAnimationDuration);
-                
             }
         }
     }

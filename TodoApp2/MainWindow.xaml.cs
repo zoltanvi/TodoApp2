@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TodoApp2.Core;
 
@@ -9,8 +10,6 @@ namespace TodoApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ApplicationViewModel m_ApplicationViewModel;
-        public ApplicationViewModel MyApplicationViewModel => m_ApplicationViewModel ?? (m_ApplicationViewModel = new ApplicationViewModel());
 
         public MainWindow()
         {
@@ -19,14 +18,10 @@ namespace TodoApp2
             DataContext = new WindowViewModel(this);
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void OnNavigatorBackgroundClicked(object sender, MouseButtonEventArgs e)
         {
-            MyApplicationViewModel.SideMenuVisible ^= true;
-        }
-
-        private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MyApplicationViewModel.SideMenuVisible ^= true;
+            //NavigatorCommand.Execute(null);
+            IoC.Get<ApplicationViewModel>().SideMenuVisible ^= true;
         }
     }
 }

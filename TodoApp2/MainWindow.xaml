@@ -59,7 +59,7 @@
                                             <Button Grid.Column="0"
                                                     Style="{StaticResource TitleBarButtonStyle}"
                                                     Content="{StaticResource SegoeIconMenu}"
-                                                    Click="ButtonBase_OnClick"
+                                                    Command="{Binding NavigatorCommand}"
                                             />
                                             <!--Here could be the window title-->
 
@@ -110,20 +110,24 @@
     <Border Background="{StaticResource ApplicationBackgroundBrush}" >
         <Grid>
 
-
-            <Frame x:Name="MainFrame" Content="{Binding MyApplicationViewModel.CurrentPage, ElementName=AppWindow, Converter={local:ApplicationPageValueConverter}}"></Frame>
+            <Frame x:Name="MainFrame" 
+                   Content="{Binding ApplicationViewModel.CurrentPage, 
+                                        Source={x:Static local:ViewModelLocator.Instance}, 
+                                        Converter={local:ApplicationPageValueConverter}}"/>
 
             <!--Navigator menu background-->
-            <local:SideMenuBackgroundControl
-                local:AnimateFadeInOutProperty.Value="{Binding MyApplicationViewModel.SideMenuVisible, ElementName=AppWindow}"
-                MouseLeftButtonDown="UIElement_OnMouseDown"/>
+            <!--<local:SideMenuBackgroundControl
+                local:AnimateFadeInOutProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, 
+                                        Source={x:Static local:ViewModelLocator.Instance}}"
+                MouseLeftButtonDown="OnNavigatorBackgroundClicked"/>-->
 
             <!--Navigator menu panel-->
             <local:SideMenuControl 
-                local:AnimateSlideInFromLeftProperty.Value="{Binding MyApplicationViewModel.SideMenuVisible, ElementName=AppWindow}">
+                local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, 
+                                        Source={x:Static local:ViewModelLocator.Instance}}">
 
                 <!--CONTENT GOES HERE-->
-                <Frame Source="Pages/OptionsPage.xaml"></Frame>
+                <Frame Source="Pages/OptionsSideMenuPage.xaml"></Frame>
 
             </local:SideMenuControl>
 
