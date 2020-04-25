@@ -83,7 +83,7 @@
                                             <ContentPresenter Content="{TemplateBinding Content}"/>
                                         </Border>
 
-                        
+
 
                                     </Grid>
 
@@ -111,25 +111,19 @@
         <Grid>
 
 
-        <Frame x:Name="MainFrame" Content="{Binding MyApplicationViewModel.CurrentPage, ElementName=AppWindow, Converter={local:ApplicationPageValueConverter}}"></Frame>
+            <Frame x:Name="MainFrame" Content="{Binding MyApplicationViewModel.CurrentPage, ElementName=AppWindow, Converter={local:ApplicationPageValueConverter}}"></Frame>
 
-
-            <!--Navigator content overlay (the darker background)-->
-            <!--<Border Grid.Row="1" 
-                    x:Name="NavigatorContentOverlayPanel"
-                    Visibility="Hidden"
-                    Background="{StaticResource NavigatorContentOverlayBrush}" />-->
-
-            <!--Navigator menu-->
+            <!--Navigator menu background-->
             <local:SideMenuBackgroundControl
                 local:AnimateFadeInOutProperty.Value="{Binding MyApplicationViewModel.SideMenuVisible, ElementName=AppWindow}"
                 MouseLeftButtonDown="UIElement_OnMouseDown"/>
 
+            <!--Navigator menu panel-->
             <local:SideMenuControl 
                 local:AnimateSlideInFromLeftProperty.Value="{Binding MyApplicationViewModel.SideMenuVisible, ElementName=AppWindow}">
-                
-            <!--CONTENT GOES HERE-->
-            <Frame Source="Pages/Page1.xaml"></Frame>
+
+                <!--CONTENT GOES HERE-->
+                <Frame Source="Pages/OptionsPage.xaml"></Frame>
 
             </local:SideMenuControl>
 

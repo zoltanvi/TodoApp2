@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace TodoApp2.Animations
+namespace TodoApp2
 {
     /// <summary>
     /// Animation helpers for <see cref="Storyboard"/>

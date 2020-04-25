@@ -1,9 +1,6 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
-using TodoApp2.DataModels;
+﻿using System.Windows.Input;
 
-namespace TodoApp2.ViewModel
+namespace TodoApp2.Core
 {
     /// <summary>
     /// The View Model for the task page

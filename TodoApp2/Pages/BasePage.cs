@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using TodoApp2.Animation;
-using TodoApp2.Animations;
-using TodoApp2.ViewModel;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {

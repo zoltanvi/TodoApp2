@@ -56,6 +56,9 @@
     <Color x:Key="CheckBoxCheck">#7e7e7e</Color>
     <SolidColorBrush x:Key="CheckBoxCheckBrush" Color="{StaticResource CheckBoxCheck}" />
 
+    <Color x:Key="CheckBoxHoverBackground">#4F4F4F</Color>
+    <SolidColorBrush x:Key="CheckBoxHoverBackgroundBrush" Color="{StaticResource CheckBoxHoverBackground}" />
+
     <Color x:Key="ScrollbarStatic">#474747</Color>
     <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="{StaticResource ScrollbarStatic}" />
 

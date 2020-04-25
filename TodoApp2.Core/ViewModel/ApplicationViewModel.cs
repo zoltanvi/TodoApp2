@@ -1,9 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
-using TodoApp2.DataModels;
-
-namespace TodoApp2.ViewModel
+﻿namespace TodoApp2.Core
 {
     /// <summary>
     /// The application state as a view model
@@ -19,7 +14,6 @@ namespace TodoApp2.ViewModel
         /// <summary>
         /// True if the side menu should be shown
         /// </summary>
-        public bool SideMenuVisible { get; set; } = false;
-
+        public bool SideMenuVisible { get; set; }
     }
 }

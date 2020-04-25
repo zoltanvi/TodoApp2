@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TodoApp2.ViewModel;
+﻿using System.Collections.Generic;
 
-namespace TodoApp2
+namespace TodoApp2.Core
 {
     /// <summary>
     /// A view model the task list item on the task page

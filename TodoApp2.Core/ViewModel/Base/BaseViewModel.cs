@@ -1,7 +1,7 @@
 ﻿using PropertyChanged;
 using System.ComponentModel;
 
-namespace TodoApp2.ViewModel
+namespace TodoApp2.Core
 {
     /// <summary>
     /// A base view model that fires Property Changed events as needed

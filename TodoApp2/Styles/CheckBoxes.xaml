@@ -82,17 +82,20 @@
                         <Trigger Property="HasContent" Value="true">
                             <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
-                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource CheckBoxCheckBrush}"/>
-                            <Setter Property="Margin" TargetName="optionMark" Value="1"/>
-                        </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                         </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource CheckBoxCheckBrush}"/>
+                            <Setter Property="Margin" TargetName="optionMark" Value="1"/>
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource TaskItemBackgroundBrush}"/>
+                            <Setter Property="BorderThickness" TargetName="checkBoxBorder" Value="2"/>
+                        </Trigger>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource CheckBoxBorderBrush}"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource TaskItemBackgroundBrush}"/>
                             <Setter Property="BorderThickness" TargetName="checkBoxBorder" Value="0"/>
                             <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
                             <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
@@ -102,6 +105,7 @@
                             <Setter Property="Opacity" TargetName="optionMark" Value="0"/>
                             <Setter Property="Opacity" TargetName="indeterminateMark" Value="1"/>
                         </Trigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

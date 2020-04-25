@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TodoApp2.ViewModel
+namespace TodoApp2.Core
 {
     /// <summary>
     /// A basic command that runs an action

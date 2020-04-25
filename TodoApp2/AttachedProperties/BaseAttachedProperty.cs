@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace TodoApp2.AttachedProperties
+namespace TodoApp2
 {
     /// <summary>
     /// A base attached property to replace the vanilla WPF attached property

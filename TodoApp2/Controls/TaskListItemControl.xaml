@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TodoApp2"
+             xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
              mc:Ignorable="d" 
              MinHeight="60"
              d:DesignHeight="60" d:DesignWidth="350">
 
-    <Grid d:DataContext="{x:Static local:TaskListItemDesignModel.Instance}" Background="#1f1f1f">
+    <Grid d:DataContext="{x:Static core:TaskListItemDesignModel.Instance}" Background="#1f1f1f">
         <Border Background="{StaticResource TaskItemBackgroundBrush}"
                 Margin="16 3"
                 CornerRadius="5">

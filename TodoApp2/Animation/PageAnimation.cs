@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TodoApp2.Animations
+﻿namespace TodoApp2
 {
     /// <summary>
     /// Styles of page animations for appearing/disappearing

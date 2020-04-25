@@ -1,5 +1,4 @@
-﻿
-namespace TodoApp2.DataModels
+﻿namespace TodoApp2.Core
 {
     /// <summary>
     /// A page of the application

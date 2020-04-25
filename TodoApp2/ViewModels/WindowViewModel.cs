@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using TodoApp2.DataModels;
 
-namespace TodoApp2.ViewModel
+namespace TodoApp2.Core
 {
     /// <summary>
     /// The View Model for the custom flat window
@@ -99,13 +97,6 @@ namespace TodoApp2.ViewModel
         /// The height of the TitleBar of the window
         /// </summary>
         public GridLength TitleBarGridHeight => new GridLength(TitleBarHeight);
-
-        /// <summary>
-        /// The current page of the application
-        /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Task;
-
-        public bool IsNavigatorOpen { get; set; }
 
         public bool IsDocked { get; set; }
 

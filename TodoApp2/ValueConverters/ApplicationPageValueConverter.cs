@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using TodoApp2.DataModels;
+using TodoApp2.Core;
 using TodoApp2.Pages;
 
 namespace TodoApp2

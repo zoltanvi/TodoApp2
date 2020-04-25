@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using TodoApp2.Animation;
-using TodoApp2.AttachedProperties;
 
 namespace TodoApp2
 {

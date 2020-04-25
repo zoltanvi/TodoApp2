@@ -1,4 +1,4 @@
-﻿using TodoApp2.ViewModel;
+﻿using TodoApp2.Core;
 
 namespace TodoApp2.Pages
 {

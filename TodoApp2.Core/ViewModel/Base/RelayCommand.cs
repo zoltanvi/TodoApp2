@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TodoApp2.ViewModel
+namespace TodoApp2.Core
 {
     /// <summary>
     /// A basic command that runs an action

@@ -3,11 +3,11 @@
 namespace TodoApp2
 {
     /// <summary>
-    /// Interaction logic for TaskListItemControl.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class TaskListItemControl : UserControl
+    public partial class OptionsPage : Page
     {
-        public TaskListItemControl()
+        public OptionsPage()
         {
             InitializeComponent();
         }

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using TodoApp2.Animations;
 
-namespace TodoApp2.Animation
+namespace TodoApp2
 {
     /// <summary>
     /// Helpers to animate pages in specific ways
