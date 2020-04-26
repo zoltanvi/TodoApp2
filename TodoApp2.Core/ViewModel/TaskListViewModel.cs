@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace TodoApp2.Core
 {
@@ -10,6 +11,6 @@ namespace TodoApp2.Core
         /// <summary>
         /// The task list items for the list
         /// </summary>
-        public List<TaskListItemViewModel> Items { get; set; }
+        public ObservableCollection<TaskListItemViewModel> Items { get; set; }
     }
 }

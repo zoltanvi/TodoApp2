@@ -10,6 +10,7 @@
     <Grid DataContext="{x:Static core:TaskListDesignModel.Instance}" Background="Transparent">
 
         <ListView ItemsSource="{Binding Items}"
+                  x:Name="TaskListListView"
                   BorderThickness="0" 
                   Background="Transparent" 
                   HorizontalContentAlignment="Stretch" 

@@ -10,9 +10,10 @@
              d:DesignHeight="60" d:DesignWidth="350">
 
     <Grid d:DataContext="{x:Static core:TaskListItemDesignModel.Instance}" Background="#1f1f1f">
-        <Border Background="{StaticResource TaskItemBackgroundBrush}"
+        <Border Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"
                 Margin="16 3"
                 CornerRadius="5">
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <!--Color bar column-->
@@ -50,6 +51,7 @@
                                HorizontalAlignment="Stretch"
                                FontSize="16"
                                FontFamily="Segoe UI"
+                               TextDecorations="{Binding IsDone, Converter={local:TextDecorationConverter}}"
                                Foreground="{StaticResource DescriptionForegroundBrush}"
                                Text="{Binding Content}"
                                

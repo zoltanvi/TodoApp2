@@ -16,6 +16,8 @@ namespace TodoApp2.Core
         /// </summary>
         public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Task;
 
+        public ApplicationPage SideMenuPage { get; } = ApplicationPage.SideMenu;
+
         /// <summary>
         /// True if the side menu should be shown
         /// </summary>

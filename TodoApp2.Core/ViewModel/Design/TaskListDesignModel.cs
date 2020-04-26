@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace TodoApp2.Core
 {
@@ -7,13 +8,11 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskListDesignModel : TaskListViewModel
     {
-        private static TaskListDesignModel m_Instance;
+        public static TaskListDesignModel Instance { get; } = new TaskListDesignModel();
         
-        public static TaskListDesignModel Instance => m_Instance ?? (m_Instance = new TaskListDesignModel());
-
         public TaskListDesignModel()
         {
-            Items = new List<TaskListItemViewModel>
+            Items = new ObservableCollection<TaskListItemViewModel>
             {
                 new TaskListItemDesignModel
                 {

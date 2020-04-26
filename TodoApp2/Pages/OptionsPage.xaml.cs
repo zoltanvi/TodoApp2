@@ -3,11 +3,11 @@
 namespace TodoApp2
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for OptionsPage.xaml
     /// </summary>
-    public partial class OptionsSideMenuPage : Page
+    public partial class OptionsPage : Page
     {
-        public OptionsSideMenuPage()
+        public OptionsPage()
         {
             InitializeComponent();
         }

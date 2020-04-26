@@ -73,6 +73,7 @@
     <Compile Include="Animation\StoryboardHelpers.cs" />
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="Controls\SideMenuBackgroundControl.xaml.cs">
       <DependentUpon>SideMenuBackgroundControl.xaml</DependentUpon>
     </Compile>
@@ -85,16 +86,24 @@
     <Compile Include="Controls\TaskListItemControl.xaml.cs">
       <DependentUpon>TaskListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DragAdorner.cs" />
+    <Compile Include="Helpers\DragDropManager.cs" />
+    <Compile Include="Helpers\MouseUtilities.cs" />
     <Compile Include="Pages\BasePage.cs" />
+    <Compile Include="Pages\OptionsPage.xaml.cs">
+      <DependentUpon>OptionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\OptionsSideMenuPage.xaml.cs">
       <DependentUpon>OptionsSideMenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TaskPage.xaml.cs">
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\TextDecorationConverter.cs" />
     <Compile Include="ValueConverters\IoCConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\BackgroundBrushConverter.cs" />
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -127,6 +136,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\OptionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\OptionsSideMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

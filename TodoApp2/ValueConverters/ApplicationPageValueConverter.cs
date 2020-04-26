@@ -18,7 +18,13 @@ namespace TodoApp2
             {
                 case ApplicationPage.Task:
                     return new TaskPage();
-                
+
+                case ApplicationPage.SideMenu:
+                    return new OptionsSideMenuPage();
+
+                case ApplicationPage.Options:
+                    return new OptionsPage();
+
                 default:
                     Debugger.Break();
                     return null;

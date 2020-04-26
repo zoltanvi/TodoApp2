@@ -111,6 +111,7 @@
         <Grid>
 
             <Frame x:Name="MainFrame" 
+                   local:NoFrameHistory.Value="True"
                    Content="{Binding ApplicationViewModel.CurrentPage, 
                                         Source={x:Static local:ViewModelLocator.Instance}, 
                                         Converter={local:ApplicationPageValueConverter}}"/>
@@ -127,7 +128,10 @@
                                         Source={x:Static local:ViewModelLocator.Instance}}">
 
                 <!--CONTENT GOES HERE-->
-                <Frame Source="Pages/OptionsSideMenuPage.xaml"></Frame>
+                <Frame local:NoFrameHistory.Value="True"
+                       Content="{Binding ApplicationViewModel.SideMenuPage, 
+                                        Source={x:Static local:ViewModelLocator.Instance}, 
+                                        Converter={local:ApplicationPageValueConverter}}"></Frame>
 
             </local:SideMenuControl>
 
