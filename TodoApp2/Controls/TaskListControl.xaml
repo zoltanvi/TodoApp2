@@ -5,11 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="380">
     <Grid DataContext="{x:Static core:TaskListDesignModel.Instance}" Background="Transparent">
 
         <ListView ItemsSource="{Binding Items}"
+                  dd:DragDrop.IsDragSource="True"
+                  dd:DragDrop.IsDropTarget="True"
                   x:Name="TaskListListView"
                   BorderThickness="0" 
                   Background="Transparent" 
@@ -17,7 +20,7 @@
                   ScrollViewer.VerticalScrollBarVisibility="Auto" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   ScrollViewer.CanContentScroll="False" Template="{DynamicResource TaskListControlTemplate}">
-            
+
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Template">

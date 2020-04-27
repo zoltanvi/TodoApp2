@@ -8,12 +8,12 @@ namespace TodoApp2
     /// </summary>
     public partial class TaskListControl : UserControl
     {
-        private ListViewDragDropManager<TaskListItemViewModel> m_DragDropManager;
+        //private ListViewDragDropManager<TaskListItemViewModel> m_DragDropManager;
 
         public TaskListControl()
         {
             InitializeComponent();
-            m_DragDropManager = new ListViewDragDropManager<TaskListItemViewModel>(TaskListListView);
+            //m_DragDropManager = new ListViewDragDropManager<TaskListItemViewModel>(TaskListListView);
         }
     }
 }
