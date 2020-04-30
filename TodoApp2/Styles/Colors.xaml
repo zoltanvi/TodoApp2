@@ -26,11 +26,14 @@
     <Color x:Key="ApplicationBackground">#1f1f1f</Color>
     <SolidColorBrush x:Key="ApplicationBackgroundBrush" Color="{StaticResource ApplicationBackground}" />
 
-    <Color x:Key="TaskItemBackground">#282828</Color>
+    <Color x:Key="TaskItemBackground">#ff282828</Color>
     <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{StaticResource TaskItemBackground}" />
 
     <Color x:Key="TaskItemBackgroundHatch">#4d4d4d</Color>
     <SolidColorBrush x:Key="TaskItemBackgroundHatchBrush" Color="{StaticResource TaskItemBackgroundHatch}" />
+
+    <Color x:Key="TaskItemBackgroundTransparent">#00282828</Color>
+    <SolidColorBrush x:Key="TaskItemBackgroundTransparentBrush" Color="{StaticResource TaskItemBackgroundTransparent}" />
 
     <Color x:Key="IconLabelForeground">#ffffff</Color>
     <SolidColorBrush x:Key="IconLabelForegroundBrush" Color="{StaticResource IconLabelForeground}" />
@@ -67,6 +70,14 @@
 
     <Color x:Key="ScrollbarPressed">#474747</Color>
     <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="{StaticResource ScrollbarPressed}" />
+
+    <Color x:Key="TaskItemButtonIcon">#bdbdbd</Color>
+    <SolidColorBrush x:Key="TaskItemButtonIconBrush" Color="{StaticResource TaskItemButtonIcon}" />
+
+    <Color x:Key="TaskItemButtonHover">#ff608d</Color>
+    <SolidColorBrush x:Key="TaskItemButtonHoverBrush" Color="{StaticResource TaskItemButtonHover}" />
+
+
 
     <!--<SolidColorBrush x:Key="MyDarkBackgroundBrush" Color="#2d2d2d" />
     <SolidColorBrush x:Key="MyDarkDarkerBackgroundBrush" Color="#262626" />

@@ -18,10 +18,10 @@ namespace TodoApp2
             DataContext = new WindowViewModel(this);
         }
 
-        private void OnNavigatorBackgroundClicked(object sender, MouseButtonEventArgs e)
-        {
-            //NavigatorCommand.Execute(null);
-            IoC.Get<ApplicationViewModel>().SideMenuVisible ^= true;
-        }
+        //private void OnNavigatorBackgroundClicked(object sender, MouseButtonEventArgs e)
+        //{
+        //    //NavigatorCommand.Execute(null);
+        //    IoC.Get<ApplicationViewModel>().SideMenuVisible ^= true;
+        //}
     }
 }

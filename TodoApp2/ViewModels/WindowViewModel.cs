@@ -46,7 +46,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The size of the resize border around the window
         /// </summary>
-        public int ResizeBorder { get; } = 4;
+        public int ResizeBorder => m_Window.WindowState == WindowState.Maximized ? 0 : 4;
 
         /// <summary>
         /// The size of the resize border around the window, taking into account the outer margin

@@ -7,7 +7,6 @@ namespace TodoApp2.Core
     /// </summary>
     public static class IoC
     {
-
         /// <summary>
         /// The kernel for our IoC container
         /// </summary>
@@ -41,6 +40,9 @@ namespace TodoApp2.Core
         {
             // Bind to a single instance of Application view model
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
+
+            // Bind to a single instance of ClientDataBase 
+            Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
         }
     }
 }

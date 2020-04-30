@@ -10,11 +10,11 @@ namespace TodoApp2.Core
     /// <summary>
     /// The data access layer to access information from the database
     /// </summary>
-    public class DataAccess
+    public static class DataAccessLayer
     {
         #region Private Constants
 
-        private const string s_DatabaseName = "TodoAppDatabase.db";
+        private const string s_DatabaseName = "TodoApp2Database.db";
         private static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), s_DatabaseName);
 
         private const string s_TableCategory = "Category";
@@ -35,19 +35,19 @@ namespace TodoApp2.Core
         private const string s_FieldTrashed = "Trashed";
         private const string s_FieldReminderId = "ReminderId";
 
-        private const string s_ParameterFieldName = "@" + s_FieldName;
-        private const string s_ParameterFieldId = "@" + s_FieldId;
-        private const string s_ParameterFieldReminderDate = "@" + s_FieldReminderDate;
-        private const string s_ParameterFieldNote = "@" + s_FieldNote;
-        private const string s_ParameterFieldCategory = "@" + s_FieldCategory;
-        private const string s_ParameterFieldContent = "@" + s_FieldContent;
-        private const string s_ParameterFieldListOrder = "@" + s_FieldListOrder;
-        private const string s_ParameterFieldIsDone = "@" + s_FieldIsDone;
-        private const string s_ParameterFieldCreationDate = "@" + s_FieldCreationDate;
-        private const string s_ParameterFieldModificationDate = "@" + s_FieldModificationDate;
-        private const string s_ParameterFieldColor = "@" + s_FieldColor;
-        private const string s_ParameterFieldTrashed = "@" + s_FieldTrashed;
-        private const string s_ParameterFieldReminderId = "@" + s_FieldReminderId;
+        private const string s_QueryParameterName = "@" + s_FieldName;
+        private const string s_QueryParameterId = "@" + s_FieldId;
+        private const string s_QueryParameterReminderDate = "@" + s_FieldReminderDate;
+        private const string s_QueryParameterNote = "@" + s_FieldNote;
+        private const string s_QueryParameterCategory = "@" + s_FieldCategory;
+        private const string s_QueryParameterContent = "@" + s_FieldContent;
+        private const string s_QueryParameterListOrder = "@" + s_FieldListOrder;
+        private const string s_QueryParameterIsDone = "@" + s_FieldIsDone;
+        private const string s_QueryParameterCreationDate = "@" + s_FieldCreationDate;
+        private const string s_QueryParameterModificationDate = "@" + s_FieldModificationDate;
+        private const string s_QueryParameterColor = "@" + s_FieldColor;
+        private const string s_QueryParameterTrashed = "@" + s_FieldTrashed;
+        private const string s_QueryParameterReminderId = "@" + s_FieldReminderId;
         #endregion
 
         #region Database initializer
@@ -149,12 +149,12 @@ namespace TodoApp2.Core
                 {
                     Connection = db,
                     CommandText = $"INSERT INTO {s_TableReminder} ({s_FieldReminderDate}, {s_FieldNote}) " +
-                                  $"VALUES ({s_ParameterFieldReminderDate}, {s_ParameterFieldNote});"
+                                  $"VALUES ({s_QueryParameterReminderDate}, {s_QueryParameterNote});"
                 };
 
                 // Use parameterized query to prevent SQL injection attacks
-                insertCommand.Parameters.AddWithValue(s_ParameterFieldReminderDate, reminderDate);
-                insertCommand.Parameters.AddWithValue(s_ParameterFieldNote, note);
+                insertCommand.Parameters.AddWithValue(s_QueryParameterReminderDate, reminderDate);
+                insertCommand.Parameters.AddWithValue(s_QueryParameterNote, note);
 
                 insertCommand.ExecuteReader();
 
@@ -172,7 +172,7 @@ namespace TodoApp2.Core
                 SQLiteCommand insertCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"INSERT INTO {s_TableCategory} ({s_FieldName}) VALUES ({s_ParameterFieldName});"
+                    CommandText = $"INSERT INTO {s_TableCategory} ({s_FieldName}) VALUES ({s_QueryParameterName});"
                 };
 
                 // Use parameterized query to prevent SQL injection attacks
@@ -203,23 +203,23 @@ namespace TodoApp2.Core
                                   $" ({s_FieldCategory}, {s_FieldContent}, {s_FieldListOrder}, " +
                                   $" {s_FieldIsDone}, {s_FieldCreationDate}, {s_FieldModificationDate}, " +
                                   $" {s_FieldColor}, {s_FieldTrashed}, {s_FieldReminderId}) " +
-                                  $"VALUES ({s_ParameterFieldCategory}, {s_ParameterFieldContent}, " +
-                                  $" {s_ParameterFieldListOrder}, {s_ParameterFieldIsDone}, " +
-                                  $" {s_ParameterFieldCreationDate}, {s_ParameterFieldModificationDate}, " +
-                                  $" {s_ParameterFieldColor}, {s_ParameterFieldTrashed}, " +
-                                  $" {s_ParameterFieldReminderId});"
+                                  $"VALUES ({s_QueryParameterCategory}, {s_QueryParameterContent}, " +
+                                  $" {s_QueryParameterListOrder}, {s_QueryParameterIsDone}, " +
+                                  $" {s_QueryParameterCreationDate}, {s_QueryParameterModificationDate}, " +
+                                  $" {s_QueryParameterColor}, {s_QueryParameterTrashed}, " +
+                                  $" {s_QueryParameterReminderId});"
                 };
 
                 // Use parameterized query to prevent SQL injection attacks
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldCategory}", taskListItem.Category);
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldContent}", taskListItem.Content);
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldListOrder}", taskListItem.ListOrder);
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldIsDone}", taskListItem.IsDone);
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldCreationDate}", taskListItem.CreationDate);
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldModificationDate}", taskListItem.ModificationDate);
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldColor}", taskListItem.Color);
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldTrashed}", taskListItem.Trashed);
-                insertCommand.Parameters.AddWithValue($"{s_ParameterFieldReminderId}", taskListItem.ReminderId);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterCategory}", taskListItem.Category);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterContent}", taskListItem.Content);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterListOrder}", taskListItem.ListOrder);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterIsDone}", taskListItem.IsDone);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterCreationDate}", taskListItem.CreationDate);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterModificationDate}", taskListItem.ModificationDate);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterColor}", taskListItem.Color);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterTrashed}", taskListItem.Trashed);
+                insertCommand.Parameters.AddWithValue($"{s_QueryParameterReminderId}", taskListItem.ReminderId);
 
                 insertCommand.ExecuteReader();
 
@@ -319,11 +319,12 @@ namespace TodoApp2.Core
                     Connection = db,
                     CommandText = $"SELECT * " +
                                   $" FROM {s_TableTask} " +
-                                  $" WHERE {s_TableTask}.{s_FieldCategory} IS {s_ParameterFieldCategory};"
+                                  $" WHERE {s_TableTask}.{s_FieldCategory} IS {s_QueryParameterCategory} " +
+                                  $" ORDER BY {s_FieldListOrder} ;"
                 };
 
                 // Use parameterized query to prevent SQL injection attacks
-                selectCommand.Parameters.AddWithValue(s_ParameterFieldCategory, category);
+                selectCommand.Parameters.AddWithValue(s_QueryParameterCategory, category);
 
                 SQLiteDataReader query = selectCommand.ExecuteReader();
 
@@ -338,7 +339,7 @@ namespace TodoApp2.Core
                         IsDone = Convert.ToBoolean(query.GetInt32(query.GetOrdinal(s_FieldIsDone))),
                         CreationDate = query.GetInt64(query.GetOrdinal(s_FieldCreationDate)),
                         ModificationDate = query.GetInt64(query.GetOrdinal(s_FieldModificationDate)),
-                        Color = query.GetString(query.GetOrdinal(s_ParameterFieldColor)),
+                        Color = query.GetString(query.GetOrdinal(s_FieldColor)),
                         Trashed = Convert.ToBoolean(query.GetInt32(query.GetOrdinal(s_FieldTrashed))),
                         ReminderId = query.GetInt32(query.GetOrdinal(s_FieldReminderId))
                     };
@@ -366,10 +367,10 @@ namespace TodoApp2.Core
                 SQLiteCommand deleteCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"DELETE FROM {s_TableTask} WHERE {s_FieldId} = {s_ParameterFieldId}"
+                    CommandText = $"DELETE FROM {s_TableTask} WHERE {s_FieldId} = {s_QueryParameterId}"
                 };
                 // Use parameterized query to prevent SQL injection attacks
-                deleteCommand.Parameters.AddWithValue(s_ParameterFieldId, id);
+                deleteCommand.Parameters.AddWithValue(s_QueryParameterId, id);
 
                 isOperationSuccessful = deleteCommand.ExecuteNonQuery() > 0;
 
@@ -390,11 +391,11 @@ namespace TodoApp2.Core
                 {
                     Connection = db,
                     CommandText = $"DELETE FROM {s_TableCategory} " +
-                                  $" WHERE {s_FieldName} IS {s_ParameterFieldCategory}"
+                                  $" WHERE {s_FieldName} IS {s_QueryParameterCategory}"
                 };
 
                 // Use parameterized query to prevent SQL injection attacks
-                deleteCommand.Parameters.AddWithValue(s_ParameterFieldCategory, name);
+                deleteCommand.Parameters.AddWithValue(s_QueryParameterCategory, name);
 
                 isOperationSuccessful = deleteCommand.ExecuteNonQuery() > 0;
 
@@ -419,29 +420,29 @@ namespace TodoApp2.Core
                 {
                     Connection = db,
                     CommandText = $"UPDATE {s_TableTask} SET " +
-                                  $"  {s_FieldCategory} = {s_ParameterFieldCategory}, " +
-                                  $"  {s_FieldContent} = {s_ParameterFieldContent}, " +
-                                  $"  {s_FieldListOrder} = {s_ParameterFieldListOrder}, " +
-                                  $"  {s_FieldIsDone} = {s_ParameterFieldIsDone}, " +
-                                  $"  {s_FieldCreationDate} = {s_ParameterFieldCreationDate}, " +
-                                  $"  {s_FieldModificationDate} = {s_ParameterFieldModificationDate}, " +
-                                  $"  {s_FieldColor} = {s_ParameterFieldColor}, " +
-                                  $"  {s_FieldTrashed} = {s_ParameterFieldTrashed}, " +
-                                  $"  {s_FieldReminderId} = {s_ParameterFieldReminderId} " +
-                                  $" WHERE {s_FieldId} = {s_ParameterFieldId};"
+                                  $"  {s_FieldCategory} = {s_QueryParameterCategory}, " +
+                                  $"  {s_FieldContent} = {s_QueryParameterContent}, " +
+                                  $"  {s_FieldListOrder} = {s_QueryParameterListOrder}, " +
+                                  $"  {s_FieldIsDone} = {s_QueryParameterIsDone}, " +
+                                  $"  {s_FieldCreationDate} = {s_QueryParameterCreationDate}, " +
+                                  $"  {s_FieldModificationDate} = {s_QueryParameterModificationDate}, " +
+                                  $"  {s_FieldColor} = {s_QueryParameterColor}, " +
+                                  $"  {s_FieldTrashed} = {s_QueryParameterTrashed}, " +
+                                  $"  {s_FieldReminderId} = {s_QueryParameterReminderId} " +
+                                  $" WHERE {s_FieldId} = {s_QueryParameterId};"
                 };
 
                 // Use parameterized query to prevent SQL injection attacks
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldId, task.Id);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldCategory, task.Category);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldContent, task.Content);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldListOrder, task.ListOrder);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldIsDone, task.IsDone);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldCreationDate, task.CreationDate);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldModificationDate, task.ModificationDate);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldColor, task.Color);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldTrashed, task.Trashed);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldReminderId, task.ReminderId);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterId, task.Id);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterCategory, task.Category);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterContent, task.Content);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterListOrder, task.ListOrder);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterIsDone, task.IsDone);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterCreationDate, task.CreationDate);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterModificationDate, task.ModificationDate);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterColor, task.Color);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterTrashed, task.Trashed);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterReminderId, task.ReminderId);
 
                 isOperationSuccessful = updateCommand.ExecuteNonQuery() > 0;
 
@@ -464,29 +465,29 @@ namespace TodoApp2.Core
                     {
                         Connection = db,
                         CommandText = $"UPDATE {s_TableTask} SET " +
-                                      $"  {s_FieldCategory} = {s_ParameterFieldCategory}, " +
-                                      $"  {s_FieldContent} = {s_ParameterFieldContent}, " +
-                                      $"  {s_FieldListOrder} = {s_ParameterFieldListOrder}, " +
-                                      $"  {s_FieldIsDone} = {s_ParameterFieldIsDone}, " +
-                                      $"  {s_FieldCreationDate} = {s_ParameterFieldCreationDate}, " +
-                                      $"  {s_FieldModificationDate} = {s_ParameterFieldModificationDate}, " +
-                                      $"  {s_FieldColor} = {s_ParameterFieldColor}, " +
-                                      $"  {s_FieldTrashed} = {s_ParameterFieldTrashed}, " +
-                                      $"  {s_FieldReminderId} = {s_ParameterFieldReminderId} " +
-                                      $" WHERE {s_FieldId} = {s_ParameterFieldId};"
+                                      $"  {s_FieldCategory} = {s_QueryParameterCategory}, " +
+                                      $"  {s_FieldContent} = {s_QueryParameterContent}, " +
+                                      $"  {s_FieldListOrder} = {s_QueryParameterListOrder}, " +
+                                      $"  {s_FieldIsDone} = {s_QueryParameterIsDone}, " +
+                                      $"  {s_FieldCreationDate} = {s_QueryParameterCreationDate}, " +
+                                      $"  {s_FieldModificationDate} = {s_QueryParameterModificationDate}, " +
+                                      $"  {s_FieldColor} = {s_QueryParameterColor}, " +
+                                      $"  {s_FieldTrashed} = {s_QueryParameterTrashed}, " +
+                                      $"  {s_FieldReminderId} = {s_QueryParameterReminderId} " +
+                                      $" WHERE {s_FieldId} = {s_QueryParameterId};"
                     };
 
                     // Use parameterized query to prevent SQL injection attacks
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldId, task.Id);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldCategory, task.Category);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldContent, task.Content);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldListOrder, task.ListOrder);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldIsDone, task.IsDone);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldCreationDate, task.CreationDate);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldModificationDate, task.ModificationDate);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldColor, task.Color);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldTrashed, task.Trashed);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldReminderId, task.ReminderId);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterId, task.Id);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterCategory, task.Category);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterContent, task.Content);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterListOrder, task.ListOrder);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterIsDone, task.IsDone);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterCreationDate, task.CreationDate);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterModificationDate, task.ModificationDate);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterColor, task.Color);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterTrashed, task.Trashed);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterReminderId, task.ReminderId);
 
                     modifiedItems += updateCommand.ExecuteNonQuery();
                 }
@@ -496,7 +497,6 @@ namespace TodoApp2.Core
 
             return modifiedItems;
         }
-
 
         public static bool UpdateCategory(string oldName, string newName)
         {
@@ -509,13 +509,13 @@ namespace TodoApp2.Core
                 {
                     Connection = db,
                     CommandText = $"UPDATE {s_TableCategory} SET " +
-                                  $" {s_FieldName} = {s_ParameterFieldName}" +
+                                  $" {s_FieldName} = {s_QueryParameterName}" +
                                   $"WHERE {s_FieldName} IS @oldName;"
                 };
 
                 // Use parameterized query to prevent SQL injection attacks
                 updateCommand.Parameters.AddWithValue("@oldName", oldName);
-                updateCommand.Parameters.AddWithValue(s_ParameterFieldName, newName);
+                updateCommand.Parameters.AddWithValue(s_QueryParameterName, newName);
 
                 isOperationSuccessful = updateCommand.ExecuteNonQuery() > 0;
 
@@ -538,12 +538,12 @@ namespace TodoApp2.Core
                     {
                         Connection = db,
                         CommandText = $"UPDATE {s_TableTask} SET " +
-                                      $"  {s_FieldListOrder} = {s_ParameterFieldListOrder} " +
-                                      $"WHERE {s_FieldId} = {s_ParameterFieldId};"
+                                      $"  {s_FieldListOrder} = {s_QueryParameterListOrder} " +
+                                      $"WHERE {s_FieldId} = {s_QueryParameterId};"
                     };
                     // Use parameterized query to prevent SQL injection attacks
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldId, todoTask.Id);
-                    updateCommand.Parameters.AddWithValue(s_ParameterFieldListOrder, todoTask.ListOrder);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterId, todoTask.Id);
+                    updateCommand.Parameters.AddWithValue(s_QueryParameterListOrder, todoTask.ListOrder);
 
                     modifiedItems += updateCommand.ExecuteNonQuery();
                 }

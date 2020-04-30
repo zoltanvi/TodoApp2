@@ -106,6 +106,15 @@
                             <Setter Property="Opacity" TargetName="indeterminateMark" Value="1"/>
                         </Trigger>
 
+                        <EventTrigger RoutedEvent="Checked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation From="1" To="20" Duration="0:0:0.15" Storyboard.TargetName="checkBoxBorder" Storyboard.TargetProperty="Width"/>
+                                    <DoubleAnimation From="1" To="20" Duration="0:0:0.15" Storyboard.TargetName="checkBoxBorder" Storyboard.TargetProperty="Height"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

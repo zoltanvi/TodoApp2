@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="core:TaskViewModel" x:Class="TodoApp2.Pages.TaskPage"
+﻿<local:BasePage x:TypeArguments="core:TaskListViewModel" x:Class="TodoApp2.Pages.TaskPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -47,13 +47,20 @@
                         VerticalAlignment="Center"
                         />
                     <TextBox
+                        x:Name="AddNewTaskTextBox"
                         Tag="Add new task"
+                        Text="{Binding PendingAddNewTaskText, UpdateSourceTrigger=PropertyChanged}"
                         Grid.Column="1"
                         Style="{StaticResource AddNewTaskTextBoxStyle}"
                         VerticalAlignment="Center"
                         Margin="10 0 10 0"
                         MinWidth="240"
-                        />
+                        >
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding AddTaskItemCommand}" Key="Return"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+
                 </Grid>
 
             </Border>

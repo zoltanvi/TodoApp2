@@ -13,6 +13,8 @@ namespace TodoApp2
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (string.IsNullOrEmpty(value as string)) return null;
+
             // Prefixes the input string with a # character, except if it is "Transparent"
             string inputColor = ((string)value == s_TransparentColor ? string.Empty : "#") + value;
             return (SolidColorBrush)(new BrushConverter().ConvertFrom(inputColor));

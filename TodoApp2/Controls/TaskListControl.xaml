@@ -8,7 +8,7 @@
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="380">
-    <Grid DataContext="{x:Static core:TaskListDesignModel.Instance}" Background="Transparent">
+    <Grid Background="Transparent">
 
         <ListView ItemsSource="{Binding Items}"
                   dd:DragDrop.IsDragSource="True"
@@ -35,7 +35,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <local:TaskListItemControl/>
+                    <local:TaskListItemControl Tag="{Binding DataContext, ElementName=TaskListListView}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
