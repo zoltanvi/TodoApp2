@@ -30,13 +30,16 @@ namespace TodoApp2.Core
         public ICommand AddTaskItemCommand { get; }
 
         public ICommand DeleteTaskItemCommand { get; }
-
+        
+        public ICommand TaskIsDoneModifiedCommand { get; }
 
         public TaskListViewModel()
         {
             AddTaskItemCommand = new RelayCommand(AddTask);
 
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
+
+            TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
 
             // Query the items with the current category
             List<TaskListItemViewModel> items = Database.GetActiveTaskItems(CurrentCategory);
@@ -47,6 +50,25 @@ namespace TodoApp2.Core
             Items.CollectionChanged += ItemsOnCollectionChanged;
         }
 
+        private void ModifyTaskIsDone(object obj)
+        {
+            if (obj is TaskListItemViewModel task)
+            {
+                // If this task is done, move it after the last not done item
+                // If this is not done (undone action), move it to the top of the list
+                // Because this generates a NotifyCollectionChangedAction.Move action, 
+                // all task modifications will be persisted
+                if (task.IsDone)
+                {
+                    MoveTaskToEnd(task);
+                }
+                else
+                {
+                    MoveTaskToTop(task);
+                }
+            }
+        }
+        
         private void TrashTask(object obj)
         {
             if (obj is TaskListItemViewModel task)
@@ -82,12 +104,24 @@ namespace TodoApp2.Core
                     // Persist the reordered list into database
                     Database.UpdateTaskListOrders(Items);
                     break;
-                } 
+                }
+                case NotifyCollectionChangedAction.Move:
+                {
+                    Database.UpdateTaskList(Items);
+                    break;
+                }
+
             }
         }
 
         private void AddTask()
         {
+            // If the text is empty or only whitespace, refuse
+            if (string.IsNullOrWhiteSpace(PendingAddNewTaskText))
+            {
+                return;
+            }
+
             // Create the new task instance
             TaskListItemViewModel taskToAdd = new TaskListItemViewModel
             {
@@ -103,6 +137,29 @@ namespace TodoApp2.Core
 
             // Reset the input TextBox text
             PendingAddNewTaskText = string.Empty;
+        }
+
+        private void MoveTaskToEnd(TaskListItemViewModel task)
+        {
+            int oldIndex = Items.IndexOf(task);
+            int newIndex = Items.Count - 1;
+
+            for (int i = Items.Count - 1; i >= 0; i--)
+            {
+                newIndex = i;
+                if (Items[i].Equals(task) || Items[i].IsDone == false)
+                {
+                    break;
+                }
+            }
+
+            Items.Move(oldIndex, newIndex);
+        }
+
+        private void MoveTaskToTop(TaskListItemViewModel task)
+        {
+            int oldIndex = Items.IndexOf(task);
+            Items.Move(oldIndex, 0);
         }
 
     }

@@ -33,6 +33,8 @@
 
                 <CheckBox Grid.Column="1"
                           IsChecked="{Binding IsDone}"
+                          Command="{Binding Path=Tag.TaskIsDoneModifiedCommand, ElementName=TaskListItemUC}"
+                          CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                           VerticalAlignment="Center"
                           HorizontalAlignment="Center" Style="{StaticResource TaskCheckBoxStyle}" />
 

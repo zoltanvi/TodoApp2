@@ -50,7 +50,7 @@ namespace TodoApp2.Core
 
         internal void UpdateTaskList(ObservableCollection<TaskListItemViewModel> items)
         {
-            //throw new NotImplementedException();
+            DataAccessLayer.UpdateTaskList(items);
         }
 
         internal void TrashTask(TaskListItemViewModel task)
@@ -62,6 +62,11 @@ namespace TodoApp2.Core
             task.ListOrder = -1;
 
             // Persist the change into the database
+            DataAccessLayer.UpdateTask(task);
+        }
+
+        internal void ModifyTaskIsDone(TaskListItemViewModel task)
+        {
             DataAccessLayer.UpdateTask(task);
         }
     }
