@@ -14,6 +14,9 @@
     <Color x:Key="CategoryTitleForeground">#ffffff</Color>
     <SolidColorBrush x:Key="CategoryTitleForegroundBrush" Color="{StaticResource CategoryTitleForeground}" />
 
+    <Color x:Key="CategoryTitleSelectedForeground">#47CBFF</Color>
+    <SolidColorBrush x:Key="CategoryTitleSelectedForegroundBrush" Color="{StaticResource CategoryTitleSelectedForeground}" />
+
     <Color x:Key="DescriptionForeground">#bdbdbd</Color>
     <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="{StaticResource DescriptionForeground}" />
 
