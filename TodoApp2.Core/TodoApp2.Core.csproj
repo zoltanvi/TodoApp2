@@ -80,7 +80,8 @@
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\Base\RelayParameterizedCommand.cs" />
-    <Compile Include="ViewModel\CategoryViewModel.cs" />
+    <Compile Include="ViewModel\CategoryListViewModel.cs" />
+    <Compile Include="ViewModel\CategoryListItemViewModel.cs" />
     <Compile Include="ViewModel\Design\TaskListDesignModel.cs" />
     <Compile Include="ViewModel\Design\TaskListItemDesignModel.cs" />
     <Compile Include="ViewModel\ReminderViewModel.cs" />

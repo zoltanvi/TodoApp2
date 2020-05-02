@@ -94,6 +94,12 @@
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
+    <Compile Include="Controls\CategoryListControl.xaml.cs">
+      <DependentUpon>CategoryListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CategoryListItemControl.xaml.cs">
+      <DependentUpon>CategoryListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SideMenuBackgroundControl.xaml.cs">
       <DependentUpon>SideMenuBackgroundControl.xaml</DependentUpon>
     </Compile>
@@ -110,8 +116,8 @@
     <Compile Include="Pages\OptionsPage.xaml.cs">
       <DependentUpon>OptionsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\OptionsSideMenuPage.xaml.cs">
-      <DependentUpon>OptionsSideMenuPage.xaml</DependentUpon>
+    <Compile Include="Pages\CategoryPage.xaml.cs">
+      <DependentUpon>CategoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TaskPage.xaml.cs">
       <DependentUpon>TaskPage.xaml</DependentUpon>
@@ -125,6 +131,14 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Controls\CategoryListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CategoryListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SideMenuBackgroundControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,7 +171,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\OptionsSideMenuPage.xaml">
+    <Page Include="Pages\CategoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

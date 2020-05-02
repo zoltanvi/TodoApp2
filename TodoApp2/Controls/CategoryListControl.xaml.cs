@@ -1,13 +1,14 @@
 ﻿using System.Windows.Controls;
 
+
 namespace TodoApp2
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for CategoryListControl.xaml
     /// </summary>
-    public partial class OptionsSideMenuPage : Page
+    public partial class CategoryListControl : UserControl
     {
-        public OptionsSideMenuPage()
+        public CategoryListControl()
         {
             InitializeComponent();
         }

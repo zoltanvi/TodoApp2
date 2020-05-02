@@ -22,6 +22,7 @@ namespace TodoApp2.Core
         public string PendingAddNewTaskText { get; set; }
 
         private string CurrentCategory => IoC.Get<ApplicationViewModel>().CurrentCategory;
+        private bool OptimizePerformance => IoC.Get<ApplicationViewModel>().OptimizePerformance;
         private ClientDatabase Database => IoC.Get<ClientDatabase>();
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace TodoApp2.Core
         public ICommand AddTaskItemCommand { get; }
 
         public ICommand DeleteTaskItemCommand { get; }
-        
+
         public ICommand TaskIsDoneModifiedCommand { get; }
 
         public TaskListViewModel()
@@ -68,7 +69,7 @@ namespace TodoApp2.Core
                 }
             }
         }
-        
+
         private void TrashTask(object obj)
         {
             if (obj is TaskListItemViewModel task)
@@ -84,6 +85,7 @@ namespace TodoApp2.Core
         /// </summary>
         public void PersistTaskList()
         {
+            // This call should never depend on OptimizePerformance property
             Database.UpdateTaskList(Items);
         }
 
@@ -96,21 +98,23 @@ namespace TodoApp2.Core
         /// <param name="e"></param>
         private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            if (!OptimizePerformance)
             {
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Remove:
+                switch (e.Action)
                 {
-                    // Persist the reordered list into database
-                    Database.UpdateTaskListOrders(Items);
-                    break;
+                    case NotifyCollectionChangedAction.Add:
+                    case NotifyCollectionChangedAction.Remove:
+                    {
+                        // Persist the reordered list into database
+                        Database.UpdateTaskListOrders(Items);
+                        break;
+                    }
+                    case NotifyCollectionChangedAction.Move:
+                    {
+                        Database.UpdateTaskList(Items);
+                        break;
+                    }
                 }
-                case NotifyCollectionChangedAction.Move:
-                {
-                    Database.UpdateTaskList(Items);
-                    break;
-                }
-
             }
         }
 
@@ -130,6 +134,7 @@ namespace TodoApp2.Core
             };
 
             // Persist into database and set the task ID
+            // This call can't be optimized because the database gives the ID to the task
             Database.AddTask(taskToAdd);
 
             // Add the task into the ViewModel list 

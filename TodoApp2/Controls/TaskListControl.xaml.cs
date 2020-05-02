@@ -7,7 +7,6 @@ namespace TodoApp2
     /// </summary>
     public partial class TaskListControl : UserControl
     {
-
         public TaskListControl()
         {
             InitializeComponent();

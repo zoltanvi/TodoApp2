@@ -132,7 +132,6 @@
                                 Command="{Binding Path=Tag.DeleteTaskItemCommand, ElementName=TaskListItemUC}"
                                 CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                                 />
-                                <!--Command="{Binding DeleteItemCommand}"-->
                         </Grid>
                     </Border>
                 </Border>

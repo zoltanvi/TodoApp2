@@ -20,7 +20,7 @@ namespace TodoApp2
                     return new TaskPage();
 
                 case ApplicationPage.SideMenu:
-                    return new OptionsSideMenuPage();
+                    return new CategoryPage();
 
                 case ApplicationPage.Options:
                     return new OptionsPage();

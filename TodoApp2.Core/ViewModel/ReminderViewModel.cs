@@ -1,4 +1,4 @@
-﻿namespace TodoApp2.Core.ViewModel
+﻿namespace TodoApp2.Core
 {
     public class ReminderViewModel : BaseViewModel
     {

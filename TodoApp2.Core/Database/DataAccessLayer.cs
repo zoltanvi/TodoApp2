@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Data.SQLite;
-using TodoApp2.Core.ViewModel;
 
 namespace TodoApp2.Core
 {
@@ -14,40 +13,41 @@ namespace TodoApp2.Core
     {
         #region Private Constants
 
-        private const string s_DatabaseName = "TodoApp2Database.db";
-        private static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), s_DatabaseName);
+        private const string DatabaseName = "TodoApp2Database.db";
+        private static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), DatabaseName);
 
-        private const string s_TableCategory = "Category";
-        private const string s_TableReminder = "Reminder";
-        private const string s_TableTask = "Task";
+        private const string Reminder = "Reminder";
+        private const string Task = "Task";
 
-        private const string s_FieldName = "Name";
-        private const string s_FieldId = "Id";
-        private const string s_FieldReminderDate = "ReminderDate";
-        private const string s_FieldNote = "Note";
-        private const string s_FieldCategory = "Category";
-        private const string s_FieldContent = "Content";
-        private const string s_FieldListOrder = "ListOrder";
-        private const string s_FieldIsDone = "IsDone";
-        private const string s_FieldCreationDate = "CreationDate";
-        private const string s_FieldModificationDate = "ModificationDate";
-        private const string s_FieldColor = "Color";
-        private const string s_FieldTrashed = "Trashed";
-        private const string s_FieldReminderId = "ReminderId";
+        private const string Name = "Name";
+        private const string Id = "Id";
+        private const string ReminderDate = "ReminderDate";
+        private const string Note = "Note";
+        private const string Category = "Category";
+        private const string Content = "Content";
+        private const string ListOrder = "ListOrder";
+        private const string IsDone = "IsDone";
+        private const string CreationDate = "CreationDate";
+        private const string ModificationDate = "ModificationDate";
+        private const string Color = "Color";
+        private const string Trashed = "Trashed";
+        private const string ReminderId = "ReminderId";
 
-        private const string s_QueryParameterName = "@" + s_FieldName;
-        private const string s_QueryParameterId = "@" + s_FieldId;
-        private const string s_QueryParameterReminderDate = "@" + s_FieldReminderDate;
-        private const string s_QueryParameterNote = "@" + s_FieldNote;
-        private const string s_QueryParameterCategory = "@" + s_FieldCategory;
-        private const string s_QueryParameterContent = "@" + s_FieldContent;
-        private const string s_QueryParameterListOrder = "@" + s_FieldListOrder;
-        private const string s_QueryParameterIsDone = "@" + s_FieldIsDone;
-        private const string s_QueryParameterCreationDate = "@" + s_FieldCreationDate;
-        private const string s_QueryParameterModificationDate = "@" + s_FieldModificationDate;
-        private const string s_QueryParameterColor = "@" + s_FieldColor;
-        private const string s_QueryParameterTrashed = "@" + s_FieldTrashed;
-        private const string s_QueryParameterReminderId = "@" + s_FieldReminderId;
+
+        private const string ParameterName = "@" + Name;
+        private const string ParameterId = "@" + Id;
+        private const string ParameterReminderDate = "@" + ReminderDate;
+        private const string ParameterNote = "@" + Note;
+        private const string ParameterCategory = "@" + Category;
+        private const string ParameterContent = "@" + Content;
+        private const string ParameterListOrder = "@" + ListOrder;
+        private const string ParameterIsDone = "@" + IsDone;
+        private const string ParameterCreationDate = "@" + CreationDate;
+        private const string ParameterModificationDate = "@" + ModificationDate;
+        private const string ParameterColor = "@" + Color;
+        private const string ParameterTrashed = "@" + Trashed;
+        private const string ParameterReminderId = "@" + ReminderId;
+        private const string ParameterOldName = "@oldName";
         #endregion
 
         #region Database initializer
@@ -67,27 +67,27 @@ namespace TodoApp2.Core
                 const string prepareCommand = "PRAGMA foreign_keys = ON; ";
 
                 const string createCategoryTable =
-                    "CREATE TABLE IF NOT EXISTS " + s_TableCategory + " ( " +
-                    s_FieldName + "              TEXT        PRIMARY KEY " +
+                    "CREATE TABLE IF NOT EXISTS " + Category + " ( " +
+                    Name + "              TEXT        PRIMARY KEY " +
                     "  ); ";
                 const string createReminderTable =
-                    "CREATE TABLE IF NOT EXISTS " + s_TableReminder + " ( " +
-                    s_FieldId + "               INTEGER     PRIMARY KEY AUTOINCREMENT, " +
-                    s_FieldReminderDate + "     INTEGER     , " +
-                    s_FieldNote + "             TEXT         " +
+                    "CREATE TABLE IF NOT EXISTS " + Reminder + " ( " +
+                    Id + "               INTEGER     PRIMARY KEY AUTOINCREMENT, " +
+                    ReminderDate + "     INTEGER     , " +
+                    Note + "             TEXT         " +
                     "  ); ";
                 const string createTaskTable =
-                    "CREATE TABLE IF NOT EXISTS " + s_TableTask + " ( " +
-                    s_FieldId + "               INTEGER     PRIMARY KEY AUTOINCREMENT, " +
-                    s_FieldCategory + "         TEXT        REFERENCES " + s_TableCategory + "(" + s_FieldName + ") ON UPDATE CASCADE, " +
-                    s_FieldContent + "          TEXT        , " +
-                    s_FieldListOrder + "        INTEGER     , " +
-                    s_FieldIsDone + "           INTEGER     , " +
-                    s_FieldCreationDate + "     INTEGER     , " +
-                    s_FieldModificationDate + " INTEGER     , " +
-                    s_FieldColor + "            TEXT        , " +
-                    s_FieldTrashed + "          INTEGER     , " +
-                    s_FieldReminderId + "       INTEGER     REFERENCES " + s_TableReminder + "(" + s_FieldId + ") ON UPDATE CASCADE " +
+                    "CREATE TABLE IF NOT EXISTS " + Task + " ( " +
+                    Id + "               INTEGER     PRIMARY KEY AUTOINCREMENT, " +
+                    Category + "         TEXT        REFERENCES " + Category + "(" + Name + ") ON UPDATE CASCADE, " +
+                    Content + "          TEXT        , " +
+                    ListOrder + "        INTEGER     , " +
+                    IsDone + "           INTEGER     , " +
+                    CreationDate + "     INTEGER     , " +
+                    ModificationDate + " INTEGER     , " +
+                    Color + "            TEXT        , " +
+                    Trashed + "          INTEGER     , " +
+                    ReminderId + "       INTEGER     REFERENCES " + Reminder + "(" + Id + ") ON UPDATE CASCADE " +
                     "  ); ";
 
                 // Prepare database
@@ -109,24 +109,12 @@ namespace TodoApp2.Core
                 db.Close();
             }
 
-            AddCategoryIfNotExists("Default");
             AddDefaultReminderIfNotExists();
         }
 
         #endregion
 
         #region Add methods
-
-        public static bool AddCategoryIfNotExists(string categoryName)
-        {
-            if (GetCategories().All(x => x.Name.ToLowerInvariant() != categoryName.ToLowerInvariant()))
-            {
-                AddCategory(categoryName);
-                return true;
-            }
-
-            return false;
-        }
 
         public static bool AddDefaultReminderIfNotExists()
         {
@@ -148,13 +136,14 @@ namespace TodoApp2.Core
                 SQLiteCommand insertCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"INSERT INTO {s_TableReminder} ({s_FieldReminderDate}, {s_FieldNote}) " +
-                                  $"VALUES ({s_QueryParameterReminderDate}, {s_QueryParameterNote});"
+                    CommandText = $"INSERT INTO {Reminder} ({ReminderDate}, {Note}) " +
+                                  $"VALUES ({ParameterReminderDate}, {ParameterNote});",
+                    Parameters =
+                    {
+                        new SQLiteParameter(ParameterReminderDate, reminderDate),
+                        new SQLiteParameter(ParameterNote, note),
+                    }
                 };
-
-                // Use parameterized query to prevent SQL injection attacks
-                insertCommand.Parameters.AddWithValue(s_QueryParameterReminderDate, reminderDate);
-                insertCommand.Parameters.AddWithValue(s_QueryParameterNote, note);
 
                 insertCommand.ExecuteReader();
 
@@ -162,8 +151,19 @@ namespace TodoApp2.Core
             }
         }
 
+        public static bool AddCategoryIfNotExists(CategoryListItemViewModel category)
+        {
+            bool success = false;
+            if (!IsCategoryExists(category))
+            {
+                AddCategory(category);
+                success = true;
+            }
 
-        public static void AddCategory(string name)
+            return success;
+        }
+
+        public static void AddCategory(CategoryListItemViewModel category)
         {
             using (SQLiteConnection db = new SQLiteConnection($"Data Source={DatabasePath};"))
             {
@@ -172,11 +172,12 @@ namespace TodoApp2.Core
                 SQLiteCommand insertCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"INSERT INTO {s_TableCategory} ({s_FieldName}) VALUES ({s_QueryParameterName});"
+                    CommandText = $"INSERT INTO {Category} ({Name}) VALUES ({ParameterName});",
+                    Parameters =
+                    {
+                        new SQLiteParameter(ParameterName, category.Name)
+                    }
                 };
-
-                // Use parameterized query to prevent SQL injection attacks
-                insertCommand.Parameters.AddWithValue("@name", name);
 
                 insertCommand.ExecuteReader();
 
@@ -199,27 +200,28 @@ namespace TodoApp2.Core
                 SQLiteCommand insertCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"INSERT INTO {s_TableTask} " +
-                                  $" ({s_FieldCategory}, {s_FieldContent}, {s_FieldListOrder}, " +
-                                  $" {s_FieldIsDone}, {s_FieldCreationDate}, {s_FieldModificationDate}, " +
-                                  $" {s_FieldColor}, {s_FieldTrashed}, {s_FieldReminderId}) " +
-                                  $"VALUES ({s_QueryParameterCategory}, {s_QueryParameterContent}, " +
-                                  $" {s_QueryParameterListOrder}, {s_QueryParameterIsDone}, " +
-                                  $" {s_QueryParameterCreationDate}, {s_QueryParameterModificationDate}, " +
-                                  $" {s_QueryParameterColor}, {s_QueryParameterTrashed}, " +
-                                  $" {s_QueryParameterReminderId});"
+                    CommandText = $"INSERT INTO {Task} " +
+                                  $" ({Category}, {Content}, {ListOrder}, " +
+                                  $" {IsDone}, {CreationDate}, {ModificationDate}, " +
+                                  $" {Color}, {Trashed}, {ReminderId}) " +
+                                  $"VALUES ({ParameterCategory}, {ParameterContent}, " +
+                                  $" {ParameterListOrder}, {ParameterIsDone}, " +
+                                  $" {ParameterCreationDate}, {ParameterModificationDate}, " +
+                                  $" {ParameterColor}, {ParameterTrashed}, " +
+                                  $" {ParameterReminderId});",
+                    Parameters =
+                    {
+                        new SQLiteParameter(ParameterCategory, taskListItem.Category),
+                        new SQLiteParameter(ParameterContent, taskListItem.Content),
+                        new SQLiteParameter(ParameterListOrder, taskListItem.ListOrder),
+                        new SQLiteParameter(ParameterIsDone, taskListItem.IsDone),
+                        new SQLiteParameter(ParameterCreationDate, taskListItem.CreationDate),
+                        new SQLiteParameter(ParameterModificationDate, taskListItem.ModificationDate),
+                        new SQLiteParameter(ParameterColor, taskListItem.Color),
+                        new SQLiteParameter(ParameterTrashed, taskListItem.Trashed),
+                        new SQLiteParameter(ParameterReminderId, taskListItem.ReminderId),
+                    }
                 };
-
-                // Use parameterized query to prevent SQL injection attacks
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterCategory}", taskListItem.Category);
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterContent}", taskListItem.Content);
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterListOrder}", taskListItem.ListOrder);
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterIsDone}", taskListItem.IsDone);
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterCreationDate}", taskListItem.CreationDate);
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterModificationDate}", taskListItem.ModificationDate);
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterColor}", taskListItem.Color);
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterTrashed}", taskListItem.Trashed);
-                insertCommand.Parameters.AddWithValue($"{s_QueryParameterReminderId}", taskListItem.ReminderId);
 
                 insertCommand.ExecuteReader();
 
@@ -246,9 +248,40 @@ namespace TodoApp2.Core
 
         #region Get methods
 
-        public static List<CategoryViewModel> GetCategories()
+        public static bool IsCategoryExists(CategoryListItemViewModel category)
         {
-            List<CategoryViewModel> entries = new List<CategoryViewModel>();
+            bool itemExists = false;
+            using (SQLiteConnection db = new SQLiteConnection($"Data Source={DatabasePath};"))
+            {
+                db.Open();
+
+                SQLiteCommand selectCommand = new SQLiteCommand
+                {
+                    Connection = db,
+                    CommandText = $"SELECT * FROM {Category} WHERE {Name} IS {ParameterName}",
+                    Parameters =
+                    {
+                        new SQLiteParameter(ParameterName, category.Name)
+                    }
+                };
+
+                SQLiteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    itemExists = true;
+                    break;
+                }
+
+                db.Close();
+            }
+
+            return itemExists;
+        }
+
+        public static List<CategoryListItemViewModel> GetCategories()
+        {
+            List<CategoryListItemViewModel> entries = new List<CategoryListItemViewModel>();
 
             using (SQLiteConnection db = new SQLiteConnection($"Data Source={DatabasePath};"))
             {
@@ -257,14 +290,14 @@ namespace TodoApp2.Core
                 SQLiteCommand selectCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"SELECT {s_FieldName} FROM {s_TableCategory}"
+                    CommandText = $"SELECT {Name} FROM {Category}"
                 };
 
                 SQLiteDataReader query = selectCommand.ExecuteReader();
 
                 while (query.Read())
                 {
-                    entries.Add(new CategoryViewModel { Name = query.GetString(0) });
+                    entries.Add(new CategoryListItemViewModel { Name = query.GetString(0) });
                 }
 
                 db.Close();
@@ -284,7 +317,7 @@ namespace TodoApp2.Core
                 SQLiteCommand selectCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"SELECT * FROM {s_TableReminder}"
+                    CommandText = $"SELECT * FROM {Reminder}"
                 };
 
                 SQLiteDataReader query = selectCommand.ExecuteReader();
@@ -294,9 +327,9 @@ namespace TodoApp2.Core
                     entries.Add(
                         new ReminderViewModel
                         {
-                            Id = query.GetInt32(query.GetOrdinal(s_FieldId)),
-                            ReminderDate = query.GetInt64(query.GetOrdinal(s_FieldReminderDate)),
-                            Note = query.GetString(query.GetOrdinal(s_FieldNote)),
+                            Id = query.GetInt32(query.GetOrdinal(Id)),
+                            ReminderDate = query.GetInt64(query.GetOrdinal(ReminderDate)),
+                            Note = query.GetString(query.GetOrdinal(Note)),
                         });
                 }
 
@@ -318,13 +351,11 @@ namespace TodoApp2.Core
                 {
                     Connection = db,
                     CommandText = $"SELECT * " +
-                                  $" FROM {s_TableTask} " +
-                                  $" WHERE {s_TableTask}.{s_FieldCategory} IS {s_QueryParameterCategory} " +
-                                  $" ORDER BY {s_FieldListOrder} ;"
+                                  $" FROM {Task} " +
+                                  $" WHERE {Task}.{Category} IS {ParameterCategory} " +
+                                  $" ORDER BY {ListOrder} ;",
+                    Parameters = { new SQLiteParameter(ParameterCategory, category) }
                 };
-
-                // Use parameterized query to prevent SQL injection attacks
-                selectCommand.Parameters.AddWithValue(s_QueryParameterCategory, category);
 
                 SQLiteDataReader query = selectCommand.ExecuteReader();
 
@@ -332,16 +363,16 @@ namespace TodoApp2.Core
                 {
                     TaskListItemViewModel readTask = new TaskListItemViewModel
                     {
-                        Id = query.GetInt32(query.GetOrdinal(s_FieldId)),
-                        Category = query.GetString(query.GetOrdinal(s_FieldCategory)),
-                        Content = query.GetString(query.GetOrdinal(s_FieldContent)),
-                        ListOrder = query.GetInt32(query.GetOrdinal(s_FieldListOrder)),
-                        IsDone = Convert.ToBoolean(query.GetInt32(query.GetOrdinal(s_FieldIsDone))),
-                        CreationDate = query.GetInt64(query.GetOrdinal(s_FieldCreationDate)),
-                        ModificationDate = query.GetInt64(query.GetOrdinal(s_FieldModificationDate)),
-                        Color = query.GetString(query.GetOrdinal(s_FieldColor)),
-                        Trashed = Convert.ToBoolean(query.GetInt32(query.GetOrdinal(s_FieldTrashed))),
-                        ReminderId = query.GetInt32(query.GetOrdinal(s_FieldReminderId))
+                        Id = query.GetInt32(query.GetOrdinal(Id)),
+                        Category = query.GetString(query.GetOrdinal(Category)),
+                        Content = query.GetString(query.GetOrdinal(Content)),
+                        ListOrder = query.GetInt32(query.GetOrdinal(ListOrder)),
+                        IsDone = Convert.ToBoolean(query.GetInt32(query.GetOrdinal(IsDone))),
+                        CreationDate = query.GetInt64(query.GetOrdinal(CreationDate)),
+                        ModificationDate = query.GetInt64(query.GetOrdinal(ModificationDate)),
+                        Color = query.GetString(query.GetOrdinal(Color)),
+                        Trashed = Convert.ToBoolean(query.GetInt32(query.GetOrdinal(Trashed))),
+                        ReminderId = query.GetInt32(query.GetOrdinal(ReminderId))
                     };
 
                     entries.Add(readTask);
@@ -367,10 +398,9 @@ namespace TodoApp2.Core
                 SQLiteCommand deleteCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"DELETE FROM {s_TableTask} WHERE {s_FieldId} = {s_QueryParameterId}"
+                    CommandText = $"DELETE FROM {Task} WHERE {Id} = {ParameterId}",
+                    Parameters = { new SQLiteParameter(ParameterId, id) }
                 };
-                // Use parameterized query to prevent SQL injection attacks
-                deleteCommand.Parameters.AddWithValue(s_QueryParameterId, id);
 
                 isOperationSuccessful = deleteCommand.ExecuteNonQuery() > 0;
 
@@ -380,7 +410,7 @@ namespace TodoApp2.Core
             return isOperationSuccessful;
         }
 
-        public static bool DeleteCategory(string name)
+        public static bool DeleteCategory(CategoryListItemViewModel category)
         {
             bool isOperationSuccessful;
             using (SQLiteConnection db = new SQLiteConnection($"Data Source={DatabasePath};"))
@@ -390,12 +420,10 @@ namespace TodoApp2.Core
                 SQLiteCommand deleteCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"DELETE FROM {s_TableCategory} " +
-                                  $" WHERE {s_FieldName} IS {s_QueryParameterCategory}"
+                    CommandText = $"DELETE FROM {Category} " +
+                                  $" WHERE {Name} IS {ParameterName}",
+                    Parameters = { new SQLiteParameter(ParameterName, category.Name) }
                 };
-
-                // Use parameterized query to prevent SQL injection attacks
-                deleteCommand.Parameters.AddWithValue(s_QueryParameterCategory, name);
 
                 isOperationSuccessful = deleteCommand.ExecuteNonQuery() > 0;
 
@@ -419,30 +447,31 @@ namespace TodoApp2.Core
                 SQLiteCommand updateCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"UPDATE {s_TableTask} SET " +
-                                  $"  {s_FieldCategory} = {s_QueryParameterCategory}, " +
-                                  $"  {s_FieldContent} = {s_QueryParameterContent}, " +
-                                  $"  {s_FieldListOrder} = {s_QueryParameterListOrder}, " +
-                                  $"  {s_FieldIsDone} = {s_QueryParameterIsDone}, " +
-                                  $"  {s_FieldCreationDate} = {s_QueryParameterCreationDate}, " +
-                                  $"  {s_FieldModificationDate} = {s_QueryParameterModificationDate}, " +
-                                  $"  {s_FieldColor} = {s_QueryParameterColor}, " +
-                                  $"  {s_FieldTrashed} = {s_QueryParameterTrashed}, " +
-                                  $"  {s_FieldReminderId} = {s_QueryParameterReminderId} " +
-                                  $" WHERE {s_FieldId} = {s_QueryParameterId};"
+                    CommandText = $"UPDATE {Task} SET " +
+                                  $"  {Category} = {ParameterCategory}, " +
+                                  $"  {Content} = {ParameterContent}, " +
+                                  $"  {ListOrder} = {ParameterListOrder}, " +
+                                  $"  {IsDone} = {ParameterIsDone}, " +
+                                  $"  {CreationDate} = {ParameterCreationDate}, " +
+                                  $"  {ModificationDate} = {ParameterModificationDate}, " +
+                                  $"  {Color} = {ParameterColor}, " +
+                                  $"  {Trashed} = {ParameterTrashed}, " +
+                                  $"  {ReminderId} = {ParameterReminderId} " +
+                                  $" WHERE {Id} = {ParameterId};",
+                    Parameters =
+                    {
+                        new SQLiteParameter(ParameterId, task.Id),
+                        new SQLiteParameter(ParameterCategory, task.Category),
+                        new SQLiteParameter(ParameterContent, task.Content),
+                        new SQLiteParameter(ParameterListOrder, task.ListOrder),
+                        new SQLiteParameter(ParameterIsDone, task.IsDone),
+                        new SQLiteParameter(ParameterCreationDate, task.CreationDate),
+                        new SQLiteParameter(ParameterModificationDate, task.ModificationDate),
+                        new SQLiteParameter(ParameterColor, task.Color),
+                        new SQLiteParameter(ParameterTrashed, task.Trashed),
+                        new SQLiteParameter(ParameterReminderId, task.ReminderId)
+                    }
                 };
-
-                // Use parameterized query to prevent SQL injection attacks
-                updateCommand.Parameters.AddWithValue(s_QueryParameterId, task.Id);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterCategory, task.Category);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterContent, task.Content);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterListOrder, task.ListOrder);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterIsDone, task.IsDone);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterCreationDate, task.CreationDate);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterModificationDate, task.ModificationDate);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterColor, task.Color);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterTrashed, task.Trashed);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterReminderId, task.ReminderId);
 
                 isOperationSuccessful = updateCommand.ExecuteNonQuery() > 0;
 
@@ -459,39 +488,45 @@ namespace TodoApp2.Core
             {
                 db.Open();
 
-                foreach (var task in taskList)
+                // Using transaction to write the database only once
+                using (SQLiteTransaction transaction = db.BeginTransaction())
                 {
-                    SQLiteCommand updateCommand = new SQLiteCommand
+                    foreach (var task in taskList)
                     {
-                        Connection = db,
-                        CommandText = $"UPDATE {s_TableTask} SET " +
-                                      $"  {s_FieldCategory} = {s_QueryParameterCategory}, " +
-                                      $"  {s_FieldContent} = {s_QueryParameterContent}, " +
-                                      $"  {s_FieldListOrder} = {s_QueryParameterListOrder}, " +
-                                      $"  {s_FieldIsDone} = {s_QueryParameterIsDone}, " +
-                                      $"  {s_FieldCreationDate} = {s_QueryParameterCreationDate}, " +
-                                      $"  {s_FieldModificationDate} = {s_QueryParameterModificationDate}, " +
-                                      $"  {s_FieldColor} = {s_QueryParameterColor}, " +
-                                      $"  {s_FieldTrashed} = {s_QueryParameterTrashed}, " +
-                                      $"  {s_FieldReminderId} = {s_QueryParameterReminderId} " +
-                                      $" WHERE {s_FieldId} = {s_QueryParameterId};"
-                    };
+                        SQLiteCommand updateCommand = new SQLiteCommand
+                        {
+                            CommandText = $"UPDATE {Task} SET " +
+                                          $"  {Category} = {ParameterCategory}, " +
+                                          $"  {Content} = {ParameterContent}, " +
+                                          $"  {ListOrder} = {ParameterListOrder}, " +
+                                          $"  {IsDone} = {ParameterIsDone}, " +
+                                          $"  {CreationDate} = {ParameterCreationDate}, " +
+                                          $"  {ModificationDate} = {ParameterModificationDate}, " +
+                                          $"  {Color} = {ParameterColor}, " +
+                                          $"  {Trashed} = {ParameterTrashed}, " +
+                                          $"  {ReminderId} = {ParameterReminderId} " +
+                                          $" WHERE {Id} = {ParameterId};",
+                            Parameters =
+                            {
+                                new SQLiteParameter(ParameterId, task.Id),
+                                new SQLiteParameter(ParameterCategory, task.Category),
+                                new SQLiteParameter(ParameterContent, task.Content),
+                                new SQLiteParameter(ParameterListOrder, task.ListOrder),
+                                new SQLiteParameter(ParameterIsDone, task.IsDone),
+                                new SQLiteParameter(ParameterCreationDate, task.CreationDate),
+                                new SQLiteParameter(ParameterModificationDate, task.ModificationDate),
+                                new SQLiteParameter(ParameterColor, task.Color),
+                                new SQLiteParameter(ParameterTrashed, task.Trashed),
+                                new SQLiteParameter(ParameterReminderId, task.ReminderId)
+                            }
 
-                    // Use parameterized query to prevent SQL injection attacks
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterId, task.Id);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterCategory, task.Category);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterContent, task.Content);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterListOrder, task.ListOrder);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterIsDone, task.IsDone);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterCreationDate, task.CreationDate);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterModificationDate, task.ModificationDate);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterColor, task.Color);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterTrashed, task.Trashed);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterReminderId, task.ReminderId);
+                        };
 
-                    modifiedItems += updateCommand.ExecuteNonQuery();
+                        modifiedItems += updateCommand.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
                 }
-
                 db.Close();
             }
 
@@ -508,14 +543,19 @@ namespace TodoApp2.Core
                 SQLiteCommand updateCommand = new SQLiteCommand
                 {
                     Connection = db,
-                    CommandText = $"UPDATE {s_TableCategory} SET " +
-                                  $" {s_FieldName} = {s_QueryParameterName}" +
-                                  $"WHERE {s_FieldName} IS @oldName;"
+                    CommandText = $"UPDATE {Category} SET " +
+                                  $" {Name} = {ParameterName}" +
+                                  $"WHERE {Name} IS {ParameterOldName};",
+                    Parameters =
+                    {
+                        new SQLiteParameter(ParameterOldName, oldName),
+                        new SQLiteParameter(ParameterName, newName),
+                    }
                 };
 
                 // Use parameterized query to prevent SQL injection attacks
-                updateCommand.Parameters.AddWithValue("@oldName", oldName);
-                updateCommand.Parameters.AddWithValue(s_QueryParameterName, newName);
+                updateCommand.Parameters.AddWithValue(ParameterOldName, oldName);
+                updateCommand.Parameters.AddWithValue(ParameterName, newName);
 
                 isOperationSuccessful = updateCommand.ExecuteNonQuery() > 0;
 
@@ -532,22 +572,27 @@ namespace TodoApp2.Core
             {
                 db.Open();
 
-                foreach (var todoTask in taskList)
+                // Using transaction to write the database only once
+                using (SQLiteTransaction transaction = db.BeginTransaction())
                 {
-                    SQLiteCommand updateCommand = new SQLiteCommand
+                    //db.Open();
+                    SQLiteCommand updateCommand = db.CreateCommand();
+
+                    foreach (var todoTask in taskList)
                     {
-                        Connection = db,
-                        CommandText = $"UPDATE {s_TableTask} SET " +
-                                      $"  {s_FieldListOrder} = {s_QueryParameterListOrder} " +
-                                      $"WHERE {s_FieldId} = {s_QueryParameterId};"
-                    };
-                    // Use parameterized query to prevent SQL injection attacks
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterId, todoTask.Id);
-                    updateCommand.Parameters.AddWithValue(s_QueryParameterListOrder, todoTask.ListOrder);
+                        updateCommand.CommandText = $"UPDATE {Task} SET " +
+                                                    $"  {ListOrder} = {ParameterListOrder} " +
+                                                    $"WHERE {Id} = {ParameterId};";
 
-                    modifiedItems += updateCommand.ExecuteNonQuery();
+                        // Use parameterized query to prevent SQL injection attacks
+                        updateCommand.Parameters.AddWithValue(ParameterId, todoTask.Id);
+                        updateCommand.Parameters.AddWithValue(ParameterListOrder, todoTask.ListOrder);
+
+                        modifiedItems += updateCommand.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
                 }
-
                 db.Close();
             }
 
