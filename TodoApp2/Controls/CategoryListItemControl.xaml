@@ -9,11 +9,21 @@
              d:DesignHeight="60" d:DesignWidth="350">
 
     <Grid x:Name="ParentGrid">
-        <Label Grid.Column="0"
-                   Content="{Binding Name}" 
-                   Style="{StaticResource CategoryLabelStyle}" 
-                   Foreground="{Binding Name, Converter={local:CategorySelectedColorConverter}}"
-                   FontSize="{StaticResource FontSizeRegular}" />
+        <Grid.InputBindings>
+            <MouseBinding MouseAction="LeftClick" 
+                          Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}" 
+                          CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"/>
+        </Grid.InputBindings>
+
+
+        <TextBlock Grid.Column="0"
+               Text="{Binding Name}" 
+               Style="{StaticResource CategoryTextBlockStyle}" 
+               Foreground="{Binding IsSelected, Converter={local:CategorySelectedColorConverter}}"
+               FontSize="{StaticResource FontSizeRegular}"
+               Margin="20 2 30 0"
+               >
+        </TextBlock>
 
         <Border Grid.Column="0"
                     x:Name="HoverButtonBorder"

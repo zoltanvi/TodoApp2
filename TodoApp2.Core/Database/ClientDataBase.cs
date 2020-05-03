@@ -2,25 +2,29 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Ninject.Infrastructure.Disposal;
 
 namespace TodoApp2.Core
 {
     /// <summary>
     /// Represents the application client database
     /// </summary>
-    public class ClientDatabase
+    public class ClientDatabase : IDisposable
     {
+        private readonly DataAccessLayer m_DataAccess;
 
         public ClientDatabase()
         {
+            m_DataAccess = new DataAccessLayer();
+
             // Initialize the database
-            DataAccessLayer.InitializeDatabase();
+            m_DataAccess.InitializeDatabase();
         }
 
         public List<TaskListItemViewModel> GetActiveTaskItems(string categoryName)
         {
             // Returns the task list from the database ordered by ListOrder column
-            List<TaskListItemViewModel> allTasks = DataAccessLayer.GetTasks(categoryName);
+            List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks(categoryName);
 
             // Returns only the items that are not trashed
             return allTasks.Where(task => task.Trashed == false).ToList();
@@ -28,13 +32,13 @@ namespace TodoApp2.Core
 
         internal List<CategoryListItemViewModel> GetCategories()
         {
-            return DataAccessLayer.GetCategories();
+            return m_DataAccess.GetCategories();
         }
 
         public void AddTask(TaskListItemViewModel taskListItem)
         {
             // Add task to database, get back the generated ID
-            int taskId = DataAccessLayer.AddTask(taskListItem);
+            int taskId = m_DataAccess.AddTask(taskListItem);
 
             // Set the generated ID to the task in the memory
             taskListItem.Id = taskId;
@@ -42,7 +46,7 @@ namespace TodoApp2.Core
 
         internal bool AddCategory(CategoryListItemViewModel categoryToAdd)
         {
-            return DataAccessLayer.AddCategoryIfNotExists(categoryToAdd);   
+            return m_DataAccess.AddCategoryIfNotExists(categoryToAdd);   
         }
 
         internal void UpdateTaskListOrders(ObservableCollection<TaskListItemViewModel> taskListItems)
@@ -51,7 +55,7 @@ namespace TodoApp2.Core
             SetItemsListOrders(taskListItems);
 
             // Persist the order changes into the database
-            DataAccessLayer.UpdateTaskListOrders(taskListItems);
+            m_DataAccess.UpdateTaskListOrders(taskListItems);
         }
         
         internal void UpdateTaskList(ObservableCollection<TaskListItemViewModel> taskListItems)
@@ -60,7 +64,7 @@ namespace TodoApp2.Core
             SetItemsListOrders(taskListItems);
 
             // Persist every change in the list into the database
-            DataAccessLayer.UpdateTaskList(taskListItems);
+            m_DataAccess.UpdateTaskList(taskListItems);
         }
 
 
@@ -73,12 +77,12 @@ namespace TodoApp2.Core
             task.ListOrder = -1;
 
             // Persist the change into the database
-            DataAccessLayer.UpdateTask(task);
+            m_DataAccess.UpdateTask(task);
         }
 
         internal void DeleteCategory(CategoryListItemViewModel category)
         {
-            DataAccessLayer.DeleteCategory(category);
+            m_DataAccess.DeleteCategory(category);
         }
 
         private void SetItemsListOrders(ObservableCollection<TaskListItemViewModel> taskListItems)
@@ -88,6 +92,11 @@ namespace TodoApp2.Core
             {
                 taskListItems[i].ListOrder = i;
             }
+        }
+
+        public void Dispose()
+        {
+            m_DataAccess.Dispose();
         }
     }
 }

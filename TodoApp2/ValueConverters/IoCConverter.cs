@@ -15,7 +15,7 @@ namespace TodoApp2
             switch ((string)parameter)
             {
                 case nameof(ApplicationViewModel):
-                    return IoC.Get<ApplicationViewModel>();
+                    return IoC.Application;
 
                 default:
                     return null;

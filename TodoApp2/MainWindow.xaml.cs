@@ -21,7 +21,7 @@ namespace TodoApp2
         //private void OnNavigatorBackgroundClicked(object sender, MouseButtonEventArgs e)
         //{
         //    //NavigatorCommand.Execute(null);
-        //    IoC.Get<ApplicationViewModel>().SideMenuVisible ^= true;
+        //    IoC.Application.SideMenuVisible ^= true;
         //}
     }
 }

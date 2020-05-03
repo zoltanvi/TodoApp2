@@ -20,7 +20,12 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Categories" Style="{StaticResource CategoryLabelStyle}" Margin="20 4 0 20" />
+
+            <TextBlock
+                Grid.Row="0" 
+                Text="Categories" 
+                Style="{StaticResource CategoryTextBlockStyle}" 
+                Margin="20 4 0 20" />
 
             <!--Category list-->
             <local:CategoryListControl Grid.Row="1"/>

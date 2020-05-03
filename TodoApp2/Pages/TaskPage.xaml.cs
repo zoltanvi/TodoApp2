@@ -32,6 +32,9 @@ namespace TodoApp2.Pages
             {
                 viewModel.PersistTaskList();
             }
+
+            // TODO: put it to a better place
+            IoC.Get<ClientDatabase>().Dispose();
         }
     }
 }

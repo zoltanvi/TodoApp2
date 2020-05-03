@@ -73,8 +73,11 @@
     <Compile Include="Database\ClientDatabase.cs" />
     <Compile Include="Database\DataAccessLayer.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
-    <Compile Include="Helpers\ListExtender.cs" />
+    <Compile Include="Helpers\CollectionExtender.cs" />
     <Compile Include="IoC\IoC.cs" />
+    <Compile Include="Mediator\Mediator.cs" />
+    <Compile Include="Mediator\MultiDictionary.cs" />
+    <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />

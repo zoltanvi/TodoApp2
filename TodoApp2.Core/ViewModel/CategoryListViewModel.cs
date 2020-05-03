@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -18,24 +19,38 @@ namespace TodoApp2.Core
 
         public ICommand AddCategoryCommand { get; }
         public ICommand DeleteCategoryCommand { get; }
+        public ICommand ChangeCategoryCommand { get; }
 
         private ClientDatabase Database => IoC.Get<ClientDatabase>();
 
         private string CurrentCategory
         {
-            get => IoC.Get<ApplicationViewModel>().CurrentCategory;
-            set => IoC.Get<ApplicationViewModel>().CurrentCategory = value;
+            get => IoC.Application.CurrentCategory;
+
+            set
+            {
+                IoC.Application.CurrentCategory = value;
+                // Notify all listeners about the category change
+                Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged, value);
+            }
         }
 
         public CategoryListViewModel()
         {
             AddCategoryCommand = new RelayCommand(AddCategory);
             DeleteCategoryCommand = new RelayParameterizedCommand(DeleteCategory);
+            ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
 
             List<CategoryListItemViewModel> categories = Database.GetCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
-        }
 
+            CategoryListItemViewModel selectedCategory = Items.FirstOrDefault(i => i.Name == CurrentCategory);
+            if (selectedCategory != null)
+            {
+                selectedCategory.IsSelected = true;
+            }
+        }
+        
         private void AddCategory()
         {
             // Remove trailing and leading whitespaces
@@ -69,9 +84,36 @@ namespace TodoApp2.Core
         {
             if (obj is CategoryListItemViewModel category)
             {
-                Database.DeleteCategory(category);
+                // At least one category is required
+                if (Database.GetCategories().Count > 1)
+                {
+                    Database.DeleteCategory(category);
 
-                Items.Remove(category);
+                    Items.Remove(category);
+
+                    CategoryListItemViewModel firstItem = Items.FirstOrDefault();
+                    firstItem.IsSelected = true;
+                    CurrentCategory = firstItem.Name;
+                }
+                else
+                {
+                    // TODO: error message
+                }
+            }
+        }
+
+        private void ChangeCategory(object obj)
+        {
+            if (obj is CategoryListItemViewModel category)
+            {
+                CurrentCategory = category.Name;
+
+                foreach (var categoryItem in Items)
+                {
+                    categoryItem.IsSelected = categoryItem.Name == category.Name;
+                }
+
+                IoC.Application.SideMenuVisible = false;
             }
         }
     }

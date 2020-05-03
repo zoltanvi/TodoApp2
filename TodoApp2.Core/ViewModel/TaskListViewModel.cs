@@ -21,8 +21,8 @@ namespace TodoApp2.Core
         /// </summary>
         public string PendingAddNewTaskText { get; set; }
 
-        private string CurrentCategory => IoC.Get<ApplicationViewModel>().CurrentCategory;
-        private bool OptimizePerformance => IoC.Get<ApplicationViewModel>().OptimizePerformance;
+        private string CurrentCategory => IoC.Application.CurrentCategory;
+        private bool OptimizePerformance => IoC.Application.OptimizePerformance;
         private ClientDatabase Database => IoC.Get<ClientDatabase>();
 
         /// <summary>
@@ -48,8 +48,13 @@ namespace TodoApp2.Core
             // Fill the actual list with the queried items
             Items = new ObservableCollection<TaskListItemViewModel>(items);
 
+            // Subscribe to the collection changed event for synchronizing with database 
             Items.CollectionChanged += ItemsOnCollectionChanged;
+
+            // Subscribe to the category changed event to filter the list when it happens
+            Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
         }
+
 
         private void ModifyTaskIsDone(object obj)
         {
@@ -165,6 +170,16 @@ namespace TodoApp2.Core
         {
             int oldIndex = Items.IndexOf(task);
             Items.Move(oldIndex, 0);
+        }
+
+        private void OnCategoryChanged(object obj)
+        {
+            // Query the items with the current category
+            List<TaskListItemViewModel> filteredItems = Database.GetActiveTaskItems(CurrentCategory);
+
+            // Fill the actual list with the queried items
+            Items.Clear();
+            Items.AddRange(filteredItems);
         }
 
     }

@@ -14,12 +14,14 @@
     <system:Double x:Key="FontSizeLarge">26</system:Double>
     <system:Double x:Key="FontSizeVeryLarge">40</system:Double>
 
-    <Style TargetType="Label" x:Key="CategoryLabelStyle">
+
+    <Style TargetType="TextBlock" x:Key="CategoryTextBlockStyle">
         <Setter Property="FontFamily" Value="Segoe UI"/>
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}"/>
         <Setter Property="Foreground" Value="{StaticResource CategoryTitleForegroundBrush}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Margin" Value="20 2 0 0"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
     <Style TargetType="Label" x:Key="IconLabelStyle">

@@ -126,7 +126,7 @@ namespace TodoApp2.Core
 
         private void OpenCloseNavigatorAsync()
         {
-            IoC.Get<ApplicationViewModel>().SideMenuVisible ^= true;
+            IoC.Application.SideMenuVisible ^= true;
         }
 
         private void ResizerOnIsDockedChanged(object sender, DockChangeEventArgs e)

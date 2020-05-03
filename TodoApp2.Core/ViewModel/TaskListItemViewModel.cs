@@ -16,6 +16,6 @@ namespace TodoApp2.Core
         public long ModificationDate { get; set; } = DateTime.Now.Ticks;
         public string Color { get; set; } = string.Empty;
         public bool Trashed { get; set; } = false;
-        public int ReminderId { get; set; } = 1;
+        public int? ReminderId { get; set; } = null;
     }
 }
