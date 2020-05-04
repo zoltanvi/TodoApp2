@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Data.SQLite;
+using TodoApp2.Core.Helpers;
 
 namespace TodoApp2.Core
 {
@@ -173,10 +174,7 @@ namespace TodoApp2.Core
             {
                 Connection = m_Connection,
                 CommandText = $"INSERT INTO {Category} ({Name}) VALUES ({ParameterName});",
-                Parameters =
-                {
-                    new SQLiteParameter(ParameterName, category.Name)
-                }
+                Parameters = { new SQLiteParameter(ParameterName, category.Name) }
             };
 
             insertCommand.ExecuteReader();
@@ -195,13 +193,10 @@ namespace TodoApp2.Core
             {
                 Connection = m_Connection,
                 CommandText = $"INSERT INTO {Task} " +
-                              $" ({Category}, {Content}, {ListOrder}, " +
-                              $" {IsDone}, {CreationDate}, {ModificationDate}, " +
-                              $" {Color}, {Trashed}, {ReminderId}) " +
-                              $"VALUES ({ParameterCategory}, {ParameterContent}, " +
-                              $" {ParameterListOrder}, {ParameterIsDone}, " +
-                              $" {ParameterCreationDate}, {ParameterModificationDate}, " +
-                              $" {ParameterColor}, {ParameterTrashed}, " +
+                              $" ({Category}, {Content}, {ListOrder}, {IsDone}, {CreationDate}, " +
+                              $" {ModificationDate}, {Color}, {Trashed}, {ReminderId}) " +
+                              $" VALUES ({ParameterCategory}, {ParameterContent}, {ParameterListOrder}, {ParameterIsDone}, " +
+                              $" {ParameterCreationDate}, {ParameterModificationDate}, {ParameterColor}, {ParameterTrashed}, " +
                               $" {ParameterReminderId});",
                 Parameters =
                 {
@@ -247,10 +242,7 @@ namespace TodoApp2.Core
             {
                 Connection = m_Connection,
                 CommandText = $"SELECT * FROM {Category} WHERE {Name} IS {ParameterName}",
-                Parameters =
-                {
-                    new SQLiteParameter(ParameterName, category.Name)
-                }
+                Parameters = { new SQLiteParameter(ParameterName, category.Name) }
             };
 
             SQLiteDataReader query = selectCommand.ExecuteReader();
@@ -298,15 +290,13 @@ namespace TodoApp2.Core
 
             while (query.Read())
             {
-                entries.Add(
-                    new ReminderViewModel
-                    {
-                        Id = query.GetInt32(query.GetOrdinal(Id)),
-                        ReminderDate = query.GetInt64(query.GetOrdinal(ReminderDate)),
-                        Note = query.GetString(query.GetOrdinal(Note)),
-                    });
+                entries.Add(new ReminderViewModel
+                {
+                    Id = query.SafeGetInt(Id),
+                    ReminderDate = query.SafeGetLong(ReminderDate),
+                    Note = query.SafeGetString(Note),
+                });
             }
-
 
             return entries;
         }
@@ -331,16 +321,16 @@ namespace TodoApp2.Core
             {
                 TaskListItemViewModel readTask = new TaskListItemViewModel
                 {
-                    Id = query.GetInt32(query.GetOrdinal(Id)),
-                    Category = query.GetString(query.GetOrdinal(Category)),
-                    Content = query.GetString(query.GetOrdinal(Content)),
-                    ListOrder = query.GetInt32(query.GetOrdinal(ListOrder)),
-                    IsDone = Convert.ToBoolean(query.GetInt32(query.GetOrdinal(IsDone))),
-                    CreationDate = query.GetInt64(query.GetOrdinal(CreationDate)),
-                    ModificationDate = query.GetInt64(query.GetOrdinal(ModificationDate)),
-                    Color = query.GetString(query.GetOrdinal(Color)),
-                    Trashed = Convert.ToBoolean(query.GetInt32(query.GetOrdinal(Trashed))),
-                    ReminderId = query.GetInt32(query.GetOrdinal(ReminderId))
+                    Id = query.SafeGetInt(Id),
+                    Category = query.SafeGetString(Category),
+                    Content = query.SafeGetString(Content),
+                    ListOrder = query.SafeGetInt(ListOrder),
+                    IsDone = query.SafeGetBoolFromInt(IsDone),
+                    CreationDate = query.SafeGetLong(CreationDate),
+                    ModificationDate = query.SafeGetLong(ModificationDate),
+                    Color = query.SafeGetString(Color),
+                    Trashed = query.SafeGetBoolFromInt(Trashed),
+                    ReminderId = query.SafeGetNullableInt(ReminderId)
                 };
 
                 entries.Add(readTask);
@@ -469,12 +459,12 @@ namespace TodoApp2.Core
             {
                 Connection = m_Connection,
                 CommandText = $"UPDATE {Category} SET " +
-                              $" {Name} = {ParameterName}" +
-                              $"WHERE {Name} IS {ParameterOldName};",
+                              $" {Name} = {ParameterName} " +
+                              $" WHERE {Name} IS {ParameterOldName};",
                 Parameters =
                 {
-                        new SQLiteParameter(ParameterOldName, oldName),
-                        new SQLiteParameter(ParameterName, newName)
+                    new SQLiteParameter(ParameterOldName, oldName),
+                    new SQLiteParameter(ParameterName, newName)
                 }
             };
 
@@ -494,8 +484,8 @@ namespace TodoApp2.Core
                     {
                         Connection = m_Connection,
                         CommandText = $"UPDATE {Task} SET " +
-                                      $"  {ListOrder} = {ParameterListOrder} " +
-                                      $"WHERE {Id} = {ParameterId};",
+                                      $" {ListOrder} = {ParameterListOrder} " +
+                                      $" WHERE {Id} = {ParameterId};",
                         Parameters =
                         {
                             new SQLiteParameter(ParameterId, todoTask.Id),
