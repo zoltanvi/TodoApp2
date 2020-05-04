@@ -44,11 +44,9 @@ namespace TodoApp2.Core
             List<CategoryListItemViewModel> categories = Database.GetCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
 
-            CategoryListItemViewModel selectedCategory = Items.FirstOrDefault(i => i.Name == CurrentCategory);
-            if (selectedCategory != null)
-            {
-                selectedCategory.IsSelected = true;
-            }
+            // TODO: Load back from the view settings table the selected category here
+            CategoryListItemViewModel selectedCategory = categories.FirstOrDefault();
+            SetCurrentCategory(selectedCategory?.Name);
         }
         
         private void AddCategory()
@@ -91,9 +89,12 @@ namespace TodoApp2.Core
 
                     Items.Remove(category);
 
-                    CategoryListItemViewModel firstItem = Items.FirstOrDefault();
-                    firstItem.IsSelected = true;
-                    CurrentCategory = firstItem.Name;
+                    // Only if the current category was the deleted one, select a new category
+                    if (category.Name == CurrentCategory)
+                    {
+                        CategoryListItemViewModel firstItem = Items.FirstOrDefault();
+                        SetCurrentCategory(firstItem?.Name);
+                    }
                 }
                 else
                 {
@@ -106,15 +107,32 @@ namespace TodoApp2.Core
         {
             if (obj is CategoryListItemViewModel category)
             {
-                CurrentCategory = category.Name;
-
-                foreach (var categoryItem in Items)
-                {
-                    categoryItem.IsSelected = categoryItem.Name == category.Name;
-                }
+                SetCurrentCategory(category.Name);
 
                 IoC.Application.SideMenuVisible = false;
             }
+        }
+
+        /// <summary>
+        /// Sets the current category to the specified one.
+        /// Ensures that always only one IsSelected property is set to true.
+        /// </summary>
+        /// <param name="categoryName"></param>
+        private void SetCurrentCategory(string categoryName)
+        {
+            if (string.IsNullOrEmpty(categoryName))
+            {
+                return;
+            }
+
+            // Set every IsSelected property to false, except for the current category
+            foreach (var categoryItem in Items)
+            {
+                categoryItem.IsSelected = categoryItem.Name == categoryName;
+            }
+
+            // Set the CurrentCategory property
+            CurrentCategory = categoryName;
         }
     }
 

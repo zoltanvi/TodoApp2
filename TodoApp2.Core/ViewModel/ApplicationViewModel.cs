@@ -21,7 +21,7 @@
         /// </summary>
         public bool SideMenuVisible { get; set; }
 
-        public string CurrentCategory { get; set; } = "Today";
+        public string CurrentCategory { get; set; }
 
         public bool OptimizePerformance { get; set; } = false;
 
