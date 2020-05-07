@@ -18,11 +18,22 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
-                        <!--Outer border with the dropshadow margin-->
+                        <!--Outer border with the drop shadow margin-->
                         <Border Margin="{Binding OuterMarginThickness}" >
 
                             <!--Main window outline-->
                             <Grid >
+
+                                <!-- Outer dragging border -->
+                                <Border BorderThickness="2"
+                                        Panel.ZIndex="2"
+                                        CornerRadius="{Binding WindowCornerRadius}"
+                                        BorderBrush="Transparent" />
+
+                                <Border BorderThickness="1"
+                                        Panel.ZIndex="2"
+                                        CornerRadius="{Binding WindowCornerRadius}"
+                                        BorderBrush="{StaticResource ApplicationBorderBrush}" />
 
                                 <!--Window border and dropshadow-->
                                 <Border CornerRadius="{Binding WindowCornerRadius}"
@@ -83,8 +94,6 @@
                                             <ContentPresenter Content="{TemplateBinding Content}"/>
                                         </Border>
 
-
-
                                     </Grid>
 
                                 </Border>
@@ -123,7 +132,7 @@
                 MouseLeftButtonDown="OnNavigatorBackgroundClicked"/>-->
 
             <!--Navigator menu panel-->
-            <local:SideMenuControl 
+            <local:SideMenuControl
                 local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, 
                                         Source={x:Static local:ViewModelLocator.Instance}}">
 

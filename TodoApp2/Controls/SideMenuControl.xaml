@@ -10,7 +10,7 @@
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
 
-                <Border 
+                <Border
                     x:Name="NavigatorContentBorder"
                     Background="{StaticResource NavigatorBackgroundBrush}" 
                     Width="300" 

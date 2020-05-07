@@ -2,6 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TodoApp2">
 
+    <Color x:Key="ApplicationBorder">#404040</Color>
+    <SolidColorBrush x:Key="ApplicationBorderBrush" Color="{StaticResource ApplicationBorder}" />
+
     <Color x:Key="ContentBackground">#1f1f1f</Color>
     <SolidColorBrush x:Key="ContentBackgroundBrush" Color="{StaticResource ContentBackground}" />
 
@@ -80,7 +83,8 @@
     <Color x:Key="TaskItemButtonHover">#ff608d</Color>
     <SolidColorBrush x:Key="TaskItemButtonHoverBrush" Color="{StaticResource TaskItemButtonHover}" />
 
-
+    <Color x:Key="BubbleBackground">#333333</Color>
+    <SolidColorBrush x:Key="BubbleBackgroundBrush" Color="{StaticResource BubbleBackground}" />
 
     <!--<SolidColorBrush x:Key="MyDarkBackgroundBrush" Color="#2d2d2d" />
     <SolidColorBrush x:Key="MyDarkDarkerBackgroundBrush" Color="#262626" />
