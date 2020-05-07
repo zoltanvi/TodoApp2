@@ -38,10 +38,10 @@ namespace TodoApp2.Core
         public CategoryListViewModel()
         {
             AddCategoryCommand = new RelayCommand(AddCategory);
-            DeleteCategoryCommand = new RelayParameterizedCommand(DeleteCategory);
+            DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
 
-            List<CategoryListItemViewModel> categories = Database.GetCategories();
+            List<CategoryListItemViewModel> categories = Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
 
             // TODO: Load back from the view settings table the selected category here
@@ -63,10 +63,12 @@ namespace TodoApp2.Core
             // Create the new category instance
             CategoryListItemViewModel categoryToAdd = new CategoryListItemViewModel
             {
-                Name = PendingAddNewCategoryText
+                Name = PendingAddNewCategoryText,
+                ListOrder = Items.Count
             };
 
             // Persist into database if the category is not existed before
+            // This call can't be optimized because the database gives the ID to the task
             if (Database.AddCategory(categoryToAdd))
             {
                 // Add the category into the ViewModel list 
@@ -78,14 +80,14 @@ namespace TodoApp2.Core
             PendingAddNewCategoryText = string.Empty;
         }
 
-        private void DeleteCategory(object obj)
+        private void TrashCategory(object obj)
         {
             if (obj is CategoryListItemViewModel category)
             {
                 // At least one category is required
-                if (Database.GetCategories().Count > 1)
+                if (Database.GetActiveCategories().Count > 1)
                 {
-                    Database.DeleteCategory(category);
+                    Database.TrashCategory(category);
 
                     Items.Remove(category);
 

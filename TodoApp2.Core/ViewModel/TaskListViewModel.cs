@@ -134,7 +134,7 @@ namespace TodoApp2.Core
             // Create the new task instance
             TaskListItemViewModel taskToAdd = new TaskListItemViewModel
             {
-                Category = CurrentCategory,
+                CategoryId = Database.GetCategory(CurrentCategory).Id,
                 Content = PendingAddNewTaskText,
             };
 

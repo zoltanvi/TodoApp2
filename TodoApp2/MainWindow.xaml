@@ -35,7 +35,7 @@
                                         CornerRadius="{Binding WindowCornerRadius}"
                                         BorderBrush="{StaticResource ApplicationBorderBrush}" />
 
-                                <!--Window border and dropshadow-->
+                                <!--Window border and drop shadow-->
                                 <Border CornerRadius="{Binding WindowCornerRadius}"
                                         Background="{StaticResource ContentBackgroundBrush}">
                                     <Border.Effect>
@@ -140,7 +140,7 @@
                 <Frame local:NoFrameHistory.Value="True"
                        Content="{Binding ApplicationViewModel.SideMenuPage, 
                                         Source={x:Static local:ViewModelLocator.Instance}, 
-                                        Converter={local:ApplicationPageValueConverter}}"></Frame>
+                                        Converter={local:ApplicationPageValueConverter}}" />
 
             </local:SideMenuControl>
 

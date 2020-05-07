@@ -10,11 +10,6 @@
              d:DesignHeight="60" d:DesignWidth="350">
 
     <Grid x:Name="ParentGrid">
-        <!--<Grid.InputBindings>
-            <MouseBinding MouseAction="LeftClick" 
-                          Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}" 
-                          CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"/>
-        </Grid.InputBindings>-->
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -30,8 +25,8 @@
                Text="{Binding Name}" 
                Style="{StaticResource CategoryTextBlockStyle}" 
                Foreground="{Binding IsSelected, Converter={local:CategorySelectedColorConverter}}"
-               FontSize="{StaticResource FontSizeRegular}"
-               Margin="20 2 30 0"
+               FontSize="{StaticResource FontSizeLarge}"
+               Margin="20 5 30 5"
                >
         </TextBlock>
 

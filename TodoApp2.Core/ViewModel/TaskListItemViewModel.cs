@@ -8,7 +8,7 @@ namespace TodoApp2.Core
     public class TaskListItemViewModel : BaseViewModel
     {
         public int Id { get; set; }
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
         public string Content { get; set; }
         public int ListOrder { get; set; } = 0;
         public bool IsDone { get; set; } = false;
