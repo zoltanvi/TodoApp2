@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 
@@ -17,8 +18,19 @@ namespace TodoApp2.Core
         /// </summary>
         public string PendingAddNewCategoryText { get; set; }
 
+        /// <summary>
+        /// The command for when the user presses Enter in the "Add new category" TextBox
+        /// </summary>
         public ICommand AddCategoryCommand { get; }
+
+        /// <summary>
+        /// The command for when the trash button is pressed in the category item
+        /// </summary>
         public ICommand DeleteCategoryCommand { get; }
+
+        /// <summary>
+        /// The command for when the category item is clicked
+        /// </summary>
         public ICommand ChangeCategoryCommand { get; }
 
         private ClientDatabase Database => IoC.Get<ClientDatabase>();
@@ -44,11 +56,30 @@ namespace TodoApp2.Core
             List<CategoryListItemViewModel> categories = Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
 
+            // Subscribe to the collection changed event for synchronizing with database 
+            Items.CollectionChanged += ItemsOnCollectionChanged;
+
             // TODO: Load back from the view settings table the selected category here
             CategoryListItemViewModel selectedCategory = categories.FirstOrDefault();
             SetCurrentCategory(selectedCategory?.Name);
         }
-        
+
+        private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Remove:
+                {
+                    // Persist the reordered list into database
+                    // TODO: optimize the reordering
+                    Database.UpdateCategoryListOrders(Items);
+                    break;
+                }
+            }
+        }
+
+
         private void AddCategory()
         {
             // Remove trailing and leading whitespaces
@@ -67,10 +98,18 @@ namespace TodoApp2.Core
                 ListOrder = Items.Count
             };
 
-            // Persist into database if the category is not existed before
-            // This call can't be optimized because the database gives the ID to the task
-            if (Database.AddCategory(categoryToAdd))
+            // Untrash category if it existed before
+            CategoryListItemViewModel untrashedCategory = Database.UntrashCategoryIfExists(categoryToAdd);
+
+            if (untrashedCategory != null)
             {
+                Items.Add(untrashedCategory);
+            }
+            // Persist into database if the category is not existed before
+            // Database.AddCategory call can't be optimized because the database gives the ID to the category
+            else if (Database.AddCategory(categoryToAdd))
+            {
+
                 // Add the category into the ViewModel list 
                 // only if it is currently added to the database
                 Items.Add(categoryToAdd);

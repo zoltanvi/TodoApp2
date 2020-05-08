@@ -117,6 +117,22 @@ namespace TodoApp2.Core
             m_DataAccess.UpdateCategory(category);
         }
 
+        internal CategoryListItemViewModel UntrashCategoryIfExists(CategoryListItemViewModel categoryToUntrash)
+        {
+            CategoryListItemViewModel category = m_DataAccess.GetCategory(categoryToUntrash.Name);
+            
+            // If the category exits in the database, set trashed to false and persist the change
+            if (category != null)
+            {
+                category.ListOrder = categoryToUntrash.ListOrder;
+                category.Trashed = false;
+
+                m_DataAccess.UpdateCategory(category);
+            }
+
+            return category;
+        }
+
         private void SetItemsListOrders(ObservableCollection<TaskListItemViewModel> taskListItems)
         {
             // Update the ListOrder property of the TaskItems with their order in the provided list

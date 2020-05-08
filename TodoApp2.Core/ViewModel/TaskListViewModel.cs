@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Input;
@@ -30,8 +29,14 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand AddTaskItemCommand { get; }
 
+        /// <summary>
+        /// The command for when the trash button is pressed in the task item
+        /// </summary>
         public ICommand DeleteTaskItemCommand { get; }
 
+        /// <summary>
+        /// The command for when the done checkbox is checked in the task item
+        /// </summary>
         public ICommand TaskIsDoneModifiedCommand { get; }
 
         public TaskListViewModel()

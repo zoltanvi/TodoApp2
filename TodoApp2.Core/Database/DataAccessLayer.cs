@@ -157,7 +157,7 @@ namespace TodoApp2.Core
             if (!IsCategoryExists(category))
             {
                 // Add category to database, get back the generated ID
-                int categoryId =  AddCategory(category);
+                int categoryId = AddCategory(category);
                
                 // Set the generated ID to the category in the memory
                 category.Id = categoryId;
@@ -260,7 +260,7 @@ namespace TodoApp2.Core
             SQLiteCommand selectCommand = new SQLiteCommand
             {
                 Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Category}"
+                CommandText = $"SELECT * FROM {Category} ORDER BY {ListOrder}"
             };
 
             SQLiteDataReader query = selectCommand.ExecuteReader();
