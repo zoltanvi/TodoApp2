@@ -13,8 +13,6 @@ namespace TodoApp2.Core
     {
         private readonly DataAccessLayer m_DataAccess;
 
-        private const int NextDay = 10;
-
         public ClientDatabase()
         {
             m_DataAccess = new DataAccessLayer();
@@ -78,7 +76,7 @@ namespace TodoApp2.Core
             task.Id = m_DataAccess.GetTaskNextId();
 
             // Generate a ListOrder for the item
-            string lastListOrder = m_DataAccess.GetTaskFirstListOrder();
+            long lastListOrder = m_DataAccess.GetTaskFirstListOrder();
             task.ListOrder = GetPreviousListOrder(lastListOrder);
 
             // Persist task into database
@@ -101,7 +99,7 @@ namespace TodoApp2.Core
                 categoryToAdd.Id = m_DataAccess.GetCategoryNextId();
 
                 // Generate a ListOrder for the item
-                string lastListOrder = m_DataAccess.GetCategoryLastListOrder();
+                long lastListOrder = m_DataAccess.GetCategoryLastListOrder();
                 categoryToAdd.ListOrder = GetNextListOrder(lastListOrder);
 
                 // Persist category into database
@@ -112,75 +110,58 @@ namespace TodoApp2.Core
             return false;
         }
 
-        public void ReorderTask(TaskListItemViewModel task)
+        public void ReorderTasks(TaskListItemViewModel task, int newPosition)
         {
-
+            // Get all tasks except the reordered one
+            var orderedTasks = m_DataAccess.GetTasks().Where(t => t.Id != task.Id && !t.Trashed)
+                .Cast<IReorderable>().ToList();
+            var itemToReorder = task as IReorderable;
+            ReorderItem(orderedTasks, itemToReorder, newPosition, UpdateTaskListOrder);
+            m_DataAccess.UpdateTask(task);
         }
-
-        //internal void UpdateTaskListOrders(ObservableCollection<TaskListItemViewModel> taskListItems)
-        //{
-        //    // Set the ListOrder property for each items
-        //    SetItemsListOrders(taskListItems);
-
-        //    // Persist the order changes into the database
-        //    m_DataAccess.UpdateTaskListOrders(taskListItems);
-        //}
 
         public void ReorderCategory(CategoryListItemViewModel category, int newPosition)
         {
             // Get all categories except the reordered one
-            var categories = m_DataAccess.GetCategories().Where(c => c.Id != category.Id && !c.Trashed).ToList();
-
-            // If the item moved to the end of the list,
-            // the ListOrder is the last ListOrder + 30 minutes
-            if (categories.Count == newPosition)
-            {
-                category.ListOrder = GetNextListOrder(categories[categories.Count - 1].ListOrder);
-            }
-            // If the item moved to the top of the list,
-            // the ListOrder is the first ListOrder - 30 minutes
-            else if (newPosition == 0)
-            {
-                category.ListOrder = GetPreviousListOrder(categories[0].ListOrder);
-            }
-            // Else the ListOrder should be in the middle of the previous and next order interval
-            else
-            {
-                var previousListOrder = categories[newPosition - 1].ListOrder;
-                var nextListOrder = categories[newPosition].ListOrder;
-
-                DateTime.TryParse(previousListOrder, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime prev);
-                DateTime.TryParse(nextListOrder, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime next);
-
-                TimeSpan halfInterval = new TimeSpan((next - prev).Ticks / 2);
-
-                DateTime newListOrderDateTime = prev.Add(halfInterval);
-                category.ListOrder = newListOrderDateTime.ToString(DataAccessLayer.DateTimeFormat, CultureInfo.InvariantCulture);
-            }
-
+            var orderedCategories = m_DataAccess.GetCategories().Where(c => c.Id != category.Id && !c.Trashed)
+                .Cast<IReorderable>().ToList();
+            var itemToReorder = category as IReorderable;
+            ReorderItem(orderedCategories, itemToReorder, newPosition, UpdateCategoryListOrder);
             m_DataAccess.UpdateCategory(category);
         }
 
-        //internal void UpdateCategoryListOrders(ObservableCollection<CategoryListItemViewModel> categoryListItems)
-        //{
-        //    // Set the ListOrder property for each items
-        //    SetItemsListOrders(categoryListItems);
+        /// <summary>
+        /// Updates every Category item order in the database
+        /// </summary>
+        /// <param name="categoryList"></param>
+        public void UpdateCategoryListOrder(IEnumerable<IReorderable> categoryList)
+        {
+            var updateSource = categoryList.Cast<CategoryListItemViewModel>();
+            // Persist every order change in the list into the database
+            m_DataAccess.UpdateCategoryListOrders(updateSource);
+        }
 
-        //    // Persist the order changes into the database
-        //    m_DataAccess.UpdateCategoryListOrders(categoryListItems);
-        //}
+        /// <summary>
+        /// Updates every Task item order in the database
+        /// </summary>
+        /// <param name="taskList"></param>
+        public void UpdateTaskListOrder(IEnumerable<IReorderable> taskList)
+        {
+            var updateSource = taskList.Cast<TaskListItemViewModel>();
+            // Persist every order change in the list into the database
+            m_DataAccess.UpdateTaskListOrders(updateSource);
+        }
+
 
         /// <summary>
         /// Updates every Task item in the database
         /// </summary>
         /// <param name="taskList"></param>
-        public void UpdateTaskList(ObservableCollection<TaskListItemViewModel> taskList)
+        public void UpdateTaskList(IEnumerable<IReorderable> taskList)
         {
-            // Set the ListOrder property for each items
-            //ResetListOrders(taskList);
-
+            var updateSource = taskList.Cast<TaskListItemViewModel>();
             // Persist every change in the list into the database
-            m_DataAccess.UpdateTaskList(taskList);
+            m_DataAccess.UpdateTaskList(updateSource);
         }
 
         /// <summary>
@@ -193,7 +174,7 @@ namespace TodoApp2.Core
             task.Trashed = true;
 
             // Indicate that it is an invalid order
-            task.ListOrder = DateTime.MinValue.ToString(DataAccessLayer.DateTimeFormat, CultureInfo.InvariantCulture);
+            task.ListOrder = long.MinValue;
 
             // Persist the change into the database
             m_DataAccess.UpdateTask(task);
@@ -209,7 +190,7 @@ namespace TodoApp2.Core
             category.Trashed = true;
 
             // Indicate that it is an invalid order
-            category.ListOrder = DateTime.MinValue.ToString(DataAccessLayer.DateTimeFormat, CultureInfo.InvariantCulture);
+            category.ListOrder = long.MinValue;
 
             // Persist the change into the database
             m_DataAccess.UpdateCategory(category);
@@ -225,11 +206,44 @@ namespace TodoApp2.Core
             category.Trashed = false;
 
             // Set the order to the end of the list
-            string lastListOrder = m_DataAccess.GetCategoryLastListOrder();
+            long lastListOrder = m_DataAccess.GetCategoryLastListOrder();
             category.ListOrder = GetNextListOrder(lastListOrder);
 
             // Persist the change into the database
             m_DataAccess.UpdateCategory(category);
+        }
+
+
+        private void ReorderItem(List<IReorderable> orderedItems, IReorderable itemToReorder,
+            int newPosition, Action<IEnumerable<IReorderable>> updateStrategy)
+        {
+            // If the item moved to the end of the list, calculate the next order for it
+            if (orderedItems.Count == newPosition)
+            {
+                itemToReorder.ListOrder = GetNextListOrder(orderedItems[orderedItems.Count - 1].ListOrder);
+            }
+            // If the item moved to the top of the list, calculate the previous order for it
+            else if (newPosition == 0)
+            {
+                itemToReorder.ListOrder = GetPreviousListOrder(orderedItems[0].ListOrder);
+            }
+            // Else the ListOrder should be in the middle between the previous and next order interval
+            else
+            {
+                long previousListOrder = orderedItems[newPosition - 1].ListOrder;
+                long nextListOrder = orderedItems[newPosition].ListOrder;
+                long newListOrder = previousListOrder + ((nextListOrder - previousListOrder) / 2);
+
+                itemToReorder.ListOrder = newListOrder;
+
+                // If there is no room between 2 existing order, reorder the whole list
+                if (newListOrder == previousListOrder || newListOrder == nextListOrder)
+                {
+                    orderedItems.Insert(newPosition, itemToReorder);
+                    ResetListOrders(orderedItems);
+                    updateStrategy(orderedItems);
+                }
+            }
         }
 
         /// <summary>
@@ -238,27 +252,25 @@ namespace TodoApp2.Core
         /// <param name="itemList"></param>
         private void ResetListOrders(IEnumerable<IReorderable> itemList)
         {
-            DateTime current = DateTime.Now;
+            long current = DataAccessLayer.DefaultListOrder;
 
-            // Update the ListOrder property of the IReorderable with DateTimes.
-            // The next DateTime is half an hour apart from the previous one
+            // Update the ListOrder property of the IReorderable items
             foreach (var item in itemList)
             {
-                item.ListOrder = current.ToString(DataAccessLayer.DateTimeFormat, CultureInfo.InvariantCulture);
-                current = current.AddDays(NextDay);
+                item.ListOrder = current;
+                current += DataAccessLayer.ListOrderInterval;
             }
         }
+
 
         /// <summary>
         /// Gets the next available ListOrder relative to the provided one
         /// </summary>
         /// <param name="currentListOrder"></param>
         /// <returns></returns>
-        private string GetNextListOrder(string currentListOrder)
+        private long GetNextListOrder(long currentListOrder)
         {
-            DateTime.TryParse(currentListOrder, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime currentListOrderDateTime);
-            DateTime nextListOrder = currentListOrderDateTime.AddDays(NextDay);
-            return nextListOrder.ToString(DataAccessLayer.DateTimeFormat, CultureInfo.InvariantCulture);
+            return currentListOrder + DataAccessLayer.ListOrderInterval;
         }
 
         /// <summary>
@@ -266,11 +278,9 @@ namespace TodoApp2.Core
         /// </summary>
         /// <param name="currentListOrder"></param>
         /// <returns></returns>
-        private string GetPreviousListOrder(string currentListOrder)
+        private long GetPreviousListOrder(long currentListOrder)
         {
-            DateTime.TryParse(currentListOrder, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime currentListOrderDateTime);
-            DateTime previousListOrder = currentListOrderDateTime.AddDays(-NextDay);
-            return previousListOrder.ToString(DataAccessLayer.DateTimeFormat, CultureInfo.InvariantCulture);
+            return currentListOrder - DataAccessLayer.ListOrderInterval;
         }
 
         public void Dispose()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Globalization;
 using System.IO;
 using TodoApp2.Core.Helpers;
 
@@ -12,7 +11,8 @@ namespace TodoApp2.Core
     /// </summary>
     public sealed class DataAccessLayer : IDisposable
     {
-        public const string DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffff";
+        public const long DefaultListOrder = long.MaxValue / 2;
+        public const long ListOrderInterval = 1_000_000_000;
 
         #region Private Constants
 
@@ -28,7 +28,6 @@ namespace TodoApp2.Core
         private const string Value = "Value";
         private const string ReminderDate = "ReminderDate";
         private const string IsReminderOn = "IsReminderOn";
-        private const string Note = "Note";
         private const string Category = "Category";
         private const string Content = "Content";
         private const string ListOrder = "ListOrder";
@@ -54,8 +53,6 @@ namespace TodoApp2.Core
         private const string ParameterColor = "@" + Color;
         private const string ParameterTrashed = "@" + Trashed;
 
-        private const string SqlCurrentTime = "STRFTIME('%Y-%m-%dT%H:%M:%S','now')";
-
         #endregion
 
         private readonly SQLiteConnection m_Connection;
@@ -80,7 +77,7 @@ namespace TodoApp2.Core
                 $"CREATE TABLE IF NOT EXISTS {Category} ( " +
                 $" {Id} INTEGER PRIMARY KEY, " +
                 $" {Name} TEXT, " +
-                $" {ListOrder} TEXT DEFAULT ({SqlCurrentTime}), " +
+                $" {ListOrder} TEXT DEFAULT ('{DefaultListOrder}'), " +
                 $" {Trashed} INTEGER " +
                 $"); ";
             string createTaskTable =
@@ -88,7 +85,7 @@ namespace TodoApp2.Core
                 $" {Id} INTEGER PRIMARY KEY, " +
                 $" {CategoryId} INTEGER, " +
                 $" {Content} TEXT, " +
-                $" {ListOrder} TEXT DEFAULT ({SqlCurrentTime}), " +
+                $" {ListOrder} TEXT DEFAULT ('{DefaultListOrder}'), " +
                 $" {IsDone} INTEGER DEFAULT (0), " +
                 $" {CreationDate} INTEGER, " +
                 $" {ModificationDate} INTEGER, " +
@@ -275,7 +272,7 @@ namespace TodoApp2.Core
                 {
                     Id = reader.SafeGetInt(Id),
                     Name = reader.SafeGetString(Name),
-                    ListOrder = reader.SafeGetString(ListOrder),
+                    ListOrder = reader.SafeGetLongFromString(ListOrder),
                     Trashed = reader.SafeGetBoolFromInt(Trashed)
                 });
             }
@@ -307,7 +304,7 @@ namespace TodoApp2.Core
                 {
                     Id = reader.SafeGetInt(Id),
                     Name = reader.SafeGetString(Name),
-                    ListOrder = reader.SafeGetString(ListOrder),
+                    ListOrder = reader.SafeGetLongFromString(ListOrder),
                     Trashed = reader.SafeGetBoolFromInt(Trashed)
                 };
             }
@@ -344,7 +341,7 @@ namespace TodoApp2.Core
         /// Gets the first ListOrder for a Category record
         /// </summary>
         /// <returns></returns>
-        public string GetCategoryFirstListOrder()
+        public long GetCategoryFirstListOrder()
         {
             return GetListOrder(Category, true);
         }
@@ -353,7 +350,7 @@ namespace TodoApp2.Core
         /// Gets the last ListOrder for a Category record
         /// </summary>
         /// <returns></returns>
-        public string GetCategoryLastListOrder()
+        public long GetCategoryLastListOrder()
         {
             return GetListOrder(Category, false);
         }
@@ -374,7 +371,7 @@ namespace TodoApp2.Core
                 {
                     new SQLiteParameter(ParameterId, category.Id),
                     new SQLiteParameter(ParameterName, category.Name),
-                    new SQLiteParameter(ParameterListOrder, category.ListOrder),
+                    new SQLiteParameter(ParameterListOrder, category.ListOrder.ToString("D19")),
                     new SQLiteParameter(ParameterTrashed, category.Trashed)
                 }
             };
@@ -400,7 +397,7 @@ namespace TodoApp2.Core
                 Parameters =
                 {
                     new SQLiteParameter(ParameterName, category.Name),
-                    new SQLiteParameter(ParameterListOrder, category.ListOrder),
+                    new SQLiteParameter(ParameterListOrder, category.ListOrder.ToString("D19")),
                     new SQLiteParameter(ParameterTrashed, category.Trashed),
                     new SQLiteParameter(ParameterId, category.Id)
                 }
@@ -414,7 +411,7 @@ namespace TodoApp2.Core
         /// </summary>
         /// <param name="categoryList"></param>
         /// <returns></returns>
-        private int UpdateCategoryListOrders(IEnumerable<CategoryListItemViewModel> categoryList)
+        public int UpdateCategoryListOrders(IEnumerable<CategoryListItemViewModel> categoryList)
         {
             int modifiedItems = 0;
 
@@ -432,7 +429,7 @@ namespace TodoApp2.Core
                         Parameters =
                         {
                             new SQLiteParameter(ParameterId, category.Id),
-                            new SQLiteParameter(ParameterListOrder, category.ListOrder),
+                            new SQLiteParameter(ParameterListOrder, category.ListOrder.ToString("D19")),
                         }
                     };
 
@@ -472,7 +469,7 @@ namespace TodoApp2.Core
                     Id = reader.SafeGetInt(Id),
                     CategoryId = reader.SafeGetInt(CategoryId),
                     Content = reader.SafeGetString(Content),
-                    ListOrder = reader.SafeGetString(ListOrder),
+                    ListOrder = reader.SafeGetLongFromString(ListOrder),
                     IsDone = reader.SafeGetBoolFromInt(IsDone),
                     CreationDate = reader.SafeGetLong(CreationDate),
                     ModificationDate = reader.SafeGetLong(ModificationDate),
@@ -517,7 +514,7 @@ namespace TodoApp2.Core
         /// Gets the first ListOrder for a Task record
         /// </summary>
         /// <returns></returns>
-        public string GetTaskFirstListOrder()
+        public long GetTaskFirstListOrder()
         {
             return GetListOrder(Task, true);
         }
@@ -526,10 +523,9 @@ namespace TodoApp2.Core
         /// Gets the last ListOrder for a Task record
         /// </summary>
         /// <returns></returns>
-        public string GetTaskLastListOrder()
+        public long GetTaskLastListOrder()
         {
             return GetListOrder(Task, false);
-
         }
 
         /// <summary>
@@ -551,7 +547,7 @@ namespace TodoApp2.Core
                     new SQLiteParameter(ParameterId, taskListItem.Id),
                     new SQLiteParameter(ParameterCategoryId, taskListItem.CategoryId),
                     new SQLiteParameter(ParameterContent, taskListItem.Content),
-                    new SQLiteParameter(ParameterListOrder, taskListItem.ListOrder),
+                    new SQLiteParameter(ParameterListOrder, taskListItem.ListOrder.ToString("D19")),
                     new SQLiteParameter(ParameterIsDone, taskListItem.IsDone),
                     new SQLiteParameter(ParameterCreationDate, taskListItem.CreationDate),
                     new SQLiteParameter(ParameterModificationDate, taskListItem.ModificationDate),
@@ -592,7 +588,7 @@ namespace TodoApp2.Core
                     new SQLiteParameter(ParameterId, task.Id),
                     new SQLiteParameter(ParameterCategoryId, task.CategoryId),
                     new SQLiteParameter(ParameterContent, task.Content),
-                    new SQLiteParameter(ParameterListOrder, task.ListOrder),
+                    new SQLiteParameter(ParameterListOrder, task.ListOrder.ToString("D19")),
                     new SQLiteParameter(ParameterIsDone, task.IsDone),
                     new SQLiteParameter(ParameterCreationDate, task.CreationDate),
                     new SQLiteParameter(ParameterModificationDate, task.ModificationDate),
@@ -640,7 +636,7 @@ namespace TodoApp2.Core
                             new SQLiteParameter(ParameterId, task.Id),
                             new SQLiteParameter(ParameterCategoryId, task.CategoryId),
                             new SQLiteParameter(ParameterContent, task.Content),
-                            new SQLiteParameter(ParameterListOrder, task.ListOrder),
+                            new SQLiteParameter(ParameterListOrder, task.ListOrder.ToString("D19")),
                             new SQLiteParameter(ParameterIsDone, task.IsDone),
                             new SQLiteParameter(ParameterCreationDate, task.CreationDate),
                             new SQLiteParameter(ParameterModificationDate, task.ModificationDate),
@@ -683,7 +679,7 @@ namespace TodoApp2.Core
                         Parameters =
                         {
                             new SQLiteParameter(ParameterId, todoTask.Id),
-                            new SQLiteParameter(ParameterListOrder, todoTask.ListOrder),
+                            new SQLiteParameter(ParameterListOrder, todoTask.ListOrder.ToString("D19")),
                         }
                     };
 
@@ -707,7 +703,7 @@ namespace TodoApp2.Core
                 {
                     Name = "Today", 
                     IsSelected = true,
-                    ListOrder = DateTime.Now.ToString(DateTimeFormat, CultureInfo.InvariantCulture)
+                    ListOrder = DefaultListOrder
                 });
             }
         }
@@ -718,7 +714,7 @@ namespace TodoApp2.Core
         /// <param name="table">The database table to query.</param>
         /// <param name="first">If true, queries the first ListOrder, otherwise queries the last ListOrder.</param>
         /// <returns>Returns the query result.</returns>
-        private string GetListOrder(string table, bool first)
+        private long GetListOrder(string table, bool first)
         {
             string ordering = first ? string.Empty : "DESC";
             SQLiteCommand command = new SQLiteCommand
@@ -731,10 +727,10 @@ namespace TodoApp2.Core
 
             while (reader.Read())
             {
-                return reader.SafeGetString(ListOrder);
+                return reader.SafeGetLongFromString(ListOrder);
             }
 
-            return DateTime.Now.ToString(DateTimeFormat, CultureInfo.InvariantCulture);
+            return DefaultListOrder;
         }
 
         public void Dispose()

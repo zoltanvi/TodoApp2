@@ -89,7 +89,7 @@
     <Compile Include="ViewModel\CategoryListItemViewModel.cs" />
     <Compile Include="ViewModel\Design\TaskListDesignModel.cs" />
     <Compile Include="ViewModel\Design\TaskListItemDesignModel.cs" />
-    <Compile Include="ViewModel\IOrderable.cs" />
+    <Compile Include="ViewModel\IReorderable.cs" />
     <Compile Include="ViewModel\ReminderViewModel.cs" />
     <Compile Include="ViewModel\TaskListItemViewModel.cs" />
     <Compile Include="ViewModel\TaskListViewModel.cs" />

@@ -23,7 +23,5 @@
 
         public string CurrentCategory { get; set; }
 
-        public bool OptimizePerformance { get; set; } = false;
-
     }
 }

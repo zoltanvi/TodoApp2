@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -9,7 +9,7 @@ namespace TodoApp2.Core
 {
     public class CategoryListViewModel : BaseViewModel
     {
-        private int m_LastRemovedId;
+        private int m_LastRemovedId = Int32.MinValue;
 
         /// <summary>
         /// The task list items for the list

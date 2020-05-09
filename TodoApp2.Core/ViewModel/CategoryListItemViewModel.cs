@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ListOrder { get; set; }
+        public long ListOrder { get; set; }
         public bool Trashed { get; set; }
 
         // Not in database

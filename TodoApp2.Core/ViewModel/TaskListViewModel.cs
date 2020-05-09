@@ -10,6 +10,8 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskListViewModel : BaseViewModel
     {
+        private int m_LastRemovedId = int.MinValue;
+
         /// <summary>
         /// The task list items for the list
         /// </summary>
@@ -21,7 +23,8 @@ namespace TodoApp2.Core
         public string PendingAddNewTaskText { get; set; }
 
         private string CurrentCategory => IoC.Application.CurrentCategory;
-        private bool OptimizePerformance => IoC.Application.OptimizePerformance;
+
+
         private ClientDatabase Database => IoC.Get<ClientDatabase>();
 
         /// <summary>
@@ -108,25 +111,45 @@ namespace TodoApp2.Core
         /// <param name="e"></param>
         private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (!OptimizePerformance)
+            switch (e.Action)
             {
-                switch (e.Action)
+                case NotifyCollectionChangedAction.Add:
                 {
-                    case NotifyCollectionChangedAction.Add:
-                    case NotifyCollectionChangedAction.Remove:
+                    if (e.NewItems.Count > 0)
                     {
-                        // Persist the reordered list into database
-                        //Database.ReorderTask()
-                        // TODO: what is the item
+                        var newItem = (TaskListItemViewModel)e.NewItems[0];
 
-                        //Database.UpdateTaskListOrders(Items);
-                        break;
+                        // If the newly added item is the same as the last deleted one,
+                        // then this was a drag and drop reorder
+                        if (newItem.Id == m_LastRemovedId)
+                        {
+                            Database.ReorderTasks(newItem, e.NewStartingIndex);
+                        }
+
+                        m_LastRemovedId = int.MinValue;
                     }
-                    case NotifyCollectionChangedAction.Move:
+                    break;
+                }
+
+                case NotifyCollectionChangedAction.Remove:
+                {
+                    if (e.OldItems.Count > 0)
                     {
-                        //Database.UpdateTaskList(Items);
-                        break;
+                        var last = (TaskListItemViewModel)e.OldItems[0];
+
+                        m_LastRemovedId = last.Id;
                     }
+                    break;
+                }
+
+                case NotifyCollectionChangedAction.Move:
+                {
+                    if (e.NewItems.Count > 0)
+                    {
+                        var newItem = (TaskListItemViewModel)e.NewItems[0];
+                        Database.ReorderTasks(newItem, e.NewStartingIndex);
+                    }
+                    break;
                 }
             }
         }

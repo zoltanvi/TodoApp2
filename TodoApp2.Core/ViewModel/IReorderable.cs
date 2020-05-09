@@ -2,6 +2,6 @@
 {
     public interface IReorderable
     {
-        string ListOrder { get; set; }
+        long ListOrder { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace TodoApp2.Core
         public int Id { get; set; }
         public int CategoryId { get; set; }
         public string Content { get; set; }
-        public string ListOrder { get; set; }
+        public long ListOrder { get; set; }
         public bool IsDone { get; set; }
         public long CreationDate { get; set; } = DateTime.Now.Ticks;
         public long ModificationDate { get; set; } = DateTime.Now.Ticks;
