@@ -116,12 +116,15 @@ namespace TodoApp2.Core
                     case NotifyCollectionChangedAction.Remove:
                     {
                         // Persist the reordered list into database
-                        Database.UpdateTaskListOrders(Items);
+                        //Database.ReorderTask()
+                        // TODO: what is the item
+
+                        //Database.UpdateTaskListOrders(Items);
                         break;
                     }
                     case NotifyCollectionChangedAction.Move:
                     {
-                        Database.UpdateTaskList(Items);
+                        //Database.UpdateTaskList(Items);
                         break;
                     }
                 }

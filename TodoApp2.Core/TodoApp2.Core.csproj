@@ -73,6 +73,7 @@
     <Compile Include="Database\ClientDatabase.cs" />
     <Compile Include="Database\DataAccessLayer.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
+    <Compile Include="DataModels\SettingsModel.cs" />
     <Compile Include="Helpers\CollectionExtender.cs" />
     <Compile Include="Helpers\SQLiteExtender.cs" />
     <Compile Include="IoC\IoC.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="ViewModel\CategoryListItemViewModel.cs" />
     <Compile Include="ViewModel\Design\TaskListDesignModel.cs" />
     <Compile Include="ViewModel\Design\TaskListItemDesignModel.cs" />
+    <Compile Include="ViewModel\IOrderable.cs" />
     <Compile Include="ViewModel\ReminderViewModel.cs" />
     <Compile Include="ViewModel\TaskListItemViewModel.cs" />
     <Compile Include="ViewModel\TaskListViewModel.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace TodoApp2.Core
 {
     public class CategoryListViewModel : BaseViewModel
     {
+        private int m_LastRemovedId;
+
         /// <summary>
         /// The task list items for the list
         /// </summary>
@@ -69,11 +72,30 @@ namespace TodoApp2.Core
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
+                {
+                    if (e.NewItems.Count > 0)
+                    {
+                        var newItem = (CategoryListItemViewModel)e.NewItems[0];
+
+                        // If the newly added item is the same as the last deleted one,
+                        // then this was a drag and drop reorder
+                        if (newItem.Id == m_LastRemovedId)
+                        {
+                            Database.ReorderCategory(newItem, e.NewStartingIndex);
+                        }
+
+                        m_LastRemovedId = int.MinValue;
+                    }
+                    break;
+                }
                 case NotifyCollectionChangedAction.Remove:
                 {
-                    // Persist the reordered list into database
-                    // TODO: optimize the reordering
-                    Database.UpdateCategoryListOrders(Items);
+                    if (e.OldItems.Count > 0)
+                    {
+                        var last = (CategoryListItemViewModel)e.OldItems[0];
+
+                        m_LastRemovedId = last.Id;
+                    }
                     break;
                 }
             }
@@ -94,22 +116,21 @@ namespace TodoApp2.Core
             // Create the new category instance
             CategoryListItemViewModel categoryToAdd = new CategoryListItemViewModel
             {
-                Name = PendingAddNewCategoryText,
-                ListOrder = Items.Count
+                Name = PendingAddNewCategoryText
             };
 
             // Untrash category if it existed before
-            CategoryListItemViewModel untrashedCategory = Database.UntrashCategoryIfExists(categoryToAdd);
+            CategoryListItemViewModel existingCategory = Database.GetCategory(PendingAddNewCategoryText);
 
-            if (untrashedCategory != null)
+            if (existingCategory != null && existingCategory.Trashed)
             {
-                Items.Add(untrashedCategory);
+                Database.UntrashCategory(existingCategory);
+                Items.Add(existingCategory);
             }
             // Persist into database if the category is not existed before
             // Database.AddCategory call can't be optimized because the database gives the ID to the category
-            else if (Database.AddCategory(categoryToAdd))
+            else if (Database.AddCategoryIfNotExists(categoryToAdd))
             {
-
                 // Add the category into the ViewModel list 
                 // only if it is currently added to the database
                 Items.Add(categoryToAdd);
