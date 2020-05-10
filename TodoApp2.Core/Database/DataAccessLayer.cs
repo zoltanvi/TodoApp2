@@ -720,7 +720,7 @@ namespace TodoApp2.Core
             SQLiteCommand command = new SQLiteCommand
             {
                 Connection = m_Connection,
-                CommandText = $"SELECT * FROM {table} ORDER BY {ListOrder} {ordering} LIMIT 1"
+                CommandText = $"SELECT * FROM {table} WHERE {Trashed} = 0 ORDER BY {ListOrder} {ordering} LIMIT 1"
             };
 
             SQLiteDataReader reader = command.ExecuteReader();

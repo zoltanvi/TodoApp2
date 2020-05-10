@@ -78,4 +78,26 @@
 
     </Style>
 
+    <Style TargetType="Button" x:Key="ColorPickerButtonStyle">
+        <!--<Setter Property="Foreground" Value="Wheat"/>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid Width="{TemplateBinding ActualHeight}">
+                        <Border CornerRadius="60" BorderThickness="0" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content=" "/>
+                        </Border>
+                        <!--To darken the current color on mouseover-->
+                        <Border x:Name="darkener" CornerRadius="60" BorderThickness="0" Background="Black" Opacity="0.2" Visibility="Hidden" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" TargetName="darkener" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

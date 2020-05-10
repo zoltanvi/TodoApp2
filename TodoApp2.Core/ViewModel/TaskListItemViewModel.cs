@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
@@ -18,5 +19,35 @@ namespace TodoApp2.Core
         public bool Trashed { get; set; }
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }
+        public bool ColorPickerVisible { get; set; }
+
+        public ICommand ShowColorPickerCommand { get; }
+        public ICommand HideColorPickerCommand { get; }
+        public ICommand SetColorCommand { get; }
+
+        public TaskListItemViewModel()
+        {
+            ShowColorPickerCommand = new RelayCommand(ShowColorPicker);
+            HideColorPickerCommand = new RelayCommand(HideColorPicker);
+            SetColorCommand = new RelayParameterizedCommand(SetColor);
+        }
+
+        private void SetColor(object obj)
+        {
+            if (obj is string colorString)
+            {
+                Color = colorString;
+            }
+        }
+
+        private void HideColorPicker()
+        {
+            ColorPickerVisible = false;
+        }
+
+        private void ShowColorPicker()
+        {
+            ColorPickerVisible = true;
+        }
     }
 }

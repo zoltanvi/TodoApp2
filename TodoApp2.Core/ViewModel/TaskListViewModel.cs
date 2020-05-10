@@ -123,7 +123,7 @@ namespace TodoApp2.Core
                         // then this was a drag and drop reorder
                         if (newItem.Id == m_LastRemovedId)
                         {
-                            Database.ReorderTasks(newItem, e.NewStartingIndex);
+                            Database.ReorderTask(newItem, e.NewStartingIndex);
                         }
 
                         m_LastRemovedId = int.MinValue;
@@ -147,7 +147,7 @@ namespace TodoApp2.Core
                     if (e.NewItems.Count > 0)
                     {
                         var newItem = (TaskListItemViewModel)e.NewItems[0];
-                        Database.ReorderTasks(newItem, e.NewStartingIndex);
+                        Database.ReorderTask(newItem, e.NewStartingIndex);
                     }
                     break;
                 }

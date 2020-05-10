@@ -10,39 +10,57 @@
              d:DesignHeight="350" d:DesignWidth="380">
     <Grid Background="Transparent">
 
-        <ListView ItemsSource="{Binding Items}"
-                  dd:DragDrop.IsDragSource="True"
-                  dd:DragDrop.IsDropTarget="True"
-                  x:Name="TaskListListView"
-                  BorderThickness="0" 
-                  Background="Transparent" 
-                  HorizontalContentAlignment="Stretch" 
-                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                  ScrollViewer.CanContentScroll="False" Template="{DynamicResource TaskListControlTemplate}">
+        <Grid Grid.Row="0" 
+            Background="Transparent">
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListViewItem">
-                                <ContentPresenter />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
+            <TextBlock
+                Grid.Row="0"
+                Text="{Binding ApplicationViewModel.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}"
+                Style="{StaticResource CategoryTextBlockStyle}"
+            />
 
-                    <!--Task Item-->
-                        <local:TaskListItemControl Tag="{Binding DataContext, ElementName=TaskListListView}"/>
+            
+            <ListView ItemsSource="{Binding Items}"
+                      Grid.Row="1"
+                      dd:DragDrop.IsDragSource="True"
+                      dd:DragDrop.IsDropTarget="True"
+                      x:Name="TaskListListView"
+                      BorderThickness="0" 
+                      Background="Transparent" 
+                      HorizontalContentAlignment="Stretch" 
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                      ScrollViewer.CanContentScroll="False" Template="{DynamicResource TaskListControlTemplate}">
 
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
 
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <!--Task Item-->
+                        <local:TaskListItemControl 
+                                Tag="{Binding DataContext, ElementName=TaskListListView}"/>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
     </Grid>
 
 </UserControl>

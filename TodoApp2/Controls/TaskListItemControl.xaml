@@ -5,15 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              MinHeight="60"
              x:Name="TaskListItemUC"
              d:DesignHeight="60" d:DesignWidth="350">
 
     <Grid Background="{StaticResource ContentBackgroundBrush}">
+
         <Border Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"
                 Margin="16 3"
                 CornerRadius="5">
+
+            <!--TODO: Make a fade animation instead of this-->
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeave">
+                    <i:InvokeCommandAction Command="{Binding HideColorPickerCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
 
             <Grid >
                 <Grid.ColumnDefinitions>
@@ -24,7 +34,6 @@
                     <!--Main content column, also the hidden buttons column-->
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
 
                 <!--Color bar-->
                 <Border Grid.Column="0"
@@ -124,7 +133,9 @@
                             <!--Palette button-->
                             <Button Grid.Column="1" 
                                 Style="{StaticResource TaskItemButtonStyle}"
-                                Content="{StaticResource SegoeIconPalette}"/>
+                                Content="{StaticResource SegoeIconPalette}"
+                                Command="{Binding ShowColorPickerCommand}"
+                                />
                             <!--Trash button-->
                             <Button Grid.Column="2"
                                 Style="{StaticResource TaskItemButtonStyle}"
@@ -135,6 +146,12 @@
                         </Grid>
                     </Border>
                 </Border>
+
+            <local:ColorPickerControl 
+                Grid.Column="2" 
+                HorizontalContentAlignment="Right" 
+                Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}"
+                />
 
             </Grid>
 

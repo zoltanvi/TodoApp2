@@ -110,7 +110,12 @@ namespace TodoApp2.Core
             return false;
         }
 
-        public void ReorderTasks(TaskListItemViewModel task, int newPosition)
+        /// <summary>
+        /// Modifies the task order in the list to the provided <see cref="newPosition"/>.
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="newPosition"></param>
+        public void ReorderTask(TaskListItemViewModel task, int newPosition)
         {
             // Get all tasks except the reordered one
             var orderedTasks = m_DataAccess.GetTasks().Where(t => t.Id != task.Id && !t.Trashed)
@@ -120,6 +125,11 @@ namespace TodoApp2.Core
             m_DataAccess.UpdateTask(task);
         }
 
+        /// <summary>
+        /// Modifies the category order in the list to the provided <see cref="newPosition"/>.
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="newPosition"></param>
         public void ReorderCategory(CategoryListItemViewModel category, int newPosition)
         {
             // Get all categories except the reordered one
@@ -151,7 +161,6 @@ namespace TodoApp2.Core
             // Persist every order change in the list into the database
             m_DataAccess.UpdateTaskListOrders(updateSource);
         }
-
 
         /// <summary>
         /// Updates every Task item in the database
@@ -213,7 +222,20 @@ namespace TodoApp2.Core
             m_DataAccess.UpdateCategory(category);
         }
 
-
+        /// <summary>
+        /// Reorders the given item in it's containing collection.
+        /// </summary>
+        /// <remarks>
+        /// The order for every element in the collection may will be overwritten!
+        /// The algorithm only modifies a single item until there is room between two item order.
+        /// When there is no more room between two item order, every item in the collection gets a
+        /// new number as it's order.
+        /// </remarks>
+        /// <param name="orderedItems">The collection without the item to reorder.</param>
+        /// <param name="itemToReorder">The item to reorder.</param>
+        /// <param name="newPosition">The item's new position in the collection.</param>
+        /// <param name="updateStrategy">The action that is called when each element
+        /// in the collection got a new order number. This action should persist the changes.</param>
         private void ReorderItem(List<IReorderable> orderedItems, IReorderable itemToReorder,
             int newPosition, Action<IEnumerable<IReorderable>> updateStrategy)
         {
@@ -261,7 +283,6 @@ namespace TodoApp2.Core
                 current += DataAccessLayer.ListOrderInterval;
             }
         }
-
 
         /// <summary>
         /// Gets the next available ListOrder relative to the provided one
