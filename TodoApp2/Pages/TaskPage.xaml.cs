@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using TodoApp2.Core;
 
 namespace TodoApp2.Pages
@@ -27,13 +30,50 @@ namespace TodoApp2.Pages
         /// <param name="e"></param>
         private void MainWindowOnClosing(object sender, CancelEventArgs e)
         {
-            if (ViewModel is TaskListViewModel viewModel)
-            {
-                viewModel.PersistTaskList();
-            }
+            ViewModel.PersistTaskList();
 
             // TODO: put it to a better place
             IoC.Get<ClientDatabase>().Dispose();
+        }
+
+        /// <summary>
+        /// Preview the input into the message box and respond as required
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddNewTaskTextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Get the text box
+            if (sender is TextBox textBox)
+            {
+                // Check if we have pressed enter
+                if (e.Key == Key.Enter)
+                {
+                    // If we have SHIFT pressed
+                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                    {
+                        // Add a new line at the point where the cursor is
+                        var index = textBox.CaretIndex;
+
+                        // Insert the new line
+                        textBox.Text = textBox.Text.Insert(index, Environment.NewLine);
+
+                        // Shift the caret forward to the newline
+                        textBox.CaretIndex = index + Environment.NewLine.Length;
+
+                        // Mark this key as handled by us
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        // Add the task
+                        ViewModel.AddTask();
+                    }
+
+                    // Mark the key as handled
+                    e.Handled = true;
+                }
+            }
         }
     }
 }

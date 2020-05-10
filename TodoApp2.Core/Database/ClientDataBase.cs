@@ -84,6 +84,15 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Updates a task in the database
+        /// </summary>
+        /// <param name="task"></param>
+        public void UpdateTask(TaskListItemViewModel task)
+        {
+            m_DataAccess.UpdateTask(task);
+        }
+
+        /// <summary>
         /// Inserts a category into the database if it not exists
         /// </summary>
         /// <param name="categoryToAdd"></param>
@@ -239,15 +248,18 @@ namespace TodoApp2.Core
         private void ReorderItem(List<IReorderable> orderedItems, IReorderable itemToReorder,
             int newPosition, Action<IEnumerable<IReorderable>> updateStrategy)
         {
-            // If the item moved to the end of the list, calculate the next order for it
-            if (orderedItems.Count == newPosition)
-            {
-                itemToReorder.ListOrder = GetNextListOrder(orderedItems[orderedItems.Count - 1].ListOrder);
-            }
+            // If there is no other item besides the itemToReorder, there is nothing to do
+            if (orderedItems.Count == 0) return;
+
             // If the item moved to the top of the list, calculate the previous order for it
-            else if (newPosition == 0)
+            if (newPosition == 0)
             {
                 itemToReorder.ListOrder = GetPreviousListOrder(orderedItems[0].ListOrder);
+            }
+            // If the item moved to the end of the list, calculate the next order for it
+            else if (orderedItems.Count == newPosition)
+            {
+                itemToReorder.ListOrder = GetNextListOrder(orderedItems[orderedItems.Count - 1].ListOrder);
             }
             // Else the ListOrder should be in the middle between the previous and next order interval
             else

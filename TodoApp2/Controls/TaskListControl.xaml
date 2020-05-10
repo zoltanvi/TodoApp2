@@ -10,24 +10,9 @@
              d:DesignHeight="350" d:DesignWidth="380">
     <Grid Background="Transparent">
 
-        <Grid Grid.Row="0" 
-            Background="Transparent">
 
-        <Grid.RowDefinitions>
-            <RowDefinition  Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-            <TextBlock
-                Grid.Row="0"
-                Text="{Binding ApplicationViewModel.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}"
-                Style="{StaticResource CategoryTextBlockStyle}"
-            />
-
-            
-            <ListView ItemsSource="{Binding Items}"
-                      Grid.Row="1"
-                      dd:DragDrop.IsDragSource="True"
+        <ListView ItemsSource="{Binding Items}"
+                  dd:DragDrop.IsDragSource="True"
                       dd:DragDrop.IsDropTarget="True"
                       x:Name="TaskListListView"
                       BorderThickness="0" 
@@ -37,30 +22,29 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       ScrollViewer.CanContentScroll="False" Template="{DynamicResource TaskListControlTemplate}">
 
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListViewItem">
-                                    <ContentPresenter />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
 
-                        <!--Task Item-->
-                        <local:TaskListItemControl 
+                    <!--Task Item-->
+                    <local:TaskListItemControl 
                                 Tag="{Binding DataContext, ElementName=TaskListListView}"/>
 
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
-        </Grid>
     </Grid>
 
 </UserControl>

@@ -8,6 +8,8 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskListItemViewModel : BaseViewModel, IReorderable
     {
+        private ClientDatabase Database => IoC.Get<ClientDatabase>();
+
         public int Id { get; set; }
         public int CategoryId { get; set; }
         public string Content { get; set; }
@@ -37,6 +39,7 @@ namespace TodoApp2.Core
             if (obj is string colorString)
             {
                 Color = colorString;
+                Database.UpdateTask(this);
             }
         }
 

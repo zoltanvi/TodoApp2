@@ -24,7 +24,6 @@ namespace TodoApp2.Core
 
         private string CurrentCategory => IoC.Application.CurrentCategory;
 
-
         private ClientDatabase Database => IoC.Get<ClientDatabase>();
 
         /// <summary>
@@ -154,7 +153,7 @@ namespace TodoApp2.Core
             }
         }
 
-        private void AddTask()
+        public void AddTask()
         {
             // If the text is empty or only whitespace, refuse
             if (string.IsNullOrWhiteSpace(PendingAddNewTaskText))

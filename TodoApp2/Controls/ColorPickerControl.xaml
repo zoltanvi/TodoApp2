@@ -9,13 +9,14 @@
     <Grid>
 
         <Border Background="{StaticResource NavigatorBackgroundBrush}"
-                Width="180" 
+                Width="200" 
                 Height="34"
                 CornerRadius="4"
                 Padding="6 4 6 4"
         >
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -30,6 +31,7 @@
                 <Button Grid.Column="3" Style="{StaticResource ColorPickerButtonStyle}" Background="#8BC24A" Command="{Binding SetColorCommand}" CommandParameter="#8BC24A"/>
                 <Button Grid.Column="4" Style="{StaticResource ColorPickerButtonStyle}" Background="#FFEB3C" Command="{Binding SetColorCommand}" CommandParameter="#FFEB3C"/>
                 <Button Grid.Column="5" Style="{StaticResource ColorPickerButtonStyle}" Background="#FF9A14" Command="{Binding SetColorCommand}" CommandParameter="#FF9A14"/>
+                <Button Grid.Column="6" Style="{StaticResource ColorPickerButtonStyle}" Background="#565656" Command="{Binding SetColorCommand}" CommandParameter="Transparent"/>
 
             </Grid>
         </Border>

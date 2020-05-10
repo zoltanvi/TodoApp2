@@ -9,7 +9,5 @@
         /// The selected category changed
         /// </summary>
         CategoryChanged = 1,
-
-
     }
 }
