@@ -65,7 +65,8 @@
                                FontFamily="Segoe UI"
                                TextDecorations="{Binding IsDone, Converter={local:TextDecorationConverter}}"
                                Foreground="{StaticResource DescriptionForegroundBrush}"
-                               Text="{Binding Content}"
+                               Text="{Binding Content, NotifyOnTargetUpdated=True}"
+                               TargetUpdated="TaskDescriptionTextBlock_OnTargetUpdated"
                                />
 
                     <!--Timestamp-->

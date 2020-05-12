@@ -12,7 +12,7 @@ namespace TodoApp2.Core
     public sealed class DataAccessLayer : IDisposable
     {
         public const long DefaultListOrder = long.MaxValue / 2;
-        public const long ListOrderInterval = 1_000_000_000;
+        public const long ListOrderInterval = 1_000_000_000_000;
 
         #region Private Constants
 
