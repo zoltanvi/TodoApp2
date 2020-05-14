@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Input;
@@ -156,7 +157,9 @@ namespace TodoApp2.Core
         public void AddTask()
         {
             // If the text is empty or only whitespace, refuse
-            if (string.IsNullOrWhiteSpace(PendingAddNewTaskText))
+            // If the text only contains format characters, refuse
+            string trimmed = PendingAddNewTaskText.Replace("`", string.Empty);
+            if (string.IsNullOrWhiteSpace(PendingAddNewTaskText) || string.IsNullOrWhiteSpace(trimmed))
             {
                 return;
             }

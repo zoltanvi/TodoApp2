@@ -47,6 +47,7 @@ namespace TodoApp2
                         {
                             AddInline(textBlock, stringBuilder, ref formatted);
                         }
+                        formatted = !formatted;
                     }
                 }
 
@@ -72,7 +73,6 @@ namespace TodoApp2
             }
 
             stringBuilder.Clear();
-            formatted = !formatted;
         }
     }
 }
