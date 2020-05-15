@@ -31,9 +31,6 @@ namespace TodoApp2.Pages
         private void MainWindowOnClosing(object sender, CancelEventArgs e)
         {
             ViewModel.PersistTaskList();
-
-            // TODO: put it to a better place
-            IoC.Get<ClientDatabase>().Dispose();
         }
 
         /// <summary>

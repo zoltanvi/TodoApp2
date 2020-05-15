@@ -25,7 +25,7 @@ namespace TodoApp2.Core
 
         private string CurrentCategory => IoC.Application.CurrentCategory;
 
-        private ClientDatabase Database => IoC.Get<ClientDatabase>();
+        private ClientDatabase Database => IoC.ClientDatabase;
 
         /// <summary>
         /// The command for when the user presses Enter in the "Add new task" TextBox
@@ -49,6 +49,9 @@ namespace TodoApp2.Core
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
 
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
+
+            // Load the application settings to update the CurrentCategory before querying the tasks
+            IoC.Application.LoadApplicationSettingsOnce();
 
             // Query the items with the current category
             List<TaskListItemViewModel> items = Database.GetActiveTaskItems(CurrentCategory);

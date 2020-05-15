@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using TodoApp2.Core.Helpers;
 
 namespace TodoApp2.Core
 {
@@ -21,6 +23,7 @@ namespace TodoApp2.Core
         /// </summary>
         private WindowDockPosition m_DockPosition = WindowDockPosition.Undocked;
 
+        private ClientDatabase Database => IoC.ClientDatabase;
         #endregion
 
         #region Commands
@@ -102,6 +105,9 @@ namespace TodoApp2.Core
 
         #endregion
 
+        private ApplicationViewModel Application => IoC.Application;
+        private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
+
         #region Constructors
 
         public WindowViewModel(Window window)
@@ -110,6 +116,15 @@ namespace TodoApp2.Core
 
             // Listen out for all properties that are affected by a resize
             m_Window.StateChanged += OnWindowStateChanged;
+
+            // Restore the last saved position and size of the window
+            m_Window.Loaded += OnWindowOnLoaded;
+
+            // Save the window size and position into the database
+            m_Window.Closing += WindowOnClosing;
+
+            // Dispose the database at last
+            m_Window.Closed += WindowOnClosed;
 
             // Create commands
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
@@ -124,9 +139,15 @@ namespace TodoApp2.Core
             m_Resizer.IsDockedChanged += ResizerOnIsDockedChanged;
         }
 
+        private void WindowOnClosed(object sender, EventArgs e)
+        {
+            // Dispose the database
+            IoC.Get<ClientDatabase>().Dispose();
+        }
+
         private void OpenCloseNavigatorAsync()
         {
-            IoC.Application.SideMenuVisible ^= true;
+            Application.SideMenuVisible ^= true;
         }
 
         private void ResizerOnIsDockedChanged(object sender, DockChangeEventArgs e)
@@ -159,6 +180,48 @@ namespace TodoApp2.Core
             WindowResized();
         }
 
+        private void OnWindowOnLoaded(object sender, RoutedEventArgs e)
+        {
+            // When the window finished loading,
+            // load the settings from the database
+            Application.LoadApplicationSettingsOnce();
+
+            var left = ApplicationSettings.WindowLeftPos;
+            var top = ApplicationSettings.WindowTopPos;
+            var width = ApplicationSettings.WindowWidth;
+            var height = ApplicationSettings.WindowHeight;
+
+            bool outOfBounds =
+                (left <= SystemParameters.VirtualScreenLeft - width) ||
+                (top <= SystemParameters.VirtualScreenTop - height) ||
+                (SystemParameters.VirtualScreenLeft +
+                 SystemParameters.VirtualScreenWidth <= left) ||
+                (SystemParameters.VirtualScreenTop +
+                 SystemParameters.VirtualScreenHeight <= top);
+
+            // Check whether the last saved window position is visible on any screen or not
+            // Restore the window position and size only if it is visible.
+            // Note: If the restored window state would not be visible,
+            //       the default window position is at center of screen
+            if (!outOfBounds)
+            {
+                m_Window.Left = ApplicationSettings.WindowLeftPos;
+                m_Window.Top = ApplicationSettings.WindowTopPos;
+                m_Window.Width = ApplicationSettings.WindowWidth;
+                m_Window.Height = ApplicationSettings.WindowHeight;
+            }
+        }
+
+        private void WindowOnClosing(object sender, CancelEventArgs e)
+        {
+            ApplicationSettings.WindowLeftPos = (int)GetWindowLeft(m_Window);
+            ApplicationSettings.WindowTopPos = (int)GetWindowTop(m_Window);
+            ApplicationSettings.WindowWidth = (int)m_Window.Width;
+            ApplicationSettings.WindowHeight = (int)m_Window.Height;
+
+            Application.SaveApplicationSettings();
+        }
+
         #endregion
 
         #region Private helpers
@@ -189,6 +252,38 @@ namespace TodoApp2.Core
             OnPropertyChanged(nameof(OuterMarginThickness));
             OnPropertyChanged(nameof(WindowRadius));
             OnPropertyChanged(nameof(WindowCornerRadius));
+        }
+
+        /// <summary>
+        /// Returns the position of the window's left edge, in relation to the desktop. 
+        /// </summary>
+        /// <param name="window">The window.</param>
+        /// <returns>Returns the position of the left edge.</returns>
+        private double GetWindowLeft(Window window)
+        {
+            // If the window is maximized, window.Left gives back incorrect value
+            if (window.WindowState == WindowState.Maximized)
+            {
+                return window.GetFieldValue<double>("_actualLeft");
+            }
+            
+            return window.Left;
+        }
+
+        /// <summary>
+        /// Returns the position of the window's top edge, in relation to the desktop. 
+        /// </summary>
+        /// <param name="window">The window.</param>
+        /// <returns>Returns the position of the top edge.</returns>
+        private double GetWindowTop(Window window)
+        {
+            // If the window is maximized, window.Top gives back incorrect value
+            if (window.WindowState == WindowState.Maximized)
+            {
+                return window.GetFieldValue<double>("_actualTop");
+            }
+
+            return window.Top;
         }
 
         #endregion

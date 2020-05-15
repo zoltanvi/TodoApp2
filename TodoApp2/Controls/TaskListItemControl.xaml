@@ -63,7 +63,7 @@
                                HorizontalAlignment="Stretch"
                                FontSize="16"
                                FontFamily="Segoe UI"
-                               TextDecorations="{Binding IsDone, Converter={local:TextDecorationConverter}}"
+                               Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                                Foreground="{StaticResource DescriptionForegroundBrush}"
                                Text="{Binding Content, NotifyOnTargetUpdated=True}"
                                TargetUpdated="TaskDescriptionTextBlock_OnTargetUpdated"

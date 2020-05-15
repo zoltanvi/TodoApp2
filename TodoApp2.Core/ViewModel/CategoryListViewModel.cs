@@ -9,7 +9,7 @@ namespace TodoApp2.Core
 {
     public class CategoryListViewModel : BaseViewModel
     {
-        private int m_LastRemovedId = Int32.MinValue;
+        private int m_LastRemovedId = int.MinValue;
 
         /// <summary>
         /// The task list items for the list
@@ -36,18 +36,14 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand ChangeCategoryCommand { get; }
 
-        private ClientDatabase Database => IoC.Get<ClientDatabase>();
+        private ClientDatabase Database => IoC.ClientDatabase;
+
+        private ApplicationViewModel Application => IoC.Application;
 
         private string CurrentCategory
         {
-            get => IoC.Application.CurrentCategory;
-
-            set
-            {
-                IoC.Application.CurrentCategory = value;
-                // Notify all listeners about the category change
-                Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged, value);
-            }
+            get => Application.CurrentCategory;
+            set => Application.CurrentCategory = value;
         }
 
         public CategoryListViewModel()
@@ -62,8 +58,11 @@ namespace TodoApp2.Core
             // Subscribe to the collection changed event for synchronizing with database 
             Items.CollectionChanged += ItemsOnCollectionChanged;
 
-            // TODO: Load back from the view settings table the selected category here
-            CategoryListItemViewModel selectedCategory = categories.FirstOrDefault();
+            // Load the application settings to update the CurrentCategory
+            Application.LoadApplicationSettingsOnce();
+
+            // Get the current category from the database
+            CategoryListItemViewModel selectedCategory = Database.GetCategory(Application.ApplicationSettings.CurrentCategory);
             SetCurrentCategory(selectedCategory?.Name);
         }
 

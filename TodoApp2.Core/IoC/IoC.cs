@@ -17,6 +17,8 @@ namespace TodoApp2.Core
         /// </summary>
         public static ApplicationViewModel Application => IoC.Get<ApplicationViewModel>();
 
+        public static ClientDatabase ClientDatabase => IoC.Get<ClientDatabase>();
+
         /// <summary>
         /// Gets a service from the IoC, of the specified type
         /// </summary>

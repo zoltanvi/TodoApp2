@@ -8,7 +8,7 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskListItemViewModel : BaseViewModel, IReorderable
     {
-        private ClientDatabase Database => IoC.Get<ClientDatabase>();
+        private ClientDatabase Database => IoC.ClientDatabase;
 
         public int Id { get; set; }
         public int CategoryId { get; set; }

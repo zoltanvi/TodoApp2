@@ -67,6 +67,54 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Gets every settings entry from the database
+        /// </summary>
+        /// <returns></returns>
+        public List<SettingsModel> GetSettings()
+        {
+            return m_DataAccess.GetSettings();
+        }
+
+        /// <summary>
+        /// Inserts a setting into the database
+        /// </summary>
+        /// <param name="setting"></param>
+        public void AddSetting(SettingsModel setting)
+        {
+            // Generate an ID for the item
+            setting.Id = m_DataAccess.GetSettingsNextId();
+
+            // Persist record into database
+            m_DataAccess.AddSetting(setting);
+        }
+
+        /// <summary>
+        /// Updates all settings entry in the database if exists,
+        /// adds the entry if it not exists.
+        /// </summary>
+        /// <param name="settings"></param>
+        internal void UpdateSettings(List<SettingsModel> settings)
+        {
+            List<SettingsModel> existingSettings = m_DataAccess.GetSettings();
+
+            var existingSettingsDictionary = existingSettings.ToDictionary(settingsModel => settingsModel.Key);
+
+            var settingsToUpdate = settings.Where(s => existingSettingsDictionary.ContainsKey(s.Key));
+            var settingsToAdd = settings.Where(s => !existingSettingsDictionary.ContainsKey(s.Key));
+
+            int nextId = m_DataAccess.GetSettingsNextId();
+
+            foreach (var settingsModel in settingsToAdd)
+            {
+                settingsModel.Id = nextId++;
+            }
+
+            m_DataAccess.AddSettings(settingsToAdd);
+
+            m_DataAccess.UpdateSettings(settingsToUpdate);
+        }
+
+        /// <summary>
         /// Inserts a task into the database
         /// </summary>
         /// <param name="task"></param>

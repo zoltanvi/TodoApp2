@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 using TodoApp2.Core.Helpers;
 
 namespace TodoApp2.Core
@@ -120,6 +121,7 @@ namespace TodoApp2.Core
             dbCommand.ExecuteReader();
 
             AddDefaultCategoryIfNotExists();
+            AddDefaultSettingsIfNotExists();
         }
 
 
@@ -202,6 +204,37 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Inserts each setting item from the list as a new record into the Settings table
+        /// </summary>
+        /// <param name="settingsList"></param>
+        public void AddSettings(IEnumerable<SettingsModel> settingsList)
+        {
+            // Using transaction to write the database only once
+            using (SQLiteTransaction transaction = m_Connection.BeginTransaction())
+            {
+                foreach (var settings in settingsList)
+                {
+                    SQLiteCommand command = new SQLiteCommand
+                    {
+                        Connection = m_Connection,
+                        CommandText = $"INSERT INTO {Settings} ({Id}, {Key}, {Value}) " +
+                                      $" VALUES ({ParameterId}, {ParameterKey}, {ParameterValue});",
+                        Parameters =
+                        {
+                            new SQLiteParameter(ParameterId, settings.Id),
+                            new SQLiteParameter(ParameterKey, settings.Key),
+                            new SQLiteParameter(ParameterValue, settings.Value)
+                        }
+                    };
+
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+            }
+        }
+
+        /// <summary>
         /// Updates a record in the Settings table
         /// </summary>
         /// <param name="settings"></param>
@@ -225,6 +258,43 @@ namespace TodoApp2.Core
 
             return command.ExecuteNonQuery() > 0;
         }
+
+        /// <summary>
+        /// Updates each record in the Settings table from the provided list
+        /// </summary>
+        /// <param name="settingsList"></param>
+        /// <returns></returns>
+        public int UpdateSettings(IEnumerable<SettingsModel> settingsList)
+        {
+            int modifiedItems = 0;
+
+            // Using transaction to write the database only once
+            using (SQLiteTransaction transaction = m_Connection.BeginTransaction())
+            {
+                foreach (var setting in settingsList)
+                {
+                    SQLiteCommand command = new SQLiteCommand
+                    {
+                        Connection = m_Connection,
+                        CommandText = $"UPDATE {Settings} SET " +
+                                      $"  {Value} = {ParameterValue} " +
+                                      $" WHERE {Key} = {ParameterKey};",
+                        Parameters =
+                        {
+                            new SQLiteParameter(ParameterKey, setting.Key),
+                            new SQLiteParameter(ParameterValue, setting.Value),
+                        }
+                    };
+
+                    modifiedItems += command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+            }
+
+            return modifiedItems;
+        }
+
 
         /// <summary>
         /// Deletes a record from the Settings table
@@ -701,12 +771,40 @@ namespace TodoApp2.Core
                 // This should only happen when the application database is just created
                 AddCategory(new CategoryListItemViewModel
                 {
-                    Name = "Today", 
+                    Name = "Today",
                     IsSelected = true,
                     ListOrder = DefaultListOrder
                 });
             }
         }
+
+        private void AddDefaultSettingsIfNotExists()
+        {
+            const string windowLeftPos = "WindowLeftPos";
+            const string windowTopPos = "WindowTopPos";
+            const string windowWidth = "WindowWidth";
+            const string windowHeight = "WindowHeight";
+            const string currentCategory = "CurrentCategory";
+
+            List<string> keys = new List<string> { windowLeftPos, windowTopPos, windowWidth, windowHeight };
+
+            List<SettingsModel> defaultSettings = new List<SettingsModel>
+            {
+               new SettingsModel {Id = 0, Key = windowLeftPos, Value = "100"},
+                new SettingsModel {Id = 1, Key = windowTopPos, Value = "100"},
+                new SettingsModel {Id = 2, Key = windowWidth, Value = "380"},
+                new SettingsModel {Id = 3, Key = windowHeight, Value = "500"},
+                new SettingsModel {Id = 4, Key = currentCategory, Value = "Today"}
+            };
+
+            var settings = GetSettings();
+            // If none of the default settings are in the database, insert them
+            if (!settings.Select(s => s.Key).Any(k => keys.Any(x => x == k)))
+            {
+                AddSettings(defaultSettings);
+            }
+        }
+
 
         /// <summary>
         /// Gets the first or last ListOrder for a <see cref="table"/> record. 

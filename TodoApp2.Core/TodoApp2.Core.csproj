@@ -73,8 +73,10 @@
     <Compile Include="Database\ClientDatabase.cs" />
     <Compile Include="Database\DataAccessLayer.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
+    <Compile Include="DataModels\ApplicationSettings.cs" />
     <Compile Include="DataModels\SettingsModel.cs" />
     <Compile Include="Helpers\CollectionExtender.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="Helpers\SQLiteExtender.cs" />
     <Compile Include="IoC\IoC.cs" />
     <Compile Include="Mediator\Mediator.cs" />

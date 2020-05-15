@@ -137,6 +137,7 @@
     <Compile Include="Pages\TaskPage.xaml.cs">
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\BoolToOpacityConverter.cs" />
     <Compile Include="ValueConverters\CategorySelectedColorConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\TextDecorationConverter.cs" />
