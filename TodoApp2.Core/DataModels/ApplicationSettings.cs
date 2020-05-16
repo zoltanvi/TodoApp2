@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using TodoApp2.Core.Helpers;
+﻿using System.Collections.Generic;
 
 namespace TodoApp2.Core
 {
+    /// <summary>
+    /// The application settings that are stored in the database.
+    /// </summary>
+    /// 
+    /// <remarks>
+    /// The properties and their values that are in this class are stored in the
+    /// database as key-value pairs, where the key is the name of the property
+    /// and the value is the value of the property as string.
+    ///
+    /// The reason why the properties are stored as key-value pairs is that
+    /// this way the database model is always the same, but this class is
+    /// extendable with new properties without changing the database.
+    /// 
+    /// To add new properties which will automatically be stored in the database:
+    ///   1. Add a new property to this class.
+    ///   2. Extend <see cref="PropertyDescriptors"/> with the new property's name
+    ///      and the corresponding <see cref="IPropertyValueHandler"/> to it's type.
+    /// </remarks> 
     public class ApplicationSettings
     {
-        private Dictionary<string, Type> PropertyDescriptorList { get; }
+        private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
 
         #region Properties
 
@@ -18,40 +34,34 @@ namespace TodoApp2.Core
 
         #endregion
 
-
         public ApplicationSettings()
         {
             // This dictionary describes the data that is stored in database in the Settings table
-            PropertyDescriptorList = new Dictionary<string, Type>
+            PropertyDescriptors = new Dictionary<string, IPropertyValueHandler>
             {
-                { nameof(WindowLeftPos), typeof(int) },
-                { nameof(WindowTopPos), typeof(int) },
-                { nameof(WindowWidth), typeof(int) },
-                { nameof(WindowHeight), typeof(int) },
-                { nameof(CurrentCategory), typeof(string) },
+                { nameof(WindowLeftPos), PropertyValueHandlers.Integer },
+                { nameof(WindowTopPos), PropertyValueHandlers.Integer },
+                { nameof(WindowWidth), PropertyValueHandlers.Integer },
+                { nameof(WindowHeight), PropertyValueHandlers.Integer },
+                { nameof(CurrentCategory), PropertyValueHandlers.String },
             };
         }
 
         /// <summary>
         /// Loads every Settings entry from the provided list.
         /// </summary>
-        /// <param name="entryList">The settings list to load.</param>
-        public void LoadEntries(List<SettingsModel> entryList)
+        /// <param name="settings">The settings list to load.</param>
+        public void SetSettings(List<SettingsModel> settings)
         {
-            foreach (SettingsModel entry in entryList)
+            foreach (SettingsModel entry in settings)
             {
-                string currentPropertyName = entry.Key;
-                if (IsEntryNameValid(currentPropertyName))
+                string propertyName = entry.Key;
+                string propertyValue = entry.Value;
+                if (IsPropertyNameValid(propertyName))
                 {
-                    PropertyDescriptorList.TryGetValue(currentPropertyName, out Type currentPropertyType);
-
-                    if (currentPropertyType == typeof(int))
+                    if (PropertyDescriptors.TryGetValue(propertyName, out IPropertyValueHandler valueLoader))
                     {
-                        LoadInt(currentPropertyName, entry.Value);
-                    }
-                    else if (currentPropertyType == typeof(string))
-                    {
-                        LoadString(currentPropertyName, entry.Value);
+                        valueLoader.SetProperty(this, propertyName, propertyValue);
                     }
                 }
             }
@@ -61,67 +71,33 @@ namespace TodoApp2.Core
         /// Returns the settings list created from the properties.
         /// </summary>
         /// <returns></returns>
-        public List<SettingsModel> GetEntries()
+        public List<SettingsModel> GetSettings()
         {
-            List<SettingsModel> entryList = new List<SettingsModel>();
+            List<SettingsModel> settings = new List<SettingsModel>();
 
-            foreach (var propertyDescriptor in PropertyDescriptorList)
+            foreach (var propertyDescriptor in PropertyDescriptors)
             {
                 var propertyName = propertyDescriptor.Key;
-                var propertyType = propertyDescriptor.Value;
+                var propertyLoader = propertyDescriptor.Value;
 
-                if (propertyType == typeof(int))
+                settings.Add(new SettingsModel
                 {
-                    entryList.Add(new SettingsModel
-                    {
-                        Key = propertyName,
-                        Value = this.GetPropertyValue<int>(propertyName).ToString()
-                    });
-                } 
-                else if (propertyType == typeof(string))
-                {
-                    entryList.Add(new SettingsModel
-                    {
-                        Key = propertyName,
-                        Value = this.GetPropertyValue<string>(propertyName)
-                    });
-                }
+                    Key = propertyName,
+                    Value = propertyLoader.GetProperty(this, propertyName)
+                });
             }
 
-            return entryList;
+            return settings;
         }
 
         /// <summary>
-        /// Checks whether the entry name is a valid property or not.
+        /// Checks whether the property name is a valid property or not.
         /// </summary>
-        /// <param name="entryName">The entry name.</param>
+        /// <param name="propertyName">The property name.</param>
         /// <returns>Returns true if the name is valid, false otherwise.</returns>
-        private bool IsEntryNameValid(string entryName)
+        private bool IsPropertyNameValid(string propertyName)
         {
-            return PropertyDescriptorList.ContainsKey(entryName);
-        }
-
-        /// <summary>
-        /// Loads the provided int value into the described property via reflection.
-        /// </summary>
-        /// <param name="propertyName">The name of the property to load into.</param>
-        /// <param name="propertyValue">The property value to load.</param>
-        private void LoadInt(string propertyName, string propertyValue)
-        {
-            if (int.TryParse(propertyValue, out int parsedValue))
-            {
-                this.SetPropertyValue(propertyName, parsedValue);
-            }
-        }
-
-        /// <summary>
-        /// Loads the provided string value into the described property via reflection.
-        /// </summary>
-        /// <param name="propertyName">The name of the property to load into.</param>
-        /// <param name="propertyValue">The property value to load.</param>
-        private void LoadString(string propertyName, string propertyValue)
-        {
-            this.SetPropertyValue(propertyName, propertyValue);
+            return PropertyDescriptors.ContainsKey(propertyName);
         }
     }
 }

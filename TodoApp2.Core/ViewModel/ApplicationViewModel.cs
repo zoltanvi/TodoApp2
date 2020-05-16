@@ -53,7 +53,7 @@ namespace TodoApp2.Core
         public void LoadApplicationSettings()
         {
             List<SettingsModel> settings = IoC.ClientDatabase.GetSettings();
-            ApplicationSettings.LoadEntries(settings);
+            ApplicationSettings.SetSettings(settings);
 
             CurrentCategory = ApplicationSettings.CurrentCategory;
         }
@@ -62,7 +62,7 @@ namespace TodoApp2.Core
         {
             ApplicationSettings.CurrentCategory = CurrentCategory;
 
-            List<SettingsModel> settings = ApplicationSettings.GetEntries();
+            List<SettingsModel> settings = ApplicationSettings.GetSettings();
             IoC.ClientDatabase.UpdateSettings(settings);
         }
     }
