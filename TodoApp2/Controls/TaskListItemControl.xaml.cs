@@ -14,6 +14,7 @@ namespace TodoApp2
         private const char FormatCharacter = '`';
         private static readonly FontFamily ConsolasFont = new FontFamily("Consolas");
         private static readonly SolidColorBrush HighLightColor = new SolidColorBrush(Color.FromRgb(255, 194, 83));
+
         public TaskListItemControl()
         {
             InitializeComponent();
