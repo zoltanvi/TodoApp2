@@ -98,10 +98,10 @@ namespace TodoApp2
     }
 
     /// <summary>
-    /// Animates a framework element sliding it in from the left on show
-    /// and sliding out to the left on hide
+    /// Animates a framework element fading in on show
+    /// and fading out on hide
     /// </summary>
-    public class AnimateFadeInOutProperty : AnimateBaseProperty<AnimateFadeInOutProperty>
+    public class AnimateFadeInProperty : AnimateBaseProperty<AnimateFadeInProperty>
     {
         protected override async void DoAnimation(FrameworkElement element, bool value)
         {

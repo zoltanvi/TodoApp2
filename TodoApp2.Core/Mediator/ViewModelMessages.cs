@@ -10,5 +10,14 @@
         /// </summary>
         CategoryChanged = 1,
 
+        /// <summary>
+        /// The reminder setter panel should be opened
+        /// </summary>
+        OpenReminder = 2,
+
+        /// <summary>
+        /// The overlay background has closed
+        /// </summary>
+        OverlayBackgroundClosed = 4,
     }
 }

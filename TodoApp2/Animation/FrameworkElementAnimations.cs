@@ -168,8 +168,8 @@ namespace TodoApp2
             // Wait for it to finish
             await Task.Delay((int)(seconds * 1000));
 
-            // Set visibility to hidden to don't cover any element under it
-            element.Visibility = Visibility.Hidden;
+            // Fully hide the element
+            element.Visibility = Visibility.Collapsed;
         }
     }
 }

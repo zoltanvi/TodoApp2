@@ -33,6 +33,8 @@ namespace TodoApp2.Core
         public ICommand CloseCommand { get; set; }
         public ICommand NavigatorCommand { get; set; }
 
+        public ICommand CloseOverlayCommand { get; set; }
+
         #endregion
 
         #region Public Properties
@@ -103,6 +105,8 @@ namespace TodoApp2.Core
 
         public bool IsDocked { get; set; }
 
+        public bool OverlayBackgroundVisible { get; set; }
+
         #endregion
 
         private ApplicationViewModel Application => IoC.Application;
@@ -130,13 +134,41 @@ namespace TodoApp2.Core
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
-            NavigatorCommand = new RelayCommand(OpenCloseNavigatorAsync);
+            NavigatorCommand = new RelayCommand(OpenCloseNavigator);
+            CloseOverlayCommand = new RelayCommand(CloseOverlay);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
 
             m_Resizer.WindowDockChanged += OnWindowDockChanged;
             m_Resizer.IsDockedChanged += ResizerOnIsDockedChanged;
+
+            // Subscribe to the open reminder event to open the reminder panel
+            Mediator.Instance.Register(OnOpenReminder, ViewModelMessages.OpenReminder);
+
+            // Subscribe to the category changed event to turn off the overlay background
+            Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+        }
+
+        private void OnOpenReminder(object obj)
+        {
+            OverlayBackgroundVisible = true;
+            // TODO: open reminder
+        }
+
+        private void OnCategoryChanged(object obj)
+        {
+            OverlayBackgroundVisible = false;
+        }
+
+        private void CloseOverlay()
+        {
+            OverlayBackgroundVisible = false;
+
+            // Notify all listeners about the background close
+            Mediator.Instance.NotifyClients(ViewModelMessages.OverlayBackgroundClosed, false);
+
+            Application.SideMenuVisible = false;
         }
 
         private void WindowOnClosed(object sender, EventArgs e)
@@ -145,9 +177,10 @@ namespace TodoApp2.Core
             IoC.Get<ClientDatabase>().Dispose();
         }
 
-        private void OpenCloseNavigatorAsync()
+        private void OpenCloseNavigator()
         {
             Application.SideMenuVisible ^= true;
+            OverlayBackgroundVisible = Application.SideMenuVisible;
         }
 
         private void ResizerOnIsDockedChanged(object sender, DockChangeEventArgs e)

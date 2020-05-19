@@ -26,12 +26,20 @@ namespace TodoApp2.Core
         public ICommand ShowColorPickerCommand { get; }
         public ICommand HideColorPickerCommand { get; }
         public ICommand SetColorCommand { get; }
+        public ICommand OpenReminderCommand { get; }
 
         public TaskListItemViewModel()
         {
             ShowColorPickerCommand = new RelayCommand(ShowColorPicker);
             HideColorPickerCommand = new RelayCommand(HideColorPicker);
             SetColorCommand = new RelayParameterizedCommand(SetColor);
+            OpenReminderCommand = new RelayCommand(OpenReminder);
+        }
+
+        private void OpenReminder()
+        {
+            // Notify all listeners about the background close
+            Mediator.Instance.NotifyClients(ViewModelMessages.OpenReminder, false);
         }
 
         private void SetColor(object obj)

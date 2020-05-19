@@ -126,10 +126,8 @@
                                         Converter={local:ApplicationPageValueConverter}}"/>
 
             <!--Navigator menu background-->
-            <!--<local:SideMenuBackgroundControl
-                local:AnimateFadeInOutProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, 
-                                        Source={x:Static local:ViewModelLocator.Instance}}"
-                MouseLeftButtonDown="OnNavigatorBackgroundClicked"/>-->
+            <local:OverlayBackgroundControl
+                local:AnimateFadeInProperty.Value="{Binding OverlayBackgroundVisible}"/>
 
             <!--Navigator menu panel-->
             <local:SideMenuControl
