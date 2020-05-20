@@ -53,8 +53,8 @@
     <Color x:Key="NavigatorBackground">#333333</Color>
     <SolidColorBrush x:Key="NavigatorBackgroundBrush" Color="{StaticResource NavigatorBackground}" />
 
-    <Color x:Key="NavigatorContentOverlay">#991f1f1f</Color>
-    <SolidColorBrush x:Key="NavigatorContentOverlayBrush" Color="{StaticResource NavigatorContentOverlay}" />
+    <Color x:Key="OverlayBackground">#991f1f1f</Color>
+    <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="{StaticResource OverlayBackground}" />
 
     <Color x:Key="NavigatorBottomPanel">#292929</Color>
     <SolidColorBrush x:Key="NavigatorBottomPanelBrush" Color="{StaticResource NavigatorBottomPanel}" />

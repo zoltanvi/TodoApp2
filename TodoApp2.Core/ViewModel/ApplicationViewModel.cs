@@ -22,9 +22,19 @@ namespace TodoApp2.Core
         public ApplicationPage SideMenuPage { get; } = ApplicationPage.SideMenu;
 
         /// <summary>
+        /// The side menu content page
+        /// </summary>
+        public ApplicationPage ReminderPage { get; } = ApplicationPage.Reminder;
+
+        /// <summary>
         /// True if the side menu should be shown
         /// </summary>
         public bool SideMenuVisible { get; set; }
+
+        /// <summary>
+        /// True if the reminder page should be shown
+        /// </summary>
+        public bool ReminderPageVisible { get; set; }
 
         public string CurrentCategory
         {

@@ -7,16 +7,26 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="350">
-    <Grid>
-        <Border x:Name="NavigatorContentOverlayPanel"
-                Background="{StaticResource NavigatorContentOverlayBrush}">
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDown">
-                    <i:InvokeCommandAction Command="{Binding CloseOverlayCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
 
-        </Border>
-    </Grid>
+            <Grid>
+                <Border x:Name="OverlayBackgroundBorder"
+                        Background="{StaticResource OverlayBackgroundBrush}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding CloseOverlayCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                    <ContentPresenter/>
+
+                </Border>
+            </Grid>
+
+        </ControlTemplate>
+    </UserControl.Template>
+
 </UserControl>

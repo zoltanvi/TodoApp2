@@ -16,9 +16,8 @@
                     Width="300" 
                     HorizontalAlignment="Left">
 
-                    <ContentPresenter>
+                    <ContentPresenter/>
 
-                    </ContentPresenter>
                 </Border>
 
         </ControlTemplate>

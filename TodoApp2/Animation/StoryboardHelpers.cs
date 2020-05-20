@@ -10,6 +10,7 @@ namespace TodoApp2
     public static class StoryboardHelpers
     {
         private const string PropertyNameOpacity = "Opacity";
+        private const string PropertyNameMargin = "Margin";
 
         /// <summary>
         /// Adds a fade in animation to the storyboard
@@ -80,7 +81,7 @@ namespace TodoApp2
             };
 
             // Set the target property name
-            Storyboard.SetTargetProperty(animation, new PropertyPath("Margin"));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameMargin));
 
             // Add this to the storyboard
             storyboard.Children.Add(animation);
@@ -106,7 +107,7 @@ namespace TodoApp2
             };
 
             // Set the target property name
-            Storyboard.SetTargetProperty(animation, new PropertyPath("Margin"));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameMargin));
 
             // Add this to the storyboard
             storyboard.Children.Add(animation);
@@ -132,7 +133,7 @@ namespace TodoApp2
             };
 
             // Set the target property name
-            Storyboard.SetTargetProperty(animation, new PropertyPath("Margin"));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameMargin));
 
             // Add this to the storyboard
             storyboard.Children.Add(animation);
@@ -158,10 +159,84 @@ namespace TodoApp2
             };
 
             // Set the target property name
-            Storyboard.SetTargetProperty(animation, new PropertyPath("Margin"));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameMargin));
 
             // Add this to the storyboard
             storyboard.Children.Add(animation);
+        }
+
+        /// <summary>
+        /// Adds a grow animation to the storyboard
+        /// </summary>
+        /// <param name="storyBoard">The storyboard to add the animation to</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="originalWidth">The element's original width</param>
+        /// <param name="originalHeight">The element's original height</param>
+        /// <param name="decelerationRatio">The rate of deceleration</param>
+        public static void AddGrow(this Storyboard storyBoard, float seconds, double originalWidth, double originalHeight, float decelerationRatio = 0.9f)
+        {
+            // Create the width animate from 0 to original size
+            var widthAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = 0.0,
+                To = originalWidth,
+                DecelerationRatio = decelerationRatio
+            };
+
+            // Create the height animate from 0 to original size
+            var heightAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = 0.0,
+                To = originalHeight,
+                DecelerationRatio = decelerationRatio
+            };
+
+            // Set the target property name
+            Storyboard.SetTargetProperty(widthAnimation, new PropertyPath("Width"));
+            Storyboard.SetTargetProperty(heightAnimation, new PropertyPath("Height"));
+
+            // Add this to the storyboard
+            storyBoard.Children.Add(widthAnimation);
+            storyBoard.Children.Add(heightAnimation);
+        }
+
+        /// <summary>
+        /// Adds a shrink animation to the storyboard
+        /// </summary>
+        /// <param name="storyBoard">The storyboard to add the animation to</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="originalWidth">The element's original width</param>
+        /// <param name="originalHeight">The element's original height</param>
+        /// <param name="decelerationRatio">The rate of deceleration</param>
+        public static void AddShrink(this Storyboard storyBoard, float seconds, double originalWidth, double originalHeight, float decelerationRatio = 0.9f)
+        {
+            // Create the width animate from 0 to original size
+            var widthAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = originalWidth,
+                To = 0.0,
+                DecelerationRatio = decelerationRatio
+            };
+
+            // Create the height animate from 0 to original size
+            var heightAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = originalHeight,
+                To = 0.0,
+                DecelerationRatio = decelerationRatio
+            };
+
+            // Set the target property name
+            Storyboard.SetTargetProperty(widthAnimation, new PropertyPath("Width"));
+            Storyboard.SetTargetProperty(heightAnimation, new PropertyPath("Height"));
+
+            // Add this to the storyboard
+            storyBoard.Children.Add(widthAnimation);
+            storyBoard.Children.Add(heightAnimation);
         }
     }
 }

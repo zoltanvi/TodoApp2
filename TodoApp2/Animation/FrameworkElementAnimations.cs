@@ -171,5 +171,79 @@ namespace TodoApp2
             // Fully hide the element
             element.Visibility = Visibility.Collapsed;
         }
+
+
+        /// <summary>
+        /// Grows an element to full size
+        /// </summary>
+        /// <param name="element">The element to animate</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <returns></returns>
+        public static async Task GrowAsync(this FrameworkElement element, float seconds = 0.3f)
+        {
+            // Create the storyboard
+            var sb = new Storyboard();
+
+            double width = element.ActualWidth;
+            double height = element.ActualHeight;
+
+            if (width == 0 || height == 0)
+            {
+                width = element.Width;
+                height = element.Height;
+            }
+
+            // Add fade in animation
+            sb.AddGrow(seconds, width, height);
+
+            // Start animating
+            sb.Begin(element);
+
+            // Make page visible
+            element.Visibility = Visibility.Visible;
+
+            // Wait for it to finish
+            await Task.Delay((int)(seconds * 1000));
+        }
+
+        /// <summary>
+        /// Shrinks an element to zero size
+        /// </summary>
+        /// <param name="element">The element to animate</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <returns></returns>
+        public static async Task ShrinkAsync(this FrameworkElement element, float seconds = 0.3f)
+        {
+            // Create the storyboard
+            var sb = new Storyboard();
+
+            double width = element.ActualWidth;
+            double height = element.ActualHeight;
+
+            if (width == 0 || height == 0)
+            {
+                width = element.Width;
+                height = element.Height;
+            }
+
+            // Add fade in animation
+            sb.AddShrink(seconds, width, height);
+
+            // Start animating
+            sb.Begin(element);
+
+            // Make page visible
+            element.Visibility = Visibility.Visible;
+
+            // Wait for it to finish
+            await Task.Delay((int)(seconds * 1000));
+
+            // Fully hide the element
+            element.Visibility = Visibility.Collapsed;
+
+            // Restore size after the animation is finished
+            sb.AddGrow(0, width, height);
+            sb.Begin(element);
+        }
     }
 }

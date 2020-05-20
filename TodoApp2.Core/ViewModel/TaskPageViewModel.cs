@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Input;
@@ -9,7 +8,7 @@ namespace TodoApp2.Core
     /// <summary>
     /// A view model the task list item on the task page
     /// </summary>
-    public class TaskListViewModel : BaseViewModel
+    public class TaskPageViewModel : BaseViewModel
     {
         private int m_LastRemovedId = int.MinValue;
 
@@ -42,7 +41,7 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand TaskIsDoneModifiedCommand { get; }
 
-        public TaskListViewModel()
+        public TaskPageViewModel()
         {
             AddTaskItemCommand = new RelayCommand(AddTask);
 

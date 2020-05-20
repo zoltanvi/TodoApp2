@@ -25,6 +25,9 @@ namespace TodoApp2
                 case ApplicationPage.Options:
                     return new OptionsPage();
 
+                case ApplicationPage.Reminder:
+                    return new ReminderPage();
+
                 default:
                     Debugger.Break();
                     return null;

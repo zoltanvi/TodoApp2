@@ -19,5 +19,10 @@
         /// The options page (opened by cog in the side menu page)
         /// </summary>
         Options = 2,
+
+        /// <summary>
+        /// The reminder page (where a reminder can be set for a task)
+        /// </summary>
+        Reminder = 3,
     }
 }

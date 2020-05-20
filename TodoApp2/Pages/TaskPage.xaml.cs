@@ -11,7 +11,7 @@ namespace TodoApp2.Pages
     /// <summary>
     /// Interaction logic for TaskPage.xaml
     /// </summary>
-    public partial class TaskPage : BasePage<TaskListViewModel>
+    public partial class TaskPage : BasePage<TaskPageViewModel>
     {
         private const char FormatCharacter = '`';
 

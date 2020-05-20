@@ -119,26 +119,27 @@
     <Border Background="{StaticResource ApplicationBackgroundBrush}" >
         <Grid>
 
+            <!-- Current page -->
             <Frame x:Name="MainFrame" 
                    local:NoFrameHistory.Value="True"
-                   Content="{Binding ApplicationViewModel.CurrentPage, 
-                                        Source={x:Static local:ViewModelLocator.Instance}, 
-                                        Converter={local:ApplicationPageValueConverter}}"/>
+                   Content="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}"/>
 
-            <!--Navigator menu background-->
+            <!-- Overlay background -->
             <local:OverlayBackgroundControl
-                local:AnimateFadeInProperty.Value="{Binding OverlayBackgroundVisible}"/>
+                local:AnimateFadeInProperty.Value="{Binding OverlayBackgroundVisible}" />
 
-            <!--Navigator menu panel-->
+            <!-- Reminder page -->
+            <Frame local:NoFrameHistory.Value="True"
+                   local:AnimateGrowProperty.Value ="{Binding ApplicationViewModel.ReminderPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                   Content="{Binding ApplicationViewModel.ReminderPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
+
+            <!-- Navigator menu panel -->
             <local:SideMenuControl
-                local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, 
-                                        Source={x:Static local:ViewModelLocator.Instance}}">
+                local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}">
 
-                <!--CONTENT GOES HERE-->
+                <!-- Side menu page -->
                 <Frame local:NoFrameHistory.Value="True"
-                       Content="{Binding ApplicationViewModel.SideMenuPage, 
-                                        Source={x:Static local:ViewModelLocator.Instance}, 
-                                        Converter={local:ApplicationPageValueConverter}}" />
+                       Content="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
 
             </local:SideMenuControl>
 

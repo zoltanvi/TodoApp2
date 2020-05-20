@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
-    public class CategoryListViewModel : BaseViewModel
+    public class CategoryPageViewModel : BaseViewModel
     {
         private int m_LastRemovedId = int.MinValue;
 
@@ -46,7 +45,7 @@ namespace TodoApp2.Core
             set => Application.CurrentCategory = value;
         }
 
-        public CategoryListViewModel()
+        public CategoryPageViewModel()
         {
             AddCategoryCommand = new RelayCommand(AddCategory);
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
@@ -99,7 +98,6 @@ namespace TodoApp2.Core
                 }
             }
         }
-
 
         private void AddCategory()
         {

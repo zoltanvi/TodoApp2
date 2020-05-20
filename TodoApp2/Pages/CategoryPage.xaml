@@ -1,4 +1,5 @@
-﻿<local:BasePage x:TypeArguments="core:CategoryListViewModel" x:Class="TodoApp2.CategoryPage"
+﻿<local:BasePage x:Class="TodoApp2.CategoryPage"
+                x:TypeArguments="core:CategoryPageViewModel" 
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
