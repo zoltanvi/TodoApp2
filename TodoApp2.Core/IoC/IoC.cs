@@ -10,14 +10,22 @@ namespace TodoApp2.Core
         /// <summary>
         /// The kernel for our IoC container
         /// </summary>
-        public static IKernel Kernel { get; private set; } = new StandardKernel();
+        private static IKernel Kernel { get; } = new StandardKernel();
 
         /// <summary>
         /// A shortcut to access the <see cref="ApplicationViewModel"/>
         /// </summary>
-        public static ApplicationViewModel Application => IoC.Get<ApplicationViewModel>();
+        public static ApplicationViewModel Application => Get<ApplicationViewModel>();
 
-        public static ClientDatabase ClientDatabase => IoC.Get<ClientDatabase>();
+        /// <summary>
+        /// A shortcut to access the <see cref="ClientDatabase"/>
+        /// </summary>
+        public static ClientDatabase ClientDatabase => Get<ClientDatabase>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="SingleTaskScheduler"/>
+        /// </summary>
+        public static SingleTaskScheduler SingleTaskScheduler => Get<SingleTaskScheduler>();
 
         /// <summary>
         /// Gets a service from the IoC, of the specified type
@@ -45,11 +53,14 @@ namespace TodoApp2.Core
         /// </summary>
         private static void BindViewModels()
         {
-            // Bind to a single instance of Application view model
-            Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
+            // Bind to a single instance of ApplicationViewModel
+            Kernel.Bind<ApplicationViewModel>().To<ApplicationViewModel>().InSingletonScope();
 
             // Bind to a single instance of ClientDataBase 
             Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
+
+            // Bind to a single instance of TaskScheduler
+            Kernel.Bind<SingleTaskScheduler>().To<SingleTaskScheduler>().InSingletonScope();
         }
     }
 }
