@@ -23,9 +23,9 @@ namespace TodoApp2.Core
         public static ClientDatabase ClientDatabase => Get<ClientDatabase>();
 
         /// <summary>
-        /// A shortcut to access the <see cref="SingleTaskScheduler"/>
+        /// A shortcut to access the <see cref="ReminderTaskScheduler"/>
         /// </summary>
-        public static SingleTaskScheduler SingleTaskScheduler => Get<SingleTaskScheduler>();
+        public static ReminderTaskScheduler ReminderTaskScheduler => Get<ReminderTaskScheduler>();
 
         /// <summary>
         /// Gets a service from the IoC, of the specified type
@@ -60,7 +60,7 @@ namespace TodoApp2.Core
             Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
 
             // Bind to a single instance of TaskScheduler
-            Kernel.Bind<SingleTaskScheduler>().To<SingleTaskScheduler>().InSingletonScope();
+            Kernel.Bind<ReminderTaskScheduler>().To<ReminderTaskScheduler>().InSingletonScope();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TodoApp2.Core.Helpers;
@@ -148,7 +149,41 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to turn off the overlay background
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+
+
+
+            #region ONLY FOR TESTING
+
+            IoC.ReminderTaskScheduler.ScheduledTask = ScheduledTask;
+
+            DateTime current = DateTime.Now;
+
+            for (int i = 0; i < 20; i++)
+            {
+                current = current.AddSeconds(5);
+                IoC.ReminderTaskScheduler.Schedule(current, i);
+            }
+
+            #endregion ONLY FOR TESTING
         }
+
+        #region ONLY FOR TESTING
+
+        private async void ScheduledTask(int obj)
+        {
+            await Task.Run(() =>
+            {
+                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Window owner = System.Windows.Application.Current.MainWindow;
+
+                    // Use owner here - it must be used on the UI thread as well..
+                    owner.FlashWindow(5);
+                });
+            });
+        }
+
+        #endregion ONLY FOR TESTING
 
         private void OnOpenReminder(object obj)
         {
@@ -299,7 +334,7 @@ namespace TodoApp2.Core
             {
                 return window.GetFieldValue<double>("_actualLeft");
             }
-            
+
             return window.Left;
         }
 
