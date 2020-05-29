@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace TodoApp2.Core
 {
@@ -14,7 +13,6 @@ namespace TodoApp2.Core
 
         private KeyValuePair<DateTime, int> m_CurrentTask;
 
-        // TODO: Add another timer that checks if tasks are stuck in scheduledTasks.
         private Timer m_Timer;
 
         public bool NextTaskExists => m_ScheduledTasks.Count > 0;
@@ -47,11 +45,24 @@ namespace TodoApp2.Core
         {
             if (NextTaskExists)
             {
+                DateTime current = DateTime.Now;
 
-                m_CurrentTask = m_ScheduledTasks.FirstOrDefault();
-                m_ScheduledTasks.Remove(m_CurrentTask.Key);
+                // Delete from the list those tasks that are already expired
+                // and execute the first task that is not expired yet
+                for (int i = 0; i < m_ScheduledTasks.Count; i++)
+                {
+                    m_CurrentTask = m_ScheduledTasks.FirstOrDefault();
+                    m_ScheduledTasks.Remove(m_CurrentTask.Key);
 
-                ExecuteTask(m_CurrentTask);
+                    TimeSpan executionTime = m_CurrentTask.Key - current;
+                    
+                    // Execution time has not passed yet
+                    if (executionTime >= TimeSpan.Zero)
+                    {
+                        ExecuteTask(m_CurrentTask);
+                        break;
+                    }
+                }
             }
             else
             {
@@ -102,13 +113,15 @@ namespace TodoApp2.Core
 
         private void Callback(object state)
         {
+            // TODO: for some reason the ID is not right... Multithreading issue?
             int todoTaskId = m_CurrentTask.Value;
             
+            // Start next task before executing the current one to prevent tasks
+            StartNextTask();
+
             ScheduledTask?.Invoke(todoTaskId);
 
             m_CurrentTask = InvalidTask;
-
-            StartNextTask();
         }
     }
 }

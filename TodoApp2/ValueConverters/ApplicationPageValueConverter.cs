@@ -28,6 +28,9 @@ namespace TodoApp2
                 case ApplicationPage.Reminder:
                     return new ReminderPage();
 
+                case ApplicationPage.Notification:
+                    return new NotificationPage();
+
                 default:
                     Debugger.Break();
                     return null;

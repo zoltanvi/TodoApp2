@@ -38,10 +38,8 @@ namespace TodoApp2.Core
 
         private void OpenReminder()
         {
-            // Notify all listeners about the background close
-            Mediator.Instance.NotifyClients(ViewModelMessages.OpenReminder, false);
-
-            IoC.Application.ReminderPageVisible ^= true;
+            // Request to open the Reminder page
+            Mediator.Instance.NotifyClients(ViewModelMessages.OpenReminderPageRequested);
         }
 
         private void SetColor(object obj)

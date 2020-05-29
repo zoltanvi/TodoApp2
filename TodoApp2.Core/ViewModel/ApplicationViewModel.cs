@@ -22,9 +22,9 @@ namespace TodoApp2.Core
         public ApplicationPage SideMenuPage { get; } = ApplicationPage.SideMenu;
 
         /// <summary>
-        /// The side menu content page
+        /// The overlay panel content page
         /// </summary>
-        public ApplicationPage ReminderPage { get; } = ApplicationPage.Reminder;
+        public ApplicationPage OverlayPage { get; set; } = ApplicationPage.Reminder;
 
         /// <summary>
         /// True if the side menu should be shown
@@ -32,9 +32,15 @@ namespace TodoApp2.Core
         public bool SideMenuVisible { get; set; }
 
         /// <summary>
-        /// True if the reminder page should be shown
+        /// True if the overlay page should be shown
         /// </summary>
-        public bool ReminderPageVisible { get; set; }
+        public bool OverlayPageVisible { get; set; }
+
+        /// <summary>
+        /// The task that needs to be shown in the notification
+        /// TODO: find a better place for it
+        /// </summary>
+        public TaskListItemViewModel NotificationTask { get; set; }
 
         public string CurrentCategory
         {

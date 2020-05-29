@@ -44,6 +44,33 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Gets all task items which are not trashed
+        /// </summary>
+        /// <returns></returns>
+        public List<TaskListItemViewModel> GetActiveTaskItems()
+        {
+            // Returns the task list from the database ordered by ListOrder column
+            List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks();
+
+            // Return only the items which are not trashed
+            return allTasks.Where(task => task.Trashed == false).ToList();
+        }
+
+        /// <summary>
+        /// Gets the task with the provided ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public TaskListItemViewModel GetTask(int id)
+        {
+            // TODO: write a query for it
+            // Returns the task list from the database ordered by ListOrder column
+            List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks();
+
+            return allTasks.FirstOrDefault(task => task.Id == id);
+        }
+
+        /// <summary>
         /// Gets the category item with the provided name
         /// </summary>
         /// <param name="categoryName"></param>

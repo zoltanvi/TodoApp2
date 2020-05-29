@@ -29,7 +29,7 @@ namespace TodoApp2.Core
         /// </summary>
         /// <param name="message">The message for the notify by.</param>
         /// <param name="args">The arguments for the message.</param>
-        public void NotifyClients(ViewModelMessages message, object args)
+        public void NotifyClients(ViewModelMessages message, object args = null)
         {
             if (m_MessageActionDictionary.ContainsKey(message))
             {

@@ -70,7 +70,7 @@
                                             <Button Grid.Column="0"
                                                     Style="{StaticResource TitleBarButtonStyle}"
                                                     Content="{StaticResource SegoeIconMenu}"
-                                                    Command="{Binding NavigatorCommand}"
+                                                    Command="{Binding OpenCloseSideMenuCommand}"
                                             />
                                             <!--Here could be the window title-->
 
@@ -130,8 +130,8 @@
 
             <!-- Reminder page -->
             <Frame local:NoFrameHistory.Value="True"
-                   local:AnimateGrowProperty.Value ="{Binding ApplicationViewModel.ReminderPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
-                   Content="{Binding ApplicationViewModel.ReminderPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
+                   local:AnimateGrowProperty.Value ="{Binding ApplicationViewModel.OverlayPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                   Content="{Binding ApplicationViewModel.OverlayPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
 
             <!-- Navigator menu panel -->
             <local:SideMenuControl

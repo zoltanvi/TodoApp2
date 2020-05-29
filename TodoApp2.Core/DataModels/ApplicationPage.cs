@@ -8,21 +8,26 @@
         /// <summary>
         /// The initial task page
         /// </summary>
-        Task = 0,
+        Task,
 
         /// <summary>
         /// The side menu page
         /// </summary>
-        SideMenu = 1,
+        SideMenu,
 
         /// <summary>
         /// The options page (opened by cog in the side menu page)
         /// </summary>
-        Options = 2,
+        Options,
 
         /// <summary>
         /// The reminder page (where a reminder can be set for a task)
         /// </summary>
-        Reminder = 3,
+        Reminder,
+
+        /// <summary>
+        /// The notification page (pops up when a notification occurs)
+        /// </summary>
+        Notification,
     }
 }

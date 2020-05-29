@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using TodoApp2.Core.Services;
 
 namespace TodoApp2.Core
 {
@@ -28,6 +29,12 @@ namespace TodoApp2.Core
         public static ReminderTaskScheduler ReminderTaskScheduler => Get<ReminderTaskScheduler>();
 
         /// <summary>
+        /// A shortcut to access the <see cref="ReminderNotificationService"/>
+        /// </summary>
+        public static ReminderNotificationService ReminderNotificationService => Get<ReminderNotificationService>();
+
+
+        /// <summary>
         /// Gets a service from the IoC, of the specified type
         /// </summary>
         /// <typeparam name="T">The type to get</typeparam>
@@ -53,14 +60,11 @@ namespace TodoApp2.Core
         /// </summary>
         private static void BindViewModels()
         {
-            // Bind to a single instance of ApplicationViewModel
+            // Bind to a single instance 
             Kernel.Bind<ApplicationViewModel>().To<ApplicationViewModel>().InSingletonScope();
-
-            // Bind to a single instance of ClientDataBase 
             Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
-
-            // Bind to a single instance of TaskScheduler
             Kernel.Bind<ReminderTaskScheduler>().To<ReminderTaskScheduler>().InSingletonScope();
+            Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();
         }
     }
 }

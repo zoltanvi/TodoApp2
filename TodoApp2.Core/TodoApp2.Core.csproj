@@ -89,6 +89,7 @@
     <Compile Include="Mediator\MultiDictionary.cs" />
     <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ReminderNotificationService.cs" />
     <Compile Include="Services\ReminderTaskScheduler.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="ViewModel\CategoryPageViewModel.cs" />
     <Compile Include="ViewModel\CategoryListItemViewModel.cs" />
     <Compile Include="ViewModel\IReorderable.cs" />
+    <Compile Include="ViewModel\NotificationPageViewModel.cs" />
     <Compile Include="ViewModel\ReminderPageViewModel.cs" />
     <Compile Include="ViewModel\ReminderViewModel.cs" />
     <Compile Include="ViewModel\TaskListItemViewModel.cs" />

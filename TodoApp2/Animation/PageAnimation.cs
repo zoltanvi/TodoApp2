@@ -8,16 +8,16 @@
         /// <summary>
         /// No animation takes place
         /// </summary>
-        None = 0,
+        None,
 
         /// <summary>
         /// The page fades in
         /// </summary>
-        FadeIn = 1,
+        FadeIn,
         
         /// <summary>
         /// The page fades out
         /// </summary>
-        FadeOut = 2
+        FadeOut,
     }
 }

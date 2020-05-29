@@ -8,16 +8,26 @@
         /// <summary>
         /// The selected category changed
         /// </summary>
-        CategoryChanged = 1,
+        CategoryChanged,
 
         /// <summary>
         /// The reminder setter panel should be opened
         /// </summary>
-        OpenReminder = 2,
+        OpenReminderPageRequested,
+
+        /// <summary>
+        /// The notification page should be opened
+        /// </summary>
+        OpenNotificationPageRequested,
+
+        /// <summary>
+        /// The overlay background should be visible
+        /// </summary>
+        OpenOverlayBackgroundRequested,
 
         /// <summary>
         /// The overlay background has closed
         /// </summary>
-        OverlayBackgroundClosed = 4,
+        OverlayBackgroundClosed,
     }
 }

@@ -32,7 +32,7 @@ namespace TodoApp2.Core
         public ICommand MinimizeCommand { get; set; }
         public ICommand MaximizeCommand { get; set; }
         public ICommand CloseCommand { get; set; }
-        public ICommand NavigatorCommand { get; set; }
+        public ICommand OpenCloseSideMenuCommand { get; set; }
 
         public ICommand CloseOverlayCommand { get; set; }
 
@@ -106,7 +106,7 @@ namespace TodoApp2.Core
 
         public bool IsDocked { get; set; }
 
-        public bool OverlayBackgroundVisible { get; set; }
+        public bool OverlayBackgroundVisible { get; private set; }
 
         #endregion
 
@@ -135,65 +135,93 @@ namespace TodoApp2.Core
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
-            NavigatorCommand = new RelayCommand(OpenCloseNavigator);
+            OpenCloseSideMenuCommand = new RelayCommand(OpenCloseSideMenu);
             CloseOverlayCommand = new RelayCommand(CloseOverlay);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
 
             m_Resizer.WindowDockChanged += OnWindowDockChanged;
-            m_Resizer.IsDockedChanged += ResizerOnIsDockedChanged;
-
-            // Subscribe to the open reminder event to open the reminder panel
-            Mediator.Instance.Register(OnOpenReminder, ViewModelMessages.OpenReminder);
+            m_Resizer.IsDockedChanged += OnIsDockedChanged;
 
             // Subscribe to the category changed event to turn off the overlay background
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
 
+            // Listen out for requests to open the overlay background
+            Mediator.Instance.Register(OnOverlayBackgroundOpenRequested, ViewModelMessages.OpenOverlayBackgroundRequested);
 
+            // Listen out for requests to open the notification page
+            Mediator.Instance.Register(OnNotificationPageOpenRequested, ViewModelMessages.OpenNotificationPageRequested);
 
+            // Listen out for requests to open the reminder page
+            Mediator.Instance.Register(OnReminderPageOpenRequested, ViewModelMessages.OpenReminderPageRequested);
             #region ONLY FOR TESTING
 
-            IoC.ReminderTaskScheduler.ScheduledTask = ScheduledTask;
+            //IoC.ReminderTaskScheduler.ScheduledTask = ScheduledTask;
 
-            DateTime current = DateTime.Now;
+            //DateTime current = DateTime.Now;
 
-            for (int i = 0; i < 20; i++)
-            {
-                current = current.AddSeconds(5);
-                IoC.ReminderTaskScheduler.Schedule(current, i);
-            }
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    current = current.AddSeconds(5);
+            //    IoC.ReminderTaskScheduler.Schedule(current, i);
+            //}
 
             #endregion ONLY FOR TESTING
         }
 
+        private void OnOverlayBackgroundOpenRequested(object obj)
+        {
+            OverlayBackgroundVisible = true;
+        }
+
         #region ONLY FOR TESTING
 
-        private async void ScheduledTask(int obj)
+        private void ScheduledTask(int obj)
         {
-            await Task.Run(() =>
-            {
-                System.Windows.Application.Current.Dispatcher.Invoke(() =>
-                {
-                    Window owner = System.Windows.Application.Current.MainWindow;
+            MessageBox.Show($"Hey My number is {obj}", "Hello", MessageBoxButton.OK);
 
-                    // Use owner here - it must be used on the UI thread as well..
-                    owner.FlashWindow(5);
-                });
-            });
+            //await Task.Run(() =>
+            //{
+            //    System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            //    {
+            //        Window owner = System.Windows.Application.Current.MainWindow;
+
+            //        // Use owner here - it must be used on the UI thread as well..
+            //        owner.FlashWindow(5);
+            //    });
+            //});
         }
 
         #endregion ONLY FOR TESTING
 
-        private void OnOpenReminder(object obj)
-        {
-            OverlayBackgroundVisible = true;
-            // TODO: open reminder
-        }
 
         private void OnCategoryChanged(object obj)
         {
-            OverlayBackgroundVisible = false;
+            CloseOverlay();
+        }
+
+        private void OnNotificationPageOpenRequested(object obj)
+        {
+            // Change the overlay page to Notification page
+            OpenOverlayPage(ApplicationPage.Notification);
+        }
+
+        private void OnReminderPageOpenRequested(object obj)
+        {
+            // Change the overlay page to Reminder page
+            OpenOverlayPage(ApplicationPage.Reminder);
+        }
+
+        private void OpenOverlayPage(ApplicationPage page)
+        {
+            // Change the overlay page
+            IoC.Application.OverlayPage = page;
+
+            // Open the overlay page
+            IoC.Application.OverlayPageVisible = true;
+
+            OverlayBackgroundVisible = true;
         }
 
         private void CloseOverlay()
@@ -201,9 +229,12 @@ namespace TodoApp2.Core
             OverlayBackgroundVisible = false;
 
             // Notify all listeners about the background close
-            Mediator.Instance.NotifyClients(ViewModelMessages.OverlayBackgroundClosed, false);
+            Mediator.Instance.NotifyClients(ViewModelMessages.OverlayBackgroundClosed);
 
+            // When the background is closed the side menu and the overlay page should be closed as well
+            // regardless of it was opened or closed before
             Application.SideMenuVisible = false;
+            Application.OverlayPageVisible = false;
         }
 
         private void WindowOnClosed(object sender, EventArgs e)
@@ -212,13 +243,24 @@ namespace TodoApp2.Core
             IoC.Get<ClientDatabase>().Dispose();
         }
 
-        private void OpenCloseNavigator()
+        private void OpenCloseSideMenu()
         {
             Application.SideMenuVisible ^= true;
+
+            if (Application.SideMenuVisible)
+            {
+                // The overlay page should be closed when the side menu is opened
+                IoC.Application.OverlayPageVisible = false;
+            }
+            else
+            {
+                // The overlay background should be closed when the side menu is closed
+                CloseOverlay();
+            }
             OverlayBackgroundVisible = Application.SideMenuVisible;
         }
 
-        private void ResizerOnIsDockedChanged(object sender, DockChangeEventArgs e)
+        private void OnIsDockedChanged(object sender, DockChangeEventArgs e)
         {
             IsDocked = e.IsDocked;
             WindowResized();
