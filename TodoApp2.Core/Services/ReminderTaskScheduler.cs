@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Windows.Threading;
 
 namespace TodoApp2.Core
 {
     public class ReminderTaskScheduler
     {
         private static readonly KeyValuePair<DateTime, int> InvalidTask = new KeyValuePair<DateTime, int>(DateTime.MinValue, int.MinValue);
-        
+
         private readonly SortedList<DateTime, int> m_ScheduledTasks;
 
         private KeyValuePair<DateTime, int> m_CurrentTask;
 
-        private Timer m_Timer;
+        private DispatcherTimer m_Timer;
 
         public bool NextTaskExists => m_ScheduledTasks.Count > 0;
 
@@ -22,9 +22,16 @@ namespace TodoApp2.Core
         public ReminderTaskScheduler()
         {
             m_ScheduledTasks = new SortedList<DateTime, int>();
-            m_Timer = new Timer(Callback);
-            m_CurrentTask = InvalidTask;
+            m_Timer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(int.MaxValue)
+            };
+
+            m_Timer.Tick += TimerOnTick;
+
+            MakeTaskInvalid();
         }
+
 
         public void Schedule(long dateTime, int id)
         {
@@ -55,7 +62,7 @@ namespace TodoApp2.Core
                     m_ScheduledTasks.Remove(m_CurrentTask.Key);
 
                     TimeSpan executionTime = m_CurrentTask.Key - current;
-                    
+
                     // Execution time has not passed yet
                     if (executionTime >= TimeSpan.Zero)
                     {
@@ -75,8 +82,9 @@ namespace TodoApp2.Core
         /// </summary>
         private void StopTasks()
         {
-            m_Timer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
-            m_CurrentTask = InvalidTask;
+            m_Timer.Stop();
+            m_Timer.Interval = new TimeSpan(int.MaxValue);
+            MakeTaskInvalid();
         }
 
         /// <summary>
@@ -86,7 +94,7 @@ namespace TodoApp2.Core
         private void InterruptCurrentTask()
         {
             if (m_CurrentTask.Key != InvalidTask.Key && m_CurrentTask.Value != InvalidTask.Value)
-            { 
+            {
                 m_ScheduledTasks.Add(m_CurrentTask.Key, m_CurrentTask.Value);
                 StopTasks();
             }
@@ -96,31 +104,38 @@ namespace TodoApp2.Core
         {
             DateTime current = DateTime.Now;
             TimeSpan executionTime = task.Key - current;
-            
+
             // Execution time has not passed yet
             if (executionTime >= TimeSpan.Zero)
             {
-                m_Timer.Dispose();
-                m_Timer = new Timer(Callback);
-                m_Timer.Change(executionTime, Timeout.InfiniteTimeSpan);
+                m_Timer.Interval = executionTime;
+                m_Timer.Tag = task;
+                m_Timer.Start();
             }
             else
             {
                 // The task won't be executed so there isn't any current task
-                m_CurrentTask = InvalidTask;
+                MakeTaskInvalid();
             }
         }
 
-        private void Callback(object state)
+        private void TimerOnTick(object sender, EventArgs e)
         {
-            // TODO: for some reason the ID is not right... Multithreading issue?
-            int todoTaskId = m_CurrentTask.Value;
-            
-            // Start next task before executing the current one to prevent tasks
-            StartNextTask();
+            if (sender is DispatcherTimer timer)
+            {
+                int todoTaskId = ((KeyValuePair<DateTime, int>)timer.Tag).Value;
 
-            ScheduledTask?.Invoke(todoTaskId);
+                StartNextTask();
 
+                ScheduledTask?.Invoke(todoTaskId);
+
+                MakeTaskInvalid();
+            }
+        }
+
+
+        private void MakeTaskInvalid()
+        {
             m_CurrentTask = InvalidTask;
         }
     }

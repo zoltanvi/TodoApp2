@@ -17,12 +17,21 @@ namespace TodoApp2.Core.Services
         {
             TaskScheduler.ScheduledTask = ShowNotification;
 
-            var taskList = Database.GetActiveTaskItems();
-            var filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
+            //var taskList = Database.GetActiveTaskItems();
+            //var filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
 
-            foreach (var taskItem in filteredItems)
+            //foreach (var taskItem in filteredItems)
+            //{
+            //    TaskScheduler.Schedule(taskItem.ReminderDate, taskItem.Id);
+            //}
+
+            var now = DateTime.Now;
+            now = now.AddSeconds(100);
+
+            for (int i = 0; i < 10; i++)
             {
-                TaskScheduler.Schedule(taskItem.ReminderDate, taskItem.Id);
+                now = now.AddSeconds(-10);
+                TaskScheduler.Schedule(now, i);
             }
         }
 
