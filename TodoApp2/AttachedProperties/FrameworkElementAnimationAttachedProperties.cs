@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using TodoApp2;
 
 namespace TodoApp2
 {
@@ -11,23 +10,26 @@ namespace TodoApp2
     /// A base class to run any animation method when a boolean is set to true
     /// and a reversed animation when set to false
     /// </summary>
-    /// <typeparam name="Parent"></typeparam>
-    public abstract class AnimateBaseProperty<Parent> : BaseAttachedProperty<Parent, bool>
-        where Parent : BaseAttachedProperty<Parent, bool>, new()
+    /// <typeparam name="TParent"></typeparam>
+    public abstract class AnimateBaseProperty<TParent> : BaseAttachedProperty<TParent, bool>
+        where TParent : BaseAttachedProperty<TParent, bool>, new()
     {
 
         #region Protected Properties
+
+        protected float DefaultAnimationDuration = 0.3f;
+        protected float FastAnimationDuration = 0.15f;
 
         /// <summary>
         /// True if this is the very first time the value has been updated
         /// Used to make sure we run the logic at least once during first load
         /// </summary>
-        protected Dictionary<WeakReference, bool> mAlreadyLoaded = new Dictionary<WeakReference, bool>();
+        protected readonly Dictionary<WeakReference, bool> AlreadyLoaded = new Dictionary<WeakReference, bool>();
 
         /// <summary>
         /// The most recent value used if we get a value changed before we do the first load
         /// </summary>
-        protected Dictionary<WeakReference, bool> mFirstLoadValue = new Dictionary<WeakReference, bool>();
+        protected readonly Dictionary<WeakReference, bool> FirstLoadValue = new Dictionary<WeakReference, bool>();
 
         #endregion
 
@@ -38,10 +40,10 @@ namespace TodoApp2
                 return;
 
             // Try and get the already loaded reference
-            var alreadyLoadedReference = mAlreadyLoaded.FirstOrDefault(f => f.Key.Target == sender);
+            var alreadyLoadedReference = AlreadyLoaded.FirstOrDefault(f => f.Key.Target == sender);
 
             // Try and get the first load reference
-            var firstLoadReference = mFirstLoadValue.FirstOrDefault(f => f.Key.Target == sender);
+            var firstLoadReference = FirstLoadValue.FirstOrDefault(f => f.Key.Target == sender);
 
             // Don't fire if the value doesn't change
             if ((bool)sender.GetValue(ValueProperty) == (bool)value && alreadyLoadedReference.Key != null)
@@ -54,18 +56,17 @@ namespace TodoApp2
                 var weakReference = new WeakReference(sender);
 
                 // Flag that we are in first load but have not finished it
-                mAlreadyLoaded[weakReference] = false;
+                AlreadyLoaded[weakReference] = false;
 
                 // Start off hidden before we decide how to animate
                 element.Visibility = Visibility.Hidden;
 
                 // Create a single self-unhookable event 
                 // for the elements Loaded event
-                RoutedEventHandler onLoaded = null;
-                onLoaded = async (ss, ee) =>
+                async void OnLoaded(object ss, RoutedEventArgs ee)
                 {
                     // Unhook ourselves
-                    element.Loaded -= onLoaded;
+                    element.Loaded -= OnLoaded;
 
                     // Slight delay after load is needed for some elements to get laid out
                     // and their width/heights correctly calculated
@@ -73,24 +74,28 @@ namespace TodoApp2
 
                     // Refresh the first load value in case it changed
                     // since the 5ms delay
-                    firstLoadReference = mFirstLoadValue.FirstOrDefault(f => f.Key.Target == sender);
+                    firstLoadReference = FirstLoadValue.FirstOrDefault(f => f.Key.Target == sender);
 
                     // Do desired animation
                     DoAnimation(element, firstLoadReference.Key != null ? firstLoadReference.Value : (bool)value, true);
 
                     // Flag that we have finished first load
-                    mAlreadyLoaded[weakReference] = true;
-                };
+                    AlreadyLoaded[weakReference] = true;
+                }
 
                 // Hook into the Loaded event of the element
-                element.Loaded += onLoaded;
+                element.Loaded += OnLoaded;
             }
             // If we have started a first load but not fired the animation yet, update the property
             else if (alreadyLoadedReference.Value == false)
-                mFirstLoadValue[new WeakReference(sender)] = (bool)value;
+            {
+                FirstLoadValue[new WeakReference(sender)] = (bool)value;
+            }
             else
+            {
                 // Do desired animation
                 DoAnimation(element, (bool)value, false);
+            }
         }
 
         /// <summary>
@@ -98,7 +103,7 @@ namespace TodoApp2
         /// </summary>
         /// <param name="element">The element</param>
         /// <param name="value">The new value</param>
-        /// <param name="value">Does the element just had it's first load</param>
+        /// <param name="firstLoad">Does the element just had it's first load</param>
         protected virtual void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
         {
         }
@@ -115,12 +120,12 @@ namespace TodoApp2
             if (value)
             {
                 // Animate in
-                await element.SlideAndFadeInFromLeftAsync(firstLoad ? 0 : 0.3f);
+                await element.SlideAndFadeInFromLeftAsync(firstLoad ? 0 : DefaultAnimationDuration);
             }
             else
             {
                 // Animate out
-                await element.SlideAndFadeOutToLeftAsync(firstLoad ? 0 : 0.3f);
+                await element.SlideAndFadeOutToLeftAsync(firstLoad ? 0 : DefaultAnimationDuration);
             }
         }
     }
@@ -136,12 +141,12 @@ namespace TodoApp2
             if (value)
             {
                 // Animate in
-                await element.FadeInAsync(firstLoad ? 0 : 0.3f);
+                await element.FadeInAsync(firstLoad ? 0 : DefaultAnimationDuration);
             }
             else
             {
                 // Animate out
-                await element.FadeOutAsync(firstLoad ? 0 : 0.3f);
+                await element.FadeOutAsync(firstLoad ? 0 : DefaultAnimationDuration);
             }
         }
     }
@@ -157,12 +162,12 @@ namespace TodoApp2
             if (value)
             {
                 // Animate in
-                await element.GrowAsync(firstLoad ? 0 : 0.8f);
+                await element.GrowAsync(firstLoad ? 0 : FastAnimationDuration);
             }
             else
             {
                 // Animate out
-                await element.ShrinkAsync(firstLoad ? 0 : 0.3f);
+                await element.ShrinkAsync(firstLoad ? 0 : FastAnimationDuration);
             }
         }
     }

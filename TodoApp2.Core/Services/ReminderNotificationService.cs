@@ -28,21 +28,26 @@ namespace TodoApp2.Core.Services
             var now = DateTime.Now;
             now = now.AddSeconds(100);
 
-            for (int i = 0; i < 10; i++)
-            {
-                now = now.AddSeconds(-10);
-                TaskScheduler.Schedule(now, i);
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    now = now.AddSeconds(-10);
+            //    TaskScheduler.Schedule(now, i);
+            //}
+            //TaskScheduler.Schedule(now.AddSeconds(2), 5);
         }
 
         private void ShowNotification(int taskId)
         {
-            var task = Database.GetTask(taskId);
-            IoC.Application.NotificationTask = task;
+            const bool playSound = true;
 
-            Mediator.Instance.NotifyClients(ViewModelMessages.OpenNotificationPageRequested);
+            // Query the task before showing the notification because
+            // the task description can change between
+            // scheduling and executing to show the task
+            TaskListItemViewModel task = Database.GetTask(taskId);
 
-            // TODO: flash window here
+            Mediator.Instance.NotifyClients(ViewModelMessages.OpenNotificationPageRequested, task);
+
+            Mediator.Instance.NotifyClients(ViewModelMessages.WindowFlashRequested, playSound);
         }
     }
 }

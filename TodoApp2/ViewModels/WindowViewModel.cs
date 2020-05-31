@@ -24,6 +24,8 @@ namespace TodoApp2.Core
         /// </summary>
         private WindowDockPosition m_DockPosition = WindowDockPosition.Undocked;
 
+        private ApplicationViewModel Application => IoC.Application;
+        private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
         private ClientDatabase Database => IoC.ClientDatabase;
         #endregion
 
@@ -32,7 +34,7 @@ namespace TodoApp2.Core
         public ICommand MinimizeCommand { get; set; }
         public ICommand MaximizeCommand { get; set; }
         public ICommand CloseCommand { get; set; }
-        public ICommand OpenCloseSideMenuCommand { get; set; }
+        public ICommand ToggleSideMenuCommand { get; set; }
 
         public ICommand CloseOverlayCommand { get; set; }
 
@@ -110,9 +112,6 @@ namespace TodoApp2.Core
 
         #endregion
 
-        private ApplicationViewModel Application => IoC.Application;
-        private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
-
         #region Constructors
 
         public WindowViewModel(Window window)
@@ -135,7 +134,7 @@ namespace TodoApp2.Core
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
-            OpenCloseSideMenuCommand = new RelayCommand(OpenCloseSideMenu);
+            ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
             CloseOverlayCommand = new RelayCommand(CloseOverlay);
 
             // Fix window resize issue
@@ -153,48 +152,18 @@ namespace TodoApp2.Core
             // Listen out for requests to open the notification page
             Mediator.Instance.Register(OnNotificationPageOpenRequested, ViewModelMessages.OpenNotificationPageRequested);
 
+            // Listen out for requests to flash the application window
+            Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
+
             // Listen out for requests to open the reminder page
             Mediator.Instance.Register(OnReminderPageOpenRequested, ViewModelMessages.OpenReminderPageRequested);
-            #region ONLY FOR TESTING
-
-            //IoC.ReminderTaskScheduler.ScheduledTask = ScheduledTask;
-
-            //DateTime current = DateTime.Now;
-
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    current = current.AddSeconds(5);
-            //    IoC.ReminderTaskScheduler.Schedule(current, i);
-            //}
-
-            #endregion ONLY FOR TESTING
         }
+
 
         private void OnOverlayBackgroundOpenRequested(object obj)
         {
             OverlayBackgroundVisible = true;
         }
-
-        #region ONLY FOR TESTING
-
-        private void ScheduledTask(int obj)
-        {
-            MessageBox.Show($"Hey My number is {obj}", "Hello", MessageBoxButton.OK);
-
-            //await Task.Run(() =>
-            //{
-            //    System.Windows.Application.Current.Dispatcher.Invoke(() =>
-            //    {
-            //        Window owner = System.Windows.Application.Current.MainWindow;
-
-            //        // Use owner here - it must be used on the UI thread as well..
-            //        owner.FlashWindow(5);
-            //    });
-            //});
-        }
-
-        #endregion ONLY FOR TESTING
-
 
         private void OnCategoryChanged(object obj)
         {
@@ -203,8 +172,30 @@ namespace TodoApp2.Core
 
         private void OnNotificationPageOpenRequested(object obj)
         {
-            // Change the overlay page to Notification page
-            OpenOverlayPage(ApplicationPage.Notification);
+            if (obj is TaskListItemViewModel task)
+            {
+                // Close the side menu regardless whether it was opened or not
+                Application.SideMenuVisible = false;
+
+                // Set it for data binding
+                Application.NotificationTask = task;
+
+                // Change the overlay page to Notification page
+                OpenOverlayPage(ApplicationPage.Notification);
+            }
+        }
+
+        private void OnWindowFlashRequested(object obj)
+        {
+            bool playSound = (bool)obj;
+            // Flash the window 3 times
+            m_Window.FlashWindow(3);
+
+            // Play notification sound
+            if (playSound)
+            {
+                WindowsEventSoundPlayer.PlayNotificationSound(EventSounds.MailBeep);
+            }
         }
 
         private void OnReminderPageOpenRequested(object obj)
@@ -216,10 +207,10 @@ namespace TodoApp2.Core
         private void OpenOverlayPage(ApplicationPage page)
         {
             // Change the overlay page
-            IoC.Application.OverlayPage = page;
+            Application.OverlayPage = page;
 
             // Open the overlay page
-            IoC.Application.OverlayPageVisible = true;
+            Application.OverlayPageVisible = true;
 
             OverlayBackgroundVisible = true;
         }
@@ -240,17 +231,26 @@ namespace TodoApp2.Core
         private void WindowOnClosed(object sender, EventArgs e)
         {
             // Dispose the database
-            IoC.Get<ClientDatabase>().Dispose();
+            Database.Dispose();
         }
 
-        private void OpenCloseSideMenu()
+        private void ToggleSideMenu()
         {
-            Application.SideMenuVisible ^= true;
+            OpenSideMenu(!Application.SideMenuVisible);
+        }
+
+        /// <summary>
+        /// Opens or closes the side menu.
+        /// </summary>
+        /// <param name="shouldOpen">True if the side menu should be opened, false if should be closed.</param>
+        private void OpenSideMenu(bool shouldOpen)
+        {
+            Application.SideMenuVisible = shouldOpen;
 
             if (Application.SideMenuVisible)
             {
                 // The overlay page should be closed when the side menu is opened
-                IoC.Application.OverlayPageVisible = false;
+                Application.OverlayPageVisible = false;
             }
             else
             {

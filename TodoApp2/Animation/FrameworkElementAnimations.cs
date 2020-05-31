@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace TodoApp2
 {
@@ -19,7 +21,7 @@ namespace TodoApp2
         public static async Task SlideAndFadeInFromRightAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
             // Create the storyboard
-            var sb = new Storyboard();
+            Storyboard sb = new Storyboard();
 
             // Add slide from right animation
             sb.AddSlideFromRight(seconds, element.ActualWidth, keepMargin: keepMargin);
@@ -47,9 +49,9 @@ namespace TodoApp2
         public static async Task SlideAndFadeInFromLeftAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
             // Create the storyboard
-            var sb = new Storyboard();
+            Storyboard sb = new Storyboard();
 
-            // Add slide from right animation
+            // Add slide from left animation
             sb.AddSlideFromLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
 
             // Add fade in animation
@@ -75,9 +77,9 @@ namespace TodoApp2
         public static async Task SlideAndFadeOutToLeftAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
             // Create the storyboard
-            var sb = new Storyboard();
+            Storyboard sb = new Storyboard();
 
-            // Add slide from right animation
+            // Add slide to left animation
             sb.AddSlideToLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
 
             // Add fade in animation
@@ -103,9 +105,9 @@ namespace TodoApp2
         public static async Task SlideAndFadeOutToRightAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
             // Create the storyboard
-            var sb = new Storyboard();
+            Storyboard sb = new Storyboard();
 
-            // Add slide from right animation
+            // Add slide to right animation
             sb.AddSlideToRight(seconds, element.ActualWidth, keepMargin: keepMargin);
 
             // Add fade in animation
@@ -130,7 +132,9 @@ namespace TodoApp2
         public static async Task FadeInAsync(this FrameworkElement element, float seconds = 0.3f)
         {
             // Create the storyboard
-            var sb = new Storyboard();
+            Storyboard sb = new Storyboard();
+
+            element.ShowElement();
 
             // Add fade in animation
             sb.AddFadeIn(seconds);
@@ -138,11 +142,13 @@ namespace TodoApp2
             // Start animating
             sb.Begin(element);
 
-            // Make page visible
+            // Make element visible
             element.Visibility = Visibility.Visible;
 
             // Wait for it to finish
             await Task.Delay((int)(seconds * 1000));
+
+            element.Tag = true;
         }
 
         /// <summary>
@@ -154,7 +160,7 @@ namespace TodoApp2
         public static async Task FadeOutAsync(this FrameworkElement element, float seconds = 0.3f)
         {
             // Create the storyboard
-            var sb = new Storyboard();
+            Storyboard sb = new Storyboard();
 
             // Add fade in animation
             sb.AddFadeOut(seconds);
@@ -162,16 +168,14 @@ namespace TodoApp2
             // Start animating
             sb.Begin(element);
 
-            // Make page visible
+            // Make element visible
             element.Visibility = Visibility.Visible;
 
             // Wait for it to finish
             await Task.Delay((int)(seconds * 1000));
-
-            // Fully hide the element
-            element.Visibility = Visibility.Collapsed;
+            
+            element.HideElement();
         }
-
 
         /// <summary>
         /// Grows an element to full size
@@ -181,25 +185,29 @@ namespace TodoApp2
         /// <returns></returns>
         public static async Task GrowAsync(this FrameworkElement element, float seconds = 0.3f)
         {
+            const double fromScaleX = 0.0;
+            const double fromScaleY = 0.0;
+            const double toScaleX = 1.0;
+            const double toScaleY = 1.0;
+            const double centerX = 0.5;
+            const double centerY = 0.5;
+
             // Create the storyboard
-            var sb = new Storyboard();
+            Storyboard sb = new Storyboard();
 
-            double width = element.ActualWidth;
-            double height = element.ActualHeight;
-
-            if (width == 0 || height == 0)
-            {
-                width = element.Width;
-                height = element.Height;
-            }
+            ScaleTransform scale = new ScaleTransform(fromScaleX, fromScaleX);
+            
+            // Set the center as pivot point
+            element.RenderTransformOrigin = new Point(centerX, centerY);
+            element.RenderTransform = scale;
 
             // Add fade in animation
-            sb.AddGrow(seconds, width, height);
+            sb.AddScale(seconds, fromScaleX, fromScaleY, toScaleX, toScaleY);
 
             // Start animating
             sb.Begin(element);
 
-            // Make page visible
+            // Make element visible
             element.Visibility = Visibility.Visible;
 
             // Wait for it to finish
@@ -214,36 +222,33 @@ namespace TodoApp2
         /// <returns></returns>
         public static async Task ShrinkAsync(this FrameworkElement element, float seconds = 0.3f)
         {
+            const double fromScaleX = 1.0;
+            const double fromScaleY = 1.0;
+            const double toScaleX = 0.0;
+            const double toScaleY = 0.0;
+            const double centerX = 0.5;
+            const double centerY = 0.5;
+
             // Create the storyboard
-            var sb = new Storyboard();
+            Storyboard sb = new Storyboard();
 
-            double width = element.ActualWidth;
-            double height = element.ActualHeight;
+            ScaleTransform scale = new ScaleTransform(fromScaleX, fromScaleY);
+            
+            // Set the center as pivot point
+            element.RenderTransformOrigin = new Point(centerX, centerY); 
+            element.RenderTransform = scale;
 
-            if (width == 0 || height == 0)
-            {
-                width = element.Width;
-                height = element.Height;
-            }
-
-            // Add fade in animation
-            sb.AddShrink(seconds, width, height);
+            // Add scale animation
+            sb.AddScale(seconds, fromScaleX, fromScaleY, toScaleX, toScaleY);
 
             // Start animating
             sb.Begin(element);
 
-            // Make page visible
+            // Make element visible
             element.Visibility = Visibility.Visible;
 
             // Wait for it to finish
             await Task.Delay((int)(seconds * 1000));
-
-            // Fully hide the element
-            element.Visibility = Visibility.Collapsed;
-
-            // Restore size after the animation is finished
-            sb.AddGrow(0, width, height);
-            sb.Begin(element);
         }
     }
 }

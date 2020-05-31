@@ -70,7 +70,7 @@
                                             <Button Grid.Column="0"
                                                     Style="{StaticResource TitleBarButtonStyle}"
                                                     Content="{StaticResource SegoeIconMenu}"
-                                                    Command="{Binding OpenCloseSideMenuCommand}"
+                                                    Command="{Binding ToggleSideMenuCommand}"
                                             />
                                             <!--Here could be the window title-->
 
@@ -120,8 +120,7 @@
         <Grid>
 
             <!-- Current page -->
-            <Frame x:Name="MainFrame" 
-                   local:NoFrameHistory.Value="True"
+            <Frame local:NoFrameHistory.Value="True"
                    Content="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}"/>
 
             <!-- Overlay background -->
@@ -129,11 +128,11 @@
                 local:AnimateFadeInProperty.Value="{Binding OverlayBackgroundVisible}" />
 
             <!-- Reminder page -->
-            <Frame local:NoFrameHistory.Value="True"
-                   local:AnimateGrowProperty.Value ="{Binding ApplicationViewModel.OverlayPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+            <Frame local:NoFrameHistory.Value="True" 
+                   local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
                    Content="{Binding ApplicationViewModel.OverlayPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
 
-            <!-- Navigator menu panel -->
+                <!-- Navigator menu panel -->
             <local:SideMenuControl
                 local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}">
 

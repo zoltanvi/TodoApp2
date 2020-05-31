@@ -23,8 +23,6 @@ namespace TodoApp2
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
-
-            var init = IoC.ReminderNotificationService;
         }
     }
 }

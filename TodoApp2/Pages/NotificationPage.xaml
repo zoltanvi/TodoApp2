@@ -11,7 +11,7 @@
                 Title="OptionsPage">
 
     <Grid>
-        <Border Background="CornflowerBlue"
+        <Border Background="{StaticResource OverlayPageBackgroundBrush}"
                 CornerRadius="5"
                 Margin="50 20">
 

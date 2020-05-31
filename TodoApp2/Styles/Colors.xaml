@@ -89,5 +89,7 @@
     <Color x:Key="ColorPickerBackground">#333333</Color>
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="{StaticResource ColorPickerBackground}" />
 
+    <Color x:Key="OverlayPageBackground">#333333</Color>
+    <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="{StaticResource OverlayPageBackground}" />
 
 </ResourceDictionary>

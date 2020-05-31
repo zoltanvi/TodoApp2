@@ -53,6 +53,9 @@ namespace TodoApp2.Core
         {
             // Bind all required view models
             BindViewModels();
+
+            // Force the lazy load to initialize the service
+            var loadedNotificationService = ReminderNotificationService;
         }
 
         /// <summary>

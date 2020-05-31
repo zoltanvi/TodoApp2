@@ -29,5 +29,10 @@
         /// The overlay background has closed
         /// </summary>
         OverlayBackgroundClosed,
+
+        /// <summary>
+        /// The application should flash (orange in windows taskbar)
+        /// </summary>
+        WindowFlashRequested,
     }
 }

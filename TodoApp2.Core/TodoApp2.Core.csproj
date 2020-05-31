@@ -75,6 +75,7 @@
     <Compile Include="Database\DataAccessLayer.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationSettings.cs" />
+    <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
     <Compile Include="PropertyHandling\DoublePropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\LongPropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\PropertyValueHandlers.cs" />
