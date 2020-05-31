@@ -148,7 +148,7 @@ namespace TodoApp2
             // Wait for it to finish
             await Task.Delay((int)(seconds * 1000));
 
-            element.Tag = true;
+            element.ShowElement();
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace TodoApp2.Core.Services
     public class ReminderNotificationService
     {
         private ReminderTaskScheduler TaskScheduler => IoC.ReminderTaskScheduler;
-        
+
         private ClientDatabase Database => IoC.ClientDatabase;
 
 
@@ -25,15 +25,19 @@ namespace TodoApp2.Core.Services
             //    TaskScheduler.Schedule(taskItem.ReminderDate, taskItem.Id);
             //}
 
+            #region TEST
+
             var now = DateTime.Now;
             now = now.AddSeconds(100);
 
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    now = now.AddSeconds(-10);
-            //    TaskScheduler.Schedule(now, i);
-            //}
-            //TaskScheduler.Schedule(now.AddSeconds(2), 5);
+            for (int i = 0; i < 10; i++)
+            {
+                now = now.AddSeconds(-10);
+                TaskScheduler.Schedule(now, i);
+            }
+
+            #endregion TEST
+
         }
 
         private void ShowNotification(int taskId)
