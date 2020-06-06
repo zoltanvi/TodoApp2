@@ -7,18 +7,107 @@
                 xmlns:local="clr-namespace:TodoApp2" 
                 xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
                 mc:Ignorable="d" 
-                d:DesignHeight="450" d:DesignWidth="400"
-                Title="OptionsPage">
+                d:DesignHeight="450" d:DesignWidth="400">
 
     <Grid>
         <Border Background="{StaticResource OverlayPageBackgroundBrush}"
                 CornerRadius="5"
-                Margin="50 20">
+                Margin="20 70"
+                >
 
-            <TextBlock 
-                Margin="20"
-                Text="{Binding ApplicationViewModel.NotificationTask.Content, Source={x:Static local:ViewModelLocator.Instance}}"
-                />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Titlebar -->
+                <Border 
+                    Grid.Row="0"
+                    BorderThickness="0 0 0 1"
+                    BorderBrush="{StaticResource NotificationBorderBrush}"
+                    >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2"
+                            Content="Reminder"
+                            Height="30"
+                            Style="{StaticResource NotificationTitleStyle}"/>
+
+                        
+                        <!--Command="{Binding CloseCommand}"-->
+                        <Button 
+                            Grid.Column="1" 
+                            Style="{StaticResource NotificationCloseButtonStyle}"
+                            Content="{StaticResource SegoeIconCloseWindow}"
+                            Command="{Binding CloseNotificationCommand}"
+                            />
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Row="1"
+                      Margin="0 8 0 0"
+                      >
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.RowSpan="2"
+                        Content="{StaticResource SegoeIconCalendar}" 
+                        Style="{StaticResource IconLabelLargeStyle}"
+                        Margin="14 0 0 0"
+                        VerticalAlignment="Center"
+                    />
+
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="1" 
+                        Content="{Binding ApplicationViewModel.NotificationTaskCategory, 
+                            Source={x:Static local:ViewModelLocator.Instance}}"
+                        Style="{StaticResource NotificationCategoryTitleStyle}"/>
+
+                    <Label 
+                        Grid.Row="1"
+                        Grid.Column="1" 
+                        Content="{Binding ApplicationViewModel.NotificationTask.ReminderDate, 
+                            Source={x:Static local:ViewModelLocator.Instance}, 
+                            Converter={local:LongToFormattedDateConverter}}"
+                        Style="{StaticResource NotificationReminderDateStyle}"/>
+
+                </Grid>
+
+                <ScrollViewer Grid.Row="3"
+                              Margin="16 10 0 16"
+                              Template="{StaticResource TaskListControlScrollViewerControlTemplate}"
+                              >
+                    <TextBlock 
+                        Margin="0 0 18 0"
+                        Text="{Binding ApplicationViewModel.NotificationTask.Content, 
+                        Source={x:Static local:ViewModelLocator.Instance}}"
+                        TextWrapping="Wrap"
+                        Foreground="White"
+                    />
+                </ScrollViewer>
+
+            </Grid>
 
         </Border>
     </Grid>

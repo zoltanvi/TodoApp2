@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TodoApp2.Core.Helpers;
@@ -125,10 +124,10 @@ namespace TodoApp2.Core
             m_Window.Loaded += OnWindowOnLoaded;
 
             // Save the window size and position into the database
-            m_Window.Closing += WindowOnClosing;
+            m_Window.Closing += OnWindowClosing;
 
             // Dispose the database at last
-            m_Window.Closed += WindowOnClosed;
+            m_Window.Closed += OnWindowClosed;
 
             // Create commands
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
@@ -151,6 +150,9 @@ namespace TodoApp2.Core
 
             // Listen out for requests to open the notification page
             Mediator.Instance.Register(OnNotificationPageOpenRequested, ViewModelMessages.OpenNotificationPageRequested);
+            
+            // Listen out for requests to close the notification page
+            Mediator.Instance.Register(OnNotificationPageCloseRequested, ViewModelMessages.CloseNotificationPageRequested);
 
             // Listen out for requests to flash the application window
             Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
@@ -159,7 +161,9 @@ namespace TodoApp2.Core
             Mediator.Instance.Register(OnReminderPageOpenRequested, ViewModelMessages.OpenReminderPageRequested);
         }
 
+        #endregion
 
+        #region EventHandlers
         private void OnOverlayBackgroundOpenRequested(object obj)
         {
             OverlayBackgroundVisible = true;
@@ -185,6 +189,11 @@ namespace TodoApp2.Core
             }
         }
 
+        private void OnNotificationPageCloseRequested(object obj)
+        {
+            CloseOverlay();
+        }
+
         private void OnWindowFlashRequested(object obj)
         {
             bool playSound = (bool)obj;
@@ -204,60 +213,10 @@ namespace TodoApp2.Core
             OpenOverlayPage(ApplicationPage.Reminder);
         }
 
-        private void OpenOverlayPage(ApplicationPage page)
-        {
-            // Change the overlay page
-            Application.OverlayPage = page;
-
-            // Open the overlay page
-            Application.OverlayPageVisible = true;
-
-            OverlayBackgroundVisible = true;
-        }
-
-        private void CloseOverlay()
-        {
-            OverlayBackgroundVisible = false;
-
-            // Notify all listeners about the background close
-            Mediator.Instance.NotifyClients(ViewModelMessages.OverlayBackgroundClosed);
-
-            // When the background is closed the side menu and the overlay page should be closed as well
-            // regardless of it was opened or closed before
-            Application.SideMenuVisible = false;
-            Application.OverlayPageVisible = false;
-        }
-
-        private void WindowOnClosed(object sender, EventArgs e)
+        private void OnWindowClosed(object sender, EventArgs e)
         {
             // Dispose the database
             Database.Dispose();
-        }
-
-        private void ToggleSideMenu()
-        {
-            OpenSideMenu(!Application.SideMenuVisible);
-        }
-
-        /// <summary>
-        /// Opens or closes the side menu.
-        /// </summary>
-        /// <param name="shouldOpen">True if the side menu should be opened, false if should be closed.</param>
-        private void OpenSideMenu(bool shouldOpen)
-        {
-            Application.SideMenuVisible = shouldOpen;
-
-            if (Application.SideMenuVisible)
-            {
-                // The overlay page should be closed when the side menu is opened
-                Application.OverlayPageVisible = false;
-            }
-            else
-            {
-                // The overlay background should be closed when the side menu is closed
-                CloseOverlay();
-            }
-            OverlayBackgroundVisible = Application.SideMenuVisible;
         }
 
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)
@@ -265,10 +224,6 @@ namespace TodoApp2.Core
             IsDocked = e.IsDocked;
             WindowResized();
         }
-
-        #endregion
-
-        #region EventHandlers
 
         private void OnWindowStateChanged(object sender, EventArgs e)
         {
@@ -322,7 +277,7 @@ namespace TodoApp2.Core
             }
         }
 
-        private void WindowOnClosing(object sender, CancelEventArgs e)
+        private void OnWindowClosing(object sender, CancelEventArgs e)
         {
             ApplicationSettings.WindowLeftPos = (int)GetWindowLeft(m_Window);
             ApplicationSettings.WindowTopPos = (int)GetWindowTop(m_Window);
@@ -336,6 +291,58 @@ namespace TodoApp2.Core
 
         #region Private helpers
 
+        private void OpenOverlayPage(ApplicationPage page)
+        {
+            // TODO: inject the datacontext into the page
+
+            // Change the overlay page
+            Application.OverlayPage = page;
+
+            // Open the overlay page
+            Application.OverlayPageVisible = true;
+
+            OverlayBackgroundVisible = true;
+        }
+
+        private void CloseOverlay()
+        {
+            OverlayBackgroundVisible = false;
+
+            // Notify all listeners about the background close
+            Mediator.Instance.NotifyClients(ViewModelMessages.OverlayBackgroundClosed);
+
+            // When the background is closed the side menu and the overlay page should be closed as well
+            // regardless of it was opened or closed before
+            Application.SideMenuVisible = false;
+            Application.OverlayPageVisible = false;
+        }
+
+        private void ToggleSideMenu()
+        {
+            OpenSideMenu(!Application.SideMenuVisible);
+        }
+
+        /// <summary>
+        /// Opens or closes the side menu.
+        /// </summary>
+        /// <param name="shouldOpen">True if the side menu should be opened, false if should be closed.</param>
+        private void OpenSideMenu(bool shouldOpen)
+        {
+            Application.SideMenuVisible = shouldOpen;
+
+            if (Application.SideMenuVisible)
+            {
+                // The overlay page should be closed when the side menu is opened
+                Application.OverlayPageVisible = false;
+            }
+            else
+            {
+                // The overlay background should be closed when the side menu is closed
+                CloseOverlay();
+            }
+            OverlayBackgroundVisible = Application.SideMenuVisible;
+        }
+        
         /// <summary>
         /// Gets the current mouse position on the screen
         /// </summary>

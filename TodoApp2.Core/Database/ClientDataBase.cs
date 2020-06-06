@@ -63,7 +63,7 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public TaskListItemViewModel GetTask(int id)
         {
-            // TODO: write a query for it
+            // TODO: write query for it
             // Returns the task list from the database ordered by ListOrder column
             List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks();
 
@@ -78,6 +78,18 @@ namespace TodoApp2.Core
         public CategoryListItemViewModel GetCategory(string categoryName)
         {
             return m_DataAccess.GetCategory(categoryName);
+        }
+
+        /// <summary>
+        /// Gets the category item with the provided ID
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
+        public CategoryListItemViewModel GetCategory(int categoryId)
+        {
+            // TODO: write query for it
+            var allCategories =  m_DataAccess.GetCategories();
+            return allCategories.FirstOrDefault(category => category.Id == categoryId);
         }
 
         /// <summary>

@@ -24,7 +24,8 @@
     <system:String x:Key="SegoeIconMaximizeWindow">&#xE922;</system:String>
     <system:String x:Key="SegoeIconCloseWindow">&#xE8BB;</system:String>
     <system:String x:Key="SegoeIconAdd">&#xE710;</system:String>
-    <system:String x:Key="SegoeIconCalendar">&#xEC92;</system:String>
+    <system:String x:Key="SegoeIconDateTime">&#xEC92;</system:String>
+    <system:String x:Key="SegoeIconCalendar">&#xE787;</system:String>
     <system:String x:Key="SegoeIconPalette">&#xE790;</system:String>
     <system:String x:Key="SegoeIconTrash">&#xE74D;</system:String>
 

@@ -38,9 +38,22 @@ namespace TodoApp2.Core
 
         /// <summary>
         /// The task that needs to be shown in the notification
-        /// TODO: find a better place for it
         /// </summary>
         public TaskListItemViewModel NotificationTask { get; set; }
+
+        public string NotificationTaskCategory
+        {
+            get
+            {
+                if (NotificationTask != null)
+                {
+                    var cat = IoC.ClientDatabase.GetCategory(NotificationTask.CategoryId);
+                    return cat.Name;
+                }
+
+                return "-- Category not found --";
+            }
+        }
 
         public string CurrentCategory
         {

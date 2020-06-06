@@ -130,7 +130,7 @@
                             <!--Calendar button-->
                             <Button Grid.Column="0" 
                                 Style="{StaticResource TaskItemButtonStyle}" 
-                                Content="{StaticResource SegoeIconCalendar}"
+                                Content="{StaticResource SegoeIconDateTime}"
                                 Command="{Binding OpenReminderCommand}"
                                 />
                             <!--Palette button-->

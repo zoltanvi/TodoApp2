@@ -21,6 +21,11 @@
         OpenNotificationPageRequested,
 
         /// <summary>
+        /// The notification page should be closed
+        /// </summary>
+        CloseNotificationPageRequested,
+
+        /// <summary>
         /// The overlay background should be visible
         /// </summary>
         OpenOverlayBackgroundRequested,

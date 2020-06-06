@@ -28,13 +28,16 @@ namespace TodoApp2.Core.Services
             #region TEST
 
             var now = DateTime.Now;
-            now = now.AddSeconds(100);
+            //now = now.AddSeconds(100);
 
-            for (int i = 0; i < 10; i++)
-            {
-                now = now.AddSeconds(-10);
-                TaskScheduler.Schedule(now, i);
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    now = now.AddSeconds(-10);
+            //    TaskScheduler.Schedule(now, i);
+            //}
+
+            TaskScheduler.Schedule(now.AddSeconds(20), 17);
+
 
             #endregion TEST
 

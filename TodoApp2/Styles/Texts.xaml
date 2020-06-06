@@ -13,6 +13,7 @@
     <system:Double x:Key="FontSizeRegularIcon">20</system:Double>
     <system:Double x:Key="FontSizeLarge">22</system:Double>
     <system:Double x:Key="FontSizeHuge">26</system:Double>
+    <system:Double x:Key="FontSizeIconLarge">30</system:Double>
     <system:Double x:Key="FontSizeGiant">40</system:Double>
 
 
@@ -30,6 +31,10 @@
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegularIcon}"/>
         <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
         <Setter Property="FontWeight" Value="UltraLight"></Setter>
+    </Style>
+
+    <Style TargetType="Label" x:Key="IconLabelLargeStyle" BasedOn="{StaticResource IconLabelStyle}">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeIconLarge}"/>
     </Style>
 
     <Style TargetType="TextBox" x:Key="BaseInputTextBoxStyle">
@@ -100,5 +105,31 @@
     <Style TargetType="TextBox" x:Key="AddNewTaskTextBoxStyle" BasedOn="{StaticResource BaseInputTextBoxStyle}">
 
     </Style>
+
+    <Style TargetType="Label" x:Key="NotificationTitleStyle" >
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
+        <Setter Property="FontWeight" Value="UltraLight"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0 4 0 0"/>
+    </Style>
+
+    <Style TargetType="Label" x:Key="NotificationCategoryTitleStyle" >
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}"/>
+        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="14 0 0 0"/>
+    </Style>
+
+    <Style TargetType="Label" x:Key="NotificationReminderDateStyle" >
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}"/>
+        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="14 0 0 0"/>
+    </Style>
+
 
 </ResourceDictionary>
