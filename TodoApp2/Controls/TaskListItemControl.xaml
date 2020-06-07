@@ -7,7 +7,7 @@
              xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
-             MinHeight="60"
+             MinHeight="50"
              x:Name="TaskListItemUC"
              d:DesignHeight="60" d:DesignWidth="350">
 
@@ -15,7 +15,7 @@
 
         <Border Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"
                 Margin="16 3"
-                CornerRadius="5">
+                CornerRadius="3">
 
             <!--TODO: Make a fade animation instead of this-->
             <i:Interaction.Triggers>
@@ -28,7 +28,7 @@
             <Grid >
                 <Grid.ColumnDefinitions>
                     <!--Color bar column-->
-                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="6"/>
                     <!--Checkbox column-->
                     <ColumnDefinition Width="36"/>
                     <!--Main content column, also the hidden buttons column-->
@@ -37,7 +37,7 @@
 
                 <!--Color bar-->
                 <Border Grid.Column="0"
-                        CornerRadius="5 0 0 5"
+                        CornerRadius="3 0 0 3"
                         Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}"/>
 
                 <CheckBox Grid.Column="1"

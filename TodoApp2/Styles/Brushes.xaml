@@ -15,7 +15,7 @@
                  po:Freeze="True">
         <VisualBrush.Visual>
             <Path Data="M 0 8 L 8 0"
-                  Stroke="{StaticResource TaskItemBackgroundHatchBrush}" StrokeEndLineCap="Square"
+                  Stroke="{StaticResource TaskItemHatchedHatchBrush}" StrokeEndLineCap="Square"
                   RenderOptions.EdgeMode="Aliased" />
         </VisualBrush.Visual>
     </VisualBrush>

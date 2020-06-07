@@ -6,12 +6,126 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                 xmlns:local="clr-namespace:TodoApp2" 
                 xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                 mc:Ignorable="d" 
                 d:DesignHeight="450" d:DesignWidth="400"
                 Title="OptionsPage">
 
     <Grid>
-        <Border Background="MediumSeaGreen"
-                Margin="50 20"/>
+        <Border Background="{StaticResource OverlayPageBackgroundBrush}"
+                CornerRadius="5"
+                Margin="20 70"
+                >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <!-- Titlebar -->
+                <Border 
+                    Grid.Row="0"
+                    BorderThickness="0 0 0 1"
+                    BorderBrush="{StaticResource NotificationBorderBrush}"
+                    >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2"
+                            Content="Set reminder"
+                            Height="30"
+                            Style="{StaticResource NotificationTitleStyle}"/>
+
+                        <Button 
+                            Grid.Column="1" 
+                            Style="{StaticResource NotificationCloseButtonStyle}"
+                            Content="{StaticResource SegoeIconCloseWindow}"
+                            />
+                            <!--Command="{Binding CloseReminderCommand}"-->
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Row="1"
+                      Margin="10 8 10 8"
+                >
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                   <Label 
+                       Grid.Row="0" 
+                       Grid.Column="0"
+                       Content="DATE"
+                       Style="{StaticResource ReminderLabelStyle}"
+                       />
+
+                   <Label 
+                       Grid.Row="0" 
+                       Grid.Column="1"
+                       Content="TIME"
+                       Style="{StaticResource ReminderLabelStyle}"
+                   />
+
+                   <TextBox
+                       Grid.Row="1" 
+                       Grid.Column="0"
+                       Margin="0 0 10 0"
+                       Background="Transparent"
+                       Foreground="White"
+                       Height="30"
+                       FontSize="18"
+                       />
+
+                    <xctk:TimePicker
+                        Grid.Row="1" 
+                        Grid.Column="1"
+                        TimeInterval="00:15:00"
+                        ></xctk:TimePicker>
+
+                </Grid>
+
+                <Calendar
+                    Grid.Row="3"
+                    />
+
+                <Grid Grid.Row="4"
+                      Height="30"
+                      Margin="0 0 0 0"
+                >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button 
+                        Grid.Column="0"
+                        Content="Cancel"
+                    />
+                    <Button 
+                        Grid.Column="1"
+                        Content="Set"
+                    />
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
     </Grid>
 </local:BasePage>

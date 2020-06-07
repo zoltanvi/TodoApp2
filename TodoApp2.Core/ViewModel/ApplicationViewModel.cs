@@ -69,6 +69,15 @@ namespace TodoApp2.Core
 
         public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
 
+        public void TurnOffReminderOnNotificationTask()
+        {
+            if (NotificationTask != null)
+            {
+                NotificationTask.IsReminderOn = false;
+                IoC.ClientDatabase.UpdateTask(NotificationTask);
+            }
+        }
+
         public void LoadApplicationSettingsOnce()
         {
             if (!m_AppSettingsLoadedFirstTime)

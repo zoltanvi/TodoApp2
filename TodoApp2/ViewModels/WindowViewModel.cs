@@ -191,6 +191,7 @@ namespace TodoApp2.Core
 
         private void OnNotificationPageCloseRequested(object obj)
         {
+            Application.TurnOffReminderOnNotificationTask();
             CloseOverlay();
         }
 
