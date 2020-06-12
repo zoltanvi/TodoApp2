@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using TodoApp2.Core.Helpers;
 
 namespace TodoApp2.Core
 {
@@ -150,15 +149,18 @@ namespace TodoApp2.Core
 
             // Listen out for requests to open the notification page
             Mediator.Instance.Register(OnNotificationPageOpenRequested, ViewModelMessages.OpenNotificationPageRequested);
-            
+
             // Listen out for requests to close the notification page
             Mediator.Instance.Register(OnNotificationPageCloseRequested, ViewModelMessages.CloseNotificationPageRequested);
 
-            // Listen out for requests to flash the application window
-            Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
-
             // Listen out for requests to open the reminder page
             Mediator.Instance.Register(OnReminderPageOpenRequested, ViewModelMessages.OpenReminderPageRequested);
+
+            // Listen out for requests to open the reminder page
+            Mediator.Instance.Register(OnReminderPageCloseRequested, ViewModelMessages.CloseReminderPageRequested);
+
+            // Listen out for requests to flash the application window
+            Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
         }
 
         #endregion
@@ -181,11 +183,11 @@ namespace TodoApp2.Core
                 // Close the side menu regardless whether it was opened or not
                 Application.SideMenuVisible = false;
 
-                // Set it for data binding
-                Application.NotificationTask = task;
+                // Create a view model to pass to the notification page
+                BaseViewModel viewModel = new NotificationPageViewModel { NotificationTask = task };
 
                 // Change the overlay page to Notification page
-                OpenOverlayPage(ApplicationPage.Notification);
+                OpenOverlayPage(ApplicationPage.Notification, viewModel);
             }
         }
 
@@ -210,8 +212,19 @@ namespace TodoApp2.Core
 
         private void OnReminderPageOpenRequested(object obj)
         {
-            // Change the overlay page to Reminder page
-            OpenOverlayPage(ApplicationPage.Reminder);
+            if (obj is TaskListItemViewModel task)
+            {
+                // Create a view model to pass to the notification page
+                BaseViewModel viewModel = new ReminderPageViewModel { ReminderTask = task };
+
+                // Change the overlay page to Reminder page
+                OpenOverlayPage(ApplicationPage.Reminder, viewModel);
+            }
+        }
+
+        private void OnReminderPageCloseRequested(object obj)
+        {
+            CloseOverlay();
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
@@ -292,15 +305,14 @@ namespace TodoApp2.Core
 
         #region Private helpers
 
-        private void OpenOverlayPage(ApplicationPage page)
+        /// <summary>
+        /// Shows the overlay page with the given page.
+        /// </summary>
+        /// <param name="page">The page to show on the overlay page.</param>
+        /// <param name="viewModel">The view model of the page.</param>
+        private void OpenOverlayPage(ApplicationPage page, BaseViewModel viewModel)
         {
-            // TODO: inject the datacontext into the page
-
-            // Change the overlay page
-            Application.OverlayPage = page;
-
-            // Open the overlay page
-            Application.OverlayPageVisible = true;
+            Application.GoToOverlayPage(page, true, viewModel);
 
             OverlayBackgroundVisible = true;
         }
@@ -343,7 +355,7 @@ namespace TodoApp2.Core
             }
             OverlayBackgroundVisible = Application.SideMenuVisible;
         }
-        
+
         /// <summary>
         /// Gets the current mouse position on the screen
         /// </summary>

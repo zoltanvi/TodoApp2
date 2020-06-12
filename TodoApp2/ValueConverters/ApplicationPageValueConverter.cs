@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Globalization;
 using TodoApp2.Core;
-using TodoApp2.Pages;
 
 namespace TodoApp2
 {
@@ -29,7 +28,7 @@ namespace TodoApp2
                     return new ReminderPage();
 
                 case ApplicationPage.Notification:
-                    return new NotificationPage();
+                    return new NotificationPage(parameter as NotificationPageViewModel);
 
                 default:
                     Debugger.Break();

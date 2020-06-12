@@ -80,15 +80,13 @@
                     <Label 
                         Grid.Row="0"
                         Grid.Column="1" 
-                        Content="{Binding ApplicationViewModel.NotificationTaskCategory, 
-                            Source={x:Static local:ViewModelLocator.Instance}}"
+                        Content="{Binding NotificationTaskCategory}"
                         Style="{StaticResource NotificationCategoryTitleStyle}"/>
 
                     <Label 
                         Grid.Row="1"
                         Grid.Column="1" 
-                        Content="{Binding ApplicationViewModel.NotificationTask.ReminderDate, 
-                            Source={x:Static local:ViewModelLocator.Instance}, 
+                        Content="{Binding NotificationTask.ReminderDate, 
                             Converter={local:LongToFormattedDateConverter}}"
                         Style="{StaticResource NotificationReminderDateStyle}"/>
 
@@ -100,8 +98,7 @@
                               >
                     <TextBlock 
                         Margin="0 0 18 0"
-                        Text="{Binding ApplicationViewModel.NotificationTask.Content, 
-                        Source={x:Static local:ViewModelLocator.Instance}}"
+                        Text="{Binding NotificationTask.Content}"
                         TextWrapping="Wrap"
                         Foreground="White"
                     />

@@ -11,5 +11,10 @@ namespace TodoApp2
         {
             InitializeComponent();
         }
+
+        public NotificationPage(NotificationPageViewModel specificViewModel) : base(specificViewModel)
+        {
+            InitializeComponent();
+        }
     }
 }

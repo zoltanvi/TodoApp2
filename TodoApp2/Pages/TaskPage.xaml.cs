@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using TodoApp2.Core;
 
-namespace TodoApp2.Pages
+namespace TodoApp2
 {
     /// <summary>
     /// Interaction logic for TaskPage.xaml

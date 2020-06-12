@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using TodoApp2.Core.Helpers;
 
 namespace TodoApp2.Core
 {

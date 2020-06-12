@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 
-namespace TodoApp2.Core.EventHandling
+namespace TodoApp2.Core
 {
     public class PropertyChangedWeakEventManager : WeakEventManager
     {

@@ -2,7 +2,7 @@
 using System.Media;
 using Microsoft.Win32;
 
-namespace TodoApp2.Core.Helpers
+namespace TodoApp2.Core
 {
     public enum EventSounds
     {

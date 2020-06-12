@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TodoApp2.Core.Helpers
+namespace TodoApp2.Core
 {
     public static class ReflectionHelper
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TodoApp2.Core.Services
+namespace TodoApp2.Core
 {
     public class ReminderNotificationService
     {
@@ -36,11 +36,16 @@ namespace TodoApp2.Core.Services
             //    TaskScheduler.Schedule(now, i);
             //}
 
-            TaskScheduler.Schedule(now.AddSeconds(20), 17);
+            TaskScheduler.Schedule(now.AddSeconds(10), 17);
 
 
             #endregion TEST
 
+        }
+
+        public void ReminderSet(TaskListItemViewModel task)
+        {
+            TaskScheduler.Schedule(task.ReminderDate, task.Id);
         }
 
         private void ShowNotification(int taskId)

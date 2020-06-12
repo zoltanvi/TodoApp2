@@ -1,5 +1,4 @@
 ﻿using Ninject;
-using TodoApp2.Core.Services;
 
 namespace TodoApp2.Core
 {

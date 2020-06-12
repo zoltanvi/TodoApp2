@@ -6,21 +6,14 @@ using TodoApp2.Core;
 namespace TodoApp2
 {
     /// <summary>
-    /// A base page for all pages to gain base functionality
+    /// The base page for all pages to gain base functionality
     /// </summary>
-    public class BasePage<VM> : Page
-    where VM : BaseViewModel, new()
+    public class BasePage : Page
     {
-        #region Private Members
-
         /// <summary>
         /// The View Model associated with this page
         /// </summary>
-        private VM m_ViewModel;
-
-        #endregion
-
-        #region Public properties
+        private object m_ViewModel;
 
         /// <summary>
         /// The animation to play when the page is loaded
@@ -37,29 +30,30 @@ namespace TodoApp2
         /// </summary>
         public float PageLoadAnimationDurationSeconds { get; set; } = 0.4f;
 
+
         /// <summary>
         /// The View Model associated with this page
         /// </summary>
-        public VM ViewModel
+        public object ViewModelObject
         {
-            get { return m_ViewModel; }
+            get => m_ViewModel;
             set
             {
                 // If nothing has changed, return
                 if (m_ViewModel == value)
-                {
                     return;
-                }
 
                 // Update the value
                 m_ViewModel = value;
 
-                //Set the data context for this page
-                this.DataContext = m_ViewModel;
+                // Fire the view model changed method
+                OnViewModelChanged();
+
+                // Set the data context for this page
+                DataContext = m_ViewModel;
             }
         }
 
-        #endregion
 
         public BasePage()
         {
@@ -70,10 +64,7 @@ namespace TodoApp2
             }
 
             // Listen out for the page loading
-            this.Loaded += OnLoaded;
-
-            // Create a default view model
-            this.ViewModel = new VM();
+            Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -133,6 +124,77 @@ namespace TodoApp2
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Fired when the view model changes
+        /// </summary>
+        protected virtual void OnViewModelChanged()
+        {
+
+        }
+    }
+
+
+    /// <summary>
+    /// A base page with added ViewModel support
+    /// </summary>
+    public class BasePage<TViewModel> : BasePage
+        where TViewModel : BaseViewModel, new()
+    {
+        /// <summary>
+        /// The View Model associated with this page
+        /// </summary>
+        private TViewModel m_ViewModel;
+
+        /// <summary>
+        /// The View Model associated with this page
+        /// </summary>
+        public TViewModel ViewModel
+        {
+            get => m_ViewModel;
+            set
+            {
+                // If nothing has changed, return
+                if (m_ViewModel == value)
+                {
+                    return;
+                }
+
+                // Update the value
+                m_ViewModel = value;
+
+                //Set the data context for this page
+                DataContext = m_ViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public BasePage()
+        {
+            // Create a default view model
+            ViewModel = IoC.Get<TViewModel>();
+        }
+
+        /// <summary>
+        /// Constructor with specific view model
+        /// </summary>
+        /// <param name="specificViewModel">The specific view model to use, if any</param>
+        public BasePage(TViewModel specificViewModel = null)
+        {
+            // Set specific view model
+            if (specificViewModel != null)
+            {
+                ViewModel = specificViewModel;
+            }
+            else
+            {
+                // Create a default view model
+                ViewModel = IoC.Get<TViewModel>();
+            }
+
         }
     }
 }

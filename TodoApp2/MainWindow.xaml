@@ -121,24 +121,39 @@
 
             <!-- Current page -->
             <Frame local:NoFrameHistory.Value="True"
-                   Content="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}"/>
+                   d:DataContext=""
+                   DataContext="{Binding ApplicationViewModel.CurrentPage, 
+                                Source={x:Static local:ViewModelLocator.Instance}, 
+                                Converter={local:ApplicationPageValueConverter}}"
+                   Content="{Binding}"
+            />
 
             <!-- Overlay background -->
             <local:OverlayBackgroundControl
                 local:AnimateFadeInProperty.Value="{Binding OverlayBackgroundVisible}" />
 
-            <!-- Reminder page -->
-            <Frame local:NoFrameHistory.Value="True" 
-                   local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
-                   Content="{Binding ApplicationViewModel.OverlayPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
+            <!-- Overlay page -->
+                <!--local:NoFrameHistory.Value="True"-->
+            <local:PageHost 
+                local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                CurrentPage="{Binding ApplicationViewModel.OverlayPage, Source={x:Static local:ViewModelLocator.Instance}}" 
+                CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel, 
+                    Source={x:Static local:ViewModelLocator.Instance}}"
+            />
 
-                <!-- Navigator menu panel -->
+            <!-- Navigator menu panel -->
             <local:SideMenuControl
-                local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}">
+                local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, 
+                                                                Source={x:Static local:ViewModelLocator.Instance}}">
 
                 <!-- Side menu page -->
                 <Frame local:NoFrameHistory.Value="True"
-                       Content="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
+                   d:DataContext=""
+                       DataContext="{Binding ApplicationViewModel.SideMenuPage, 
+                                    Source={x:Static local:ViewModelLocator.Instance}, 
+                                    Converter={local:ApplicationPageValueConverter}}" 
+                   Content="{Binding}"
+                />
 
             </local:SideMenuControl>
 

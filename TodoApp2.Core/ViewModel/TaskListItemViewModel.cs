@@ -38,8 +38,10 @@ namespace TodoApp2.Core
 
         private void OpenReminder()
         {
+            //IoC.Application.ReminderTask = this;
+
             // Request to open the Reminder page
-            Mediator.Instance.NotifyClients(ViewModelMessages.OpenReminderPageRequested);
+            Mediator.Instance.NotifyClients(ViewModelMessages.OpenReminderPageRequested, this);
         }
 
         private void SetColor(object obj)

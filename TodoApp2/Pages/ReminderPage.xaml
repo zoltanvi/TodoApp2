@@ -34,23 +34,29 @@
                     >
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
 
+                        <CheckBox Margin="10"
+                                  Grid.Column="0" />
+
+                        <!--Title-->
                         <Label 
                             Grid.Column="0" 
-                            Grid.ColumnSpan="2"
+                            Grid.ColumnSpan="3"
                             Content="Set reminder"
                             Height="30"
                             Style="{StaticResource NotificationTitleStyle}"/>
 
+                        <!--X button-->
                         <Button 
-                            Grid.Column="1" 
+                            Grid.Column="2" 
                             Style="{StaticResource NotificationCloseButtonStyle}"
                             Content="{StaticResource SegoeIconCloseWindow}"
+                            Command="{Binding CloseReminderCommand}"
                             />
-                            <!--Command="{Binding CloseReminderCommand}"-->
                     </Grid>
                 </Border>
 
@@ -82,6 +88,7 @@
                    />
 
                    <TextBox
+                       IsReadOnly="True"
                        Grid.Row="1" 
                        Grid.Column="0"
                        Margin="0 0 10 0"
@@ -95,13 +102,15 @@
                         Grid.Row="1" 
                         Grid.Column="1"
                         TimeInterval="00:15:00"
+                        Value="{Binding SelectedTime}"
                         ></xctk:TimePicker>
 
                 </Grid>
 
                 <Calendar
                     Grid.Row="3"
-                    />
+                    SelectedDate="{Binding SelectedDate}"
+                />
 
                 <Grid Grid.Row="4"
                       Height="30"
@@ -120,6 +129,7 @@
                     <Button 
                         Grid.Column="1"
                         Content="Set"
+                        Command="{Binding SetReminderCommand}"
                     />
 
                 </Grid>

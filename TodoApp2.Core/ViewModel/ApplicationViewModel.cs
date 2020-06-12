@@ -12,19 +12,35 @@ namespace TodoApp2.Core
         private bool m_AppSettingsLoadedFirstTime = false;
 
         /// <summary>
-        /// The current page of the application
-        /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Task;
-
-        /// <summary>
-        /// The side menu content page
+        /// The sliding side menu content page
         /// </summary>
         public ApplicationPage SideMenuPage { get; } = ApplicationPage.SideMenu;
 
         /// <summary>
+        /// The current page of the application
+        /// </summary>
+        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Task;
+
+        /// <summary>
+        /// The view model to use for the current page when the CurrentPage changes
+        /// NOTE: This is not a live up-to-date view model of the current page
+        ///       it is simply used to set the view model of the current page 
+        ///       at the time it changes
+        /// </summary>
+        public BaseViewModel CurrentPageViewModel { get; set; }
+
+        /// <summary>
         /// The overlay panel content page
         /// </summary>
-        public ApplicationPage OverlayPage { get; set; } = ApplicationPage.Reminder;
+        public ApplicationPage OverlayPage { get; private set; } = ApplicationPage.Reminder;
+
+        /// <summary>
+        /// The view model to use for the current overlay page when the OverlayPage changes
+        /// NOTE: This is not a live up-to-date view model of the current page
+        ///       it is simply used to set the view model of the current page 
+        ///       at the time it changes
+        /// </summary>
+        public BaseViewModel OverlayPageViewModel { get; set; }
 
         /// <summary>
         /// True if the side menu should be shown
@@ -37,24 +53,13 @@ namespace TodoApp2.Core
         public bool OverlayPageVisible { get; set; }
 
         /// <summary>
-        /// The task that needs to be shown in the notification
+        /// The settings for the whole application
         /// </summary>
-        public TaskListItemViewModel NotificationTask { get; set; }
+        public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
 
-        public string NotificationTaskCategory
-        {
-            get
-            {
-                if (NotificationTask != null)
-                {
-                    var cat = IoC.ClientDatabase.GetCategory(NotificationTask.CategoryId);
-                    return cat.Name;
-                }
-
-                return "-- Category not found --";
-            }
-        }
-
+        /// <summary>
+        /// The currently selected category
+        /// </summary>
         public string CurrentCategory
         {
             get => m_CurrentCategory;
@@ -67,8 +72,13 @@ namespace TodoApp2.Core
             }
         }
 
-        public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
+        /// <summary>
+        /// The task that needs to be shown in the notification
+        /// </summary>
+        public TaskListItemViewModel NotificationTask { get; set; }
 
+
+        // TODO: delete it later
         public void TurnOffReminderOnNotificationTask()
         {
             if (NotificationTask != null)
@@ -78,13 +88,45 @@ namespace TodoApp2.Core
             }
         }
 
+        /// <summary>
+        /// Navigates the overlay page to the specified page
+        /// </summary>
+        /// <param name="page">The page to go to</param>
+        /// <param name="visible">Shows the page if true</param>
+        /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
+        public void GoToOverlayPage(ApplicationPage page, bool visible = true, BaseViewModel viewModel = null)
+        {
+            // Always hide side menu if we are changing pages
+            SideMenuVisible = false;
+
+            // Set the view model
+            OverlayPageViewModel = viewModel;
+
+            // See if page has changed
+            bool different = OverlayPage != page;
+
+            // Set the current overlay page
+            OverlayPage = page;
+
+            // Show or hide the page
+            OverlayPageVisible = visible;
+            
+            // If the page hasn't changed, fire off notification
+            // So pages still update if just the view model has changed
+            if (!different)
+            {
+                OnPropertyChanged(nameof(OverlayPage));
+            }
+        }
+
+
         public void LoadApplicationSettingsOnce()
         {
             if (!m_AppSettingsLoadedFirstTime)
             {
                 m_AppSettingsLoadedFirstTime = true;
 
-               LoadApplicationSettings();
+                LoadApplicationSettings();
             }
         }
 
