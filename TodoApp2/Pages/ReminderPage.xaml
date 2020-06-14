@@ -34,13 +34,23 @@
                     >
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Margin="10"
-                                  Grid.Column="0" />
+                        <!--<CheckBox 
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Grid.Column="0" 
+                                  IsChecked="{Binding IsReminderOn}"
+                                  />-->
+
+                        <ToggleButton 
+                            Grid.Column="0" Style="{DynamicResource ToggleSwitchLeftStyle}"
+                            HorizontalAlignment="Left"
+                            IsChecked="{Binding IsReminderOn}"
+                        />
 
                         <!--Title-->
                         <Label 
@@ -122,16 +132,16 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Button 
+                    <!--<Button 
                         Grid.Column="0"
                         Content="Cancel"
-                    />
+                    />-->
                     <Button 
                         Grid.Column="1"
-                        Content="Set"
+                        Content="Save"
                         Command="{Binding SetReminderCommand}"
                     />
-
+                    
                 </Grid>
 
             </Grid>

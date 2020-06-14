@@ -7,6 +7,9 @@ namespace TodoApp2.Core
 {
     public class ReminderPageViewModel : BaseViewModel
     {
+        private ReminderNotificationService NotificationService => IoC.ReminderNotificationService;
+        private ClientDatabase ClientDatabase => IoC.ClientDatabase;
+
         /// <summary>
         /// The task to show the notification for.
         /// </summary>
@@ -22,34 +25,51 @@ namespace TodoApp2.Core
 
         public ICommand SetReminderCommand { get; }
 
-
         public ReminderPageViewModel()
         {
-            if (ReminderTask != null)
-            {
-                IsReminderOn = ReminderTask.IsReminderOn;
-                if (ReminderTask.ReminderDate != 0)
-                {
-                    var date = new DateTime(ReminderTask.ReminderDate);
-                    SelectedDate = date.Date;
-                    SelectedTime = new DateTime() + date.TimeOfDay;
-                }
-            }
-            else
-            {
-                Console.WriteLine();
-            }
-
             CloseReminderCommand = new RelayCommand(CloseReminder);
             SetReminderCommand = new RelayCommand(SetReminder);
         }
 
+
+        public ReminderPageViewModel(TaskListItemViewModel reminderTask) : this()
+        {
+            if (reminderTask != null)
+            {
+                ReminderTask = reminderTask;
+                IsReminderOn = ReminderTask.IsReminderOn;
+                if (ReminderTask.ReminderDate != 0)
+                {
+                    DateTime date = new DateTime(ReminderTask.ReminderDate);
+                    SelectedDate = date.Date;
+                    SelectedTime = new DateTime() + date.TimeOfDay;
+                }
+            }
+        }
+
         private void SetReminder()
         {
+            UpdateTaskReminder();
+
+            if (IsReminderOn)
+            {
+                NotificationService.SetReminder(ReminderTask);
+            }
+            else
+            {
+                NotificationService.DeleteReminder(ReminderTask);
+            }
+            
+            CloseReminder();
+        }
+
+        private void UpdateTaskReminder()
+        {
+            DateTime reminderDate = SelectedDate.Date + new TimeSpan(SelectedTime.Hour, SelectedTime.Minute, 0);
+            ReminderTask.ReminderDate = reminderDate.Ticks;
+
             ReminderTask.IsReminderOn = IsReminderOn;
-            ReminderTask.ReminderDate = (SelectedDate.Date + SelectedTime.TimeOfDay).Ticks;
-            IoC.ReminderNotificationService.ReminderSet(ReminderTask);
-            IoC.ClientDatabase.UpdateTask(ReminderTask);
+            ClientDatabase.UpdateTask(ReminderTask);
         }
 
         private void CloseReminder()

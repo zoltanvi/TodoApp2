@@ -130,7 +130,8 @@
 
             <!-- Overlay background -->
             <local:OverlayBackgroundControl
-                local:AnimateFadeInProperty.Value="{Binding OverlayBackgroundVisible}" />
+                local:AnimateFadeInProperty.Value="{Binding ApplicationViewModel.OverlayBackgroundVisible, 
+                                Source={x:Static local:ViewModelLocator.Instance}}" />
 
             <!-- Overlay page -->
                 <!--local:NoFrameHistory.Value="True"-->
@@ -148,11 +149,11 @@
 
                 <!-- Side menu page -->
                 <Frame local:NoFrameHistory.Value="True"
-                   d:DataContext=""
-                       DataContext="{Binding ApplicationViewModel.SideMenuPage, 
-                                    Source={x:Static local:ViewModelLocator.Instance}, 
-                                    Converter={local:ApplicationPageValueConverter}}" 
-                   Content="{Binding}"
+                    d:DataContext=""
+                    DataContext="{Binding ApplicationViewModel.SideMenuPage, 
+                        Source={x:Static local:ViewModelLocator.Instance}, 
+                        Converter={local:ApplicationPageValueConverter}}" 
+                    Content="{Binding}"
                 />
 
             </local:SideMenuControl>

@@ -17,13 +17,13 @@ namespace TodoApp2.Core
         {
             TaskScheduler.ScheduledTask = ShowNotification;
 
-            //var taskList = Database.GetActiveTaskItems();
-            //var filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
+            var taskList = Database.GetActiveTaskItems();
+            var filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
 
-            //foreach (var taskItem in filteredItems)
-            //{
-            //    TaskScheduler.Schedule(taskItem.ReminderDate, taskItem.Id);
-            //}
+            foreach (var taskItem in filteredItems)
+            {
+                TaskScheduler.Schedule(taskItem.Id, taskItem.ReminderDate);
+            }
 
             #region TEST
 
@@ -36,16 +36,21 @@ namespace TodoApp2.Core
             //    TaskScheduler.Schedule(now, i);
             //}
 
-            TaskScheduler.Schedule(now.AddSeconds(10), 17);
+            //TaskScheduler.Schedule(now.AddSeconds(10), 17);
 
 
             #endregion TEST
 
         }
 
-        public void ReminderSet(TaskListItemViewModel task)
+        public void SetReminder(TaskListItemViewModel task)
         {
-            TaskScheduler.Schedule(task.ReminderDate, task.Id);
+            TaskScheduler.Schedule(task.Id, task.ReminderDate);
+        }
+
+        public void DeleteReminder(TaskListItemViewModel task)
+        {
+            TaskScheduler.DeleteScheduled(task.Id);
         }
 
         private void ShowNotification(int taskId)

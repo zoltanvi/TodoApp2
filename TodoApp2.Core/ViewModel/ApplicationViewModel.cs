@@ -53,6 +53,11 @@ namespace TodoApp2.Core
         public bool OverlayPageVisible { get; set; }
 
         /// <summary>
+        /// True if the overlay background should be shown
+        /// </summary>
+        public bool OverlayBackgroundVisible { get; set; }
+
+        /// <summary>
         /// The settings for the whole application
         /// </summary>
         public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
@@ -69,22 +74,6 @@ namespace TodoApp2.Core
 
                 // Notify all listeners about the category change
                 Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged, value);
-            }
-        }
-
-        /// <summary>
-        /// The task that needs to be shown in the notification
-        /// </summary>
-        public TaskListItemViewModel NotificationTask { get; set; }
-
-
-        // TODO: delete it later
-        public void TurnOffReminderOnNotificationTask()
-        {
-            if (NotificationTask != null)
-            {
-                NotificationTask.IsReminderOn = false;
-                IoC.ClientDatabase.UpdateTask(NotificationTask);
             }
         }
 
@@ -118,7 +107,6 @@ namespace TodoApp2.Core
                 OnPropertyChanged(nameof(OverlayPage));
             }
         }
-
 
         public void LoadApplicationSettingsOnce()
         {

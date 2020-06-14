@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using TodoApp2.Core;
 
-namespace TodoApp2.Core
+namespace TodoApp2
 {
     /// <summary>
     /// The View Model for the custom flat window
@@ -29,16 +30,22 @@ namespace TodoApp2.Core
 
         #region Commands
 
-        public ICommand MinimizeCommand { get; set; }
-        public ICommand MaximizeCommand { get; set; }
-        public ICommand CloseCommand { get; set; }
-        public ICommand ToggleSideMenuCommand { get; set; }
+        public ICommand MinimizeCommand { get; }
+        public ICommand MaximizeCommand { get; }
+        public ICommand CloseCommand { get; }
+        public ICommand ToggleSideMenuCommand { get; }
 
-        public ICommand CloseOverlayCommand { get; set; }
+        public ICommand CloseOverlayCommand { get; }
 
         #endregion
 
         #region Public Properties
+
+        public OverlayPageHandlerService OverlayPageHandler { get; }
+
+        #endregion
+
+        #region Window settings
 
         public double WindowMinimumWidth { get; set; } = 320;
         public double WindowMinimumHeight { get; set; } = 400;
@@ -106,8 +113,6 @@ namespace TodoApp2.Core
 
         public bool IsDocked { get; set; }
 
-        public bool OverlayBackgroundVisible { get; private set; }
-
         #endregion
 
         #region Constructors
@@ -115,12 +120,13 @@ namespace TodoApp2.Core
         public WindowViewModel(Window window)
         {
             m_Window = window;
+            OverlayPageHandler = new OverlayPageHandlerService();
 
             // Listen out for all properties that are affected by a resize
             m_Window.StateChanged += OnWindowStateChanged;
 
             // Restore the last saved position and size of the window
-            m_Window.Loaded += OnWindowOnLoaded;
+            m_Window.Loaded += OnWindowLoaded;
 
             // Save the window size and position into the database
             m_Window.Closing += OnWindowClosing;
@@ -133,7 +139,7 @@ namespace TodoApp2.Core
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
-            CloseOverlayCommand = new RelayCommand(CloseOverlay);
+            CloseOverlayCommand = new RelayCommand(OverlayPageHandler.CloseEveryOverlay);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
@@ -144,21 +150,6 @@ namespace TodoApp2.Core
             // Subscribe to the category changed event to turn off the overlay background
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
 
-            // Listen out for requests to open the overlay background
-            Mediator.Instance.Register(OnOverlayBackgroundOpenRequested, ViewModelMessages.OpenOverlayBackgroundRequested);
-
-            // Listen out for requests to open the notification page
-            Mediator.Instance.Register(OnNotificationPageOpenRequested, ViewModelMessages.OpenNotificationPageRequested);
-
-            // Listen out for requests to close the notification page
-            Mediator.Instance.Register(OnNotificationPageCloseRequested, ViewModelMessages.CloseNotificationPageRequested);
-
-            // Listen out for requests to open the reminder page
-            Mediator.Instance.Register(OnReminderPageOpenRequested, ViewModelMessages.OpenReminderPageRequested);
-
-            // Listen out for requests to open the reminder page
-            Mediator.Instance.Register(OnReminderPageCloseRequested, ViewModelMessages.CloseReminderPageRequested);
-
             // Listen out for requests to flash the application window
             Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
         }
@@ -166,35 +157,10 @@ namespace TodoApp2.Core
         #endregion
 
         #region EventHandlers
-        private void OnOverlayBackgroundOpenRequested(object obj)
-        {
-            OverlayBackgroundVisible = true;
-        }
 
         private void OnCategoryChanged(object obj)
         {
-            CloseOverlay();
-        }
-
-        private void OnNotificationPageOpenRequested(object obj)
-        {
-            if (obj is TaskListItemViewModel task)
-            {
-                // Close the side menu regardless whether it was opened or not
-                Application.SideMenuVisible = false;
-
-                // Create a view model to pass to the notification page
-                BaseViewModel viewModel = new NotificationPageViewModel { NotificationTask = task };
-
-                // Change the overlay page to Notification page
-                OpenOverlayPage(ApplicationPage.Notification, viewModel);
-            }
-        }
-
-        private void OnNotificationPageCloseRequested(object obj)
-        {
-            Application.TurnOffReminderOnNotificationTask();
-            CloseOverlay();
+            OverlayPageHandler.CloseEveryOverlay();
         }
 
         private void OnWindowFlashRequested(object obj)
@@ -208,23 +174,6 @@ namespace TodoApp2.Core
             {
                 WindowsEventSoundPlayer.PlayNotificationSound(EventSounds.MailBeep);
             }
-        }
-
-        private void OnReminderPageOpenRequested(object obj)
-        {
-            if (obj is TaskListItemViewModel task)
-            {
-                // Create a view model to pass to the notification page
-                BaseViewModel viewModel = new ReminderPageViewModel { ReminderTask = task };
-
-                // Change the overlay page to Reminder page
-                OpenOverlayPage(ApplicationPage.Reminder, viewModel);
-            }
-        }
-
-        private void OnReminderPageCloseRequested(object obj)
-        {
-            CloseOverlay();
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
@@ -259,7 +208,7 @@ namespace TodoApp2.Core
             WindowResized();
         }
 
-        private void OnWindowOnLoaded(object sender, RoutedEventArgs e)
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             // When the window finished loading,
             // load the settings from the database
@@ -305,31 +254,6 @@ namespace TodoApp2.Core
 
         #region Private helpers
 
-        /// <summary>
-        /// Shows the overlay page with the given page.
-        /// </summary>
-        /// <param name="page">The page to show on the overlay page.</param>
-        /// <param name="viewModel">The view model of the page.</param>
-        private void OpenOverlayPage(ApplicationPage page, BaseViewModel viewModel)
-        {
-            Application.GoToOverlayPage(page, true, viewModel);
-
-            OverlayBackgroundVisible = true;
-        }
-
-        private void CloseOverlay()
-        {
-            OverlayBackgroundVisible = false;
-
-            // Notify all listeners about the background close
-            Mediator.Instance.NotifyClients(ViewModelMessages.OverlayBackgroundClosed);
-
-            // When the background is closed the side menu and the overlay page should be closed as well
-            // regardless of it was opened or closed before
-            Application.SideMenuVisible = false;
-            Application.OverlayPageVisible = false;
-        }
-
         private void ToggleSideMenu()
         {
             OpenSideMenu(!Application.SideMenuVisible);
@@ -347,13 +271,15 @@ namespace TodoApp2.Core
             {
                 // The overlay page should be closed when the side menu is opened
                 Application.OverlayPageVisible = false;
+                
+                // The overlay background should be visible when the side menu is opened
+                Mediator.Instance.NotifyClients(ViewModelMessages.OpenOverlayBackgroundRequested);
             }
             else
             {
                 // The overlay background should be closed when the side menu is closed
-                CloseOverlay();
+                OverlayPageHandler.CloseEveryOverlay();
             }
-            OverlayBackgroundVisible = Application.SideMenuVisible;
         }
 
         /// <summary>

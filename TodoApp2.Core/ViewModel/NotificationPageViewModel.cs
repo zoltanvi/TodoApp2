@@ -38,6 +38,13 @@ namespace TodoApp2.Core
 
         private void CloseNotification()
         {
+            // Turn off the reminder if the notification was closed with X button
+            if (NotificationTask != null)
+            {
+                NotificationTask.IsReminderOn = false;
+                IoC.ClientDatabase.UpdateTask(NotificationTask);
+            }
+
             Mediator.Instance.NotifyClients(ViewModelMessages.CloseNotificationPageRequested);
         }
     }

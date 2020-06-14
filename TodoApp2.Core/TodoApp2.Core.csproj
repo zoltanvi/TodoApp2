@@ -92,6 +92,7 @@
     <Compile Include="Mediator\MultiDictionary.cs" />
     <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\OverlayPageHandlerService.cs" />
     <Compile Include="Services\ReminderNotificationService.cs" />
     <Compile Include="Services\ReminderTaskScheduler.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />

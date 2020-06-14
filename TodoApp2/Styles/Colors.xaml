@@ -98,5 +98,59 @@
     <Color x:Key="NotificationBorder">#5C5C5C</Color>
     <SolidColorBrush x:Key="NotificationBorderBrush" Color="{StaticResource NotificationBorder}" />
 
-    
+
+
+    <Color x:Key="ToggleSwitchGlyph">#D0D0D0</Color>
+    <SolidColorBrush x:Key="ToggleSwitchGlyphBrush" Color="{StaticResource ToggleSwitchGlyph}" />
+
+    <Color x:Key="ToggleSwitchGlyphHovered">#FFFFFF</Color>
+    <SolidColorBrush x:Key="ToggleSwitchGlyphHoveredBrush" Color="{StaticResource ToggleSwitchGlyphHovered}" />
+
+    <Color x:Key="ToggleSwitchBackground">#292929</Color>
+    <SolidColorBrush x:Key="ToggleSwitchBackgroundBrush" Color="{StaticResource ToggleSwitchBackground}" />
+
+    <Color x:Key="ToggleSwitchBackgroundHovered">#333333</Color>
+    <SolidColorBrush x:Key="ToggleSwitchBackgroundHoveredBrush" Color="{StaticResource ToggleSwitchBackgroundHovered}" />
+
+    <Color x:Key="ToggleSwitchBorder">#D0D0D0</Color>
+    <SolidColorBrush x:Key="ToggleSwitchBorderBrush" Color="{StaticResource ToggleSwitchBorder}" />
+
+    <Color x:Key="ToggleSwitchBorderHovered">#FFFFFF</Color>
+    <SolidColorBrush x:Key="ToggleSwitchBorderHoveredBrush" Color="{StaticResource ToggleSwitchBorderHovered}" />
+
+    <Color x:Key="ToggleSwitchCheckedBackground">#DC9615</Color>
+    <SolidColorBrush x:Key="ToggleSwitchCheckedBackgroundBrush" Color="{StaticResource ToggleSwitchCheckedBackground}" />
+
+    <Color x:Key="ToggleSwitchCheckedHoveredBackground">#D38D0C</Color>
+    <SolidColorBrush x:Key="ToggleSwitchCheckedHoveredBackgroundBrush" Color="{StaticResource ToggleSwitchCheckedHoveredBackground}" />
+
+
+    <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF333333"/>
+    <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF333333"/>
+
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF000000"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF000000"/>
+
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Background" Color="#FF4C91C8"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Border" Color="#FF4C91C8"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Glyph" Color="#FFFFFFFF"/>
+
+    <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FF999999"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF999999"/>
+
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Background" Color="#FFCCCCCC"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Border" Color="#FFCCCCCC"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Glyph" Color="#FFA3A3A3"/>
+
+    <SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FF999999"/>
+    <SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF999999"/>
+    <SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FFFFFFFF"/>
+
+    <SolidColorBrush x:Key="RadioButton.Checked.Background" Color="#FF0063B1"/>
+    <SolidColorBrush x:Key="RadioButton.Checked.Border" Color="#FF0063B1"/>
+    <SolidColorBrush x:Key="RadioButton.Checked.Glyph" Color="#FFFFFFFF"/>
+
 </ResourceDictionary>

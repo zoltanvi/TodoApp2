@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TodoApp2"
-      xmlns:viewModel="clr-namespace:TodoApp2.Core"
       xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
       mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="380"
