@@ -33,23 +33,35 @@ namespace TodoApp2.Core
             MakeCurrentTaskInvalid();
         }
 
-        public bool Schedule(int id, long dateTime)
+        public void Schedule(int id, long dateTime)
         {
-            return Schedule(id, new DateTime(dateTime));
+            Schedule(id, new DateTime(dateTime));
         }
 
-        public bool Schedule(int id, DateTime dateTime)
+        public void Schedule(int id, DateTime dateTime)
         {
-            // Do not schedule duplicate tasks
-            if (!ScheduledTasks.ContainsKey(id))
+            // When the task to be set is the current task,
+            // that means it is already started and waits to be executed.
+            // In that case update the current task
+            if (CurrentTask.Key == id)
+            {
+                InterruptCurrentTask();
+                ScheduledTasks[id] = dateTime;
+                StartNextTask();
+            }
+            // ... Or the task is scheduled but not started yet,
+            // In that case update the scheduled task
+            else if (ScheduledTasks.ContainsKey(id))
+            {
+                ScheduledTasks[id] = dateTime;
+            }
+            // ... Or the task is not scheduled yet, simply schedule it
+            else
             {
                 ScheduledTasks.Add(id, dateTime);
                 InterruptCurrentTask();
                 StartNextTask();
-                return true;
             }
-
-            return false;
         }
 
         public bool DeleteScheduled(int id)

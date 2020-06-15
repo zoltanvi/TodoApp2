@@ -9,22 +9,6 @@ namespace TodoApp2.Core
         /// </summary>
         public TaskListItemViewModel NotificationTask { get; set; }
 
-        /// <summary>
-        /// The category of the notification task.
-        /// </summary>
-        public string NotificationTaskCategory
-        {
-            get
-            {
-                if (NotificationTask != null)
-                {
-                    var cat = IoC.ClientDatabase.GetCategory(NotificationTask.CategoryId);
-                    return cat.Name;
-                }
-
-                return "-- Category not found --";
-            }
-        }
 
         /// <summary>
         /// Closes the notification page
@@ -34,6 +18,11 @@ namespace TodoApp2.Core
         public NotificationPageViewModel()
         {
             CloseNotificationCommand = new RelayCommand(CloseNotification);
+        }
+
+        public NotificationPageViewModel(TaskListItemViewModel notificationTask) : this()
+        {
+            NotificationTask = notificationTask;
         }
 
         private void CloseNotification()

@@ -11,5 +11,10 @@ namespace TodoApp2
         {
             InitializeComponent();
         }
+
+        public ReminderPage(ReminderPageViewModel specificViewModel) : base(specificViewModel)
+        {
+            InitializeComponent();
+        }
     }
 }
