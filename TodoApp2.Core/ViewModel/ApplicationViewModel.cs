@@ -7,8 +7,6 @@ namespace TodoApp2.Core
     /// </summary>
     public class ApplicationViewModel : BaseViewModel
     {
-        private string m_CurrentCategory;
-
         private bool m_AppSettingsLoadedFirstTime = false;
 
         /// <summary>
@@ -65,17 +63,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The currently selected category
         /// </summary>
-        public string CurrentCategory
-        {
-            get => m_CurrentCategory;
-            set
-            {
-                m_CurrentCategory = value;
-
-                // Notify all listeners about the category change
-                Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged, value);
-            }
-        }
+        public string CurrentCategory { get; set; }
 
         /// <summary>
         /// Navigates the overlay page to the specified page

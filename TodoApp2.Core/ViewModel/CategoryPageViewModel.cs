@@ -167,8 +167,6 @@ namespace TodoApp2.Core
             if (obj is CategoryListItemViewModel category)
             {
                 SetCurrentCategory(category.Name);
-
-                IoC.Application.SideMenuVisible = false;
             }
         }
 
@@ -179,20 +177,21 @@ namespace TodoApp2.Core
         /// <param name="categoryName"></param>
         private void SetCurrentCategory(string categoryName)
         {
-            if (string.IsNullOrEmpty(categoryName))
+            if (!string.IsNullOrEmpty(categoryName))
             {
-                return;
-            }
+                // Set every IsSelected property to false, except for the current category
+                foreach (var categoryItem in Items)
+                {
+                    categoryItem.IsSelected = categoryItem.Name == categoryName;
+                }
 
-            // Set every IsSelected property to false, except for the current category
-            foreach (var categoryItem in Items)
-            {
-                categoryItem.IsSelected = categoryItem.Name == categoryName;
-            }
+                // Set the CurrentCategory property
+                CurrentCategory = categoryName;
 
-            // Set the CurrentCategory property
-            CurrentCategory = categoryName;
+                // Notify clients about the category change
+                Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged);
+            }
         }
-    }
 
+    }
 }

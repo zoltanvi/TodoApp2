@@ -70,7 +70,7 @@ namespace TodoApp2.Core
                 Application.SideMenuVisible = false;
 
                 // Create a view model to pass to the notification page
-                BaseViewModel viewModel = new NotificationPageViewModel { NotificationTask = task };
+                BaseViewModel viewModel = new NotificationPageViewModel(task);
 
                 // Change the overlay page to Notification page
                 OpenOverlayPage(ApplicationPage.Notification, viewModel);

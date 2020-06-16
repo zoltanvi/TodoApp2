@@ -75,7 +75,9 @@ namespace TodoApp2
                     e.Handled = true;
                 }
 
-                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && 
+                // Enclose selected text in format characters if only [Ctrl + B] is pressed
+                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) &&
+                    !Keyboard.Modifiers.HasFlag(ModifierKeys.Alt) &&
                     e.Key == Key.B)
                 {
                     int caretIndex = textBox.CaretIndex;
