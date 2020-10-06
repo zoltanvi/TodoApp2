@@ -44,5 +44,10 @@
         /// The application should flash (orange in windows taskbar)
         /// </summary>
         WindowFlashRequested,
+
+        /// <summary>
+        /// The task list should be refreshed (repaint UI)
+        /// </summary>
+        RefreshTaskListRequested,
     }
 }

@@ -23,6 +23,9 @@
     <Color x:Key="DescriptionForeground">#bdbdbd</Color>
     <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="{StaticResource DescriptionForeground}" />
 
+    <Color x:Key="DescriptionForegroundEditMode">#9CDCFE</Color>
+    <SolidColorBrush x:Key="DescriptionForegroundEditModeBrush" Color="{StaticResource DescriptionForegroundEditMode}" />
+
     <Color x:Key="TimestampForeground">#bdbdbd</Color>
     <SolidColorBrush x:Key="TimestampForegroundBrush" Color="{StaticResource TimestampForeground}" />
 
@@ -123,6 +126,13 @@
 
     <Color x:Key="ToggleSwitchCheckedHoveredBackground">#D38D0C</Color>
     <SolidColorBrush x:Key="ToggleSwitchCheckedHoveredBackgroundBrush" Color="{StaticResource ToggleSwitchCheckedHoveredBackground}" />
+
+
+    <Color x:Key="TimePickerButtonBackground">#292929</Color>
+    <SolidColorBrush x:Key="TimePickerButtonBackgroundBrush" Color="{StaticResource TimePickerButtonBackground}" />
+
+    <Color x:Key="TimePickerButtonBackgroundHovered">#494949</Color>
+    <SolidColorBrush x:Key="TimePickerButtonBackgroundHoveredBrush" Color="{StaticResource TimePickerButtonBackgroundHovered}" />
 
 
     <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF"/>

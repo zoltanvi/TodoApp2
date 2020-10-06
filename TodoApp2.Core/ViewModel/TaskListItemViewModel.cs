@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -22,11 +23,15 @@ namespace TodoApp2.Core
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }
         public bool ColorPickerVisible { get; set; }
+        public bool IsEditMode { get; set; }
+        public string PendingEditContent { get; set; }
 
         public ICommand ShowColorPickerCommand { get; }
         public ICommand HideColorPickerCommand { get; }
         public ICommand SetColorCommand { get; }
         public ICommand OpenReminderCommand { get; }
+
+        public ICommand EditItemCommand { get; }
 
         public TaskListItemViewModel()
         {
@@ -34,6 +39,38 @@ namespace TodoApp2.Core
             HideColorPickerCommand = new RelayCommand(HideColorPicker);
             SetColorCommand = new RelayParameterizedCommand(SetColor);
             OpenReminderCommand = new RelayCommand(OpenReminder);
+            EditItemCommand = new RelayCommand(EditItem);
+        }
+
+        public void UpdateContent()
+        {
+            // If the text is empty or only whitespace, refuse
+            // If the text only contains format characters, refuse
+            string trimmed = PendingEditContent.Replace("`", string.Empty);
+            if (!string.IsNullOrWhiteSpace(PendingEditContent) && !string.IsNullOrWhiteSpace(trimmed))
+            {
+                // Changes are accepted
+                Content = PendingEditContent;
+                
+                // Persist changes into database
+                Database.UpdateTask(this);
+            }
+
+            // Switch back from edit mode
+            IsEditMode = false;
+
+            // Request a task list refresh 
+            // (workaround because the task list item does not get repainted even if the Content changes)
+            Mediator.Instance.NotifyClients(ViewModelMessages.RefreshTaskListRequested);
+        }
+
+        private void EditItem()
+        {
+            // Copy the content as the pending text
+            PendingEditContent = Content;
+            
+            // Enable editing
+            IsEditMode = true;
         }
 
         private void OpenReminder()

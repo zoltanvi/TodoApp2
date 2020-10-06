@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Input;
@@ -63,8 +64,10 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
-        }
 
+            // Listen out for requests to refresh the task list
+            Mediator.Instance.Register(OnRefreshTaskListRequested, ViewModelMessages.RefreshTaskListRequested);
+        }
 
         private void ModifyTaskIsDone(object obj)
         {
@@ -217,5 +220,18 @@ namespace TodoApp2.Core
             Items.AddRange(filteredItems);
         }
 
+        /// <summary>
+        /// Repaints the task list (workaround)
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnRefreshTaskListRequested(object obj)
+        {
+            var copyItems = new List<TaskListItemViewModel>(Items);
+            Items.Clear();
+            foreach (var item in copyItems)
+            {
+                Items.Add(item);
+            }
+        }
     }
 }

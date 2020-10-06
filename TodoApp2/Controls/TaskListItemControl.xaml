@@ -58,16 +58,28 @@
 
                     <!--Task description-->
                     <TextBlock Grid.Row="0"
-                               VerticalAlignment="Center"
-                               TextWrapping="Wrap"
-                               HorizontalAlignment="Stretch"
-                               FontSize="16"
-                               FontFamily="Segoe UI"
-                               Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
-                               Foreground="{StaticResource DescriptionForegroundBrush}"
-                               Text="{Binding Content, NotifyOnTargetUpdated=True}"
-                               TargetUpdated="TaskDescriptionTextBlock_OnTargetUpdated"
+                             Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
+                             Style="{StaticResource TaskListItemDescriptionTextBlockStyle}"
+                             Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                             Text="{Binding Content, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                             TargetUpdated="TaskDescriptionTextBlock_OnTargetUpdated"
+                               >
+                        
+                        <TextBlock.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditItemCommand}" />
+                        </TextBlock.InputBindings>
+                        
+                    </TextBlock>
+
+                    <TextBox Grid.Row="0"
+                             x:Name="EditTextBox"
+                             Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}"
+                             Style="{StaticResource TaskListItemDescriptionTextBoxStyle}"
+                             Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                             Text="{Binding PendingEditContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             PreviewKeyDown="TextBox_PreviewKeyDown"
                                />
+
 
                     <!--Timestamp-->
                     <!--<TextBlock Grid.Row="1" 
@@ -150,12 +162,12 @@
                     </Border>
                 </Border>
 
-            <local:ColorPickerControl 
-                Grid.Column="2" 
-                HorizontalContentAlignment="Right" 
-                Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}"
-                Margin="0 0 30 0"
-                />
+                <local:ColorPickerControl 
+                    Grid.Column="2" 
+                    HorizontalContentAlignment="Right" 
+                    Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}"
+                    Margin="0 0 30 0"
+                    />
 
             </Grid>
 

@@ -6,6 +6,7 @@
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
         <ResourceDictionary Source="Colors.xaml"/>
+        <ResourceDictionary Source="ScrollBars.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <system:Double x:Key="FontSizeSmall">14</system:Double>
@@ -16,6 +17,26 @@
     <system:Double x:Key="FontSizeIconLarge">30</system:Double>
     <system:Double x:Key="FontSizeGiant">40</system:Double>
 
+    <Style TargetType="TextBlock" x:Key="TaskListItemDescriptionTextBlockStyle">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="Foreground" Value="{StaticResource DescriptionForegroundBrush}" />
+        <Setter Property="Background" Value="#00000000"/>
+    </Style>
+    
+    <Style TargetType="TextBox" x:Key="TaskListItemDescriptionTextBoxStyle">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="Foreground" Value="{StaticResource DescriptionForegroundEditModeBrush}" />
+        <Setter Property="Background" Value="#00000000"/>
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
 
     <Style TargetType="TextBlock" x:Key="CategoryTextBlockStyle">
         <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -65,7 +86,7 @@
                                    x:Name="placeholder"
                                    Padding="{TemplateBinding Padding}"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                   HorizontalAlignment="Center"
                                    Foreground="{StaticResource TextBoxPlaceholderForegroundBrush}"
                                    Margin="2 0 0 0"
                                    >
@@ -103,7 +124,9 @@
     </Style>
 
     <Style TargetType="TextBox" x:Key="AddNewTaskTextBoxStyle" BasedOn="{StaticResource BaseInputTextBoxStyle}">
-
+        <Style.Resources>
+            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource DarkScrollBarStyle}"/>
+        </Style.Resources>
     </Style>
 
     <Style TargetType="Label" x:Key="NotificationTitleStyle" >

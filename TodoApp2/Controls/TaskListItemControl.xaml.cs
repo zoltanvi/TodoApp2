@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Input;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -11,9 +13,8 @@ namespace TodoApp2
     /// </summary>
     public partial class TaskListItemControl : UserControl
     {
-        private const char FormatCharacter = '`';
         private static readonly FontFamily ConsolasFont = new FontFamily("Consolas");
-        private static readonly SolidColorBrush HighLightColor = new SolidColorBrush(Color.FromRgb(255, 194, 83));
+        private static readonly SolidColorBrush HighLightColor = new SolidColorBrush(Color.FromRgb(78, 201, 176));
 
         public TaskListItemControl()
         {
@@ -38,7 +39,7 @@ namespace TodoApp2
                 StringBuilder stringBuilder = new StringBuilder();
                 foreach (char character in text)
                 {
-                    if (character != FormatCharacter)
+                    if (character != TextBoxPreviewKeyDownHelper.FormatCharacter)
                     {
                         stringBuilder.Append(character);
                     }
@@ -74,6 +75,19 @@ namespace TodoApp2
             }
 
             stringBuilder.Clear();
+        }
+
+        /// <summary>
+        /// Preview the input into the message box and respond as required
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(DataContext is TaskListItemViewModel viewModel)
+            {
+                TextBoxPreviewKeyDownHelper.TextBox_PreviewKeyDown(sender, e, viewModel.UpdateContent);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="44"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -41,13 +41,13 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label 
+                <!--<Label 
                     Grid.Column="0"
                     Content="{StaticResource SegoeIconAdd}" 
                     Style="{StaticResource IconLabelStyle}"
                     Margin="20 0 0 0"
                     VerticalAlignment="Center"
-                />
+                />-->
                 <TextBox
                     Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}"
                     Tag="Add new category"

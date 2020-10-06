@@ -20,7 +20,8 @@
                       HorizontalContentAlignment="Stretch" 
                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                      ScrollViewer.CanContentScroll="False" Template="{DynamicResource TaskListControlTemplate}">
+                      ScrollViewer.CanContentScroll="False" 
+                  Template="{DynamicResource TaskListControlTemplate}">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

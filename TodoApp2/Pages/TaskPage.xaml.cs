@@ -13,9 +13,6 @@ namespace TodoApp2
     /// </summary>
     public partial class TaskPage : BasePage<TaskPageViewModel>
     {
-        private const char FormatCharacter = '`';
-
-
         public TaskPage()
         {
             InitializeComponent();
@@ -44,77 +41,33 @@ namespace TodoApp2
         /// <param name="e"></param>
         private void AddNewTaskTextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // Get the text box
-            if (sender is TextBox textBox)
-            {
-                // Check if we have pressed enter
-                if (e.Key == Key.Enter)
-                {
-                    // If we have SHIFT pressed
-                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-                    {
-                        // Add a new line at the point where the cursor is
-                        var index = textBox.CaretIndex;
-
-                        // Insert the new line
-                        textBox.Text = textBox.Text.Insert(index, Environment.NewLine);
-
-                        // Shift the caret forward to the newline
-                        textBox.CaretIndex = index + Environment.NewLine.Length;
-
-                        // Mark this key as handled by us
-                        e.Handled = true;
-                    }
-                    else
-                    {
-                        // Add the task
-                        ViewModel.AddTask();
-                    }
-
-                    // Mark the key as handled
-                    e.Handled = true;
-                }
-
-                // Enclose selected text in format characters if only [Ctrl + B] is pressed
-                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) &&
-                    !Keyboard.Modifiers.HasFlag(ModifierKeys.Alt) &&
-                    e.Key == Key.B)
-                {
-                    int caretIndex = textBox.CaretIndex;
-
-                    string text = textBox.Text;
-                    string selectedText = textBox.SelectedText;
-                    int selectionStart = textBox.SelectionStart;
-                    int selectionLength = textBox.SelectionLength;
-
-                    textBox.Text = EncloseInFormatCharacter(text, selectedText, selectionStart, selectionLength);
-
-                    // Set the new cursor position to right after the modified part
-                    textBox.CaretIndex = caretIndex + selectionLength + 2;
-
-                    // Mark this key as handled by us
-                    e.Handled = true;
-                }
-            }
+            // Add task on enter, handle modifier keys
+            TextBoxPreviewKeyDownHelper.TextBox_PreviewKeyDown(sender, e, ViewModel.AddTask);
         }
 
-        /// <summary>
-        /// Encloses the selected part of a string in format characters.
-        /// </summary>
-        /// <param name="text">The whole text to modify.</param>
-        /// <param name="selectedText">The selected part of the text.</param>
-        /// <param name="selectionStart">The index where the selection starts.</param>
-        /// <param name="selectionLength">The selection length.</param>
-        /// <returns>Returns the modified text where the selected part is enclosed in format characters.</returns>
-        private string EncloseInFormatCharacter(string text, string selectedText, int selectionStart, int selectionLength)
-        {
-            // From the start until before the selection
-            string before = text.Substring(0, selectionStart);
-            
-            // From after the selection until the end
-            string after = text.Substring(selectionStart + selectionLength, text.Length - selectionStart - selectionLength);
 
-            return $"{before}{FormatCharacter}{selectedText}{FormatCharacter}{after}";
-        }
+        //private void AddNewTaskTextBox_SizeChanged(object sender, SizeChangedEventArgs e)
+        //{
+        //    var heightDiff = e.NewSize.Height - e.PreviousSize.Height;
+        //    const double marginOffset = 23.939999999999998;
+        //    const int maxHeight = 200;
+
+        //    if (e.PreviousSize.Height < e.NewSize.Height && heightDiff < marginOffset && marginOffset + e.NewSize.Height < maxHeight)
+        //    {
+        //        MyTaskListControl.Margin = ModifyMargin(MyTaskListControl.Margin, 0, 0, 0, marginOffset);
+        //        BottomBorderPanel.Margin = ModifyMargin(BottomBorderPanel.Margin, 0, - marginOffset, 0, 0);
+        //        BottomBorderPanel.Height += marginOffset;
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //    //else if(e.PreviousSize.Height > e.NewSize.Height)
+        //}
+
+        //private Thickness ModifyMargin(Thickness original, double left, double top, double right, double bottom)
+        //{
+        //    return new Thickness(original.Left + left, original.Top + top, original.Right + right, original.Bottom + bottom);
+        //}
     }
 }

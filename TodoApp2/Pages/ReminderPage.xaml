@@ -108,18 +108,24 @@
                        FontSize="18"
                        />
 
-                    <xctk:TimePicker
+                   <xctk:TimePicker
                         Grid.Row="1" 
                         Grid.Column="1"
                         TimeInterval="00:15:00"
-                        Value="{Binding SelectedTime}"
+                        Value="10:54"
+                        Style="{DynamicResource TimePickerStyle}"
                         ></xctk:TimePicker>
 
-                </Grid>
+                   <!--Value="{Binding SelectedTime}"-->
+
+
+
+
+</Grid>
 
                 <Calendar
                     Grid.Row="3"
-                    SelectedDate="{Binding SelectedDate}"
+                    SelectedDate="{Binding SelectedDate}" Style="{DynamicResource CalendarStyle}"
                 />
 
                 <Grid Grid.Row="4"
