@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -35,6 +36,11 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand ChangeCategoryCommand { get; }
 
+        /// <summary>
+        /// The command for toggling always on top on and off
+        /// </summary>
+        public ICommand ToggleAlwaysOnTopCommand { get; }
+
         private ClientDatabase Database => IoC.ClientDatabase;
 
         private ApplicationViewModel Application => IoC.Application;
@@ -50,6 +56,7 @@ namespace TodoApp2.Core
             AddCategoryCommand = new RelayCommand(AddCategory);
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
+            ToggleAlwaysOnTopCommand = new RelayCommand(ToggleAlwaysOnTop);
 
             List<CategoryListItemViewModel> categories = Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
@@ -191,6 +198,15 @@ namespace TodoApp2.Core
                 // Notify clients about the category change
                 Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged);
             }
+        }
+
+        /// <summary>
+        /// Toggles always on top
+        /// </summary>
+        private void ToggleAlwaysOnTop()
+        {
+            Application.IsAlwaysOnTop = !Application.IsAlwaysOnTop;
+            Mediator.Instance.NotifyClients(ViewModelMessages.AlwaysOnTopChanged);
         }
 
     }

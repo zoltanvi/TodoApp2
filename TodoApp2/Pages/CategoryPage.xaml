@@ -22,14 +22,32 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
             <TextBlock
                 Grid.Row="0" 
+                Grid.Column="0"
                 Text="Categories" 
                 Style="{StaticResource CategoryTextBlockStyle}" 
-                Margin="20 4 0 20" />
+                Margin="20 4 0 0" />
+
+            <Button 
+                Grid.Row="0"
+                Grid.Column="1"
+                Style="{StaticResource SettingsButtonStyle}"
+                Content="{StaticResource SegoeIconSettings}"
+                Command="{Binding ToggleAlwaysOnTopCommand}"
+            />
 
             <!--Category list-->
-            <local:CategoryListControl Grid.Row="1"/>
+            <local:CategoryListControl 
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Margin="0 20 0 0"
+                />
 
         </Grid>
         <!--ADD NEW CATEGORY-->

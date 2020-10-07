@@ -4,95 +4,87 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
-        <ResourceDictionary Source="Colors.xaml"/>
-        <ResourceDictionary Source="Texts.xaml"/>
+        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="Texts.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
 
     <!--Icon Button Base Style-->
     <Style TargetType="Button" x:Key="IconButtonBaseStyle">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Foreground" Value="white"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="white" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
     </Style>
-
-
+ 
     <!--Hovering Icon Button Base Style-->
     <Style TargetType="Button" x:Key="HoveringIconButtonBaseStyle" BasedOn="{StaticResource IconButtonBaseStyle}">
-
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource TitleBarHoverButtonBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource TitleBarHoverButtonBackgroundBrush}" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="False">
-                <!--<Setter Property="Background" Value="DarkRed"/>-->
+                <!--<Setter Property="Background" Value="DarkRed" />-->
             </Trigger>
         </Style.Triggers>
-
     </Style>
-
 
     <!--TitleBar button-->
     <Style TargetType="Button" x:Key="TitleBarButtonStyle" BasedOn="{StaticResource HoveringIconButtonBaseStyle}">
-        <Setter Property="Width" Value="45"/>
+        <Setter Property="Width" Value="45" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
     </Style>
 
-
     <!--TitleBar Window button-->
     <Style TargetType="Button" x:Key="WindowButtonStyle" BasedOn="{StaticResource TitleBarButtonStyle}">
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Light"></Setter>
     </Style>
 
-
     <!--Task Item button-->
     <Style TargetType="Button" x:Key="TaskItemButtonStyle" BasedOn="{StaticResource IconButtonBaseStyle}">
-        <!--<Setter Property="Width" Value="45"/>-->
-        <Setter Property="Width" Value="30"/>
+        <!--<Setter Property="Width" Value="45" />-->
+        <Setter Property="Width" Value="30" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource TaskItemButtonHoverBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource TaskItemButtonHoverBrush}" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="False">
-                <Setter Property="Foreground" Value="{StaticResource TaskItemButtonIconBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource TaskItemButtonIconBrush}" />
             </Trigger>
         </Style.Triggers>
-
     </Style>
 
+    <!--Color picker button-->
     <Style TargetType="Button" x:Key="ColorPickerButtonStyle">
-        <!--<Setter Property="Foreground" Value="Wheat"/>-->
+        <!--<Setter Property="Foreground" Value="Wheat" />-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid Width="{TemplateBinding ActualHeight}">
                         <Border CornerRadius="60" BorderThickness="0" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content=" "/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content=" " />
                         </Border>
                         <!--To darken the current color on mouseover-->
                         <Border x:Name="darkener" CornerRadius="60" BorderThickness="0" Background="Black" Opacity="0.2" Visibility="Hidden" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Visibility" TargetName="darkener" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="darkener" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -102,158 +94,167 @@
 
     <!--TitleBar Window button-->
     <Style TargetType="Button" x:Key="NotificationCloseButtonStyle" BasedOn="{StaticResource HoveringIconButtonBaseStyle}">
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Light" />
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="DarkGray"/>
+                <Setter Property="Foreground" Value="DarkGray" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="False">
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Foreground" Value="White" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-
+    <!--Settings button-->
+    <Style TargetType="Button" x:Key="SettingsButtonStyle" BasedOn="{StaticResource HoveringIconButtonBaseStyle}">
+        <Setter Property="Width" Value="40" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource SettingsButtonHoverForegroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <!--Toggle Button style-->
     <Style x:Key="ToggleSwitchLeftStyle" TargetType="{x:Type ToggleButton}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ToggleSwitchBorderBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{StaticResource ToggleSwitchBorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Grid x:Name="templateRoot" 
-							  Background="Transparent" 
+                    <Grid x:Name="templateRoot"
+							  Background="Transparent"
 							  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Normal" />
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation To="0" Duration="0:0:0.0" Storyboard.TargetName="normalBorder" Storyboard.TargetProperty="(UIElement.Opacity)"/>
-                                        <DoubleAnimation To="1" Duration="0:0:0.0" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="(UIElement.Opacity)"/>
+                                        <DoubleAnimation To="0" Duration="0:0:0.0" Storyboard.TargetName="normalBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                        <DoubleAnimation To="1" Duration="0:0:0.0" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMark" Storyboard.TargetProperty="Fill" Duration="0:0:0.0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchGlyphHoveredBrush}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchGlyphHoveredBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMarkOn" Storyboard.TargetProperty="Fill" Duration="0:0:0.0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchGlyphHoveredBrush}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchGlyphHoveredBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="pressedBorder" Storyboard.TargetProperty="(UIElement.Opacity)"/>
+                                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="pressedBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMark" Storyboard.TargetProperty="Fill" Duration="0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Pressed.Glyph}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Pressed.Glyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="checkedBorder" Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Border}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Border}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="checkedBorder" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Background}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Background}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="disabledBorder" Storyboard.TargetProperty="(UIElement.Opacity)"/>
+                                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="disabledBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMark" Storyboard.TargetProperty="Fill" Duration="0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.Glyph}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.Glyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMarkOn" Storyboard.TargetProperty="Fill" Duration="0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Glyph}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Glyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="CheckStates">
-                                <VisualState x:Name="Unchecked"/>
+                                <VisualState x:Name="Unchecked" />
                                 <VisualState x:Name="Checked">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMark" Storyboard.TargetProperty="Fill" Duration="0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Static.Glyph}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Static.Glyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimationUsingKeyFrames Duration="0:0:0.5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="optionMark">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="12"/>
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="12" />
                                         </DoubleAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="optionMark" Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Checked.Glyph}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Checked.Glyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchCheckedHoveredBackgroundBrush}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchCheckedHoveredBackgroundBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchCheckedHoveredBackgroundBrush}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchCheckedHoveredBackgroundBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="optionMarkOn" Storyboard.TargetProperty="(UIElement.Opacity)"/>
-                                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="checkedBorder" Storyboard.TargetProperty="(UIElement.Opacity)"/>
+                                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="optionMarkOn" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="checkedBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="disabledBorder" Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Border}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Border}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="disabledBorder" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Background}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource RadioButton.Disabled.On.Background}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Indeterminate"/>
+                                <VisualState x:Name="Indeterminate" />
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="FocusStates">
-                                <VisualState x:Name="Unfocused"/>
-                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="Focused" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <ContentPresenter x:Name="contentPresenter" 
-											  Focusable="False" RecognizesAccessKey="True" 
-											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-											  Margin="{TemplateBinding Padding}" 
-											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <ContentPresenter x:Name="contentPresenter"
+											  Focusable="False" RecognizesAccessKey="True"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  Margin="{TemplateBinding Padding}"
+											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         <Grid x:Name="markGrid" Grid.Column="1" Margin="8 0 0 0" Width="44" Height="20"
                                   VerticalAlignment="Center"
 								  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
                             <Border x:Name="normalBorder" Opacity="1" BorderThickness="2" CornerRadius="10"
-										BorderBrush="{TemplateBinding BorderBrush}" Background="{StaticResource ToggleSwitchBackgroundBrush}"/>
+										BorderBrush="{TemplateBinding BorderBrush}" Background="{StaticResource ToggleSwitchBackgroundBrush}" />
                             <Border x:Name="checkedBorder" Opacity="0" BorderThickness="0" CornerRadius="10"
-										BorderBrush="{StaticResource ToggleSwitchCheckedBackgroundBrush}" Background="{StaticResource ToggleSwitchCheckedBackgroundBrush}"/>
+										BorderBrush="{StaticResource ToggleSwitchCheckedBackgroundBrush}" Background="{StaticResource ToggleSwitchCheckedBackgroundBrush}" />
                             <Border x:Name="hoverBorder" Opacity="0" BorderThickness="2" CornerRadius="10"
-										BorderBrush="{StaticResource ToggleSwitchBorderHoveredBrush}" Background="{StaticResource ToggleSwitchBackgroundBrush}"/>
+										BorderBrush="{StaticResource ToggleSwitchBorderHoveredBrush}" Background="{StaticResource ToggleSwitchBackgroundBrush}" />
                             <Border x:Name="pressedBorder" Opacity="0" BorderThickness="0" CornerRadius="10"
-										BorderBrush="{StaticResource RadioButton.Pressed.Border}" Background="{StaticResource RadioButton.Pressed.Background}"/>
+										BorderBrush="{StaticResource RadioButton.Pressed.Border}" Background="{StaticResource RadioButton.Pressed.Background}" />
                             <Border x:Name="disabledBorder" Opacity="0" BorderThickness="2" CornerRadius="10"
-										BorderBrush="{StaticResource RadioButton.Disabled.Border}" Background="{StaticResource RadioButton.Disabled.Background}"/>
+										BorderBrush="{StaticResource RadioButton.Disabled.Border}" Background="{StaticResource RadioButton.Disabled.Background}" />
                             <Ellipse x:Name="optionMark"
-										 Height="10" Width="10" Fill="{StaticResource ToggleSwitchGlyphBrush}" StrokeThickness="0" 
+										 Height="10" Width="10" Fill="{StaticResource ToggleSwitchGlyphBrush}" StrokeThickness="0"
 										 VerticalAlignment="Center" Margin="5,0" RenderTransformOrigin="0.5,0.5">
                                 <Ellipse.RenderTransform>
                                     <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform X="-12"/>
+                                        <ScaleTransform />
+                                        <SkewTransform />
+                                        <RotateTransform />
+                                        <TranslateTransform X="-12" />
                                     </TransformGroup>
                                 </Ellipse.RenderTransform>
                             </Ellipse>
                             <Ellipse x:Name="optionMarkOn" Opacity="0"
-										 Height="10" Width="10" Fill="{StaticResource RadioButton.Checked.Glyph}" StrokeThickness="0" 
+										 Height="10" Width="10" Fill="{StaticResource RadioButton.Checked.Glyph}" StrokeThickness="0"
 										 VerticalAlignment="Center" Margin="5,0" RenderTransformOrigin="0.5,0.5">
                                 <Ellipse.RenderTransform>
                                     <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform X="12"/>
+                                        <ScaleTransform />
+                                        <SkewTransform />
+                                        <RotateTransform />
+                                        <TranslateTransform X="12" />
                                     </TransformGroup>
                                 </Ellipse.RenderTransform>
                             </Ellipse>
@@ -264,7 +265,5 @@
         </Setter>
     </Style>
 
-
     <!--STYLES ARE GENERATED BELOW-->
-
 </ResourceDictionary>

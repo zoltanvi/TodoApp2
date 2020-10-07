@@ -20,6 +20,7 @@
 
     <!--Button icon characters-->
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
+    <system:String x:Key="SegoeIconSettings">&#xE727;</system:String>
     <system:String x:Key="SegoeIconMinimizeWindow">&#xE921;</system:String>
     <system:String x:Key="SegoeIconMaximizeWindow">&#xE922;</system:String>
     <system:String x:Key="SegoeIconCloseWindow">&#xE8BB;</system:String>

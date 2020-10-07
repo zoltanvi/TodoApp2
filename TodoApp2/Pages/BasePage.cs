@@ -30,7 +30,6 @@ namespace TodoApp2
         /// </summary>
         public float PageLoadAnimationDurationSeconds { get; set; } = 0.4f;
 
-
         /// <summary>
         /// The View Model associated with this page
         /// </summary>
@@ -53,7 +52,6 @@ namespace TodoApp2
                 DataContext = m_ViewModel;
             }
         }
-
 
         public BasePage()
         {
@@ -131,10 +129,8 @@ namespace TodoApp2
         /// </summary>
         protected virtual void OnViewModelChanged()
         {
-
         }
     }
-
 
     /// <summary>
     /// A base page with added ViewModel support
@@ -194,7 +190,6 @@ namespace TodoApp2
                 // Create a default view model
                 ViewModel = IoC.Get<TViewModel>();
             }
-
         }
     }
 }

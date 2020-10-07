@@ -49,5 +49,10 @@
         /// The task list should be refreshed (repaint UI)
         /// </summary>
         RefreshTaskListRequested,
+
+        /// <summary>
+        /// Always on top changed, the overlay page should be closed
+        /// </summary>
+        AlwaysOnTopChanged,
     }
 }

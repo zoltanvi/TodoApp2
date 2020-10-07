@@ -66,6 +66,11 @@ namespace TodoApp2.Core
         public string CurrentCategory { get; set; }
 
         /// <summary>
+        /// Always on top
+        /// </summary>
+        public bool IsAlwaysOnTop { get; set; }
+
+        /// <summary>
         /// Navigates the overlay page to the specified page
         /// </summary>
         /// <param name="page">The page to go to</param>

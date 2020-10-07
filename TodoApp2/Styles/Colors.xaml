@@ -101,7 +101,8 @@
     <Color x:Key="NotificationBorder">#5C5C5C</Color>
     <SolidColorBrush x:Key="NotificationBorderBrush" Color="{StaticResource NotificationBorder}" />
 
-
+    <Color x:Key="SettingsButtonHoverForeground">#47CBFF</Color>
+    <SolidColorBrush x:Key="SettingsButtonHoverForegroundBrush" Color="{StaticResource CategoryTitleSelectedForeground}" />
 
     <Color x:Key="ToggleSwitchGlyph">#D0D0D0</Color>
     <SolidColorBrush x:Key="ToggleSwitchGlyphBrush" Color="{StaticResource ToggleSwitchGlyph}" />

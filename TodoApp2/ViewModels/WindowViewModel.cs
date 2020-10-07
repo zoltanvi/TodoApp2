@@ -122,6 +122,8 @@ namespace TodoApp2
             m_Window = window;
             OverlayPageHandler = new OverlayPageHandlerService();
 
+            m_Window.Deactivated += OnWindowDeactivated;
+            
             // Listen out for all properties that are affected by a resize
             m_Window.StateChanged += OnWindowStateChanged;
 
@@ -133,6 +135,7 @@ namespace TodoApp2
 
             // Dispose the database at last
             m_Window.Closed += OnWindowClosed;
+
 
             // Create commands
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
@@ -150,6 +153,9 @@ namespace TodoApp2
             // Subscribe to the category changed event to turn off the overlay background
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
 
+            // Subscribe to the always on top changed event to turn off the overlay background
+            Mediator.Instance.Register(OnAlwaysOnTopChanged, ViewModelMessages.AlwaysOnTopChanged);
+
             // Listen out for requests to flash the application window
             Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
         }
@@ -159,6 +165,11 @@ namespace TodoApp2
         #region EventHandlers
 
         private void OnCategoryChanged(object obj)
+        {
+            OverlayPageHandler.CloseEveryOverlay();
+        }
+
+        private void OnAlwaysOnTopChanged(object obj)
         {
             OverlayPageHandler.CloseEveryOverlay();
         }
@@ -186,6 +197,12 @@ namespace TodoApp2
         {
             IsDocked = e.IsDocked;
             WindowResized();
+        }
+
+        private void OnWindowDeactivated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = Application.IsAlwaysOnTop;
         }
 
         private void OnWindowStateChanged(object sender, EventArgs e)
