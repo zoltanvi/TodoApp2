@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -61,7 +60,7 @@ namespace TodoApp2.Core
             List<CategoryListItemViewModel> categories = Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
 
-            // Subscribe to the collection changed event for synchronizing with database 
+            // Subscribe to the collection changed event for synchronizing with database
             Items.CollectionChanged += ItemsOnCollectionChanged;
 
             // Load the application settings to update the CurrentCategory
@@ -135,7 +134,7 @@ namespace TodoApp2.Core
             // Database.AddCategory call can't be optimized because the database gives the ID to the category
             else if (Database.AddCategoryIfNotExists(categoryToAdd))
             {
-                // Add the category into the ViewModel list 
+                // Add the category into the ViewModel list
                 // only if it is currently added to the database
                 Items.Add(categoryToAdd);
             }
@@ -208,6 +207,5 @@ namespace TodoApp2.Core
             Application.IsAlwaysOnTop = !Application.IsAlwaysOnTop;
             Mediator.Instance.NotifyClients(ViewModelMessages.AlwaysOnTopChanged);
         }
-
     }
 }

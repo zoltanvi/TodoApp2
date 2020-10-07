@@ -4,29 +4,29 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
-        <ResourceDictionary Source="Colors.xaml"/>
-        <ResourceDictionary Source="Texts.xaml"/>
-        <ResourceDictionary Source="ScrollBars.xaml"/>
+        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="Texts.xaml" />
+        <ResourceDictionary Source="ScrollBars.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--ListBox template-->
     <ControlTemplate x:Key="TaskListControlTemplate" TargetType="{x:Type ListBox}">
         <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="True">
             <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
-                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </ScrollViewer>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" TargetName="Bd" Value="White"/>
-                <Setter Property="BorderBrush" TargetName="Bd" Value="#FFD9D9D9"/>
+                <Setter Property="Background" TargetName="Bd" Value="White" />
+                <Setter Property="BorderBrush" TargetName="Bd" Value="#FFD9D9D9" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsGrouping" Value="True"/>
-                    <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False"/>
+                    <Condition Property="IsGrouping" Value="True" />
+                    <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -35,55 +35,51 @@
     <ControlTemplate x:Key="TaskListControlScrollViewerControlTemplate" TargetType="{x:Type ScrollViewer}">
         <Grid x:Name="Grid" Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Rectangle x:Name="Corner" 
+            <Rectangle x:Name="Corner"
                        Grid.Row="1"
-                       Grid.Column="1" 
-                       Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
-                       />
-            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" 
+                       Grid.Column="1"
+                       Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
                                     Grid.Row="0"
-                                    Grid.Column="0" 
-                                    CanContentScroll="{TemplateBinding CanContentScroll}" 
-                                    CanHorizontallyScroll="False" 
-                                    CanVerticallyScroll="False" 
-                                    ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                    Content="{TemplateBinding Content}" 
-                                    Margin="{TemplateBinding Padding}" 
-                                    />
-            <ScrollBar x:Name="PART_VerticalScrollBar" 
-                       Grid.Row="0" 
+                                    Grid.Column="0"
+                                    CanContentScroll="{TemplateBinding CanContentScroll}"
+                                    CanHorizontallyScroll="False"
+                                    CanVerticallyScroll="False"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Content="{TemplateBinding Content}"
+                                    Margin="{TemplateBinding Padding}" />
+            <ScrollBar x:Name="PART_VerticalScrollBar"
+                       Grid.Row="0"
                        Grid.Column="0"
                        Style="{DynamicResource DarkScrollBarStyle}"
                        HorizontalAlignment="Right"
-                       AutomationProperties.AutomationId="VerticalScrollBar" 
-                       Cursor="Arrow" 
-                       Maximum="{TemplateBinding ScrollableHeight}" 
-                       Minimum="0" 
-                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" 
-                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                       ViewportSize="{TemplateBinding ViewportHeight}"/>
-            <ScrollBar x:Name="PART_HorizontalScrollBar" 
-                       Grid.Row="0" 
+                       AutomationProperties.AutomationId="VerticalScrollBar"
+                       Cursor="Arrow"
+                       Maximum="{TemplateBinding ScrollableHeight}"
+                       Minimum="0"
+                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                       ViewportSize="{TemplateBinding ViewportHeight}" />
+            <ScrollBar x:Name="PART_HorizontalScrollBar"
+                       Grid.Row="0"
                        Grid.Column="0"
                        VerticalAlignment="Bottom"
-                       AutomationProperties.AutomationId="HorizontalScrollBar" 
-                       Cursor="Arrow" 
-                       Maximum="{TemplateBinding ScrollableWidth}" 
-                       Minimum="0" 
-                       Orientation="Horizontal" 
-                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" 
-                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                       ViewportSize="{TemplateBinding ViewportWidth}"
-                       />
+                       AutomationProperties.AutomationId="HorizontalScrollBar"
+                       Cursor="Arrow"
+                       Maximum="{TemplateBinding ScrollableWidth}"
+                       Minimum="0"
+                       Orientation="Horizontal"
+                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                       ViewportSize="{TemplateBinding ViewportWidth}" />
         </Grid>
     </ControlTemplate>
-
 </ResourceDictionary>

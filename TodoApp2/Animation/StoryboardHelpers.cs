@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace TodoApp2
@@ -41,11 +40,10 @@ namespace TodoApp2
 
             // Set the target property name
             Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameOpacity));
-            
+
             // Add this to the storyboard
             storyBoard.Children.Add(animation);
         }
-
 
         /// <summary>
         /// Adds a fade out animation to the storyboard
@@ -81,7 +79,7 @@ namespace TodoApp2
         /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
         public static void AddSlideFromRight(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
         {
-            // Create the margin animate from right 
+            // Create the margin animate from right
             var animation = new ThicknessAnimation
             {
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
@@ -107,7 +105,7 @@ namespace TodoApp2
         /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
         public static void AddSlideFromLeft(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
         {
-            // Create the margin animate from right 
+            // Create the margin animate from right
             var animation = new ThicknessAnimation
             {
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
@@ -133,7 +131,7 @@ namespace TodoApp2
         /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
         public static void AddSlideToLeft(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
         {
-            // Create the margin animate from right 
+            // Create the margin animate from right
             var animation = new ThicknessAnimation
             {
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
@@ -159,7 +157,7 @@ namespace TodoApp2
         /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
         public static void AddSlideToRight(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
         {
-            // Create the margin animate from right 
+            // Create the margin animate from right
             var animation = new ThicknessAnimation
             {
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),

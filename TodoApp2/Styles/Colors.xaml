@@ -10,10 +10,10 @@
 
     <Color x:Key="TitleBarBackground">#292929</Color>
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackground}" />
-    
+
     <Color x:Key="TitleBarButtonForeground">#ffffff</Color>
     <SolidColorBrush x:Key="TitleBarButtonForegroundBrush" Color="{StaticResource TitleBarButtonForeground}" />
-    
+
     <Color x:Key="CategoryTitleForeground">#ffffff</Color>
     <SolidColorBrush x:Key="CategoryTitleForegroundBrush" Color="{StaticResource CategoryTitleForeground}" />
 
@@ -128,40 +128,37 @@
     <Color x:Key="ToggleSwitchCheckedHoveredBackground">#D38D0C</Color>
     <SolidColorBrush x:Key="ToggleSwitchCheckedHoveredBackgroundBrush" Color="{StaticResource ToggleSwitchCheckedHoveredBackground}" />
 
-
     <Color x:Key="TimePickerButtonBackground">#292929</Color>
     <SolidColorBrush x:Key="TimePickerButtonBackgroundBrush" Color="{StaticResource TimePickerButtonBackground}" />
 
     <Color x:Key="TimePickerButtonBackgroundHovered">#494949</Color>
     <SolidColorBrush x:Key="TimePickerButtonBackgroundHoveredBrush" Color="{StaticResource TimePickerButtonBackgroundHovered}" />
 
+    <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF333333" />
+    <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF333333" />
 
-    <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF333333"/>
-    <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF333333"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF000000" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF000000" />
 
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF000000"/>
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF000000"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Background" Color="#FF4C91C8" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Border" Color="#FF4C91C8" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Glyph" Color="#FFFFFFFF" />
 
-    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Background" Color="#FF4C91C8"/>
-    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Border" Color="#FF4C91C8"/>
-    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Glyph" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FF999999" />
+    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF999999" />
 
-    <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FF999999"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF999999"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Background" Color="#FFCCCCCC" />
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Border" Color="#FFCCCCCC" />
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Glyph" Color="#FFA3A3A3" />
 
-    <SolidColorBrush x:Key="RadioButton.Disabled.On.Background" Color="#FFCCCCCC"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.On.Border" Color="#FFCCCCCC"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.On.Glyph" Color="#FFA3A3A3"/>
+    <SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FF999999" />
+    <SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF999999" />
+    <SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FFFFFFFF" />
 
-    <SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FF999999"/>
-    <SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF999999"/>
-    <SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FFFFFFFF"/>
-
-    <SolidColorBrush x:Key="RadioButton.Checked.Background" Color="#FF0063B1"/>
-    <SolidColorBrush x:Key="RadioButton.Checked.Border" Color="#FF0063B1"/>
-    <SolidColorBrush x:Key="RadioButton.Checked.Glyph" Color="#FFFFFFFF"/>
-
+    <SolidColorBrush x:Key="RadioButton.Checked.Background" Color="#FF0063B1" />
+    <SolidColorBrush x:Key="RadioButton.Checked.Border" Color="#FF0063B1" />
+    <SolidColorBrush x:Key="RadioButton.Checked.Glyph" Color="#FFFFFFFF" />
 </ResourceDictionary>

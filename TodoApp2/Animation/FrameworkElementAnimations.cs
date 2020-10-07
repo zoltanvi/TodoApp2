@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 
 namespace TodoApp2
 {
@@ -173,7 +172,7 @@ namespace TodoApp2
 
             // Wait for it to finish
             await Task.Delay((int)(seconds * 1000));
-            
+
             element.HideElement();
         }
 
@@ -196,7 +195,7 @@ namespace TodoApp2
             Storyboard sb = new Storyboard();
 
             ScaleTransform scale = new ScaleTransform(fromScaleX, fromScaleX);
-            
+
             // Set the center as pivot point
             element.RenderTransformOrigin = new Point(centerX, centerY);
             element.RenderTransform = scale;
@@ -233,9 +232,9 @@ namespace TodoApp2
             Storyboard sb = new Storyboard();
 
             ScaleTransform scale = new ScaleTransform(fromScaleX, fromScaleY);
-            
+
             // Set the center as pivot point
-            element.RenderTransformOrigin = new Point(centerX, centerY); 
+            element.RenderTransformOrigin = new Point(centerX, centerY);
             element.RenderTransform = scale;
 
             // Add scale animation

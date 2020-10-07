@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.Remoting.Channels;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using TodoApp2.Core;
 
@@ -27,7 +24,6 @@ namespace TodoApp2
         public static readonly DependencyProperty CurrentPageProperty =
             DependencyProperty.Register(nameof(CurrentPage), typeof(ApplicationPage), typeof(PageHost), new UIPropertyMetadata(default(ApplicationPage), null, CurrentPagePropertyChanged));
 
-
         /// <summary>
         /// The current page to show in the page host
         /// </summary>
@@ -42,7 +38,6 @@ namespace TodoApp2
         /// </summary>
         public static readonly DependencyProperty CurrentPageViewModelProperty =
             DependencyProperty.Register(nameof(CurrentPageViewModel), typeof(BaseViewModel), typeof(PageHost), new UIPropertyMetadata());
-
 
         public PageHost()
         {
@@ -86,7 +81,7 @@ namespace TodoApp2
 
             // Set the new page content
             newPageFrame.Content = currentPage.ToBasePage(currentPageViewModel);
-                //new ApplicationPageValueConverter().Convert(currentPage, null, currentPageViewModel, null);
+            //new ApplicationPageValueConverter().Convert(currentPage, null, currentPageViewModel, null);
 
             return value;
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 
-
 namespace TodoApp2.Core
 {
     public class DoublePropertyValueHandler : IPropertyValueHandler

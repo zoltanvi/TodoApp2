@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Input;
@@ -59,7 +58,7 @@ namespace TodoApp2.Core
             // Fill the actual list with the queried items
             Items = new ObservableCollection<TaskListItemViewModel>(items);
 
-            // Subscribe to the collection changed event for synchronizing with database 
+            // Subscribe to the collection changed event for synchronizing with database
             Items.CollectionChanged += ItemsOnCollectionChanged;
 
             // Subscribe to the category changed event to filter the list when it happens
@@ -75,7 +74,7 @@ namespace TodoApp2.Core
             {
                 // If this task is done, move it after the last not done item
                 // If this is not done (undone action), move it to the top of the list
-                // Because this generates a NotifyCollectionChangedAction.Move action, 
+                // Because this generates a NotifyCollectionChangedAction.Move action,
                 // all task modifications will be persisted
                 if (task.IsDone)
                 {
@@ -180,7 +179,7 @@ namespace TodoApp2.Core
             // This call can't be optimized because the database gives the ID to the task
             Database.AddTask(taskToAdd);
 
-            // Add the task into the ViewModel list 
+            // Add the task into the ViewModel list
             Items.Insert(0, taskToAdd);
 
             // Reset the input TextBox text

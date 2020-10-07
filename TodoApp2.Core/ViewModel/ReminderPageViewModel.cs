@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -16,7 +14,7 @@ namespace TodoApp2.Core
         public TaskListItemViewModel ReminderTask { get; set; }
 
         public DateTime SelectedDate { get; set; } = DateTime.Now;
-        
+
         public DateTime SelectedTime { get; set; } = DateTime.Now;
 
         public bool IsReminderOn { get; set; }
@@ -30,7 +28,6 @@ namespace TodoApp2.Core
             CloseReminderCommand = new RelayCommand(CloseReminder);
             SetReminderCommand = new RelayCommand(SetReminder);
         }
-
 
         public ReminderPageViewModel(TaskListItemViewModel reminderTask) : this()
         {
@@ -59,7 +56,7 @@ namespace TodoApp2.Core
             {
                 NotificationService.DeleteReminder(ReminderTask);
             }
-            
+
             CloseReminder();
         }
 

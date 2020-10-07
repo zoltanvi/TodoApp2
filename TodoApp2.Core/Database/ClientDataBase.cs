@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 
 namespace TodoApp2.Core
@@ -88,7 +86,7 @@ namespace TodoApp2.Core
         public CategoryListItemViewModel GetCategory(int categoryId)
         {
             // TODO: write query for it
-            var allCategories =  m_DataAccess.GetCategories();
+            var allCategories = m_DataAccess.GetCategories();
             return allCategories.FirstOrDefault(category => category.Id == categoryId);
         }
 
@@ -188,7 +186,7 @@ namespace TodoApp2.Core
         {
             List<CategoryListItemViewModel> categoryList = m_DataAccess.GetCategories();
 
-            // If the category exists in the database, do nothing 
+            // If the category exists in the database, do nothing
             if (categoryList.All(category => category.Name != categoryToAdd.Name))
             {
                 // Generate an ID for the item

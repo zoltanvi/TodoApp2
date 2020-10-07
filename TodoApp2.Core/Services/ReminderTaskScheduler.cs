@@ -14,14 +14,13 @@ namespace TodoApp2.Core
         private bool NextTaskExists => ScheduledTasks.Count > 0;
         private bool IsCurrentTaskValid => CurrentTask.Key != InvalidTask.Key && CurrentTask.Value != InvalidTask.Value;
         private KeyValuePair<int, DateTime> CurrentTask { get; set; }
-        
+
         /// <summary>
         /// The Action which is executed when the timer reaches the scheduled times.
         /// The action has one parameter.
         /// This parameter is the ID of the <see cref="TaskListItemViewModel"/> related to the reminder.
         /// </summary>
         public Action<int> ScheduledTask { get; set; }
-
 
         public ReminderTaskScheduler()
         {
@@ -191,6 +190,6 @@ namespace TodoApp2.Core
             CurrentTask = InvalidTask;
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

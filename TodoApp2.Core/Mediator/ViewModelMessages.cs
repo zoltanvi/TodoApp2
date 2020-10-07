@@ -19,7 +19,7 @@
         /// The reminder setter panel should be closed
         /// </summary>
         CloseReminderPageRequested,
-        
+
         /// <summary>
         /// The notification page should be opened
         /// </summary>

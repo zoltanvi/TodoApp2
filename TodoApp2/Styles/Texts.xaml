@@ -5,8 +5,8 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
-        <ResourceDictionary Source="Colors.xaml"/>
-        <ResourceDictionary Source="ScrollBars.xaml"/>
+        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="ScrollBars.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <system:Double x:Key="FontSizeSmall">14</system:Double>
@@ -24,9 +24,9 @@
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="Foreground" Value="{StaticResource DescriptionForegroundBrush}" />
-        <Setter Property="Background" Value="#00000000"/>
+        <Setter Property="Background" Value="#00000000" />
     </Style>
-    
+
     <Style TargetType="TextBox" x:Key="TaskListItemDescriptionTextBoxStyle">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
@@ -34,38 +34,37 @@
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="Foreground" Value="{StaticResource DescriptionForegroundEditModeBrush}" />
-        <Setter Property="Background" Value="#00000000"/>
+        <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
     <Style TargetType="TextBlock" x:Key="CategoryTextBlockStyle">
-        <Setter Property="FontFamily" Value="Segoe UI"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}"/>
-        <Setter Property="Foreground" Value="{StaticResource CategoryTitleForegroundBrush}"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Margin" Value="20 2 0 0"/>
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}" />
+        <Setter Property="Foreground" Value="{StaticResource CategoryTitleForegroundBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="20 2 0 0" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
     <Style TargetType="Label" x:Key="IconLabelStyle">
-        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegularIcon}"/>
-        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegularIcon}" />
+        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight"></Setter>
     </Style>
 
     <Style TargetType="Label" x:Key="IconLabelLargeStyle" BasedOn="{StaticResource IconLabelStyle}">
-        <Setter Property="FontSize" Value="{StaticResource FontSizeIconLarge}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeIconLarge}" />
     </Style>
 
     <Style TargetType="TextBox" x:Key="BaseInputTextBoxStyle">
-        <Setter Property="FontFamily" Value="Segoe UI"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
-        <Setter Property="Foreground" Value="{StaticResource InputTextBoxForegroundBrush}"/>
-        <Setter Property="Background" Value="#00000000"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="Foreground" Value="{StaticResource InputTextBoxForegroundBrush}" />
+        <Setter Property="Background" Value="#00000000" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="TextWrapping" Value="Wrap"></Setter>
-
 
         <Setter Property="Template">
             <Setter.Value>
@@ -73,12 +72,12 @@
 
                     <Grid>
 
-                        <Border x:Name="border" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
+                        <Border x:Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="True">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
                         </Border>
 
                         <TextBlock IsHitTestVisible="False"
@@ -88,8 +87,7 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource TextBoxPlaceholderForegroundBrush}"
-                                   Margin="2 0 0 0"
-                                   >
+                                   Margin="2 0 0 0">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -100,67 +98,61 @@
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
-
                         </TextBlock>
-
                     </Grid>
 
                     <!--<ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5" />
                         </Trigger>
                     </ControlTemplate.Triggers>-->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-
     </Style>
 
     <Style TargetType="TextBox" x:Key="AddNewTaskTextBoxStyle" BasedOn="{StaticResource BaseInputTextBoxStyle}">
         <Style.Resources>
-            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource DarkScrollBarStyle}"/>
+            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource DarkScrollBarStyle}" />
         </Style.Resources>
     </Style>
 
-    <Style TargetType="Label" x:Key="NotificationTitleStyle" >
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
-        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
-        <Setter Property="FontWeight" Value="UltraLight"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="0 4 0 0"/>
+    <Style TargetType="Label" x:Key="NotificationTitleStyle">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}" />
+        <Setter Property="FontWeight" Value="UltraLight" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0 4 0 0" />
     </Style>
 
-    <Style TargetType="Label" x:Key="NotificationCategoryTitleStyle" >
-        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}"/>
-        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="14 0 0 0"/>
+    <Style TargetType="Label" x:Key="NotificationCategoryTitleStyle">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="14 0 0 0" />
     </Style>
 
-    <Style TargetType="Label" x:Key="NotificationReminderDateStyle" >
-        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}"/>
-        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="14 0 0 0"/>
+    <Style TargetType="Label" x:Key="NotificationReminderDateStyle">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="14 0 0 0" />
     </Style>
 
-    <Style TargetType="Label" x:Key="ReminderLabelStyle" >
-        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}"/>
-        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="0 0 8 6"/>
+    <Style TargetType="Label" x:Key="ReminderLabelStyle">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+        <Setter Property="Foreground" Value="{StaticResource IconLabelForegroundBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0 0 8 6" />
     </Style>
-
-
 </ResourceDictionary>

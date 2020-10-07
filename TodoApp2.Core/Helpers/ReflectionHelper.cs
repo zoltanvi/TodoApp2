@@ -65,7 +65,6 @@ namespace TodoApp2.Core
             objectType.GetProperty(propertyName)?.SetValue(obj, value);
         }
 
-
         private static void ThrowIfNull(object obj)
         {
             if (obj == null)

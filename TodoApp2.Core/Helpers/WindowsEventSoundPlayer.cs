@@ -14,7 +14,7 @@ namespace TodoApp2.Core
         public static void PlayNotificationSound(EventSounds eventSound)
         {
             bool found = false;
-            string registryKey = @"AppEvents\Schemes\Apps\.Default\" + 
+            string registryKey = @"AppEvents\Schemes\Apps\.Default\" +
                                  Enum.GetName(typeof(EventSounds), eventSound) +
                                  @"\.Current";
             try

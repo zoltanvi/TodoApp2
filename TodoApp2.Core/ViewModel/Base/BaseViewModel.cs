@@ -1,5 +1,5 @@
-﻿using PropertyChanged;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using PropertyChanged;
 
 namespace TodoApp2.Core
 {

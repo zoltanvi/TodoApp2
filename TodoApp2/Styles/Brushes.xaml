@@ -5,7 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
-        <ResourceDictionary Source="Colors.xaml"/>
+        <ResourceDictionary Source="Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--The not-zero number defines the distance between the hatch lines-->
@@ -22,9 +22,8 @@
 
     <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush"
                          StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="{StaticResource TaskItemBackgroundTransparent}" Offset="0"/>
-        <GradientStop Color="{StaticResource TaskItemBackground}" Offset="0.1"/>
-        <!--<GradientStop Color="{StaticResource TaskItemBackground}" Offset="1"/>-->
+        <GradientStop Color="{StaticResource TaskItemBackgroundTransparent}" Offset="0" />
+        <GradientStop Color="{StaticResource TaskItemBackground}" Offset="0.1" />
+        <!--<GradientStop Color="{StaticResource TaskItemBackground}" Offset="1" />-->
     </LinearGradientBrush>
-
 </ResourceDictionary>

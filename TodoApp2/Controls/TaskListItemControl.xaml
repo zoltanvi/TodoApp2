@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="TodoApp2.TaskListItemControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              MinHeight="46"
              x:Name="TaskListItemUC"
              d:DesignHeight="60" d:DesignWidth="350">
@@ -24,21 +24,20 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-
-            <Grid >
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <!--Color bar column-->
-                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="6" />
                     <!--Checkbox column-->
-                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="36" />
                     <!--Main content column, also the hidden buttons column-->
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <!--Color bar-->
                 <Border Grid.Column="0"
                         CornerRadius="3 0 0 3"
-                        Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}"/>
+                        Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}" />
 
                 <CheckBox Grid.Column="1"
                           IsChecked="{Binding IsDone}"
@@ -51,9 +50,9 @@
                 <Grid Grid.Column="2" Margin="6">
                     <Grid.RowDefinitions>
                         <!--Task description row-->
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
                         <!--Timestamp row-->
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!--Task description-->
@@ -62,13 +61,11 @@
                              Style="{StaticResource TaskListItemDescriptionTextBlockStyle}"
                              Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                              Text="{Binding Content, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                             TargetUpdated="TaskDescriptionTextBlock_OnTargetUpdated"
-                               >
-                        
+                             TargetUpdated="TaskDescriptionTextBlock_OnTargetUpdated">
+
                         <TextBlock.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditItemCommand}" />
                         </TextBlock.InputBindings>
-                        
                     </TextBlock>
 
                     <TextBox Grid.Row="0"
@@ -77,37 +74,32 @@
                              Style="{StaticResource TaskListItemDescriptionTextBoxStyle}"
                              Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                              Text="{Binding PendingEditContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             PreviewKeyDown="TextBox_PreviewKeyDown"
-                               />
-
+                             PreviewKeyDown="TextBox_PreviewKeyDown" />
 
                     <!--Timestamp-->
-                    <!--<TextBlock Grid.Row="1" 
+                    <!--<TextBlock Grid.Row="1"
                                Text="2020-04-22 20:57"
                                Foreground="{StaticResource TimestampForegroundBrush}"
                                />-->
-
                 </Grid>
 
                 <!--Hidden buttons-->
-                <Border Grid.Column="2" 
+                <Border Grid.Column="2"
                         x:Name="HoverButtonBorder"
                         Opacity="0"
                         Background="Transparent"
                         HorizontalAlignment="Right"
-                        Width="100"
-                        >
+                        Width="100">
                     <Border.Triggers>
                         <EventTrigger RoutedEvent="Border.MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation 
+                                    <DoubleAnimation
                                         From="0"
-                                        To="1" 
-                                        Duration="0:0:0.35" 
+                                        To="1"
+                                        Duration="0:0:0.35"
                                         Storyboard.TargetName="HoverButtonBorder"
-                                        Storyboard.TargetProperty="(Opacity)"
-                                    />
+                                        Storyboard.TargetProperty="(Opacity)" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -115,13 +107,12 @@
                         <EventTrigger RoutedEvent="Border.MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation 
+                                    <DoubleAnimation
                                         From="1"
-                                        To="0" 
-                                        Duration="0:0:0.15" 
+                                        To="0"
+                                        Duration="0:0:0.15"
                                         Storyboard.TargetName="HoverButtonBorder"
-                                        Storyboard.TargetProperty="(Opacity)"
-                                    />
+                                        Storyboard.TargetProperty="(Opacity)" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -134,44 +125,37 @@
 
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <!--Calendar button-->
-                            <Button Grid.Column="0" 
-                                Style="{StaticResource TaskItemButtonStyle}" 
+                            <Button Grid.Column="0"
+                                Style="{StaticResource TaskItemButtonStyle}"
                                 Content="{StaticResource SegoeIconDateTime}"
-                                Command="{Binding OpenReminderCommand}"
-                                />
+                                Command="{Binding OpenReminderCommand}" />
                             <!--Palette button-->
-                            <Button Grid.Column="1" 
+                            <Button Grid.Column="1"
                                 Style="{StaticResource TaskItemButtonStyle}"
                                 Content="{StaticResource SegoeIconPalette}"
-                                Command="{Binding ShowColorPickerCommand}"
-                                />
+                                Command="{Binding ShowColorPickerCommand}" />
                             <!--Trash button-->
                             <Button Grid.Column="2"
                                 Style="{StaticResource TaskItemButtonStyle}"
                                 Content="{StaticResource SegoeIconTrash}"
                                 Command="{Binding Path=Tag.DeleteTaskItemCommand, ElementName=TaskListItemUC}"
-                                CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
-                                />
+                                CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}" />
                         </Grid>
                     </Border>
                 </Border>
 
-                <local:ColorPickerControl 
-                    Grid.Column="2" 
-                    HorizontalContentAlignment="Right" 
+                <local:ColorPickerControl
+                    Grid.Column="2"
+                    HorizontalContentAlignment="Right"
                     Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}"
-                    Margin="0 0 30 0"
-                    />
-
+                    Margin="0 0 30 0" />
             </Grid>
-
         </Border>
     </Grid>
-
 </UserControl>

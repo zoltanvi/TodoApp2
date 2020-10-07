@@ -32,7 +32,6 @@ namespace TodoApp2.Core
         /// </summary>
         public static ReminderNotificationService ReminderNotificationService => Get<ReminderNotificationService>();
 
-
         /// <summary>
         /// Gets a service from the IoC, of the specified type
         /// </summary>
@@ -62,7 +61,7 @@ namespace TodoApp2.Core
         /// </summary>
         private static void BindViewModels()
         {
-            // Bind to a single instance 
+            // Bind to a single instance
             Kernel.Bind<ApplicationViewModel>().To<ApplicationViewModel>().InSingletonScope();
             Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
             Kernel.Bind<ReminderTaskScheduler>().To<ReminderTaskScheduler>().InSingletonScope();

@@ -19,7 +19,6 @@ namespace TodoApp2.Core
             }
         }
 
-
         public static void Move<T>(this List<T> list, int oldIndex, int newIndex)
         {
             T obj = list[oldIndex];

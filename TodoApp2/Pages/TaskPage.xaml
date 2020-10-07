@@ -1,29 +1,28 @@
 ﻿<local:BasePage x:TypeArguments="core:TaskPageViewModel" x:Class="TodoApp2.TaskPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:TodoApp2"
       xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="480" d:DesignWidth="380"
       Title="TaskPage">
 
     <Border Background="{StaticResource ApplicationBackgroundBrush}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="0"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0" />
             </Grid.RowDefinitions>
 
             <TextBlock
                 Grid.Row="0"
                 Text="{Binding ApplicationViewModel.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}"
-                Style="{StaticResource CategoryTextBlockStyle}"
-            />
+                Style="{StaticResource CategoryTextBlockStyle}" />
 
-            <local:TaskListControl Grid.Row="1" Margin="0 4 0 82" x:Name="MyTaskListControl"  />
+            <local:TaskListControl Grid.Row="1" Margin="0 4 0 82" x:Name="MyTaskListControl" />
 
             <Border
                 x:Name="BottomBorderPanel"
@@ -34,13 +33,13 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!--<Label 
+                    <!--<Label
                         Grid.Column="0"
-                        Content="{StaticResource SegoeIconAdd}" 
+                        Content="{StaticResource SegoeIconAdd}"
                         Style="{StaticResource IconLabelStyle}"
                         Margin="20 0 0 0"
                         VerticalAlignment="Center"
@@ -57,16 +56,11 @@
                         AcceptsTab="True"
                         AcceptsReturn="True"
                         PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                        ScrollViewer.CanContentScroll="False" 
-                        />
-
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.CanContentScroll="False" />
                 </Grid>
-
             </Border>
-
-
         </Grid>
     </Border>
 </local:BasePage>

@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace TodoApp2.Core
 {
     public class StringPropertyValueHandler : IPropertyValueHandler

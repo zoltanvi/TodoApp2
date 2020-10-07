@@ -1,10 +1,6 @@
-﻿using System.Text;
+﻿using System;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Media;
 using System.Windows.Input;
-using System;
 
 namespace TodoApp2
 {
@@ -72,6 +68,7 @@ namespace TodoApp2
                 }
             }
         }
+
         /// <summary>
         /// Encloses the selected part of a string in format characters.
         /// </summary>

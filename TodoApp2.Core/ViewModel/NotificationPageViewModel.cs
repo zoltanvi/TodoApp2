@@ -9,7 +9,6 @@ namespace TodoApp2.Core
         /// </summary>
         public TaskListItemViewModel NotificationTask { get; set; }
 
-
         /// <summary>
         /// Closes the notification page
         /// </summary>

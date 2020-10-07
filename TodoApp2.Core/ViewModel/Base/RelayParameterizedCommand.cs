@@ -38,6 +38,5 @@ namespace TodoApp2.Core
         {
             m_Action?.Invoke(parameter);
         }
-
     }
 }

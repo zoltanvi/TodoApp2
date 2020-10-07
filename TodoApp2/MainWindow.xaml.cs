@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using TodoApp2.Core;
 
 namespace TodoApp2
 {

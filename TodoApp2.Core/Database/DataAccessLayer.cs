@@ -53,7 +53,7 @@ namespace TodoApp2.Core
         private const string ParameterColor = "@" + Color;
         private const string ParameterTrashed = "@" + Trashed;
 
-        #endregion
+        #endregion Private Constants
 
         private readonly SQLiteConnection m_Connection;
 
@@ -96,7 +96,6 @@ namespace TodoApp2.Core
                 $" FOREIGN KEY ({CategoryId}) REFERENCES {Category} ({Id}) ON UPDATE CASCADE ON DELETE CASCADE " +
                 $"); ";
 
-
             if (!File.Exists(DatabasePath))
             {
                 FileStream fs = File.Create(DatabasePath);
@@ -122,7 +121,6 @@ namespace TodoApp2.Core
             AddDefaultCategoryIfNotExists();
             AddDefaultSettingsIfNotExists();
         }
-
 
         #region Settings
 
@@ -293,7 +291,6 @@ namespace TodoApp2.Core
 
             return modifiedItems;
         }
-
 
         /// <summary>
         /// Deletes a record from the Settings table
@@ -804,9 +801,8 @@ namespace TodoApp2.Core
             }
         }
 
-
         /// <summary>
-        /// Gets the first or last ListOrder for a <see cref="table"/> record. 
+        /// Gets the first or last ListOrder for a <see cref="table"/> record.
         /// </summary>
         /// <param name="table">The database table to query.</param>
         /// <param name="first">If true, queries the first ListOrder, otherwise queries the last ListOrder.</param>

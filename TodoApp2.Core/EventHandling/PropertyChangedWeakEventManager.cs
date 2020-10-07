@@ -92,6 +92,5 @@ namespace TodoApp2.Core
         {
             DeliverEvent(sender, e);
         }
-
     }
 }

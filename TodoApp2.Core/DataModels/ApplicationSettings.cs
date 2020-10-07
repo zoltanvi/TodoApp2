@@ -5,7 +5,7 @@ namespace TodoApp2.Core
     /// <summary>
     /// The application settings that are stored in the database.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// The properties and their values that are in this class are stored in the
     /// database as key-value pairs, where the key is the name of the property
@@ -14,12 +14,12 @@ namespace TodoApp2.Core
     /// The reason why the properties are stored as key-value pairs is that
     /// this way the database model is always the same, but this class is
     /// extendable with new properties without changing the database.
-    /// 
+    ///
     /// To add new properties which will automatically be stored in the database:
     ///   1. Add a new property to this class.
     ///   2. Extend <see cref="PropertyDescriptors"/> with the new property's name
     ///      and the corresponding <see cref="IPropertyValueHandler"/> to it's type.
-    /// </remarks> 
+    /// </remarks>
     public class ApplicationSettings
     {
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
@@ -32,7 +32,7 @@ namespace TodoApp2.Core
         public int WindowHeight { get; set; }
         public string CurrentCategory { get; set; }
 
-        #endregion
+        #endregion Properties
 
         public ApplicationSettings()
         {

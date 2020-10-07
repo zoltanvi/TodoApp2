@@ -39,7 +39,7 @@ namespace TodoApp2
 
             // Start animating
             sb.Begin(page);
-            
+
             // Wait for it to finish
             await Task.Delay(TimeSpan.FromSeconds(seconds));
         }

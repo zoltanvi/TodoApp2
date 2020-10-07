@@ -22,7 +22,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The view model to use for the current page when the CurrentPage changes
         /// NOTE: This is not a live up-to-date view model of the current page
-        ///       it is simply used to set the view model of the current page 
+        ///       it is simply used to set the view model of the current page
         ///       at the time it changes
         /// </summary>
         public BaseViewModel CurrentPageViewModel { get; set; }
@@ -35,7 +35,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The view model to use for the current overlay page when the OverlayPage changes
         /// NOTE: This is not a live up-to-date view model of the current page
-        ///       it is simply used to set the view model of the current page 
+        ///       it is simply used to set the view model of the current page
         ///       at the time it changes
         /// </summary>
         public BaseViewModel OverlayPageViewModel { get; set; }
@@ -92,7 +92,7 @@ namespace TodoApp2.Core
 
             // Show or hide the page
             OverlayPageVisible = visible;
-            
+
             // If the page hasn't changed, fire off notification
             // So pages still update if just the view model has changed
             if (!different)

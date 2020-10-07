@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -51,7 +50,7 @@ namespace TodoApp2.Core
             {
                 // Changes are accepted
                 Content = PendingEditContent;
-                
+
                 // Persist changes into database
                 Database.UpdateTask(this);
             }
@@ -59,7 +58,7 @@ namespace TodoApp2.Core
             // Switch back from edit mode
             IsEditMode = false;
 
-            // Request a task list refresh 
+            // Request a task list refresh
             // (workaround because the task list item does not get repainted even if the Content changes)
             Mediator.Instance.NotifyClients(ViewModelMessages.RefreshTaskListRequested);
         }
@@ -68,7 +67,7 @@ namespace TodoApp2.Core
         {
             // Copy the content as the pending text
             PendingEditContent = Content;
-            
+
             // Enable editing
             IsEditMode = true;
         }

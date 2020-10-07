@@ -13,13 +13,13 @@ namespace TodoApp2
     where T : class, new()
     {
         #region Private Members
-        
+
         /// <summary>
         /// A single static instance of this value converter
         /// </summary>
         private static T m_Converter;
 
-        #endregion
+        #endregion Private Members
 
         #region Markup Extension Methods
 
@@ -33,10 +33,10 @@ namespace TodoApp2
             return m_Converter ?? (m_Converter = new T());
         }
 
-        #endregion
+        #endregion Markup Extension Methods
 
         #region Value Converter Methods
-        
+
         /// <summary>
         /// The method to convert one type to another
         /// </summary>
@@ -56,7 +56,7 @@ namespace TodoApp2
         /// <param name="culture"></param>
         /// <returns></returns>
         public abstract object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture);
-        
-        #endregion
+
+        #endregion Value Converter Methods
     }
 }

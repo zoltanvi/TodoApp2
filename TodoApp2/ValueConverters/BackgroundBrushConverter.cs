@@ -16,12 +16,12 @@ namespace TodoApp2
 
         public BackgroundBrushConverter()
         {
-           m_NormalBrush = (Brush)Application.Current.TryFindResource("TaskItemBackgroundBrush");
-           m_HatchedBrush = (Brush)Application.Current.TryFindResource("HatchBrush");
-           if (m_NormalBrush == null || m_HatchedBrush == null)
-           {
-               throw new NullReferenceException("Can't find TaskListItem background brush!");
-           }
+            m_NormalBrush = (Brush)Application.Current.TryFindResource("TaskItemBackgroundBrush");
+            m_HatchedBrush = (Brush)Application.Current.TryFindResource("HatchBrush");
+            if (m_NormalBrush == null || m_HatchedBrush == null)
+            {
+                throw new NullReferenceException("Can't find TaskListItem background brush!");
+            }
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

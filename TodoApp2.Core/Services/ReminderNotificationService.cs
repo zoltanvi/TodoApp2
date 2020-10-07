@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TodoApp2.Core
 {
@@ -11,7 +9,6 @@ namespace TodoApp2.Core
         private ReminderTaskScheduler TaskScheduler => IoC.ReminderTaskScheduler;
 
         private ClientDatabase Database => IoC.ClientDatabase;
-
 
         public ReminderNotificationService()
         {
@@ -38,9 +35,7 @@ namespace TodoApp2.Core
 
             //TaskScheduler.Schedule(now.AddSeconds(10), 17);
 
-
             #endregion TEST
-
         }
 
         public void SetReminder(TaskListItemViewModel task)

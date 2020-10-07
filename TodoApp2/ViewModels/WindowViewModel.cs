@@ -26,7 +26,8 @@ namespace TodoApp2
         private ApplicationViewModel Application => IoC.Application;
         private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
         private ClientDatabase Database => IoC.ClientDatabase;
-        #endregion
+
+        #endregion Private Fields
 
         #region Commands
 
@@ -37,13 +38,13 @@ namespace TodoApp2
 
         public ICommand CloseOverlayCommand { get; }
 
-        #endregion
+        #endregion Commands
 
         #region Public Properties
 
         public OverlayPageHandlerService OverlayPageHandler { get; }
 
-        #endregion
+        #endregion Public Properties
 
         #region Window settings
 
@@ -113,7 +114,7 @@ namespace TodoApp2
 
         public bool IsDocked { get; set; }
 
-        #endregion
+        #endregion Window settings
 
         #region Constructors
 
@@ -123,7 +124,7 @@ namespace TodoApp2
             OverlayPageHandler = new OverlayPageHandlerService();
 
             m_Window.Deactivated += OnWindowDeactivated;
-            
+
             // Listen out for all properties that are affected by a resize
             m_Window.StateChanged += OnWindowStateChanged;
 
@@ -135,7 +136,6 @@ namespace TodoApp2
 
             // Dispose the database at last
             m_Window.Closed += OnWindowClosed;
-
 
             // Create commands
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
@@ -160,7 +160,7 @@ namespace TodoApp2
             Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
         }
 
-        #endregion
+        #endregion Constructors
 
         #region EventHandlers
 
@@ -267,7 +267,7 @@ namespace TodoApp2
             Application.SaveApplicationSettings();
         }
 
-        #endregion
+        #endregion EventHandlers
 
         #region Private helpers
 
@@ -288,7 +288,7 @@ namespace TodoApp2
             {
                 // The overlay page should be closed when the side menu is opened
                 Application.OverlayPageVisible = false;
-                
+
                 // The overlay background should be visible when the side menu is opened
                 Mediator.Instance.NotifyClients(ViewModelMessages.OpenOverlayBackgroundRequested);
             }
@@ -328,7 +328,7 @@ namespace TodoApp2
         }
 
         /// <summary>
-        /// Returns the position of the window's left edge, in relation to the desktop. 
+        /// Returns the position of the window's left edge, in relation to the desktop.
         /// </summary>
         /// <param name="window">The window.</param>
         /// <returns>Returns the position of the left edge.</returns>
@@ -344,7 +344,7 @@ namespace TodoApp2
         }
 
         /// <summary>
-        /// Returns the position of the window's top edge, in relation to the desktop. 
+        /// Returns the position of the window's top edge, in relation to the desktop.
         /// </summary>
         /// <param name="window">The window.</param>
         /// <returns>Returns the position of the top edge.</returns>
@@ -359,6 +359,6 @@ namespace TodoApp2
             return window.Top;
         }
 
-        #endregion
+        #endregion Private helpers
     }
 }

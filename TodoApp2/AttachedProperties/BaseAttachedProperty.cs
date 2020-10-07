@@ -23,7 +23,7 @@ namespace TodoApp2
         /// </summary>
         public event Action<DependencyObject, object> ValueUpdated = (sender, value) => { };
 
-        #endregion
+        #endregion Public Events
 
         #region Public Properties
 
@@ -32,7 +32,7 @@ namespace TodoApp2
         /// </summary>
         public static Parent Instance { get; private set; } = new Parent();
 
-        #endregion
+        #endregion Public Properties
 
         #region Attached Property Definitions
 
@@ -94,7 +94,7 @@ namespace TodoApp2
         /// <param name="value">The value to set the property to</param>
         public static void SetValue(DependencyObject d, Property value) => d.SetValue(ValueProperty, value);
 
-        #endregion
+        #endregion Attached Property Definitions
 
         #region Event Methods
 
@@ -112,6 +112,6 @@ namespace TodoApp2
         /// <param name="e">The arguments for this event</param>
         public virtual void OnValueUpdated(DependencyObject sender, object value) { }
 
-        #endregion
+        #endregion Event Methods
     }
 }

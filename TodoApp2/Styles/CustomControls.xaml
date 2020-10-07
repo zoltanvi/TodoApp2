@@ -4,25 +4,22 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
-        <ResourceDictionary Source="Colors.xaml"/>
+        <ResourceDictionary Source="Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-
-
-
     <Style x:Key="TimePickerStyle" TargetType="{x:Type xctk:TimePicker}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="BorderBrush" Value="#5C5C5C"/>
-        <Setter Property="BorderThickness" Value="1,1,1,1"/>
-        <Setter Property="IsTabStop" Value="False"/>
-        <Setter Property="HorizontalContentAlignment" Value="Right"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderBrush" Value="#5C5C5C" />
+        <Setter Property="BorderThickness" Value="1,1,1,1" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="HorizontalContentAlignment" Value="Right" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Right" />
         <Setter Property="WatermarkTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
+                    <ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -31,78 +28,74 @@
                 <ControlTemplate TargetType="{x:Type xctk:TimePicker}">
                     <Grid x:Name="root">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <xctk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{TemplateBinding AllowSpin}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}" VerticalContentAlignment="Stretch">
-                            <xctk:WatermarkTextBox x:Name="PART_TextBox" AcceptsReturn="False" BorderThickness="0" Background="Transparent" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{TemplateBinding TextAlignment}" TextWrapping="NoWrap" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{TemplateBinding WatermarkTemplate}" Watermark="{TemplateBinding Watermark}"/>
+                            <xctk:WatermarkTextBox x:Name="PART_TextBox" AcceptsReturn="False" BorderThickness="0" Background="Transparent" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{TemplateBinding TextAlignment}" TextWrapping="NoWrap" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{TemplateBinding WatermarkTemplate}" Watermark="{TemplateBinding Watermark}" />
 
                             <xctk:ButtonSpinner.Style>
                                 <Style TargetType="{x:Type xctk:ButtonSpinner}">
-                                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-                                    <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlNormalBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                    <Setter Property="Focusable" Value="False"/>
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    <Setter Property="IsTabStop" Value="True"/>
-                                    <Setter Property="Padding" Value="1"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+                                    <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlNormalBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                    <Setter Property="Focusable" Value="False" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="IsTabStop" Value="True" />
+                                    <Setter Property="Padding" Value="1" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type xctk:ButtonSpinner}">
                                                 <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition x:Name="firstContentColumn" Width="*"/>
-                                                            <ColumnDefinition x:Name="secondContentColumn" Width="Auto"/>
+                                                            <ColumnDefinition x:Name="firstContentColumn" Width="*" />
+                                                            <ColumnDefinition x:Name="secondContentColumn" Width="Auto" />
                                                         </Grid.ColumnDefinitions>
-                                                        <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                        <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                                         <Grid x:Name="gridContent" Grid.Column="1" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
                                                             <Grid.RowDefinitions>
-                                                                <RowDefinition Height="*"/>
-                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="*" />
+                                                                <RowDefinition Height="*" />
                                                             </Grid.RowDefinitions>
                                                             <RepeatButton x:Name="PART_IncreaseButton" IsTabStop="{TemplateBinding IsTabStop}" Style="{DynamicResource RepeatButtonStyle}">
 
-
                                                                 <RepeatButton.ContentTemplate>
                                                                     <DataTemplate>
-                                                                        <Path Data="M0,5L4.5,0.5 9,5 6,5 4.5,3.5 3,5z" Focusable="False" Fill="White" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9"/>
+                                                                        <Path Data="M0,5L4.5,0.5 9,5 6,5 4.5,3.5 3,5z" Focusable="False" Fill="White" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9" />
                                                                     </DataTemplate>
                                                                 </RepeatButton.ContentTemplate>
                                                             </RepeatButton>
                                                             <RepeatButton x:Name="PART_DecreaseButton" IsTabStop="{TemplateBinding IsTabStop}" Grid.Row="1" Style="{DynamicResource RepeatButtonStyle}" BorderThickness="1 1 0 0">
                                                                 <RepeatButton.ContentTemplate>
                                                                     <DataTemplate>
-                                                                        <Path Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z" Focusable="False" Fill="White" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9"/>
+                                                                        <Path Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z" Focusable="False" Fill="White" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9" />
                                                                     </DataTemplate>
                                                                 </RepeatButton.ContentTemplate>
                                                             </RepeatButton>
                                                         </Grid>
                                                     </Grid>
                                                 </Border>
-     
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
                                 </Style>
-
                             </xctk:ButtonSpinner.Style>
-
                         </xctk:ButtonSpinner>
                         <ToggleButton x:Name="_timePickerToggleButton" Background="Red" Grid.Column="1" Focusable="False" IsChecked="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}}">
                             <ToggleButton.IsHitTestVisible>
                                 <Binding Path="IsOpen" RelativeSource="{RelativeSource TemplatedParent}">
                                     <Binding.Converter>
-                                        <xctk:InverseBoolConverter/>
+                                        <xctk:InverseBoolConverter />
                                     </Binding.Converter>
                                 </Binding>
                             </ToggleButton.IsHitTestVisible>
                             <ToggleButton.IsEnabled>
                                 <Binding Path="IsReadOnly" RelativeSource="{RelativeSource TemplatedParent}">
                                     <Binding.Converter>
-                                        <xctk:InverseBoolConverter/>
+                                        <xctk:InverseBoolConverter />
                                     </Binding.Converter>
                                 </Binding>
                             </ToggleButton.IsEnabled>
@@ -112,24 +105,24 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ToggleButton}">
                                                 <Grid SnapsToDevicePixels="True">
-                                                    <xctk:ButtonChrome x:Name="ToggleButtonChrome" Background="{StaticResource TimePickerButtonBackgroundBrush}" CornerRadius="0" >
+                                                    <xctk:ButtonChrome x:Name="ToggleButtonChrome" Background="{StaticResource TimePickerButtonBackgroundBrush}" CornerRadius="0">
                                                         <!--RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderChecked="{Binding IsOpen, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:TimePicker}}}" RenderEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:TimePicker}}}" >-->
 
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="Auto" />
                                                             </Grid.ColumnDefinitions>
-                                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Stretch" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Stretch"/>
+                                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Stretch" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Stretch" />
                                                             <Grid x:Name="arrowGlyph" Grid.Column="1" IsHitTestVisible="False" Margin="5">
-                                                                <Path x:Name="Arrow" Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z" Fill="White" Height="5" Margin="0,1,0,0" Width="9"/>
+                                                                <Path x:Name="Arrow" Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z" Fill="White" Height="5" Margin="0,1,0,0" Width="9" />
                                                             </Grid>
                                                         </Grid>
                                                     </xctk:ButtonChrome>
                                                 </Grid>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsEnabled" Value="False">
-                                                        <Setter Property="Fill" TargetName="Arrow" Value="Red"/>
+                                                        <Setter Property="Fill" TargetName="Arrow" Value="Red" />
                                                     </Trigger>
                                                 </ControlTemplate.Triggers>
                                             </ControlTemplate>
@@ -140,7 +133,7 @@
                             <ToggleButton.Visibility>
                                 <TemplateBinding Property="ShowDropDownButton">
                                     <TemplateBinding.Converter>
-                                        <BooleanToVisibilityConverter/>
+                                        <BooleanToVisibilityConverter />
                                     </TemplateBinding.Converter>
                                 </TemplateBinding>
                             </ToggleButton.Visibility>
@@ -150,7 +143,7 @@
                                 <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
                                     <Style.Triggers>
                                         <Trigger Property="Content" Value="">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Setter Property="Visibility" Value="Collapsed" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -158,39 +151,39 @@
                             <Border BorderBrush="#FFABADB3" BorderThickness="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=root}">
                                 <Border.Background>
                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                                        <GradientStop Color="#FFE5E5E5" Offset="1"/>
+                                        <GradientStop Color="#FFF0F0F0" Offset="0" />
+                                        <GradientStop Color="#FFE5E5E5" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <ListBox x:Name="PART_TimeListItems" BorderThickness="0" DisplayMemberPath="Display">
                                         <ListBox.ItemContainerStyle>
                                             <Style TargetType="{x:Type ListBoxItem}">
-                                                <Setter Property="Padding" Value="4"/>
+                                                <Setter Property="Padding" Value="4" />
                                                 <Style.Triggers>
                                                     <MultiTrigger>
                                                         <MultiTrigger.Conditions>
-                                                            <Condition Property="IsMouseOver" Value="True"/>
-                                                            <Condition Property="IsSelected" Value="False"/>
+                                                            <Condition Property="IsMouseOver" Value="True" />
+                                                            <Condition Property="IsSelected" Value="False" />
                                                         </MultiTrigger.Conditions>
-                                                        <!--<Setter Property="Background" Value="#FFB8E0F3"/>-->
-                                                        <Setter Property="BorderBrush" Value="Red"/>
+                                                        <!--<Setter Property="Background" Value="#FFB8E0F3" />-->
+                                                        <Setter Property="BorderBrush" Value="Red" />
                                                     </MultiTrigger>
                                                     <MultiTrigger>
                                                         <MultiTrigger.Conditions>
-                                                            <Condition Property="IsMouseOver" Value="False"/>
-                                                            <Condition Property="IsSelected" Value="True"/>
+                                                            <Condition Property="IsMouseOver" Value="False" />
+                                                            <Condition Property="IsSelected" Value="True" />
                                                         </MultiTrigger.Conditions>
-                                                        <!--<Setter Property="Background" Value="#FFC4E5F6"/>-->
-                                                        <Setter Property="BorderBrush" Value="#FF26A0DA"/>
+                                                        <!--<Setter Property="Background" Value="#FFC4E5F6" />-->
+                                                        <Setter Property="BorderBrush" Value="#FF26A0DA" />
                                                     </MultiTrigger>
                                                     <MultiTrigger>
                                                         <MultiTrigger.Conditions>
-                                                            <Condition Property="IsMouseOver" Value="True"/>
-                                                            <Condition Property="IsSelected" Value="True"/>
+                                                            <Condition Property="IsMouseOver" Value="True" />
+                                                            <Condition Property="IsSelected" Value="True" />
                                                         </MultiTrigger.Conditions>
-                                                        <!--<Setter Property="Background" Value="#FFD1E8FF"/>-->
-                                                        <Setter Property="BorderBrush" Value="#FF66A7E8"/>
+                                                        <!--<Setter Property="Background" Value="#FFD1E8FF" />-->
+                                                        <Setter Property="BorderBrush" Value="#FF66A7E8" />
                                                     </MultiTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -202,26 +195,26 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="White"/>
+                            <Setter Property="BorderBrush" Value="White" />
                         </Trigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
-                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False" />
+                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False" />
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True" />
                         </MultiDataTrigger>
                         <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
-                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True" />
                         </DataTrigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+                            <Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}" />
                         </Trigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -229,62 +222,61 @@
                                     <Condition.Binding>
                                         <Binding Path="TemplatedParent" RelativeSource="{RelativeSource Self}">
                                             <Binding.Converter>
-                                                <xctk:ObjectTypeToNameConverter/>
+                                                <xctk:ObjectTypeToNameConverter />
                                             </Binding.Converter>
                                         </Binding>
                                     </Condition.Binding>
                                 </Condition>
-                                <Condition Binding="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}}" Value="True"/>
+                                <Condition Binding="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="IsHitTestVisible" TargetName="_timePickerToggleButton" Value="True"/>
+                            <Setter Property="IsHitTestVisible" TargetName="_timePickerToggleButton" Value="True" />
                         </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
-    <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-    <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+
+    <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
+    <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
     <Style x:Key="BaseButtonStyle" TargetType="{x:Type ButtonBase}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        <Setter Property="Background" Value="{StaticResource TimePickerButtonBackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="BorderThickness" Value="1 0 0 0"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="1"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+        <Setter Property="Background" Value="{StaticResource TimePickerButtonBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="BorderThickness" Value="1 0 0 0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
                     <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Button.IsDefaulted" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}"/>
-                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>-->
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}" />
+                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}" />-->
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}"/>
-                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>-->
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}" />
+                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}" />-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}"/>
-                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>-->
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}" />
+                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}" />-->
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -292,52 +284,49 @@
         </Setter>
     </Style>
     <Style x:Key="RepeatButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="{x:Type RepeatButton}">
-        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
     </Style>
-
 
     <Style x:Key="CalendarStyle" TargetType="{x:Type Calendar}">
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#222222" Offset="0"/>
-                    <GradientStop Color="#222222" Offset="0.16"/>
-                    <GradientStop Color="#333333" Offset="0.16"/>
-                    <GradientStop Color="#333333" Offset="1"/>
+                    <GradientStop Color="#222222" Offset="0" />
+                    <GradientStop Color="#222222" Offset="0.16" />
+                    <GradientStop Color="#333333" Offset="0.16" />
+                    <GradientStop Color="#333333" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
         <Setter Property="BorderBrush" Value="Transparent">
             <!--<Setter.Value>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFA3AEB9" Offset="0"/>
-                    <GradientStop Color="#FF8399A9" Offset="0.375"/>
-                    <GradientStop Color="#FF718597" Offset="0.375"/>
-                    <GradientStop Color="#FF617584" Offset="1"/>
+                    <GradientStop Color="#FFA3AEB9" Offset="0" />
+                    <GradientStop Color="#FF8399A9" Offset="0.375" />
+                    <GradientStop Color="#FF718597" Offset="0.375" />
+                    <GradientStop Color="#FF617584" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>-->
         </Setter>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderThickness" Value="0" />
 
-        <Setter Property="CalendarDayButtonStyle" Value="{DynamicResource CalendarDayButtonStyle}"/>
+        <Setter Property="CalendarDayButtonStyle" Value="{DynamicResource CalendarDayButtonStyle}" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Calendar}">
                     <StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
-                        <CalendarItem x:Name="PART_CalendarItem" 
-                                      BorderBrush="{TemplateBinding BorderBrush}" 
-                                      BorderThickness="1" 
-                                      Background="{TemplateBinding Background}" 
+                        <CalendarItem x:Name="PART_CalendarItem"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="1"
+                                      Background="{TemplateBinding Background}"
                                       Foreground="Blue"
-                                      Style="{TemplateBinding CalendarItemStyle}"/>
+                                      Style="{TemplateBinding CalendarItemStyle}" />
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
 
     <Color x:Key="DisableDay1">Black</Color>
     <Color x:Key="DisableDay2">Black</Color>
@@ -429,7 +418,7 @@
                                 <VisualStateGroup.Transitions>
                                     <VisualTransition GeneratedDuration="0" />
                                 </VisualStateGroup.Transitions>
-                                <VisualState x:Name="RegularDay"  />
+                                <VisualState x:Name="RegularDay" />
                                 <VisualState x:Name="Today">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="TodayBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
@@ -473,5 +462,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

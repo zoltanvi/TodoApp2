@@ -1,33 +1,30 @@
 ﻿<UserControl x:Class="TodoApp2.CategoryListItemControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:TodoApp2"
              x:Name="CategoryListItemUC"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="60" d:DesignWidth="350">
 
     <Grid x:Name="ParentGrid">
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseLeftButtonUp">
-                <i:InvokeCommandAction 
-                    Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}" 
-                    CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
-                    />
+                <i:InvokeCommandAction
+                    Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}"
+                    CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}" />
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-
         <TextBlock Grid.Column="0"
-               Text="{Binding Name}" 
-               Style="{StaticResource CategoryTextBlockStyle}" 
+               Text="{Binding Name}"
+               Style="{StaticResource CategoryTextBlockStyle}"
                Foreground="{Binding IsSelected, Converter={local:CategorySelectedColorConverter}}"
                FontSize="{StaticResource FontSizeLarge}"
-               Margin="20 5 30 5"
-               >
+               Margin="20 5 30 5">
         </TextBlock>
 
         <Border Grid.Column="0"
@@ -35,20 +32,18 @@
                     Opacity="0"
                     Background="Transparent"
                     HorizontalAlignment="Right"
-                    Width="{Binding ActualWidth, ElementName=ParentGrid}"
-                    >
+                    Width="{Binding ActualWidth, ElementName=ParentGrid}">
 
             <Border.Triggers>
                 <EventTrigger RoutedEvent="Border.MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation 
+                            <DoubleAnimation
                                     From="0"
-                                    To="1" 
-                                    Duration="0:0:0.35" 
+                                    To="1"
+                                    Duration="0:0:0.35"
                                     Storyboard.TargetName="HoverButtonBorder"
-                                    Storyboard.TargetProperty="(Opacity)"
-                                />
+                                    Storyboard.TargetProperty="(Opacity)" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
@@ -56,34 +51,27 @@
                 <EventTrigger RoutedEvent="Border.MouseLeave">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation 
+                            <DoubleAnimation
                                     From="1"
-                                    To="0" 
-                                    Duration="0:0:0.15" 
+                                    To="0"
+                                    Duration="0:0:0.15"
                                     Storyboard.TargetName="HoverButtonBorder"
-                                    Storyboard.TargetProperty="(Opacity)"
-                                />
+                                    Storyboard.TargetProperty="(Opacity)" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
             </Border.Triggers>
 
-            <Grid 
+            <Grid
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Margin="0 0 10 0"
-                      >
+                    Margin="0 0 10 0">
                 <!--Trash button-->
                 <Button Style="{StaticResource TaskItemButtonStyle}"
                         Content="{StaticResource SegoeIconTrash}"
                         Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"
-                        CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"/>
-
+                        CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}" />
             </Grid>
-
-
-
         </Border>
-
     </Grid>
 </UserControl>

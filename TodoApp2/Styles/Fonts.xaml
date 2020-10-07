@@ -5,18 +5,17 @@
 
     <!--<FontFamily x:Key="SomethingFont">pack://application;,,,/Fonts/#Lato Regular</FontFamily>-->
 
-    <Style TargetType="{x:Type Control}" x:Key="BaseStyle"/>
-    
-    <!--<Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle" >
-        <Setter Property="FontFamily" Value="Segoe UI"/>
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle" />
+
+    <!--<Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="Segoe UI" />
     </Style>-->
 
-    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"  />
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}"  />
-    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}"  />
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
     <!--<Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}"  />-->
-    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}"  />
-
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
 
     <!--Button icon characters-->
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
@@ -29,5 +28,4 @@
     <system:String x:Key="SegoeIconCalendar">&#xE787;</system:String>
     <system:String x:Key="SegoeIconPalette">&#xE790;</system:String>
     <system:String x:Key="SegoeIconTrash">&#xE74D;</system:String>
-
 </ResourceDictionary>

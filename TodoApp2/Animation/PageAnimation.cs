@@ -14,7 +14,7 @@
         /// The page fades in
         /// </summary>
         FadeIn,
-        
+
         /// <summary>
         /// The page fades out
         /// </summary>

@@ -14,7 +14,6 @@ namespace TodoApp2
     public abstract class AnimateBaseProperty<TParent> : BaseAttachedProperty<TParent, bool>
         where TParent : BaseAttachedProperty<TParent, bool>, new()
     {
-
         #region Protected Properties
 
         protected float DefaultAnimationDuration = 0.3f;
@@ -31,7 +30,7 @@ namespace TodoApp2
         /// </summary>
         protected readonly Dictionary<WeakReference, bool> FirstLoadValue = new Dictionary<WeakReference, bool>();
 
-        #endregion
+        #endregion Protected Properties
 
         public override void OnValueUpdated(DependencyObject sender, object value)
         {
@@ -61,7 +60,7 @@ namespace TodoApp2
                 // Start off hidden before we decide how to animate
                 element.Visibility = Visibility.Hidden;
 
-                // Create a single self-unhookable event 
+                // Create a single self-unhookable event
                 // for the elements Loaded event
                 async void OnLoaded(object ss, RoutedEventArgs ee)
                 {

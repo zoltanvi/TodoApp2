@@ -16,13 +16,13 @@ namespace TodoApp2
 
         public CategorySelectedColorConverter()
         {
-           m_NormalBrush = (Brush)Application.Current.TryFindResource("CategoryTitleForegroundBrush");
-           m_SelectedBrush = (Brush)Application.Current.TryFindResource("CategoryTitleSelectedForegroundBrush");
-           
-           if (m_NormalBrush == null || m_SelectedBrush == null)
-           {
-               throw new NullReferenceException("Can't find Category background brush!");
-           }
+            m_NormalBrush = (Brush)Application.Current.TryFindResource("CategoryTitleForegroundBrush");
+            m_SelectedBrush = (Brush)Application.Current.TryFindResource("CategoryTitleSelectedForegroundBrush");
+
+            if (m_NormalBrush == null || m_SelectedBrush == null)
+            {
+                throw new NullReferenceException("Can't find Category background brush!");
+            }
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

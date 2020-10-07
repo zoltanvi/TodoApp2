@@ -1,5 +1,4 @@
-﻿
-namespace TodoApp2.Core
+﻿namespace TodoApp2.Core
 {
     public static class PropertyValueHandlers
     {
