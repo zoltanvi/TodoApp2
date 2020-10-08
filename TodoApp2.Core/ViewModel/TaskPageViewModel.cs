@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -209,10 +210,10 @@ namespace TodoApp2.Core
             Items.Move(oldIndex, 0);
         }
 
-        private void OnCategoryChanged(object obj)
+        private async Task OnCategoryChanged()
         {
             // Query the items with the current category
-            List<TaskListItemViewModel> filteredItems = Database.GetActiveTaskItems(CurrentCategory);
+            List<TaskListItemViewModel> filteredItems = await Database.GetActiveTaskItemsAsync(CurrentCategory);
 
             // Fill the actual list with the queried items
             Items.Clear();

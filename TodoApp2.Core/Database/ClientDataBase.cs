@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TodoApp2.Core
 {
@@ -17,6 +18,17 @@ namespace TodoApp2.Core
 
             // Initialize the database
             m_DataAccess.InitializeDatabase();
+        }
+
+        /// <summary>
+        /// Gets the task items from the provided category which are not trashed
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
+        public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(string categoryName)
+        {
+            var returnValue = await Task.Run(() => GetActiveTaskItems(categoryName));
+            return returnValue;
         }
 
         /// <summary>
