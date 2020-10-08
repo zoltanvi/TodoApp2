@@ -25,7 +25,7 @@ namespace TodoApp2.Core
 
         public ReminderPageViewModel()
         {
-            CloseReminderCommand = new RelayCommand(CloseReminder);
+            CloseReminderCommand = new RelayCommand(OverlayPageService.Instance.CloseReminderPage);
             SetReminderCommand = new RelayCommand(SetReminder);
         }
 
@@ -57,7 +57,7 @@ namespace TodoApp2.Core
                 NotificationService.DeleteReminder(ReminderTask);
             }
 
-            CloseReminder();
+            OverlayPageService.Instance.CloseReminderPage();
         }
 
         private void UpdateTaskReminder()
@@ -67,11 +67,6 @@ namespace TodoApp2.Core
 
             ReminderTask.IsReminderOn = IsReminderOn;
             ClientDatabase.UpdateTask(ReminderTask);
-        }
-
-        private void CloseReminder()
-        {
-            Mediator.Instance.NotifyClients(ViewModelMessages.CloseReminderPageRequested);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace TodoApp2.Core
                 IoC.ClientDatabase.UpdateTask(NotificationTask);
             }
 
-            Mediator.Instance.NotifyClients(ViewModelMessages.CloseNotificationPageRequested);
+            OverlayPageService.Instance.CloseNotificationPage();
         }
     }
 }

@@ -11,33 +11,9 @@
         CategoryChanged,
 
         /// <summary>
-        /// The reminder setter panel should be opened
-        /// </summary>
-        OpenReminderPageRequested,
-
-        /// <summary>
-        /// The reminder setter panel should be closed
-        /// </summary>
-        CloseReminderPageRequested,
-
-        /// <summary>
-        /// The notification page should be opened
-        /// </summary>
-        OpenNotificationPageRequested,
-
-        /// <summary>
-        /// The notification page should be closed
-        /// </summary>
-        CloseNotificationPageRequested,
-
-        /// <summary>
-        /// The overlay background should be visible
-        /// </summary>
-        OpenOverlayBackgroundRequested,
-
-        /// <summary>
         /// The overlay background has closed
         /// </summary>
+        /// TODO: Remove later
         OverlayBackgroundClosed,
 
         /// <summary>

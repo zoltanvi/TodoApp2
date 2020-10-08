@@ -57,7 +57,7 @@ namespace TodoApp2.Core
             // scheduling and executing to show the task
             TaskListItemViewModel task = Database.GetTask(taskId);
 
-            Mediator.Instance.NotifyClients(ViewModelMessages.OpenNotificationPageRequested, task);
+            OverlayPageService.Instance.OpenNotificationPage(task);
 
             Mediator.Instance.NotifyClients(ViewModelMessages.WindowFlashRequested, playSound);
         }

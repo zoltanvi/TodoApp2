@@ -40,12 +40,6 @@ namespace TodoApp2
 
         #endregion Commands
 
-        #region Public Properties
-
-        public OverlayPageHandlerService OverlayPageHandler { get; }
-
-        #endregion Public Properties
-
         #region Window settings
 
         public double WindowMinimumWidth { get; set; } = 320;
@@ -121,7 +115,6 @@ namespace TodoApp2
         public WindowViewModel(Window window)
         {
             m_Window = window;
-            OverlayPageHandler = new OverlayPageHandlerService();
 
             m_Window.Deactivated += OnWindowDeactivated;
 
@@ -142,7 +135,7 @@ namespace TodoApp2
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
-            CloseOverlayCommand = new RelayCommand(OverlayPageHandler.CloseEveryOverlay);
+            CloseOverlayCommand = new RelayCommand(OverlayPageService.Instance.CloseEveryOverlay);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
@@ -166,12 +159,12 @@ namespace TodoApp2
 
         private void OnCategoryChanged(object obj)
         {
-            OverlayPageHandler.CloseEveryOverlay();
+            OverlayPageService.Instance.CloseEveryOverlay();
         }
 
         private void OnAlwaysOnTopChanged(object obj)
         {
-            OverlayPageHandler.CloseEveryOverlay();
+            OverlayPageService.Instance.CloseEveryOverlay();
         }
 
         private void OnWindowFlashRequested(object obj)
@@ -290,12 +283,12 @@ namespace TodoApp2
                 Application.OverlayPageVisible = false;
 
                 // The overlay background should be visible when the side menu is opened
-                Mediator.Instance.NotifyClients(ViewModelMessages.OpenOverlayBackgroundRequested);
+                OverlayPageService.Instance.ShowOverlayBackground();
             }
             else
             {
                 // The overlay background should be closed when the side menu is closed
-                OverlayPageHandler.CloseEveryOverlay();
+                OverlayPageService.Instance.CloseEveryOverlay();
             }
         }
 

@@ -76,8 +76,7 @@ namespace TodoApp2.Core
         {
             //IoC.Application.ReminderTask = this;
 
-            // Request to open the Reminder page
-            Mediator.Instance.NotifyClients(ViewModelMessages.OpenReminderPageRequested, this);
+            OverlayPageService.Instance.OpenReminderPage(this);
         }
 
         private void SetColor(object obj)
