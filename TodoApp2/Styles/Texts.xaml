@@ -45,6 +45,21 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Margin" Value="20 2 0 0" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <!--<Setter Property="TextDecorations" >
+            <Setter.Value>
+                <TextDecorationCollection>
+                    <TextDecoration PenThicknessUnit="FontRecommended">
+                        <TextDecoration.Pen>
+                            <Pen Brush="White" Thickness="1.5" >
+                                <Pen.DashStyle>
+                                    <DashStyle Dashes="2"/>
+                                </Pen.DashStyle>
+                            </Pen>
+                        </TextDecoration.Pen>
+                    </TextDecoration>
+                </TextDecorationCollection>
+            </Setter.Value>
+        </Setter>-->
     </Style>
 
     <Style TargetType="Label" x:Key="IconLabelStyle">

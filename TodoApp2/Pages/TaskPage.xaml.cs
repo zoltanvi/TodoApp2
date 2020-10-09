@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using TodoApp2.Core;
 
@@ -44,30 +41,5 @@ namespace TodoApp2
             // Add task on enter, handle modifier keys
             TextBoxPreviewKeyDownHelper.TextBox_PreviewKeyDown(sender, e, ViewModel.AddTask);
         }
-
-
-        //private void AddNewTaskTextBox_SizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //    var heightDiff = e.NewSize.Height - e.PreviousSize.Height;
-        //    const double marginOffset = 23.939999999999998;
-        //    const int maxHeight = 200;
-
-        //    if (e.PreviousSize.Height < e.NewSize.Height && heightDiff < marginOffset && marginOffset + e.NewSize.Height < maxHeight)
-        //    {
-        //        MyTaskListControl.Margin = ModifyMargin(MyTaskListControl.Margin, 0, 0, 0, marginOffset);
-        //        BottomBorderPanel.Margin = ModifyMargin(BottomBorderPanel.Margin, 0, - marginOffset, 0, 0);
-        //        BottomBorderPanel.Height += marginOffset;
-        //    }
-        //    else
-        //    {
-
-        //    }
-        //    //else if(e.PreviousSize.Height > e.NewSize.Height)
-        //}
-
-        //private Thickness ModifyMargin(Thickness original, double left, double top, double right, double bottom)
-        //{
-        //    return new Thickness(original.Left + left, original.Top + top, original.Right + right, original.Bottom + bottom);
-        //}
     }
 }

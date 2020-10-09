@@ -73,11 +73,7 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public TaskListItemViewModel GetTask(int id)
         {
-            // TODO: write query for it
-            // Returns the task list from the database ordered by ListOrder column
-            List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks();
-
-            return allTasks.FirstOrDefault(task => task.Id == id);
+            return m_DataAccess.GetTask(id);
         }
 
         /// <summary>

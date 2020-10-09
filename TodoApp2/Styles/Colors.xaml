@@ -47,6 +47,9 @@
     <Color x:Key="TaskItemBackgroundTransparent">#00292929</Color>
     <SolidColorBrush x:Key="TaskItemBackgroundTransparentBrush" Color="{StaticResource TaskItemBackgroundTransparent}" />
 
+    <Color x:Key="TaskPageTextBoxBackground">#191919</Color>
+    <SolidColorBrush x:Key="TaskPageTextBoxBackgroundBrush" Color="{StaticResource TaskPageTextBoxBackground}" />
+    
     <Color x:Key="IconLabelForeground">#ffffff</Color>
     <SolidColorBrush x:Key="IconLabelForegroundBrush" Color="{StaticResource IconLabelForeground}" />
 

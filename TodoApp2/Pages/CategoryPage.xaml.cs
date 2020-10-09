@@ -2,7 +2,6 @@
 
 namespace TodoApp2
 {
-
     public partial class CategoryPage : BasePage<CategoryPageViewModel>
     {
         public CategoryPage()

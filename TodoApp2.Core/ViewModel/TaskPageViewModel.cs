@@ -212,11 +212,17 @@ namespace TodoApp2.Core
 
         private async Task OnCategoryChanged()
         {
+            // Clear the list first to prevent inconsistent data on UI while the items are loading
+            Items.Clear();
+
             // Query the items with the current category
             List<TaskListItemViewModel> filteredItems = await Database.GetActiveTaskItemsAsync(CurrentCategory);
 
-            // Fill the actual list with the queried items
+            // Clear the list to prevent showing items from multiple categories.
+            // This can happen if the user changes category again while the query runs
             Items.Clear();
+
+            // Fill the actual list with the queried items
             Items.AddRange(filteredItems);
         }
 

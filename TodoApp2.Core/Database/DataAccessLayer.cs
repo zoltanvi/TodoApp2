@@ -552,6 +552,49 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Gets the task with the given <paramref name="id"/>.
+        /// </summary>
+        /// <param name="id">The id of the task to query.</param>
+        /// <returns></returns>
+        public TaskListItemViewModel GetTask(int id)
+        {
+            TaskListItemViewModel readTask = null;
+            SQLiteCommand selectCommand = new SQLiteCommand
+            {
+                Connection = m_Connection,
+                CommandText = $"SELECT * FROM {Task} WHERE {Id} = {ParameterId} ;",
+                Parameters =
+                {
+                    new SQLiteParameter(ParameterId, id), 
+                }
+            };
+
+            SQLiteDataReader reader = selectCommand.ExecuteReader();
+
+            while (reader.Read())
+            {
+                readTask = new TaskListItemViewModel
+                {
+                    Id = reader.SafeGetInt(Id),
+                    CategoryId = reader.SafeGetInt(CategoryId),
+                    Content = reader.SafeGetString(Content),
+                    ListOrder = reader.SafeGetLongFromString(ListOrder),
+                    IsDone = reader.SafeGetBoolFromInt(IsDone),
+                    CreationDate = reader.SafeGetLong(CreationDate),
+                    ModificationDate = reader.SafeGetLong(ModificationDate),
+                    Color = reader.SafeGetString(Color),
+                    Trashed = reader.SafeGetBoolFromInt(Trashed),
+                    ReminderDate = reader.SafeGetLong(ReminderDate),
+                    IsReminderOn = reader.SafeGetBoolFromInt(IsReminderOn),
+                };
+
+                break;
+            }
+
+            return readTask;
+        }
+
+        /// <summary>
         /// Gets the next available Id for a Task record
         /// </summary>
         /// <returns></returns>
