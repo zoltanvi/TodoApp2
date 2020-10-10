@@ -66,7 +66,7 @@ namespace TodoApp2.Core
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
 
             // Listen out for requests to refresh the task list
-            Mediator.Instance.Register(OnRefreshTaskListRequested, ViewModelMessages.RefreshTaskListRequested);
+            Mediator.Instance.Register(OnRefreshTaskRequested, ViewModelMessages.RefreshTaskRequested);
         }
 
         private void ModifyTaskIsDone(object obj)
@@ -227,16 +227,16 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
-        /// Repaints the task list (workaround)
+        /// Repaints the task in the list(workaround)
         /// </summary>
         /// <param name="obj"></param>
-        private void OnRefreshTaskListRequested(object obj)
+        private void OnRefreshTaskRequested(object obj)
         {
-            var copyItems = new List<TaskListItemViewModel>(Items);
-            Items.Clear();
-            foreach (var item in copyItems)
+            if(obj is TaskListItemViewModel task)
             {
-                Items.Add(item);
+                int oldIndex = Items.IndexOf(task);
+                Items.Remove(task);
+                Items.Insert(oldIndex, task);
             }
         }
     }

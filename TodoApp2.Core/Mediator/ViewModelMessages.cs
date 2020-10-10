@@ -22,9 +22,9 @@
         WindowFlashRequested,
 
         /// <summary>
-        /// The task list should be refreshed (repaint UI)
+        /// The task should be refreshed in the list (repaint UI)
         /// </summary>
-        RefreshTaskListRequested,
+        RefreshTaskRequested,
 
         /// <summary>
         /// Always on top changed, the overlay page should be closed
