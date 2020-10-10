@@ -10,17 +10,18 @@
              d:DesignHeight="350" d:DesignWidth="380">
     <Grid Background="Transparent">
 
-        <ListView ItemsSource="{Binding Items}"
+        <ListView ItemsSource="{Binding Items}" 
                   dd:DragDrop.IsDragSource="True"
-                      dd:DragDrop.IsDropTarget="True"
-                      x:Name="TaskListListView"
-                      BorderThickness="0"
-                      Background="Transparent"
-                      HorizontalContentAlignment="Stretch"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      ScrollViewer.CanContentScroll="False"
-                  Template="{DynamicResource TaskListControlTemplate}">
+                  dd:DragDrop.IsDropTarget="True"
+                  x:Name="TaskListListView"
+                  BorderThickness="0"
+                  Background="Transparent"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.CanContentScroll="False"
+                  Template="{DynamicResource TaskListControlTemplate}"
+                  >
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

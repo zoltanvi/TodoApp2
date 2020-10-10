@@ -29,8 +29,8 @@ namespace TodoApp2.Core
         public ICommand HideColorPickerCommand { get; }
         public ICommand SetColorCommand { get; }
         public ICommand OpenReminderCommand { get; }
-
         public ICommand EditItemCommand { get; }
+        public ICommand UpdateItemContentCommand { get; }
 
         public TaskListItemViewModel()
         {
@@ -39,6 +39,7 @@ namespace TodoApp2.Core
             SetColorCommand = new RelayParameterizedCommand(SetColor);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
+            UpdateItemContentCommand = new RelayCommand(UpdateContent);
         }
 
         public void UpdateContent()

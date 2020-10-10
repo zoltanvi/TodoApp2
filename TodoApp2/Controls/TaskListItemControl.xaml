@@ -9,7 +9,10 @@
              mc:Ignorable="d"
              MinHeight="46"
              x:Name="TaskListItemUC"
-             d:DesignHeight="60" d:DesignWidth="350">
+             d:DesignHeight="60" d:DesignWidth="350"
+             xmlns:dd="urn:gong-wpf-dragdrop"
+             dd:DragDrop.DragSourceIgnore="{Binding IsEditMode}"
+             >
 
     <Grid Background="{StaticResource ContentBackgroundBrush}">
 
@@ -71,10 +74,18 @@
                     <TextBox Grid.Row="0"
                              x:Name="EditTextBox"
                              Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}"
+                             local:FocusSetter.Value="{Binding IsEditMode}"
                              Style="{StaticResource TaskListItemDescriptionTextBoxStyle}"
                              Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                              Text="{Binding PendingEditContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             PreviewKeyDown="TextBox_PreviewKeyDown" />
+                             PreviewKeyDown="TextBox_PreviewKeyDown" 
+                             >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="LostFocus">
+                                <i:InvokeCommandAction Command="{Binding UpdateItemContentCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
 
                     <!--Timestamp-->
                     <!--<TextBlock Grid.Row="1"
