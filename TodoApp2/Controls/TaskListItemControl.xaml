@@ -60,10 +60,11 @@
 
                     <!--Task description-->
                     <TextBlock Grid.Row="0"
+                             x:Name="EditTextBlock"
                              Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
                              Style="{StaticResource TaskListItemDescriptionTextBlockStyle}"
                              Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
-                             Text="{Binding Content, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Content, Mode=TwoWay}"
                              TargetUpdated="TaskDescriptionTextBlock_OnTargetUpdated">
 
                         <TextBlock.InputBindings>

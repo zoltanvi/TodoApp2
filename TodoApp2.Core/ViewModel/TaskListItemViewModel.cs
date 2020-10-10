@@ -56,15 +56,8 @@ namespace TodoApp2.Core
                 Database.UpdateTask(this);
             }
 
-            if (IsEditMode)
-            {
-                // Switch back from edit mode
-                IsEditMode = false;
-
-                // Request a task list refresh
-                // (workaround because the task list item does not get repainted even if the Content changes)
-                Mediator.Instance.NotifyClients(ViewModelMessages.RefreshTaskRequested, this);
-            }
+            // Switch back from edit mode
+            IsEditMode = false;
         }
 
         private void EditItem()

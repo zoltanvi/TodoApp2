@@ -64,9 +64,6 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
-
-            // Listen out for requests to refresh the task list
-            Mediator.Instance.Register(OnRefreshTaskRequested, ViewModelMessages.RefreshTaskRequested);
         }
 
         private void ModifyTaskIsDone(object obj)
@@ -224,20 +221,6 @@ namespace TodoApp2.Core
 
             // Fill the actual list with the queried items
             Items.AddRange(filteredItems);
-        }
-
-        /// <summary>
-        /// Repaints the task in the list(workaround)
-        /// </summary>
-        /// <param name="obj"></param>
-        private void OnRefreshTaskRequested(object obj)
-        {
-            if(obj is TaskListItemViewModel task)
-            {
-                int oldIndex = Items.IndexOf(task);
-                Items.Remove(task);
-                Items.Insert(oldIndex, task);
-            }
         }
     }
 }
