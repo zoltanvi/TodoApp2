@@ -104,6 +104,12 @@
     <Color x:Key="NotificationBorder">#5C5C5C</Color>
     <SolidColorBrush x:Key="NotificationBorderBrush" Color="{StaticResource NotificationBorder}" />
 
+    <Color x:Key="ReminderDateBorder">#828282</Color>
+    <SolidColorBrush x:Key="ReminderDateBorderBrush" Color="{StaticResource ReminderDateBorder}" />
+
+    <Color x:Key="ReminderDateInvalidBorder">#FF3100</Color>
+    <SolidColorBrush x:Key="ReminderDateInvalidBorderBrush" Color="{StaticResource ReminderDateInvalidBorder}" />
+
     <Color x:Key="SettingsButtonHoverForeground">#47CBFF</Color>
     <SolidColorBrush x:Key="SettingsButtonHoverForegroundBrush" Color="{StaticResource CategoryTitleSelectedForeground}" />
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -13,9 +14,13 @@ namespace TodoApp2.Core
         /// </summary>
         public TaskListItemViewModel ReminderTask { get; set; }
 
-        public DateTime SelectedDate { get; set; } = DateTime.Now;
+        public DateTime SelectedDate { get; set; }
+        
+        public string SelectedDateString { get; set; }
 
-        public DateTime SelectedTime { get; set; } = DateTime.Now;
+        public bool IsSelectedDateStringValid { get; set; }
+
+        public DateTime SelectedTime { get; set; }
 
         public bool IsReminderOn { get; set; }
 
@@ -40,7 +45,15 @@ namespace TodoApp2.Core
                     DateTime date = new DateTime(ReminderTask.ReminderDate);
                     SelectedDate = date.Date;
                     SelectedTime = new DateTime() + date.TimeOfDay;
+                    SelectedDateString = SelectedDate.ConvertToString();
                 }
+                else
+                {
+                    SelectedDateString = DateTime.Now.ConvertToString();
+                }
+                IsSelectedDateStringValid = true;
+
+                PropertyChanged += OnViewModelPropertyChanged;
             }
         }
 
@@ -67,6 +80,30 @@ namespace TodoApp2.Core
 
             ReminderTask.IsReminderOn = IsReminderOn;
             ClientDatabase.UpdateTask(ReminderTask);
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(SelectedDateString):
+                {
+                    IsSelectedDateStringValid = false;
+                    
+                    if (SelectedDateString.ConvertToDate(out DateTime selectedDate))
+                    {
+                        SelectedDate = selectedDate;
+                        IsSelectedDateStringValid = true;
+                    }
+                    break;
+                }
+                case nameof(SelectedDate):
+                {
+                    SelectedDateString = SelectedDate.ConvertToString();
+                    IsSelectedDateStringValid = true;
+                    break;
+                }
+            }
         }
     }
 }

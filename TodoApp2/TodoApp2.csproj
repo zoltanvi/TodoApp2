@@ -118,6 +118,7 @@
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\FocusSetter.cs" />
+    <Compile Include="AttachedProperties\InputBindingsManager.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="Controls\BubbleContent.xaml.cs">
       <DependentUpon>BubbleContent.xaml</DependentUpon>
@@ -164,11 +165,13 @@
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageHelper.cs" />
+    <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityNegatedConverter.cs" />
     <Compile Include="ValueConverters\LongToFormattedDateConverter.cs" />
     <Compile Include="ValueConverters\BoolToOpacityConverter.cs" />
     <Compile Include="ValueConverters\CategorySelectedColorConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\StringToDateConverter.cs" />
     <Compile Include="ValueConverters\TextDecorationConverter.cs" />
     <Compile Include="ValueConverters\IoCConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />

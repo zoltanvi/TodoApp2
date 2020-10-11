@@ -8,7 +8,7 @@
                 xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
                 xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                 mc:Ignorable="d"
-                d:DesignHeight="450" d:DesignWidth="400"
+                d:DesignHeight="500" d:DesignWidth="400"
                 Title="OptionsPage">
 
     <Grid>
@@ -91,47 +91,66 @@
                        Style="{StaticResource ReminderLabelStyle}" />
 
                     <TextBox
-                       IsReadOnly="True"
                        Grid.Row="1"
                        Grid.Column="0"
                        Margin="0 0 10 0"
-                       Background="Transparent"
+                       Background="#00292929"
                        Foreground="White"
+                       
                        Height="30"
-                       FontSize="18" />
+                       FontSize="18"
+                       BorderBrush="{Binding IsSelectedDateStringValid, Converter={local:BoolToBorderBrushConverter}, Mode=TwoWay}"
+                       Text="{Binding SelectedDateString, Mode=TwoWay}"
+                       local:InputBindingsManager.UpdatePropertySourceWhenEnterPressed="TextBox.Text"
+                        />
 
                     <xctk:TimePicker
                         Grid.Row="1"
                         Grid.Column="1"
                         TimeInterval="00:15:00"
-                        Value="10:54"
+                        Value="{Binding SelectedTime, Mode=TwoWay}"
                         Style="{DynamicResource TimePickerStyle}"
                         ></xctk:TimePicker>
 
-                    <!--Value="{Binding SelectedTime}"-->
                 </Grid>
 
+                <!--TODO: wrap in scrollview-->
                 <Calendar
                     Grid.Row="3"
-                    SelectedDate="{Binding SelectedDate}" Style="{DynamicResource CalendarStyle}" />
+                    SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                    DisplayDate="{Binding SelectedDate, Mode=TwoWay}"
+                    Style="{DynamicResource CalendarStyle}" 
+                    />
 
-                <Grid Grid.Row="4"
-                      Height="30"
-                      Margin="0 0 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Border Grid.Row="4"
+                        BorderThickness="0 1 0 0"
+                        BorderBrush="{StaticResource NotificationBorderBrush}"
+                        >
+                    <Grid Grid.Row="4"
+                          Height="30"
+                          Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <!--<Button
-                        Grid.Column="0"
-                        Content="Cancel"
-                    />-->
-                    <Button
-                        Grid.Column="1"
-                        Content="Save"
-                        Command="{Binding SetReminderCommand}" />
-                </Grid>
+                        <!--<Button
+                            Grid.Column="0"
+                            Content="Cancel"
+                        />-->
+                        <Button
+                            Grid.Column="1"
+                            Content="Save"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="1 0 0 0"
+                            FontSize="16"
+                            Command="{Binding SetReminderCommand}" 
+                            IsEnabled="{Binding IsSelectedDateStringValid}"
+                            />
+                    </Grid>
+                </Border>
+                
             </Grid>
         </Border>
     </Grid>

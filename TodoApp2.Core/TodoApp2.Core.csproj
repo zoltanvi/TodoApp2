@@ -76,6 +76,7 @@
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationSettings.cs" />
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
+    <Compile Include="Helpers\StringDateConverterExtender.cs" />
     <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
     <Compile Include="PropertyHandling\DoublePropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\LongPropertyValueHandler.cs" />

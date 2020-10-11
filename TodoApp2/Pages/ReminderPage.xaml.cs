@@ -1,4 +1,6 @@
-﻿using TodoApp2.Core;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -15,6 +17,18 @@ namespace TodoApp2
         public ReminderPage(ReminderPageViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Get the text box
+            if (sender is TextBox textBox)
+            {
+                if(e.Key == Key.Enter)
+                {
+
+                }
+            }
         }
     }
 }
