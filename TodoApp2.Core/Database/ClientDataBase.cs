@@ -219,11 +219,20 @@ namespace TodoApp2.Core
         /// <param name="newPosition"></param>
         public void ReorderTask(TaskListItemViewModel task, int newPosition)
         {
-            // Get all tasks except the reordered one
-            var orderedTasks = m_DataAccess.GetTasks().Where(t => t.Id != task.Id && !t.Trashed)
-                .Cast<IReorderable>().ToList();
+            // Get all task items
+            List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks();
+
+            // Filter out
+            // - The reordered task
+            // - The tasks from other categories
+            // - The trashed tasks
+            List<IReorderable> filteredOrderedTasks = allTasks.Where(
+                t => t.CategoryId == task.CategoryId &&
+                t.Id != task.Id &&
+                t.Trashed == false).Cast<IReorderable>().ToList();
+
             var itemToReorder = task as IReorderable;
-            ReorderItem(orderedTasks, itemToReorder, newPosition, UpdateTaskListOrder);
+            ReorderItem(filteredOrderedTasks, itemToReorder, newPosition, UpdateTaskListOrder);
             m_DataAccess.UpdateTask(task);
         }
 
@@ -234,7 +243,7 @@ namespace TodoApp2.Core
         /// <param name="newPosition"></param>
         public void ReorderCategory(CategoryListItemViewModel category, int newPosition)
         {
-            // Get all categories except the reordered one
+            // Get all categories except the reordered one that are not trashed
             var orderedCategories = m_DataAccess.GetCategories().Where(c => c.Id != category.Id && !c.Trashed)
                 .Cast<IReorderable>().ToList();
             var itemToReorder = category as IReorderable;

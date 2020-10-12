@@ -8,7 +8,7 @@ namespace TodoApp2
     /// </summary>
     public class LongToFormattedDateConverter : BaseValueConverter<LongToFormattedDateConverter>
     {
-        private const string DateTimeFormatString = "HH:mm dddd, MMMM dd, yyyy";
+        private const string DateTimeFormatString = "yyyy MMMM dd, HH:mm";
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

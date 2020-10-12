@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -6,6 +7,7 @@ namespace TodoApp2.Core
     /// <summary>
     /// A view model for each task list item on the task page
     /// </summary>
+    [DebuggerDisplay("[id {Id}] [ord {ListOrder}] [cat {CategoryId}] [fin {IsDone}] [del {Trashed}] [txt {Content}]")]
     public class TaskListItemViewModel : BaseViewModel, IReorderable
     {
         private ClientDatabase Database => IoC.ClientDatabase;
@@ -72,7 +74,7 @@ namespace TodoApp2.Core
         private void OpenReminder()
         {
             //IoC.Application.ReminderTask = this;
-
+            // TODO: bugfix: task object not updated after notification (IsReminderOn)
             OverlayPageService.Instance.OpenReminderPage(this);
         }
 

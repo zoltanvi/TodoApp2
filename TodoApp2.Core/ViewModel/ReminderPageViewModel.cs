@@ -50,6 +50,8 @@ namespace TodoApp2.Core
                 else
                 {
                     SelectedDateString = DateTime.Now.ConvertToString();
+                    SelectedDate = DateTime.Now;
+                    SelectedTime = DateTime.Now + new TimeSpan(0, 5, 0);
                 }
                 IsSelectedDateStringValid = true;
 

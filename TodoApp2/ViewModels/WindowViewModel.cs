@@ -170,6 +170,7 @@ namespace TodoApp2
         private void OnWindowFlashRequested(object obj)
         {
             bool playSound = (bool)obj;
+            
             // Flash the window 3 times
             m_Window.FlashWindow(3);
 
@@ -178,6 +179,9 @@ namespace TodoApp2
             {
                 WindowsEventSoundPlayer.PlayNotificationSound(EventSounds.MailBeep);
             }
+
+            // Bring to front
+            m_Window.Activate();
         }
 
         private void OnWindowClosed(object sender, EventArgs e)

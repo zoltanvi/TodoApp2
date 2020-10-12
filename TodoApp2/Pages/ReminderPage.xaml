@@ -47,7 +47,7 @@
                         <ToggleButton
                             Grid.Column="0" Style="{DynamicResource ToggleSwitchLeftStyle}"
                             HorizontalAlignment="Left"
-                            IsChecked="{Binding IsReminderOn}" />
+                            IsChecked="{Binding IsReminderOn, Mode=TwoWay}" />
 
                         <!--Title-->
                         <Label
