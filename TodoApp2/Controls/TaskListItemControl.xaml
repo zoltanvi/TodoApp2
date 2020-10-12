@@ -64,8 +64,9 @@
                              Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
                              Style="{StaticResource TaskListItemDescriptionTextBlockStyle}"
                              Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
-                             Text="{Binding Content, Mode=TwoWay}"
-                             TargetUpdated="TaskDescriptionTextBlock_OnTargetUpdated">
+                             Text="{Binding Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
+                             local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text"
+                               >
 
                         <TextBlock.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditItemCommand}" />

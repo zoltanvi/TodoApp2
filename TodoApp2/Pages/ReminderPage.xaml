@@ -101,7 +101,7 @@
                        FontSize="18"
                        BorderBrush="{Binding IsSelectedDateStringValid, Converter={local:BoolToBorderBrushConverter}, Mode=TwoWay}"
                        Text="{Binding SelectedDateString, Mode=TwoWay}"
-                       local:InputBindingsManager.UpdatePropertySourceWhenEnterPressed="TextBox.Text"
+                       local:InputBindingsManager.UpdatePropertyOnEnterPress="TextBox.Text"
                         />
 
                     <xctk:TimePicker
