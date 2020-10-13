@@ -59,22 +59,22 @@
                     </Grid.RowDefinitions>
 
                     <!--Task description-->
+                    
+                    <!--Display formatted text-->
                     <TextBlock Grid.Row="0"
-                             x:Name="EditTextBlock"
                              Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
                              Style="{StaticResource TaskListItemDescriptionTextBlockStyle}"
                              Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                              Text="{Binding Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
                              local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text"
                                >
-
                         <TextBlock.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditItemCommand}" />
                         </TextBlock.InputBindings>
                     </TextBlock>
-
+                    
+                    <!--Text editor mode-->
                     <TextBox Grid.Row="0"
-                             x:Name="EditTextBox"
                              Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}"
                              local:FocusSetter.Value="{Binding IsEditMode}"
                              Style="{StaticResource TaskListItemDescriptionTextBoxStyle}"
@@ -102,6 +102,7 @@
                         Opacity="0"
                         Background="Transparent"
                         HorizontalAlignment="Right"
+                        Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
                         Width="100">
                     <Border.Triggers>
                         <EventTrigger RoutedEvent="Border.MouseEnter">
