@@ -7,24 +7,26 @@ namespace TodoApp2.Core
 {
     public class ReminderTaskScheduler
     {
-        private static readonly KeyValuePair<int, DateTime> InvalidTask = new KeyValuePair<int, DateTime>(int.MinValue, DateTime.MinValue);
+        private static readonly KeyValuePair<TaskListItemViewModel, DateTime> InvalidTask = 
+            new KeyValuePair<TaskListItemViewModel, DateTime>(new TaskListItemViewModel(), DateTime.MinValue);
+
         private DispatcherTimer Timer { get; }
-        private SortedList<int, DateTime> ScheduledTasks { get; }
-        private KeyValuePair<int, DateTime> NextTask => ScheduledTasks.FirstOrDefault();
+        private SortedList<TaskListItemViewModel, DateTime> ScheduledTasks { get; }
+        private KeyValuePair<TaskListItemViewModel, DateTime> NextTask => ScheduledTasks.FirstOrDefault();
         private bool NextTaskExists => ScheduledTasks.Count > 0;
         private bool IsCurrentTaskValid => CurrentTask.Key != InvalidTask.Key && CurrentTask.Value != InvalidTask.Value;
-        private KeyValuePair<int, DateTime> CurrentTask { get; set; }
+        private KeyValuePair<TaskListItemViewModel, DateTime> CurrentTask { get; set; }
 
         /// <summary>
         /// The Action which is executed when the timer reaches the scheduled times.
         /// The action has one parameter.
-        /// This parameter is the ID of the <see cref="TaskListItemViewModel"/> related to the reminder.
+        /// This parameter is the <see cref="TaskListItemViewModel"/>, the subject of the reminder.
         /// </summary>
-        public Action<int> ScheduledTask { get; set; }
+        public Action<TaskListItemViewModel> ScheduledTask { get; set; }
 
         public ReminderTaskScheduler()
         {
-            ScheduledTasks = new SortedList<int, DateTime>();
+            ScheduledTasks = new SortedList<TaskListItemViewModel, DateTime>();
 
             Timer = new DispatcherTimer { Interval = new TimeSpan(int.MaxValue) };
             Timer.Tick += TimerOnTick;
@@ -32,56 +34,56 @@ namespace TodoApp2.Core
             MakeCurrentTaskInvalid();
         }
 
-        public void Schedule(int id, long dateTime)
+        public void Schedule(TaskListItemViewModel task, long dateTime)
         {
-            Schedule(id, new DateTime(dateTime));
+            Schedule(task, new DateTime(dateTime));
         }
 
-        public void Schedule(int id, DateTime dateTime)
+        public void Schedule(TaskListItemViewModel task, DateTime dateTime)
         {
             // When the task to be set is the current task,
             // that means it is already started and waits to be executed.
             // In that case update the current task
-            if (CurrentTask.Key == id)
+            if (CurrentTask.Key == task)
             {
                 InterruptCurrentTask();
-                ScheduledTasks[id] = dateTime;
+                ScheduledTasks[task] = dateTime;
                 StartNextTask();
             }
             // ... Or the task is scheduled but not started yet,
             // In that case update the scheduled task
-            else if (ScheduledTasks.ContainsKey(id))
+            else if (ScheduledTasks.ContainsKey(task))
             {
-                ScheduledTasks[id] = dateTime;
+                ScheduledTasks[task] = dateTime;
             }
             // ... Or the task is not scheduled yet, simply schedule it
             else
             {
-                ScheduledTasks.Add(id, dateTime);
+                ScheduledTasks.Add(task, dateTime);
                 InterruptCurrentTask();
                 StartNextTask();
             }
         }
 
-        public bool DeleteScheduled(int id)
+        public bool DeleteScheduled(TaskListItemViewModel task)
         {
             bool foundAndDeleted = false;
 
             // When the task to be deleted is the current task,
             // that means it is already started and waits to be executed.
             // In that case delete the current task and start the next valid one.
-            if (CurrentTask.Key == id)
+            if (CurrentTask.Key == task)
             {
                 InterruptCurrentTask();
-                ScheduledTasks.Remove(id);
+                ScheduledTasks.Remove(task);
                 StartNextTask();
                 foundAndDeleted = true;
             }
             // ... Or the task is scheduled but not started yet.
             // In that case simply delete from the list
-            else if (ScheduledTasks.ContainsKey(id))
+            else if (ScheduledTasks.ContainsKey(task))
             {
-                ScheduledTasks.Remove(id);
+                ScheduledTasks.Remove(task);
                 foundAndDeleted = true;
             }
 
@@ -152,16 +154,16 @@ namespace TodoApp2.Core
             }
         }
 
-        private void ExecuteTask(KeyValuePair<int, DateTime> task)
+        private void ExecuteTask(KeyValuePair<TaskListItemViewModel, DateTime> taskAndDate)
         {
             DateTime current = DateTime.Now;
-            TimeSpan executionTime = task.Value - current;
+            TimeSpan executionTime = taskAndDate.Value - current;
 
             // Execution time has not passed yet
             if (executionTime >= TimeSpan.Zero)
             {
                 Timer.Interval = executionTime;
-                Timer.Tag = task;
+                Timer.Tag = taskAndDate;
                 Timer.Start();
             }
             else
@@ -175,11 +177,11 @@ namespace TodoApp2.Core
         {
             if (sender is DispatcherTimer timer)
             {
-                int todoTaskId = ((KeyValuePair<int, DateTime>)timer.Tag).Key;
+                var todoTask = ((KeyValuePair<TaskListItemViewModel, DateTime>)timer.Tag).Key;
 
                 StartNextTask();
 
-                ScheduledTask?.Invoke(todoTaskId);
+                ScheduledTask?.Invoke(todoTask);
 
                 MakeCurrentTaskInvalid();
             }

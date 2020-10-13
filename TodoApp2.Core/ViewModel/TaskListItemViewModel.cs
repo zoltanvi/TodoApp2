@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -73,8 +74,6 @@ namespace TodoApp2.Core
 
         private void OpenReminder()
         {
-            //IoC.Application.ReminderTask = this;
-            // TODO: bugfix: task object not updated after notification (IsReminderOn)
             OverlayPageService.Instance.OpenReminderPage(this);
         }
 
@@ -95,6 +94,18 @@ namespace TodoApp2.Core
         private void ShowColorPicker()
         {
             ColorPickerVisible = true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool returnValue = false;
+
+            if(obj is TaskListItemViewModel task)
+            {
+                returnValue = task.Id == Id;
+            }
+
+            return returnValue;
         }
     }
 }

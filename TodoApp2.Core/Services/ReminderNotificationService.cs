@@ -19,7 +19,7 @@ namespace TodoApp2.Core
 
             foreach (var taskItem in filteredItems)
             {
-                TaskScheduler.Schedule(taskItem.Id, taskItem.ReminderDate);
+                TaskScheduler.Schedule(taskItem, taskItem.ReminderDate);
             }
 
             #region TEST
@@ -40,22 +40,17 @@ namespace TodoApp2.Core
 
         public void SetReminder(TaskListItemViewModel task)
         {
-            TaskScheduler.Schedule(task.Id, task.ReminderDate);
+            TaskScheduler.Schedule(task, task.ReminderDate);
         }
 
         public void DeleteReminder(TaskListItemViewModel task)
         {
-            TaskScheduler.DeleteScheduled(task.Id);
+            TaskScheduler.DeleteScheduled(task);
         }
 
-        private void ShowNotification(int taskId)
+        private void ShowNotification(TaskListItemViewModel task)
         {
             const bool playSound = true;
-
-            // Query the task before showing the notification because
-            // the task description can change between
-            // scheduling and executing to show the task
-            TaskListItemViewModel task = Database.GetTask(taskId);
 
             OverlayPageService.Instance.OpenNotificationPage(task);
 
