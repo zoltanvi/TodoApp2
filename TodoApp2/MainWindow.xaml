@@ -112,7 +112,6 @@
 
             <!-- Current page -->
             <Frame local:NoFrameHistory.Value="True"
-                   d:DataContext=""
                    DataContext="{Binding ApplicationViewModel.CurrentPage,
                                 Source={x:Static local:ViewModelLocator.Instance},
                                 Converter={local:ApplicationPageValueConverter}}"
@@ -138,7 +137,6 @@
 
                 <!-- Side menu page -->
                 <Frame local:NoFrameHistory.Value="True"
-                    d:DataContext=""
                     DataContext="{Binding ApplicationViewModel.SideMenuPage,
                         Source={x:Static local:ViewModelLocator.Instance},
                         Converter={local:ApplicationPageValueConverter}}"
