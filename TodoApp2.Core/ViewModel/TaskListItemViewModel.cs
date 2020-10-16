@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -9,7 +10,7 @@ namespace TodoApp2.Core
     /// A view model for each task list item on the task page
     /// </summary>
     [DebuggerDisplay("[id {Id}] [ord {ListOrder}] [cat {CategoryId}] [fin {IsDone}] [del {Trashed}] [txt {Content}]")]
-    public class TaskListItemViewModel : BaseViewModel, IReorderable
+    public class TaskListItemViewModel : BaseViewModel, IReorderable, IComparable
     {
         private ClientDatabase Database => IoC.ClientDatabase;
 
@@ -100,12 +101,29 @@ namespace TodoApp2.Core
         {
             bool returnValue = false;
 
-            if(obj is TaskListItemViewModel task)
+            if (obj is TaskListItemViewModel task)
             {
                 returnValue = task.Id == Id;
             }
 
             return returnValue;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -2010238430;
+            hashCode = hashCode * -1521134295 + Id.GetHashCode();
+            hashCode = hashCode * -1521134295 + CategoryId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Content);
+            hashCode = hashCode * -1521134295 + ListOrder.GetHashCode();
+            hashCode = hashCode * -1521134295 + IsDone.GetHashCode();
+            hashCode = hashCode * -1521134295 + CreationDate.GetHashCode();
+            return hashCode;
+        }
+
+        int IComparable.CompareTo(object obj)
+        {
+            return Id.CompareTo(((TaskListItemViewModel)obj).Id);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// A shortcut to access the <see cref="ReminderTaskScheduler"/>
         /// </summary>
-        public static ReminderTaskScheduler ReminderTaskScheduler => Get<ReminderTaskScheduler>();
+        public static TaskScheduler ReminderTaskScheduler => Get<TaskScheduler>();
 
         /// <summary>
         /// A shortcut to access the <see cref="ReminderNotificationService"/>
@@ -64,7 +64,7 @@ namespace TodoApp2.Core
             // Bind to a single instance
             Kernel.Bind<ApplicationViewModel>().To<ApplicationViewModel>().InSingletonScope();
             Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
-            Kernel.Bind<ReminderTaskScheduler>().To<ReminderTaskScheduler>().InSingletonScope();
+            Kernel.Bind<TaskScheduler>().To<TaskScheduler>().InSingletonScope();
             Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();
         }
     }

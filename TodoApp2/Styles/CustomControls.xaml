@@ -13,6 +13,7 @@
         <Setter Property="Foreground" Value="White" />
         <Setter Property="BorderBrush" Value="#5C5C5C" />
         <Setter Property="BorderThickness" Value="1,1,1,1" />
+        <Setter Property="FontSize" Value="18"/>
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

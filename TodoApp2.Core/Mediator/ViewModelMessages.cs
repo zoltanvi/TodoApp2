@@ -24,6 +24,6 @@
         /// <summary>
         /// Always on top changed, the overlay page should be closed
         /// </summary>
-        AlwaysOnTopChanged,
+        AlwaysOnTopChanged
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using TodoApp2.Core;
@@ -37,8 +38,10 @@ namespace TodoApp2
         // TODO: Implement more sophisticated logging
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            string message = $"\n\n{DateTime.Now.ToLongDateString()}\n{DateTime.Now.ToLongTimeString()}\n" +
-                $"{e.Exception.Message}\n\n{e.Exception.StackTrace}\n===========================";
+            string message = $"\n\n{DateTime.Now.ToLongDateString()}\n" +
+                $"{DateTime.Now.ToLongTimeString()}\n" +
+                $"{e.Exception.Message}\n\n" +
+                $"{e.Exception.StackTrace}\n===========================";
             File.AppendAllText(m_CrashReportPath, message);
         }
     }
