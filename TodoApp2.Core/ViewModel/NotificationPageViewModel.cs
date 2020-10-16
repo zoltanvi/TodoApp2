@@ -4,6 +4,9 @@ namespace TodoApp2.Core
 {
     public class NotificationPageViewModel : BaseViewModel
     {
+        private bool m_Closed;
+        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
+
         /// <summary>
         /// The task to show the notification for.
         /// </summary>
@@ -17,28 +20,23 @@ namespace TodoApp2.Core
         public NotificationPageViewModel()
         {
             CloseNotificationCommand = new RelayCommand(CloseNotification);
+            OverlayPageService.SetBackgroundClickedAction(CloseNotification);
         }
 
         public NotificationPageViewModel(TaskListItemViewModel notificationTask) : this()
         {
             NotificationTask = notificationTask;
-            
-            // If the notification shows up then the reminder has expired
-            TurnOffReminder();
         }
 
         private void CloseNotification()
         {
-            OverlayPageService.Instance.CloseNotificationPage();
-        }
-
-        private void TurnOffReminder()
-        {
-            // Turn off the reminder if the notification was closed with X button
-            if (NotificationTask != null)
+            if (!m_Closed)
             {
-                NotificationTask.IsReminderOn = false;
-                IoC.ClientDatabase.UpdateTask(NotificationTask);
+                m_Closed = true;
+
+                OverlayPageService.ClosePage();
+
+                Mediator.Instance.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
             }
         }
     }

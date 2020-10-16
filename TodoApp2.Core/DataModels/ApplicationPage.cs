@@ -6,7 +6,7 @@
     public enum ApplicationPage
     {
         /// <summary>
-        /// The initial task page
+        /// The task page
         /// </summary>
         Task,
 

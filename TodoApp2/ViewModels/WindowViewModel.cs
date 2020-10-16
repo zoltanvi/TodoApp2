@@ -25,7 +25,7 @@ namespace TodoApp2
 
         private ApplicationViewModel Application => IoC.Application;
         private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
-        private ClientDatabase Database => IoC.ClientDatabase;
+        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
 
         #endregion Private Fields
 
@@ -35,8 +35,6 @@ namespace TodoApp2
         public ICommand MaximizeCommand { get; }
         public ICommand CloseCommand { get; }
         public ICommand ToggleSideMenuCommand { get; }
-
-        public ICommand CloseOverlayCommand { get; }
 
         #endregion Commands
 
@@ -135,19 +133,12 @@ namespace TodoApp2
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
-            CloseOverlayCommand = new RelayCommand(OverlayPageService.Instance.CloseEveryOverlay);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
 
             m_Resizer.WindowDockChanged += OnWindowDockChanged;
             m_Resizer.IsDockedChanged += OnIsDockedChanged;
-
-            // Subscribe to the category changed event to turn off the overlay background
-            Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
-
-            // Subscribe to the always on top changed event to turn off the overlay background
-            Mediator.Instance.Register(OnAlwaysOnTopChanged, ViewModelMessages.AlwaysOnTopChanged);
 
             // Listen out for requests to flash the application window
             Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
@@ -157,20 +148,10 @@ namespace TodoApp2
 
         #region EventHandlers
 
-        private void OnCategoryChanged(object obj)
-        {
-            OverlayPageService.Instance.CloseEveryOverlay();
-        }
-
-        private void OnAlwaysOnTopChanged(object obj)
-        {
-            OverlayPageService.Instance.CloseEveryOverlay();
-        }
-
         private void OnWindowFlashRequested(object obj)
         {
             bool playSound = (bool)obj;
-            
+
             // Flash the window 3 times
             m_Window.FlashWindow(3);
 
@@ -187,7 +168,7 @@ namespace TodoApp2
         private void OnWindowClosed(object sender, EventArgs e)
         {
             // Dispose the database
-            Database.Dispose();
+            IoC.ClientDatabase.Dispose();
         }
 
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)
@@ -270,30 +251,23 @@ namespace TodoApp2
 
         private void ToggleSideMenu()
         {
-            OpenSideMenu(!Application.SideMenuVisible);
+            OpenCloseSideMenu(!Application.SideMenuVisible);
         }
 
         /// <summary>
         /// Opens or closes the side menu.
         /// </summary>
         /// <param name="shouldOpen">True if the side menu should be opened, false if should be closed.</param>
-        private void OpenSideMenu(bool shouldOpen)
+        private void OpenCloseSideMenu(bool shouldOpen)
         {
+            if (shouldOpen)
+            {
+                OverlayPageService.SetBackgroundClickedAction(ToggleSideMenu);
+            }
+
+            OverlayPageService.ClosePage();
             Application.SideMenuVisible = shouldOpen;
-
-            if (Application.SideMenuVisible)
-            {
-                // The overlay page should be closed when the side menu is opened
-                Application.OverlayPageVisible = false;
-
-                // The overlay background should be visible when the side menu is opened
-                OverlayPageService.Instance.ShowOverlayBackground();
-            }
-            else
-            {
-                // The overlay background should be closed when the side menu is closed
-                OverlayPageService.Instance.CloseEveryOverlay();
-            }
+            OverlayPageService.OverlayBackgroundVisible = shouldOpen;
         }
 
         /// <summary>

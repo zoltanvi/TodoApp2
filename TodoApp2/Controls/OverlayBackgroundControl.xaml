@@ -7,23 +7,35 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="350">
-
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
-
+            
             <Grid>
                 <Border x:Name="OverlayBackgroundBorder"
-                        Background="{StaticResource OverlayBackgroundBrush}">
+                        Background="{StaticResource OverlayBackgroundBrush}"
+                        Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, 
+                                    Source={x:Static local:ViewModelLocator.Instance}, 
+                                    Converter={local:BoolToVisibilityConverter}}">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding CloseOverlayCommand}" />
+                            <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, 
+                                                            Source={x:Static local:ViewModelLocator.Instance}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
-                    <ContentPresenter />
+                    <!-- Overlay page -->
+                    <local:PageHost
+                        local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, 
+                                                         Source={x:Static local:ViewModelLocator.Instance}}"
+                        CurrentPage="{Binding ApplicationViewModel.OverlayPage, 
+                                     Source={x:Static local:ViewModelLocator.Instance}}"
+                        CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel, 
+                                              Source={x:Static local:ViewModelLocator.Instance}}" />
+                    
                 </Border>
             </Grid>
+            
         </ControlTemplate>
     </UserControl.Template>
 </UserControl>

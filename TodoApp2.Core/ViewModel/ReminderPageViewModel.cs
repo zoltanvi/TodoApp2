@@ -6,8 +6,10 @@ namespace TodoApp2.Core
 {
     public class ReminderPageViewModel : BaseViewModel
     {
+        private bool m_Closed = false;
+
         private ReminderNotificationService NotificationService => IoC.ReminderNotificationService;
-        private ClientDatabase ClientDatabase => IoC.ClientDatabase;
+        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
 
         /// <summary>
         /// The task to show the notification for.
@@ -30,8 +32,9 @@ namespace TodoApp2.Core
 
         public ReminderPageViewModel()
         {
-            CloseReminderCommand = new RelayCommand(OverlayPageService.Instance.CloseReminderPage);
             SetReminderCommand = new RelayCommand(SetReminder);
+            CloseReminderCommand = new RelayCommand(CloseReminder);
+            OverlayPageService.SetBackgroundClickedAction(CloseReminder);
         }
 
         public ReminderPageViewModel(TaskListItemViewModel reminderTask) : this()
@@ -72,7 +75,19 @@ namespace TodoApp2.Core
                 NotificationService.DeleteReminder(ReminderTask);
             }
 
-            OverlayPageService.Instance.CloseReminderPage();
+            CloseReminder();
+        }
+
+        private void CloseReminder()
+        {
+            if (!m_Closed)
+            {
+                m_Closed = true;
+                
+                PropertyChanged -= OnViewModelPropertyChanged;
+
+                OverlayPageService.ClosePage();
+            }
         }
 
         private void UpdateTaskReminder()
@@ -81,7 +96,7 @@ namespace TodoApp2.Core
             ReminderTask.ReminderDate = reminderDate.Ticks;
 
             ReminderTask.IsReminderOn = IsReminderOn;
-            ClientDatabase.UpdateTask(ReminderTask);
+            IoC.ClientDatabase.UpdateTask(ReminderTask);
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

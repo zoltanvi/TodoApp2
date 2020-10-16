@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
@@ -28,11 +29,6 @@ namespace TodoApp2.Core
         public BaseViewModel CurrentPageViewModel { get; set; }
 
         /// <summary>
-        /// The overlay panel content page
-        /// </summary>
-        public ApplicationPage OverlayPage { get; private set; } = ApplicationPage.Reminder;
-
-        /// <summary>
         /// The view model to use for the current overlay page when the OverlayPage changes
         /// NOTE: This is not a live up-to-date view model of the current page
         ///       it is simply used to set the view model of the current page
@@ -51,9 +47,9 @@ namespace TodoApp2.Core
         public bool OverlayPageVisible { get; set; }
 
         /// <summary>
-        /// True if the overlay background should be shown
+        /// The overlay panel content page
         /// </summary>
-        public bool OverlayBackgroundVisible { get; set; }
+        public ApplicationPage OverlayPage { get; private set; }
 
         /// <summary>
         /// The settings for the whole application

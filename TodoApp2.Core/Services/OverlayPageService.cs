@@ -1,91 +1,75 @@
-﻿namespace TodoApp2.Core
+﻿using System;
+using System.Windows.Input;
+
+namespace TodoApp2.Core
 {
-    public class OverlayPageService
+    public class OverlayPageService : BaseViewModel
     {
-        private static OverlayPageService m_Instance;
-
-        public static OverlayPageService Instance = m_Instance ?? (m_Instance = new OverlayPageService());
-
         private ApplicationViewModel Application => IoC.Application;
 
-        private OverlayPageService()
-        {
-        }
+        /// <summary>
+        /// True if the overlay background should be shown
+        /// </summary>
+        public bool OverlayBackgroundVisible { get; set; }
 
         /// <summary>
-        /// Closes the side menu, the overlay page and hides the overlay background
-        /// regardless of their previous state
+        /// A page content dependent command that executes when the overlay background is clicked.
         /// </summary>
-        public void CloseEveryOverlay()
+        public ICommand BackgroundClickedCommand { get; private set; }
+
+        public void SetBackgroundClickedAction(Action action)
         {
-            Application.OverlayBackgroundVisible = false;
+            BackgroundClickedCommand = new RelayCommand(action);
+        }
 
-            // Notify all listeners about the background close
-            Mediator.Instance.NotifyClients(ViewModelMessages.OverlayBackgroundClosed);
-
-            // When the background is closed the side menu and the overlay page should be closed as well
-            // regardless of it was opened or closed before
+        public void CloseSideMenu()
+        {
             Application.SideMenuVisible = false;
-            Application.OverlayPageVisible = false;
+            OverlayBackgroundVisible = false;
         }
 
-        /// <summary>
-        /// Shows the overlay background
-        /// </summary>
-        public void ShowOverlayBackground()
+        public void ClosePage()
         {
-            Application.OverlayBackgroundVisible = true;
-        }
-
-        /// <summary>
-        /// Opens the notification page
-        /// </summary>
-        /// <param name="task">The task the notification came from.</param>
-        public void OpenNotificationPage(TaskListItemViewModel task)
-        {
-            if (task != null)
+            if (Application.OverlayPageVisible)
             {
-                // Close the side menu regardless whether it was opened or not
-                Application.SideMenuVisible = false;
+                Application.OverlayPageVisible = false;
+                OverlayBackgroundVisible = false;
 
-                // Create a view model to pass to the notification page
-                BaseViewModel viewModel = new NotificationPageViewModel(task);
-
-                // Change the overlay page to Notification page
-                OpenOverlayPage(ApplicationPage.Notification, viewModel);
+                BackgroundClickedCommand?.Execute(null);
             }
         }
 
-        /// <summary>
-        /// Closes the notification page
-        /// </summary>
-        public void CloseNotificationPage()
+        public void OpenPage(ApplicationPage page, TaskListItemViewModel task = null)
         {
-            CloseEveryOverlay();
-        }
-
-        /// <summary>
-        /// Opens the reminder page
-        /// </summary>
-        /// <param name="task">The task to set a reminder for.</param>
-        public void OpenReminderPage(TaskListItemViewModel task)
-        {
-            if (task != null)
+            BaseViewModel viewModel = null;
+            bool validPage = false;
+            switch (page)
             {
-                // Create a view model to pass to the notification page
-                BaseViewModel viewModel = new ReminderPageViewModel(task);
-
-                // Change the overlay page to Reminder page
-                OpenOverlayPage(ApplicationPage.Reminder, viewModel);
+                case ApplicationPage.Reminder:
+                {
+                    Application.SideMenuVisible = false;
+                    validPage = true;
+                    viewModel = new ReminderPageViewModel(task);
+                    break;
+                }
+                case ApplicationPage.Notification:
+                {
+                    Application.SideMenuVisible = false;
+                    validPage = true;
+                    viewModel = new NotificationPageViewModel(task);
+                    break;
+                }
+                case ApplicationPage.Options:
+                {
+                    // TODO: implement options page
+                    break;
+                }
             }
-        }
 
-        /// <summary>
-        /// Closes the reminder page
-        /// </summary>
-        public void CloseReminderPage()
-        {
-            CloseEveryOverlay();
+            if (validPage)
+            {
+                OpenOverlayPage(page, viewModel);
+            }
         }
 
         /// <summary>
@@ -97,7 +81,8 @@
         {
             Application.GoToOverlayPage(page, true, viewModel);
 
-            Application.OverlayBackgroundVisible = true;
+            OverlayBackgroundVisible = true;
         }
+
     }
 }

@@ -11,19 +11,13 @@
         CategoryChanged,
 
         /// <summary>
-        /// The overlay background has closed
-        /// </summary>
-        /// TODO: Remove later
-        OverlayBackgroundClosed,
-
-        /// <summary>
         /// The application should flash (orange in windows taskbar)
         /// </summary>
         WindowFlashRequested,
 
         /// <summary>
-        /// Always on top changed, the overlay page should be closed
+        /// The opened notification closed
         /// </summary>
-        AlwaysOnTopChanged
+        NotificationClosed,
     }
 }

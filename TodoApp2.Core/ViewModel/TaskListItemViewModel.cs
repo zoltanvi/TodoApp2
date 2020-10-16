@@ -75,7 +75,7 @@ namespace TodoApp2.Core
 
         private void OpenReminder()
         {
-            OverlayPageService.Instance.OpenReminderPage(this);
+            IoC.OverlayPageService.OpenPage(ApplicationPage.Reminder, this);
         }
 
         private void SetColor(object obj)

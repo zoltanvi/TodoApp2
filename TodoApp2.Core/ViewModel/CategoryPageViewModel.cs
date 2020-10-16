@@ -43,7 +43,7 @@ namespace TodoApp2.Core
         private ClientDatabase Database => IoC.ClientDatabase;
 
         private ApplicationViewModel Application => IoC.Application;
-
+        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
         private string CurrentCategory
         {
             get => Application.CurrentCategory;
@@ -196,6 +196,7 @@ namespace TodoApp2.Core
 
                 // Notify clients about the category change
                 Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged);
+                OverlayPageService.CloseSideMenu();
             }
         }
 
@@ -205,7 +206,7 @@ namespace TodoApp2.Core
         private void ToggleAlwaysOnTop()
         {
             Application.IsAlwaysOnTop = !Application.IsAlwaysOnTop;
-            Mediator.Instance.NotifyClients(ViewModelMessages.AlwaysOnTopChanged);
+            OverlayPageService.CloseSideMenu();
         }
     }
 }

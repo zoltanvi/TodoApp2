@@ -85,6 +85,13 @@ namespace TodoApp2.Core
             // ... Or the task is not scheduled yet, simply schedule it
             else
             {
+                while (ScheduledItems.Any(i => i.DateTime == dateTime) || CurrentItem.DateTime == dateTime)
+                {
+                    // Prevent items with same dateTime, add 5 seconds
+                    // This is needed for the notifications to work properly
+                    dateTime += new TimeSpan(0, 0, 0, 5);
+                }
+
                 ScheduledItems.Add(new ScheduleItem(task, dateTime));
                 InterruptCurrentTask();
                 StartNextTask();

@@ -13,5 +13,10 @@ namespace TodoApp2
         /// The application view model
         /// </summary>
         public static ApplicationViewModel ApplicationViewModel => IoC.Application;
+
+        /// <summary>
+        /// The overlay page service
+        /// </summary>
+        public static OverlayPageService OverlayPageService => IoC.OverlayPageService;
     }
 }

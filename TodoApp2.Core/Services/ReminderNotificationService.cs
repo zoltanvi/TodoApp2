@@ -1,33 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace TodoApp2.Core
 {
     public class ReminderNotificationService
     {
-        const bool PlaySound = true;
+        private const bool PlaySound = true;
         private bool m_CanShowNotification = true;
         private Queue<TaskListItemViewModel> m_NotificationQueue;
 
         private TaskScheduler TaskScheduler => IoC.ReminderTaskScheduler;
-        private ClientDatabase Database => IoC.ClientDatabase;
-
 
         public ReminderNotificationService()
         {
             m_NotificationQueue = new Queue<TaskListItemViewModel>();
             TaskScheduler.ScheduledAction = ShowNotification;
 
-            var taskList = Database.GetActiveTaskItems();
+            Mediator.Instance.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
+
+            var taskList = IoC.ClientDatabase.GetActiveTaskItems();
             var filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
 
             foreach (var taskItem in filteredItems)
             {
                 TaskScheduler.Schedule(taskItem, taskItem.ReminderDate);
             }
-
-            Mediator.Instance.Register(OnNotificationClosed, ViewModelMessages.OverlayBackgroundClosed);
         }
 
         public void SetReminder(TaskListItemViewModel task)
@@ -42,30 +39,33 @@ namespace TodoApp2.Core
 
         private void ShowNotification(TaskListItemViewModel task)
         {
-            //m_NotificationQueue.Enqueue(task);
+            m_NotificationQueue.Enqueue(task);
 
-            //if (m_CanShowNotification)
-            //{
-            //    m_CanShowNotification = false;
-                OpenNotification(task);
-            //}
+            OpenNextNotification();
         }
 
         private void OnNotificationClosed(object obj)
         {
-            //m_CanShowNotification = true;
-            
-            //if(m_NotificationQueue.Count > 0)
-            //{
-            //    OpenNotification(m_NotificationQueue.Dequeue());
-            //}
+            m_CanShowNotification = true;
+            if (m_NotificationQueue.Count > 0)
+            {
+                OpenNextNotification();
+            }
         }
 
-        private void OpenNotification(TaskListItemViewModel task)
+        private void OpenNextNotification()
         {
-            OverlayPageService.Instance.OpenNotificationPage(task);
+            if (m_CanShowNotification)
+            {
+                m_CanShowNotification = false;
 
-            Mediator.Instance.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
+                TaskListItemViewModel notificationTask = m_NotificationQueue.Dequeue();
+                notificationTask.IsReminderOn = false;
+                IoC.ClientDatabase.UpdateTask(notificationTask);
+
+                IoC.OverlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
+                Mediator.Instance.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
+            }
         }
     }
 }
