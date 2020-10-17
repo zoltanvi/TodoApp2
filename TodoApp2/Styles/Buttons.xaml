@@ -69,7 +69,7 @@
     </Style>
 
     <!--Task Item button pink-->
-    <Style TargetType="Button" x:Key="TaskItemButtonPinkStyle" BasedOn="{StaticResource TaskItemButtonStyle}">
+    <Style TargetType="Button" x:Key="TaskItemButtonYellowStyle" BasedOn="{StaticResource TaskItemButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{StaticResource TaskItemButtonHoverYellowBrush}" />
