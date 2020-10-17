@@ -62,6 +62,9 @@ namespace TodoApp2.Core
 
             // Switch back from edit mode
             IsEditMode = false;
+
+            // Clear edit text
+            PendingEditContent = string.Empty;
         }
 
         private void EditItem()
