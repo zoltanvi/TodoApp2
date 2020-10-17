@@ -47,7 +47,7 @@ namespace TodoApp2.Core
         ///       it is simply used to set the view model of the current page
         ///       at the time it changes
         /// </summary>
-        public BaseViewModel OverlayPageViewModel { get; set; }
+        public IBaseViewModel OverlayPageViewModel { get; set; }
 
         /// <summary>
         /// True if the overlay page should be shown
@@ -86,7 +86,7 @@ namespace TodoApp2.Core
         /// <param name="page">The page to go to</param>
         /// <param name="visible">Shows the page if true</param>
         /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
-        public void GoToOverlayPage(ApplicationPage page, bool visible = true, BaseViewModel viewModel = null)
+        public void GoToOverlayPage(ApplicationPage page, bool visible = true, IBaseViewModel viewModel = null)
         {
             // Always hide side menu if we are changing pages
             SideMenuVisible = false;

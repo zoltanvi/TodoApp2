@@ -98,6 +98,7 @@
     <Compile Include="Services\TaskScheduler.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Base\IBaseViewModel.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModel\CategoryPageViewModel.cs" />
