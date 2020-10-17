@@ -166,6 +166,7 @@
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageHelper.cs" />
+    <Compile Include="ValueConverters\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityNegatedConverter.cs" />
     <Compile Include="ValueConverters\LongToFormattedDateConverter.cs" />

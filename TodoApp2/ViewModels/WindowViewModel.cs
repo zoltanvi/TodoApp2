@@ -29,14 +29,13 @@ namespace TodoApp2
 
         #endregion Private Fields
 
-        #region Commands
+        #region Window handling commands
 
         public ICommand MinimizeCommand { get; }
         public ICommand MaximizeCommand { get; }
         public ICommand CloseCommand { get; }
-        public ICommand ToggleSideMenuCommand { get; }
 
-        #endregion Commands
+        #endregion Window handling commands
 
         #region Window settings
 
@@ -132,7 +131,6 @@ namespace TodoApp2
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
-            ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
@@ -249,27 +247,7 @@ namespace TodoApp2
 
         #region Private helpers
 
-        private void ToggleSideMenu()
-        {
-            OpenCloseSideMenu(!Application.SideMenuVisible);
-        }
-
-        /// <summary>
-        /// Opens or closes the side menu.
-        /// </summary>
-        /// <param name="shouldOpen">True if the side menu should be opened, false if should be closed.</param>
-        private void OpenCloseSideMenu(bool shouldOpen)
-        {
-            if (shouldOpen)
-            {
-                OverlayPageService.SetBackgroundClickedAction(ToggleSideMenu);
-            }
-
-            OverlayPageService.ClosePage();
-            Application.SideMenuVisible = shouldOpen;
-            OverlayPageService.OverlayBackgroundVisible = shouldOpen;
-        }
-
+    
         /// <summary>
         /// Gets the current mouse position on the screen
         /// </summary>

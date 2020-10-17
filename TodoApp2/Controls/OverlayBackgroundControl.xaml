@@ -11,29 +11,31 @@
         <ControlTemplate TargetType="UserControl">
             
             <Grid>
+                <!--Overlay background is behind the content-->
                 <Border x:Name="OverlayBackgroundBorder"
                         Background="{StaticResource OverlayBackgroundBrush}"
                         Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, 
                                     Source={x:Static local:ViewModelLocator.Instance}, 
                                     Converter={local:BoolToVisibilityConverter}}">
-
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, 
                                                             Source={x:Static local:ViewModelLocator.Instance}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                </Border>
 
-                    <!-- Overlay page -->
-                    <local:PageHost
+                <!-- Overlay page is in front of the background-->
+                <!--This is important since we only want to handle the 
+                    mousedown event if the background is clicked and not the content area-->
+                <local:PageHost
                         local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, 
                                                          Source={x:Static local:ViewModelLocator.Instance}}"
                         CurrentPage="{Binding ApplicationViewModel.OverlayPage, 
                                      Source={x:Static local:ViewModelLocator.Instance}}"
                         CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel, 
-                                              Source={x:Static local:ViewModelLocator.Instance}}" />
-                    
-                </Border>
+                                              Source={x:Static local:ViewModelLocator.Instance}}"
+                        />
             </Grid>
             
         </ControlTemplate>

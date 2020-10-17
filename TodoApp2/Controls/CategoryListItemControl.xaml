@@ -22,9 +22,14 @@
         <TextBlock Grid.Column="0"
                Text="{Binding Name}"
                Style="{StaticResource CategoryTextBlockStyle}"
-               Foreground="{Binding IsSelected, Converter={local:CategorySelectedColorConverter}}"
                FontSize="{StaticResource FontSizeLarge}"
                Margin="20 5 30 5">
+            <TextBlock.Foreground>
+                <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="Name"/>
+                    <Binding Path="ApplicationViewModel.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
+                </MultiBinding>
+            </TextBlock.Foreground>
         </TextBlock>
 
         <Border Grid.Column="0"
@@ -62,12 +67,12 @@
                 </EventTrigger>
             </Border.Triggers>
 
-            <Grid
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0 0 10 0">
+            <Grid HorizontalAlignment="Right"
+                 VerticalAlignment="Center"
+                 Margin="0 0 10 0">
+                
                 <!--Trash button-->
-                <Button Style="{StaticResource TaskItemButtonStyle}"
+                <Button Style="{StaticResource TaskItemButtonRedStyle}"
                         Content="{StaticResource SegoeIconTrash}"
                         Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"
                         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}" />

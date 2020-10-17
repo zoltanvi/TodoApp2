@@ -15,24 +15,25 @@ namespace TodoApp2.Core
         /// The task to show the notification for.
         /// </summary>
         public TaskListItemViewModel ReminderTask { get; set; }
-
+        
         public DateTime SelectedDate { get; set; }
         
         public string SelectedDateString { get; set; }
 
         public bool IsSelectedDateStringValid { get; set; }
-
+        
         public DateTime SelectedTime { get; set; }
-
+        
         public bool IsReminderOn { get; set; }
-
+        
         public ICommand CloseReminderCommand { get; }
-
         public ICommand SetReminderCommand { get; }
+        public ICommand ResetReminderCommand { get; }
 
         public ReminderPageViewModel()
         {
             SetReminderCommand = new RelayCommand(SetReminder);
+            ResetReminderCommand = new RelayCommand(ResetReminder);
             CloseReminderCommand = new RelayCommand(CloseReminder);
             OverlayPageService.SetBackgroundClickedAction(CloseReminder);
         }
@@ -77,6 +78,16 @@ namespace TodoApp2.Core
 
             CloseReminder();
         }
+
+        private void ResetReminder()
+        {
+            SelectedDate = DateTime.MinValue;
+            SelectedTime = DateTime.MinValue;
+            IsReminderOn = false;
+
+            SetReminder();
+        }
+
 
         private void CloseReminder()
         {

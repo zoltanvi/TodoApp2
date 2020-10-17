@@ -89,9 +89,15 @@
     <Color x:Key="TaskItemButtonIcon">#bdbdbd</Color>
     <SolidColorBrush x:Key="TaskItemButtonIconBrush" Color="{StaticResource TaskItemButtonIcon}" />
 
-    <Color x:Key="TaskItemButtonHover">#ff608d</Color>
+    <Color x:Key="TaskItemButtonHover">#52b788</Color>
     <SolidColorBrush x:Key="TaskItemButtonHoverBrush" Color="{StaticResource TaskItemButtonHover}" />
 
+    <Color x:Key="TaskItemButtonHoverYellow">#fddb3a</Color>
+    <SolidColorBrush x:Key="TaskItemButtonHoverYellowBrush" Color="{StaticResource TaskItemButtonHoverYellow}" />
+
+    <Color x:Key="TaskItemButtonHoverRed">#f25f5c</Color>
+    <SolidColorBrush x:Key="TaskItemButtonHoverRedBrush" Color="{StaticResource TaskItemButtonHoverRed}" />
+    
     <Color x:Key="BubbleBackground">#333333</Color>
     <SolidColorBrush x:Key="BubbleBackgroundBrush" Color="{StaticResource BubbleBackground}" />
 

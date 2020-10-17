@@ -6,10 +6,10 @@ using System.Windows.Media;
 namespace TodoApp2
 {
     /// <summary>
-    /// A converter that takes in a bool and converts it to a WPF brush
+    /// A converter that takes in a category name (string) and converts it to a WPF brush
     /// It is used for category list item foreground.
     /// </summary>
-    public class CategorySelectedColorConverter : BaseValueConverter<CategorySelectedColorConverter>
+    public class CategorySelectedColorConverter : BaseMultiValueConverter<CategorySelectedColorConverter>
     {
         private readonly Brush m_NormalBrush;
         private readonly Brush m_SelectedBrush;
@@ -25,16 +25,18 @@ namespace TodoApp2
             }
         }
 
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            bool isSelected = (bool)value;
-
-            // Converts the isSelected property into a brush
-            // If the current category is selected, then the selected brush is returned
-            return isSelected ? m_SelectedBrush : m_NormalBrush;
+            string categoryName = (string)values[0];
+            string selectedCategoryName = (string)values[1];
+            if (selectedCategoryName == categoryName)
+            {
+                return m_SelectedBrush;
+            }
+            return m_NormalBrush;
         }
 
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

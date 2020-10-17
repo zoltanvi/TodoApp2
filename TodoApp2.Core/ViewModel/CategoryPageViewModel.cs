@@ -185,12 +185,6 @@ namespace TodoApp2.Core
         {
             if (!string.IsNullOrEmpty(categoryName))
             {
-                // Set every IsSelected property to false, except for the current category
-                foreach (var categoryItem in Items)
-                {
-                    categoryItem.IsSelected = categoryItem.Name == categoryName;
-                }
-
                 // Set the CurrentCategory property
                 CurrentCategory = categoryName;
 

@@ -151,12 +151,12 @@
                                 Command="{Binding OpenReminderCommand}" />
                             <!--Palette button-->
                             <Button Grid.Column="1"
-                                Style="{StaticResource TaskItemButtonStyle}"
+                                Style="{StaticResource TaskItemButtonYellowStyle}"
                                 Content="{StaticResource SegoeIconPalette}"
                                 Command="{Binding ShowColorPickerCommand}" />
                             <!--Trash button-->
                             <Button Grid.Column="2"
-                                Style="{StaticResource TaskItemButtonStyle}"
+                                Style="{StaticResource TaskItemButtonRedStyle}"
                                 Content="{StaticResource SegoeIconTrash}"
                                 Command="{Binding Path=Tag.DeleteTaskItemCommand, ElementName=TaskListItemUC}"
                                 CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}" />

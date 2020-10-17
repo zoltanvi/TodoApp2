@@ -6,8 +6,5 @@
         public string Name { get; set; }
         public long ListOrder { get; set; }
         public bool Trashed { get; set; }
-
-        // Not in database
-        public bool IsSelected { get; set; }
     }
 }

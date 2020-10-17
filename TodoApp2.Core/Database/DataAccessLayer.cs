@@ -811,7 +811,6 @@ namespace TodoApp2.Core
                 AddCategory(new CategoryListItemViewModel
                 {
                     Name = "Today",
-                    IsSelected = true,
                     ListOrder = DefaultListOrder
                 });
             }

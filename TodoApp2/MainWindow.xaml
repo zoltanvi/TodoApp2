@@ -68,7 +68,8 @@
                                             <Button Grid.Column="0"
                                                     Style="{StaticResource TitleBarButtonStyle}"
                                                     Content="{StaticResource SegoeIconMenu}"
-                                                    Command="{Binding ToggleSideMenuCommand}" />
+                                                    Command="{Binding ApplicationViewModel.ToggleSideMenuCommand,
+                                                             Source={x:Static local:ViewModelLocator.Instance}}" />
                                             <!--Here could be the window title-->
 
                                             <!--Window buttons-->

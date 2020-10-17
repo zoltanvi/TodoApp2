@@ -10,10 +10,18 @@ namespace TodoApp2.Core
     {
         private bool m_AppSettingsLoadedFirstTime = false;
 
+        private ClientDatabase ClientDatabase => IoC.ClientDatabase;
+        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
+
         /// <summary>
         /// The sliding side menu content page
         /// </summary>
         public ApplicationPage SideMenuPage { get; } = ApplicationPage.SideMenu;
+
+        /// <summary>
+        /// True if the side menu should be shown
+        /// </summary>
+        public bool SideMenuVisible { get; set; }
 
         /// <summary>
         /// The current page of the application
@@ -29,6 +37,11 @@ namespace TodoApp2.Core
         public BaseViewModel CurrentPageViewModel { get; set; }
 
         /// <summary>
+        /// The overlay panel content page
+        /// </summary>
+        public ApplicationPage OverlayPage { get; private set; }
+
+        /// <summary>
         /// The view model to use for the current overlay page when the OverlayPage changes
         /// NOTE: This is not a live up-to-date view model of the current page
         ///       it is simply used to set the view model of the current page
@@ -37,19 +50,10 @@ namespace TodoApp2.Core
         public BaseViewModel OverlayPageViewModel { get; set; }
 
         /// <summary>
-        /// True if the side menu should be shown
-        /// </summary>
-        public bool SideMenuVisible { get; set; }
-
-        /// <summary>
         /// True if the overlay page should be shown
         /// </summary>
         public bool OverlayPageVisible { get; set; }
 
-        /// <summary>
-        /// The overlay panel content page
-        /// </summary>
-        public ApplicationPage OverlayPage { get; private set; }
 
         /// <summary>
         /// The settings for the whole application
@@ -65,6 +69,16 @@ namespace TodoApp2.Core
         /// Always on top
         /// </summary>
         public bool IsAlwaysOnTop { get; set; }
+
+        /// <summary>
+        /// Command for toggle between opened and closed state for the side menu
+        /// </summary>
+        public ICommand ToggleSideMenuCommand { get; }
+
+        public ApplicationViewModel()
+        {
+            ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
+        }
 
         /// <summary>
         /// Navigates the overlay page to the specified page
@@ -97,6 +111,28 @@ namespace TodoApp2.Core
             }
         }
 
+        private void ToggleSideMenu()
+        {
+            OpenCloseSideMenu(!SideMenuVisible);
+        }
+
+        /// <summary>
+        /// Opens or closes the side menu.
+        /// </summary>
+        /// <param name="shouldOpen">True if the side menu should be opened, false if should be closed.</param>
+        private void OpenCloseSideMenu(bool shouldOpen)
+        {
+            if (shouldOpen)
+            {
+                OverlayPageService.SetBackgroundClickedAction(ToggleSideMenu);
+            }
+
+            OverlayPageService.ClosePage();
+            SideMenuVisible = shouldOpen;
+            OverlayPageService.OverlayBackgroundVisible = shouldOpen;
+        }
+
+
         public void LoadApplicationSettingsOnce()
         {
             if (!m_AppSettingsLoadedFirstTime)
@@ -109,7 +145,7 @@ namespace TodoApp2.Core
 
         public void LoadApplicationSettings()
         {
-            List<SettingsModel> settings = IoC.ClientDatabase.GetSettings();
+            List<SettingsModel> settings = ClientDatabase.GetSettings();
             ApplicationSettings.SetSettings(settings);
 
             CurrentCategory = ApplicationSettings.CurrentCategory;
@@ -120,7 +156,7 @@ namespace TodoApp2.Core
             ApplicationSettings.CurrentCategory = CurrentCategory;
 
             List<SettingsModel> settings = ApplicationSettings.GetSettings();
-            IoC.ClientDatabase.UpdateSettings(settings);
+            ClientDatabase.UpdateSettings(settings);
         }
     }
 }
