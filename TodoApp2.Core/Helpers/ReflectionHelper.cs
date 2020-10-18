@@ -35,6 +35,24 @@ namespace TodoApp2.Core
             objectType.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue(obj, value);
         }
 
+        public static T GetNonPublicPropertyValue<T>(this object obj, string propertyName)
+        {
+            ThrowIfNull(obj);
+
+            return GetNonPublicPropertyValue<T>(obj, obj.GetType(), propertyName);
+        }
+
+        public static T GetNonPublicPropertyValue<T>(this object obj, Type objectType, string propertyName)
+        {
+            ThrowIfNull(obj);
+
+            PropertyInfo property = objectType.GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Instance);
+
+            object value = property?.GetValue(obj);
+
+            return value is T ? (T)value : default(T);
+        }
+
         public static T GetPropertyValue<T>(this object obj, string propertyName)
         {
             ThrowIfNull(obj);

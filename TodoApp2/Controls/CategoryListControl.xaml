@@ -4,15 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TodoApp2"
-             xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:todoApp2="clr-namespace:TodoApp2"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="380">
     <Grid Background="Transparent">
 
         <ListView ItemsSource="{Binding Items}"
-                  dd:DragDrop.IsDragSource="True"
-                  dd:DragDrop.IsDropTarget="True"
                   x:Name="CategoryListListView"
                   BorderThickness="0"
                   Background="Transparent"
