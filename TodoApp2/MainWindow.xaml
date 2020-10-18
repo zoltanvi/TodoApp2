@@ -74,15 +74,18 @@
 
                                             <!--Window buttons-->
                                             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                                <Button Command="{Binding MinimizeCommand}"
+                                                <Button x:Name="MinimizeWindow"
+                                                    Command="{Binding MinimizeCommand}"
                                                     Style="{StaticResource WindowButtonStyle}"
                                                     Content="{StaticResource SegoeIconMinimizeWindow}" />
-                                                <Button Command="{Binding MaximizeCommand}"
-                                                        Style="{StaticResource WindowButtonStyle}"
-                                                        Content="{StaticResource SegoeIconMaximizeWindow}" />
-                                                <Button Command="{Binding CloseCommand}"
-                                                        Style="{StaticResource WindowButtonStyle}"
-                                                        Content="{StaticResource SegoeIconCloseWindow}" />
+                                                <Button x:Name="MaximizeWindow"
+                                                    Command="{Binding MaximizeCommand}"
+                                                    Style="{StaticResource WindowButtonStyle}"
+                                                    Content="{StaticResource SegoeIconMaximizeWindow}" />
+                                                <Button Name="CloseWindow"
+                                                    Command="{Binding CloseCommand}"
+                                                    Style="{StaticResource WindowButtonStyle}"
+                                                    Content="{StaticResource SegoeIconCloseWindow}" />
                                             </StackPanel>
                                         </Grid>
 
