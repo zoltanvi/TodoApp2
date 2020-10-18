@@ -26,7 +26,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Task;
+        public ApplicationPage CurrentPage { get; private set; }
 
         /// <summary>
         /// The view model to use for the current page when the CurrentPage changes
@@ -78,6 +78,7 @@ namespace TodoApp2.Core
         public ApplicationViewModel()
         {
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
+            CurrentPage = ApplicationPage.Task;
         }
 
         /// <summary>

@@ -6,6 +6,13 @@
     public enum ApplicationPage
     {
         /// <summary>
+        /// The default enum value.
+        /// This is needed because using the other values 
+        /// might create unnecessary viewModel instances
+        /// </summary>
+        Invalid,
+
+        /// <summary>
         /// The task page
         /// </summary>
         Task,
