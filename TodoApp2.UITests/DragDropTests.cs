@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Gu.Wpf.UiAutomation;
+using NLog;
 using NUnit.Framework;
 using TodoApp2.UITests.Helpers;
 
@@ -18,15 +19,20 @@ namespace TodoApp2.UITests
         private static readonly TimeSpan TwoSec = new TimeSpan(0, 0, 2);
         private static readonly TimeSpan ThreeSec = new TimeSpan(0, 0, 3);
 
-        private const int VeryFastMouseSpeed = 2000;
+        private const int VeryFastMouseSpeed = 1500;
         private const int FastMouseSpeed = 600;
         private const int NormalMouseSpeed = 300;
         private const int SlowMouseSpeed = 150;
 
         private const string TaskListListViewName = "TaskListListView";
         private const string AddNewTaskTextBoxName = "AddNewTaskTextBox";
+        private const string CloseWindowButtonName = "CloseWindow";
+
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private Window m_Window;
+        private Button m_CloseWindowButton;
         private ListView m_TaskListView;
         private TextBox m_AddTaskTextBox;
         private List<string> m_ExpectedTaskList;
@@ -35,17 +41,22 @@ namespace TodoApp2.UITests
         public void OneTimeSetup()
         {
             // Delete database file
+            Logger.Info("Deleting database file");
             File.Delete(DatabasePath);
             Wait.For(OneSec);
 
+            Logger.Info("Launching application...");
             using var app = Application.AttachOrLaunch(ExeFileName);
             m_Window = app.MainWindow;
+            m_CloseWindowButton = m_Window.FindButton(CloseWindowButtonName);
         }
 
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Application.KillLaunched(ExeFileName);
+            Logger.Info("Shutting down application...");
+            NLog.LogManager.Shutdown();
+            m_CloseWindowButton.Invoke();
         }
 
         [SetUp]
@@ -58,6 +69,7 @@ namespace TodoApp2.UITests
         [Test]
         public void T001_AddFiveItems()
         {
+            Logger.Info("Adding five TODO tasks");
             // Add items in reverse order, so the task list looks like this:
             // 000, 001, 002, 003, 004
             m_ExpectedTaskList = new List<string>();
@@ -201,11 +213,13 @@ namespace TodoApp2.UITests
 
         private void AssertListItems()
         {
+            Logger.Info($"List: {string.Join(", ", m_ExpectedTaskList)}");
             for (int i = 0; i < m_ExpectedTaskList.Count; i++)
             {
                 var textBlock = m_TaskListView.Children[i].FindTextBlock();
                 Assert.AreEqual(m_ExpectedTaskList[i], textBlock.Text);
             }
+            Logger.Info("Assert succeeded.");
         }
 
         private void DragDropTaskListItem(int from, int to, int mouseSpeed)
