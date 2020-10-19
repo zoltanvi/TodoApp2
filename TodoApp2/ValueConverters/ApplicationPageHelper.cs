@@ -32,7 +32,6 @@ namespace TodoApp2
                     return new NotificationPage(viewModel as NotificationPageViewModel);
 
                 default:
-                    Debugger.Break();
                     return null;
             }
         }
