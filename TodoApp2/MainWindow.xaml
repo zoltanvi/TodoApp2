@@ -64,16 +64,20 @@
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
 
-                                            <!--Navigator button-->
-                                            <Button Grid.Column="0"
-                                                    Style="{StaticResource TitleBarButtonStyle}"
-                                                    Content="{StaticResource SegoeIconMenu}"
-                                                    Command="{Binding ApplicationViewModel.ToggleSideMenuCommand,
+                                            <!-- Side menu button-->
+                                            
+                                            <Button 
+                                                x:Name="SideMenuButton"
+                                                Grid.Column="0"
+                                                Style="{StaticResource TitleBarButtonStyle}"
+                                                Content="{StaticResource SegoeIconMenu}"
+                                                Command="{Binding ApplicationViewModel.ToggleSideMenuCommand,
                                                              Source={x:Static local:ViewModelLocator.Instance}}" />
                                             <!--Here could be the window title-->
 
                                             <!--Window buttons-->
-                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <StackPanel 
+                                                Grid.Column="2" Orientation="Horizontal">
                                                 <Button x:Name="MinimizeWindow"
                                                     Command="{Binding MinimizeCommand}"
                                                     Style="{StaticResource WindowButtonStyle}"

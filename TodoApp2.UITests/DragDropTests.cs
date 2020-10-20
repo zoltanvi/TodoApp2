@@ -8,11 +8,11 @@ using TodoApp2.UITests.Helpers;
 
 namespace TodoApp2.UITests
 {
-    public class Tests
+    public class DragDropTests
     {
         private const string ExeFileName = "TodoApp2.exe";
         private const string DatabaseName = "TodoApp2Database.db";
-        private static string DatabasePath => Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), DatabaseName);
+        private static string DatabasePath => Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), DatabaseName);
 
         private static readonly TimeSpan HalfSec = new TimeSpan(0, 0, 0, 500);
         private static readonly TimeSpan OneSec = new TimeSpan(0, 0, 1);
@@ -55,7 +55,7 @@ namespace TodoApp2.UITests
         public void OneTimeTearDown()
         {
             Logger.Info("Shutting down application...");
-            NLog.LogManager.Shutdown();
+            LogManager.Shutdown();
             m_CloseWindowButton.Invoke();
         }
 
@@ -69,7 +69,8 @@ namespace TodoApp2.UITests
         [Test]
         public void T001_AddFiveItems()
         {
-            Logger.Info("Adding five TODO tasks");
+            Logger.Info($"Commencing test {nameof(T001_AddFiveItems)}");
+
             // Add items in reverse order, so the task list looks like this:
             // 000, 001, 002, 003, 004
             m_ExpectedTaskList = new List<string>();
@@ -87,6 +88,7 @@ namespace TodoApp2.UITests
         [Test]
         public void T002_DragDrop_SlowSpeed()
         {
+            Logger.Info($"Commencing test {nameof(T002_DragDrop_SlowSpeed)}");
             AssertListItems();
 
             DragDropTaskListItem(3, 1, SlowMouseSpeed);
@@ -102,6 +104,7 @@ namespace TodoApp2.UITests
         [Test]
         public void T003_DragDrop_NormalSpeed()
         {
+            Logger.Info($"Commencing test {nameof(T003_DragDrop_NormalSpeed)}");
             AssertListItems();
 
             // Before: 000, 001, 002, 003, 004
@@ -128,6 +131,8 @@ namespace TodoApp2.UITests
         [Test]
         public void T004_DragDrop_FastSpeed()
         {
+            Logger.Info($"Commencing test {nameof(T004_DragDrop_FastSpeed)}");
+
             AssertListItems();
 
             DragDropTaskListItem(0, 1, FastMouseSpeed);
@@ -170,6 +175,8 @@ namespace TodoApp2.UITests
         [Test]
         public void T005_DragDrop_VeryFastSpeed()
         {
+            Logger.Info($"Commencing test {nameof(T005_DragDrop_VeryFastSpeed)}");
+
             AssertListItems();
 
             DragDropTaskListItem(1, 3, VeryFastMouseSpeed);
@@ -213,17 +220,25 @@ namespace TodoApp2.UITests
 
         private void AssertListItems()
         {
-            Logger.Info($"List: {string.Join(", ", m_ExpectedTaskList)}");
+            List<string> actualList = new List<string>();
+
             for (int i = 0; i < m_ExpectedTaskList.Count; i++)
             {
                 var textBlock = m_TaskListView.Children[i].FindTextBlock();
-                Assert.AreEqual(m_ExpectedTaskList[i], textBlock.Text);
+                actualList.Add(textBlock.Text);
             }
-            Logger.Info("Assert succeeded.");
+
+            Logger.Info($"Expected list: {string.Join(", ", m_ExpectedTaskList)}");
+            Logger.Info($"Actual list:   {string.Join(", ", actualList)}");
+
+            CollectionAssert.AreEqual(m_ExpectedTaskList, actualList);
+            
+            Logger.Info("Lists are equal.");
         }
 
         private void DragDropTaskListItem(int from, int to, int mouseSpeed)
         {
+            Logger.Info($"Drag & dropping from [{from}] to [{to}]");
             m_ExpectedTaskList?.Move(from, to);
             var fromItem = m_TaskListView.Children[from].Bounds.Center();
             var toItem = m_TaskListView.Children[to].Bounds.Center();

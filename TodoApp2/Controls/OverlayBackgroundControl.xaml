@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
+             Name="OverlayBackground"
              d:DesignHeight="500" d:DesignWidth="350">
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
