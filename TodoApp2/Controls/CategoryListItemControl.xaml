@@ -6,9 +6,9 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:TodoApp2"
              x:Name="CategoryListItemUC"
+             AutomationProperties.Name="CategoryListItemUC"
              mc:Ignorable="d"
              d:DesignHeight="60" d:DesignWidth="350">
-
     <Grid x:Name="ParentGrid">
 
         <i:Interaction.Triggers>
@@ -19,7 +19,9 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-        <TextBlock Grid.Column="0"
+        <TextBlock 
+            AutomationProperties.Name="CategoryListItemText"
+            Grid.Column="0"
                Text="{Binding Name}"
                Style="{StaticResource CategoryTextBlockStyle}"
                FontSize="{StaticResource FontSizeLarge}"
@@ -32,23 +34,24 @@
             </TextBlock.Foreground>
         </TextBlock>
 
-        <Border Grid.Column="0"
-                    x:Name="HoverButtonBorder"
-                    Opacity="0"
-                    Background="Transparent"
-                    HorizontalAlignment="Right"
-                    Width="{Binding ActualWidth, ElementName=ParentGrid}">
+        <Border 
+            Grid.Column="0"
+            x:Name="HoverButtonBorder"
+            Opacity="0"
+            Background="Transparent"
+            HorizontalAlignment="Right"
+            Width="{Binding ActualWidth, ElementName=ParentGrid}">
 
             <Border.Triggers>
                 <EventTrigger RoutedEvent="Border.MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
                             <DoubleAnimation
-                                    From="0"
-                                    To="1"
-                                    Duration="0:0:0.35"
-                                    Storyboard.TargetName="HoverButtonBorder"
-                                    Storyboard.TargetProperty="(Opacity)" />
+                                From="0"
+                                To="1"
+                                Duration="0:0:0.35"
+                                Storyboard.TargetName="HoverButtonBorder"
+                                Storyboard.TargetProperty="(Opacity)" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
@@ -57,11 +60,11 @@
                     <BeginStoryboard>
                         <Storyboard>
                             <DoubleAnimation
-                                    From="1"
-                                    To="0"
-                                    Duration="0:0:0.15"
-                                    Storyboard.TargetName="HoverButtonBorder"
-                                    Storyboard.TargetProperty="(Opacity)" />
+                                From="1"
+                                To="0"
+                                Duration="0:0:0.15"
+                                Storyboard.TargetName="HoverButtonBorder"
+                                Storyboard.TargetProperty="(Opacity)" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
@@ -72,10 +75,12 @@
                  Margin="0 0 10 0">
                 
                 <!--Trash button-->
-                <Button Style="{StaticResource TaskItemButtonRedStyle}"
-                        Content="{StaticResource SegoeIconTrash}"
-                        Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"
-                        CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}" />
+                <Button 
+                    AutomationProperties.Name="CategoryListItemTrashBinButton"
+                    Style="{StaticResource TaskItemButtonRedStyle}"
+                    Content="{StaticResource SegoeIconTrash}"
+                    Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"
+                    CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}" />
             </Grid>
         </Border>
     </Grid>

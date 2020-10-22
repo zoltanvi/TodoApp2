@@ -6,18 +6,20 @@
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:todoApp2="clr-namespace:TodoApp2"
              mc:Ignorable="d"
+             AutomationProperties.Name="CategoryList"
              d:DesignHeight="500" d:DesignWidth="380">
     <Grid Background="Transparent">
 
         <ListView ItemsSource="{Binding Items}"
-                  x:Name="CategoryListListView"
-                  BorderThickness="0"
-                  Background="Transparent"
-                  HorizontalContentAlignment="Stretch"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  ScrollViewer.CanContentScroll="False"
-                  Template="{DynamicResource TaskListControlTemplate}">
+             AutomationProperties.Name="CategoryListListView"
+             x:Name="CategoryListListView"
+             BorderThickness="0"
+             Background="Transparent"
+             HorizontalContentAlignment="Stretch"
+             ScrollViewer.VerticalScrollBarVisibility="Auto"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             ScrollViewer.CanContentScroll="False"
+             Template="{DynamicResource TaskListControlTemplate}">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

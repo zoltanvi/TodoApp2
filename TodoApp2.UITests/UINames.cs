@@ -10,7 +10,7 @@
         public const string CloseWindowButton = "CloseWindow";
 
         public const string SideMenuButton = "SideMenuButton";
-        public const string OverlayBackground = "OverlayBackground";
+        public const string OverlayBackground = "OverlayBackgroundBorder";
 
     }
 }
