@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TodoApp2.UITests.Helpers
+namespace TodoApp2.UITests.Automation
 {
     public static class CollectionExtender
     {

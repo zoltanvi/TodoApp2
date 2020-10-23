@@ -1,14 +1,15 @@
 ﻿using System;
 using System.IO;
 
-namespace TodoApp2.UITests
+namespace TodoApp2.UITests.Automation
 {
     public static class Constants
     {
         public const string ExeFileName = "TodoApp2.exe";
         public const string DatabaseName = "TodoApp2Database.db";
         public static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), DatabaseName);
-        
+
+        public static readonly TimeSpan Zero = TimeSpan.Zero;
         public static readonly TimeSpan HalfSec = new TimeSpan(0, 0, 0, 0, 500);
         public static readonly TimeSpan OneSec = new TimeSpan(0, 0, 1);
         public static readonly TimeSpan TwoSec = new TimeSpan(0, 0, 2);

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Gu.Wpf.UiAutomation;
 using NLog;
 using NUnit.Framework;
-using TodoApp2.UITests.Helpers;
+using TodoApp2.UITests.Automation;
 
-namespace TodoApp2.UITests
+namespace TodoApp2.UITests.Tests
 {
     public class DragDropTests : TestBase
     {
@@ -12,17 +12,17 @@ namespace TodoApp2.UITests
         private TextBox m_AddTaskTextBox;
         private List<string> m_ExpectedTaskList;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
             m_TaskListView = Window.FindListView(UINames.TaskListListView);
             m_AddTaskTextBox = Window.FindTextBox(UINames.AddNewTaskTextBox);
         }
 
         [Test]
-        public void T001_AddFiveItems()
+        public void T0010_AddFiveItems()
         {
-            Logger.Info($"Commencing test {nameof(T001_AddFiveItems)}");
+            Logger.Info($"Commencing test {nameof(T0010_AddFiveItems)}");
 
             // Add items in reverse order, so the task list looks like this:
             // 000, 001, 002, 003, 004
@@ -39,9 +39,9 @@ namespace TodoApp2.UITests
         }
 
         [Test]
-        public void T002_DragDrop_SlowSpeed()
+        public void T0020_DragDrop_SlowSpeed()
         {
-            Logger.Info($"Commencing test {nameof(T002_DragDrop_SlowSpeed)}");
+            Logger.Info($"Commencing test {nameof(T0020_DragDrop_SlowSpeed)}");
             AssertListItems();
 
             DragDropTaskListItem(3, 1, Constants.SlowMouseSpeed);
@@ -55,9 +55,9 @@ namespace TodoApp2.UITests
         }
 
         [Test]
-        public void T003_DragDrop_NormalSpeed()
+        public void T0030_DragDrop_NormalSpeed()
         {
-            Logger.Info($"Commencing test {nameof(T003_DragDrop_NormalSpeed)}");
+            Logger.Info($"Commencing test {nameof(T0030_DragDrop_NormalSpeed)}");
             AssertListItems();
 
             // Before: 000, 001, 002, 003, 004
@@ -82,9 +82,9 @@ namespace TodoApp2.UITests
         }
 
         [Test]
-        public void T004_DragDrop_FastSpeed()
+        public void T0040_DragDrop_FastSpeed()
         {
-            Logger.Info($"Commencing test {nameof(T004_DragDrop_FastSpeed)}");
+            Logger.Info($"Commencing test {nameof(T0040_DragDrop_FastSpeed)}");
 
             AssertListItems();
 
@@ -126,9 +126,9 @@ namespace TodoApp2.UITests
         }
 
         [Test]
-        public void T005_DragDrop_VeryFastSpeed()
+        public void T0050_DragDrop_VeryFastSpeed()
         {
-            Logger.Info($"Commencing test {nameof(T005_DragDrop_VeryFastSpeed)}");
+            Logger.Info($"Commencing test {nameof(T0050_DragDrop_VeryFastSpeed)}");
 
             AssertListItems();
 
