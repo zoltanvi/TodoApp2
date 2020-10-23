@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        AutomationProperties.Name="TodoApp2Window"
+        AutomationProperties.AutomationId="TodoApp2Window"
         Name="TodoApp2Window"
         WindowStartupLocation="CenterScreen"
         MinWidth="{Binding WindowMinimumWidth}"
@@ -67,7 +67,7 @@
 
                                             <!-- Side menu button-->
                                             <Button 
-                                                AutomationProperties.Name="SideMenuButton"
+                                                AutomationProperties.AutomationId="SideMenuButton"
                                                 Name="SideMenuButton"
                                                 Grid.Column="0"
                                                 Style="{StaticResource TitleBarButtonStyle}"
@@ -80,19 +80,19 @@
                                             <StackPanel 
                                                 Grid.Column="2" Orientation="Horizontal">
                                                 <Button 
-                                                    AutomationProperties.Name="MinimizeWindow"
+                                                    AutomationProperties.AutomationId="MinimizeWindow"
                                                     x:Name="MinimizeWindow"
                                                     Command="{Binding MinimizeCommand}"
                                                     Style="{StaticResource WindowButtonStyle}"
                                                     Content="{StaticResource SegoeIconMinimizeWindow}" />
                                                 <Button 
-                                                    AutomationProperties.Name="MaximizeWindow"
+                                                    AutomationProperties.AutomationId="MaximizeWindow"
                                                     x:Name="MaximizeWindow"
                                                     Command="{Binding MaximizeCommand}"
                                                     Style="{StaticResource WindowButtonStyle}"
                                                     Content="{StaticResource SegoeIconMaximizeWindow}" />
                                                 <Button 
-                                                    AutomationProperties.Name="CloseWindow"
+                                                    AutomationProperties.AutomationId="CloseWindow"
                                                     Name="CloseWindow"
                                                     Command="{Binding CloseCommand}"
                                                     Style="{StaticResource WindowButtonStyle}"
@@ -103,7 +103,7 @@
                                         <!--Page content-->
                                         <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
                                             <ContentPresenter 
-                                                AutomationProperties.Name="MainPageContent"
+                                                AutomationProperties.AutomationId="MainPageContent"
                                                 Content="{TemplateBinding Content}" />
                                         </Border>
                                     </Grid>
@@ -129,7 +129,7 @@
 
             <!-- Current page -->
             <Frame 
-                AutomationProperties.Name="CurrentPage"
+                AutomationProperties.AutomationId="CurrentPage"
                 local:NoFrameHistory.Value="True"
                 DataContext="{Binding ApplicationViewModel.CurrentPage,
                              Source={x:Static local:ViewModelLocator.Instance},
@@ -138,7 +138,7 @@
 
             <!-- Overlay background -->
             <local:OverlayBackgroundControl 
-                AutomationProperties.Name="OverlayBackgroundControl"
+                AutomationProperties.AutomationId="OverlayBackgroundControl"
                 
                 />
             
@@ -148,13 +148,13 @@
             
             <!-- Navigator menu panel -->
             <local:SideMenuControl
-                AutomationProperties.Name="SideMenuControl"
+                AutomationProperties.AutomationId="SideMenuControl"
                 local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible,
                                                             Source={x:Static local:ViewModelLocator.Instance}}">
 
                 <!-- Side menu page -->
                 <Frame 
-                    AutomationProperties.Name="SideMenuPage"
+                    AutomationProperties.AutomationId="SideMenuPage"
                     local:NoFrameHistory.Value="True"
                     DataContext="{Binding ApplicationViewModel.SideMenuPage,
                         Source={x:Static local:ViewModelLocator.Instance},

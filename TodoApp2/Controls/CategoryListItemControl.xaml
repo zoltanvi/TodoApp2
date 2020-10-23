@@ -6,7 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:TodoApp2"
              x:Name="CategoryListItemUC"
-             AutomationProperties.Name="CategoryListItemUC"
+             AutomationProperties.AutomationId="CategoryListItemUC"
              mc:Ignorable="d"
              d:DesignHeight="60" d:DesignWidth="350">
     <Grid x:Name="ParentGrid">
@@ -20,7 +20,7 @@
         </i:Interaction.Triggers>
 
         <TextBlock 
-            AutomationProperties.Name="CategoryListItemText"
+            AutomationProperties.AutomationId="CategoryListItemText"
             Grid.Column="0"
                Text="{Binding Name}"
                Style="{StaticResource CategoryTextBlockStyle}"
@@ -76,7 +76,7 @@
                 
                 <!--Trash button-->
                 <Button 
-                    AutomationProperties.Name="CategoryListItemTrashBinButton"
+                    AutomationProperties.AutomationId="CategoryListItemTrashBinButton"
                     Style="{StaticResource TaskItemButtonRedStyle}"
                     Content="{StaticResource SegoeIconTrash}"
                     Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"

@@ -36,7 +36,7 @@
 
             <!--Settings button-->
             <Button
-                AutomationProperties.Name="SettingsButton"
+                AutomationProperties.AutomationId="SettingsButton"
                 Grid.Row="0"
                 Grid.Column="1"
                 Style="{StaticResource SettingsButtonStyle}"
@@ -66,7 +66,7 @@
                     VerticalAlignment="Center"
                 />-->
                 <TextBox
-                    AutomationProperties.Name="AddNewCategoryTextBox"
+                    AutomationProperties.AutomationId="AddNewCategoryTextBox"
                     Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}"
                     Tag="Add new category"
                     Grid.Column="1"

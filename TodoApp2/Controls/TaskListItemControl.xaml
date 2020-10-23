@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              MinHeight="46"
              x:Name="TaskListItemUC"
-             AutomationProperties.Name="TaskListItemUC"
+             AutomationProperties.AutomationId="TaskListItemUC"
              d:DesignHeight="60" d:DesignWidth="350">
 
     <Grid Background="{StaticResource ContentBackgroundBrush}">
@@ -38,13 +38,13 @@
 
                 <!--Color bar-->
                 <Border
-                    AutomationProperties.Name="TaskListItemColorBar"
+                    AutomationProperties.AutomationId="TaskListItemColorBar"
                     Grid.Column="0"
                     CornerRadius="3 0 0 3"
                     Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}" />
 
                 <CheckBox
-                    AutomationProperties.Name="TaskListItemCheckBox"
+                    AutomationProperties.AutomationId="TaskListItemCheckBox"
                     Grid.Column="1"
                     IsChecked="{Binding IsDone}"
                     Command="{Binding Path=Tag.TaskIsDoneModifiedCommand, ElementName=TaskListItemUC}"
@@ -65,7 +65,7 @@
 
                     <!--Display formatted text-->
                     <TextBlock 
-                        AutomationProperties.Name="TaskListItemDisplayText"
+                        AutomationProperties.AutomationId="TaskListItemDisplayText"
                         Name="TaskListItemDisplayText"
                         Grid.Row="0"
                         Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
@@ -80,7 +80,7 @@
 
                     <!--Text editor mode-->
                     <TextBox 
-                        AutomationProperties.Name="TaskListItemEditText"
+                        AutomationProperties.AutomationId="TaskListItemEditText"
                         Grid.Row="0"
                         Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}"
                         local:FocusSetter.Value="{Binding IsEditMode}"
@@ -105,7 +105,7 @@
 
                 <!--Hidden buttons-->
                 <Border 
-                    AutomationProperties.Name="TaskListItemHiddenPanel"
+                    AutomationProperties.AutomationId="TaskListItemHiddenPanel"
                     Grid.Column="2"
                     x:Name="HoverButtonBorder"
                     Opacity="0"
@@ -156,21 +156,21 @@
 
                             <!--Calendar button-->
                             <Button 
-                                AutomationProperties.Name="TaskListItemCalendarButton"
+                                AutomationProperties.AutomationId="TaskListItemCalendarButton"
                                 Grid.Column="0"
                                 Style="{StaticResource TaskItemButtonStyle}"
                                 Content="{StaticResource SegoeIconDateTime}"
                                 Command="{Binding OpenReminderCommand}" />
                             <!--Palette button-->
                             <Button 
-                                AutomationProperties.Name="TaskListItemPaletteButton"
+                                AutomationProperties.AutomationId="TaskListItemPaletteButton"
                                 Grid.Column="1"
                                 Style="{StaticResource TaskItemButtonYellowStyle}"
                                 Content="{StaticResource SegoeIconPalette}"
                                 Command="{Binding ShowColorPickerCommand}" />
                             <!--Trash button-->
                             <Button 
-                                AutomationProperties.Name="TaskListItemTrashBinButton"
+                                AutomationProperties.AutomationId="TaskListItemTrashBinButton"
                                 Grid.Column="2"
                                 Style="{StaticResource TaskItemButtonRedStyle}"
                                 Content="{StaticResource SegoeIconTrash}"
@@ -181,7 +181,7 @@
                 </Border>
 
                 <local:ColorPickerControl
-                    AutomationProperties.Name="TaskListItemColorPickerControl"
+                    AutomationProperties.AutomationId="TaskListItemColorPickerControl"
                     Grid.Column="2"
                     HorizontalContentAlignment="Right"
                     Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}"

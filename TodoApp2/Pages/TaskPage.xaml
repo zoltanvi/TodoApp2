@@ -31,7 +31,7 @@
                 >
 
                 <TextBox
-                    AutomationProperties.Name="AddNewTaskTextBox"
+                    AutomationProperties.AutomationId="AddNewTaskTextBox"
                     x:Name="AddNewTaskTextBox"
                     Tag="Add new task"
                     Text="{Binding PendingAddNewTaskText, UpdateSourceTrigger=PropertyChanged}"

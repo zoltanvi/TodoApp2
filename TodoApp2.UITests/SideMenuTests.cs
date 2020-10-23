@@ -14,13 +14,13 @@ namespace TodoApp2.UITests
             AutomationElement rootElement = AutomationElement.RootElement;
             if (rootElement != null)
             {
-                Condition condition = new PropertyCondition(AutomationElement.AutomationIdProperty, "AppWindow");
-
+                Condition condition = new PropertyCondition(AutomationElement.AutomationIdProperty, "TodoApp2Window");
                 AutomationElement appElement = rootElement.FindFirst(TreeScope.Children, condition);
 
                 if (appElement != null)
                 {
-                    AutomationElement txtElementA = appElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, "SideMenuButton"));
+
+                    AutomationElement txtElementA = appElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, "OverlayBackgroundBorder"));
                     if (txtElementA != null)
                     {
                         ValuePattern valuePatternA =

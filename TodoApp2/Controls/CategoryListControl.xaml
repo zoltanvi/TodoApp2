@@ -6,12 +6,12 @@
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:todoApp2="clr-namespace:TodoApp2"
              mc:Ignorable="d"
-             AutomationProperties.Name="CategoryList"
+             AutomationProperties.AutomationId="CategoryList"
              d:DesignHeight="500" d:DesignWidth="380">
     <Grid Background="Transparent">
 
         <ListView ItemsSource="{Binding Items}"
-             AutomationProperties.Name="CategoryListListView"
+             AutomationProperties.AutomationId="CategoryListListView"
              x:Name="CategoryListListView"
              BorderThickness="0"
              Background="Transparent"

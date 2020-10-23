@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TodoApp2"
              mc:Ignorable="d"
-             AutomationProperties.Name="TaskListControl"
+             AutomationProperties.AutomationId="TaskListControl"
              d:DesignHeight="350" d:DesignWidth="380">
     <Grid Background="Transparent">
 
         <ListView 
-            AutomationProperties.Name="TaskListListView"
+            AutomationProperties.AutomationId="TaskListListView"
             x:Name="TaskListListView"
             ItemsSource="{Binding Items}" 
             BorderThickness="0"

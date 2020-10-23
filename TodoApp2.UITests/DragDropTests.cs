@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Gu.Wpf.UiAutomation;
 using NLog;
 using NUnit.Framework;
@@ -8,62 +6,17 @@ using TodoApp2.UITests.Helpers;
 
 namespace TodoApp2.UITests
 {
-    public class DragDropTests
+    public class DragDropTests : TestBase
     {
-        private const string ExeFileName = "TodoApp2.exe";
-        private const string DatabaseName = "TodoApp2Database.db";
-        private static string DatabasePath => Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), DatabaseName);
-
-        private static readonly TimeSpan HalfSec = new TimeSpan(0, 0, 0, 500);
-        private static readonly TimeSpan OneSec = new TimeSpan(0, 0, 1);
-        private static readonly TimeSpan TwoSec = new TimeSpan(0, 0, 2);
-        private static readonly TimeSpan ThreeSec = new TimeSpan(0, 0, 3);
-
-        private const int VeryFastMouseSpeed = 1500;
-        private const int FastMouseSpeed = 600;
-        private const int NormalMouseSpeed = 300;
-        private const int SlowMouseSpeed = 150;
-
-        private const string TaskListListViewName = "TaskListListView";
-        private const string AddNewTaskTextBoxName = "AddNewTaskTextBox";
-        private const string CloseWindowButtonName = "CloseWindow";
-
-
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        private Window m_Window;
-        private Button m_CloseWindowButton;
         private ListView m_TaskListView;
         private TextBox m_AddTaskTextBox;
         private List<string> m_ExpectedTaskList;
 
-        [OneTimeSetUp]
-        public void OneTimeSetup()
-        {
-            // Delete database file
-            Logger.Info("Deleting database file");
-            File.Delete(DatabasePath);
-            Wait.For(OneSec);
-
-            Logger.Info("Launching application...");
-            using var app = Application.AttachOrLaunch(ExeFileName);
-            m_Window = app.MainWindow;
-            m_CloseWindowButton = m_Window.FindButton(CloseWindowButtonName);
-        }
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            Logger.Info("Shutting down application...");
-            LogManager.Shutdown();
-            m_CloseWindowButton.Invoke();
-        }
-
         [SetUp]
         public void SetUp()
         {
-            m_TaskListView = m_Window.FindListView(TaskListListViewName);
-            m_AddTaskTextBox = m_Window.FindTextBox(AddNewTaskTextBoxName);
+            m_TaskListView = Window.FindListView(UINames.TaskListListView);
+            m_AddTaskTextBox = Window.FindTextBox(UINames.AddNewTaskTextBox);
         }
 
         [Test]
@@ -91,13 +44,13 @@ namespace TodoApp2.UITests
             Logger.Info($"Commencing test {nameof(T002_DragDrop_SlowSpeed)}");
             AssertListItems();
 
-            DragDropTaskListItem(3, 1, SlowMouseSpeed);
+            DragDropTaskListItem(3, 1, Constants.SlowMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(1, 4, SlowMouseSpeed);
+            DragDropTaskListItem(1, 4, Constants.SlowMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(2, 4, SlowMouseSpeed);
+            DragDropTaskListItem(2, 4, Constants.SlowMouseSpeed);
             AssertListItems();
         }
 
@@ -109,22 +62,22 @@ namespace TodoApp2.UITests
 
             // Before: 000, 001, 002, 003, 004
             // After:  001, 002, 000, 003, 004
-            DragDropTaskListItem(0, 2, NormalMouseSpeed);
+            DragDropTaskListItem(0, 2, Constants.NormalMouseSpeed);
             AssertListItems();
 
             // Before:  001, 002, 000, 003, 004
             // After:   001, 000, 003, 002, 004
-            DragDropTaskListItem(1, 3, NormalMouseSpeed);
+            DragDropTaskListItem(1, 3, Constants.NormalMouseSpeed);
             AssertListItems();
 
             // Before:  001, 000, 003, 002, 004
             // After:   004, 001, 000, 003, 002
-            DragDropTaskListItem(4, 0, NormalMouseSpeed);
+            DragDropTaskListItem(4, 0, Constants.NormalMouseSpeed);
             AssertListItems();
 
             // Before:  004, 001, 000, 003, 002
             // After:   004, 001, 000, 003, 002
-            DragDropTaskListItem(1, 1, NormalMouseSpeed);
+            DragDropTaskListItem(1, 1, Constants.NormalMouseSpeed);
             AssertListItems();
         }
 
@@ -135,40 +88,40 @@ namespace TodoApp2.UITests
 
             AssertListItems();
 
-            DragDropTaskListItem(0, 1, FastMouseSpeed);
+            DragDropTaskListItem(0, 1, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(1, 2, FastMouseSpeed);
+            DragDropTaskListItem(1, 2, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(4, 0, FastMouseSpeed);
+            DragDropTaskListItem(4, 0, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(0, 4, FastMouseSpeed);
+            DragDropTaskListItem(0, 4, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(4, 0, FastMouseSpeed);
+            DragDropTaskListItem(4, 0, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(0, 1, FastMouseSpeed);
+            DragDropTaskListItem(0, 1, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(1, 1, FastMouseSpeed);
+            DragDropTaskListItem(1, 1, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(1, 0, FastMouseSpeed);
+            DragDropTaskListItem(1, 0, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(3, 0, FastMouseSpeed);
+            DragDropTaskListItem(3, 0, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(4, 0, FastMouseSpeed);
+            DragDropTaskListItem(4, 0, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(2, 0, FastMouseSpeed);
+            DragDropTaskListItem(2, 0, Constants.FastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(3, 0, FastMouseSpeed);
+            DragDropTaskListItem(3, 0, Constants.FastMouseSpeed);
             AssertListItems();
         }
 
@@ -179,40 +132,40 @@ namespace TodoApp2.UITests
 
             AssertListItems();
 
-            DragDropTaskListItem(1, 3, VeryFastMouseSpeed);
+            DragDropTaskListItem(1, 3, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(0, 2, VeryFastMouseSpeed);
+            DragDropTaskListItem(0, 2, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(1, 4, VeryFastMouseSpeed);
+            DragDropTaskListItem(1, 4, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(4, 2, VeryFastMouseSpeed);
+            DragDropTaskListItem(4, 2, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(4, 2, VeryFastMouseSpeed);
+            DragDropTaskListItem(4, 2, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(3, 0, VeryFastMouseSpeed);
+            DragDropTaskListItem(3, 0, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(3, 4, VeryFastMouseSpeed);
+            DragDropTaskListItem(3, 4, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(3, 3, VeryFastMouseSpeed);
+            DragDropTaskListItem(3, 3, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(2, 1, VeryFastMouseSpeed);
+            DragDropTaskListItem(2, 1, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(2, 4, VeryFastMouseSpeed);
+            DragDropTaskListItem(2, 4, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(0, 1, VeryFastMouseSpeed);
+            DragDropTaskListItem(0, 1, Constants.VeryFastMouseSpeed);
             AssertListItems();
 
-            DragDropTaskListItem(2, 1, VeryFastMouseSpeed);
+            DragDropTaskListItem(2, 1, Constants.VeryFastMouseSpeed);
             AssertListItems();
         }
 
@@ -224,7 +177,7 @@ namespace TodoApp2.UITests
 
             for (int i = 0; i < m_ExpectedTaskList.Count; i++)
             {
-                var textBlock = m_TaskListView.Children[i].FindTextBlock();
+                TextBlock textBlock = m_TaskListView.Children[i].FindTextBlock("TaskListItemDisplayText");
                 actualList.Add(textBlock.Text);
             }
 
@@ -232,7 +185,7 @@ namespace TodoApp2.UITests
             Logger.Info($"Actual list:   {string.Join(", ", actualList)}");
 
             CollectionAssert.AreEqual(m_ExpectedTaskList, actualList);
-            
+
             Logger.Info("Lists are equal.");
         }
 

@@ -7,7 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              Name="OverlayBackground"
-             AutomationProperties.Name="OverlayBackground"
+             AutomationProperties.AutomationId="OverlayBackground"
              d:DesignHeight="500" d:DesignWidth="350">
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
@@ -15,7 +15,8 @@
             <Grid>
                 <!--Overlay background is behind the content-->
                 <Border 
-                    AutomationProperties.Name="OverlayBackgroundBorder"
+                    AutomationProperties.AutomationId="OverlayBackgroundBorder"
+                   
                     x:Name="OverlayBackgroundBorder"
                         Background="{StaticResource OverlayBackgroundBrush}"
                         Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, 
@@ -33,7 +34,7 @@
                 <!--This is important since we only want to handle the 
                     mousedown event if the background is clicked and not the content area-->
                 <local:PageHost
-                    AutomationProperties.Name="OverlayPageContent"
+                    AutomationProperties.AutomationId="OverlayPageContent"
                         local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, 
                                                          Source={x:Static local:ViewModelLocator.Instance}}"
                         CurrentPage="{Binding ApplicationViewModel.OverlayPage, 
