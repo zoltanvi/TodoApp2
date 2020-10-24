@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Gu.Wpf.UiAutomation;
 using NLog;
 using NUnit.Framework;
@@ -6,36 +5,20 @@ using TodoApp2.UITests.Automation;
 
 namespace TodoApp2.UITests.Tests
 {
-    public class DragDropTests : TestBase
+    [TestFixture, Order(2)]
+    public class F002_DragDropTests : TestBase
     {
-        private ListView m_TaskListView;
-        private TextBox m_AddTaskTextBox;
-        private List<string> m_ExpectedTaskList;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            m_TaskListView = Window.FindListView(UINames.TaskListListView);
-            m_AddTaskTextBox = Window.FindTextBox(UINames.AddNewTaskTextBox);
         }
 
         [Test]
         public void T0010_AddFiveItems()
         {
             Logger.Info($"Commencing test {nameof(T0010_AddFiveItems)}");
-
-            // Add items in reverse order, so the task list looks like this:
-            // 000, 001, 002, 003, 004
-            m_ExpectedTaskList = new List<string>();
-            for (int i = 4; i >= 0; i--)
-            {
-                string text = $"00{i}";
-                m_ExpectedTaskList.Add(text);
-                m_AddTaskTextBox.Enter($"{text}\n");
-            }
-            m_ExpectedTaskList.Reverse();
-
-            AssertListItems();
+            AddListItemsAndAssert(5);
         }
 
         [Test]
@@ -169,35 +152,17 @@ namespace TodoApp2.UITests.Tests
             AssertListItems();
         }
 
-        #region Helpers
-
-        private void AssertListItems()
-        {
-            List<string> actualList = new List<string>();
-
-            for (int i = 0; i < m_ExpectedTaskList.Count; i++)
-            {
-                TextBlock textBlock = m_TaskListView.Children[i].FindTextBlock("TaskListItemDisplayText");
-                actualList.Add(textBlock.Text);
-            }
-
-            Logger.Info($"Expected list: {string.Join(", ", m_ExpectedTaskList)}");
-            Logger.Info($"Actual list:   {string.Join(", ", actualList)}");
-
-            CollectionAssert.AreEqual(m_ExpectedTaskList, actualList);
-
-            Logger.Info("Lists are equal.");
-        }
-
         private void DragDropTaskListItem(int from, int to, int mouseSpeed)
         {
             Logger.Info($"Drag & dropping from [{from}] to [{to}]");
-            m_ExpectedTaskList?.Move(from, to);
-            var fromItem = m_TaskListView.Children[from].Bounds.Center();
-            var toItem = m_TaskListView.Children[to].Bounds.Center();
-            Mouse.Drag(MouseButton.Left, fromItem, toItem, mouseSpeed);
+            ExpectedTaskList?.Move(from, to);
+            var sourceItem = TaskListView.Children[from].Bounds.Center();
+            var destinationItem = TaskListView.Children[to].Bounds.Center();
+            
+            // Add a little offset because the source and destination can be the same
+            destinationItem.X += 5;
+            destinationItem.Y += 3;
+            Mouse.Drag(MouseButton.Left, sourceItem, destinationItem, mouseSpeed);
         }
-
-        #endregion Helpers
     }
 }

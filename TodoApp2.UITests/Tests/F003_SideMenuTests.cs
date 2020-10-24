@@ -7,8 +7,8 @@ using Rect = System.Windows.Rect;
 
 namespace TodoApp2.UITests.Tests
 {
-    [TestFixture]
-    public class SideMenuTests : TestBase
+    [TestFixture, Order(3)]
+    public class F003_SideMenuTests : TestBase
     {
         private const int s_SideMenuTreshold = 200;
         private Button m_SideMenuButton;
@@ -30,7 +30,7 @@ namespace TodoApp2.UITests.Tests
             {
                 sideMenuRectBefore = GetUIElementRect(UINames.SideMenuPage);
                 Logger.Info("Opening side menu");
-                m_SideMenuButton.Invoke();
+                MoveMouseAndClick(m_SideMenuButton);
                 sideMenuRectAfter = GetUIElementRect(UINames.SideMenuPage);
 
                 // Wait for animation to finish
@@ -42,7 +42,7 @@ namespace TodoApp2.UITests.Tests
 
                 sideMenuRectBefore = GetUIElementRect(UINames.SideMenuPage);
                 Logger.Info("Closing side menu with button");
-                m_SideMenuButton.Invoke();
+                MoveMouseAndClick(m_SideMenuButton);
                 sideMenuRectAfter = GetUIElementRect(UINames.SideMenuPage);
 
                 // Wait for animation to finish
@@ -63,17 +63,15 @@ namespace TodoApp2.UITests.Tests
             for (int i = 0; i < testCount; i++)
             {
                 Logger.Info("Opening side menu");
-                m_SideMenuButton.Invoke();
+                MoveMouseAndClick(m_SideMenuButton);
 
                 // Wait for animation to finish
                 Wait.For(Constants.HalfSec);
 
-                Point clickPosition = WindowCloseButton.Bounds.Center();
-                clickPosition.Y += edgeOffset;
-
                 Rect sideMenuRectBefore = GetUIElementRect(UINames.SideMenuPage);
                 Logger.Info("Closing side menu with overlay background");
-
+                Point clickPosition = WindowCloseButton.Bounds.Center();
+                clickPosition.Y += edgeOffset;
                 Mouse.LeftClick(clickPosition);
 
                 Rect sideMenuRectAfter = GetUIElementRect(UINames.SideMenuPage);
@@ -97,13 +95,6 @@ namespace TodoApp2.UITests.Tests
             }
 
             return uiElementRect;
-        }
-
-        private AutomationElement GetTextElement(AutomationElement parentElement, string value)
-        {
-            Condition condition = new PropertyCondition(AutomationElement.AutomationIdProperty, value);
-            AutomationElement txtElement = parentElement.FindFirst(TreeScope.Descendants, condition);
-            return txtElement;
         }
     }
 }

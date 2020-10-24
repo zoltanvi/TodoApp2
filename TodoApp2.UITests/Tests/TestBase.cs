@@ -1,4 +1,5 @@
-﻿using System.Windows.Automation;
+﻿using System.Collections.Generic;
+using System.Windows.Automation;
 using Gu.Wpf.UiAutomation;
 using NLog;
 using NUnit.Framework;
@@ -8,13 +9,18 @@ namespace TodoApp2.UITests.Tests
 {
     public class TestBase
     {
-        public static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public Window Window;
-        public AutomationElement WindowAutomationElement;
-        public Button WindowMinimizeButton;
-        public Button WindowMaximizeButton;
-        public Button WindowCloseButton;
+        protected Window Window;
+        protected AutomationElement WindowAutomationElement;
+        protected Button WindowMinimizeButton;
+        protected Button WindowMaximizeButton;
+        protected Button WindowCloseButton;
+        
+        protected ListView TaskListView;
+        protected List<string> ExpectedTaskList;
+        protected TextBox AddTaskTextBox;
+
 
         [OneTimeSetUp]
         public void InitFixture()
@@ -27,6 +33,52 @@ namespace TodoApp2.UITests.Tests
             WindowCloseButton = Window.FindButton(UINames.CloseWindowButton);
 
             WindowAutomationElement = AutomationElement.RootElement?.FindFirst(TreeScope.Children, Conditions.ByAutomationId(UINames.Window));
+
+            TaskListView = Window.FindListView(UINames.TaskListListView);
+            AddTaskTextBox = Window.FindTextBox(UINames.AddNewTaskTextBox);
+        }
+
+        protected void AddListItemsAndAssert(int count)
+        {
+            if(ExpectedTaskList == null)
+            {
+                ExpectedTaskList = new List<string>();
+            }
+
+            for (int i = count - 1; i >= 0; i--)
+            {
+                string text = $"TodoItem_00{i}";
+                MoveMouseAndClick(AddTaskTextBox);
+                Keyboard.Type($"{text}\n");
+                ExpectedTaskList.Add(text);
+            }
+            ExpectedTaskList.Reverse();
+
+            AssertListItems();
+        }
+
+        protected void AssertListItems()
+        {
+            List<string> actualList = new List<string>();
+
+            for (int i = 0; i < ExpectedTaskList.Count; i++)
+            {
+                TextBlock textBlock = TaskListView.Children[i].FindTextBlock("TaskListItemDisplayText");
+                actualList.Add(textBlock.Text);
+            }
+
+            Logger.Info($"Expected list: {string.Join(", ", ExpectedTaskList)}");
+            Logger.Info($"Actual list:   {string.Join(", ", actualList)}");
+
+            CollectionAssert.AreEqual(ExpectedTaskList, actualList);
+
+            Logger.Info("Lists are equal.");
+        }
+
+        protected void MoveMouseAndClick(UiElement uiElement)
+        {
+            Mouse.MoveTo(uiElement.Bounds.Center(), Constants.VeryFastMouseSpeed);
+            Mouse.LeftClick();
         }
     }
 }

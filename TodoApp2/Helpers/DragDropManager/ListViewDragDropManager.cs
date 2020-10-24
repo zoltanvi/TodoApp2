@@ -245,16 +245,20 @@ namespace WPF.JoshSmith.ServiceProviders.UI
 
             // Select the item the user clicked on.
             if (m_ListView.SelectedIndex != m_IndexToSelect)
+            {
                 m_ListView.SelectedIndex = m_IndexToSelect;
+            }
 
             // If the item at the selected index is null, there's nothing
             // we can do, so just return;
             if (m_ListView.SelectedItem == null)
                 return;
 
-            ListViewItem itemToDrag = GetListViewItem(m_ListView.SelectedIndex);
+            ListViewItem itemToDrag = GetListViewItem(m_IndexToSelect);
             if (itemToDrag == null)
+            {
                 return;
+            }
 
             AdornerLayer adornerLayer = ShowDragAdornerResolved ? InitializeAdornerLayer(itemToDrag) : null;
 
@@ -375,9 +379,13 @@ namespace WPF.JoshSmith.ServiceProviders.UI
                 // new index (according to where the mouse cursor is).  If it was
                 // not previously in the ListBox, then insert the item.
                 if (oldIndex > -1)
+                {
                     itemsSource.Move(oldIndex, newIndex);
+                }
                 else
+                {
                     itemsSource.Insert(newIndex, data);
+                }
 
                 // Set the Effects property so that the call to DoDragDrop will return 'Move'.
                 e.Effects = DragDropEffects.Move;
