@@ -9,30 +9,30 @@ namespace TodoApp2.UITests.Tests
     [SetUpFixture]
     public class SetUpClass
     {
-		Button WindowCloseButton;
-		public static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private Button WindowCloseButton;
+        public static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-		[OneTimeSetUp]
-		public void RunBeforeAnyTests()
-		{
-			Logger.Info("Setting up test fixture.");
+        [OneTimeSetUp]
+        public void RunBeforeAnyTests()
+        {
+            Logger.Info("Setting up test fixture.");
 
-			// Delete database file
-			Logger.Info("Deleting database file");
-			File.Delete(Constants.DatabasePath);
+            // Delete database file
+            Logger.Info("Deleting database file");
+            File.Delete(Constants.DatabasePath);
 
-			Logger.Info("Launching application...");
-			using var app = Application.AttachOrLaunch(Constants.ExeFileName);
+            Logger.Info("Launching application...");
+            using var app = Application.AttachOrLaunch(Constants.ExeFileName);
             WindowCloseButton = app.MainWindow.FindButton(UINames.CloseWindowButton);
-		}
+        }
 
-		[OneTimeTearDown]
-		public void RunAfterAnyTests()
-		{
-			Logger.Info("Cleaning up test fixture.");
-			Logger.Info("Shutting down application...");
+        [OneTimeTearDown]
+        public void RunAfterAnyTests()
+        {
+            Logger.Info("Cleaning up test fixture.");
+            Logger.Info("Shutting down application...");
             LogManager.Shutdown();
             WindowCloseButton.Invoke();
-		}
-	}
+        }
+    }
 }

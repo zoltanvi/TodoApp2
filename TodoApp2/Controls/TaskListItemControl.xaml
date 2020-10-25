@@ -8,6 +8,8 @@
              xmlns:jas="clr-namespace:WPF.JoshSmith.ServiceProviders.UI"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d"
+             xmlns:dd="urn:gong-wpf-dragdrop"
+             dd:DragDrop.DragSourceIgnore="{Binding IsEditMode}"
              MinHeight="46"
              x:Name="TaskListItemUC"
              AutomationProperties.AutomationId="TaskListItemUC"

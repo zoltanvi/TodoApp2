@@ -7,8 +7,8 @@ using Rect = System.Windows.Rect;
 
 namespace TodoApp2.UITests.Tests
 {
-    [TestFixture, Order(3)]
-    public class F003_SideMenuTests : TestBase
+    [TestFixture, Order(1)]
+    public class F001_SideMenuTests : TestBase
     {
         private const int s_SideMenuTreshold = 200;
         private Button m_SideMenuButton;
@@ -72,7 +72,7 @@ namespace TodoApp2.UITests.Tests
                 Logger.Info("Closing side menu with overlay background");
                 Point clickPosition = WindowCloseButton.Bounds.Center();
                 clickPosition.Y += edgeOffset;
-                Mouse.LeftClick(clickPosition);
+                MoveMouseAndClick(clickPosition);
 
                 Rect sideMenuRectAfter = GetUIElementRect(UINames.SideMenuPage);
                 Logger.Info($"Left before: {sideMenuRectBefore.Left}, left after: {sideMenuRectAfter.Left}");

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TodoApp2"
              mc:Ignorable="d"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              AutomationProperties.AutomationId="TaskListControl"
              d:DesignHeight="350" d:DesignWidth="380">
     <Grid Background="Transparent">
@@ -12,7 +13,9 @@
         <ListView 
             AutomationProperties.AutomationId="TaskListListView"
             x:Name="TaskListListView"
-            ItemsSource="{Binding Items}" 
+            ItemsSource="{Binding Items}"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
             BorderThickness="0"
             Background="Transparent"
             HorizontalContentAlignment="Stretch"
