@@ -11,7 +11,7 @@
         <Border Background="{StaticResource NavigatorBackgroundBrush}"
                 Width="200"
                 Height="34"
-                CornerRadius="4"
+                CornerRadius="8"
                 Padding="6 4 6 4">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -24,12 +24,12 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Style="{StaticResource ColorPickerButtonStyle}" Background="#EA1E63" Command="{Binding SetColorCommand}" CommandParameter="#EA1E63" />
-                <Button Grid.Column="1" Style="{StaticResource ColorPickerButtonStyle}" Background="#A970FF" Command="{Binding SetColorCommand}" CommandParameter="#A970FF" />
-                <Button Grid.Column="2" Style="{StaticResource ColorPickerButtonStyle}" Background="#2196F3" Command="{Binding SetColorCommand}" CommandParameter="#2196F3" />
+                <Button Grid.Column="0" Style="{StaticResource ColorPickerButtonStyle}" Background="#FA3C4C" Command="{Binding SetColorCommand}" CommandParameter="#FA3C4C" />
+                <Button Grid.Column="1" Style="{StaticResource ColorPickerButtonStyle}" Background="#DC80FF" Command="{Binding SetColorCommand}" CommandParameter="#DC80FF" />
+                <Button Grid.Column="2" Style="{StaticResource ColorPickerButtonStyle}" Background="#2168FF" Command="{Binding SetColorCommand}" CommandParameter="#2168FF" />
                 <Button Grid.Column="3" Style="{StaticResource ColorPickerButtonStyle}" Background="#8BC24A" Command="{Binding SetColorCommand}" CommandParameter="#8BC24A" />
                 <Button Grid.Column="4" Style="{StaticResource ColorPickerButtonStyle}" Background="#FFEB3C" Command="{Binding SetColorCommand}" CommandParameter="#FFEB3C" />
-                <Button Grid.Column="5" Style="{StaticResource ColorPickerButtonStyle}" Background="#FF9A14" Command="{Binding SetColorCommand}" CommandParameter="#FF9A14" />
+                <Button Grid.Column="5" Style="{StaticResource ColorPickerButtonStyle}" Background="#E98500" Command="{Binding SetColorCommand}" CommandParameter="#E98500" />
                 <Button Grid.Column="6" Style="{StaticResource ColorPickerButtonStyle}" Background="#565656" Command="{Binding SetColorCommand}" CommandParameter="Transparent" />
             </Grid>
         </Border>

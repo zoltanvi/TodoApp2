@@ -47,7 +47,9 @@
                         <ToggleButton
                             Grid.Column="0" Style="{DynamicResource ToggleSwitchLeftStyle}"
                             HorizontalAlignment="Left"
-                            IsChecked="{Binding IsReminderOn, Mode=TwoWay}" />
+                            IsChecked="{Binding IsReminderOn, Mode=TwoWay}" 
+                            Command="{Binding ChangeIsReminderOn}"
+                            />
 
                         <!--Title-->
                         <Label
@@ -146,10 +148,10 @@
                             Command="{Binding ResetReminderCommand}"
                         />
                         
-                        <!--SAVE button-->
+                        <!--SET button-->
                         <Button
                             Grid.Column="1"
-                            Content="Save"
+                            Content="Set"
                             Style="{DynamicResource ReminderButtonStyle}"
                             BorderThickness="1 0 0 0"
                             BorderBrush="{DynamicResource NotificationBorderBrush}"

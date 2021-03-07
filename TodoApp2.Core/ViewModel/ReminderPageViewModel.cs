@@ -29,12 +29,14 @@ namespace TodoApp2.Core
         public ICommand CloseReminderCommand { get; }
         public ICommand SetReminderCommand { get; }
         public ICommand ResetReminderCommand { get; }
+        public ICommand ChangeIsReminderOn { get; }
 
         public ReminderPageViewModel()
         {
             SetReminderCommand = new RelayCommand(SetReminder);
             ResetReminderCommand = new RelayCommand(ResetReminder);
             CloseReminderCommand = new RelayCommand(CloseReminder);
+            ChangeIsReminderOn = new RelayCommand(ChangeReminder);
             OverlayPageService.SetBackgroundClickedAction(CloseReminder);
         }
 
@@ -65,16 +67,11 @@ namespace TodoApp2.Core
 
         private void SetReminder()
         {
+            IsReminderOn = true;
+
             UpdateTaskReminder();
 
-            if (IsReminderOn)
-            {
-                NotificationService.SetReminder(ReminderTask);
-            }
-            else
-            {
-                NotificationService.DeleteReminder(ReminderTask);
-            }
+            NotificationService.SetReminder(ReminderTask);
 
             CloseReminder();
         }
@@ -88,6 +85,10 @@ namespace TodoApp2.Core
             SetReminder();
         }
 
+        private void ChangeReminder()
+        {
+            UpdateTaskReminder();
+        }
 
         private void CloseReminder()
         {

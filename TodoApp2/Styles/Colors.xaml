@@ -8,22 +8,22 @@
     <Color x:Key="ContentBackground">#1f1f1f</Color>
     <SolidColorBrush x:Key="ContentBackgroundBrush" Color="{StaticResource ContentBackground}" />
 
-    <Color x:Key="TitleBarBackground">#292929</Color>
+    <Color x:Key="TitleBarBackground">#2a2a2b</Color>
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackground}" />
 
     <Color x:Key="TitleBarButtonForeground">#ffffff</Color>
     <SolidColorBrush x:Key="TitleBarButtonForegroundBrush" Color="{StaticResource TitleBarButtonForeground}" />
 
-    <Color x:Key="CategoryTitleForeground">#ffffff</Color>
+    <Color x:Key="CategoryTitleForeground">#ECECEC</Color>
     <SolidColorBrush x:Key="CategoryTitleForegroundBrush" Color="{StaticResource CategoryTitleForeground}" />
 
-    <Color x:Key="CategoryTitleSelectedForeground">#47CBFF</Color>
+    <Color x:Key="CategoryTitleSelectedForeground">#41CFFF</Color>
     <SolidColorBrush x:Key="CategoryTitleSelectedForegroundBrush" Color="{StaticResource CategoryTitleSelectedForeground}" />
 
-    <Color x:Key="DescriptionForeground">#bdbdbd</Color>
+    <Color x:Key="DescriptionForeground">#EBEBEB</Color>
     <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="{StaticResource DescriptionForeground}" />
 
-    <Color x:Key="DescriptionForegroundEditMode">#9CDCFE</Color>
+    <Color x:Key="DescriptionForegroundEditMode">#41CFFF</Color>
     <SolidColorBrush x:Key="DescriptionForegroundEditModeBrush" Color="{StaticResource DescriptionForegroundEditMode}" />
 
     <Color x:Key="TimestampForeground">#bdbdbd</Color>
@@ -32,10 +32,10 @@
     <Color x:Key="TitleBarHoverButtonBackground">#333333</Color>
     <SolidColorBrush x:Key="TitleBarHoverButtonBackgroundBrush" Color="{StaticResource TitleBarHoverButtonBackground}" />
 
-    <Color x:Key="ApplicationBackground">#1f1f1f</Color>
+    <Color x:Key="ApplicationBackground">#1d1e1f</Color>
     <SolidColorBrush x:Key="ApplicationBackgroundBrush" Color="{StaticResource ApplicationBackground}" />
 
-    <Color x:Key="TaskItemBackground">#292929</Color>
+    <Color x:Key="TaskItemBackground">#2F3031</Color>
     <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{StaticResource TaskItemBackground}" />
 
     <Color x:Key="TaskItemHatchedBackground">#4d4d4d</Color>
@@ -44,7 +44,7 @@
     <Color x:Key="TaskItemHatchedHatch">#4d4d4d</Color>
     <SolidColorBrush x:Key="TaskItemHatchedHatchBrush" Color="{StaticResource TaskItemHatchedHatch}" />
 
-    <Color x:Key="TaskItemBackgroundTransparent">#00292929</Color>
+    <Color x:Key="TaskItemBackgroundTransparent">#002F3031</Color>
     <SolidColorBrush x:Key="TaskItemBackgroundTransparentBrush" Color="{StaticResource TaskItemBackgroundTransparent}" />
 
     <Color x:Key="TaskPageTextBoxBackground">#191919</Color>
@@ -89,13 +89,13 @@
     <Color x:Key="TaskItemButtonIcon">#bdbdbd</Color>
     <SolidColorBrush x:Key="TaskItemButtonIconBrush" Color="{StaticResource TaskItemButtonIcon}" />
 
-    <Color x:Key="TaskItemButtonHover">#52b788</Color>
+    <Color x:Key="TaskItemButtonHover">#41C669</Color>
     <SolidColorBrush x:Key="TaskItemButtonHoverBrush" Color="{StaticResource TaskItemButtonHover}" />
 
-    <Color x:Key="TaskItemButtonHoverYellow">#fddb3a</Color>
+    <Color x:Key="TaskItemButtonHoverYellow">#FFE464</Color>
     <SolidColorBrush x:Key="TaskItemButtonHoverYellowBrush" Color="{StaticResource TaskItemButtonHoverYellow}" />
 
-    <Color x:Key="TaskItemButtonHoverRed">#f25f5c</Color>
+    <Color x:Key="TaskItemButtonHoverRed">#FA504D</Color>
     <SolidColorBrush x:Key="TaskItemButtonHoverRedBrush" Color="{StaticResource TaskItemButtonHoverRed}" />
     
     <Color x:Key="BubbleBackground">#333333</Color>

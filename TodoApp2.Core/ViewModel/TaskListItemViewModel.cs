@@ -10,7 +10,7 @@ namespace TodoApp2.Core
     /// A view model for each task list item on the task page
     /// </summary>
     [DebuggerDisplay("[id {Id}] [ord {ListOrder}] [cat {CategoryId}] [fin {IsDone}] [del {Trashed}] [txt {Content}]")]
-    public class TaskListItemViewModel : BaseViewModel, IReorderable, IComparable
+    public class TaskListItemViewModel : BaseViewModel, IReorderable, IComparable, IEquatable<TaskListItemViewModel>
     {
         private ClientDatabase Database => IoC.ClientDatabase;
 
@@ -53,11 +53,11 @@ namespace TodoApp2.Core
             string trimmed = PendingEditContent.Replace("`", string.Empty);
             if (!string.IsNullOrWhiteSpace(PendingEditContent) && !string.IsNullOrWhiteSpace(trimmed))
             {
-                // Changes are accepted
-                Content = PendingEditContent;
-
                 // Persist changes into database
                 Database.UpdateTask(this);
+
+                // Changes are accepted
+                Content = PendingEditContent;
             }
 
             // Switch back from edit mode
@@ -102,31 +102,52 @@ namespace TodoApp2.Core
 
         public override bool Equals(object obj)
         {
-            bool returnValue = false;
+            return Equals(obj as TaskListItemViewModel);
+        }
 
-            if (obj is TaskListItemViewModel task)
-            {
-                returnValue = task.Id == Id;
-            }
-
-            return returnValue;
+        public bool Equals(TaskListItemViewModel other)
+        {
+            return other != null &&
+                   Id == other.Id &&
+                   CategoryId == other.CategoryId &&
+                   Content == other.Content &&
+                   ListOrder == other.ListOrder &&
+                   IsDone == other.IsDone &&
+                   CreationDate == other.CreationDate &&
+                   ModificationDate == other.ModificationDate &&
+                   Color == other.Color &&
+                   Trashed == other.Trashed &&
+                   ReminderDate == other.ReminderDate &&
+                   IsReminderOn == other.IsReminderOn &&
+                   ColorPickerVisible == other.ColorPickerVisible &&
+                   IsEditMode == other.IsEditMode &&
+                   PendingEditContent == other.PendingEditContent;
         }
 
         public override int GetHashCode()
         {
-            int hashCode = -2010238430;
+            int hashCode = -900010805;
             hashCode = hashCode * -1521134295 + Id.GetHashCode();
             hashCode = hashCode * -1521134295 + CategoryId.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Content);
             hashCode = hashCode * -1521134295 + ListOrder.GetHashCode();
             hashCode = hashCode * -1521134295 + IsDone.GetHashCode();
             hashCode = hashCode * -1521134295 + CreationDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + ModificationDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Color);
+            hashCode = hashCode * -1521134295 + Trashed.GetHashCode();
+            hashCode = hashCode * -1521134295 + ReminderDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + IsReminderOn.GetHashCode();
+            hashCode = hashCode * -1521134295 + ColorPickerVisible.GetHashCode();
+            hashCode = hashCode * -1521134295 + IsEditMode.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PendingEditContent);
             return hashCode;
         }
 
-        int IComparable.CompareTo(object obj)
+        public int CompareTo(object obj)
         {
             return Id.CompareTo(((TaskListItemViewModel)obj).Id);
         }
+
     }
 }

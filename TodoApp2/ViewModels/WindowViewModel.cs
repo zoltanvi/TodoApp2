@@ -160,7 +160,9 @@ namespace TodoApp2
             }
 
             // Bring to front
+            m_Window.Topmost = true;
             m_Window.Activate();
+            m_Window.Topmost = Application.IsAlwaysOnTop;
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
