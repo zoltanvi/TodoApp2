@@ -15,7 +15,7 @@ namespace TodoApp2.UITests.Automation
         public static readonly TimeSpan TwoSec = new TimeSpan(0, 0, 2);
         public static readonly TimeSpan ThreeSec = new TimeSpan(0, 0, 3);
 
-        public const int VeryFastMouseSpeed = 1500;
+        public const int VeryFastMouseSpeed = 1200;
         public const int FastMouseSpeed = 600;
         public const int NormalMouseSpeed = 300;
         public const int SlowMouseSpeed = 150;

@@ -15,17 +15,17 @@ namespace TodoApp2.Core
         /// The task to show the notification for.
         /// </summary>
         public TaskListItemViewModel ReminderTask { get; set; }
-        
+
         public DateTime SelectedDate { get; set; }
-        
+
         public string SelectedDateString { get; set; }
 
         public bool IsSelectedDateStringValid { get; set; }
-        
+
         public DateTime SelectedTime { get; set; }
-        
+
         public bool IsReminderOn { get; set; }
-        
+
         public ICommand CloseReminderCommand { get; }
         public ICommand SetReminderCommand { get; }
         public ICommand ResetReminderCommand { get; }
@@ -67,7 +67,12 @@ namespace TodoApp2.Core
 
         private void SetReminder()
         {
-            IsReminderOn = true;
+            SetReminder(true);
+        }
+
+        private void SetReminder(bool isReminderOn)
+        {
+            IsReminderOn = isReminderOn;
 
             UpdateTaskReminder();
 
@@ -80,9 +85,8 @@ namespace TodoApp2.Core
         {
             SelectedDate = DateTime.MinValue;
             SelectedTime = DateTime.MinValue;
-            IsReminderOn = false;
 
-            SetReminder();
+            SetReminder(false);
         }
 
         private void ChangeReminder()
@@ -95,7 +99,7 @@ namespace TodoApp2.Core
             if (!m_Closed)
             {
                 m_Closed = true;
-                
+
                 PropertyChanged -= OnViewModelPropertyChanged;
 
                 OverlayPageService.ClosePage();
@@ -118,7 +122,7 @@ namespace TodoApp2.Core
                 case nameof(SelectedDateString):
                 {
                     IsSelectedDateStringValid = false;
-                    
+
                     if (SelectedDateString.ConvertToDate(out DateTime selectedDate))
                     {
                         SelectedDate = selectedDate;

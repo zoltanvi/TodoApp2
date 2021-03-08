@@ -77,7 +77,7 @@ namespace TodoApp2.UITests.Tests
         public void T0060_DeleteThreeItems()
         {
             Logger.Info($"Commencing test {nameof(T0060_DeleteThreeItems)}");
-            List<int> indexes = new List<int> { 0, 1, 0 };
+            List<int> indexes = new List<int> { 0, 1, 0, 0, 0};
             DeleteListItemsAndAssert(indexes);
         }
 
@@ -85,19 +85,21 @@ namespace TodoApp2.UITests.Tests
         public void T0070_DragDrop_VeryFastSpeed()
         {
             Logger.Info($"Commencing test {nameof(T0070_DragDrop_VeryFastSpeed)}");
-            AssertListItems();
+            
+            AddListItemsAndAssert(3);
+            DragDropTaskListItem(0, 2, Constants.VeryFastMouseSpeed);
+            DragDropTaskListItem(0, 2, Constants.VeryFastMouseSpeed);
+            DragDropTaskListItem(1, 0, Constants.VeryFastMouseSpeed);
             DragDropTaskListItem(0, 1, Constants.VeryFastMouseSpeed);
-            DragDropTaskListItem(0, 1, Constants.VeryFastMouseSpeed);
-            DragDropTaskListItem(0, 1, Constants.VeryFastMouseSpeed);
-            DragDropTaskListItem(0, 1, Constants.VeryFastMouseSpeed);
-            DragDropTaskListItem(0, 1, Constants.VeryFastMouseSpeed);
+            DragDropTaskListItem(2, 0, Constants.VeryFastMouseSpeed);
+            Wait.For(Constants.OneSec);
         }
 
         [Test]
-        public void T0080_DeleteTwoItems()
+        public void T0080_DeleteThreeItems()
         {
-            Logger.Info($"Commencing test {nameof(T0080_DeleteTwoItems)}");
-            List<int> indexes = new List<int> { 1, 0 };
+            Logger.Info($"Commencing test {nameof(T0080_DeleteThreeItems)}");
+            List<int> indexes = new List<int> { 1, 0, 0};
             DeleteListItemsAndAssert(indexes);
         }
 

@@ -50,7 +50,7 @@ namespace TodoApp2.Core
         {
             // If the text is empty or only whitespace, refuse
             // If the text only contains format characters, refuse
-            string trimmed = PendingEditContent.Replace("`", string.Empty);
+            string trimmed = PendingEditContent?.Replace("`", string.Empty);
             if (!string.IsNullOrWhiteSpace(PendingEditContent) && !string.IsNullOrWhiteSpace(trimmed))
             {
                 // Persist changes into database
@@ -124,30 +124,9 @@ namespace TodoApp2.Core
                    PendingEditContent == other.PendingEditContent;
         }
 
-        public override int GetHashCode()
-        {
-            int hashCode = -900010805;
-            hashCode = hashCode * -1521134295 + Id.GetHashCode();
-            hashCode = hashCode * -1521134295 + CategoryId.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Content);
-            hashCode = hashCode * -1521134295 + ListOrder.GetHashCode();
-            hashCode = hashCode * -1521134295 + IsDone.GetHashCode();
-            hashCode = hashCode * -1521134295 + CreationDate.GetHashCode();
-            hashCode = hashCode * -1521134295 + ModificationDate.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Color);
-            hashCode = hashCode * -1521134295 + Trashed.GetHashCode();
-            hashCode = hashCode * -1521134295 + ReminderDate.GetHashCode();
-            hashCode = hashCode * -1521134295 + IsReminderOn.GetHashCode();
-            hashCode = hashCode * -1521134295 + ColorPickerVisible.GetHashCode();
-            hashCode = hashCode * -1521134295 + IsEditMode.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PendingEditContent);
-            return hashCode;
-        }
-
         public int CompareTo(object obj)
         {
             return Id.CompareTo(((TaskListItemViewModel)obj).Id);
         }
-
     }
 }

@@ -60,9 +60,19 @@ namespace TodoApp2.UITests.Tests
         {
             foreach (var index in indexes)
             {
+                Logger.Info($"Hovering item buttons at index [{index}].");
+
+                // Move mouse to make the buttons appear. 
+                // It is needed to get the bounds of the control.
+                var xPosition = TaskListView.Children[index].Bounds.Right - 20;
+                Mouse.MoveTo(new Point(xPosition, Mouse.Position.Y), Constants.FastMouseSpeed);
+
                 Logger.Info($"Deleting item at index [{index}].");
                 Button deleteButton = TaskListView.Children[index].FindButton(UINames.TaskListItemTrashBinButton);
+
                 MoveMouseAndClick(deleteButton);
+                Logger.Info($"Deleted item at index [{index}].");
+
                 ExpectedTaskList.RemoveAt(index);
                 AssertListItems();
             }
@@ -88,7 +98,7 @@ namespace TodoApp2.UITests.Tests
 
         protected void MoveMouseAndClick(UiElement uiElement)
         {
-            Mouse.MoveTo(uiElement.Bounds.Center(), Constants.VeryFastMouseSpeed);
+            Mouse.MoveTo(uiElement.Bounds.Center(), Constants.FastMouseSpeed);
             Mouse.LeftClick();
         }
 

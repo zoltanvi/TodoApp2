@@ -160,7 +160,7 @@ namespace TodoApp2.Core
         {
             // If the text is empty or only whitespace, refuse
             // If the text only contains format characters, refuse
-            string trimmed = PendingAddNewTaskText.Replace("`", string.Empty);
+            string trimmed = PendingAddNewTaskText?.Replace("`", string.Empty);
             if (string.IsNullOrWhiteSpace(PendingAddNewTaskText) || string.IsNullOrWhiteSpace(trimmed))
             {
                 return;
