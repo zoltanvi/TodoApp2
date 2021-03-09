@@ -150,6 +150,22 @@ namespace TodoApp2
         {
             bool playSound = (bool)obj;
 
+            if (!m_Window.IsVisible)
+            {
+                m_Window.Show();
+            }
+
+            if (m_Window.WindowState == WindowState.Minimized)
+            {
+                m_Window.WindowState = WindowState.Normal;
+            }
+
+            m_Window.Activate();
+            m_Window.Topmost = true;  // important
+            m_Window.Topmost = false; // important
+            m_Window.Focus();         // important
+            m_Window.Topmost = Application.IsAlwaysOnTop;
+
             // Flash the window 3 times
             m_Window.FlashWindow(3);
 
@@ -158,11 +174,6 @@ namespace TodoApp2
             {
                 WindowsEventSoundPlayer.PlayNotificationSound(EventSounds.MailBeep);
             }
-
-            // Bring to front
-            m_Window.Topmost = true;
-            m_Window.Activate();
-            m_Window.Topmost = Application.IsAlwaysOnTop;
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
