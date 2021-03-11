@@ -15,7 +15,7 @@
              AutomationProperties.AutomationId="TaskListItemUC"
              d:DesignHeight="60" d:DesignWidth="350">
 
-    <Grid Background="{StaticResource ContentBackgroundBrush}">
+    <Grid Background="{DynamicResource ContentBackgroundBrush}">
 
         <Border Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"
                 Margin="16 3"
@@ -52,7 +52,7 @@
                     Command="{Binding Path=Tag.TaskIsDoneModifiedCommand, ElementName=TaskListItemUC}"
                     CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center" Style="{StaticResource TaskCheckBoxStyle}" />
+                    HorizontalAlignment="Center" Style="{DynamicResource TaskCheckBoxStyle}" />
 
                 <!--Main content-->
                 <Grid Grid.Column="2" Margin="6">
@@ -71,7 +71,7 @@
                         Name="TaskListItemDisplayText"
                         Grid.Row="0"
                         Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
-                        Style="{StaticResource TaskListItemDescriptionTextBlockStyle}"
+                        Style="{DynamicResource TaskListItemDescriptionTextBlockStyle}"
                         Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                         Text="{Binding Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
                         local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text">
@@ -86,7 +86,7 @@
                         Grid.Row="0"
                         Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}"
                         local:FocusSetter.Value="{Binding IsEditMode}"
-                        Style="{StaticResource TaskListItemDescriptionTextBoxStyle}"
+                        Style="{DynamicResource TaskListItemDescriptionTextBoxStyle}"
                         Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                         Text="{Binding PendingEditContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         PreviewKeyDown="TextBox_PreviewKeyDown">
@@ -101,7 +101,7 @@
                     <!--Timestamp-->
                     <!--<TextBlock Grid.Row="1"
                                Text="2020-04-22 20:57"
-                               Foreground="{StaticResource TimestampForegroundBrush}"
+                               Foreground="{DynamicResource TimestampForegroundBrush}"
                                />-->
                 </Grid>
 
@@ -146,7 +146,7 @@
 
                     <Border HorizontalAlignment="Right"
                             CornerRadius="0 5 5 0"
-                            Background="{StaticResource TaskListItemHoverPanelBrush}"
+                            Background="{DynamicResource TaskListItemHoverPanelBrush}"
                             Padding="10 0 0 0">
 
                         <Grid>
@@ -160,22 +160,22 @@
                             <Button 
                                 AutomationProperties.AutomationId="TaskListItemCalendarButton"
                                 Grid.Column="0"
-                                Style="{StaticResource TaskItemButtonStyle}"
-                                Content="{StaticResource SegoeIconDateTime}"
+                                Style="{DynamicResource TaskItemButtonStyle}"
+                                Content="{DynamicResource SegoeIconDateTime}"
                                 Command="{Binding OpenReminderCommand}" />
                             <!--Palette button-->
                             <Button 
                                 AutomationProperties.AutomationId="TaskListItemPaletteButton"
                                 Grid.Column="1"
-                                Style="{StaticResource TaskItemButtonYellowStyle}"
-                                Content="{StaticResource SegoeIconPalette}"
+                                Style="{DynamicResource TaskItemButtonYellowStyle}"
+                                Content="{DynamicResource SegoeIconPalette}"
                                 Command="{Binding ShowColorPickerCommand}" />
                             <!--Trash button-->
                             <Button 
                                 AutomationProperties.AutomationId="TaskListItemTrashBinButton"
                                 Grid.Column="2"
-                                Style="{StaticResource TaskItemButtonRedStyle}"
-                                Content="{StaticResource SegoeIconTrash}"
+                                Style="{DynamicResource TaskItemButtonRedStyle}"
+                                Content="{DynamicResource SegoeIconTrash}"
                                 Command="{Binding Path=Tag.DeleteTaskItemCommand, ElementName=TaskListItemUC}"
                                 CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}" />
                         </Grid>

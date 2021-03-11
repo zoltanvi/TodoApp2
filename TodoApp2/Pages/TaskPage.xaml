@@ -9,7 +9,7 @@
       d:DesignHeight="480" d:DesignWidth="380"
       Title="TaskPage">
 
-    <Border Background="{StaticResource ApplicationBackgroundBrush}">
+    <Border Background="{DynamicResource ApplicationBackgroundBrush}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -20,14 +20,16 @@
             <TextBlock
                 Grid.Row="0"
                 Text="{Binding ApplicationViewModel.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}"
-                Style="{StaticResource CategoryTextBlockStyle}" />
+                Style="{DynamicResource CategoryTextBlockStyle}" />
 
             <local:TaskListControl Grid.Row="1" x:Name="MyTaskListControl" />
 
+            
+            
             <Border
                 x:Name="BottomBorderPanel"
                 Grid.Row="2"
-                Background="{StaticResource TaskPageTextBoxBackgroundBrush}"
+                Background="{DynamicResource TaskPageTextBoxBackgroundBrush}"
                 >
 
                 <TextBox
@@ -36,7 +38,7 @@
                     Tag="Add new task"
                     Text="{Binding PendingAddNewTaskText, UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="1"
-                    Style="{StaticResource AddNewTaskTextBoxStyle}"
+                    Style="{DynamicResource AddNewTaskTextBoxStyle}"
                     VerticalAlignment="Bottom"
                     Margin="0 0 1 0"
                     Padding="10 10 0 10"
@@ -49,6 +51,7 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.CanContentScroll="False" 
                     />
+
                 
             </Border>
         </Grid>

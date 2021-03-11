@@ -1,0 +1,179 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TodoApp2">
+    
+    <Color x:Key="ApplicationBorder">#77FF00</Color>
+    <SolidColorBrush x:Key="ApplicationBorderBrush" Color="{DynamicResource ApplicationBorder}" />
+
+    <Color x:Key="ContentBackground">#ECE2E2</Color>
+    <SolidColorBrush x:Key="ContentBackgroundBrush" Color="{DynamicResource ContentBackground}" />
+
+    <Color x:Key="TitleBarBackground">#4242D6</Color>
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{DynamicResource TitleBarBackground}" />
+
+    <Color x:Key="TitleBarButtonForeground">#ffffff</Color>
+    <SolidColorBrush x:Key="TitleBarButtonForegroundBrush" Color="{DynamicResource TitleBarButtonForeground}" />
+
+    <Color x:Key="CategoryTitleForeground">#ECECEC</Color>
+    <SolidColorBrush x:Key="CategoryTitleForegroundBrush" Color="{DynamicResource CategoryTitleForeground}" />
+
+    <Color x:Key="CategoryTitleSelectedForeground">#41CFFF</Color>
+    <SolidColorBrush x:Key="CategoryTitleSelectedForegroundBrush" Color="{DynamicResource CategoryTitleSelectedForeground}" />
+
+    <Color x:Key="DescriptionForeground">Black</Color>
+    <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="{DynamicResource DescriptionForeground}" />
+
+    <Color x:Key="DescriptionForegroundEditMode">#006D92</Color>
+    <SolidColorBrush x:Key="DescriptionForegroundEditModeBrush" Color="{DynamicResource DescriptionForegroundEditMode}" />
+
+    <Color x:Key="TimestampForeground">#bdbdbd</Color>
+    <SolidColorBrush x:Key="TimestampForegroundBrush" Color="{DynamicResource TimestampForeground}" />
+
+    <Color x:Key="TitleBarHoverButtonBackground">#333333</Color>
+    <SolidColorBrush x:Key="TitleBarHoverButtonBackgroundBrush" Color="{DynamicResource TitleBarHoverButtonBackground}" />
+
+    <Color x:Key="ApplicationBackground">#E4E7E9</Color>
+    <SolidColorBrush x:Key="ApplicationBackgroundBrush" Color="{DynamicResource ApplicationBackground}" />
+
+    <Color x:Key="TaskItemBackground">#B3E79F</Color>
+    <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{DynamicResource TaskItemBackground}" />
+
+    <Color x:Key="TaskItemHatchedBackground">#F14040</Color>
+    <SolidColorBrush x:Key="TaskItemHatchedBackgroundBrush" Color="{DynamicResource TaskItemHatchedBackground}" />
+
+    <Color x:Key="TaskItemHatchedHatch">#4d4d4d</Color>
+    <SolidColorBrush x:Key="TaskItemHatchedHatchBrush" Color="{DynamicResource TaskItemHatchedHatch}" />
+
+    <Color x:Key="TaskItemBackgroundTransparent">#002F3031</Color>
+    <SolidColorBrush x:Key="TaskItemBackgroundTransparentBrush" Color="{DynamicResource TaskItemBackgroundTransparent}" />
+
+    <Color x:Key="TaskPageTextBoxBackground">#191919</Color>
+    <SolidColorBrush x:Key="TaskPageTextBoxBackgroundBrush" Color="{DynamicResource TaskPageTextBoxBackground}" />
+
+    <Color x:Key="IconLabelForeground">#239051</Color>
+    <SolidColorBrush x:Key="IconLabelForegroundBrush" Color="{DynamicResource IconLabelForeground}" />
+
+    <Color x:Key="InputTextBoxForeground">#E1E1E1</Color>
+    <SolidColorBrush x:Key="InputTextBoxForegroundBrush" Color="{DynamicResource InputTextBoxForeground}" />
+
+    <Color x:Key="TextBoxPlaceholderForeground">#B800A5</Color>
+    <SolidColorBrush x:Key="TextBoxPlaceholderForegroundBrush" Color="{DynamicResource TextBoxPlaceholderForeground}" />
+
+    <Color x:Key="NavigatorBackground">#FFCA1E</Color>
+    <SolidColorBrush x:Key="NavigatorBackgroundBrush" Color="{DynamicResource NavigatorBackground}" />
+
+    <Color x:Key="OverlayBackground">#991f1f1f</Color>
+    <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="{DynamicResource OverlayBackground}" />
+
+    <Color x:Key="NavigatorBottomPanel">#292929</Color>
+    <SolidColorBrush x:Key="NavigatorBottomPanelBrush" Color="{DynamicResource NavigatorBottomPanel}" />
+
+    <Color x:Key="CheckBoxBorder">#7e7e7e</Color>
+    <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{DynamicResource CheckBoxBorder}" />
+
+    <Color x:Key="CheckBoxCheck">#7e7e7e</Color>
+    <SolidColorBrush x:Key="CheckBoxCheckBrush" Color="{DynamicResource CheckBoxCheck}" />
+
+    <Color x:Key="CheckBoxHoverBackground">#4F4F4F</Color>
+    <SolidColorBrush x:Key="CheckBoxHoverBackgroundBrush" Color="{DynamicResource CheckBoxHoverBackground}" />
+
+    <Color x:Key="ScrollbarStatic">#474747</Color>
+    <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="{DynamicResource ScrollbarStatic}" />
+
+    <Color x:Key="ScrollbarMouseOver">#474747</Color>
+    <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="{DynamicResource ScrollbarMouseOver}" />
+
+    <Color x:Key="ScrollbarPressed">#474747</Color>
+    <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="{DynamicResource ScrollbarPressed}" />
+
+    <Color x:Key="TaskItemButtonIcon">#bdbdbd</Color>
+    <SolidColorBrush x:Key="TaskItemButtonIconBrush" Color="{DynamicResource TaskItemButtonIcon}" />
+
+    <Color x:Key="TaskItemButtonHover">#41C669</Color>
+    <SolidColorBrush x:Key="TaskItemButtonHoverBrush" Color="{DynamicResource TaskItemButtonHover}" />
+
+    <Color x:Key="TaskItemButtonHoverYellow">#FFE464</Color>
+    <SolidColorBrush x:Key="TaskItemButtonHoverYellowBrush" Color="{DynamicResource TaskItemButtonHoverYellow}" />
+
+    <Color x:Key="TaskItemButtonHoverRed">#FA504D</Color>
+    <SolidColorBrush x:Key="TaskItemButtonHoverRedBrush" Color="{DynamicResource TaskItemButtonHoverRed}" />
+
+    <Color x:Key="BubbleBackground">#333333</Color>
+    <SolidColorBrush x:Key="BubbleBackgroundBrush" Color="{DynamicResource BubbleBackground}" />
+
+    <Color x:Key="ColorPickerBackground">#333333</Color>
+    <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="{DynamicResource ColorPickerBackground}" />
+
+    <Color x:Key="OverlayPageBackground">#333333</Color>
+    <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="{DynamicResource OverlayPageBackground}" />
+
+    <Color x:Key="NotificationBorder">#5C5C5C</Color>
+    <SolidColorBrush x:Key="NotificationBorderBrush" Color="{DynamicResource NotificationBorder}" />
+
+    <Color x:Key="ReminderDateBorder">#828282</Color>
+    <SolidColorBrush x:Key="ReminderDateBorderBrush" Color="{DynamicResource ReminderDateBorder}" />
+
+    <Color x:Key="ReminderDateInvalidBorder">#FF3100</Color>
+    <SolidColorBrush x:Key="ReminderDateInvalidBorderBrush" Color="{DynamicResource ReminderDateInvalidBorder}" />
+
+    <Color x:Key="SettingsButtonHoverForeground">#47CBFF</Color>
+    <SolidColorBrush x:Key="SettingsButtonHoverForegroundBrush" Color="{DynamicResource CategoryTitleSelectedForeground}" />
+
+    <Color x:Key="ToggleSwitchGlyph">#D0D0D0</Color>
+    <SolidColorBrush x:Key="ToggleSwitchGlyphBrush" Color="{DynamicResource ToggleSwitchGlyph}" />
+
+    <Color x:Key="ToggleSwitchGlyphHovered">#FFFFFF</Color>
+    <SolidColorBrush x:Key="ToggleSwitchGlyphHoveredBrush" Color="{DynamicResource ToggleSwitchGlyphHovered}" />
+
+    <Color x:Key="ToggleSwitchBackground">#292929</Color>
+    <SolidColorBrush x:Key="ToggleSwitchBackgroundBrush" Color="{DynamicResource ToggleSwitchBackground}" />
+
+    <Color x:Key="ToggleSwitchBackgroundHovered">#333333</Color>
+    <SolidColorBrush x:Key="ToggleSwitchBackgroundHoveredBrush" Color="{DynamicResource ToggleSwitchBackgroundHovered}" />
+
+    <Color x:Key="ToggleSwitchBorder">#D0D0D0</Color>
+    <SolidColorBrush x:Key="ToggleSwitchBorderBrush" Color="{DynamicResource ToggleSwitchBorder}" />
+
+    <Color x:Key="ToggleSwitchBorderHovered">#FFFFFF</Color>
+    <SolidColorBrush x:Key="ToggleSwitchBorderHoveredBrush" Color="{DynamicResource ToggleSwitchBorderHovered}" />
+
+    <Color x:Key="ToggleSwitchCheckedBackground">#DC9615</Color>
+    <SolidColorBrush x:Key="ToggleSwitchCheckedBackgroundBrush" Color="{DynamicResource ToggleSwitchCheckedBackground}" />
+
+    <Color x:Key="ToggleSwitchCheckedHoveredBackground">#D38D0C</Color>
+    <SolidColorBrush x:Key="ToggleSwitchCheckedHoveredBackgroundBrush" Color="{DynamicResource ToggleSwitchCheckedHoveredBackground}" />
+
+    <Color x:Key="TimePickerButtonBackground">#292929</Color>
+    <SolidColorBrush x:Key="TimePickerButtonBackgroundBrush" Color="{DynamicResource TimePickerButtonBackground}" />
+
+    <Color x:Key="TimePickerButtonBackgroundHovered">#494949</Color>
+    <SolidColorBrush x:Key="TimePickerButtonBackgroundHoveredBrush" Color="{DynamicResource TimePickerButtonBackgroundHovered}" />
+
+    <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF333333" />
+    <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF333333" />
+
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF000000" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF000000" />
+
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Background" Color="#FF4C91C8" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Border" Color="#FF4C91C8" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.On.Glyph" Color="#FFFFFFFF" />
+
+    <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FF999999" />
+    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF999999" />
+
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Background" Color="#FFCCCCCC" />
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Border" Color="#FFCCCCCC" />
+    <SolidColorBrush x:Key="RadioButton.Disabled.On.Glyph" Color="#FFA3A3A3" />
+
+    <SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FF999999" />
+    <SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF999999" />
+    <SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FFFFFFFF" />
+
+    <SolidColorBrush x:Key="RadioButton.Checked.Background" Color="#FF0063B1" />
+    <SolidColorBrush x:Key="RadioButton.Checked.Border" Color="#FF0063B1" />
+    <SolidColorBrush x:Key="RadioButton.Checked.Glyph" Color="#FFFFFFFF" />
+</ResourceDictionary>

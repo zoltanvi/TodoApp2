@@ -5,7 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
-        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="DarkTheme.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--The not-zero number defines the distance between the hatch lines-->
@@ -26,4 +26,5 @@
         <GradientStop Color="{StaticResource TaskItemBackground}" Offset="0.1" />
         <!--<GradientStop Color="{StaticResource TaskItemBackground}" Offset="1" />-->
     </LinearGradientBrush>
+    
 </ResourceDictionary>

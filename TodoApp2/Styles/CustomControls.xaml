@@ -4,7 +4,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
-        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="DarkTheme.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--Time picker-->

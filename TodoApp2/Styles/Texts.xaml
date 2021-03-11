@@ -5,7 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
-        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="DarkTheme.xaml" />
         <ResourceDictionary Source="ScrollBars.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

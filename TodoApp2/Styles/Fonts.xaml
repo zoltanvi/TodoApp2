@@ -28,4 +28,6 @@
     <system:String x:Key="SegoeIconCalendar">&#xE787;</system:String>
     <system:String x:Key="SegoeIconPalette">&#xE790;</system:String>
     <system:String x:Key="SegoeIconTrash">&#xE74D;</system:String>
+    <system:String x:Key="SegoeIconChangeTheme">&#xE793;</system:String>
+
 </ResourceDictionary>
