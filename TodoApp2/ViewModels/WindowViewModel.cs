@@ -144,6 +144,16 @@ namespace TodoApp2
 
         #endregion Constructors
 
+        #region Public methods
+
+        public void NotifyThemeChanged()
+        {
+            Mediator.Instance.NotifyClients(ViewModelMessages.ThemeChanged);
+        }
+
+        #endregion Public methods
+
+
         #region EventHandlers
 
         private void OnWindowFlashRequested(object obj)

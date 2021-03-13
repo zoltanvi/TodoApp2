@@ -15,11 +15,14 @@
     <Color x:Key="TitleBarButtonForeground">#ffffff</Color>
     <SolidColorBrush x:Key="TitleBarButtonForegroundBrush" Color="{DynamicResource TitleBarButtonForeground}" />
 
-    <Color x:Key="CategoryTitleForeground">#ECECEC</Color>
+    <Color x:Key="CategoryTitleForeground">#FFF1F1F1</Color>
     <SolidColorBrush x:Key="CategoryTitleForegroundBrush" Color="{DynamicResource CategoryTitleForeground}" />
+    
+    <Color x:Key="CategoryTitleBackground">#00000000</Color>
+    <SolidColorBrush x:Key="CategoryTitleBackgroundBrush" Color="{DynamicResource CategoryTitleBackground}" />
 
-    <Color x:Key="CategoryTitleSelectedForeground">#41CFFF</Color>
-    <SolidColorBrush x:Key="CategoryTitleSelectedForegroundBrush" Color="{DynamicResource CategoryTitleSelectedForeground}" />
+    <Color x:Key="CategoryTitleSelectedBackground">#222222</Color>
+    <SolidColorBrush x:Key="CategoryTitleSelectedBackgroundBrush" Color="{DynamicResource CategoryTitleSelectedBackground}" />
 
     <Color x:Key="DescriptionForeground">#EBEBEB</Color>
     <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="{DynamicResource DescriptionForeground}" />
@@ -39,14 +42,11 @@
     <Color x:Key="TaskItemBackground">#2F3031</Color>
     <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{DynamicResource TaskItemBackground}" />
 
-    <Color x:Key="TaskItemHatchedBackground">#4d4d4d</Color>
+    <Color x:Key="TaskItemHatchedBackground">Transparent</Color>
     <SolidColorBrush x:Key="TaskItemHatchedBackgroundBrush" Color="{DynamicResource TaskItemHatchedBackground}" />
 
-    <Color x:Key="TaskItemHatchedHatch">#4d4d4d</Color>
+    <Color x:Key="TaskItemHatchedHatch">#537F7F7F</Color>
     <SolidColorBrush x:Key="TaskItemHatchedHatchBrush" Color="{DynamicResource TaskItemHatchedHatch}" />
-
-    <Color x:Key="TaskItemBackgroundTransparent">#002F3031</Color>
-    <SolidColorBrush x:Key="TaskItemBackgroundTransparentBrush" Color="{DynamicResource TaskItemBackgroundTransparent}" />
 
     <Color x:Key="TaskPageTextBoxBackground">#191919</Color>
     <SolidColorBrush x:Key="TaskPageTextBoxBackgroundBrush" Color="{DynamicResource TaskPageTextBoxBackground}" />
@@ -177,5 +177,11 @@
     <SolidColorBrush x:Key="RadioButton.Checked.Background" Color="#FF0063B1" />
     <SolidColorBrush x:Key="RadioButton.Checked.Border" Color="#FF0063B1" />
     <SolidColorBrush x:Key="RadioButton.Checked.Glyph" Color="#FFFFFFFF" />
+
+    <!--NEW RESOURCES-->
+
+    <Color x:Key="BaseButtonForeground">#FFFFFF</Color>
+    <SolidColorBrush x:Key="BaseButtonForegroundBrush" Color="{DynamicResource BaseButtonForeground}" />
+
 
 </ResourceDictionary>

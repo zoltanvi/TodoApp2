@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
@@ -64,6 +65,9 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+            
+            // Subscribe to the theme changed event to repaint the list items when it happens
+            Mediator.Instance.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
 
         private void ModifyTaskIsDone(object obj)
@@ -221,6 +225,16 @@ namespace TodoApp2.Core
 
             // Fill the actual list with the queried items
             Items.AddRange(filteredItems);
+        }
+
+        private void OnThemeChanged(object obj)
+        {
+            // Save the current items
+            List<TaskListItemViewModel> itemsBackup = new List<TaskListItemViewModel>(Items);
+
+            // Clear the items and add back the cleared items to refresh the list (repaint)
+            Items.Clear();
+            Items.AddRange(itemsBackup);
         }
     }
 }

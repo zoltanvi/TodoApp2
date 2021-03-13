@@ -8,23 +8,4 @@
         <ResourceDictionary Source="DarkTheme.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <!--The not-zero number defines the distance between the hatch lines-->
-    <VisualBrush x:Key="HatchBrush" TileMode="Tile"
-                 Viewport="0,0,8,8" ViewportUnits="Absolute"
-                 Viewbox="0,0,8,8" ViewboxUnits="Absolute"
-                 po:Freeze="True">
-        <VisualBrush.Visual>
-            <Path Data="M 0 8 L 8 0"
-                  Stroke="{StaticResource TaskItemHatchedHatchBrush}" StrokeEndLineCap="Square"
-                  RenderOptions.EdgeMode="Aliased" />
-        </VisualBrush.Visual>
-    </VisualBrush>
-
-    <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush"
-                         StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="{StaticResource TaskItemBackgroundTransparent}" Offset="0" />
-        <GradientStop Color="{StaticResource TaskItemBackground}" Offset="0.1" />
-        <!--<GradientStop Color="{StaticResource TaskItemBackground}" Offset="1" />-->
-    </LinearGradientBrush>
-    
 </ResourceDictionary>

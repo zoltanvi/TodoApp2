@@ -41,7 +41,7 @@
     <Style TargetType="TextBlock" x:Key="CategoryTextBlockStyle">
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}" />
-        <Setter Property="Foreground" Value="{StaticResource CategoryTitleForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource CategoryTitleForegroundBrush}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Margin" Value="20 2 0 0" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />

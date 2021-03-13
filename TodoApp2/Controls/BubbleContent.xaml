@@ -18,7 +18,7 @@
             <!-- Speech bubble rectangle -->
             <Border CornerRadius="10"
                     Padding="15"
-                    Background="{StaticResource BubbleBackgroundBrush}">
+                    Background="{DynamicResource BubbleBackgroundBrush}">
 
                 <!-- Message text -->
                 <TextBlock VerticalAlignment="Center"
@@ -35,7 +35,7 @@
                       Data="M 0,0 L 10,10 L 20,0 L 0,0"
                       StrokeThickness="0"
                       HorizontalAlignment="Left"
-                      Fill="{StaticResource BubbleBackgroundBrush}" />
+                      Fill="{DynamicResource BubbleBackgroundBrush}" />
         </Grid>
     </Grid>
 </UserControl>

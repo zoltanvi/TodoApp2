@@ -42,7 +42,7 @@
                 <Border
                     AutomationProperties.AutomationId="TaskListItemColorBar"
                     Grid.Column="0"
-                    CornerRadius="3 0 0 3"
+                    CornerRadius="8 0 0 8"
                     Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}" />
 
                 <CheckBox
@@ -144,9 +144,10 @@
                         </EventTrigger>
                     </Border.Triggers>
 
+                    <!--Dummy binding, workaround for gradient brush not updating as a DynamicResource--> 
                     <Border HorizontalAlignment="Right"
-                            CornerRadius="0 5 5 0"
-                            Background="{DynamicResource TaskListItemHoverPanelBrush}"
+                            CornerRadius="0 8 8 0"
+                            Background="{DynamicResource TaskItemBackgroundBrush}"
                             Padding="10 0 0 0">
 
                         <Grid>

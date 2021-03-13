@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -69,6 +70,9 @@ namespace TodoApp2.Core
             // Get the current category from the database
             CategoryListItemViewModel selectedCategory = Database.GetCategory(Application.ApplicationSettings.CurrentCategory);
             SetCurrentCategory(selectedCategory?.Name);
+
+            // Subscribe to the theme changed event to repaint the list items when it happens
+            Mediator.Instance.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
 
         private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -201,6 +205,16 @@ namespace TodoApp2.Core
         {
             Application.IsAlwaysOnTop = !Application.IsAlwaysOnTop;
             OverlayPageService.CloseSideMenu();
+        }
+
+        private void OnThemeChanged(object obj)
+        {
+            // Save the current items
+            List<CategoryListItemViewModel> itemsBackup = new List<CategoryListItemViewModel>(Items);
+
+            // Clear the items and add back the cleared items to refresh the list (repaint)
+            Items.Clear();
+            Items.AddRange(itemsBackup);
         }
     }
 }

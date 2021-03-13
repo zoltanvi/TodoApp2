@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
+using System.Windows.Media;
 
 namespace TodoApp2
 {
@@ -10,12 +11,13 @@ namespace TodoApp2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private WindowViewModel m_WindowViewModel;
         private bool m_Light = false;
         public MainWindow()
         {
             InitializeComponent();
-
-            DataContext = new WindowViewModel(this);
+            m_WindowViewModel = new WindowViewModel(this);
+            DataContext = m_WindowViewModel;
         }
 
         private void ChangeTheme(object sender, RoutedEventArgs e)
@@ -29,34 +31,36 @@ namespace TodoApp2
             ChangeTheme(oldTheme, newTheme);
         }
 
-        public void ChangeTheme(string oldTheme, string newTheme)
+        private void ChangeTheme(string oldTheme, string newTheme)
         {
-            var oldUri = new Uri(oldTheme, UriKind.RelativeOrAbsolute);
-            var newUri = new Uri(newTheme, UriKind.RelativeOrAbsolute);
+            Uri oldUri = new Uri(oldTheme, UriKind.RelativeOrAbsolute);
+            Uri newUri = new Uri(newTheme, UriKind.RelativeOrAbsolute);
 
-            SearchAndReplace(Application.Current.Resources, oldUri, newUri);
+            SearchAndReplaceAll(Application.Current.Resources, oldUri, newUri);
+            m_WindowViewModel.NotifyThemeChanged();
         }
 
-        private void SearchAndReplace(ResourceDictionary baseDictionary, Uri oldDictionary, Uri newDictionary)
+        private void SearchAndReplaceAll(ResourceDictionary rootDictionary, Uri oldDictionary, Uri newDictionary)
         {
-            if (baseDictionary.MergedDictionaries.Count > 0)
+            if (rootDictionary.MergedDictionaries.Count > 0)
             {
-                ResourceDictionary foundDictionary = baseDictionary.MergedDictionaries
+                ResourceDictionary foundDictionary = rootDictionary.MergedDictionaries
                     .FirstOrDefault(i => oldDictionary.AbsoluteUri.EndsWith(i.Source.OriginalString));
                 
                 if(foundDictionary != null)
                 {
                     ResourceDictionary newRes = new ResourceDictionary() { Source = newDictionary };
-                    int index = baseDictionary.MergedDictionaries.IndexOf(foundDictionary);
-                    baseDictionary.MergedDictionaries.RemoveAt(index);
-                    baseDictionary.MergedDictionaries.Insert(index, newRes);
+                    int index = rootDictionary.MergedDictionaries.IndexOf(foundDictionary);
+                    rootDictionary.MergedDictionaries.RemoveAt(index);
+                    rootDictionary.MergedDictionaries.Insert(index, newRes);
                 }
 
-                foreach (ResourceDictionary item in baseDictionary.MergedDictionaries)
+                foreach (ResourceDictionary item in rootDictionary.MergedDictionaries)
                 {
-                    SearchAndReplace(item, oldDictionary, newDictionary);
+                    SearchAndReplaceAll(item, oldDictionary, newDictionary);
                 }
             }
         }
+
     }
 }

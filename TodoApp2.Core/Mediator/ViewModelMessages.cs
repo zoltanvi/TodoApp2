@@ -19,5 +19,10 @@
         /// The opened notification closed
         /// </summary>
         NotificationClosed,
+
+        /// <summary>
+        /// The Application theme changed
+        /// </summary>
+        ThemeChanged,
     }
 }

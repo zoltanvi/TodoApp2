@@ -10,6 +10,12 @@
              mc:Ignorable="d"
              d:DesignHeight="60" d:DesignWidth="350">
     <Grid x:Name="ParentGrid">
+        <Grid.Background>
+            <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Name"/>
+                <Binding Path="ApplicationViewModel.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
+            </MultiBinding>
+        </Grid.Background>
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -23,15 +29,15 @@
             AutomationProperties.AutomationId="CategoryListItemText"
             Grid.Column="0"
                Text="{Binding Name}"
-               Style="{StaticResource CategoryTextBlockStyle}"
-               FontSize="{StaticResource FontSizeLarge}"
+               Style="{DynamicResource CategoryTextBlockStyle}"
+               FontSize="{DynamicResource FontSizeLarge}"
                Margin="20 5 30 5">
-            <TextBlock.Foreground>
+            <!--<TextBlock.Foreground>
                 <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="Name"/>
                     <Binding Path="ApplicationViewModel.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
                 </MultiBinding>
-            </TextBlock.Foreground>
+            </TextBlock.Foreground>-->
         </TextBlock>
 
         <Border 
@@ -77,8 +83,8 @@
                 <!--Trash button-->
                 <Button 
                     AutomationProperties.AutomationId="CategoryListItemTrashBinButton"
-                    Style="{StaticResource TaskItemButtonRedStyle}"
-                    Content="{StaticResource SegoeIconTrash}"
+                    Style="{DynamicResource TaskItemButtonRedStyle}"
+                    Content="{DynamicResource SegoeIconTrash}"
                     Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"
                     CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}" />
             </Grid>

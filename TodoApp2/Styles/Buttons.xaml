@@ -12,7 +12,7 @@
     <Style TargetType="Button" x:Key="ButtonBaseStyle">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="white" />
+        <Setter Property="Foreground" Value="{DynamicResource BaseButtonForegroundBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -37,7 +37,7 @@
     <Style TargetType="Button" x:Key="HoveringIconButtonBaseStyle" BasedOn="{StaticResource IconButtonBaseStyle}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource TitleBarHoverButtonBackgroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TitleBarHoverButtonBackgroundBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -60,19 +60,19 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource TaskItemButtonHoverBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonHoverBrush}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
-                <Setter Property="Foreground" Value="{StaticResource TaskItemButtonIconBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonIconBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <!--Task Item button pink-->
+    <!--Task Item button yellow-->
     <Style TargetType="Button" x:Key="TaskItemButtonYellowStyle" BasedOn="{StaticResource TaskItemButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource TaskItemButtonHoverYellowBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonHoverYellowBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -81,7 +81,7 @@
     <Style TargetType="Button" x:Key="TaskItemButtonRedStyle" BasedOn="{StaticResource TaskItemButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource TaskItemButtonHoverRedBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonHoverRedBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -146,7 +146,7 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource SettingsButtonHoverForegroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource SettingsButtonHoverForegroundBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -154,7 +154,7 @@
     <!--Toggle Button style-->
     <Style x:Key="ToggleSwitchLeftStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{StaticResource ToggleSwitchBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchBorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="BorderThickness" Value="2" />
@@ -174,10 +174,10 @@
                                         <DoubleAnimation To="0" Duration="0:0:0.0" Storyboard.TargetName="normalBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
                                         <DoubleAnimation To="1" Duration="0:0:0.0" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMark" Storyboard.TargetProperty="Fill" Duration="0:0:0.0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchGlyphHoveredBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ToggleSwitchGlyphHoveredBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMarkOn" Storyboard.TargetProperty="Fill" Duration="0:0:0.0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleSwitchGlyphHoveredBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ToggleSwitchGlyphHoveredBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -257,17 +257,17 @@
                                   VerticalAlignment="Center"
 								  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
                             <Border x:Name="normalBorder" Opacity="1" BorderThickness="2" CornerRadius="10"
-										BorderBrush="{TemplateBinding BorderBrush}" Background="{StaticResource ToggleSwitchBackgroundBrush}" />
+										BorderBrush="{TemplateBinding BorderBrush}" Background="{DynamicResource ToggleSwitchBackgroundBrush}" />
                             <Border x:Name="checkedBorder" Opacity="0" BorderThickness="0" CornerRadius="10"
-										BorderBrush="{StaticResource ToggleSwitchCheckedBackgroundBrush}" Background="{StaticResource ToggleSwitchCheckedBackgroundBrush}" />
+										BorderBrush="{DynamicResource ToggleSwitchCheckedBackgroundBrush}" Background="{DynamicResource ToggleSwitchCheckedBackgroundBrush}" />
                             <Border x:Name="hoverBorder" Opacity="0" BorderThickness="2" CornerRadius="10"
-										BorderBrush="{StaticResource ToggleSwitchBorderHoveredBrush}" Background="{StaticResource ToggleSwitchBackgroundBrush}" />
+										BorderBrush="{DynamicResource ToggleSwitchBorderHoveredBrush}" Background="{DynamicResource ToggleSwitchBackgroundBrush}" />
                             <Border x:Name="pressedBorder" Opacity="0" BorderThickness="0" CornerRadius="10"
 										BorderBrush="{StaticResource RadioButton.Pressed.Border}" Background="{StaticResource RadioButton.Pressed.Background}" />
                             <Border x:Name="disabledBorder" Opacity="0" BorderThickness="2" CornerRadius="10"
 										BorderBrush="{StaticResource RadioButton.Disabled.Border}" Background="{StaticResource RadioButton.Disabled.Background}" />
                             <Ellipse x:Name="optionMark"
-										 Height="10" Width="10" Fill="{StaticResource ToggleSwitchGlyphBrush}" StrokeThickness="0"
+										 Height="10" Width="10" Fill="{DynamicResource ToggleSwitchGlyphBrush}" StrokeThickness="0"
 										 VerticalAlignment="Center" Margin="5,0" RenderTransformOrigin="0.5,0.5">
                                 <Ellipse.RenderTransform>
                                     <TransformGroup>

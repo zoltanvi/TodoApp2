@@ -10,7 +10,7 @@
                 d:DesignHeight="450" d:DesignWidth="400">
 
     <Grid>
-        <Border Background="{StaticResource OverlayPageBackgroundBrush}"
+        <Border Background="{DynamicResource OverlayPageBackgroundBrush}"
                 CornerRadius="5"
                 Margin="20 70">
 
@@ -26,7 +26,7 @@
                 <Border
                     Grid.Row="0"
                     BorderThickness="0 0 0 1"
-                    BorderBrush="{StaticResource NotificationBorderBrush}">
+                    BorderBrush="{DynamicResource NotificationBorderBrush}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -38,13 +38,13 @@
                             Grid.ColumnSpan="2"
                             Content="Reminder"
                             Height="30"
-                            Style="{StaticResource NotificationTitleStyle}" />
+                            Style="{DynamicResource NotificationTitleStyle}" />
 
                         <!--Command="{Binding CloseCommand}"-->
                         <Button
                             Grid.Column="1"
-                            Style="{StaticResource NotificationCloseButtonStyle}"
-                            Content="{StaticResource SegoeIconCloseWindow}"
+                            Style="{DynamicResource NotificationCloseButtonStyle}"
+                            Content="{DynamicResource SegoeIconCloseWindow}"
                             Command="{Binding CloseNotificationCommand}" />
                     </Grid>
                 </Border>
@@ -66,8 +66,8 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.RowSpan="2"
-                        Content="{StaticResource SegoeIconCalendar}"
-                        Style="{StaticResource IconLabelLargeStyle}"
+                        Content="{DynamicResource SegoeIconCalendar}"
+                        Style="{DynamicResource IconLabelLargeStyle}"
                         Margin="14 0 0 0"
                         VerticalAlignment="Center" />
 
@@ -75,19 +75,19 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Content="{Binding NotificationTaskCategory}"
-                        Style="{StaticResource NotificationCategoryTitleStyle}" />
+                        Style="{DynamicResource NotificationCategoryTitleStyle}" />
 
                     <Label
                         Grid.Row="1"
                         Grid.Column="1"
                         Content="{Binding NotificationTask.ReminderDate,
                             Converter={local:LongToFormattedDateConverter}}"
-                        Style="{StaticResource NotificationReminderDateStyle}" />
+                        Style="{DynamicResource NotificationReminderDateStyle}" />
                 </Grid>
 
                 <ScrollViewer Grid.Row="3"
                               Margin="16 10 0 16"
-                              Template="{StaticResource TaskListControlScrollViewerControlTemplate}">
+                              Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
                     <TextBlock
                         Margin="0 0 18 0"
                         Text="{Binding NotificationTask.Content}"

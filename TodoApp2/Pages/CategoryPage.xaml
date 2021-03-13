@@ -30,8 +30,9 @@
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"
+                HorizontalAlignment="Center"
                 Text="Categories"
-                Style="{StaticResource CategoryTextBlockStyle}"
+                Style="{DynamicResource CategoryTextBlockStyle}"
                 Margin="20 4 0 0" />
 
             <!--Settings button-->
@@ -39,8 +40,8 @@
                 AutomationProperties.AutomationId="SettingsButton"
                 Grid.Row="0"
                 Grid.Column="1"
-                Style="{StaticResource SettingsButtonStyle}"
-                Content="{StaticResource SegoeIconSettings}"
+                Style="{DynamicResource SettingsButtonStyle}"
+                Content="{DynamicResource SegoeIconSettings}"
                 Command="{Binding ToggleAlwaysOnTopCommand}" />
 
             <!--Category list-->
@@ -50,7 +51,7 @@
                 Margin="0 20 0 0" />
         </Grid>
         <!--ADD NEW CATEGORY-->
-        <Border Background="{StaticResource NavigatorBottomPanelBrush}" Grid.Row="1">
+        <Border Background="{DynamicResource NavigatorBottomPanelBrush}" Grid.Row="1">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -60,8 +61,8 @@
 
                 <!--<Label
                     Grid.Column="0"
-                    Content="{StaticResource SegoeIconAdd}"
-                    Style="{StaticResource IconLabelStyle}"
+                    Content="{DynamicResource SegoeIconAdd}"
+                    Style="{DynamicResource IconLabelStyle}"
                     Margin="20 0 0 0"
                     VerticalAlignment="Center"
                 />-->
