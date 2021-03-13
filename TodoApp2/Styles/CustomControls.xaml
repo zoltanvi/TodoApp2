@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:TodoApp2" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit">
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit">
 
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
@@ -13,7 +14,7 @@
         <Setter Property="Foreground" Value="White" />
         <Setter Property="BorderBrush" Value="#5C5C5C" />
         <Setter Property="BorderThickness" Value="1,1,1,1" />
-        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontSize" Value="18" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -318,7 +319,6 @@
     <SolidColorBrush x:Key="CalendarItemMouseOverBackgroundBrush" Color="{StaticResource CalendarItemMouseOverBackground}" />
     <Color x:Key="CalendarItemSelectedBackground">red</Color>
 
-    
     <!--Calendar day view style-->
     <Style x:Key="CalendarDayButtonStyle" TargetType="{x:Type CalendarDayButton}">
         <Setter Property="Background" Value="{StaticResource CalendarItemMouseOverBackgroundBrush}" />
@@ -460,7 +460,6 @@
     <Color x:Key="DisabledControlLightColor">#FFE8EDF9</Color>
     <Color x:Key="DisabledControlDarkColor">#FFC5CBF9</Color>
     <Color x:Key="DisabledForegroundColor">#FF888888</Color>
-
 
     <Color x:Key="SelectedUnfocusedColor">#FFDDDDDD</Color>
 

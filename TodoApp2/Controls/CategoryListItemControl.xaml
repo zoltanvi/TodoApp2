@@ -1,9 +1,9 @@
 ﻿<UserControl x:Class="TodoApp2.CategoryListItemControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:TodoApp2"
              x:Name="CategoryListItemUC"
              AutomationProperties.AutomationId="CategoryListItemUC"
@@ -12,7 +12,7 @@
     <Grid x:Name="ParentGrid">
         <Grid.Background>
             <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
-                <Binding Path="Name"/>
+                <Binding Path="Name" />
                 <Binding Path="ApplicationViewModel.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
             </MultiBinding>
         </Grid.Background>
@@ -25,7 +25,7 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-        <TextBlock 
+        <TextBlock
             AutomationProperties.AutomationId="CategoryListItemText"
             Grid.Column="0"
                Text="{Binding Name}"
@@ -34,13 +34,13 @@
                Margin="20 5 30 5">
             <!--<TextBlock.Foreground>
                 <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
-                    <Binding Path="Name"/>
+                    <Binding Path="Name" />
                     <Binding Path="ApplicationViewModel.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
                 </MultiBinding>
             </TextBlock.Foreground>-->
         </TextBlock>
 
-        <Border 
+        <Border
             Grid.Column="0"
             x:Name="HoverButtonBorder"
             Opacity="0"
@@ -79,9 +79,9 @@
             <Grid HorizontalAlignment="Right"
                  VerticalAlignment="Center"
                  Margin="0 0 10 0">
-                
+
                 <!--Trash button-->
-                <Button 
+                <Button
                     AutomationProperties.AutomationId="CategoryListItemTrashBinButton"
                     Style="{DynamicResource TaskItemButtonRedStyle}"
                     Content="{DynamicResource SegoeIconTrash}"

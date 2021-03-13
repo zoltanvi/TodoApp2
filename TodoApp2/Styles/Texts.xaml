@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:TodoApp2"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
@@ -45,14 +44,14 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Margin" Value="20 2 0 0" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-        <!--<Setter Property="TextDecorations" >
+        <!--<Setter Property="TextDecorations">
             <Setter.Value>
                 <TextDecorationCollection>
                     <TextDecoration PenThicknessUnit="FontRecommended">
                         <TextDecoration.Pen>
-                            <Pen Brush="White" Thickness="1.5" >
+                            <Pen Brush="White" Thickness="1.5">
                                 <Pen.DashStyle>
-                                    <DashStyle Dashes="2"/>
+                                    <DashStyle Dashes="2" />
                                 </Pen.DashStyle>
                             </Pen>
                         </TextDecoration.Pen>

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows;
 using System.Linq;
-using System.Windows.Media;
+using System.Windows;
 
 namespace TodoApp2
 {
@@ -13,6 +11,7 @@ namespace TodoApp2
     {
         private WindowViewModel m_WindowViewModel;
         private bool m_Light = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -46,8 +45,8 @@ namespace TodoApp2
             {
                 ResourceDictionary foundDictionary = rootDictionary.MergedDictionaries
                     .FirstOrDefault(i => oldDictionary.AbsoluteUri.EndsWith(i.Source.OriginalString));
-                
-                if(foundDictionary != null)
+
+                if (foundDictionary != null)
                 {
                     ResourceDictionary newRes = new ResourceDictionary() { Source = newDictionary };
                     int index = rootDictionary.MergedDictionaries.IndexOf(foundDictionary);
@@ -61,6 +60,5 @@ namespace TodoApp2
                 }
             }
         }
-
     }
 }

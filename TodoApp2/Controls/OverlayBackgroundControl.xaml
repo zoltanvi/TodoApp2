@@ -11,39 +11,37 @@
              d:DesignHeight="500" d:DesignWidth="350">
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
-            
+
             <Grid>
                 <!--Overlay background is behind the content-->
-                <Border 
+                <Border
                     AutomationProperties.AutomationId="OverlayBackgroundBorder"
-                   
+
                     x:Name="OverlayBackgroundBorder"
                         Background="{DynamicResource OverlayBackgroundBrush}"
-                        Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, 
-                                    Source={x:Static local:ViewModelLocator.Instance}, 
+                        Visibility="{Binding OverlayPageService.OverlayBackgroundVisible,
+                                    Source={x:Static local:ViewModelLocator.Instance},
                                     Converter={local:BoolToVisibilityConverter}}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, 
+                            <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand,
                                                             Source={x:Static local:ViewModelLocator.Instance}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Border>
 
                 <!-- Overlay page is in front of the background-->
-                <!--This is important since we only want to handle the 
+                <!--This is important since we only want to handle the
                     mousedown event if the background is clicked and not the content area-->
                 <local:PageHost
                     AutomationProperties.AutomationId="OverlayPageContent"
-                        local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, 
+                        local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible,
                                                          Source={x:Static local:ViewModelLocator.Instance}}"
-                        CurrentPage="{Binding ApplicationViewModel.OverlayPage, 
+                        CurrentPage="{Binding ApplicationViewModel.OverlayPage,
                                      Source={x:Static local:ViewModelLocator.Instance}}"
-                        CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel, 
-                                              Source={x:Static local:ViewModelLocator.Instance}}"
-                        />
+                        CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel,
+                                              Source={x:Static local:ViewModelLocator.Instance}}" />
             </Grid>
-            
         </ControlTemplate>
     </UserControl.Template>
 </UserControl>

@@ -24,13 +24,10 @@
 
             <local:TaskListControl Grid.Row="1" x:Name="MyTaskListControl" />
 
-            
-            
             <Border
                 x:Name="BottomBorderPanel"
                 Grid.Row="2"
-                Background="{DynamicResource TaskPageTextBoxBackgroundBrush}"
-                >
+                Background="{DynamicResource TaskPageTextBoxBackgroundBrush}">
 
                 <TextBox
                     AutomationProperties.AutomationId="AddNewTaskTextBox"
@@ -49,10 +46,7 @@
                     PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.CanContentScroll="False" 
-                    />
-
-                
+                    ScrollViewer.CanContentScroll="False" />
             </Border>
         </Grid>
     </Border>

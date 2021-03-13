@@ -24,9 +24,8 @@ namespace TodoApp2
             // Get the text box
             if (sender is TextBox textBox)
             {
-                if(e.Key == Key.Enter)
+                if (e.Key == Key.Enter)
                 {
-
                 }
             }
         }

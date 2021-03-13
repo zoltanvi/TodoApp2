@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using TodoApp2.Core;
@@ -42,6 +41,5 @@ namespace TodoApp2
             // Add task on enter, handle modifier keys
             TextBoxPreviewKeyDownHelper.TextBox_PreviewKeyDown(sender, e, ViewModel.AddTask);
         }
-
     }
 }

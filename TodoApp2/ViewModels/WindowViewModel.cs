@@ -153,7 +153,6 @@ namespace TodoApp2
 
         #endregion Public methods
 
-
         #region EventHandlers
 
         private void OnWindowFlashRequested(object obj)
@@ -270,7 +269,6 @@ namespace TodoApp2
 
         #region Private helpers
 
-    
         /// <summary>
         /// Gets the current mouse position on the screen
         /// </summary>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,7 +15,6 @@ namespace TodoApp2
 
         public static readonly DependencyProperty FormatTextOnTargetUpdatedProperty = DependencyProperty.RegisterAttached(
                "FormatTextOnTargetUpdated", typeof(DependencyProperty), typeof(InputBindingsManager), new PropertyMetadata(null, OnFormatTextOnTargetUpdatedPropertyChanged));
-
 
         private static readonly FontFamily ConsolasFont = new FontFamily("Consolas");
         private static readonly SolidColorBrush HighLightColor = new SolidColorBrush(Color.FromRgb(78, 201, 176));
@@ -39,7 +37,7 @@ namespace TodoApp2
 
         private static void OnUpdatePropertyOnEnterPressPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            if(dependencyObject is UIElement element)
+            if (dependencyObject is UIElement element)
             {
                 if (e.OldValue != null)
                 {
@@ -116,7 +114,7 @@ namespace TodoApp2
                 // When the current char is a format char, save the text buffer
                 // into the inline collection with the corresponding formatting
                 // and switch formatting on / off
-                // So basically this only switches the formatting flag on/off and writes the text 
+                // So basically this only switches the formatting flag on/off and writes the text
                 StringBuilder stringBuilder = new StringBuilder();
                 foreach (char character in text)
                 {

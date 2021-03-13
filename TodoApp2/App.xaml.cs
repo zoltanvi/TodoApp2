@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Windows;
 using TodoApp2.Core;
@@ -12,6 +11,7 @@ namespace TodoApp2
     public partial class App : Application
     {
         private string m_CrashReportPath;
+
         /// <summary>
         /// Custom startup so we load our IoC immediately before anything else
         /// </summary>
@@ -27,7 +27,7 @@ namespace TodoApp2
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
-            
+
             string appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string crashReportFileName = "TodoApp2_CrashReport.txt";
             m_CrashReportPath = Path.Combine(appDataFolderPath, crashReportFileName);

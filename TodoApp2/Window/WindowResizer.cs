@@ -12,6 +12,7 @@ namespace TodoApp2
         {
             IsDocked = isDocked;
         }
+
         public bool IsDocked { get; }
     }
 
@@ -24,10 +25,12 @@ namespace TodoApp2
         /// Not docked
         /// </summary>
         Undocked,
+
         /// <summary>
         /// Docked to the left of the screen
         /// </summary>
         Left,
+
         /// <summary>
         /// Docked to the right of the screen
         /// </summary>
@@ -72,6 +75,7 @@ namespace TodoApp2
         private WindowDockPosition m_LastDock = WindowDockPosition.Undocked;
 
         private bool m_IsSnapped;
+
         private bool IsSnapped
         {
             get => m_IsSnapped;
@@ -84,23 +88,25 @@ namespace TodoApp2
                 }
             }
         }
-        #endregion
+
+        #endregion Private Members
 
         #region Dll Imports
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetCursorPos(out POINT lpPoint);
+        private static extern bool GetCursorPos(out POINT lpPoint);
 
         [DllImport("user32.dll")]
-        static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
+        private static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
+        private static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
 
         [DllImport("user32")]
         private static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
-        #endregion
+
+        #endregion Dll Imports
 
         #region Public Events
 
@@ -111,7 +117,7 @@ namespace TodoApp2
 
         public event EventHandler<DockChangeEventArgs> IsDockedChanged;
 
-        #endregion
+        #endregion Public Events
 
         #region Constructor
 
@@ -134,8 +140,7 @@ namespace TodoApp2
             m_Window.SizeChanged += Window_SizeChanged;
         }
 
-
-        #endregion
+        #endregion Constructor
 
         #region Initialize
 
@@ -177,7 +182,7 @@ namespace TodoApp2
             handleSource.AddHook(WindowProc);
         }
 
-        #endregion
+        #endregion Initialize
 
         #region Edge Docking
 
@@ -233,7 +238,7 @@ namespace TodoApp2
             m_LastDock = dock;
         }
 
-        #endregion
+        #endregion Edge Docking
 
         #region Windows Proc
 
@@ -297,9 +302,8 @@ namespace TodoApp2
             return (IntPtr)0;
         }
 
-
         /// <summary>
-        /// Get the current monitor area of the Window         
+        /// Get the current monitor area of the Window
         /// </summary>
         /// <param name="hWnd"></param>
         /// <returns></returns>
@@ -318,7 +322,7 @@ namespace TodoApp2
             return null;
         }
 
-        #endregion
+        #endregion Windows Proc
 
         /// <summary>
         /// Get the min/max window size for this window
@@ -386,13 +390,12 @@ namespace TodoApp2
 
     #region Dll Helper Structures
 
-    enum MonitorOptions : uint
+    internal enum MonitorOptions : uint
     {
         MONITOR_DEFAULTTONULL = 0x00000000,
         MONITOR_DEFAULTTOPRIMARY = 0x00000001,
         MONITOR_DEFAULTTONEAREST = 0x00000002
     }
-
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public class MONITORINFO
@@ -402,7 +405,6 @@ namespace TodoApp2
         public RECT rcWork = new RECT();
         public int dwFlags = 0;
     }
-
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Rectangle
@@ -435,6 +437,7 @@ namespace TodoApp2
         /// x coordinate of point.
         /// </summary>
         public int X;
+
         /// <summary>
         /// y coordinate of point.
         /// </summary>
@@ -496,5 +499,6 @@ namespace TodoApp2
                 Math.Abs(work.Top - display.Top));
         }
     }
-    #endregion
+
+    #endregion Dll Helper Structures
 }

@@ -1,16 +1,16 @@
 ﻿<UserControl x:Class="TodoApp2.TaskListControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TodoApp2"
-             mc:Ignorable="d"
              xmlns:dd="urn:gong-wpf-dragdrop"
+             mc:Ignorable="d"
              AutomationProperties.AutomationId="TaskListControl"
              d:DesignHeight="350" d:DesignWidth="380">
     <Grid Background="Transparent">
 
-        <ListView 
+        <ListView
             AutomationProperties.AutomationId="TaskListListView"
             x:Name="TaskListListView"
             ItemsSource="{Binding Items}"
@@ -23,8 +23,7 @@
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.CanContentScroll="False"
             SelectionMode="Single"
-            Template="{DynamicResource TaskListControlTemplate}"
-            >
+            Template="{DynamicResource TaskListControlTemplate}">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -35,7 +34,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 </Style>
             </ListView.ItemContainerStyle>
 
