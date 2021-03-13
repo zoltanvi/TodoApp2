@@ -3,18 +3,18 @@
                     xmlns:local="clr-namespace:TodoApp2"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <!--<FontFamily x:Key="SomethingFont">pack://application;,,,/Fonts/#Lato Regular</FontFamily>-->
+    <FontFamily x:Key="BenguiatBook">pack://application;,,,/Fonts/#Benguiat Book</FontFamily>
+    <FontFamily x:Key="SCE-PS3">pack://application;,,,/Fonts/#SCE-PS3 Rodin LATIN Regular</FontFamily>
+    <FontFamily x:Key="OpenSansLight">pack://application;,,,/Fonts/#Open Sans Light</FontFamily>
+    <FontFamily x:Key="OpenSans">pack://application;,,,/Fonts/#Open Sans Regular</FontFamily>
+    <FontFamily x:Key="OpenSansBold">pack://application;,,,/Fonts/#Open Sans Bold</FontFamily>
+    <FontFamily x:Key="OpenSansExtraBold">pack://application;,,,/Fonts/#Open Sans ExtraBold</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle" />
-
-    <!--<Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
-        <Setter Property="FontFamily" Value="Segoe UI" />
-    </Style>-->
 
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
     <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
-    <!--<Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}"  />-->
     <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
 
     <!--Button icon characters-->

@@ -17,7 +17,7 @@ namespace TodoApp2
                "FormatTextOnTargetUpdated", typeof(DependencyProperty), typeof(InputBindingsManager), new PropertyMetadata(null, OnFormatTextOnTargetUpdatedPropertyChanged));
 
         private static readonly FontFamily ConsolasFont = new FontFamily("Consolas");
-        private static readonly SolidColorBrush HighLightColor = new SolidColorBrush(Color.FromRgb(78, 201, 176));
+        private static readonly SolidColorBrush HighLightColor = new SolidColorBrush(Color.FromRgb(57, 154, 194));
 
         static InputBindingsManager()
         {

@@ -11,7 +11,7 @@
     <!--Time picker-->
     <Style x:Key="TimePickerStyle" TargetType="{x:Type xctk:TimePicker}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{DynamicResource TimePickerForegroundBrush}" />
         <Setter Property="BorderBrush" Value="#5C5C5C" />
         <Setter Property="BorderThickness" Value="1,1,1,1" />
         <Setter Property="FontSize" Value="18" />
@@ -108,7 +108,7 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ToggleButton}">
                                                 <Grid SnapsToDevicePixels="True">
-                                                    <xctk:ButtonChrome x:Name="ToggleButtonChrome" Background="{StaticResource TimePickerButtonBackgroundBrush}" CornerRadius="0">
+                                                    <xctk:ButtonChrome x:Name="ToggleButtonChrome" Background="{DynamicResource TimePickerButtonBackgroundBrush}" CornerRadius="0">
                                                         <!--RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderChecked="{Binding IsOpen, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:TimePicker}}}" RenderEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:TimePicker}}}" >-->
 
                                                         <Grid>
@@ -198,7 +198,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="White" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource TimePickerHoverBorderBrush}" />
                         </Trigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -252,7 +252,7 @@
 
     <Style x:Key="BaseButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Background" Value="{StaticResource TimePickerButtonBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource TimePickerButtonBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="BorderThickness" Value="1 0 0 0" />
@@ -270,15 +270,15 @@
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}" />
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource TimePickerButtonBackgroundHoveredBrush}" />
                             <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}" />-->
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}" />
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource TimePickerButtonBackgroundHoveredBrush}" />
                             <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}" />-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource TimePickerButtonBackgroundHoveredBrush}" />
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource TimePickerButtonBackgroundHoveredBrush}" />
                             <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}" />-->
                             <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}" />
                         </Trigger>
@@ -294,7 +294,7 @@
 
     <!--Calendar-->
     <Style x:Key="CalendarStyle" TargetType="{x:Type Calendar}">
-        <Setter Property="Background" Value="{StaticResource OverlayPageBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource CalendarBackgroundBrush}" />
         <Setter Property="CalendarDayButtonStyle" Value="{DynamicResource CalendarDayButtonStyle}" />
         <Setter Property="CalendarButtonStyle" Value="{DynamicResource CalendarButtonStyle}" />
         <Setter Property="Template">
@@ -310,10 +310,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Color x:Key="DisableDay1">#FF4E4E4E</Color>
-    <Color x:Key="NormalDay1">White</Color>
-    <Color x:Key="SelectedDay1">White</Color>
 
     <Color x:Key="CalendarItemMouseOverBackground">#979797</Color>
     <SolidColorBrush x:Key="CalendarItemMouseOverBackgroundBrush" Color="{StaticResource CalendarItemMouseOverBackground}" />
@@ -391,8 +387,8 @@
                                 <VisualState x:Name="Active" />
                                 <VisualState x:Name="Inactive">
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetName="Content" Storyboard.TargetProperty="(ContentControl.Foreground).(GradientBrush.GradientStops)[2].(GradientStop.Color)" To="{DynamicResource DisableDay1}" Duration="0" />
-                                        <ColorAnimation Storyboard.TargetName="Content" Storyboard.TargetProperty="(ContentControl.Foreground).(GradientBrush.GradientStops)[3].(GradientStop.Color)" To="{DynamicResource DisableDay1}" Duration="0" />
+                                        <ColorAnimation Storyboard.TargetName="Content" Storyboard.TargetProperty="(ContentControl.Foreground).(GradientBrush.GradientStops)[2].(GradientStop.Color)" To="{DynamicResource CalendarDisabledDayForeground}" Duration="0" />
+                                        <ColorAnimation Storyboard.TargetName="Content" Storyboard.TargetProperty="(ContentControl.Foreground).(GradientBrush.GradientStops)[3].(GradientStop.Color)" To="{DynamicResource CalendarDisabledDayForeground}" Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -436,10 +432,11 @@
                                         Margin="5,1,5,1">
                             <ContentControl.Foreground>
                                 <LinearGradientBrush>
-                                    <GradientStop Offset="0" Color="{DynamicResource SelectedDay1}" />
-                                    <GradientStop Offset="0" Color="{DynamicResource SelectedDay1}" />
-                                    <GradientStop Offset="0" Color="{DynamicResource NormalDay1}" />
-                                    <GradientStop Offset="1" Color="{DynamicResource NormalDay1}" />
+                                    <!--First 2 is the selected day-->
+                                    <GradientStop Offset="0" Color="{DynamicResource CalendarNormalDayForeground}" />
+                                    <GradientStop Offset="0" Color="{DynamicResource CalendarNormalDayForeground}" />
+                                    <GradientStop Offset="0" Color="{DynamicResource CalendarNormalDayForeground}" />
+                                    <GradientStop Offset="1" Color="{DynamicResource CalendarNormalDayForeground}" />
                                 </LinearGradientBrush>
                             </ContentControl.Foreground>
                         </ContentControl>
@@ -558,7 +555,7 @@
                                 <VisualState Name="Active" />
                                 <VisualState Name="Inactive">
                                     <Storyboard>
-                                        <ColorAnimation Duration="0" Storyboard.TargetName="NormalText" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" To="{DynamicResource DisableDay1}" />
+                                        <ColorAnimation Duration="0" Storyboard.TargetName="NormalText" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" To="{DynamicResource CalendarDisabledDayForeground}" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -626,7 +623,7 @@
                 <ControlTemplate TargetType="{x:Type CalendarItem}">
                     <ControlTemplate.Resources>
                         <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
-                            <TextBlock Foreground="#57BFFF"
+                            <TextBlock Foreground="{DynamicResource CalendarDayTitleForegroundBrush}"
                                        FontWeight="Normal"
                                        FontSize="14"
                                        FontFamily="Verdana"

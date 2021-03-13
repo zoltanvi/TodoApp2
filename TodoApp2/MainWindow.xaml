@@ -74,13 +74,21 @@
                                                 Content="{DynamicResource SegoeIconMenu}"
                                                 Command="{Binding ApplicationViewModel.ToggleSideMenuCommand,
                                                              Source={x:Static local:ViewModelLocator.Instance}}" />
-                                            <!--Here could be the window title-->
 
-                                            <Button Grid.Column="1"
-                                                    x:Name="ThemeButton"
+                                            <Grid Grid.Column="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Button Grid.Column="0"
+                                                    Name="ThemeButton"
                                                     Click="ChangeTheme"
                                                     Style="{DynamicResource WindowButtonStyle}"
                                                     Content="{DynamicResource SegoeIconChangeTheme}" />
+
+                                                <!--Here could be the window title-->
+                                            </Grid>
 
                                             <!--Window buttons-->
                                             <StackPanel

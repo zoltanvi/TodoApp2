@@ -30,7 +30,7 @@
             Grid.Column="0"
                Text="{Binding Name}"
                Style="{DynamicResource CategoryTextBlockStyle}"
-               FontSize="{DynamicResource FontSizeLarge}"
+               FontSize="{DynamicResource FontSizeRegular}"
                Margin="20 5 30 5">
             <!--<TextBlock.Foreground>
                 <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
