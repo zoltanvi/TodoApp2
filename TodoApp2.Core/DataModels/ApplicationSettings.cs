@@ -31,6 +31,7 @@ namespace TodoApp2.Core
         public int WindowWidth { get; set; }
         public int WindowHeight { get; set; }
         public string CurrentCategory { get; set; }
+        public Theme ActiveTheme { get; set; }
 
         #endregion Properties
 
@@ -44,6 +45,7 @@ namespace TodoApp2.Core
                 { nameof(WindowWidth), PropertyValueHandlers.Integer },
                 { nameof(WindowHeight), PropertyValueHandlers.Integer },
                 { nameof(CurrentCategory), PropertyValueHandlers.String },
+                { nameof(ActiveTheme), PropertyValueHandlers.Theme },
             };
         }
 

@@ -152,6 +152,7 @@
     <Compile Include="Helpers\DragDropManager\MouseUtilities.cs" />
     <Compile Include="Helpers\DragDropManager\DragAdorner.cs" />
     <Compile Include="Helpers\TextBoxPreviewKeyDownHelper.cs" />
+    <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\NotificationPage.xaml.cs">
       <DependentUpon>NotificationPage.xaml</DependentUpon>

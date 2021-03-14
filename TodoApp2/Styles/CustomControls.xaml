@@ -311,13 +311,11 @@
         </Setter>
     </Style>
 
-    <Color x:Key="CalendarItemMouseOverBackground">#979797</Color>
-    <SolidColorBrush x:Key="CalendarItemMouseOverBackgroundBrush" Color="{StaticResource CalendarItemMouseOverBackground}" />
-    <Color x:Key="CalendarItemSelectedBackground">red</Color>
+
 
     <!--Calendar day view style-->
     <Style x:Key="CalendarDayButtonStyle" TargetType="{x:Type CalendarDayButton}">
-        <Setter Property="Background" Value="{StaticResource CalendarItemMouseOverBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource CalendarItemMouseOverBackgroundBrush}" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -592,7 +590,7 @@
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             Margin="14,0,14,1">
                             <TextElement.Foreground>
-                                <SolidColorBrush Color="White" />
+                                <SolidColorBrush Color="{DynamicResource CalendarNormalDayForeground}" />
                             </TextElement.Foreground>
                         </ContentPresenter>
                         <Rectangle x:Name="CalendarButtonFocusVisual"
@@ -658,7 +656,7 @@
                                                         <VisualState x:Name="Normal" />
                                                         <VisualState x:Name="MouseOver">
                                                             <Storyboard>
-                                                                <ColorAnimation Duration="0" To="#FF73A9D8" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path" />
+                                                                <ColorAnimation Duration="0" To="{DynamicResource CalendarPrevNextButtonHovered}" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="Disabled">
@@ -668,9 +666,9 @@
                                                         </VisualState>
                                                     </VisualStateGroup>
                                                 </VisualStateManager.VisualStateGroups>
-                                                <Rectangle Fill="#11E5EBF1" Opacity="1" Stretch="Fill" />
+                                                <Rectangle Fill="{DynamicResource CalendarPrevNextButtonBackgroundBrush}" Opacity="1" Stretch="Fill" />
                                                 <Grid>
-                                                    <Path x:Name="path" Data="M288.75,232.25 L288.75,240.625 L283,236.625 z" Fill="White" HorizontalAlignment="Left" Height="10" Margin="10,0,0,0" Stretch="Fill" VerticalAlignment="Center" Width="6" />
+                                                    <Path x:Name="path" Data="M288.75,232.25 L288.75,240.625 L283,236.625 z" Fill="{DynamicResource CalendarPrevNextButtonBrush}" HorizontalAlignment="Left" Height="10" Margin="10,0,0,0" Stretch="Fill" VerticalAlignment="Center" Width="6" />
                                                 </Grid>
                                             </Grid>
                                         </ControlTemplate>
@@ -681,7 +679,7 @@
                                                         <VisualState x:Name="Normal" />
                                                         <VisualState x:Name="MouseOver">
                                                             <Storyboard>
-                                                                <ColorAnimation Duration="0" To="#FF73A9D8" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path" />
+                                                                <ColorAnimation Duration="0" To="{DynamicResource CalendarPrevNextButtonHovered}" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="Disabled">
@@ -691,9 +689,9 @@
                                                         </VisualState>
                                                     </VisualStateGroup>
                                                 </VisualStateManager.VisualStateGroups>
-                                                <Rectangle Fill="#11E5EBF1" Opacity="1" Stretch="Fill" />
+                                                <Rectangle Fill="{DynamicResource CalendarPrevNextButtonBackgroundBrush}" Opacity="1" Stretch="Fill" />
                                                 <Grid>
-                                                    <Path x:Name="path" Data="M282.875,231.875 L282.875,240.375 L288.625,236 z" Fill="White" HorizontalAlignment="Right" Height="10" Margin="0,0,10,0" Stretch="Fill" VerticalAlignment="Center" Width="6" />
+                                                    <Path x:Name="path" Data="M282.875,231.875 L282.875,240.375 L288.625,236 z" Fill="{DynamicResource CalendarPrevNextButtonBrush}" HorizontalAlignment="Right" Height="10" Margin="0,0,10,0" Stretch="Fill" VerticalAlignment="Center" Width="6" />
                                                 </Grid>
                                             </Grid>
                                         </ControlTemplate>
@@ -704,7 +702,7 @@
                                                         <VisualState x:Name="Normal" />
                                                         <VisualState x:Name="MouseOver">
                                                             <Storyboard>
-                                                                <ColorAnimation Duration="0" To="#FF73A9D8" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="buttonContent" />
+                                                                <ColorAnimation Duration="0" To="{DynamicResource CalendarPrevNextButtonHovered}" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="buttonContent" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="Disabled">
@@ -717,7 +715,7 @@
                                                 <ContentPresenter x:Name="buttonContent"
                                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
                                                                   Content="{TemplateBinding Content}"
-                                                                  TextElement.Foreground="White"
+                                                                  TextElement.Foreground="{DynamicResource CalendarDateBrush}"
                                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                                   Margin="1,10,1,9"
                                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />

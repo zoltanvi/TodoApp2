@@ -90,9 +90,10 @@
                               Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
                     <TextBlock
                         Margin="0 0 18 0"
-                        Text="{Binding NotificationTask.Content}"
+                        Text="{Binding NotificationTask.Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
                         TextWrapping="Wrap"
-                        Foreground="White" />
+                        Foreground="{DynamicResource DescriptionForegroundBrush}"
+                        local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text" />
                 </ScrollViewer>
             </Grid>
         </Border>

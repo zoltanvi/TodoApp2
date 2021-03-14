@@ -14,6 +14,7 @@
     <Color x:Key="DescriptionForegroundEditMode">#41CFFF</Color>
     <Color x:Key="TimestampForeground">#bdbdbd</Color>
     <Color x:Key="TitleBarHoverButtonBackground">#5E5E5E</Color>
+    <Color x:Key="TitleBarHoverCloseButtonBackground">#FF311E</Color>
     <Color x:Key="ApplicationBackground">#1d1e1f</Color>
     <Color x:Key="TaskItemBackground">#2F3031</Color>
     <Color x:Key="TaskItemBackgroundTransparent">#002F3031</Color>
@@ -34,9 +35,9 @@
     <Color x:Key="ScrollbarMouseOver">#474747</Color>
     <Color x:Key="ScrollbarPressed">#474747</Color>
     <Color x:Key="TaskItemButtonIcon">#bdbdbd</Color>
-    <Color x:Key="TaskItemButtonHover">#41C669</Color>
-    <Color x:Key="TaskItemButtonHoverYellow">#FFE464</Color>
-    <Color x:Key="TaskItemButtonHoverRed">#FA504D</Color>
+    <Color x:Key="TaskItemButtonCalendarHover">#00C19C</Color>
+    <Color x:Key="TaskItemButtonPaletteHover">#6AA9FF</Color>
+    <Color x:Key="TaskItemButtonTrashHover">#FA504D</Color>
     <Color x:Key="BubbleBackground">#333333</Color>
     <Color x:Key="ColorPickerBackground">#414141</Color>
     <Color x:Key="OverlayPageBackground">#333333</Color>
@@ -57,10 +58,20 @@
     <Color x:Key="TimePickerForeground">White</Color>
     <Color x:Key="DatePickerForeground">White</Color>
     <Color x:Key="BaseButtonForeground">#FFFFFF</Color>
-    <Color x:Key="CalendarDayTitleForeground">#41CFFF</Color>
+    <Color x:Key="CalendarDayTitleForeground">#0A7CFF</Color>
     <Color x:Key="CalendarBackground">Transparent</Color>
     <Color x:Key="CalendarNormalDayForeground">White</Color>
     <Color x:Key="CalendarDisabledDayForeground">#FF4E4E4E</Color>
+
+    <Color x:Key="CalendarPrevNextButton">White</Color>
+    <Color x:Key="CalendarPrevNextButtonHovered">#0A7CFF</Color>
+    <Color x:Key="CalendarPrevNextButtonBackground">#3f4040</Color>
+    <Color x:Key="CalendarDate">White</Color>
+    <Color x:Key="CalendarDateHovered">#0A7CFF</Color>
+    <Color x:Key="CalendarSelectedDayForeground">White</Color>
+    <Color x:Key="CalendarSelectedDayBackground">#FF838383</Color>
+    <Color x:Key="CalendarItemMouseOverBackground">#979797</Color>
+
     <Color x:Key="NotificationButtonForeground">White</Color>
     <Color x:Key="NotificationButtonHoverForeground">#0A7CFF</Color>
     <Color x:Key="TimePickerHoverBorder">#0A7CFF</Color>
@@ -78,6 +89,7 @@
     <SolidColorBrush x:Key="DescriptionForegroundEditModeBrush" Color="{DynamicResource DescriptionForegroundEditMode}" />
     <SolidColorBrush x:Key="TimestampForegroundBrush" Color="{DynamicResource TimestampForeground}" />
     <SolidColorBrush x:Key="TitleBarHoverButtonBackgroundBrush" Color="{DynamicResource TitleBarHoverButtonBackground}" />
+    <SolidColorBrush x:Key="TitleBarHoverCloseButtonBackgroundBrush" Color="{DynamicResource TitleBarHoverCloseButtonBackground}" />
     <SolidColorBrush x:Key="ApplicationBackgroundBrush" Color="{DynamicResource ApplicationBackground}" />
     <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{DynamicResource TaskItemBackground}" />
     <SolidColorBrush x:Key="TaskItemHatchedBackgroundBrush" Color="{DynamicResource TaskItemHatchedBackground}" />
@@ -97,9 +109,9 @@
     <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="{DynamicResource ScrollbarMouseOver}" />
     <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="{DynamicResource ScrollbarPressed}" />
     <SolidColorBrush x:Key="TaskItemButtonIconBrush" Color="{DynamicResource TaskItemButtonIcon}" />
-    <SolidColorBrush x:Key="TaskItemButtonHoverBrush" Color="{DynamicResource TaskItemButtonHover}" />
-    <SolidColorBrush x:Key="TaskItemButtonHoverYellowBrush" Color="{DynamicResource TaskItemButtonHoverYellow}" />
-    <SolidColorBrush x:Key="TaskItemButtonHoverRedBrush" Color="{DynamicResource TaskItemButtonHoverRed}" />
+    <SolidColorBrush x:Key="TaskItemButtonCalendarHoverBrush" Color="{DynamicResource TaskItemButtonCalendarHover}" />
+    <SolidColorBrush x:Key="TaskItemButtonPaletteHoverBrush" Color="{DynamicResource TaskItemButtonPaletteHover}" />
+    <SolidColorBrush x:Key="TaskItemButtonTrashHoverBrush" Color="{DynamicResource TaskItemButtonTrashHover}" />
     <SolidColorBrush x:Key="BubbleBackgroundBrush" Color="{DynamicResource BubbleBackground}" />
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="{DynamicResource ColorPickerBackground}" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="{DynamicResource OverlayPageBackground}" />
@@ -123,6 +135,16 @@
     <SolidColorBrush x:Key="CalendarBackgroundBrush" Color="{DynamicResource CalendarBackground}" />
     <SolidColorBrush x:Key="CalendarNormalDayForegroundBrush" Color="{DynamicResource CalendarNormalDayForeground}" />
     <SolidColorBrush x:Key="CalendarDisabledDayForegroundBrush" Color="{DynamicResource CalendarDisabledDayForeground}" />
+
+    <SolidColorBrush x:Key="CalendarPrevNextButtonBrush" Color="{DynamicResource CalendarPrevNextButton}" />
+    <SolidColorBrush x:Key="CalendarPrevNextButtonHoveredBrush" Color="{DynamicResource CalendarPrevNextButtonHovered}" />
+    <SolidColorBrush x:Key="CalendarPrevNextButtonBackgroundBrush" Color="{DynamicResource CalendarPrevNextButtonBackground}" />
+    <SolidColorBrush x:Key="CalendarDateBrush" Color="{DynamicResource CalendarDate}" />
+    <SolidColorBrush x:Key="CalendarDateHoveredBrush" Color="{DynamicResource CalendarDateHovered}" />
+    <SolidColorBrush x:Key="CalendarSelectedDayForegroundBrush" Color="{DynamicResource CalendarSelectedDayForeground}" />
+    <SolidColorBrush x:Key="CalendarSelectedDayBackgroundBrush" Color="{DynamicResource CalendarSelectedDayBackground}" />
+    <SolidColorBrush x:Key="CalendarItemMouseOverBackgroundBrush" Color="{DynamicResource CalendarItemMouseOverBackground}" />
+
     <SolidColorBrush x:Key="NotificationButtonForegroundBrush" Color="{DynamicResource NotificationButtonForeground}" />
     <SolidColorBrush x:Key="NotificationButtonHoverForegroundBrush" Color="{DynamicResource NotificationButtonHoverForeground}" />
     <SolidColorBrush x:Key="TimePickerHoverBorderBrush" Color="{DynamicResource TimePickerHoverBorder}" />
@@ -167,4 +189,5 @@
                   RenderOptions.EdgeMode="Aliased" />
         </VisualBrush.Visual>
     </VisualBrush>
+
 </ResourceDictionary>

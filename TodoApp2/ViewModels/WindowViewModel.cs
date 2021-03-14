@@ -15,6 +15,7 @@ namespace TodoApp2
 
         private readonly Window m_Window;
         private readonly WindowResizer m_Resizer;
+        private readonly ThemeManager m_ThemeManager;
         private int m_OuterMarginSize = 2;
         private int m_WindowRadius = 0;
 
@@ -25,7 +26,6 @@ namespace TodoApp2
 
         private ApplicationViewModel Application => IoC.Application;
         private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
-        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
 
         #endregion Private Fields
 
@@ -34,6 +34,7 @@ namespace TodoApp2
         public ICommand MinimizeCommand { get; }
         public ICommand MaximizeCommand { get; }
         public ICommand CloseCommand { get; }
+        public ICommand ChangeThemeCommand { get; }
 
         #endregion Window handling commands
 
@@ -96,7 +97,7 @@ namespace TodoApp2
         /// <summary>
         /// The height of the title bar / caption of the window
         /// </summary>
-        public int TitleBarHeight { get; set; } = 35;
+        public int TitleBarHeight { get; set; } = 32;
 
         /// <summary>
         /// The height of the TitleBar of the window
@@ -112,6 +113,7 @@ namespace TodoApp2
         public WindowViewModel(Window window)
         {
             m_Window = window;
+            m_ThemeManager = new ThemeManager();
 
             m_Window.Deactivated += OnWindowDeactivated;
 
@@ -131,6 +133,7 @@ namespace TodoApp2
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
+            ChangeThemeCommand = new RelayCommand(ChangeTheme);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
@@ -140,6 +143,17 @@ namespace TodoApp2
 
             // Listen out for requests to flash the application window
             Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
+            Mediator.Instance.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
+
+            // At application start, the saved theme is loaded back
+            LoadBackTheme();
+        }
+
+        private void OnThemeChangeRequested(object obj)
+        {
+            ApplicationSettings.ActiveTheme = m_ThemeManager.ChangeToNextTheme();
+
+            Mediator.Instance.NotifyClients(ViewModelMessages.ThemeChanged);
         }
 
         #endregion Constructors
@@ -152,6 +166,14 @@ namespace TodoApp2
         }
 
         #endregion Public methods
+
+        /// <summary>
+        /// Notifies clients that an application theme change was requested
+        /// </summary>
+        private void ChangeTheme()
+        {
+            Mediator.Instance.NotifyClients(ViewModelMessages.ThemeChangeRequested);
+        }
 
         #region EventHandlers
 
@@ -268,6 +290,15 @@ namespace TodoApp2
         #endregion EventHandlers
 
         #region Private helpers
+
+        /// <summary>
+        /// Loads the initial theme that was saved in the database
+        /// </summary>
+        private void LoadBackTheme()
+        {
+            // Theme.Dark is the default, it is always the current theme at application start
+            m_ThemeManager.ChangeToTheme(Theme.Dark, ApplicationSettings.ActiveTheme);
+        }
 
         /// <summary>
         /// Gets the current mouse position on the screen

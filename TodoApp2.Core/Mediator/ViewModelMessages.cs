@@ -21,6 +21,11 @@
         NotificationClosed,
 
         /// <summary>
+        /// The Application theme should change
+        /// </summary>
+        ThemeChangeRequested,
+
+        /// <summary>
         /// The Application theme changed
         /// </summary>
         ThemeChanged,

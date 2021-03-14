@@ -54,7 +54,6 @@ namespace TodoApp2.Core
         /// </summary>
         public bool OverlayPageVisible { get; set; }
 
-
         /// <summary>
         /// The settings for the whole application
         /// </summary>
@@ -132,7 +131,6 @@ namespace TodoApp2.Core
             SideMenuVisible = shouldOpen;
             OverlayPageService.OverlayBackgroundVisible = shouldOpen;
         }
-
 
         public void LoadApplicationSettingsOnce()
         {

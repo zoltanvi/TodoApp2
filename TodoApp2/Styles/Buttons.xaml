@@ -50,7 +50,18 @@
     <!--TitleBar Window button-->
     <Style TargetType="Button" x:Key="WindowButtonStyle" BasedOn="{StaticResource TitleBarButtonStyle}">
         <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontWeight" Value="Light"></Setter>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+
+    <!--TitleBar Window close button-->
+    <Style TargetType="Button" x:Key="WindowCloseButtonStyle" BasedOn="{StaticResource TitleBarButtonStyle}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Light"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource TitleBarHoverCloseButtonBackgroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!--Task Item button yellow-->
@@ -59,7 +70,7 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonHoverBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonCalendarHoverBrush}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonIconBrush}" />
@@ -71,7 +82,7 @@
     <Style TargetType="Button" x:Key="TaskItemButtonYellowStyle" BasedOn="{StaticResource TaskItemButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonHoverYellowBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonPaletteHoverBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -80,7 +91,7 @@
     <Style TargetType="Button" x:Key="TaskItemButtonRedStyle" BasedOn="{StaticResource TaskItemButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonHoverRedBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonTrashHoverBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -277,8 +288,8 @@
                                 </Ellipse.RenderTransform>
                             </Ellipse>
                             <Ellipse x:Name="optionMarkOn" Opacity="0"
-										 Height="10" Width="10" Fill="{DynamicResource RadioButton.Checked.Glyph}" StrokeThickness="0"
-										 VerticalAlignment="Center" Margin="5,0" RenderTransformOrigin="0.5,0.5">
+                                 Height="10" Width="10" Fill="{DynamicResource RadioButton.Checked.Glyph}" StrokeThickness="0"
+                                 VerticalAlignment="Center" Margin="5,0" RenderTransformOrigin="0.5,0.5">
                                 <Ellipse.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform />

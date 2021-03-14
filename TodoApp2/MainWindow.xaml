@@ -31,7 +31,7 @@
                                         CornerRadius="{Binding WindowCornerRadius}"
                                         BorderBrush="Transparent" />
 
-                                <Border BorderThickness="1"
+                                <Border BorderThickness="0.4"
                                         Panel.ZIndex="2"
                                         CornerRadius="{Binding WindowCornerRadius}"
                                         BorderBrush="{DynamicResource ApplicationBorderBrush}" />
@@ -81,9 +81,10 @@
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
 
+                                                <!--Theme button-->
                                                 <Button Grid.Column="0"
                                                     Name="ThemeButton"
-                                                    Click="ChangeTheme"
+                                                    Command="{Binding ChangeThemeCommand}"
                                                     Style="{DynamicResource WindowButtonStyle}"
                                                     Content="{DynamicResource SegoeIconChangeTheme}" />
 
@@ -109,7 +110,7 @@
                                                     AutomationProperties.AutomationId="CloseWindow"
                                                     Name="CloseWindow"
                                                     Command="{Binding CloseCommand}"
-                                                    Style="{DynamicResource WindowButtonStyle}"
+                                                    Style="{DynamicResource WindowCloseButtonStyle}"
                                                     Content="{DynamicResource SegoeIconCloseWindow}" />
                                             </StackPanel>
                                         </Grid>
