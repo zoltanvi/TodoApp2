@@ -173,6 +173,7 @@
     <Compile Include="ValueConverters\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityNegatedConverter.cs" />
+    <Compile Include="ValueConverters\CategorySelectedForegroundColorConverter.cs" />
     <Compile Include="ValueConverters\LongToFormattedDateConverter.cs" />
     <Compile Include="ValueConverters\BoolToOpacityConverter.cs" />
     <Compile Include="ValueConverters\CategorySelectedColorConverter.cs" />
@@ -267,6 +268,10 @@
     <Page Include="Styles\CheckBoxes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\BeigeTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\DarkTheme.xaml">
       <SubType>Designer</SubType>

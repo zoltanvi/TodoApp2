@@ -17,17 +17,40 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                Text="{Binding ApplicationViewModel.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}"
-                Style="{DynamicResource CategoryTextBlockStyle}" />
+            <!--Current category-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border 
+                    Grid.Column="0" 
+                    Height="1" 
+                    VerticalAlignment="Center" 
+                    Background="{DynamicResource CategoryTitleForegroundBrush}"
+                    Margin="20 0"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Text="{Binding ApplicationViewModel.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}"
+                    Style="{DynamicResource CategoryTextBlockStyle}" 
+                    />
+                <Border Grid.Column="2" 
+                        Height="1" 
+                        VerticalAlignment="Center" 
+                        Background="{DynamicResource CategoryTitleForegroundBrush}"
+                        Margin="20 0"
+                        />
+            </Grid>
 
-            <local:TaskListControl Grid.Row="1" x:Name="MyTaskListControl" />
+            <local:TaskListControl Grid.Row="1" x:Name="MyTaskListControl"  />
 
             <Border
                 x:Name="BottomBorderPanel"
                 Grid.Row="2"
-                Background="{DynamicResource TaskPageTextBoxBackgroundBrush}">
+                Background="{DynamicResource TaskPageTextBoxBackgroundBrush}"
+                >
 
                 <TextBox
                     AutomationProperties.AutomationId="AddNewTaskTextBox"

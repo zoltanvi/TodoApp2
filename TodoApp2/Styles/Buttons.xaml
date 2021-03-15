@@ -45,6 +45,7 @@
     <Style TargetType="Button" x:Key="TitleBarButtonStyle" BasedOn="{StaticResource HoveringIconButtonBaseStyle}">
         <Setter Property="Width" Value="45" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="Foreground" Value="{DynamicResource TitleBarButtonForegroundBrush}" />
     </Style>
 
     <!--TitleBar Window button-->

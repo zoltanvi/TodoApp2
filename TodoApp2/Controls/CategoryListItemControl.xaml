@@ -32,12 +32,12 @@
                Style="{DynamicResource CategoryTextBlockStyle}"
                FontSize="{DynamicResource FontSizeRegular}"
                Margin="20 5 30 5">
-            <!--<TextBlock.Foreground>
-                <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
+            <TextBlock.Foreground>
+                <MultiBinding Converter="{local:CategorySelectedForegroundColorConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="Name" />
                     <Binding Path="ApplicationViewModel.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
                 </MultiBinding>
-            </TextBlock.Foreground>-->
+            </TextBlock.Foreground>
         </TextBlock>
 
         <Border

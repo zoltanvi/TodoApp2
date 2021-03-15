@@ -7,9 +7,9 @@ namespace TodoApp2
 {
     /// <summary>
     /// A converter that takes in a category name (string) and converts it to a WPF brush
-    /// It is used for category list item background.
+    /// It is used for category list item foreground.
     /// </summary>
-    public class CategorySelectedColorConverter : BaseMultiValueConverter<CategorySelectedColorConverter>
+    public class CategorySelectedForegroundColorConverter : BaseMultiValueConverter<CategorySelectedForegroundColorConverter>
     {
         public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,9 +17,9 @@ namespace TodoApp2
             string selectedCategoryName = (string)values[1];
             if (selectedCategoryName == categoryName)
             {
-                return (Brush)Application.Current.TryFindResource("CategoryTitleSelectedBackgroundBrush");
+                return (Brush)Application.Current.TryFindResource("CategoryTitleSelectedForegroundBrush");
             }
-            return (Brush)Application.Current.TryFindResource("CategoryTitleBackgroundBrush");
+            return (Brush)Application.Current.TryFindResource("CategoryTitleForegroundBrush");
         }
 
         public override object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

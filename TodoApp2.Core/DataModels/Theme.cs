@@ -6,6 +6,6 @@
 
         Light,
 
-        //Beige
+        Beige
     }
 }

@@ -8,6 +8,7 @@
     <Color x:Key="TitleBarButtonForeground">Black</Color>
     <Color x:Key="CategoryTitleForeground">Black</Color>
     <Color x:Key="CategoryTitleBackground">#00000000</Color>
+    <Color x:Key="CategoryTitleSelectedForeground">Black</Color>
     <Color x:Key="CategoryTitleSelectedBackground">#DEDEDE</Color>
     <Color x:Key="DescriptionForeground">Black</Color>
     <Color x:Key="DescriptionForegroundEditMode">#005395</Color>
@@ -83,6 +84,7 @@
     <SolidColorBrush x:Key="TitleBarButtonForegroundBrush" Color="{DynamicResource TitleBarButtonForeground}" />
     <SolidColorBrush x:Key="CategoryTitleForegroundBrush" Color="{DynamicResource CategoryTitleForeground}" />
     <SolidColorBrush x:Key="CategoryTitleBackgroundBrush" Color="{DynamicResource CategoryTitleBackground}" />
+    <SolidColorBrush x:Key="CategoryTitleSelectedForegroundBrush" Color="{DynamicResource CategoryTitleSelectedForeground}" />
     <SolidColorBrush x:Key="CategoryTitleSelectedBackgroundBrush" Color="{DynamicResource CategoryTitleSelectedBackground}" />
     <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="{DynamicResource DescriptionForeground}" />
     <SolidColorBrush x:Key="DescriptionForegroundEditModeBrush" Color="{DynamicResource DescriptionForegroundEditMode}" />
