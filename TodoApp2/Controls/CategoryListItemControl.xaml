@@ -13,7 +13,7 @@
         <Grid.Background>
             <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
                 <Binding Path="Name" />
-                <Binding Path="ApplicationViewModel.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
+                <Binding Path="CategoryListService.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
             </MultiBinding>
         </Grid.Background>
 
@@ -35,7 +35,7 @@
             <TextBlock.Foreground>
                 <MultiBinding Converter="{local:CategorySelectedForegroundColorConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="Name" />
-                    <Binding Path="ApplicationViewModel.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding Path="CategoryListService.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
                 </MultiBinding>
             </TextBlock.Foreground>
         </TextBlock>

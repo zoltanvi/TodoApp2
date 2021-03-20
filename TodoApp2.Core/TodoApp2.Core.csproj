@@ -109,6 +109,7 @@
     <Compile Include="ViewModel\NotificationPageViewModel.cs" />
     <Compile Include="ViewModel\ReminderPageViewModel.cs" />
     <Compile Include="ViewModel\ReminderViewModel.cs" />
+    <Compile Include="ViewModel\Services\CategoryListService.cs" />
     <Compile Include="ViewModel\TaskListItemViewModel.cs" />
     <Compile Include="ViewModel\TaskPageViewModel.cs" />
   </ItemGroup>

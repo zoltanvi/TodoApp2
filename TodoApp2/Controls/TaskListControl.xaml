@@ -42,8 +42,7 @@
                 <DataTemplate>
 
                     <!--Task Item-->
-                    <local:TaskListItemControl
-                                Tag="{Binding DataContext, ElementName=TaskListListView}" />
+                    <local:TaskListItemControl />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

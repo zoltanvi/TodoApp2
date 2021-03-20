@@ -179,6 +179,7 @@
     <Compile Include="ValueConverters\CategorySelectedColorConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\StringToDateConverter.cs" />
+    <Compile Include="ValueConverters\TaskContextMenuCommandParameterConverter.cs" />
     <Compile Include="ValueConverters\TextDecorationConverter.cs" />
     <Compile Include="ValueConverters\IoCConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />

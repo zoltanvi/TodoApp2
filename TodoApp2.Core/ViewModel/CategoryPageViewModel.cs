@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -10,11 +9,6 @@ namespace TodoApp2.Core
     public class CategoryPageViewModel : BaseViewModel
     {
         private int m_LastRemovedId = int.MinValue;
-
-        /// <summary>
-        /// The task list items for the list
-        /// </summary>
-        public ObservableCollection<CategoryListItemViewModel> Items { get; set; }
 
         /// <summary>
         /// The content / description text for the current task being written
@@ -44,11 +38,17 @@ namespace TodoApp2.Core
         private ClientDatabase Database => IoC.ClientDatabase;
 
         private ApplicationViewModel Application => IoC.Application;
+
         private OverlayPageService OverlayPageService => IoC.OverlayPageService;
+        
+        private CategoryListService CategoryListService => IoC.CategoryListService;
+       
+        private ObservableCollection<CategoryListItemViewModel> Items => CategoryListService.Items;
+        
         private string CurrentCategory
         {
-            get => Application.CurrentCategory;
-            set => Application.CurrentCategory = value;
+            get => CategoryListService.CurrentCategory;
+            set => CategoryListService.CurrentCategory = value;
         }
 
         public CategoryPageViewModel()
@@ -58,11 +58,8 @@ namespace TodoApp2.Core
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
             ToggleAlwaysOnTopCommand = new RelayCommand(ToggleAlwaysOnTop);
 
-            List<CategoryListItemViewModel> categories = Database.GetActiveCategories();
-            Items = new ObservableCollection<CategoryListItemViewModel>(categories);
-
             // Subscribe to the collection changed event for synchronizing with database
-            Items.CollectionChanged += ItemsOnCollectionChanged;
+            CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;
 
             // Load the application settings to update the CurrentCategory
             Application.LoadApplicationSettingsOnce();

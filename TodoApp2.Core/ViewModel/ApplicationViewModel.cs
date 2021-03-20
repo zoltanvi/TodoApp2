@@ -12,6 +12,7 @@ namespace TodoApp2.Core
 
         private ClientDatabase ClientDatabase => IoC.ClientDatabase;
         private OverlayPageService OverlayPageService => IoC.OverlayPageService;
+        private CategoryListService CategoryListService => IoC.CategoryListService;
 
         /// <summary>
         /// The sliding side menu content page
@@ -58,11 +59,6 @@ namespace TodoApp2.Core
         /// The settings for the whole application
         /// </summary>
         public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
-
-        /// <summary>
-        /// The currently selected category
-        /// </summary>
-        public string CurrentCategory { get; set; }
 
         /// <summary>
         /// Always on top
@@ -147,12 +143,12 @@ namespace TodoApp2.Core
             List<SettingsModel> settings = ClientDatabase.GetSettings();
             ApplicationSettings.SetSettings(settings);
 
-            CurrentCategory = ApplicationSettings.CurrentCategory;
+            CategoryListService.CurrentCategory = ApplicationSettings.CurrentCategory;
         }
 
         public void SaveApplicationSettings()
         {
-            ApplicationSettings.CurrentCategory = CurrentCategory;
+            ApplicationSettings.CurrentCategory = CategoryListService.CurrentCategory;
 
             List<SettingsModel> settings = ApplicationSettings.GetSettings();
             ClientDatabase.UpdateSettings(settings);

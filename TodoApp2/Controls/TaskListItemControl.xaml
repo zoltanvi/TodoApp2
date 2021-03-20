@@ -12,6 +12,31 @@
              x:Name="TaskListItemUC"
              AutomationProperties.AutomationId="TaskListItemUC"
              d:DesignHeight="60" d:DesignWidth="350">
+    
+    <UserControl.ContextMenu>
+        <ContextMenu Tag="{Binding DataContext, ElementName=TaskListItemUC}">
+            <MenuItem Header="Move to category" ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Header" Value="{Binding Name}" />
+                        <Setter Property="Command" Value="{Binding Path=DataContext.MoveToCategoryCommand, 
+                            RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}" />
+                        <Setter Property="CommandParameter">
+                            <Setter.Value>
+                                <MultiBinding Converter="{local:TaskContextMenuCommandParameterConverter}">
+                                    <MultiBinding.Bindings>
+                                        <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType={x:Type local:TaskListItemControl}}" />
+                                        <Binding Path="Name"/>
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                        
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.ContextMenu>
 
     <Grid Background="{DynamicResource ContentBackgroundBrush}">
 
@@ -47,7 +72,7 @@
                     AutomationProperties.AutomationId="TaskListItemCheckBox"
                     Grid.Column="1"
                     IsChecked="{Binding IsDone}"
-                    Command="{Binding Path=Tag.TaskIsDoneModifiedCommand, ElementName=TaskListItemUC}"
+                    Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                     CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center" Style="{DynamicResource TaskCheckBoxStyle}" />
@@ -175,7 +200,7 @@
                                 Grid.Column="2"
                                 Style="{DynamicResource TaskItemButtonRedStyle}"
                                 Content="{DynamicResource SegoeIconTrash}"
-                                Command="{Binding Path=Tag.DeleteTaskItemCommand, ElementName=TaskListItemUC}"
+                                Command="{Binding Path=DataContext.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                                 CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}" />
                         </Grid>
                     </Border>

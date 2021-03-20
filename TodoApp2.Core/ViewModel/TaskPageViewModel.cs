@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ namespace TodoApp2.Core
         /// </summary>
         public string PendingAddNewTaskText { get; set; }
 
-        private string CurrentCategory => IoC.Application.CurrentCategory;
+        private string CurrentCategory => IoC.CategoryListService.CurrentCategory;
 
         private ClientDatabase Database => IoC.ClientDatabase;
 
@@ -43,6 +42,11 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand TaskIsDoneModifiedCommand { get; }
 
+        /// <summary>
+        /// The command to move a task item into another category
+        /// </summary>
+        public ICommand MoveToCategoryCommand { get; }
+
         public TaskPageViewModel()
         {
             AddTaskItemCommand = new RelayCommand(AddTask);
@@ -50,6 +54,8 @@ namespace TodoApp2.Core
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
 
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
+
+            MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
 
             // Load the application settings to update the CurrentCategory before querying the tasks
             IoC.Application.LoadApplicationSettingsOnce();
@@ -106,6 +112,36 @@ namespace TodoApp2.Core
         {
             // This call should never depend on OptimizePerformance property
             Database.UpdateTaskList(Items);
+        }
+
+        /// <summary>
+        /// Moves a task into another category
+        /// </summary>
+        /// <param name="obj"></param>
+        private void MoveToCategory(object obj)
+        {
+            if (obj is List<object> parameters && parameters.Count == 2)
+            {
+                if(parameters[0] is TaskListItemViewModel task &&
+                    parameters[1] is string categoryToMoveTo)
+                {
+                    CategoryListItemViewModel taskCategory = Database.GetCategory(task.CategoryId);
+                    
+                    // If the category is the same as the task is in, there is nothing to do
+                    if(taskCategory.Name != categoryToMoveTo)
+                    {
+                        CategoryListItemViewModel newCategory = Database.GetCategory(categoryToMoveTo);
+                        task.CategoryId = newCategory.Id;
+
+                        // Insert into first position.
+                        // The modified category also gets persisted.
+                        Database.ReorderTask(task, 0);
+
+                        // Delete the item from the currently listed category items at last
+                        Items.Remove(task);
+                    }
+                }
+            }
         }
 
         /// <summary>

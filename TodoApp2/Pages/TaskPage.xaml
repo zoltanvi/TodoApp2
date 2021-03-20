@@ -33,7 +33,7 @@
                     />
                 <TextBlock
                     Grid.Column="1"
-                    Text="{Binding ApplicationViewModel.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}"
+                    Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}"
                     Style="{DynamicResource CategoryTextBlockStyle}" 
                     />
                 <Border Grid.Column="2" 

@@ -9,7 +9,7 @@
              d:DesignHeight="500" d:DesignWidth="380">
     <Grid Background="Transparent">
 
-        <ListView ItemsSource="{Binding Items}"
+        <ListView ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}"
              AutomationProperties.AutomationId="CategoryListListView"
              x:Name="CategoryListListView"
              BorderThickness="0"
