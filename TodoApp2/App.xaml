@@ -9,7 +9,7 @@
                 <!--Order is important-->
                 <ResourceDictionary Source="Styles/DarkTheme.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
-                <ResourceDictionary Source="Styles/Brushes.xaml" />
+                <ResourceDictionary Source="Styles/ContextMenus.xaml" />
                 <ResourceDictionary Source="Styles/Buttons.xaml" />
                 <ResourceDictionary Source="Styles/CheckBoxes.xaml" />
                 <ResourceDictionary Source="Styles/Texts.xaml" />

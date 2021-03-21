@@ -62,7 +62,6 @@
     <Color x:Key="CalendarBackground">Transparent</Color>
     <Color x:Key="CalendarNormalDayForeground">White</Color>
     <Color x:Key="CalendarDisabledDayForeground">#FF4E4E4E</Color>
-
     <Color x:Key="CalendarPrevNextButton">White</Color>
     <Color x:Key="CalendarPrevNextButtonHovered">#0A7CFF</Color>
     <Color x:Key="CalendarPrevNextButtonBackground">#3f4040</Color>
@@ -71,7 +70,6 @@
     <Color x:Key="CalendarSelectedDayForeground">White</Color>
     <Color x:Key="CalendarSelectedDayBackground">#FF838383</Color>
     <Color x:Key="CalendarItemMouseOverBackground">#979797</Color>
-
     <Color x:Key="NotificationButtonForeground">White</Color>
     <Color x:Key="NotificationButtonHoverForeground">#0A7CFF</Color>
     <Color x:Key="TimePickerHoverBorder">#0A7CFF</Color>
@@ -136,7 +134,6 @@
     <SolidColorBrush x:Key="CalendarBackgroundBrush" Color="{DynamicResource CalendarBackground}" />
     <SolidColorBrush x:Key="CalendarNormalDayForegroundBrush" Color="{DynamicResource CalendarNormalDayForeground}" />
     <SolidColorBrush x:Key="CalendarDisabledDayForegroundBrush" Color="{DynamicResource CalendarDisabledDayForeground}" />
-
     <SolidColorBrush x:Key="CalendarPrevNextButtonBrush" Color="{DynamicResource CalendarPrevNextButton}" />
     <SolidColorBrush x:Key="CalendarPrevNextButtonHoveredBrush" Color="{DynamicResource CalendarPrevNextButtonHovered}" />
     <SolidColorBrush x:Key="CalendarPrevNextButtonBackgroundBrush" Color="{DynamicResource CalendarPrevNextButtonBackground}" />
@@ -145,10 +142,17 @@
     <SolidColorBrush x:Key="CalendarSelectedDayForegroundBrush" Color="{DynamicResource CalendarSelectedDayForeground}" />
     <SolidColorBrush x:Key="CalendarSelectedDayBackgroundBrush" Color="{DynamicResource CalendarSelectedDayBackground}" />
     <SolidColorBrush x:Key="CalendarItemMouseOverBackgroundBrush" Color="{DynamicResource CalendarItemMouseOverBackground}" />
-
     <SolidColorBrush x:Key="NotificationButtonForegroundBrush" Color="{DynamicResource NotificationButtonForeground}" />
     <SolidColorBrush x:Key="NotificationButtonHoverForegroundBrush" Color="{DynamicResource NotificationButtonHoverForeground}" />
     <SolidColorBrush x:Key="TimePickerHoverBorderBrush" Color="{DynamicResource TimePickerHoverBorder}" />
+
+    <SolidColorBrush x:Key="ContextMenuBackgroundBrush" Color="#2F3031" />
+    <SolidColorBrush x:Key="ContextMenuItemBackgroundBrush" Color="#2F3031" />
+    <SolidColorBrush x:Key="ContextMenuItemForegroundBrush" Color="White" />
+    <SolidColorBrush x:Key="ContextMenuBorderBrush" Color="Black" />
+    <SolidColorBrush x:Key="ContextMenuSeparatorBrush" Color="Black" />
+    <SolidColorBrush x:Key="ContextMenuArrowBrush" Color="#BDBDBD" />
+    <SolidColorBrush x:Key="ContextMenuSelectedBackgroundBrush" Color="#5E5E5E" />
 
     <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="RadioButton.Static.Border" Color="White" />

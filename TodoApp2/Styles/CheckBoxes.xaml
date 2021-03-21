@@ -4,7 +4,6 @@
     <ResourceDictionary.MergedDictionaries>
         <!--Order is important-->
         <ResourceDictionary Source="DarkTheme.xaml" />
-        <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="FocusVisual">
