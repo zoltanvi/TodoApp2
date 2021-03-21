@@ -95,7 +95,7 @@
     <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyHandling\ThemePropertyValueHandler.cs" />
-    <Compile Include="Services\OverlayPageService.cs" />
+    <Compile Include="ViewModel\Services\OverlayPageService.cs" />
     <Compile Include="Services\ReminderNotificationService.cs" />
     <Compile Include="Services\TaskScheduler.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
@@ -110,6 +110,7 @@
     <Compile Include="ViewModel\ReminderPageViewModel.cs" />
     <Compile Include="ViewModel\ReminderViewModel.cs" />
     <Compile Include="ViewModel\Services\CategoryListService.cs" />
+    <Compile Include="Services\ColorListService.cs" />
     <Compile Include="ViewModel\TaskListItemViewModel.cs" />
     <Compile Include="ViewModel\TaskPageViewModel.cs" />
   </ItemGroup>

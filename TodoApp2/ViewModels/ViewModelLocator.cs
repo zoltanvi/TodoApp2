@@ -23,5 +23,10 @@ namespace TodoApp2
         /// The category list service
         /// </summary>
         public static CategoryListService CategoryListService => IoC.CategoryListService;
+
+        /// <summary>
+        /// The color list service
+        /// </summary>
+        public static ColorListService ColorListService => IoC.ColorListService;
     }
 }

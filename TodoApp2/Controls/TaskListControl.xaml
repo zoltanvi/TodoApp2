@@ -42,7 +42,9 @@
                 <DataTemplate>
 
                     <!--Task Item-->
-                    <local:TaskListItemControl />
+                    <!--Tag property is set because the context menu data binding is tricky-->
+                    <local:TaskListItemControl
+                                Tag="{Binding DataContext, ElementName=TaskListListView}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

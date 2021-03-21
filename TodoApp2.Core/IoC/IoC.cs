@@ -36,11 +36,16 @@ namespace TodoApp2.Core
         /// A shortcut to access the <see cref="OverlayPageService"/>
         /// </summary>
         public static OverlayPageService OverlayPageService => Get<OverlayPageService>();
-       
+
         /// <summary>
         /// A shortcut to access the <see cref="CategoryListService"/>
         /// </summary>
         public static CategoryListService CategoryListService => Get<CategoryListService>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="CategoryListService"/>
+        /// </summary>
+        public static ColorListService ColorListService => Get<ColorListService>();
 
         /// <summary>
         /// Gets a service from the IoC, of the specified type
@@ -78,6 +83,7 @@ namespace TodoApp2.Core
             Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();
             Kernel.Bind<OverlayPageService>().To<OverlayPageService>().InSingletonScope();
             Kernel.Bind<CategoryListService>().To<CategoryListService>().InSingletonScope();
+            Kernel.Bind<ColorListService>().To<ColorListService>().InSingletonScope();
         }
     }
 }

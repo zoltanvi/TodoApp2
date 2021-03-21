@@ -14,8 +14,9 @@
              d:DesignHeight="60" d:DesignWidth="350">
     
     <UserControl.ContextMenu>
-        <ContextMenu Tag="{Binding DataContext, ElementName=TaskListItemUC}">
-            <MenuItem Header="Move to category" ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+        <ContextMenu Tag="{Binding Tag.DeleteTaskItemCommand, ElementName=TaskListItemUC}">
+            <MenuItem Header="Edit" Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem Header="Move to" ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding Name}" />
@@ -35,6 +36,20 @@
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
+            <MenuItem Header="Set reminder" Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem Header="Change color" ItemsSource="{Binding ColorListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Background" Value="{Binding Converter={local:StringRGBToBrushConverter}}" />
+                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetColorCommand, 
+                            RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                        <Setter Property="CommandParameter" Value="{Binding}"/>
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
+            <MenuItem Header="Delete" Command="{Binding Path=PlacementTarget.Tag.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                      CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+
         </ContextMenu>
     </UserControl.ContextMenu>
 
