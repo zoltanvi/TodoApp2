@@ -47,8 +47,8 @@
     <Color x:Key="SettingsButtonHoverForeground">#3BA99F</Color>
     <Color x:Key="ToggleSwitchGlyph">#454138</Color>
     <Color x:Key="ToggleSwitchGlyphHovered">#454138</Color>
-    <Color x:Key="ToggleSwitchBackground">#807C72</Color>
-    <Color x:Key="ToggleSwitchBackgroundHovered">#807C72</Color>
+    <Color x:Key="ToggleSwitchBackground">#00807C72</Color>
+    <Color x:Key="ToggleSwitchBackgroundHovered">#00807C72</Color>
     <Color x:Key="ToggleSwitchBorder">#454138</Color>
     <Color x:Key="ToggleSwitchBorderHovered">#454138</Color>
     <Color x:Key="ToggleSwitchCheckedBackground">#3BA99F</Color>
@@ -145,6 +145,7 @@
     <SolidColorBrush x:Key="NotificationButtonForegroundBrush" Color="{DynamicResource NotificationButtonForeground}" />
     <SolidColorBrush x:Key="NotificationButtonHoverForegroundBrush" Color="{DynamicResource NotificationButtonHoverForeground}" />
     <SolidColorBrush x:Key="TimePickerHoverBorderBrush" Color="{DynamicResource TimePickerHoverBorder}" />
+    <SolidColorBrush x:Key="SettingsDescriptionBrush" Color="#454138" />
 
     <SolidColorBrush x:Key="ContextMenuBackgroundBrush" Color="#DCD8C0" />
     <SolidColorBrush x:Key="ContextMenuItemBackgroundBrush" Color="#DCD8C0" />

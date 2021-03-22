@@ -17,6 +17,8 @@ namespace TodoApp2.Core
                 "#8BC24A",
                 "#FFEB3C",
                 "#E98500",
+                "#FFFFFF",
+                "#000000",
                 "#C9C1E7",
                 "#BDD5EF",
                 "#C7E3D0",

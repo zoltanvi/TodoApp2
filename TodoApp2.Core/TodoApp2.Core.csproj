@@ -111,6 +111,7 @@
     <Compile Include="ViewModel\ReminderViewModel.cs" />
     <Compile Include="ViewModel\Services\CategoryListService.cs" />
     <Compile Include="Services\ColorListService.cs" />
+    <Compile Include="ViewModel\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\TaskListItemViewModel.cs" />
     <Compile Include="ViewModel\TaskPageViewModel.cs" />
   </ItemGroup>

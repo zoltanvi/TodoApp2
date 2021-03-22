@@ -59,11 +59,6 @@ namespace TodoApp2.Core
                     viewModel = new NotificationPageViewModel(task);
                     break;
                 }
-                case ApplicationPage.Options:
-                {
-                    // TODO: implement options page
-                    break;
-                }
             }
 
             if (validPage)
@@ -83,6 +78,5 @@ namespace TodoApp2.Core
 
             OverlayBackgroundVisible = true;
         }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -31,9 +32,9 @@ namespace TodoApp2.Core
         public ICommand ChangeCategoryCommand { get; }
 
         /// <summary>
-        /// The command for toggling always on top on and off
+        /// The command for opening the settings page
         /// </summary>
-        public ICommand ToggleAlwaysOnTopCommand { get; }
+        public ICommand OpenSettingsPageCommand { get; }
 
         private ClientDatabase Database => IoC.ClientDatabase;
 
@@ -56,7 +57,7 @@ namespace TodoApp2.Core
             AddCategoryCommand = new RelayCommand(AddCategory);
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
-            ToggleAlwaysOnTopCommand = new RelayCommand(ToggleAlwaysOnTop);
+            OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
 
             // Subscribe to the collection changed event for synchronizing with database
             CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;
@@ -189,6 +190,12 @@ namespace TodoApp2.Core
                 // Set the CurrentCategory property
                 CurrentCategory = categoryName;
 
+                // Change to task page if it wasn't active
+                if(Application.CurrentPage != ApplicationPage.Task)
+                {
+                    Application.CurrentPage = ApplicationPage.Task;
+                }
+
                 // Notify clients about the category change
                 Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged);
                 OverlayPageService.CloseSideMenu();
@@ -196,11 +203,12 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
-        /// Toggles always on top
+        /// Opens the settings page
         /// </summary>
-        private void ToggleAlwaysOnTop()
+        private void OpenSettingsPage()
         {
-            Application.IsAlwaysOnTop = !Application.IsAlwaysOnTop;
+            Application.CurrentPage = ApplicationPage.Settings;
+            CategoryListService.CurrentCategory = string.Empty;
             OverlayPageService.CloseSideMenu();
         }
 

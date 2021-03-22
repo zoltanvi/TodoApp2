@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -27,7 +28,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; private set; }
+        public ApplicationPage CurrentPage { get; set; }
 
         /// <summary>
         /// The view model to use for the current page when the CurrentPage changes
@@ -143,6 +144,13 @@ namespace TodoApp2.Core
             List<SettingsModel> settings = ClientDatabase.GetSettings();
             ApplicationSettings.SetSettings(settings);
 
+            // If the application is closed while no category was selected,
+            // set the first valid category as selected.
+            // This can happen if the settings page were open during closing
+            if (string.IsNullOrEmpty(ApplicationSettings.CurrentCategory))
+            {
+                ApplicationSettings.CurrentCategory = ClientDatabase.GetActiveCategories().FirstOrDefault()?.Name;
+            }
             CategoryListService.CurrentCategory = ApplicationSettings.CurrentCategory;
         }
 

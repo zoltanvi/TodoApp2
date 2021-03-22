@@ -42,7 +42,7 @@
                 Grid.Column="1"
                 Style="{DynamicResource SettingsButtonStyle}"
                 Content="{DynamicResource SegoeIconSettings}"
-                Command="{Binding ToggleAlwaysOnTopCommand}" />
+                Command="{Binding OpenSettingsPageCommand}" />
 
             <!--Category list-->
             <local:CategoryListControl

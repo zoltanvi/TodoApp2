@@ -179,7 +179,7 @@
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
-                                <VisualState x:Name="MouseOver">
+                                <!--<VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <DoubleAnimation To="0" Duration="0:0:0.0" Storyboard.TargetName="normalBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
                                         <DoubleAnimation To="1" Duration="0:0:0.0" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
@@ -190,16 +190,16 @@
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ToggleSwitchGlyphHoveredBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
+                                </VisualState>-->
+                                <!--<VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="pressedBorder" Storyboard.TargetProperty="(UIElement.Opacity)" />
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionMark" Storyboard.TargetProperty="Fill" Duration="0">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource RadioButton.Pressed.Glyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled">
+                                </VisualState>-->
+                                <!--<VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="checkedBorder" Storyboard.TargetProperty="BorderBrush">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource RadioButton.Disabled.On.Border}" />
@@ -215,7 +215,7 @@
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource RadioButton.Disabled.On.Glyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
-                                </VisualState>
+                                </VisualState>-->
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="CheckStates">
                                 <VisualState x:Name="Unchecked" />

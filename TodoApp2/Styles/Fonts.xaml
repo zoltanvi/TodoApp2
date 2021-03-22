@@ -19,7 +19,7 @@
 
     <!--Button icon characters-->
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
-    <system:String x:Key="SegoeIconSettings">&#xE727;</system:String>
+    <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>
     <system:String x:Key="SegoeIconMinimizeWindow">&#xE921;</system:String>
     <system:String x:Key="SegoeIconMaximizeWindow">&#xE922;</system:String>
     <system:String x:Key="SegoeIconCloseWindow">&#xE8BB;</system:String>
@@ -29,4 +29,5 @@
     <system:String x:Key="SegoeIconPalette">&#xE790;</system:String>
     <system:String x:Key="SegoeIconTrash">&#xE74D;</system:String>
     <system:String x:Key="SegoeIconChangeTheme">&#xE793;</system:String>
+    <system:String x:Key="SegoeIconAlwaysOnTop">&#xE727;</system:String>
 </ResourceDictionary>

@@ -21,8 +21,8 @@ namespace TodoApp2
                 case ApplicationPage.SideMenu:
                     return new CategoryPage();
 
-                case ApplicationPage.Options:
-                    return new OptionsPage();
+                case ApplicationPage.Settings:
+                    return new SettingsPage();
 
                 case ApplicationPage.Reminder:
                     return new ReminderPage();

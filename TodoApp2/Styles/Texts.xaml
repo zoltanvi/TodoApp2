@@ -174,4 +174,13 @@
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0 0 8 6" />
     </Style>
+
+    <Style TargetType="TextBlock" x:Key="SettingsDescriptionStyle">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
+        <Setter Property="FontFamily" Value="{StaticResource OpenSans}" />
+        <Setter Property="Foreground" Value="{DynamicResource SettingsDescriptionBrush}" />
+    </Style>
 </ResourceDictionary>
