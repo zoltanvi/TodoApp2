@@ -80,6 +80,7 @@
     <Compile Include="Helpers\StringDateConverterExtender.cs" />
     <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
     <Compile Include="PropertyHandling\DoublePropertyValueHandler.cs" />
+    <Compile Include="PropertyHandling\BoolPropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\LongPropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\PropertyValueHandlers.cs" />
     <Compile Include="PropertyHandling\StringPropertyValueHandler.cs" />

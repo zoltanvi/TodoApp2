@@ -333,7 +333,7 @@
                     AllowsTransparency="True" 
                     Focusable="False"
                     PopupAnimation="Fade"
-                    MaxHeight="190"
+                    MaxHeight="290"
                     >
                     <Border 
                         Name="SubmenuBorder"

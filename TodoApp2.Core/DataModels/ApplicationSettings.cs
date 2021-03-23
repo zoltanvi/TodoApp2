@@ -32,6 +32,10 @@ namespace TodoApp2.Core
         public int WindowHeight { get; set; }
         public string CurrentCategory { get; set; }
         public Theme ActiveTheme { get; set; }
+        public bool IsAlwaysOnTop { get; set; } 
+        
+        // Quick actions is enabled by default.
+        public bool IsQuickActionsEnabled { get; set; } = true;
 
         #endregion Properties
 
@@ -46,6 +50,8 @@ namespace TodoApp2.Core
                 { nameof(WindowHeight), PropertyValueHandlers.Integer },
                 { nameof(CurrentCategory), PropertyValueHandlers.String },
                 { nameof(ActiveTheme), PropertyValueHandlers.Theme },
+                { nameof(IsAlwaysOnTop), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
             };
         }
 

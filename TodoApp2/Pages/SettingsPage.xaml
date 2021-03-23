@@ -49,7 +49,19 @@
 
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
+                        <!--FIRST-->
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="20"/>
+                        
+                        <!--SECOND-->
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="20"/>
+
+                        <!--PLACEHOLDER-->
+                        <RowDefinition />
+                        <!--VERSION-->
+                        <RowDefinition Height="20"/>
+
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -57,6 +69,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
+                    <!--FIRST ==========================================--> 
                     <ToggleButton
                         Name="AlwaysOnTopToggle"
                         Grid.Row="0"
@@ -71,6 +84,46 @@
                         Grid.Column="2" 
                         Style="{DynamicResource SettingsDescriptionStyle}"
                         />
+
+                    <!--SECOND ==========================================-->
+                    
+                    <ToggleButton
+                        Name="QuickActionsToggle"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{DynamicResource ToggleSwitchLeftStyle}"
+                        IsChecked="{Binding ApplicationViewModel.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                        />
+
+                    <TextBlock 
+                        Text="Quick actions" 
+                        Grid.Row="2" 
+                        Grid.Column="2" 
+                        Style="{DynamicResource SettingsDescriptionStyle}"
+                        />
+
+                    <!--VERSION ==========================================-->
+
+                    <Grid Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border 
+                            Grid.Column="1"
+                            Background="{DynamicResource TaskItemBackgroundBrush}"
+                            CornerRadius="4"
+                            >
+                                <TextBlock 
+                                Foreground="{DynamicResource DescriptionForegroundBrush}"
+                                HorizontalAlignment="Center"
+                                Margin="10 0 10 0"
+                                VerticalAlignment="Center">Version 1.0.0</TextBlock>
+                        </Border>
+                    </Grid>
+                    
 
                 </Grid>
             </Border>

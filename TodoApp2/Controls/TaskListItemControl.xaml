@@ -151,6 +151,7 @@
 
                 <!--Hidden buttons-->
                 <Border
+                    IsEnabled="{Binding ApplicationViewModel.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
                     AutomationProperties.AutomationId="TaskListItemHiddenPanel"
                     Grid.Column="2"
                     x:Name="HoverButtonBorder"

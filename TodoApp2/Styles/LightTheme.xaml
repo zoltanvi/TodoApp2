@@ -28,9 +28,9 @@
     <Color x:Key="NavigatorBackground">#EEEEEE</Color>
     <Color x:Key="OverlayBackground">#E9FFFFFF</Color>
     <Color x:Key="NavigatorBottomPanel">#CECECE</Color>
-    <Color x:Key="CheckBoxBorder">#D0D0D0</Color>
-    <Color x:Key="CheckBoxCheck">#D0D0D0</Color>
-    <Color x:Key="CheckBoxHoverBackground">#B5B5B5</Color>
+    <Color x:Key="CheckBoxBorder">#B7B7B7</Color>
+    <Color x:Key="CheckBoxCheck">#B7B7B7</Color>
+    <Color x:Key="CheckBoxHoverBackground">#B7B7B7</Color>
     <Color x:Key="ScrollbarStatic">#B7B7B7</Color>
     <Color x:Key="ScrollbarMouseOver">#B7B7B7</Color>
     <Color x:Key="ScrollbarPressed">#B7B7B7</Color>

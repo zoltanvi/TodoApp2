@@ -61,10 +61,24 @@ namespace TodoApp2.Core
         /// </summary>
         public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
 
+        // TODO: Create a separate class for these proxy properties
         /// <summary>
         /// Always on top
         /// </summary>
-        public bool IsAlwaysOnTop { get; set; }
+        public bool IsAlwaysOnTop
+        {
+            get => ApplicationSettings.IsAlwaysOnTop;
+            set => ApplicationSettings.IsAlwaysOnTop = value;
+        }
+
+        /// <summary>
+        /// True if the quick actions are enabled on a task list item.
+        /// </summary>
+        public bool IsQuickActionsEnabled
+        {
+            get => ApplicationSettings.IsQuickActionsEnabled;
+            set => ApplicationSettings.IsQuickActionsEnabled = value;
+        }
 
         /// <summary>
         /// Command for toggle between opened and closed state for the side menu
