@@ -18,7 +18,7 @@ namespace TodoApp2
                 case ApplicationPage.Task:
                     return new TaskPage();
 
-                case ApplicationPage.SideMenu:
+                case ApplicationPage.Category:
                     return new CategoryPage();
 
                 case ApplicationPage.Settings:

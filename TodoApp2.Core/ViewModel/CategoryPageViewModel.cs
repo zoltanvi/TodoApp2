@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -41,11 +40,11 @@ namespace TodoApp2.Core
         private ApplicationViewModel Application => IoC.Application;
 
         private OverlayPageService OverlayPageService => IoC.OverlayPageService;
-        
+
         private CategoryListService CategoryListService => IoC.CategoryListService;
-       
+
         private ObservableCollection<CategoryListItemViewModel> Items => CategoryListService.Items;
-        
+
         private string CurrentCategory
         {
             get => CategoryListService.CurrentCategory;
@@ -64,10 +63,6 @@ namespace TodoApp2.Core
 
             // Load the application settings to update the CurrentCategory
             Application.LoadApplicationSettingsOnce();
-
-            // Get the current category from the database
-            CategoryListItemViewModel selectedCategory = Database.GetCategory(Application.ApplicationSettings.CurrentCategory);
-            SetCurrentCategory(selectedCategory?.Name);
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Instance.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
@@ -187,18 +182,22 @@ namespace TodoApp2.Core
         {
             if (!string.IsNullOrEmpty(categoryName))
             {
-                // Set the CurrentCategory property
-                CurrentCategory = categoryName;
+                if (CurrentCategory != categoryName)
+                {
+                    // Set the CurrentCategory property
+                    CurrentCategory = categoryName;
+
+                    // Notify clients about the category change
+                    Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged);
+                }
+                
+                OverlayPageService.CloseSideMenu();
 
                 // Change to task page if it wasn't active
-                if(Application.CurrentPage != ApplicationPage.Task)
+                if (Application.CurrentPage != ApplicationPage.Task)
                 {
                     Application.CurrentPage = ApplicationPage.Task;
                 }
-
-                // Notify clients about the category change
-                Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged);
-                OverlayPageService.CloseSideMenu();
             }
         }
 
@@ -207,9 +206,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            Application.CurrentPage = ApplicationPage.Settings;
-            CategoryListService.CurrentCategory = string.Empty;
-            OverlayPageService.CloseSideMenu();
+            Application.SideMenuPage = ApplicationPage.Settings;
         }
 
         private void OnThemeChanged(object obj)

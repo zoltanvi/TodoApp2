@@ -15,7 +15,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="44" />
         </Grid.RowDefinitions>
-
+        
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -27,28 +27,34 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                HorizontalAlignment="Center"
-                Text="Categories"
-                Style="{DynamicResource CategoryTextBlockStyle}"
-                Margin="20 4 0 0" />
 
-            <!--Settings button-->
-            <Button
-                AutomationProperties.AutomationId="SettingsButton"
-                Grid.Row="0"
-                Grid.Column="1"
-                Style="{DynamicResource SettingsButtonStyle}"
-                Content="{DynamicResource SegoeIconSettings}"
-                Command="{Binding OpenSettingsPageCommand}" />
+            <Grid Grid.Row="0" Margin="0 5 0 15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Text="Categories"
+                    Style="{DynamicResource CategoryTextBlockStyle}"
+                    Margin="20 0 0 0" />
+
+                <Button
+                    AutomationProperties.AutomationId="SettingsButton"
+                    Grid.Column="2"
+                    Style="{DynamicResource SettingsButtonStyle}"
+                    Content="{DynamicResource SegoeIconSettings}"
+                    Command="{Binding OpenSettingsPageCommand}" />
+
+            </Grid>
 
             <!--Category list-->
             <local:CategoryListControl
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
-                Margin="0 20 0 0" />
+                />
         </Grid>
         <!--ADD NEW CATEGORY-->
         <Border Background="{DynamicResource NavigatorBottomPanelBrush}" Grid.Row="1">

@@ -18,9 +18,9 @@
         Task,
 
         /// <summary>
-        /// The side menu page
+        /// The category page
         /// </summary>
-        SideMenu,
+        Category,
 
         /// <summary>
         /// The options page (opened by cog in the side menu page)

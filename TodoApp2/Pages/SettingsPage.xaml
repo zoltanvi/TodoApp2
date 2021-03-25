@@ -11,7 +11,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage">
 
-    <Border Background="{DynamicResource ApplicationBackgroundBrush}">
+    <Border >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -19,30 +19,27 @@
             </Grid.RowDefinitions>
 
             <!--Settings title-->
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Margin="0 5 0 15">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Border 
-                    Grid.Column="0" 
-                    Height="1" 
-                    VerticalAlignment="Center" 
-                    Background="{DynamicResource CategoryTitleForegroundBrush}"
-                    Margin="20 0"
-                    />
+
                 <TextBlock
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Text="Settings"
-                    Style="{DynamicResource CategoryTextBlockStyle}" 
+                    Style="{DynamicResource CategoryTextBlockStyle}"
+                    Margin="20 0 0 0"
+                />
+
+                <Button
+                    Grid.Column="2"
+                    Style="{DynamicResource SettingsButtonStyle}"
+                    Content="{DynamicResource SegoeIconBack}"
+                    Command="{Binding BackToPrevPageCommand}"
                     />
-                <Border Grid.Column="2" 
-                        Height="1" 
-                        VerticalAlignment="Center" 
-                        Background="{DynamicResource CategoryTitleForegroundBrush}"
-                        Margin="20 0"
-                        />
+
             </Grid>
 
             <Border Name="SettingsPanel" Grid.Row="1" Background="Transparent">
@@ -113,11 +110,11 @@
                         </Grid.ColumnDefinitions>
                         <Border 
                             Grid.Column="1"
-                            Background="{DynamicResource TaskItemBackgroundBrush}"
+                            Background="{DynamicResource VersionLabelBackgroundBrush}"
                             CornerRadius="4"
                             >
                                 <TextBlock 
-                                Foreground="{DynamicResource DescriptionForegroundBrush}"
+                                Foreground="{DynamicResource VersionLabelForegroundBrush}"
                                 HorizontalAlignment="Center"
                                 Margin="10 0 10 0"
                                 VerticalAlignment="Center">Version 1.0.0</TextBlock>

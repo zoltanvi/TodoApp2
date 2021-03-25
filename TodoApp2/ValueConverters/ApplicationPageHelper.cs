@@ -22,7 +22,7 @@ namespace TodoApp2
                 case ApplicationPage.Task:
                     return new TaskPage();
 
-                case ApplicationPage.SideMenu:
+                case ApplicationPage.Category:
                     return new CategoryPage();
 
                 case ApplicationPage.Reminder:
@@ -47,7 +47,7 @@ namespace TodoApp2
             if (page is TaskPage)
                 return ApplicationPage.Task;
             if (page is CategoryPage)
-                return ApplicationPage.SideMenu;
+                return ApplicationPage.Category;
             if (page is ReminderPage)
                 return ApplicationPage.Reminder;
             if (page is NotificationPage)

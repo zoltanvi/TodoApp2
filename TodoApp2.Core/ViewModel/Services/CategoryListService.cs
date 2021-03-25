@@ -9,6 +9,8 @@ namespace TodoApp2.Core
     /// </summary>
     public class CategoryListService : BaseViewModel
     {
+        private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
+
         /// <summary>
         /// The category list items
         /// </summary>
@@ -17,7 +19,11 @@ namespace TodoApp2.Core
         /// <summary>
         /// The currently selected category
         /// </summary>
-        public string CurrentCategory { get; set; }
+        public string CurrentCategory
+        {
+            get => ApplicationSettings.CurrentCategory;
+            set => ApplicationSettings.CurrentCategory = value;
+        }
 
         public CategoryListService()
         {

@@ -18,7 +18,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The sliding side menu content page
         /// </summary>
-        public ApplicationPage SideMenuPage { get; } = ApplicationPage.SideMenu;
+        public ApplicationPage SideMenuPage { get; set; }
 
         /// <summary>
         /// True if the side menu should be shown
@@ -89,6 +89,7 @@ namespace TodoApp2.Core
         {
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
             CurrentPage = ApplicationPage.Task;
+            SideMenuPage = ApplicationPage.Category;
         }
 
         /// <summary>
@@ -165,13 +166,10 @@ namespace TodoApp2.Core
             {
                 ApplicationSettings.CurrentCategory = ClientDatabase.GetActiveCategories().FirstOrDefault()?.Name;
             }
-            CategoryListService.CurrentCategory = ApplicationSettings.CurrentCategory;
         }
 
         public void SaveApplicationSettings()
         {
-            ApplicationSettings.CurrentCategory = CategoryListService.CurrentCategory;
-
             List<SettingsModel> settings = ApplicationSettings.GetSettings();
             ClientDatabase.UpdateSettings(settings);
         }

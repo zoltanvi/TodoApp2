@@ -55,7 +55,7 @@
                             <DoubleAnimation
                                 From="0"
                                 To="1"
-                                Duration="0:0:0.35"
+                                Duration="0:0:0.0"
                                 Storyboard.TargetName="HoverButtonBorder"
                                 Storyboard.TargetProperty="(Opacity)" />
                         </Storyboard>
@@ -68,7 +68,7 @@
                             <DoubleAnimation
                                 From="1"
                                 To="0"
-                                Duration="0:0:0.15"
+                                Duration="0:0:0.0"
                                 Storyboard.TargetName="HoverButtonBorder"
                                 Storyboard.TargetProperty="(Opacity)" />
                         </Storyboard>
