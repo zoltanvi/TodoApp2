@@ -22,7 +22,7 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
         <!--<Setter Property="FontFamily" Value="Segoe UI" />-->
-        <Setter Property="FontFamily" Value="{StaticResource OpenSans}" />
+        <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
         <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
     </Style>
@@ -32,7 +32,7 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
-        <Setter Property="FontFamily" Value="{StaticResource OpenSans}" />
+        <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
         <!--<Setter Property="FontFamily" Value="Segoe UI" />-->
         <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundEditModeBrush}" />
         <Setter Property="Background" Value="#00000000" />
@@ -41,8 +41,8 @@
     </Style>
 
     <Style x:Key="CategoryTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource OpenSansBold}" />
-        <!--<Setter Property="FontFamily" Value="Segoe UI" />-->
+        <Setter Property="FontFamily" Value="{StaticResource FreeSansBold}" />
+        <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}" />
         <Setter Property="Foreground" Value="{DynamicResource CategoryTitleForegroundBrush}" />
         <Setter Property="Margin" Value="0 2 0 0" />
@@ -191,7 +191,7 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
-        <Setter Property="FontFamily" Value="{StaticResource OpenSans}" />
+        <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
         <Setter Property="Foreground" Value="{DynamicResource SettingsDescriptionBrush}" />
     </Style>
 </ResourceDictionary>

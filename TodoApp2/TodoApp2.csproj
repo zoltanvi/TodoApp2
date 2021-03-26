@@ -337,6 +337,8 @@
     <Resource Include="Fonts\OpenSans-Regular.ttf" />
     <Resource Include="Fonts\OpenSans-SemiBold.ttf" />
     <Resource Include="Fonts\OpenSans-SemiBoldItalic.ttf" />
+    <Resource Include="Fonts\FreeSans.ttf" />
+    <Resource Include="Fonts\FreeSansBold.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

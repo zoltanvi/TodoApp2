@@ -1,12 +1,13 @@
-﻿<Application x:Class="TodoApp2.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TodoApp2"
-             x:Name="TodoApp2Application">
+﻿<Application
+    x:Class="TodoApp2.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TodoApp2"
+    x:Name="TodoApp2Application">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--Order is important-->
+                <!--  Order is important  -->
                 <ResourceDictionary Source="Styles/Themes/DarkTheme.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 <ResourceDictionary Source="Styles/ContextMenus.xaml" />
@@ -16,7 +17,6 @@
                 <ResourceDictionary Source="Styles/ScrollBars.xaml" />
                 <ResourceDictionary Source="Styles/ListBoxes.xaml" />
                 <ResourceDictionary Source="Styles/CustomControls.xaml" />
-                <ResourceDictionary Source="Styles/Windows.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -10,6 +10,8 @@
     <FontFamily x:Key="OpenSans">pack://application;,,,/Fonts/#Open Sans Regular</FontFamily>
     <FontFamily x:Key="OpenSansBold">pack://application;,,,/Fonts/#Open Sans Bold</FontFamily>
     <FontFamily x:Key="OpenSansExtraBold">pack://application;,,,/Fonts/#Open Sans ExtraBold</FontFamily>
+    <FontFamily x:Key="FreeSans">pack://application;,,,/Fonts/#Free Sans</FontFamily>
+    <FontFamily x:Key="FreeSansBold">pack://application;,,,/Fonts/#Free Sans Bold</FontFamily>
 
     <Style x:Key="BaseStyle" TargetType="{x:Type Control}" />
 
