@@ -1,20 +1,23 @@
-﻿<local:BasePage x:Class="TodoApp2.ReminderPage"
-                x:TypeArguments="core:ReminderPageViewModel"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                xmlns:local="clr-namespace:TodoApp2"
-                xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
-                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-                mc:Ignorable="d"
-                d:DesignHeight="500" d:DesignWidth="400"
-                Title="OptionsPage">
+﻿<local:BasePage
+    x:Class="TodoApp2.ReminderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    Title="OptionsPage"
+    d:DesignHeight="500"
+    d:DesignWidth="400"
+    x:TypeArguments="core:ReminderPageViewModel"
+    mc:Ignorable="d">
 
     <Grid>
-        <Border Background="{DynamicResource OverlayPageBackgroundBrush}"
-                CornerRadius="5"
-                Margin="20 70">
+        <Border
+            Margin="20 70"
+            Background="{DynamicResource OverlayPageBackgroundBrush}"
+            CornerRadius="5">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -25,11 +28,11 @@
                     <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
 
-                <!-- Titlebar -->
+                <!--  Titlebar  -->
                 <Border
                     Grid.Row="0"
-                    BorderThickness="0 0 0 1"
-                    BorderBrush="{DynamicResource NotificationBorderBrush}">
+                    BorderBrush="{DynamicResource NotificationBorderBrush}"
+                    BorderThickness="0 0 0 1">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
@@ -46,30 +49,31 @@
 
                         <ToggleButton
                             Name="IsReminderOnToggle"
-                            Grid.Column="0" Style="{DynamicResource ToggleSwitchLeftStyle}"
+                            Grid.Column="0"
+                            Margin="10 0 0 0"
                             HorizontalAlignment="Left"
+                            Command="{Binding ChangeIsReminderOn}"
                             IsChecked="{Binding IsReminderOn, Mode=TwoWay}"
-                            Command="{Binding ChangeIsReminderOn}" />
+                            Style="{DynamicResource CustomToggleStyle}" />
 
-                        <!--Title-->
+                        <!--  Title  -->
                         <Label
                             Grid.Column="0"
                             Grid.ColumnSpan="3"
-                            Content="Set reminder"
                             Height="30"
+                            Content="Set reminder"
                             Style="{DynamicResource NotificationTitleStyle}" />
 
-                        <!--X button-->
+                        <!--  X button  -->
                         <Button
                             Grid.Column="2"
-                            Style="{DynamicResource NotificationCloseButtonStyle}"
+                            Command="{Binding CloseReminderCommand}"
                             Content="{DynamicResource SegoeIconCloseWindow}"
-                            Command="{Binding CloseReminderCommand}" />
+                            Style="{DynamicResource NotificationCloseButtonStyle}" />
                     </Grid>
                 </Border>
 
-                <Grid Grid.Row="1"
-                      Margin="10 8 10 8">
+                <Grid Grid.Row="1" Margin="10 8 10 8">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -80,79 +84,81 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!--DATE label-->
+                    <!--  DATE label  -->
                     <Label
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       Content="DATE"
-                       Style="{DynamicResource ReminderLabelStyle}" />
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Content="DATE"
+                        Style="{DynamicResource ReminderLabelStyle}" />
 
-                    <!--TIME label-->
+                    <!--  TIME label  -->
                     <Label
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       Content="TIME"
-                       Style="{DynamicResource ReminderLabelStyle}" />
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Content="TIME"
+                        Style="{DynamicResource ReminderLabelStyle}" />
 
-                    <!--DATE Textbox-->
+                    <!--  DATE Textbox  -->
                     <TextBox
-                       Grid.Row="1"
-                       Grid.Column="0"
-                       Margin="0 0 10 0"
-                       Background="#00000000"
-                       Foreground="{DynamicResource DatePickerForegroundBrush}"
-                       Height="30"
-                       FontSize="18"
-                       BorderBrush="{Binding IsSelectedDateStringValid, Converter={local:BoolToBorderBrushConverter}, Mode=TwoWay}"
-                       Text="{Binding SelectedDateString, Mode=TwoWay}"
-                       local:InputBindingsManager.UpdatePropertyOnEnterPress="TextBox.Text" />
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Height="30"
+                        Margin="0 0 10 0"
+                        local:InputBindingsManager.UpdatePropertyOnEnterPress="TextBox.Text"
+                        Background="#00000000"
+                        BorderBrush="{Binding IsSelectedDateStringValid, Converter={local:BoolToBorderBrushConverter}, Mode=TwoWay}"
+                        FontSize="18"
+                        Foreground="{DynamicResource DatePickerForegroundBrush}"
+                        Text="{Binding SelectedDateString, Mode=TwoWay}" />
 
-                    <!--TIMEpicker-->
+                    <!--  TIMEpicker  -->
                     <xctk:TimePicker
                         Name="CustomTimePicker"
                         Grid.Row="1"
                         Grid.Column="1"
+                        Style="{DynamicResource TimePickerStyle}"
                         TimeInterval="00:15:00"
-                        Value="{Binding SelectedTime, Mode=TwoWay}"
-                        Style="{DynamicResource TimePickerStyle}" />
+                        Value="{Binding SelectedTime, Mode=TwoWay}" />
                 </Grid>
 
-                <!--CALENDAR-->
+                <!--  CALENDAR  -->
                 <Calendar
                     Grid.Row="3"
-                    SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
                     DisplayDate="{Binding SelectedDate, Mode=TwoWay}"
+                    SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
                     Style="{DynamicResource CalendarStyle}" />
 
-                <Border Grid.Row="4"
-                        BorderThickness="0 1 0 0"
-                        BorderBrush="{DynamicResource NotificationBorderBrush}">
-                    <Grid Grid.Row="4"
-                          Height="30"
-                          Margin="0 0 0 0">
+                <Border
+                    Grid.Row="4"
+                    BorderBrush="{DynamicResource NotificationBorderBrush}"
+                    BorderThickness="0 1 0 0">
+                    <Grid
+                        Grid.Row="4"
+                        Height="30"
+                        Margin="0 0 0 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <!--RESET button-->
+                        <!--  RESET button  -->
                         <Button
                             Grid.Column="0"
-                            Content="Reset"
-                            Style="{DynamicResource ReminderButtonStyle}"
                             BorderBrush="{DynamicResource NotificationBorderBrush}"
                             BorderThickness="0 0 1 0"
-                            Command="{Binding ResetReminderCommand}" />
+                            Command="{Binding ResetReminderCommand}"
+                            Content="Reset"
+                            Style="{DynamicResource ReminderButtonStyle}" />
 
-                        <!--SET button-->
+                        <!--  SET button  -->
                         <Button
                             Grid.Column="1"
-                            Content="Set"
-                            Style="{DynamicResource ReminderButtonStyle}"
-                            BorderThickness="1 0 0 0"
                             BorderBrush="{DynamicResource NotificationBorderBrush}"
+                            BorderThickness="1 0 0 0"
                             Command="{Binding SetReminderCommand}"
-                            IsEnabled="{Binding IsSelectedDateStringValid}" />
+                            Content="Set"
+                            IsEnabled="{Binding IsSelectedDateStringValid}"
+                            Style="{DynamicResource ReminderButtonStyle}" />
                     </Grid>
                 </Border>
             </Grid>

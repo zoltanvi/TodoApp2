@@ -8,7 +8,7 @@ namespace TodoApp2
 {
     internal class ThemeManager
     {
-        private const string s_AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/";
+        private const string s_AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/Themes/";
         private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
 
         /// <summary>
@@ -51,6 +51,11 @@ namespace TodoApp2
                 case Theme.Dark:
                 {
                     fullPath += "DarkTheme.xaml";
+                    break;
+                }
+                case Theme.Dark2:
+                {
+                    fullPath += "DarkTheme2.xaml";
                     break;
                 }
                 case Theme.Light:

@@ -1,46 +1,43 @@
-﻿<UserControl x:Class="TodoApp2.OverlayBackgroundControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:TodoApp2"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             mc:Ignorable="d"
-             Name="OverlayBackground"
-             AutomationProperties.AutomationId="OverlayBackground"
-             d:DesignHeight="500" d:DesignWidth="350">
+﻿<UserControl
+    x:Class="TodoApp2.OverlayBackgroundControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="OverlayBackground"
+    d:DesignHeight="500"
+    d:DesignWidth="350"
+    AutomationProperties.AutomationId="OverlayBackground"
+    mc:Ignorable="d">
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
 
             <Grid>
-                <!--Overlay background is behind the content-->
+                <!--  Overlay background is behind the content  -->
                 <Border
-                    AutomationProperties.AutomationId="OverlayBackgroundBorder"
-
                     x:Name="OverlayBackgroundBorder"
-                        Background="{DynamicResource OverlayBackgroundBrush}"
-                        Visibility="{Binding OverlayPageService.OverlayBackgroundVisible,
-                                    Source={x:Static local:ViewModelLocator.Instance},
-                                    Converter={local:BoolToVisibilityConverter}}">
+                    AutomationProperties.AutomationId="OverlayBackgroundBorder"
+                    Background="{DynamicResource OverlayBackgroundBrush}"
+                    Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand,
-                                                            Source={x:Static local:ViewModelLocator.Instance}}" />
+                            <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, Source={x:Static local:ViewModelLocator.Instance}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Border>
 
-                <!-- Overlay page is in front of the background-->
-                <!--This is important since we only want to handle the
-                    mousedown event if the background is clicked and not the content area-->
+                <!--  Overlay page is in front of the background  -->
+                <!--
+                    This is important since we only want to handle the
+                    mousedown event if the background is clicked and not the content area
+                -->
                 <local:PageHost
+                    local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
                     AutomationProperties.AutomationId="OverlayPageContent"
-                        local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible,
-                                                         Source={x:Static local:ViewModelLocator.Instance}}"
-                        CurrentPage="{Binding ApplicationViewModel.OverlayPage,
-                                     Source={x:Static local:ViewModelLocator.Instance}}"
-                        CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel,
-                                              Source={x:Static local:ViewModelLocator.Instance}}" />
+                    CurrentPage="{Binding ApplicationViewModel.OverlayPage, Source={x:Static local:ViewModelLocator.Instance}}"
+                    CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel, Source={x:Static local:ViewModelLocator.Instance}}" />
             </Grid>
         </ControlTemplate>
     </UserControl.Template>

@@ -1,18 +1,21 @@
-﻿<local:BasePage x:Class="TodoApp2.NotificationPage"
-                x:TypeArguments="core:NotificationPageViewModel"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                xmlns:local="clr-namespace:TodoApp2"
-                xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
-                mc:Ignorable="d"
-                d:DesignHeight="450" d:DesignWidth="400">
+﻿<local:BasePage
+    x:Class="TodoApp2.NotificationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="400"
+    x:TypeArguments="core:NotificationPageViewModel"
+    mc:Ignorable="d">
 
     <Grid>
-        <Border Background="{DynamicResource OverlayPageBackgroundBrush}"
-                CornerRadius="5"
-                Margin="20 70">
+        <Border
+            Margin="20 70"
+            Background="{DynamicResource OverlayPageBackgroundBrush}"
+            CornerRadius="5">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -22,11 +25,11 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- Titlebar -->
+                <!--  Titlebar  -->
                 <Border
                     Grid.Row="0"
-                    BorderThickness="0 0 0 1"
-                    BorderBrush="{DynamicResource NotificationBorderBrush}">
+                    BorderBrush="{DynamicResource NotificationBorderBrush}"
+                    BorderThickness="0 0 0 1">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -36,21 +39,20 @@
                         <Label
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            Content="Reminder"
                             Height="30"
+                            Content="Reminder"
                             Style="{DynamicResource NotificationTitleStyle}" />
 
-                        <!--Command="{Binding CloseCommand}"-->
+                        <!--  Command="{Binding CloseCommand}"  -->
                         <Button
                             Grid.Column="1"
-                            Style="{DynamicResource NotificationCloseButtonStyle}"
+                            Command="{Binding CloseNotificationCommand}"
                             Content="{DynamicResource SegoeIconCloseWindow}"
-                            Command="{Binding CloseNotificationCommand}" />
+                            Style="{DynamicResource NotificationCloseButtonStyle}" />
                     </Grid>
                 </Border>
 
-                <Grid Grid.Row="1"
-                      Margin="0 8 0 0">
+                <Grid Grid.Row="1" Margin="0 8 0 0">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -64,12 +66,12 @@
 
                     <Label
                         Grid.Row="0"
-                        Grid.Column="0"
                         Grid.RowSpan="2"
-                        Content="{DynamicResource SegoeIconCalendar}"
-                        Style="{DynamicResource IconLabelLargeStyle}"
+                        Grid.Column="0"
                         Margin="14 0 0 0"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource SegoeIconCalendar}"
+                        Style="{DynamicResource IconLabelLargeStyle}" />
 
                     <Label
                         Grid.Row="0"
@@ -80,20 +82,20 @@
                     <Label
                         Grid.Row="1"
                         Grid.Column="1"
-                        Content="{Binding NotificationTask.ReminderDate,
-                            Converter={local:LongToFormattedDateConverter}}"
+                        Content="{Binding NotificationTask.ReminderDate, Converter={local:LongToFormattedDateConverter}}"
                         Style="{DynamicResource NotificationReminderDateStyle}" />
                 </Grid>
 
-                <ScrollViewer Grid.Row="3"
-                              Margin="16 10 0 16"
-                              Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+                <ScrollViewer
+                    Grid.Row="3"
+                    Margin="16 10 0 16"
+                    Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
                     <TextBlock
                         Margin="0 0 18 0"
-                        Text="{Binding NotificationTask.Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
-                        TextWrapping="Wrap"
+                        local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text"
                         Foreground="{DynamicResource DescriptionForegroundBrush}"
-                        local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text" />
+                        Text="{Binding NotificationTask.Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
+                        TextWrapping="Wrap" />
                 </ScrollViewer>
             </Grid>
         </Border>

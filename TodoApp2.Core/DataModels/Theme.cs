@@ -4,6 +4,8 @@
     {
         Dark,
 
+        Dark2,
+
         Light,
 
         Beige

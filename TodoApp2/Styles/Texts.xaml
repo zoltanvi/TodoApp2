@@ -1,10 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
-        <!--Order is important-->
-        <ResourceDictionary Source="DarkTheme.xaml" />
         <ResourceDictionary Source="ScrollBars.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -17,7 +16,7 @@
     <system:Double x:Key="FontSizeIconLarge">30</system:Double>
     <system:Double x:Key="FontSizeGiant">40</system:Double>
 
-    <Style TargetType="TextBlock" x:Key="TaskListItemDescriptionTextBlockStyle">
+    <Style x:Key="TaskListItemDescriptionTextBlockStyle" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -28,7 +27,7 @@
         <Setter Property="Background" Value="#00000000" />
     </Style>
 
-    <Style TargetType="TextBox" x:Key="TaskListItemDescriptionTextBoxStyle">
+    <Style x:Key="TaskListItemDescriptionTextBoxStyle" TargetType="TextBox">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -41,7 +40,7 @@
         <Setter Property="CaretBrush" Value="{DynamicResource InputTextBoxCaretBrush}" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="CategoryTextBlockStyle">
+    <Style x:Key="CategoryTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource OpenSansBold}" />
         <!--<Setter Property="FontFamily" Value="Segoe UI" />-->
         <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}" />
@@ -65,24 +64,27 @@
         </Setter>-->
     </Style>
 
-    <Style TargetType="Label" x:Key="IconLabelStyle">
+    <Style x:Key="IconLabelStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegularIcon}" />
         <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
-        <Setter Property="FontWeight" Value="UltraLight"></Setter>
+        <Setter Property="FontWeight" Value="UltraLight" />
     </Style>
 
-    <Style TargetType="Label" x:Key="IconLabelLargeStyle" BasedOn="{StaticResource IconLabelStyle}">
+    <Style
+        x:Key="IconLabelLargeStyle"
+        BasedOn="{StaticResource IconLabelStyle}"
+        TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeIconLarge}" />
     </Style>
 
-    <Style TargetType="TextBox" x:Key="BaseInputTextBoxStyle">
+    <Style x:Key="BaseInputTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{StaticResource OpenSansLight}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="Foreground" Value="{DynamicResource InputTextBoxForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AddNewTaskTextBoxForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+        <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="CaretBrush" Value="{DynamicResource InputTextBoxCaretBrush}" />
 
         <Setter Property="Template">
@@ -91,22 +93,28 @@
 
                     <Grid>
 
-                        <Border x:Name="border"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="True">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Focusable="False"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
                         </Border>
 
-                        <TextBlock IsHitTestVisible="False"
-                                   Text="{TemplateBinding Tag}"
-                                   x:Name="placeholder"
-                                   Padding="{TemplateBinding Padding}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Foreground="{DynamicResource TextBoxPlaceholderForegroundBrush}"
-                                   Margin="2 0 0 0">
+                        <TextBlock
+                            x:Name="placeholder"
+                            Margin="2 0 0 0"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextBoxPlaceholderForegroundBrush}"
+                            IsHitTestVisible="False"
+                            Text="{TemplateBinding Tag}">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -136,13 +144,16 @@
         </Setter>
     </Style>
 
-    <Style TargetType="TextBox" x:Key="AddNewTaskTextBoxStyle" BasedOn="{StaticResource BaseInputTextBoxStyle}">
+    <Style
+        x:Key="AddNewTaskTextBoxStyle"
+        BasedOn="{StaticResource BaseInputTextBoxStyle}"
+        TargetType="TextBox">
         <Style.Resources>
-            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource DarkScrollBarStyle}" />
+            <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
         </Style.Resources>
     </Style>
 
-    <Style TargetType="Label" x:Key="NotificationTitleStyle">
+    <Style x:Key="NotificationTitleStyle" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
         <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight" />
@@ -151,7 +162,7 @@
         <Setter Property="Padding" Value="0 4 0 0" />
     </Style>
 
-    <Style TargetType="Label" x:Key="NotificationCategoryTitleStyle">
+    <Style x:Key="NotificationCategoryTitleStyle" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -159,7 +170,7 @@
         <Setter Property="Margin" Value="14 0 0 0" />
     </Style>
 
-    <Style TargetType="Label" x:Key="NotificationReminderDateStyle">
+    <Style x:Key="NotificationReminderDateStyle" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
         <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -167,7 +178,7 @@
         <Setter Property="Margin" Value="14 0 0 0" />
     </Style>
 
-    <Style TargetType="Label" x:Key="ReminderLabelStyle">
+    <Style x:Key="ReminderLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
         <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -175,7 +186,7 @@
         <Setter Property="Margin" Value="0 0 8 6" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SettingsDescriptionStyle">
+    <Style x:Key="SettingsDescriptionStyle" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />

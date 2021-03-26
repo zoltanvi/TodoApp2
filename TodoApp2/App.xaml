@@ -7,7 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--Order is important-->
-                <ResourceDictionary Source="Styles/DarkTheme.xaml" />
+                <ResourceDictionary Source="Styles/Themes/DarkTheme.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 <ResourceDictionary Source="Styles/ContextMenus.xaml" />
                 <ResourceDictionary Source="Styles/Buttons.xaml" />
