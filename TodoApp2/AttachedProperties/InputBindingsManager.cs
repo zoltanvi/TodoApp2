@@ -143,7 +143,7 @@ namespace TodoApp2
             {
                 Run inline = new Run(stringBuilder.ToString())
                 {
-                    FontFamily = ConsolasFont,
+                    //FontFamily = ConsolasFont,
                     Foreground = HighLightColor
                 };
                 destination.Inlines.Add(inline);

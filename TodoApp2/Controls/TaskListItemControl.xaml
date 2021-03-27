@@ -1,34 +1,35 @@
-﻿<UserControl x:Class="TodoApp2.TaskListItemControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:local="clr-namespace:TodoApp2"
-             xmlns:dd="urn:gong-wpf-dragdrop"
-             mc:Ignorable="d"
-             dd:DragDrop.DragSourceIgnore="{Binding IsEditMode}"
-             MinHeight="40"
-             x:Name="TaskListItemUC"
-             AutomationProperties.AutomationId="TaskListItemUC"
-             d:DesignHeight="60" d:DesignWidth="350">
-    
+﻿<UserControl
+    x:Class="TodoApp2.TaskListItemControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="urn:gong-wpf-dragdrop"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="TaskListItemUC"
+    MinHeight="40"
+    d:DesignHeight="60"
+    d:DesignWidth="350"
+    dd:DragDrop.DragSourceIgnore="{Binding IsEditMode}"
+    AutomationProperties.AutomationId="TaskListItemUC"
+    mc:Ignorable="d">
+
     <UserControl.ContextMenu>
         <ContextMenu Tag="{Binding Tag.DeleteTaskItemCommand, ElementName=TaskListItemUC}">
-            <MenuItem Header="Edit" Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-            <MenuItem Header="Set reminder" Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Edit" />
+            <MenuItem Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Set reminder" />
             <MenuItem Header="Move to" ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding Name}" />
-                        <Setter Property="Command" Value="{Binding Path=DataContext.MoveToCategoryCommand, 
-                            RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}" />
+                        <Setter Property="Command" Value="{Binding Path=DataContext.MoveToCategoryCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}" />
                         <Setter Property="CommandParameter">
                             <Setter.Value>
                                 <MultiBinding Converter="{local:TaskContextMenuCommandParameterConverter}">
                                     <MultiBinding.Bindings>
                                         <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType={x:Type local:TaskListItemControl}}" />
-                                        <Binding Path="Name"/>
+                                        <Binding Path="Name" />
                                     </MultiBinding.Bindings>
                                 </MultiBinding>
                             </Setter.Value>
@@ -41,31 +42,38 @@
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding}" />
                         <Setter Property="Foreground" Value="{Binding Converter={local:StringRGBToBrushConverter}}" />
-                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetColorCommand, 
-                            RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                        <Setter Property="CommandParameter" Value="{Binding}"/>
+                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetColorCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                        <Setter Property="CommandParameter" Value="{Binding}" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
                 <MenuItem.ItemTemplate>
                     <DataTemplate>
-                        <Border Width="50" Height="15" BorderBrush="Black" BorderThickness="1" Background="{Binding Converter={local:StringRGBToBrushConverter}}"/>
+                        <Border
+                            Width="50"
+                            Height="15"
+                            Background="{Binding Converter={local:StringRGBToBrushConverter}}"
+                            BorderBrush="Black"
+                            BorderThickness="1" />
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
-            <Separator/>
-            <MenuItem Header="Delete" Command="{Binding Path=PlacementTarget.Tag.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                      CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <Separator />
+            <MenuItem
+                Command="{Binding Path=PlacementTarget.Tag.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Header="Delete" />
 
         </ContextMenu>
     </UserControl.ContextMenu>
 
     <Grid Background="{DynamicResource ContentBackgroundBrush}">
 
-        <Border Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"
-                Margin="16 3"
-                CornerRadius="8">
+        <Border
+            Margin="16 3"
+            Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"
+            CornerRadius="8">
 
-            <!--TODO: Make a fade animation instead of this-->
+            <!--  TODO: Make a fade animation instead of this  -->
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeave">
                     <i:InvokeCommandAction Command="{Binding HideColorPickerCommand}" />
@@ -74,66 +82,68 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <!--Color bar column-->
+                    <!--  Color bar column  -->
                     <ColumnDefinition Width="6" />
-                    <!--Checkbox column-->
+                    <!--  Checkbox column  -->
                     <ColumnDefinition Width="36" />
-                    <!--Main content column, also the hidden buttons column-->
+                    <!--  Main content column, also the hidden buttons column  -->
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!--Color bar-->
+                <!--  Color bar  -->
                 <Border
-                    AutomationProperties.AutomationId="TaskListItemColorBar"
                     Grid.Column="0"
-                    CornerRadius="8 0 0 8"
-                    Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}" />
+                    AutomationProperties.AutomationId="TaskListItemColorBar"
+                    Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}"
+                    CornerRadius="8 0 0 8" />
 
                 <CheckBox
-                    AutomationProperties.AutomationId="TaskListItemCheckBox"
                     Grid.Column="1"
-                    IsChecked="{Binding IsDone}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="TaskListItemCheckBox"
                     Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                     CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center" Style="{DynamicResource TaskCheckBoxStyle}" />
+                    IsChecked="{Binding IsDone}"
+                    Style="{DynamicResource TaskCheckBoxStyle}" />
 
-                <!--Main content-->
+                <!--  Main content  -->
                 <Grid Grid.Column="2" Margin="6">
                     <Grid.RowDefinitions>
-                        <!--Task description row-->
+                        <!--  Task description row  -->
                         <RowDefinition Height="*" />
-                        <!--Timestamp row-->
+                        <!--  Timestamp row  -->
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--Task description-->
+                    <!--  Task description  -->
 
-                    <!--Display formatted text-->
+                    <!--  Display formatted text  -->
                     <TextBlock
-                        AutomationProperties.AutomationId="TaskListItemDisplayText"
                         Name="TaskListItemDisplayText"
                         Grid.Row="0"
-                        Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
-                        Style="{DynamicResource TaskListItemDescriptionTextBlockStyle}"
+                        local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text"
+                        AutomationProperties.AutomationId="TaskListItemDisplayText"
+                        Focusable="False"
                         Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                        Style="{DynamicResource TaskListItemDescriptionTextBlockStyle}"
                         Text="{Binding Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
-                        local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text">
+                        Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}">
                         <TextBlock.InputBindings>
-                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditItemCommand}" />
+                            <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
                         </TextBlock.InputBindings>
                     </TextBlock>
 
-                    <!--Text editor mode-->
+                    <!--  Text editor mode  -->
                     <TextBox
-                        AutomationProperties.AutomationId="TaskListItemEditText"
                         Grid.Row="0"
-                        Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}"
                         local:FocusSetter.Value="{Binding IsEditMode}"
-                        Style="{DynamicResource TaskListItemDescriptionTextBoxStyle}"
+                        AutomationProperties.AutomationId="TaskListItemEditText"
                         Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                        PreviewKeyDown="TextBox_PreviewKeyDown"
+                        Style="{DynamicResource TaskListItemDescriptionTextBoxStyle}"
                         Text="{Binding PendingEditContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        PreviewKeyDown="TextBox_PreviewKeyDown">
+                        Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}">
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="LostFocus">
@@ -142,35 +152,35 @@
                         </i:Interaction.Triggers>
                     </TextBox>
 
-                    <!--Timestamp-->
+                    <!--  Timestamp  -->
                     <!--<TextBlock Grid.Row="1"
                                Text="2020-04-22 20:57"
                                Foreground="{DynamicResource TimestampForegroundBrush}"
                                />-->
                 </Grid>
 
-                <!--Hidden buttons-->
+                <!--  Hidden buttons  -->
                 <Border
-                    IsEnabled="{Binding ApplicationViewModel.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
-                    AutomationProperties.AutomationId="TaskListItemHiddenPanel"
-                    Grid.Column="2"
                     x:Name="HoverButtonBorder"
-                    Opacity="0"
-                    Background="Transparent"
+                    Grid.Column="2"
+                    Width="100"
                     HorizontalAlignment="Right"
-                    Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}"
-                    Width="100">
+                    AutomationProperties.AutomationId="TaskListItemHiddenPanel"
+                    Background="Transparent"
+                    IsEnabled="{Binding ApplicationViewModel.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
+                    Opacity="0"
+                    Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}">
 
                     <Border.Triggers>
                         <EventTrigger RoutedEvent="Border.MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation
+                                        Storyboard.TargetName="HoverButtonBorder"
+                                        Storyboard.TargetProperty="(Opacity)"
                                         From="0"
                                         To="1"
-                                        Duration="0:0:0.35"
-                                        Storyboard.TargetName="HoverButtonBorder"
-                                        Storyboard.TargetProperty="(Opacity)" />
+                                        Duration="0:0:0.35" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -179,21 +189,22 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation
+                                        Storyboard.TargetName="HoverButtonBorder"
+                                        Storyboard.TargetProperty="(Opacity)"
                                         From="1"
                                         To="0"
-                                        Duration="0:0:0.15"
-                                        Storyboard.TargetName="HoverButtonBorder"
-                                        Storyboard.TargetProperty="(Opacity)" />
+                                        Duration="0:0:0.15" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
                     </Border.Triggers>
 
-                    <!--HOVER PANEL-->
-                    <Border HorizontalAlignment="Right"
-                            CornerRadius="0 8 8 0"
-                            Background="{DynamicResource TaskListItemHoverPanelBrush}"
-                            Padding="10 0 0 0">
+                    <!--  HOVER PANEL  -->
+                    <Border
+                        Padding="10 0 0 0"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource TaskListItemHoverPanelBrush}"
+                        CornerRadius="0 8 8 0">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -202,38 +213,38 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <!--Calendar button-->
+                            <!--  Calendar button  -->
                             <Button
-                                AutomationProperties.AutomationId="TaskListItemCalendarButton"
                                 Grid.Column="0"
-                                Style="{DynamicResource TaskItemButtonStyle}"
+                                AutomationProperties.AutomationId="TaskListItemCalendarButton"
+                                Command="{Binding OpenReminderCommand}"
                                 Content="{DynamicResource SegoeIconDateTime}"
-                                Command="{Binding OpenReminderCommand}" />
-                            <!--Palette button-->
+                                Style="{DynamicResource TaskItemButtonStyle}" />
+                            <!--  Palette button  -->
                             <Button
-                                AutomationProperties.AutomationId="TaskListItemPaletteButton"
                                 Grid.Column="1"
-                                Style="{DynamicResource TaskItemButtonYellowStyle}"
+                                AutomationProperties.AutomationId="TaskListItemPaletteButton"
+                                Command="{Binding ShowColorPickerCommand}"
                                 Content="{DynamicResource SegoeIconPalette}"
-                                Command="{Binding ShowColorPickerCommand}" />
-                            <!--Trash button-->
+                                Style="{DynamicResource TaskItemButtonYellowStyle}" />
+                            <!--  Trash button  -->
                             <Button
-                                AutomationProperties.AutomationId="TaskListItemTrashBinButton"
                                 Grid.Column="2"
-                                Style="{DynamicResource TaskItemButtonRedStyle}"
-                                Content="{DynamicResource SegoeIconTrash}"
+                                AutomationProperties.AutomationId="TaskListItemTrashBinButton"
                                 Command="{Binding Path=DataContext.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
-                                CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}" />
+                                CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
+                                Content="{DynamicResource SegoeIconTrash}"
+                                Style="{DynamicResource TaskItemButtonRedStyle}" />
                         </Grid>
                     </Border>
                 </Border>
 
                 <local:ColorPickerControl
-                    AutomationProperties.AutomationId="TaskListItemColorPickerControl"
                     Grid.Column="2"
+                    Margin="0 0 30 0"
                     HorizontalContentAlignment="Right"
-                    Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}"
-                    Margin="0 0 30 0" />
+                    AutomationProperties.AutomationId="TaskListItemColorPickerControl"
+                    Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}" />
             </Grid>
         </Border>
     </Grid>

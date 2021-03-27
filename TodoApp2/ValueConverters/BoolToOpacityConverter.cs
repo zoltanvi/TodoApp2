@@ -14,7 +14,7 @@ namespace TodoApp2
             if ((bool)value)
             {
                 // If the item is done
-                return 0.5;
+                return 0.25;
             }
 
             // The item is not done yet

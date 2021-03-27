@@ -53,11 +53,11 @@ namespace TodoApp2.Core
             string trimmed = PendingEditContent?.Replace("`", string.Empty);
             if (!string.IsNullOrWhiteSpace(PendingEditContent) && !string.IsNullOrWhiteSpace(trimmed))
             {
-                // Persist changes into database
-                Database.UpdateTask(this);
-
-                // Changes are accepted
+                // 1. Changes are accepted
                 Content = PendingEditContent;
+
+                // 2. Persist changes into database
+                Database.UpdateTask(this);
             }
 
             // Switch back from edit mode
