@@ -1,18 +1,21 @@
-﻿<UserControl x:Class="TodoApp2.ColorPickerControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:TodoApp2"
-             mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="TodoApp2.ColorPickerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
     <Grid>
 
-        <Border Background="{DynamicResource ColorPickerBackgroundBrush}"
-                Width="200"
-                Height="34"
-                CornerRadius="8"
-                Padding="6 4 6 4">
+        <Border
+            Background="{DynamicResource ColorPickerBackgroundBrush}"
+            Width="200"
+            Height="34"
+            CornerRadius="8"
+            Padding="6 4 6 4">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -24,13 +27,48 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Style="{DynamicResource ColorPickerButtonStyle}" Background="#FA3C4C" Command="{Binding SetColorCommand}" CommandParameter="#FA3C4C" />
-                <Button Grid.Column="1" Style="{DynamicResource ColorPickerButtonStyle}" Background="#DC80FF" Command="{Binding SetColorCommand}" CommandParameter="#DC80FF" />
-                <Button Grid.Column="2" Style="{DynamicResource ColorPickerButtonStyle}" Background="#2168FF" Command="{Binding SetColorCommand}" CommandParameter="#2168FF" />
-                <Button Grid.Column="3" Style="{DynamicResource ColorPickerButtonStyle}" Background="#8BC24A" Command="{Binding SetColorCommand}" CommandParameter="#8BC24A" />
-                <Button Grid.Column="4" Style="{DynamicResource ColorPickerButtonStyle}" Background="#FFEB3C" Command="{Binding SetColorCommand}" CommandParameter="#FFEB3C" />
-                <Button Grid.Column="5" Style="{DynamicResource ColorPickerButtonStyle}" Background="#E98500" Command="{Binding SetColorCommand}" CommandParameter="#E98500" />
-                <Button Grid.Column="6" Style="{DynamicResource ColorPickerButtonStyle}" Background="#565656" Command="{Binding SetColorCommand}" CommandParameter="Transparent" />
+                <Button
+                    Grid.Column="0"
+                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Background="#FA3C4C"
+                    Command="{Binding SetColorCommand}"
+                    CommandParameter="#FA3C4C" />
+                <Button
+                    Grid.Column="1"
+                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Background="#DC80FF"
+                    Command="{Binding SetColorCommand}"
+                    CommandParameter="#DC80FF" />
+                <Button
+                    Grid.Column="2"
+                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Background="#2168FF"
+                    Command="{Binding SetColorCommand}"
+                    CommandParameter="#2168FF" />
+                <Button
+                    Grid.Column="3"
+                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Background="#8BC24A"
+                    Command="{Binding SetColorCommand}"
+                    CommandParameter="#8BC24A" />
+                <Button
+                    Grid.Column="4"
+                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Background="#FFEB3C"
+                    Command="{Binding SetColorCommand}"
+                    CommandParameter="#FFEB3C" />
+                <Button
+                    Grid.Column="5"
+                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Background="#E98500"
+                    Command="{Binding SetColorCommand}"
+                    CommandParameter="#E98500" />
+                <Button
+                    Grid.Column="6"
+                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Background="{DynamicResource TaskItemBackgroundBrush}"
+                    Command="{Binding SetColorCommand}"
+                    CommandParameter="Transparent" />
             </Grid>
         </Border>
     </Grid>

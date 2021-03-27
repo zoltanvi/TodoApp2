@@ -73,13 +73,6 @@
             Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"
             CornerRadius="8">
 
-            <!--  TODO: Make a fade animation instead of this  -->
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeave">
-                    <i:InvokeCommandAction Command="{Binding HideColorPickerCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
             <Grid>
                 <Grid.ColumnDefinitions>
                     <!--  Color bar column  -->
@@ -135,16 +128,16 @@
                     </TextBlock>
 
                     <!--  Text editor mode  -->
+                    <!--  IMPORTANT: FocusSetter Attached property must be after Visibility property in order to work!  -->
                     <TextBox
                         Grid.Row="0"
-                        local:FocusSetter.Value="{Binding IsEditMode}"
                         AutomationProperties.AutomationId="TaskListItemEditText"
                         Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                         PreviewKeyDown="TextBox_PreviewKeyDown"
                         Style="{DynamicResource TaskListItemDescriptionTextBoxStyle}"
                         Text="{Binding PendingEditContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}">
-
+                        Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}"
+                        local:FocusSetter.Value="{Binding IsEditMode}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="LostFocus">
                                 <i:InvokeCommandAction Command="{Binding UpdateItemContentCommand}" />
@@ -241,10 +234,18 @@
 
                 <local:ColorPickerControl
                     Grid.Column="2"
-                    Margin="0 0 30 0"
+                    Margin="0 0 24 0"
                     HorizontalContentAlignment="Right"
                     AutomationProperties.AutomationId="TaskListItemColorPickerControl"
-                    Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}" />
+                    Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeave">
+                            <i:InvokeCommandAction Command="{Binding HideColorPickerCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </local:ColorPickerControl>
             </Grid>
         </Border>
     </Grid>

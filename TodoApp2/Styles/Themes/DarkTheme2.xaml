@@ -13,7 +13,7 @@
     <SolidColorBrush x:Key="CategoryTitleBackgroundBrush" Color="Transparent" />
     <SolidColorBrush x:Key="CategoryTitleSelectedForegroundBrush" Color="#E4E4E4" />
     <SolidColorBrush x:Key="CategoryTitleSelectedBackgroundBrush" Color="#252525" />
-    <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="#E4E4E4" />
+    <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="White" />
     <SolidColorBrush x:Key="DescriptionForegroundEditModeBrush" Color="#0080FF" />
     <SolidColorBrush x:Key="TimestampForegroundBrush" Color="#bdbdbd" />
     <SolidColorBrush x:Key="TitleBarHoverButtonBackgroundBrush" Color="#5E5E5E" />
@@ -39,8 +39,8 @@
     <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="#2E2E2E" />
     <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="#2E2E2E" />
     <SolidColorBrush x:Key="TaskItemButtonIconBrush" Color="#bdbdbd" />
-    <SolidColorBrush x:Key="TaskItemButtonCalendarHoverBrush" Color="#00C19C" />
-    <SolidColorBrush x:Key="TaskItemButtonPaletteHoverBrush" Color="#6AA9FF" />
+    <SolidColorBrush x:Key="TaskItemButtonCalendarHoverBrush" Color="#0A7CFF" />
+    <SolidColorBrush x:Key="TaskItemButtonPaletteHoverBrush" Color="#0A7CFF" />
     <SolidColorBrush x:Key="TaskItemButtonTrashHoverBrush" Color="#FA504D" />
     <SolidColorBrush x:Key="BubbleBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="#414141" />
@@ -48,7 +48,7 @@
     <SolidColorBrush x:Key="NotificationBorderBrush" Color="#5C5C5C" />
     <SolidColorBrush x:Key="ReminderDateBorderBrush" Color="#828282" />
     <SolidColorBrush x:Key="ReminderDateInvalidBorderBrush" Color="#FF3100" />
-    <SolidColorBrush x:Key="SettingsButtonHoverForegroundBrush" Color="#41CFFF" />
+    <SolidColorBrush x:Key="SettingsButtonHoverForegroundBrush" Color="#0A7CFF" />
 
     <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="#D0D0D0" />
     <SolidColorBrush x:Key="ToggleButtonBackgroundCheckedBrush" Color="#0A7CFF" />

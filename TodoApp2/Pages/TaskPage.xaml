@@ -21,29 +21,11 @@
             </Grid.RowDefinitions>
 
             <!--  Current category  -->
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Border
-                    Grid.Column="0"
-                    Height="1"
-                    Margin="20 0"
-                    VerticalAlignment="Center"
-                    Background="{DynamicResource CategoryTitleForegroundBrush}" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{DynamicResource CategoryTextBlockStyle}"
-                    Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}" />
-                <Border
-                    Grid.Column="2"
-                    Height="1"
-                    Margin="20 0"
-                    VerticalAlignment="Center"
-                    Background="{DynamicResource CategoryTitleForegroundBrush}" />
-            </Grid>
+            <TextBlock
+                Grid.Row="0"
+                Margin="20 7 0 0"
+                Style="{DynamicResource CategoryTextBlockStyle}"
+                Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}" />
 
             <local:TaskListControl x:Name="MyTaskListControl" Grid.Row="1" />
 

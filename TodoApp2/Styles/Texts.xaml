@@ -20,7 +20,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
         <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
         <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
@@ -30,7 +30,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
         <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
         <!--<Setter Property="FontFamily" Value="Segoe UI" />-->
         <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundEditModeBrush}" />

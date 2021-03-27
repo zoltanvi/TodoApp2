@@ -1,13 +1,15 @@
-﻿<UserControl x:Class="TodoApp2.TaskListControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:TodoApp2"
-             xmlns:dd="urn:gong-wpf-dragdrop"
-             mc:Ignorable="d"
-             AutomationProperties.AutomationId="TaskListControl"
-             d:DesignHeight="350" d:DesignWidth="380">
+﻿<UserControl
+    x:Class="TodoApp2.TaskListControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:dd="urn:gong-wpf-dragdrop"
+    mc:Ignorable="d"
+    AutomationProperties.AutomationId="TaskListControl"
+    d:DesignHeight="350"
+    d:DesignWidth="380">
     <Grid Background="Transparent">
 
         <ListView
@@ -41,10 +43,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
 
-                    <!--Task Item-->
-                    <!--Tag property is set because the context menu data binding is tricky-->
-                    <local:TaskListItemControl
-                                Tag="{Binding DataContext, ElementName=TaskListListView}" />
+                    <!--  Task Item  -->
+                    <!--  Tag property is set because the context menu data binding is tricky  -->
+                    <local:TaskListItemControl Tag="{Binding DataContext, ElementName=TaskListListView}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
