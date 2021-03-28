@@ -48,97 +48,120 @@
 
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
-                        <!--  FIRST  -->
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="20" />
-
-                        <!--  SECOND  -->
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="20" />
-
-                        <!--  THIRD  -->
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="20" />
-
-                        <!--  FOURTH  -->
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="20" />
-
-                        <!--  PLACEHOLDER  -->
                         <RowDefinition />
-                        <!--  VERSION  -->
                         <RowDefinition Height="20" />
-
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
 
-                    <!--  FIRST ==========================================  -->
-                    <ToggleButton
-                        Name="AlwaysOnTopToggle"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                        Style="{DynamicResource CustomToggleStyle}" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <!--  FIRST  -->
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="20" />
 
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        Style="{DynamicResource SettingsDescriptionStyle}"
-                        Text="Always on top" />
+                            <!--  SECOND  -->
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="20" />
 
-                    <!--  SECOND ==========================================  -->
-                    <ToggleButton
-                        Name="QuickActionsToggle"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                        Style="{DynamicResource CustomToggleStyle}" />
+                            <!--  THIRD  -->
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="20" />
 
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Style="{DynamicResource SettingsDescriptionStyle}"
-                        Text="Quick actions on items" />
-
-                    <!--  THIRD ==========================================  -->
-                    <ToggleButton
-                        Name="ItemBackgroundEnabledToggle"
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                        Style="{DynamicResource CustomToggleStyle}" />
-
-                    <TextBlock
-                        Grid.Row="4"
-                        Grid.Column="2"
-                        Style="{DynamicResource SettingsDescriptionStyle}"
-                        Text="Item background visible" />
+                            <!--  FOURTH  -->
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="20" />
 
 
-                    <!--  FOURTH ==========================================  -->
-                    <ToggleButton
-                        Name="ModificationDateVisibleToggle"
-                        Grid.Row="6"
-                        Grid.Column="0"
-                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                        Style="{DynamicResource CustomToggleStyle}" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock
-                        Grid.Row="6"
-                        Grid.Column="2"
-                        Style="{DynamicResource SettingsDescriptionStyle}"
-                        Text="Modification date on items" />
+                        <!--  FIRST ==========================================  -->
+                        <ToggleButton
+                            Name="AlwaysOnTopToggle"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                            Style="{DynamicResource CustomToggleStyle}" />
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Always on top" />
+
+                        <!--  SECOND ==========================================  -->
+                        <ToggleButton
+                            Name="QuickActionsToggle"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                            Style="{DynamicResource CustomToggleStyle}" />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Quick actions on items" />
+
+                        <!--  THIRD ==========================================  -->
+                        <ToggleButton
+                            Name="ItemBackgroundEnabledToggle"
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                            Style="{DynamicResource CustomToggleStyle}" />
+
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Item background visible" />
+
+
+                        <!--  FOURTH ==========================================  -->
+                        <ToggleButton
+                            Name="ModificationDateVisibleToggle"
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                            Style="{DynamicResource CustomToggleStyle}" />
+
+                        <TextBlock
+                            Grid.Row="6"
+                            Grid.Column="2"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Modification date on items" />
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Theme" />
+
+                        <ComboBox Grid.Row="1" Style="{DynamicResource ComboBoxStyle1}">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="Dark" />
+                                <ComboBoxItem Content="Light" />
+                                <ComboBoxItem Content="Beige" />
+                                <ComboBoxItem Content="Dark2" />
+                            </ComboBox.Items>
+                        </ComboBox>
+
+                    </Grid>
+
 
                     <!--  VERSION ==========================================  -->
-
-                    <Grid
-                        Grid.Row="9"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="2">
+                    <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="auto" />
@@ -157,8 +180,10 @@
                         </Border>
                     </Grid>
 
-
                 </Grid>
+
+
+
             </Border>
 
         </Grid>

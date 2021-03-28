@@ -118,7 +118,7 @@
     <SolidColorBrush x:Key="RadioButton.Checked.Border" Color="#FF0063B1" />
     <SolidColorBrush x:Key="RadioButton.Checked.Glyph" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="BaseButtonForegroundBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="#252525" />
+    <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="#494949" />
     <SolidColorBrush x:Key="VersionLabelForegroundBrush" Color="#EBEBEB" />
 
 
