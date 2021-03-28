@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
@@ -211,6 +212,8 @@ namespace TodoApp2.Core
             {
                 CategoryId = Database.GetCategory(CurrentCategory).Id,
                 Content = PendingAddNewTaskText,
+                CreationDate = DateTime.Now.Ticks,
+                ModificationDate = DateTime.Now.Ticks
             };
 
             // Persist into database and set the task ID

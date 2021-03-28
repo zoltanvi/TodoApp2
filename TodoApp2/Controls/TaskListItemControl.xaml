@@ -68,10 +68,14 @@
 
     <Grid Background="{DynamicResource ContentBackgroundBrush}">
 
-        <Border
-            Margin="16 3"
-            Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"
-            CornerRadius="8">
+        <!--  Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"  -->
+        <Border Margin="16 3" CornerRadius="8">
+            <Border.Background>
+                <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="IsDone" />
+                    <Binding Path="ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                </MultiBinding>
+            </Border.Background>
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -146,10 +150,14 @@
                     </TextBox>
 
                     <!--  Timestamp  -->
-                    <!--<TextBlock Grid.Row="1"
-                               Text="2020-04-22 20:57"
-                               Foreground="{DynamicResource TimestampForegroundBrush}"
-                               />-->
+                    <TextBlock
+                        Grid.Row="1"
+                        Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                        Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                        Text="{Binding ModificationDate, Converter={local:LongToTimestampConverter}}"
+                        FontFamily="{StaticResource FreeSans}"
+                        FontSize="{StaticResource FontSizeSmallest}"
+                        Foreground="{DynamicResource TimestampForegroundBrush}" />
                 </Grid>
 
                 <!--  Hidden buttons  -->
@@ -160,7 +168,7 @@
                     HorizontalAlignment="Right"
                     AutomationProperties.AutomationId="TaskListItemHiddenPanel"
                     Background="Transparent"
-                    IsEnabled="{Binding ApplicationViewModel.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
+                    IsEnabled="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
                     Opacity="0"
                     Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}">
 

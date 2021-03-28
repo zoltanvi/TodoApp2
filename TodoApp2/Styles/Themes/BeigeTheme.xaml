@@ -13,9 +13,9 @@
     <SolidColorBrush x:Key="CategoryTitleBackgroundBrush" Color="Transparent" />
     <SolidColorBrush x:Key="CategoryTitleSelectedForegroundBrush" Color="#DCD8C0" />
     <SolidColorBrush x:Key="CategoryTitleSelectedBackgroundBrush" Color="#454138" />
-    <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="#454138" />
+    <SolidColorBrush x:Key="DescriptionForegroundBrush" Color="#2B2A26" />
     <SolidColorBrush x:Key="DescriptionForegroundEditModeBrush" Color="#CD664D" />
-    <SolidColorBrush x:Key="TimestampForegroundBrush" Color="#bdbdbd" />
+    <SolidColorBrush x:Key="TimestampForegroundBrush" Color="#64604F" />
     <SolidColorBrush x:Key="TitleBarHoverButtonBackgroundBrush" Color="#5B5850" />
     <SolidColorBrush x:Key="TitleBarHoverCloseButtonBackgroundBrush" Color="#CD664D" />
     <SolidColorBrush x:Key="ApplicationBackgroundBrush" Color="#CDC8B0" />
@@ -29,7 +29,7 @@
     <SolidColorBrush x:Key="AddNewTaskTextBoxForegroundBrush" Color="#DCD8C0" />
     <SolidColorBrush x:Key="InputTextBoxCaretBrush" Color="White" />
     <SolidColorBrush x:Key="TextBoxPlaceholderForegroundBrush" Color="#B3B09C" />
-    <SolidColorBrush x:Key="NavigatorBackgroundBrush" Color="#DCD8C0" />
+    <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="#DCD8C0" />
     <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="#E9B4AF9A" />
     <SolidColorBrush x:Key="AddNewCategoryTextBoxBackgroundBrush" Color="#292929" />
     <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="#454138" />

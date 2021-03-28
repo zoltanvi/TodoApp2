@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
 
 namespace TodoApp2
 {
     /// <summary>
-    /// A converter that takes in a boolean and converts it to a visibility enum
+    /// A converter that takes in a long and converts it to a formatted date string
     /// </summary>
-    public class BoolToVisibilityConverter : BaseValueConverter<BoolToVisibilityConverter>
+    public class LongToFormattedLongDateConverter : BaseValueConverter<LongToFormattedLongDateConverter>
     {
+        private const string DateTimeFormatString = "yyyy. MMMM dd. dddd, HH:mm";
+
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value)
-            {
-                return Visibility.Visible;
-            }
+            long dateTicks = (long)value;
 
-            return Visibility.Collapsed;
+            return new DateTime(dateTicks).ToString(DateTimeFormatString);
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

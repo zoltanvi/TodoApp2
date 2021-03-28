@@ -13,7 +13,7 @@
 
             <Border
                     x:Name="NavigatorContentBorder"
-                    Background="{DynamicResource NavigatorBackgroundBrush}"
+                    Background="{DynamicResource SideMenuBackgroundBrush}"
                     Width="300"
                     HorizontalAlignment="Left">
 

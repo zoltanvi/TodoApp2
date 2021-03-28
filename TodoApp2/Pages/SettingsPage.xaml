@@ -56,6 +56,11 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="20" />
 
+                        <!--  THIRD  -->
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+
+                        <!--  FOURTH  -->
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="20" />
 
@@ -76,7 +81,7 @@
                         Name="AlwaysOnTopToggle"
                         Grid.Row="0"
                         Grid.Column="0"
-                        IsChecked="{Binding ApplicationViewModel.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                         Style="{DynamicResource CustomToggleStyle}" />
 
                     <TextBlock
@@ -86,33 +91,52 @@
                         Text="Always on top" />
 
                     <!--  SECOND ==========================================  -->
-
                     <ToggleButton
                         Name="QuickActionsToggle"
                         Grid.Row="2"
                         Grid.Column="0"
-                        IsChecked="{Binding ApplicationViewModel.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                         Style="{DynamicResource CustomToggleStyle}" />
 
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="2"
                         Style="{DynamicResource SettingsDescriptionStyle}"
-                        Text="Quick actions" />
+                        Text="Quick actions on items" />
 
-                    <!--<Border
+                    <!--  THIRD ==========================================  -->
+                    <ToggleButton
+                        Name="ItemBackgroundEnabledToggle"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                        Style="{DynamicResource CustomToggleStyle}" />
+
+                    <TextBlock
                         Grid.Row="4"
                         Grid.Column="2"
-                        Padding="5"
-                        Background="White">
+                        Style="{DynamicResource SettingsDescriptionStyle}"
+                        Text="Item background visible" />
 
 
-                    </Border>-->
+                    <!--  FOURTH ==========================================  -->
+                    <ToggleButton
+                        Name="ModificationDateVisibleToggle"
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                        Style="{DynamicResource CustomToggleStyle}" />
+
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="2"
+                        Style="{DynamicResource SettingsDescriptionStyle}"
+                        Text="Modification date on items" />
 
                     <!--  VERSION ==========================================  -->
 
                     <Grid
-                        Grid.Row="7"
+                        Grid.Row="9"
                         Grid.Column="1"
                         Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
@@ -128,7 +152,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                Version 1.0.0
+                                Version 1.0.1
                             </TextBlock>
                         </Border>
                     </Grid>

@@ -9,11 +9,10 @@ namespace TodoApp2.Core
     /// </summary>
     public class ApplicationViewModel : BaseViewModel
     {
-        private bool m_AppSettingsLoadedFirstTime = false;
+        private bool m_AppSettingsLoadedFirstTime;
 
         private ClientDatabase ClientDatabase => IoC.ClientDatabase;
         private OverlayPageService OverlayPageService => IoC.OverlayPageService;
-        private CategoryListService CategoryListService => IoC.CategoryListService;
 
         /// <summary>
         /// The sliding side menu content page
@@ -29,14 +28,6 @@ namespace TodoApp2.Core
         /// The current page of the application
         /// </summary>
         public ApplicationPage CurrentPage { get; set; }
-
-        /// <summary>
-        /// The view model to use for the current page when the CurrentPage changes
-        /// NOTE: This is not a live up-to-date view model of the current page
-        ///       it is simply used to set the view model of the current page
-        ///       at the time it changes
-        /// </summary>
-        public BaseViewModel CurrentPageViewModel { get; set; }
 
         /// <summary>
         /// The overlay panel content page
@@ -60,25 +51,6 @@ namespace TodoApp2.Core
         /// The settings for the whole application
         /// </summary>
         public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
-
-        // TODO: Create a separate class for these proxy properties
-        /// <summary>
-        /// Always on top
-        /// </summary>
-        public bool IsAlwaysOnTop
-        {
-            get => ApplicationSettings.IsAlwaysOnTop;
-            set => ApplicationSettings.IsAlwaysOnTop = value;
-        }
-
-        /// <summary>
-        /// True if the quick actions are enabled on a task list item.
-        /// </summary>
-        public bool IsQuickActionsEnabled
-        {
-            get => ApplicationSettings.IsQuickActionsEnabled;
-            set => ApplicationSettings.IsQuickActionsEnabled = value;
-        }
 
         /// <summary>
         /// Command for toggle between opened and closed state for the side menu

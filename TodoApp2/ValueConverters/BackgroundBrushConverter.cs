@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Media;
 
 namespace TodoApp2
 {
@@ -8,19 +9,22 @@ namespace TodoApp2
     /// A converter that takes in a boolean and converts it to a WPF brush
     /// It is used for task list item background.
     /// </summary>
-    public class BackgroundBrushConverter : BaseValueConverter<BackgroundBrushConverter>
+    public class BackgroundBrushConverter : BaseMultiValueConverter<BackgroundBrushConverter>
     {
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        private readonly SolidColorBrush m_Transparent = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            bool isDone = (bool)value;
-
-            // Converts the boolean into a brush
-            // The task list item background is hatched when the task is done
+            bool isDone = (bool)values[0];
+            bool isItemBackgroundVisible = (bool)values[1];
+            
+            // The task list item background is hatched when the task is done and the background is enabled in the settings
             // Brush is always got from resources because this way it can dynamically change during runtime
+            if (!isItemBackgroundVisible) return m_Transparent;
+            
             return isDone ? Application.Current.TryFindResource("HatchBrush") : Application.Current.TryFindResource("TaskItemBackgroundBrush");
         }
 
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

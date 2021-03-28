@@ -174,10 +174,11 @@
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityNegatedConverter.cs" />
     <Compile Include="ValueConverters\CategorySelectedForegroundColorConverter.cs" />
-    <Compile Include="ValueConverters\LongToFormattedDateConverter.cs" />
+    <Compile Include="ValueConverters\LongToFormattedLongDateConverter.cs" />
     <Compile Include="ValueConverters\BoolToOpacityConverter.cs" />
     <Compile Include="ValueConverters\CategorySelectedColorConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\LongToTimestampConverter.cs" />
     <Compile Include="ValueConverters\StringToDateConverter.cs" />
     <Compile Include="ValueConverters\TaskContextMenuCommandParameterConverter.cs" />
     <Compile Include="ValueConverters\TextDecorationConverter.cs" />

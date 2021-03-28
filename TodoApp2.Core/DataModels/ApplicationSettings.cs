@@ -32,8 +32,11 @@ namespace TodoApp2.Core
         public int WindowHeight { get; set; }
         public string CurrentCategory { get; set; }
         public Theme ActiveTheme { get; set; }
-        public bool IsAlwaysOnTop { get; set; } 
-        
+        public bool IsAlwaysOnTop { get; set; }
+        public bool IsModificationDateVisible { get; set; }
+
+        // Item background is visible by default.
+        public bool IsItemBackgroundVisible { get; set; } = true;
         // Quick actions is enabled by default.
         public bool IsQuickActionsEnabled { get; set; } = true;
 
@@ -51,7 +54,9 @@ namespace TodoApp2.Core
                 { nameof(CurrentCategory), PropertyValueHandlers.String },
                 { nameof(ActiveTheme), PropertyValueHandlers.Theme },
                 { nameof(IsAlwaysOnTop), PropertyValueHandlers.Bool },
+                { nameof(IsModificationDateVisible), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsItemBackgroundVisible), PropertyValueHandlers.Bool },
             };
         }
 

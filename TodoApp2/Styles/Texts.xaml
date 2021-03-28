@@ -7,8 +7,9 @@
         <ResourceDictionary Source="ScrollBars.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <system:Double x:Key="FontSizeSmall">14</system:Double>
-    <system:Double x:Key="FontSizeSmaller">16</system:Double>
+    <system:Double x:Key="FontSizeSmallest">12</system:Double>
+    <system:Double x:Key="FontSizeSmaller">14</system:Double>
+    <system:Double x:Key="FontSizeSmall">16</system:Double>
     <system:Double x:Key="FontSizeRegular">18</system:Double>
     <system:Double x:Key="FontSizeRegularIcon">20</system:Double>
     <system:Double x:Key="FontSizeLarge">22</system:Double>
@@ -170,7 +171,7 @@
     </Style>
 
     <Style x:Key="NotificationReminderDateStyle" TargetType="Label">
-        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
         <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
@@ -178,7 +179,7 @@
     </Style>
 
     <Style x:Key="ReminderLabelStyle" TargetType="Label">
-        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
         <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
@@ -189,7 +190,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
         <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
         <Setter Property="Foreground" Value="{DynamicResource SettingsDescriptionBrush}" />
     </Style>

@@ -29,7 +29,7 @@
     <SolidColorBrush x:Key="AddNewTaskTextBoxForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="InputTextBoxCaretBrush" Color="Black" />
     <SolidColorBrush x:Key="TextBoxPlaceholderForegroundBrush" Color="#545454" />
-    <SolidColorBrush x:Key="NavigatorBackgroundBrush" Color="#EEEEEE" />
+    <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="#EEEEEE" />
     <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="#E9FFFFFF" />
     <SolidColorBrush x:Key="AddNewCategoryTextBoxBackgroundBrush" Color="#CECECE" />
     <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="#B7B7B7" />

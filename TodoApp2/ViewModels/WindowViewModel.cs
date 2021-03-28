@@ -195,7 +195,7 @@ namespace TodoApp2
             m_Window.Topmost = true;  // important
             m_Window.Topmost = false; // important
             m_Window.Focus();         // important
-            m_Window.Topmost = Application.IsAlwaysOnTop;
+            m_Window.Topmost = ApplicationSettings.IsAlwaysOnTop;
 
             // Flash the window 3 times
             m_Window.FlashWindow(3);
@@ -222,7 +222,7 @@ namespace TodoApp2
         private void OnWindowDeactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
-            window.Topmost = Application.IsAlwaysOnTop;
+            window.Topmost = ApplicationSettings.IsAlwaysOnTop;
         }
 
         private void OnWindowStateChanged(object sender, EventArgs e)

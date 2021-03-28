@@ -82,7 +82,7 @@
                     <Label
                         Grid.Row="1"
                         Grid.Column="1"
-                        Content="{Binding NotificationTask.ReminderDate, Converter={local:LongToFormattedDateConverter}}"
+                        Content="{Binding NotificationTask.ReminderDate, Converter={local:LongToFormattedLongDateConverter}}"
                         Style="{DynamicResource NotificationReminderDateStyle}" />
                 </Grid>
 

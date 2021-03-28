@@ -3,12 +3,9 @@ using System.Globalization;
 
 namespace TodoApp2
 {
-    /// <summary>
-    /// A converter that takes in a long and converts it to a formatted date string
-    /// </summary>
-    public class LongToFormattedDateConverter : BaseValueConverter<LongToFormattedDateConverter>
+    public class LongToTimestampConverter : BaseValueConverter<LongToTimestampConverter>
     {
-        private const string DateTimeFormatString = "yyyy. MMMM dd. dddd, HH:mm";
+        private const string DateTimeFormatString = "yyyy-MM-dd HH:mm";
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

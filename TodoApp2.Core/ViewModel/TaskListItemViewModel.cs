@@ -19,8 +19,8 @@ namespace TodoApp2.Core
         public string Content { get; set; }
         public long ListOrder { get; set; }
         public bool IsDone { get; set; }
-        public long CreationDate { get; set; } = DateTime.Now.Ticks;
-        public long ModificationDate { get; set; } = DateTime.Now.Ticks;
+        public long CreationDate { get; set; }
+        public long ModificationDate { get; set; }
         public string Color { get; set; }
         public bool Trashed { get; set; }
         public long ReminderDate { get; set; }
@@ -50,13 +50,19 @@ namespace TodoApp2.Core
         {
             // If the text is empty or only whitespace, refuse
             // If the text only contains format characters, refuse
+            // If the content did not changed, refuse
             string trimmed = PendingEditContent?.Replace("`", string.Empty);
-            if (!string.IsNullOrWhiteSpace(PendingEditContent) && !string.IsNullOrWhiteSpace(trimmed))
+            if (!string.IsNullOrWhiteSpace(PendingEditContent) && 
+                !string.IsNullOrWhiteSpace(trimmed) && 
+                Content != PendingEditContent)
             {
                 // 1. Changes are accepted
                 Content = PendingEditContent;
 
-                // 2. Persist changes into database
+                // Update modification date
+                ModificationDate = DateTime.Now.Ticks;
+
+                // 3. Persist changes into database
                 Database.UpdateTask(this);
             }
 
