@@ -96,6 +96,7 @@
     <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyHandling\ThemePropertyValueHandler.cs" />
+    <Compile Include="Services\ThemeListService.cs" />
     <Compile Include="ViewModel\Services\OverlayPageService.cs" />
     <Compile Include="Services\ReminderNotificationService.cs" />
     <Compile Include="Services\TaskScheduler.cs" />

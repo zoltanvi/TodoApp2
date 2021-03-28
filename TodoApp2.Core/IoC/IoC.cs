@@ -48,6 +48,11 @@ namespace TodoApp2.Core
         public static ColorListService ColorListService => Get<ColorListService>();
 
         /// <summary>
+        /// A shortcut to access the <see cref="ThemeListService"/>
+        /// </summary>
+        public static ThemeListService ThemeListService => Get<ThemeListService>();
+
+        /// <summary>
         /// Gets a service from the IoC, of the specified type
         /// </summary>
         /// <typeparam name="T">The type to get</typeparam>
@@ -64,26 +69,35 @@ namespace TodoApp2.Core
         /// </summary>
         public static void Setup()
         {
-            // Bind all required view models
             BindViewModels();
+
+            BindServices();
 
             // Force the lazy load to initialize the service
             var loadedNotificationService = ReminderNotificationService;
         }
 
         /// <summary>
-        /// Binds all singleton view model
+        /// Binds all singleton view models
         /// </summary>
         private static void BindViewModels()
         {
             // Bind to a single instance
             Kernel.Bind<ApplicationViewModel>().To<ApplicationViewModel>().InSingletonScope();
+        }
+
+        /// <summary>
+        /// Binds all singleton services
+        /// </summary>
+        private static void BindServices()
+        {
             Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
             Kernel.Bind<TaskScheduler>().To<TaskScheduler>().InSingletonScope();
             Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();
             Kernel.Bind<OverlayPageService>().To<OverlayPageService>().InSingletonScope();
             Kernel.Bind<CategoryListService>().To<CategoryListService>().InSingletonScope();
             Kernel.Bind<ColorListService>().To<ColorListService>().InSingletonScope();
+            Kernel.Bind<ThemeListService>().To<ThemeListService>().InSingletonScope();
         }
     }
 }

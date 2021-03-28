@@ -20,7 +20,7 @@ namespace TodoApp2.Core
     ///   2. Extend <see cref="PropertyDescriptors"/> with the new property's name
     ///      and the corresponding <see cref="IPropertyValueHandler"/> to it's type.
     /// </remarks>
-    public class ApplicationSettings
+    public class ApplicationSettings : BaseViewModel
     {
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
 

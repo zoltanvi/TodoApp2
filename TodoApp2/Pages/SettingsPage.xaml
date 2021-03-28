@@ -143,21 +143,15 @@
                         <TextBlock
                             Grid.Row="0"
                             Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Theme" 
-                            Margin="0 0 0 4"
-                            />
+                            Text="Theme"
+                            Margin="0 0 0 4" />
 
                         <ComboBox
                             Grid.Row="1"
                             FontSize="{StaticResource FontSizeSmall}"
-                            FontFamily="{StaticResource FreeSans}">
-                            <ComboBox.Items>
-                                <ComboBoxItem Content="Dark" />
-                                <ComboBoxItem Content="Light" />
-                                <ComboBoxItem Content="Beige" />
-                                <ComboBoxItem Content="Dark2" />
-                            </ComboBox.Items>
-                        </ComboBox>
+                            FontFamily="{StaticResource FreeSans}"
+                            ItemsSource="{Binding ThemeListService.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                     </Grid>
 
@@ -177,7 +171,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                Version 1.0.1
+                                Version 1.0.2
                             </TextBlock>
                         </Border>
                     </Grid>

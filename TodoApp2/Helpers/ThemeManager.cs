@@ -11,18 +11,26 @@ namespace TodoApp2
         private const string s_AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/Themes/";
         private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
 
+        public Theme CurrentTheme { get; private set; }
+
         /// <summary>
         /// Changes the current theme to the provided one.
         /// </summary>
-        /// <param name="theme">The theme to change to.</param>
+        /// <param name="oldTheme">The theme to change from.</param>
+        /// <param name="newTheme">The theme to change to.</param>
         public Theme ChangeToTheme(Theme oldTheme, Theme newTheme)
         {
-            // Get the resource paths
-            var oldThemePath = GetThemeUriPath(oldTheme);
-            var newThemePath = GetThemeUriPath(newTheme);
+            if (oldTheme != newTheme)
+            {
+                // Get the resource paths
+                var oldThemePath = GetThemeUriPath(oldTheme);
+                var newThemePath = GetThemeUriPath(newTheme);
 
-            // Change the old theme to the new one
-            ChangeTheme(oldThemePath, newThemePath);
+                // Change the old theme to the new one
+                ChangeTheme(oldThemePath, newThemePath);
+            }
+
+            CurrentTheme = newTheme;
 
             return newTheme;
         }
@@ -31,10 +39,10 @@ namespace TodoApp2
         /// Changes the current theme to the next one in order.
         /// The theme order is defined by the values in <see cref="Theme"/> enum.
         /// </summary>
-        public Theme ChangeToNextTheme()
+        private Theme ChangeToNextTheme()
         {
             // Get the list of Theme values in order to calculate the next value
-            List<Theme> themeValues = Enum.GetValues(typeof(Theme)).Cast<Theme>().ToList();
+            List<Theme> themeValues = IoC.ThemeListService.Items;
 
             // Calculate the next Theme
             int nextThemeIndex = (themeValues.IndexOf(ApplicationSettings.ActiveTheme) + 1) % themeValues.Count;
@@ -48,14 +56,14 @@ namespace TodoApp2
             string fullPath = s_AbsoluteThemePathPrefix;
             switch (theme)
             {
+                case Theme.Darker:
+                {
+                    fullPath += "DarkerTheme.xaml";
+                    break;
+                }
                 case Theme.Dark:
                 {
                     fullPath += "DarkTheme.xaml";
-                    break;
-                }
-                case Theme.Dark2:
-                {
-                    fullPath += "DarkTheme2.xaml";
                     break;
                 }
                 case Theme.Light:

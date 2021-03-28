@@ -28,5 +28,10 @@ namespace TodoApp2
         /// The color list service
         /// </summary>
         public static ColorListService ColorListService => IoC.ColorListService;
+
+        /// <summary>
+        /// The theme list service
+        /// </summary>
+        public static ThemeListService ThemeListService => IoC.ThemeListService;
     }
 }

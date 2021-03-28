@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -62,6 +63,7 @@ namespace TodoApp2.Core
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
             CurrentPage = ApplicationPage.Task;
             SideMenuPage = ApplicationPage.Category;
+            ApplicationSettings.PropertyChanged += OnApplicationSettingsPropertyChanged;
         }
 
         /// <summary>
@@ -144,6 +146,17 @@ namespace TodoApp2.Core
         {
             List<SettingsModel> settings = ApplicationSettings.GetSettings();
             ClientDatabase.UpdateSettings(settings);
+        }
+
+        /// <summary>
+        /// Notifies clients that an application theme change was requested
+        /// </summary>
+        private void OnApplicationSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ApplicationSettings.ActiveTheme))
+            {
+                Mediator.Instance.NotifyClients(ViewModelMessages.ThemeChangeRequested);
+            }
         }
     }
 }
