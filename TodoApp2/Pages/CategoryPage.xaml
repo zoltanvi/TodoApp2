@@ -30,7 +30,7 @@
             </Grid.ColumnDefinitions>
 
 
-            <Grid Grid.Row="0" Margin="0 5 0 15">
+            <Grid Grid.Row="0" Margin="0 5 5 15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
@@ -39,7 +39,7 @@
 
                 <TextBlock
                     Grid.Column="0"
-                    Margin="20 0 0 0"
+                    Margin="15 0 0 0"
                     Style="{DynamicResource CategoryTextBlockStyle}"
                     Text="Categories" />
 

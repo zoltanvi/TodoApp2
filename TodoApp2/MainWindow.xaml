@@ -1,44 +1,48 @@
-﻿<Window x:Class="TodoApp2.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TodoApp2"
-        mc:Ignorable="d"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        AutomationProperties.AutomationId="TodoApp2Window"
-        Name="TodoApp2Window"
-        WindowStartupLocation="CenterScreen"
-        MinWidth="{Binding WindowMinimumWidth}"
-        MinHeight="{Binding WindowMinimumHeight}"
-        Title="TodoApp" Height="500" Width="380">
+﻿<Window
+    x:Class="TodoApp2.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:TodoApp2"
+    mc:Ignorable="d"
+    WindowStyle="None"
+    AllowsTransparency="True"
+    AutomationProperties.AutomationId="TodoApp2Window"
+    Name="TodoApp2Window"
+    WindowStartupLocation="CenterScreen"
+    MinWidth="{Binding WindowMinimumWidth}"
+    MinHeight="{Binding WindowMinimumHeight}"
+    Title="TodoApp"
+    Height="500"
+    Width="380">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
-                        <!--Outer border with the drop shadow margin-->
+                        <!--  Outer border with the drop shadow margin  -->
                         <Border Margin="{Binding OuterMarginThickness}">
 
-                            <!--Main window outline-->
+                            <!--  Main window outline  -->
                             <Grid>
 
-                                <!-- Outer dragging border -->
-                                <Border BorderThickness="2"
-                                        Panel.ZIndex="2"
-                                        CornerRadius="{Binding WindowCornerRadius}"
-                                        BorderBrush="Transparent" />
+                                <!--  Outer dragging border  -->
+                                <Border
+                                    BorderThickness="2"
+                                    Panel.ZIndex="2"
+                                    CornerRadius="{Binding WindowCornerRadius}"
+                                    BorderBrush="Transparent" />
 
-                                <Border BorderThickness="0.4"
-                                        Panel.ZIndex="2"
-                                        CornerRadius="{Binding WindowCornerRadius}"
-                                        BorderBrush="{DynamicResource ApplicationBorderBrush}" />
+                                <Border
+                                    BorderThickness="0.4"
+                                    Panel.ZIndex="2"
+                                    CornerRadius="{Binding WindowCornerRadius}"
+                                    BorderBrush="{DynamicResource ApplicationBorderBrush}" />
 
-                                <!--Window border and drop shadow-->
-                                <Border CornerRadius="{Binding WindowCornerRadius}"
-                                        Background="{DynamicResource ContentBackgroundBrush}">
+                                <!--  Window border and drop shadow  -->
+                                <Border CornerRadius="{Binding WindowCornerRadius}" Background="{DynamicResource ContentBackgroundBrush}">
                                     <!--<Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" Opacity="0.2"></DropShadowEffect>
                                     </Border.Effect>-->
@@ -46,34 +50,35 @@
                                     <Grid>
                                         <Grid.RowDefinitions>
 
-                                            <!--Title Bar-->
+                                            <!--  Title Bar  -->
                                             <RowDefinition Height="{Binding TitleBarGridHeight, FallbackValue=35}" />
-                                            <!--Window Content-->
+                                            <!--  Window Content  -->
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
-                                        <!--Title Bar-->
-                                        <Grid Grid.Column="0" Panel.ZIndex="1"
-                                              Background="{DynamicResource TitleBarBackgroundBrush}">
+                                        <!--  Title Bar  -->
+                                        <Grid
+                                            Grid.Column="0"
+                                            Panel.ZIndex="1"
+                                            Background="{DynamicResource TitleBarBackgroundBrush}">
                                             <Grid.ColumnDefinitions>
 
-                                                <!--Side menu button column-->
+                                                <!--  Side menu button column  -->
                                                 <ColumnDefinition Width="Auto" />
-                                                <!--Maybe title-->
+                                                <!--  Maybe title  -->
                                                 <ColumnDefinition Width="*" />
-                                                <!--Windows Button-->
+                                                <!--  Windows Button  -->
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
 
-                                            <!-- Side menu button-->
+                                            <!--  Side menu button  -->
                                             <Button
                                                 AutomationProperties.AutomationId="SideMenuButton"
                                                 Name="SideMenuButton"
                                                 Grid.Column="0"
                                                 Style="{DynamicResource TitleBarButtonStyle}"
                                                 Content="{DynamicResource SegoeIconMenu}"
-                                                Command="{Binding ApplicationViewModel.ToggleSideMenuCommand,
-                                                             Source={x:Static local:ViewModelLocator.Instance}}" />
+                                                Command="{Binding ApplicationViewModel.ToggleSideMenuCommand, Source={x:Static local:ViewModelLocator.Instance}}" />
 
                                             <Grid Grid.Column="1">
                                                 <Grid.ColumnDefinitions>
@@ -81,19 +86,19 @@
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <!--Theme button-->
-                                                <Button Grid.Column="0"
+                                                <!--  Theme button  -->
+                                                <Button
+                                                    Grid.Column="0"
                                                     Name="ThemeButton"
                                                     Command="{Binding ChangeThemeCommand}"
                                                     Style="{DynamicResource WindowButtonStyle}"
                                                     Content="{DynamicResource SegoeIconChangeTheme}" />
 
-                                                <!--Here could be the window title-->
+                                                <!--  Here could be the window title  -->
                                             </Grid>
 
-                                            <!--Window buttons-->
-                                            <StackPanel
-                                                Grid.Column="2" Orientation="Horizontal">
+                                            <!--  Window buttons  -->
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
                                                 <Button
                                                     AutomationProperties.AutomationId="MinimizeWindow"
                                                     x:Name="MinimizeWindow"
@@ -115,11 +120,9 @@
                                             </StackPanel>
                                         </Grid>
 
-                                        <!--Page content-->
+                                        <!--  Page content  -->
                                         <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
-                                            <ContentPresenter
-                                                AutomationProperties.AutomationId="MainPageContent"
-                                                Content="{TemplateBinding Content}" />
+                                            <ContentPresenter AutomationProperties.AutomationId="MainPageContent" Content="{TemplateBinding Content}" />
                                         </Border>
                                     </Grid>
                                 </Border>
@@ -142,35 +145,29 @@
     <Border Background="{DynamicResource ApplicationBackgroundBrush}">
         <Grid>
 
-            <!-- Current page -->
+            <!--  Current page  -->
             <Frame
                 AutomationProperties.AutomationId="CurrentPage"
                 local:NoFrameHistory.Value="True"
-                DataContext="{Binding ApplicationViewModel.CurrentPage,
-                             Source={x:Static local:ViewModelLocator.Instance},
-                             Converter={local:ApplicationPageValueConverter}}"
+                DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}"
                 Content="{Binding}" />
 
-            <!-- Overlay background -->
-            <local:OverlayBackgroundControl
-                AutomationProperties.AutomationId="OverlayBackgroundControl" />
+            <!--  Overlay background  -->
+            <local:OverlayBackgroundControl AutomationProperties.AutomationId="OverlayBackgroundControl" />
 
-            <!--local:AnimateFadeInProperty.Value="{Binding OverlayPageService.OverlayBackgroundVisible,
-                                                   Source={x:Static local:ViewModelLocator.Instance}}" />-->
+            <!--
+                local:AnimateFadeInProperty.Value="{Binding OverlayPageService.OverlayBackgroundVisible,
+                Source={x:Static local:ViewModelLocator.Instance}}" />
+            -->
 
-            <!-- Navigator menu panel -->
-            <local:SideMenuControl
-                AutomationProperties.AutomationId="SideMenuControl"
-                local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible,
-                                                            Source={x:Static local:ViewModelLocator.Instance}}">
+            <!--  Navigator menu panel  -->
+            <local:SideMenuControl AutomationProperties.AutomationId="SideMenuControl" local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}">
 
-                <!-- Side menu page -->
+                <!--  Side menu page  -->
                 <Frame
                     AutomationProperties.AutomationId="SideMenuPage"
                     local:NoFrameHistory.Value="True"
-                    DataContext="{Binding ApplicationViewModel.SideMenuPage,
-                        Source={x:Static local:ViewModelLocator.Instance},
-                        Converter={local:ApplicationPageValueConverter}}"
+                    DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}"
                     Content="{Binding}" />
             </local:SideMenuControl>
         </Grid>

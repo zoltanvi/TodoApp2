@@ -24,7 +24,7 @@
     <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{StaticResource TaskItemBackground}" />
     <SolidColorBrush x:Key="TaskItemHatchedBackgroundBrush" Color="Transparent" />
     <SolidColorBrush x:Key="TaskItemHatchedHatchBrush" Color="#537F7F7F" />
-    <SolidColorBrush x:Key="AddNewTaskTextBoxBackgroundBrush" Color="#191919" />
+    <SolidColorBrush x:Key="AddNewTaskTextBoxBackgroundBrush" Color="#252525" />
     <SolidColorBrush x:Key="IconLabelForegroundBrush" Color="#ffffff" />
     <SolidColorBrush x:Key="AddNewTaskTextBoxForegroundBrush" Color="#E1E1E1" />
     <SolidColorBrush x:Key="InputTextBoxCaretBrush" Color="White" />
@@ -120,6 +120,17 @@
     <SolidColorBrush x:Key="BaseButtonForegroundBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="#494949" />
     <SolidColorBrush x:Key="VersionLabelForegroundBrush" Color="#EBEBEB" />
+
+    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#404040" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="#1E1E1E" />
+    <SolidColorBrush x:Key="ComboBoxButtonBrush" Color="#2E2E2E" />
+    <SolidColorBrush x:Key="ComboBoxArrowBrush" Color="#EEEEEE" />
+    <SolidColorBrush x:Key="ComboBoxButtonMouseOverBrush" Color="#2E2E2E" />
+    <SolidColorBrush x:Key="ComboBoxButtonCheckedBrush" Color="#585858" />
+    <SolidColorBrush x:Key="ComboBoxSelectedItemForegroundBrush" Color="White" />
+    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundBrush" Color="#333333" />
+    <SolidColorBrush x:Key="ComboBoxDropDownForegroundBrush" Color="White" />
+    <SolidColorBrush x:Key="ComboBoxDropDownMouseOverBrush" Color="#424242" />
 
 
     <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush" StartPoint="0,0" EndPoint="1,0">

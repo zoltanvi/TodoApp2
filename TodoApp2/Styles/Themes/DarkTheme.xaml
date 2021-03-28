@@ -24,7 +24,7 @@
     <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{StaticResource TaskItemBackground}" />
     <SolidColorBrush x:Key="TaskItemHatchedBackgroundBrush" Color="Transparent" />
     <SolidColorBrush x:Key="TaskItemHatchedHatchBrush" Color="#537F7F7F" />
-    <SolidColorBrush x:Key="AddNewTaskTextBoxBackgroundBrush" Color="#191919" />
+    <SolidColorBrush x:Key="AddNewTaskTextBoxBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="IconLabelForegroundBrush" Color="#ffffff" />
     <SolidColorBrush x:Key="AddNewTaskTextBoxForegroundBrush" Color="#E1E1E1" />
     <SolidColorBrush x:Key="InputTextBoxCaretBrush" Color="White" />
@@ -118,9 +118,19 @@
     <SolidColorBrush x:Key="RadioButton.Checked.Border" Color="#FF0063B1" />
     <SolidColorBrush x:Key="RadioButton.Checked.Glyph" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="BaseButtonForegroundBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="#252525" />
+    <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="#222222" />
     <SolidColorBrush x:Key="VersionLabelForegroundBrush" Color="#EBEBEB" />
 
+    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#404040" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="#2E2E2E" />
+    <SolidColorBrush x:Key="ComboBoxButtonBrush" Color="#212121" />
+    <SolidColorBrush x:Key="ComboBoxArrowBrush" Color="#EEEEEE" />
+    <SolidColorBrush x:Key="ComboBoxButtonMouseOverBrush" Color="#212121" />
+    <SolidColorBrush x:Key="ComboBoxButtonCheckedBrush" Color="#585858" />
+    <SolidColorBrush x:Key="ComboBoxSelectedItemForegroundBrush" Color="White" />
+    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundBrush" Color="#292929" />
+    <SolidColorBrush x:Key="ComboBoxDropDownForegroundBrush" Color="White" />
+    <SolidColorBrush x:Key="ComboBoxDropDownMouseOverBrush" Color="#3C3C3C" />
 
     <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush" StartPoint="0,0" EndPoint="1,0">
         <GradientStop Offset="0" Color="{DynamicResource TaskItemBackgroundTransparent}" />

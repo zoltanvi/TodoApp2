@@ -53,7 +53,7 @@
     <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="#454138" />
     <SolidColorBrush x:Key="ToggleButtonBackgroundCheckedBrush" Color="#3BA99F" />
     <SolidColorBrush x:Key="ToggleButtonGlyphBrush" Color="#454138" />
-    <SolidColorBrush x:Key="ToggleButtonGlyphCheckedBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ToggleButtonGlyphCheckedBrush" Color="#DCD8C0" />
 
     <SolidColorBrush x:Key="TimePickerButtonBackgroundBrush" Color="#292929" />
     <SolidColorBrush x:Key="TimePickerButtonBackgroundHoveredBrush" Color="#494949" />
@@ -121,6 +121,17 @@
     <SolidColorBrush x:Key="BaseButtonForegroundBrush" Color="#454138" />
     <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="#454138" />
     <SolidColorBrush x:Key="VersionLabelForegroundBrush" Color="#DCD8C0" />
+
+    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#858277" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="#D1CDB7" />
+    <SolidColorBrush x:Key="ComboBoxButtonBrush" Color="#6A6354" />
+    <SolidColorBrush x:Key="ComboBoxArrowBrush" Color="#DCD8C0" />
+    <SolidColorBrush x:Key="ComboBoxButtonMouseOverBrush" Color="#6A6354" />
+    <SolidColorBrush x:Key="ComboBoxButtonCheckedBrush" Color="#454138" />
+    <SolidColorBrush x:Key="ComboBoxSelectedItemForegroundBrush" Color="#454138" />
+    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundBrush" Color="#D1CDB7" />
+    <SolidColorBrush x:Key="ComboBoxDropDownForegroundBrush" Color="#454138" />
+    <SolidColorBrush x:Key="ComboBoxDropDownMouseOverBrush" Color="#BAB5A1" />
 
 
     <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush" StartPoint="0,0" EndPoint="1,0">

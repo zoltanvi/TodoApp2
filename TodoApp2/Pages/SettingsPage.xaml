@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
 
             <!--  Settings title  -->
-            <Grid Grid.Row="0" Margin="0 5 0 15">
+            <Grid Grid.Row="0" Margin="0 5 5 15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
@@ -29,7 +29,7 @@
 
                 <TextBlock
                     Grid.Column="0"
-                    Margin="20 0 0 0"
+                    Margin="15 0 0 0"
                     Style="{DynamicResource CategoryTextBlockStyle}"
                     Text="Settings" />
 
@@ -46,7 +46,7 @@
                 Grid.Row="1"
                 Background="Transparent">
 
-                <Grid Margin="10">
+                <Grid Margin="15">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -56,22 +56,17 @@
 
                     <Grid>
                         <Grid.RowDefinitions>
-                            <!--  FIRST  -->
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="20" />
 
-                            <!--  SECOND  -->
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="20" />
 
-                            <!--  THIRD  -->
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="20" />
 
-                            <!--  FOURTH  -->
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="20" />
-
 
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -80,7 +75,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <!--  FIRST ==========================================  -->
+                        <!--  Always on top ==========================================  -->
                         <ToggleButton
                             Name="AlwaysOnTopToggle"
                             Grid.Row="0"
@@ -94,7 +89,7 @@
                             Style="{DynamicResource SettingsDescriptionStyle}"
                             Text="Always on top" />
 
-                        <!--  SECOND ==========================================  -->
+                        <!--  Quick actions ==========================================  -->
                         <ToggleButton
                             Name="QuickActionsToggle"
                             Grid.Row="2"
@@ -108,7 +103,7 @@
                             Style="{DynamicResource SettingsDescriptionStyle}"
                             Text="Quick actions on items" />
 
-                        <!--  THIRD ==========================================  -->
+                        <!--  Item background ==========================================  -->
                         <ToggleButton
                             Name="ItemBackgroundEnabledToggle"
                             Grid.Row="4"
@@ -123,7 +118,7 @@
                             Text="Item background visible" />
 
 
-                        <!--  FOURTH ==========================================  -->
+                        <!--  Modification date ==========================================  -->
                         <ToggleButton
                             Name="ModificationDateVisibleToggle"
                             Grid.Row="6"
@@ -143,12 +138,19 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
+
+                        <!--  Theme ==========================================  -->
                         <TextBlock
                             Grid.Row="0"
                             Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Theme" />
+                            Text="Theme" 
+                            Margin="0 0 0 4"
+                            />
 
-                        <ComboBox Grid.Row="1" Style="{DynamicResource ComboBoxStyle1}">
+                        <ComboBox
+                            Grid.Row="1"
+                            FontSize="{StaticResource FontSizeSmall}"
+                            FontFamily="{StaticResource FreeSans}">
                             <ComboBox.Items>
                                 <ComboBoxItem Content="Dark" />
                                 <ComboBoxItem Content="Light" />

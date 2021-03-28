@@ -120,6 +120,16 @@
     <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="#B7B7B7" />
     <SolidColorBrush x:Key="VersionLabelForegroundBrush" Color="Black" />
 
+    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#CCC" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ComboBoxButtonBrush" Color="#F1F1F1" />
+    <SolidColorBrush x:Key="ComboBoxButtonMouseOverBrush" Color="#F1F1F1" />
+    <SolidColorBrush x:Key="ComboBoxButtonCheckedBrush" Color="#A8A8A8" />
+    <SolidColorBrush x:Key="ComboBoxArrowBrush" Color="#2D2D2D" />
+    <SolidColorBrush x:Key="ComboBoxSelectedItemForegroundBrush" Color="Black" />
+    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ComboBoxDropDownForegroundBrush" Color="Black" />
+    <SolidColorBrush x:Key="ComboBoxDropDownMouseOverBrush" Color="#E6E6E6" />
 
     <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush" StartPoint="0,0" EndPoint="1,0">
         <GradientStop Offset="0" Color="{DynamicResource TaskItemBackgroundTransparent}" />
