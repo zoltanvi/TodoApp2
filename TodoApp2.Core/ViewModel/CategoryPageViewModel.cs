@@ -11,38 +11,19 @@ namespace TodoApp2.Core
         private int m_LastRemovedId = int.MinValue;
 
         /// <summary>
-        /// The content / description text for the current task being written
+        /// The name of the current category being added
         /// </summary>
         public string PendingAddNewCategoryText { get; set; }
 
-        /// <summary>
-        /// The command for when the user presses Enter in the "Add new category" TextBox
-        /// </summary>
         public ICommand AddCategoryCommand { get; }
-
-        /// <summary>
-        /// The command for when the trash button is pressed in the category item
-        /// </summary>
         public ICommand DeleteCategoryCommand { get; }
-
-        /// <summary>
-        /// The command for when the category item is clicked
-        /// </summary>
         public ICommand ChangeCategoryCommand { get; }
-
-        /// <summary>
-        /// The command for opening the settings page
-        /// </summary>
         public ICommand OpenSettingsPageCommand { get; }
 
         private ClientDatabase Database => IoC.ClientDatabase;
-
         private ApplicationViewModel Application => IoC.Application;
-
         private OverlayPageService OverlayPageService => IoC.OverlayPageService;
-
         private CategoryListService CategoryListService => IoC.CategoryListService;
-
         private ObservableCollection<CategoryListItemViewModel> Items => CategoryListService.Items;
 
         private string CurrentCategory
@@ -190,7 +171,7 @@ namespace TodoApp2.Core
                     // Notify clients about the category change
                     Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged);
                 }
-                
+
                 OverlayPageService.CloseSideMenu();
 
                 // Change to task page if it wasn't active
@@ -209,12 +190,16 @@ namespace TodoApp2.Core
             Application.SideMenuPage = ApplicationPage.Settings;
         }
 
+        /// <summary>
+        /// Forces the UI to repaint the list items when the theme changes
+        /// </summary>
+        /// <param name="obj"></param>
         private void OnThemeChanged(object obj)
         {
-            // Save the current items
+            //Save the current items
             List<CategoryListItemViewModel> itemsBackup = new List<CategoryListItemViewModel>(Items);
 
-            // Clear the items and add back the cleared items to refresh the list (repaint)
+            //Clear the items and add back the cleared items to refresh the list(repaint)
             Items.Clear();
             Items.AddRange(itemsBackup);
         }

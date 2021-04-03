@@ -11,7 +11,7 @@ namespace TodoApp2.Core
     {
         public static readonly ScheduleItem Invalid = new ScheduleItem(null, DateTime.MinValue);
 
-        public TaskListItemViewModel Task { get; set; }
+        public TaskListItemViewModel Task { get; }
         public DateTime DateTime { get; set; }
 
         public ScheduleItem(TaskListItemViewModel task, DateTime dateTime)
@@ -62,7 +62,7 @@ namespace TodoApp2.Core
             // When the task to be set is the current task,
             // that means it is already started and waits to be executed.
             // In that case update the current task
-            if (CurrentItem.Task == task)
+            if (CurrentItem.Task != null && CurrentItem.Task.Equals(task))
             {
                 // Stop execution
                 InterruptCurrentTask();
@@ -72,7 +72,7 @@ namespace TodoApp2.Core
 
                 // Update the execution time
                 scheduledItem.DateTime = dateTime;
-                
+
                 // Continue execution
                 StartNextTask();
             }
@@ -105,7 +105,7 @@ namespace TodoApp2.Core
             // When the task to be deleted is the current task,
             // that means it is already started and waits to be executed.
             // In that case delete the current task and start the next valid one.
-            if (CurrentItem.Task == task)
+            if (CurrentItem.Task != null && CurrentItem.Task.Equals(task))
             {
                 InterruptCurrentTask();
                 RemoveScheduledItem(task);
@@ -132,30 +132,10 @@ namespace TodoApp2.Core
         {
             if (NextItemExists)
             {
-                bool anyTaskExecuted = false;
+                CurrentItem = NextItemToSchedule;
+                ScheduledItems.Remove(CurrentItem);
 
-                // Delete the expired items from the list
-                // and execute the first task that is not expired yet
-                for (int i = 0; i < ScheduledItems.Count; i++)
-                {
-                    CurrentItem = NextItemToSchedule;
-                    ScheduledItems.Remove(CurrentItem);
-
-                    TimeSpan executionTime = CurrentItem.DateTime - DateTime.Now;
-
-                    // Execution time has not passed yet
-                    if (executionTime >= TimeSpan.Zero)
-                    {
-                        ExecuteTask(CurrentItem);
-                        anyTaskExecuted = true;
-                        break;
-                    }
-                }
-
-                if (!anyTaskExecuted)
-                {
-                    CurrentItem = ScheduleItem.Invalid;
-                }
+                ExecuteTask(CurrentItem);
             }
             else
             {
@@ -190,20 +170,17 @@ namespace TodoApp2.Core
         {
             TimeSpan executionTime = scheduleItem.DateTime - DateTime.Now;
 
-            // Execution time has not passed yet
-            if (executionTime >= TimeSpan.Zero)
+            if (executionTime < TimeSpan.Zero)
             {
-                Timer.Interval = executionTime;
-                // Set the timer tag to the scheduled item so 
-                // it can be accessed when the timer ticks
-                Timer.Tag = scheduleItem;
-                Timer.Start();
+                executionTime = new TimeSpan(10);
             }
-            else
-            {
-                // The task won't be executed so there isn't any current task
-                CurrentItem = ScheduleItem.Invalid;
-            }
+
+            Timer.Interval = executionTime;
+
+            // Set the timer tag to the scheduled item so 
+            // it can be accessed when the timer ticks
+            Timer.Tag = scheduleItem;
+            Timer.Start();
         }
 
         private void TimerOnTick(object sender, EventArgs e)
@@ -230,9 +207,9 @@ namespace TodoApp2.Core
         private bool GetScheduledItem(TaskListItemViewModel task, out ScheduleItem foundItem)
         {
             bool found = true;
-            foundItem = ScheduledItems.FirstOrDefault(i => i.Task == task);
-            
-            if(foundItem == null)
+            foundItem = ScheduledItems.FirstOrDefault(i => i.Task.Equals(task));
+
+            if (foundItem == null)
             {
                 found = false;
                 foundItem = ScheduleItem.Invalid;

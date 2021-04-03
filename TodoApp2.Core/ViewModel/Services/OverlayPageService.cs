@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -47,11 +48,18 @@ namespace TodoApp2.Core
             bool validPage = false;
             switch (page)
             {
-                case ApplicationPage.Reminder:
+                case ApplicationPage.TaskReminder:
                 {
                     Application.SideMenuVisible = false;
                     validPage = true;
-                    viewModel = new ReminderPageViewModel(task);
+                    viewModel = new TaskReminderPageViewModel(task);
+                    break;
+                }
+                case ApplicationPage.ReminderEditor:
+                {
+                    Application.SideMenuVisible = false;
+                    validPage = true;
+                    viewModel = new ReminderEditorPageViewModel(task);
                     break;
                 }
                 case ApplicationPage.Notification:
@@ -66,6 +74,10 @@ namespace TodoApp2.Core
             if (validPage)
             {
                 OpenOverlayPage(page, viewModel);
+            }
+            else
+            {
+                Debugger.Break();
             }
         }
 

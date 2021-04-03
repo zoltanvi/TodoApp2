@@ -5,11 +5,12 @@ namespace TodoApp2.Core
 {
     public class ReminderNotificationService
     {
-        private const bool PlaySound = true;
+        private const bool s_PlaySound = true;
         private bool m_CanShowNotification = true;
-        private Queue<TaskListItemViewModel> m_NotificationQueue;
+        private readonly Queue<TaskListItemViewModel> m_NotificationQueue;
 
         private TaskScheduler TaskScheduler => IoC.ReminderTaskScheduler;
+        private ClientDatabase Database => IoC.ClientDatabase;
 
         public ReminderNotificationService()
         {
@@ -18,8 +19,8 @@ namespace TodoApp2.Core
 
             Mediator.Instance.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
 
-            var taskList = IoC.ClientDatabase.GetActiveTaskItems();
-            var filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
+            List<TaskListItemViewModel> taskList = Database.GetActiveTaskItems();
+            List<TaskListItemViewModel> filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
 
             foreach (var taskItem in filteredItems)
             {
@@ -59,12 +60,23 @@ namespace TodoApp2.Core
             {
                 m_CanShowNotification = false;
 
-                TaskListItemViewModel notificationTask = m_NotificationQueue.Dequeue();
-                notificationTask.IsReminderOn = false;
-                IoC.ClientDatabase.UpdateTask(notificationTask);
+                while (m_NotificationQueue.Count > 0)
+                {
+                    TaskListItemViewModel notificationTask = m_NotificationQueue.Dequeue();
+                    notificationTask = IoC.ClientDatabase.GetTask(notificationTask.Id);
 
-                IoC.OverlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
-                Mediator.Instance.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
+                    if (notificationTask.Trashed)
+                    {
+                        OnNotificationClosed(null);
+                        break;
+                    }
+
+                    notificationTask.IsReminderOn = false;
+                    IoC.ClientDatabase.UpdateTask(notificationTask);
+
+                    IoC.OverlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
+                    Mediator.Instance.NotifyClients(ViewModelMessages.WindowFlashRequested, s_PlaySound);
+                }
             }
         }
     }

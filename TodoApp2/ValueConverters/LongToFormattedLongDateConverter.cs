@@ -14,7 +14,9 @@ namespace TodoApp2
         {
             long dateTicks = (long)value;
 
-            return new DateTime(dateTicks).ToString(DateTimeFormatString);
+            return dateTicks != 0
+                ? new DateTime(dateTicks).ToString(DateTimeFormatString)
+                : "Add new reminder";
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

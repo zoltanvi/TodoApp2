@@ -5,6 +5,7 @@ namespace TodoApp2
 {
     /// <summary>
     /// Converts the <see cref="ApplicationPage"/> to an actual view/page
+    /// These methods are currently used for the overlay pages only!
     /// </summary>
     public static class ApplicationPageHelper
     {
@@ -19,14 +20,11 @@ namespace TodoApp2
             // Find the appropriate page
             switch (page)
             {
-                case ApplicationPage.Task:
-                    return new TaskPage();
+                case ApplicationPage.TaskReminder:
+                    return new TaskReminderPage(viewModel as TaskReminderPageViewModel);
 
-                case ApplicationPage.Category:
-                    return new CategoryPage();
-
-                case ApplicationPage.Reminder:
-                    return new ReminderPage(viewModel as ReminderPageViewModel);
+                case ApplicationPage.ReminderEditor:
+                    return new ReminderEditorPage(viewModel as ReminderEditorPageViewModel);
 
                 case ApplicationPage.Notification:
                     return new NotificationPage(viewModel as NotificationPageViewModel);
@@ -44,16 +42,15 @@ namespace TodoApp2
         public static ApplicationPage ToApplicationPage(this BasePage page)
         {
             // Find application page that matches the base page
-            if (page is TaskPage)
-                return ApplicationPage.Task;
-            if (page is CategoryPage)
-                return ApplicationPage.Category;
-            if (page is ReminderPage)
-                return ApplicationPage.Reminder;
+            if (page is TaskReminderPage)
+                return ApplicationPage.TaskReminder;
+
+            if (page is ReminderEditorPage)
+                return ApplicationPage.ReminderEditor;
+
             if (page is NotificationPage)
                 return ApplicationPage.Notification;
 
-            // Alert developer of issue
             Debugger.Break();
             return default;
         }

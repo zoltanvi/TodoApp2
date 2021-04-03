@@ -48,7 +48,7 @@ namespace TodoApp2
         /// Called when the <see cref="CurrentPage"/> value has changed
         /// </summary>
         /// <param name="d"></param>
-        /// <param name="e"></param>
+        /// <param name="value"></param>
         private static object CurrentPagePropertyChanged(DependencyObject d, object value)
         {
             // Get current values
@@ -56,8 +56,8 @@ namespace TodoApp2
             var currentPageViewModel = d.GetValue(CurrentPageViewModelProperty);
 
             // Get the frames
-            Frame newPageFrame = (d as PageHost).NewPage;
-            Frame oldPageFrame = (d as PageHost).NewPage;
+            Frame newPageFrame = ((PageHost)d).NewPage;
+            Frame oldPageFrame = ((PageHost)d).NewPage;
 
             // If the current page hasn't changed
             // just update the view model

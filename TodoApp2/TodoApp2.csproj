@@ -158,8 +158,11 @@
     <Compile Include="Pages\NotificationPage.xaml.cs">
       <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ReminderPage.xaml.cs">
-      <DependentUpon>ReminderPage.xaml</DependentUpon>
+    <Compile Include="Pages\TaskReminderPage.xaml.cs">
+      <DependentUpon>TaskReminderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReminderEditorPage.xaml.cs">
+      <DependentUpon>ReminderEditorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -173,6 +176,7 @@
     <Compile Include="ValueConverters\ApplicationPageHelper.cs" />
     <Compile Include="ValueConverters\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
+    <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityNegatedConverter.cs" />
     <Compile Include="ValueConverters\CategorySelectedForegroundColorConverter.cs" />
     <Compile Include="ValueConverters\LongToFormattedLongDateConverter.cs" />
@@ -244,7 +248,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\ReminderPage.xaml">
+    <Page Include="Pages\TaskReminderPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ReminderEditorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

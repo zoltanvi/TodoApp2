@@ -4,9 +4,9 @@ using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
-    public class ReminderPageViewModel : BaseViewModel
+    public class ReminderEditorPageViewModel : BaseViewModel
     {
-        private bool m_Closed = false;
+        private bool m_Closed;
 
         private ReminderNotificationService NotificationService => IoC.ReminderNotificationService;
         private OverlayPageService OverlayPageService => IoC.OverlayPageService;
@@ -14,16 +14,11 @@ namespace TodoApp2.Core
         /// <summary>
         /// The task to show the notification for.
         /// </summary>
-        public TaskListItemViewModel ReminderTask { get; set; }
-
+        public TaskListItemViewModel ReminderTask { get; }
         public DateTime SelectedDate { get; set; }
-
         public string SelectedDateString { get; set; }
-
         public bool IsSelectedDateStringValid { get; set; }
-
         public DateTime SelectedTime { get; set; }
-
         public bool IsReminderOn { get; set; }
 
         public ICommand CloseReminderCommand { get; }
@@ -31,7 +26,7 @@ namespace TodoApp2.Core
         public ICommand ResetReminderCommand { get; }
         public ICommand ChangeIsReminderOn { get; }
 
-        public ReminderPageViewModel()
+        public ReminderEditorPageViewModel()
         {
             SetReminderCommand = new RelayCommand(SetReminder);
             ResetReminderCommand = new RelayCommand(ResetReminder);
@@ -40,25 +35,15 @@ namespace TodoApp2.Core
             OverlayPageService.SetBackgroundClickedAction(CloseReminder);
         }
 
-        public ReminderPageViewModel(TaskListItemViewModel reminderTask) : this()
+        public ReminderEditorPageViewModel(TaskListItemViewModel reminderTask) : this()
         {
             if (reminderTask != null)
             {
                 ReminderTask = reminderTask;
                 IsReminderOn = ReminderTask.IsReminderOn;
-                if (ReminderTask.ReminderDate != 0)
-                {
-                    DateTime date = new DateTime(ReminderTask.ReminderDate);
-                    SelectedDate = date.Date;
-                    SelectedTime = new DateTime() + date.TimeOfDay;
-                    SelectedDateString = SelectedDate.ConvertToString();
-                }
-                else
-                {
-                    SelectedDateString = DateTime.Now.ConvertToString();
-                    SelectedDate = DateTime.Now;
-                    SelectedTime = DateTime.Now + new TimeSpan(0, 5, 0);
-                }
+
+                ResetReminderProperties();
+
                 IsSelectedDateStringValid = true;
 
                 PropertyChanged += OnViewModelPropertyChanged;
@@ -83,10 +68,13 @@ namespace TodoApp2.Core
 
         private void ResetReminder()
         {
-            SelectedDate = DateTime.MinValue;
-            SelectedTime = DateTime.MinValue;
+            ReminderTask.ReminderDate = 0;
+            ResetReminderProperties();
+            IsReminderOn = false;
+            
+            IoC.ClientDatabase.UpdateTask(ReminderTask);
 
-            SetReminder(false);
+            NotificationService.DeleteReminder(ReminderTask);
         }
 
         private void ChangeReminder()
@@ -113,6 +101,23 @@ namespace TodoApp2.Core
 
             ReminderTask.IsReminderOn = IsReminderOn;
             IoC.ClientDatabase.UpdateTask(ReminderTask);
+        }
+
+        private void ResetReminderProperties()
+        {
+            if (ReminderTask.ReminderDate != 0)
+            {
+                DateTime date = new DateTime(ReminderTask.ReminderDate);
+                SelectedDate = date.Date;
+                SelectedTime = new DateTime() + date.TimeOfDay;
+                SelectedDateString = SelectedDate.ConvertToString();
+            }
+            else
+            {
+                SelectedDateString = DateTime.Now.ConvertToString();
+                SelectedDate = DateTime.Now;
+                SelectedTime = DateTime.Now + new TimeSpan(0, 5, 0);
+            }
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

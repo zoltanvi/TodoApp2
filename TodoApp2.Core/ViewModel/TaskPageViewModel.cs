@@ -13,20 +13,18 @@ namespace TodoApp2.Core
     public class TaskPageViewModel : BaseViewModel
     {
         private int m_LastRemovedId = int.MinValue;
+        private string CurrentCategory => IoC.CategoryListService.CurrentCategory;
+        private ClientDatabase Database => IoC.ClientDatabase;
 
         /// <summary>
-        /// The task list items for the list
+        /// The task list items
         /// </summary>
-        public ObservableCollection<TaskListItemViewModel> Items { get; set; }
+        public ObservableCollection<TaskListItemViewModel> Items { get; }
 
         /// <summary>
         /// The content / description text for the current task being written
         /// </summary>
         public string PendingAddNewTaskText { get; set; }
-
-        private string CurrentCategory => IoC.CategoryListService.CurrentCategory;
-
-        private ClientDatabase Database => IoC.ClientDatabase;
 
         /// <summary>
         /// The command for when the user presses Enter in the "Add new task" TextBox
@@ -51,11 +49,8 @@ namespace TodoApp2.Core
         public TaskPageViewModel()
         {
             AddTaskItemCommand = new RelayCommand(AddTask);
-
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
-
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
-
             MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
 
             // Load the application settings to update the CurrentCategory before querying the tasks
@@ -72,7 +67,7 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
-            
+
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Instance.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
@@ -123,13 +118,13 @@ namespace TodoApp2.Core
         {
             if (obj is List<object> parameters && parameters.Count == 2)
             {
-                if(parameters[0] is TaskListItemViewModel task &&
+                if (parameters[0] is TaskListItemViewModel task &&
                     parameters[1] is string categoryToMoveTo)
                 {
                     CategoryListItemViewModel taskCategory = Database.GetCategory(task.CategoryId);
-                    
+
                     // If the category is the same as the task is in, there is nothing to do
-                    if(taskCategory.Name != categoryToMoveTo)
+                    if (taskCategory.Name != categoryToMoveTo)
                     {
                         CategoryListItemViewModel newCategory = Database.GetCategory(categoryToMoveTo);
                         task.CategoryId = newCategory.Id;
@@ -173,7 +168,6 @@ namespace TodoApp2.Core
                     }
                     break;
                 }
-
                 case NotifyCollectionChangedAction.Remove:
                 {
                     if (e.OldItems.Count > 0)
@@ -184,7 +178,6 @@ namespace TodoApp2.Core
                     }
                     break;
                 }
-
                 case NotifyCollectionChangedAction.Move:
                 {
                     if (e.NewItems.Count > 0)
@@ -266,6 +259,10 @@ namespace TodoApp2.Core
             Items.AddRange(filteredItems);
         }
 
+        /// <summary>
+        /// Forces the UI to repaint the list items when the theme changes
+        /// </summary>
+        /// <param name="obj"></param>
         private void OnThemeChanged(object obj)
         {
             // Save the current items

@@ -45,6 +45,7 @@
     <SolidColorBrush x:Key="BubbleBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="#E1E1E1" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="#E6E6E6" />
+    <SolidColorBrush x:Key="ReminderItemBackgroundBrush" Color="#B7B7B7" />
     <SolidColorBrush x:Key="NotificationBorderBrush" Color="#5C5C5C" />
     <SolidColorBrush x:Key="ReminderDateBorderBrush" Color="#828282" />
     <SolidColorBrush x:Key="ReminderDateInvalidBorderBrush" Color="#FF3100" />

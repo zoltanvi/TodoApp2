@@ -5,7 +5,7 @@ namespace TodoApp2.Core
 {
     /// <summary>
     /// Service to hold the category list and the currently selected category.
-    /// Because this is a service, it can be accessed from multiple viewmodels.
+    /// Because this is a service, it can be accessed from multiple ViewModels.
     /// </summary>
     public class CategoryListService : BaseViewModel
     {

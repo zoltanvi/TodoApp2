@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -52,14 +50,14 @@ namespace TodoApp2.Core
             // If the text only contains format characters, refuse
             // If the content did not changed, refuse
             string trimmed = PendingEditContent?.Replace("`", string.Empty);
-            if (!string.IsNullOrWhiteSpace(PendingEditContent) && 
-                !string.IsNullOrWhiteSpace(trimmed) && 
+            if (!string.IsNullOrWhiteSpace(PendingEditContent) &&
+                !string.IsNullOrWhiteSpace(trimmed) &&
                 Content != PendingEditContent)
             {
                 // 1. Changes are accepted
                 Content = PendingEditContent;
 
-                // Update modification date
+                // 2. Update modification date
                 ModificationDate = DateTime.Now.Ticks;
 
                 // 3. Persist changes into database
@@ -84,7 +82,8 @@ namespace TodoApp2.Core
 
         private void OpenReminder()
         {
-            IoC.OverlayPageService.OpenPage(ApplicationPage.Reminder, this);
+            //IoC.OverlayPageService.OpenPage(ApplicationPage.ReminderEdit, this);
+            IoC.OverlayPageService.OpenPage(ApplicationPage.TaskReminder, this);
         }
 
         private void SetColor(object obj)

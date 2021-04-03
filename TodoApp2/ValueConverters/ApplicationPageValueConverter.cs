@@ -24,8 +24,11 @@ namespace TodoApp2
                 case ApplicationPage.Settings:
                     return new SettingsPage();
 
-                case ApplicationPage.Reminder:
-                    return new ReminderPage();
+                case ApplicationPage.TaskReminder:
+                    return new TaskReminderPage();
+
+                case ApplicationPage.ReminderEditor:
+                    return new ReminderEditorPage();
 
                 case ApplicationPage.Notification:
                     return new NotificationPage(parameter as NotificationPageViewModel);

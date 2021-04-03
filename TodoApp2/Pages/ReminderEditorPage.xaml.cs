@@ -5,14 +5,14 @@ namespace TodoApp2
     /// <summary>
     /// Interaction logic for ReminderPage.xaml
     /// </summary>
-    public partial class ReminderPage : BasePage<ReminderPageViewModel>
+    public partial class ReminderEditorPage : BasePage<ReminderEditorPageViewModel>
     {
-        public ReminderPage()
+        public ReminderEditorPage()
         {
             InitializeComponent();
         }
 
-        public ReminderPage(ReminderPageViewModel specificViewModel) : base(specificViewModel)
+        public ReminderEditorPage(ReminderEditorPageViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
         }

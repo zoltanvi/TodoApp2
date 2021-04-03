@@ -28,9 +28,14 @@
         Settings,
 
         /// <summary>
-        /// The reminder page (where a reminder can be set for a task)
+        /// The task reminder page (where the reminder(s) can be added / removed / activated / deactivated)
         /// </summary>
-        Reminder,
+        TaskReminder,
+
+        /// <summary>
+        /// The reminder page (where a single reminder can be edited)
+        /// </summary>
+        ReminderEditor,
 
         /// <summary>
         /// The notification page (pops up when a notification occurs)

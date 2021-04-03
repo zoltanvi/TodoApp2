@@ -22,7 +22,7 @@ namespace TodoApp2.Core.Test.ViewModel
             get
             {
                 yield return new TestCaseData(ApplicationPage.Notification);
-                yield return new TestCaseData(ApplicationPage.Reminder);
+                yield return new TestCaseData(ApplicationPage.ReminderEditor);
                 yield return new TestCaseData(ApplicationPage.Settings);
             }
         }
