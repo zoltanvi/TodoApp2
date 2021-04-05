@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -12,12 +11,13 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskPageViewModel : BaseViewModel
     {
+        private readonly TaskListService m_TaskListService;
+
         private int m_LastRemovedId = int.MinValue;
         private string CurrentCategory => IoC.CategoryListService.CurrentCategory;
         private ClientDatabase Database => IoC.ClientDatabase;
-        private TaskListService TaskListService => IoC.TaskListService;
-        private ObservableCollection<TaskListItemViewModel> Items => TaskListService.TaskPageItems;
-
+        private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
+        
         /// <summary>
         /// The content / description text for the current task being written
         /// </summary>
@@ -45,6 +45,13 @@ namespace TodoApp2.Core
 
         public TaskPageViewModel()
         {
+            m_TaskListService = IoC.Get<TaskListService>();
+        }
+
+        public TaskPageViewModel(TaskListService taskListService)
+        {
+            m_TaskListService = taskListService;
+
             AddTaskItemCommand = new RelayCommand(AddTask);
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
@@ -52,10 +59,7 @@ namespace TodoApp2.Core
 
             // Subscribe to the collection changed event for synchronizing with database
             Items.CollectionChanged += ItemsOnCollectionChanged;
-
-            // Subscribe to the category changed event to filter the list when it happens
-            Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
-
+            
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
@@ -83,18 +87,18 @@ namespace TodoApp2.Core
         {
             if (obj is TaskListItemViewModel task)
             {
-                Database.TrashTask(task);
-                Items.Remove(task);
-            }
-        }
+                // Set Trashed property to true so it won't be listed in the active list
+                task.Trashed = true;
 
-        /// <summary>
-        /// Persists the Items list into the database
-        /// </summary>
-        public void PersistTaskList()
-        {
-            // This call should never depend on OptimizePerformance property
-            Database.UpdateTaskList(Items);
+                // Indicate that it is an invalid order
+                task.ListOrder = long.MinValue;
+
+                // Persist modifications
+                m_TaskListService.UpdateTask(task);
+
+                // Remove from the list
+                m_TaskListService.RemoveTask(task);
+            }
         }
 
         /// <summary>
@@ -108,20 +112,22 @@ namespace TodoApp2.Core
                 if (parameters[0] is TaskListItemViewModel task &&
                     parameters[1] is string categoryToMoveTo)
                 {
+                    // TODO: use CategoryListService call instead
                     CategoryListItemViewModel taskCategory = Database.GetCategory(task.CategoryId);
 
                     // If the category is the same as the task is in, there is nothing to do
                     if (taskCategory.Name != categoryToMoveTo)
                     {
+                        // TODO: use CategoryListService call instead
                         CategoryListItemViewModel newCategory = Database.GetCategory(categoryToMoveTo);
                         task.CategoryId = newCategory.Id;
 
                         // Insert into first position.
-                        // The modified category also gets persisted.
-                        Database.ReorderTask(task, 0);
+                        // The modification gets persisted
+                        m_TaskListService.ReorderTask(task, 0);
 
-                        // Delete the item from the currently listed category items at last
-                        Items.Remove(task);
+                        // Delete the item from the currently listed items
+                        m_TaskListService.RemoveTask(task);
                     }
                 }
             }
@@ -142,13 +148,13 @@ namespace TodoApp2.Core
                 {
                     if (e.NewItems.Count > 0)
                     {
-                        var newItem = (TaskListItemViewModel)e.NewItems[0];
+                        TaskListItemViewModel newItem = (TaskListItemViewModel)e.NewItems[0];
 
                         // If the newly added item is the same as the last deleted one,
                         // then this was a drag and drop reorder
                         if (newItem.Id == m_LastRemovedId)
                         {
-                            Database.ReorderTask(newItem, e.NewStartingIndex);
+                            m_TaskListService.ReorderTask(newItem, e.NewStartingIndex);
                         }
 
                         m_LastRemovedId = int.MinValue;
@@ -159,7 +165,7 @@ namespace TodoApp2.Core
                 {
                     if (e.OldItems.Count > 0)
                     {
-                        var last = (TaskListItemViewModel)e.OldItems[0];
+                        TaskListItemViewModel last = (TaskListItemViewModel)e.OldItems[0];
 
                         m_LastRemovedId = last.Id;
                     }
@@ -169,8 +175,8 @@ namespace TodoApp2.Core
                 {
                     if (e.NewItems.Count > 0)
                     {
-                        var newItem = (TaskListItemViewModel)e.NewItems[0];
-                        Database.ReorderTask(newItem, e.NewStartingIndex);
+                        TaskListItemViewModel newItem = (TaskListItemViewModel)e.NewItems[0];
+                        m_TaskListService.ReorderTask(newItem, e.NewStartingIndex);
                     }
                     break;
                 }
@@ -190,18 +196,15 @@ namespace TodoApp2.Core
             // Create the new task instance
             TaskListItemViewModel taskToAdd = new TaskListItemViewModel
             {
+                // TODO: use CategoryListService call instead
                 CategoryId = Database.GetCategory(CurrentCategory).Id,
                 Content = PendingAddNewTaskText,
                 CreationDate = DateTime.Now.Ticks,
                 ModificationDate = DateTime.Now.Ticks
             };
 
-            // Persist into database and set the task ID
-            // This call can't be optimized because the database gives the ID to the task
-            Database.AddTask(taskToAdd);
-
-            // Add the task into the ViewModel list
-            Items.Insert(0, taskToAdd);
+            // Add task to list and persist it
+            m_TaskListService.AddNewTask(taskToAdd);
 
             // Reset the input TextBox text
             PendingAddNewTaskText = string.Empty;
@@ -230,22 +233,6 @@ namespace TodoApp2.Core
             Items.Move(oldIndex, 0);
         }
 
-        private async Task OnCategoryChanged()
-        {
-            // Clear the list first to prevent inconsistent data on UI while the items are loading
-            Items.Clear();
-
-            // Query the items with the current category
-            List<TaskListItemViewModel> filteredItems = await Database.GetActiveTaskItemsAsync(CurrentCategory);
-
-            // Clear the list to prevent showing items from multiple categories.
-            // This can happen if the user changes category again while the query runs
-            Items.Clear();
-
-            // Fill the actual list with the queried items
-            Items.AddRange(filteredItems);
-        }
-
         /// <summary>
         /// Forces the UI to repaint the list items when the theme changes
         /// </summary>
@@ -263,8 +250,6 @@ namespace TodoApp2.Core
         protected override void OnDispose()
         {
             Items.CollectionChanged -= ItemsOnCollectionChanged;
-
-            Mediator.Deregister(OnCategoryChanged, ViewModelMessages.CategoryChanged);
 
             Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }

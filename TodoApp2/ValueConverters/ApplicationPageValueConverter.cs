@@ -16,22 +16,13 @@ namespace TodoApp2
             switch ((ApplicationPage)value)
             {
                 case ApplicationPage.Task:
-                    return new TaskPage();
+                    return new TaskPage(new TaskPageViewModel(IoC.TaskListService), IoC.TaskListService);
 
                 case ApplicationPage.Category:
                     return new CategoryPage();
 
                 case ApplicationPage.Settings:
                     return new SettingsPage();
-
-                case ApplicationPage.TaskReminder:
-                    return new TaskReminderPage();
-
-                case ApplicationPage.ReminderEditor:
-                    return new ReminderEditorPage();
-
-                case ApplicationPage.Notification:
-                    return new NotificationPage(parameter as NotificationPageViewModel);
 
                 default:
                     //Debugger.Break();

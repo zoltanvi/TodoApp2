@@ -8,7 +8,7 @@ namespace TodoApp2.Core
     /// A view model for each task list item on the task page
     /// </summary>
     [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}] [content {Content}]")]
-    public class TaskListItemViewModel : BaseViewModel, IReorderable, IComparable, IEquatable<TaskListItemViewModel>
+    public class TaskListItemViewModel : BaseViewModel, IReorderable
     {
         private ClientDatabase Database => IoC.ClientDatabase;
 
@@ -120,35 +120,6 @@ namespace TodoApp2.Core
         private void ShowColorPicker()
         {
             ColorPickerVisible = true;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as TaskListItemViewModel);
-        }
-
-        public bool Equals(TaskListItemViewModel other)
-        {
-            return other != null &&
-                   Id == other.Id &&
-                   CategoryId == other.CategoryId &&
-                   Content == other.Content &&
-                   ListOrder == other.ListOrder &&
-                   IsDone == other.IsDone &&
-                   CreationDate == other.CreationDate &&
-                   ModificationDate == other.ModificationDate &&
-                   Color == other.Color &&
-                   Trashed == other.Trashed &&
-                   ReminderDate == other.ReminderDate &&
-                   IsReminderOn == other.IsReminderOn &&
-                   ColorPickerVisible == other.ColorPickerVisible &&
-                   IsEditMode == other.IsEditMode &&
-                   PendingEditContent == other.PendingEditContent;
-        }
-
-        public int CompareTo(object obj)
-        {
-            return Id.CompareTo(((TaskListItemViewModel)obj).Id);
         }
     }
 }

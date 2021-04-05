@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using System;
+using Ninject;
 
 namespace TodoApp2.Core
 {
@@ -74,18 +75,18 @@ namespace TodoApp2.Core
         /// </summary>
         public static void Setup()
         {
-            BindViewModels();
-
-            BindServices();
+            BindSingletonViewModels();
+            BindSingletonServices();
 
             // Force the lazy load to initialize the service
             var loadedNotificationService = ReminderNotificationService;
         }
 
+
         /// <summary>
         /// Binds all singleton view models
         /// </summary>
-        private static void BindViewModels()
+        private static void BindSingletonViewModels()
         {
             // Bind to a single instance
             Kernel.Bind<ApplicationViewModel>().To<ApplicationViewModel>().InSingletonScope();
@@ -94,7 +95,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// Binds all singleton services
         /// </summary>
-        private static void BindServices()
+        private static void BindSingletonServices()
         {
             Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
             Kernel.Bind<TaskScheduler>().To<TaskScheduler>().InSingletonScope();

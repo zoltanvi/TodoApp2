@@ -23,13 +23,14 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
-        /// Gets the task items from the provided category which are not trashed
+        /// Returns the active task items from the provided category.
+        /// A task is active if it is not trashed.
         /// </summary>
-        /// <param name="categoryName"></param>
+        /// <param name="categoryName">The category of the tasks.</param>
         /// <returns></returns>
         public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(string categoryName)
         {
-            var returnValue = await Task.Run(() => GetActiveTaskItems(categoryName));
+            List<TaskListItemViewModel> returnValue = await Task.Run(() => GetActiveTaskItems(categoryName));
             return returnValue;
         }
 
@@ -286,22 +287,6 @@ namespace TodoApp2.Core
             var updateSource = taskList.Cast<TaskListItemViewModel>();
             // Persist every change in the list into the database
             m_DataAccess.UpdateTaskList(updateSource);
-        }
-
-        /// <summary>
-        /// Trashes the task
-        /// </summary>
-        /// <param name="task"></param>
-        public void TrashTask(TaskListItemViewModel task)
-        {
-            // Set Trashed property to true so it won't be listed in the active list
-            task.Trashed = true;
-
-            // Indicate that it is an invalid order
-            task.ListOrder = long.MinValue;
-
-            // Persist the change into the database
-            m_DataAccess.UpdateTask(task);
         }
 
         /// <summary>
