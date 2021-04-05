@@ -143,8 +143,12 @@ namespace TodoApp2
             LoadBackTheme();
 
             // Listen out for requests to flash the application window
-            Mediator.Instance.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
-            Mediator.Instance.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
+            Mediator.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
+            Mediator.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
+
+            // Set initial main and side menu pages
+            Application.GoToPage(ApplicationPage.Task, new TaskPageViewModel());
+            Application.SideMenuPage = ApplicationPage.Category;
         }
 
         private void OnThemeChangeRequested(object obj)
@@ -152,7 +156,7 @@ namespace TodoApp2
             if (ApplicationSettings.ActiveTheme != m_ThemeManager.CurrentTheme)
             {
                 m_ThemeManager.ChangeToTheme(m_ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
-                Mediator.Instance.NotifyClients(ViewModelMessages.ThemeChanged);
+                Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
             }
         }
 
@@ -162,7 +166,7 @@ namespace TodoApp2
 
         public void NotifyThemeChanged()
         {
-            Mediator.Instance.NotifyClients(ViewModelMessages.ThemeChanged);
+            Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
         }
 
         #endregion Public methods

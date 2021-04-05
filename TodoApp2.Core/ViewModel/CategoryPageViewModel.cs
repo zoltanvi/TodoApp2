@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
-    public class CategoryPageViewModel : BaseViewModel
+    public class CategoryPageViewModel : BaseViewModel, IDisposable
     {
         private int m_LastRemovedId = int.MinValue;
 
@@ -46,7 +47,7 @@ namespace TodoApp2.Core
             Application.LoadApplicationSettingsOnce();
 
             // Subscribe to the theme changed event to repaint the list items when it happens
-            Mediator.Instance.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
 
         private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -169,7 +170,7 @@ namespace TodoApp2.Core
                     CurrentCategory = categoryName;
 
                     // Notify clients about the category change
-                    Mediator.Instance.NotifyClients(ViewModelMessages.CategoryChanged);
+                    Mediator.NotifyClients(ViewModelMessages.CategoryChanged);
                 }
 
                 OverlayPageService.CloseSideMenu();
@@ -202,6 +203,13 @@ namespace TodoApp2.Core
             //Clear the items and add back the cleared items to refresh the list(repaint)
             Items.Clear();
             Items.AddRange(itemsBackup);
+        }
+
+        protected override void OnDispose()
+        {
+            CategoryListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
+
+            Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
     }
 }

@@ -12,6 +12,8 @@ namespace TodoApp2.Core
     {
         private readonly DataAccessLayer m_DataAccess;
 
+        public event EventHandler<TaskChangedEventArgs> TaskChanged;
+
         public ClientDatabase()
         {
             m_DataAccess = new DataAccessLayer();
@@ -183,6 +185,7 @@ namespace TodoApp2.Core
         public void UpdateTask(TaskListItemViewModel task)
         {
             m_DataAccess.UpdateTask(task);
+            TaskChanged?.Invoke(this, new TaskChangedEventArgs(task));
         }
 
         /// <summary>
@@ -234,6 +237,7 @@ namespace TodoApp2.Core
             var itemToReorder = task as IReorderable;
             ReorderItem(filteredOrderedTasks, itemToReorder, newPosition, UpdateTaskListOrder);
             m_DataAccess.UpdateTask(task);
+            TaskChanged?.Invoke(this, new TaskChangedEventArgs(task));
         }
 
         /// <summary>

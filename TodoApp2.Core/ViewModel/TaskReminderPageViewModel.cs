@@ -13,7 +13,11 @@ namespace TodoApp2.Core
         /// </summary>
         public TaskListItemViewModel ReminderTask { get; }
         public long ReminderDateTime => ReminderTask?.ReminderDate ?? 0;
-        public bool IsReminderOn { get; set; }
+        public bool IsReminderOn
+        {
+            get => ReminderTask.IsReminderOn;
+            set => ReminderTask.IsReminderOn = value;
+        }
 
         public ICommand ClosePageCommand { get; }
         public ICommand EditReminderCommand { get; }
@@ -29,7 +33,8 @@ namespace TodoApp2.Core
 
         private void ChangeIsOn()
         {
-            ReminderTask.IsReminderOn = IsReminderOn;
+            // ReminderTask.IsReminderOn is modified with the toggle button,
+            // so we persist the modification
             IoC.ClientDatabase.UpdateTask(ReminderTask);
         }
 
@@ -37,23 +42,13 @@ namespace TodoApp2.Core
         {
             if (reminderTask != null)
             {
-                ReminderTask = reminderTask;
-                IsReminderOn = ReminderTask.IsReminderOn;
+                ReminderTask = IoC.ClientDatabase.GetTask(reminderTask.Id);
             }
         }
 
         private void EditReminder()
         {
             IoC.OverlayPageService.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
-        }
-
-        private void SetReminder(bool isReminderOn)
-        {
-            IsReminderOn = isReminderOn;
-            ReminderTask.IsReminderOn = IsReminderOn;
-            IoC.ClientDatabase.UpdateTask(ReminderTask);
-
-            NotificationService.SetReminder(ReminderTask);
         }
 
         private void ClosePage()

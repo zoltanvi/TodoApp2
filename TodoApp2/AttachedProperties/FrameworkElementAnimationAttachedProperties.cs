@@ -39,10 +39,10 @@ namespace TodoApp2
                 return;
 
             // Try and get the already loaded reference
-            var alreadyLoadedReference = AlreadyLoaded.FirstOrDefault(f => f.Key.Target == sender);
+            var alreadyLoadedReference = AlreadyLoaded.FirstOrDefault(f => Equals(f.Key.Target, sender));
 
             // Try and get the first load reference
-            var firstLoadReference = FirstLoadValue.FirstOrDefault(f => f.Key.Target == sender);
+            var firstLoadReference = FirstLoadValue.FirstOrDefault(f => Equals(f.Key.Target, sender));
 
             // Don't fire if the value doesn't change
             if ((bool)sender.GetValue(ValueProperty) == (bool)value && alreadyLoadedReference.Key != null)
@@ -73,7 +73,7 @@ namespace TodoApp2
 
                     // Refresh the first load value in case it changed
                     // since the 5ms delay
-                    firstLoadReference = FirstLoadValue.FirstOrDefault(f => f.Key.Target == sender);
+                    firstLoadReference = FirstLoadValue.FirstOrDefault(f => Equals(f.Key.Target, sender));
 
                     // Do desired animation
                     DoAnimation(element, firstLoadReference.Key != null ? firstLoadReference.Value : (bool)value, true);

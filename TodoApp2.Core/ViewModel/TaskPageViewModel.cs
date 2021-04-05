@@ -15,11 +15,8 @@ namespace TodoApp2.Core
         private int m_LastRemovedId = int.MinValue;
         private string CurrentCategory => IoC.CategoryListService.CurrentCategory;
         private ClientDatabase Database => IoC.ClientDatabase;
-
-        /// <summary>
-        /// The task list items
-        /// </summary>
-        public ObservableCollection<TaskListItemViewModel> Items { get; }
+        private TaskListService TaskListService => IoC.TaskListService;
+        private ObservableCollection<TaskListItemViewModel> Items => TaskListService.TaskPageItems;
 
         /// <summary>
         /// The content / description text for the current task being written
@@ -53,23 +50,14 @@ namespace TodoApp2.Core
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
             MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
 
-            // Load the application settings to update the CurrentCategory before querying the tasks
-            IoC.Application.LoadApplicationSettingsOnce();
-
-            // Query the items with the current category
-            List<TaskListItemViewModel> items = Database.GetActiveTaskItems(CurrentCategory);
-
-            // Fill the actual list with the queried items
-            Items = new ObservableCollection<TaskListItemViewModel>(items);
-
             // Subscribe to the collection changed event for synchronizing with database
             Items.CollectionChanged += ItemsOnCollectionChanged;
 
             // Subscribe to the category changed event to filter the list when it happens
-            Mediator.Instance.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+            Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
 
             // Subscribe to the theme changed event to repaint the list items when it happens
-            Mediator.Instance.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
 
         private void ModifyTaskIsDone(object obj)
@@ -96,7 +84,6 @@ namespace TodoApp2.Core
             if (obj is TaskListItemViewModel task)
             {
                 Database.TrashTask(task);
-
                 Items.Remove(task);
             }
         }
@@ -271,6 +258,15 @@ namespace TodoApp2.Core
             // Clear the items and add back the cleared items to refresh the list (repaint)
             Items.Clear();
             Items.AddRange(itemsBackup);
+        }
+
+        protected override void OnDispose()
+        {
+            Items.CollectionChanged -= ItemsOnCollectionChanged;
+
+            Mediator.Deregister(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+
+            Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
     }
 }

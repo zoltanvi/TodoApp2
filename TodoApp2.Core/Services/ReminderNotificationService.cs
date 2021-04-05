@@ -17,7 +17,7 @@ namespace TodoApp2.Core
             m_NotificationQueue = new Queue<TaskListItemViewModel>();
             TaskScheduler.ScheduledAction = ShowNotification;
 
-            Mediator.Instance.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
+            Mediator.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
 
             List<TaskListItemViewModel> taskList = Database.GetActiveTaskItems();
             List<TaskListItemViewModel> filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
@@ -75,7 +75,7 @@ namespace TodoApp2.Core
                     IoC.ClientDatabase.UpdateTask(notificationTask);
 
                     IoC.OverlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
-                    Mediator.Instance.NotifyClients(ViewModelMessages.WindowFlashRequested, s_PlaySound);
+                    Mediator.NotifyClients(ViewModelMessages.WindowFlashRequested, s_PlaySound);
                 }
             }
         }

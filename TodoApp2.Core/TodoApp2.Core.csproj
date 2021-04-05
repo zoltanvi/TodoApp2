@@ -73,12 +73,14 @@
   <ItemGroup>
     <Compile Include="Database\ClientDatabase.cs" />
     <Compile Include="Database\DataAccessLayer.cs" />
+    <Compile Include="Database\TaskChangedEventArgs.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationSettings.cs" />
     <Compile Include="DataModels\Theme.cs" />
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
     <Compile Include="Helpers\StringDateConverterExtender.cs" />
     <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
+    <Compile Include="Mediator\AsyncEventArgs.cs" />
     <Compile Include="PropertyHandling\DoublePropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\BoolPropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\LongPropertyValueHandler.cs" />

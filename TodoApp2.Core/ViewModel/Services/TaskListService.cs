@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace TodoApp2.Core
 {
@@ -8,16 +11,30 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskListService : BaseViewModel
     {
-        private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
+        private string CurrentCategory => IoC.CategoryListService.CurrentCategory;
+        private ClientDatabase Database => IoC.ClientDatabase;
 
         /// <summary>
         /// The task list items
         /// </summary>
-        public ObservableCollection<TaskListItemViewModel> Items { get; set; }
+        public ObservableCollection<TaskListItemViewModel> TaskPageItems { get; }
 
         public TaskListService()
         {
-            Items = new ObservableCollection<TaskListItemViewModel>();
+            // Query the items with the current category
+            List<TaskListItemViewModel> items = Database.GetActiveTaskItems(CurrentCategory);
+
+            // Fill the actual list with the queried items
+            TaskPageItems = new ObservableCollection<TaskListItemViewModel>(items);
+
+            IoC.ClientDatabase.TaskChanged += OnClientDatabaseTaskChanged;
+        }
+
+        private void OnClientDatabaseTaskChanged(object sender, TaskChangedEventArgs e)
+        {
+            TaskListItemViewModel modifiedItem = TaskPageItems.FirstOrDefault(item => item.Id == e.Task.Id);
+            
+            modifiedItem?.CopyProperties(e.Task);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using TodoApp2.Core;
 
@@ -52,36 +54,48 @@ namespace TodoApp2
         private static object CurrentPagePropertyChanged(DependencyObject d, object value)
         {
             // Get current values
-            var currentPage = (ApplicationPage)value;
-            var currentPageViewModel = d.GetValue(CurrentPageViewModelProperty);
+            ApplicationPage currentPage = (ApplicationPage)value;
+            object currentPageViewModel = d.GetValue(CurrentPageViewModelProperty);
 
             // Get the frames
+            Frame oldPageFrame = ((PageHost)d).OldPage;
             Frame newPageFrame = ((PageHost)d).NewPage;
-            Frame oldPageFrame = ((PageHost)d).NewPage;
-
-            // If the current page hasn't changed
-            // just update the view model
-            if (newPageFrame.Content is BasePage page &&
-                page.ToApplicationPage() == currentPage)
-            {
-                // Just update the view model
-                page.ViewModelObject = currentPageViewModel;
-
-                return value;
-            }
 
             // Store the current page content as the old page
-            var oldPageContent = newPageFrame.Content;
+            object oldPageContent = newPageFrame.Content;
 
             // Remove current page from new page frame
-            newPageFrame.Content = null;
+            //newPageFrame.Content = null;
 
             // Move the previous page into the old page frame
-            oldPageFrame.Content = oldPageContent;
+            //oldPageFrame.Content = oldPageContent;
+
+            // Animate out previous page when the Loaded event fires
+            // right after this call due to moving frames
+            if (oldPageContent is BasePage oldPage)
+            {
+                // Tell old page to animate out
+                //oldPage.ShouldAnimateOut = true;
+
+                //// Once it is done, remove it
+                //Task.Delay((int)(oldPage.PageLoadAnimationDurationSeconds * 1000)).ContinueWith(t =>
+                //{
+                //    // Remove old page
+                //    Application.Current.Dispatcher.Invoke(() =>
+                //    {
+                        if (oldPage.ViewModelObject is IDisposable disposableViewModel)
+                        {
+                            // Dispose the old ViewModel before switching to the new page
+                            disposableViewModel.Dispose();
+                        }
+
+                        //oldPageFrame.Content = null;
+                //    });
+                //});
+            }
 
             // Set the new page content
             newPageFrame.Content = currentPage.ToBasePage(currentPageViewModel);
-            //new ApplicationPageValueConverter().Convert(currentPage, null, currentPageViewModel, null);
 
             return value;
         }

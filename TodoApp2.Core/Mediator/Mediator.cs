@@ -3,26 +3,14 @@ using System.Threading.Tasks;
 
 namespace TodoApp2.Core
 {
-    public class AsyncEventArgs : EventArgs
-    {
-        public Func<Task> Func;
-        public object Parameter;
-
-        public AsyncEventArgs(Func<Task> func, object parameter)
-        {
-            Func = func;
-            Parameter = parameter;
-        }
-    }
-
     public sealed class Mediator
     {
-        private static Mediator m_Instance;
-        public static Mediator Instance => m_Instance ?? (m_Instance = new Mediator());
+        private static Mediator s_Instance;
+        private static Mediator Instance => s_Instance ?? (s_Instance = new Mediator());
 
         private readonly MultiDictionary<ViewModelMessages, Action<object>> m_MessageActionDictionary;
         private readonly MultiDictionary<ViewModelMessages, Func<Task>> m_MessageFunctionDictionary;
-        private EventHandler<AsyncEventArgs> m_AsyncEvent;
+        private readonly EventHandler<AsyncEventArgs> m_AsyncEvent;
 
         private Mediator()
         {
@@ -41,19 +29,39 @@ namespace TodoApp2.Core
         /// </summary>
         /// <param name="action">The action to use when the message is seen.</param>
         /// <param name="message">The message to register to.</param>
-        public void Register(Action<object> action, ViewModelMessages message)
+        public static void Register(Action<object> action, ViewModelMessages message)
         {
-            m_MessageActionDictionary.AddValue(message, action);
+            Instance.InstanceRegister(action, message);
         }
 
         /// <summary>
         /// Registers a function to a specific message.
         /// </summary>
-        /// <param name="action">The action to use when the message is seen.</param>
+        /// <param name="task">The task to execute when the message is seen.</param>
         /// <param name="message">The message to register to.</param>
-        public void Register(Func<Task> task, ViewModelMessages message)
+        public static void Register(Func<Task> task, ViewModelMessages message)
         {
-            m_MessageFunctionDictionary.AddValue(message, task);
+            Instance.InstanceRegister(task, message);
+        }
+
+        /// <summary>
+        /// Deregisters an action.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="message"></param>
+        public static void Deregister(Action<object> action, ViewModelMessages message)
+        {
+            Instance.InstanceDeregister(action, message);
+        }
+
+        /// <summary>
+        /// Deregisters a task.
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="message"></param>
+        public static void Deregister(Func<Task> task, ViewModelMessages message)
+        {
+            Instance.InstanceDeregister(task, message);
         }
 
         /// <summary>
@@ -61,7 +69,37 @@ namespace TodoApp2.Core
         /// </summary>
         /// <param name="message">The message for the notify by.</param>
         /// <param name="args">The arguments for the message.</param>
-        public void NotifyClients(ViewModelMessages message, object args = null)
+        public static void NotifyClients(ViewModelMessages message, object args = null)
+        {
+            Instance.InstanceNotifyClients(message, args);
+        }
+
+        /// <inheritdoc cref="Register(Action{object},ViewModelMessages)"/>
+        private void InstanceRegister(Action<object> action, ViewModelMessages message)
+        {
+            m_MessageActionDictionary.AddValue(message, action);
+        }
+
+        /// <inheritdoc cref="Register(Func{Task},ViewModelMessages)"/>
+        private void InstanceRegister(Func<Task> task, ViewModelMessages message)
+        {
+            m_MessageFunctionDictionary.AddValue(message, task);
+        }
+
+        /// <inheritdoc cref="Deregister(Action{object},ViewModelMessages)"/>
+        private void InstanceDeregister(Action<object> action, ViewModelMessages message)
+        {
+            m_MessageActionDictionary.RemoveValue(message, action);
+        }
+
+        /// <inheritdoc cref="Deregister(Func{Task},ViewModelMessages)"/>
+        private void InstanceDeregister(Func<Task> task, ViewModelMessages message)
+        {
+            m_MessageFunctionDictionary.RemoveValue(message, task);
+        }
+
+        /// <inheritdoc cref="NotifyClients"/>
+        private void InstanceNotifyClients(ViewModelMessages message, object args = null)
         {
             if (m_MessageActionDictionary.ContainsKey(message))
             {

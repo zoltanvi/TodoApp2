@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
@@ -31,6 +32,14 @@ namespace TodoApp2.Core
         public ApplicationPage CurrentPage { get; set; }
 
         /// <summary>
+        /// The view model to use for the current page when the Page changes
+        /// NOTE: This is not a live up-to-date view model of the current page
+        ///       it is simply used to set the view model of the current page
+        ///       at the time it changes
+        /// </summary>
+        public IBaseViewModel CurrentPageViewModel { get; set; }
+
+        /// <summary>
         /// The overlay panel content page
         /// </summary>
         public ApplicationPage OverlayPage { get; private set; }
@@ -61,9 +70,33 @@ namespace TodoApp2.Core
         public ApplicationViewModel()
         {
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
-            CurrentPage = ApplicationPage.Task;
-            SideMenuPage = ApplicationPage.Category;
+            
+            // Load the application settings to update the CurrentCategory before querying the tasks
+            LoadApplicationSettingsOnce();
+            
             ApplicationSettings.PropertyChanged += OnApplicationSettingsPropertyChanged;
+        }
+
+        /// <summary>
+        /// Navigates the main page to the specified page.
+        /// </summary>
+        /// <param name="page">The page to go to</param>
+        /// <param name="viewModel">The view model to set</param>
+        public void GoToPage(ApplicationPage page, IBaseViewModel viewModel = null)
+        {
+            CurrentPageViewModel = viewModel;
+
+            // See if page has changed
+            bool different = CurrentPage != page;
+
+            CurrentPage = page;
+
+            // If the page hasn't changed, fire off notification
+            // So pages still update if just the view model has changed
+            if (!different)
+            {
+                //OnPropertyChanged(nameof(CurrentPage));
+            }
         }
 
         /// <summary>
@@ -94,6 +127,18 @@ namespace TodoApp2.Core
             if (!different)
             {
                 OnPropertyChanged(nameof(OverlayPage));
+            }
+        }
+
+        /// <summary>
+        /// Closes the overlay page and disposes its viewModel
+        /// </summary>
+        public void CloseOverlayPage()
+        {
+            OverlayPage = ApplicationPage.Invalid;
+            if (OverlayPageViewModel is IDisposable viewModel)
+            {
+                viewModel.Dispose();
             }
         }
 
@@ -155,7 +200,7 @@ namespace TodoApp2.Core
         {
             if (e.PropertyName == nameof(ApplicationSettings.ActiveTheme))
             {
-                Mediator.Instance.NotifyClients(ViewModelMessages.ThemeChangeRequested);
+                Mediator.NotifyClients(ViewModelMessages.ThemeChangeRequested);
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -13,7 +12,7 @@ namespace TodoApp2
         /// <summary>
         /// The View Model associated with this page
         /// </summary>
-        private object m_ViewModel;
+        protected object BaseViewModelObject;
 
         /// <summary>
         /// The animation to play when the page is loaded
@@ -31,25 +30,31 @@ namespace TodoApp2
         public float PageLoadAnimationDurationSeconds { get; set; } = 0.4f;
 
         /// <summary>
+        /// A flag to indicate if this page should animate out on load.
+        /// Useful for when we are moving the page to another frame
+        /// </summary>
+        public bool ShouldAnimateOut { get; set; }
+
+        /// <summary>
         /// The View Model associated with this page
         /// </summary>
         public object ViewModelObject
         {
-            get => m_ViewModel;
+            get => BaseViewModelObject;
             set
             {
                 // If nothing has changed, return
-                if (m_ViewModel == value)
+                if (BaseViewModelObject == value)
                     return;
 
                 // Update the value
-                m_ViewModel = value;
+                BaseViewModelObject = value;
 
                 // Fire the view model changed method
                 OnViewModelChanged();
 
                 // Set the data context for this page
-                DataContext = m_ViewModel;
+                DataContext = BaseViewModelObject;
             }
         }
 
@@ -72,8 +77,14 @@ namespace TodoApp2
         /// <param name="e"></param>
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            // Animate the page in
-            await AnimateIn();
+            if (ShouldAnimateOut)
+            {
+                await AnimateOut();
+            }
+            else
+            {
+                await AnimateIn();
+            }
         }
 
         /// <summary>
@@ -129,67 +140,6 @@ namespace TodoApp2
         /// </summary>
         protected virtual void OnViewModelChanged()
         {
-        }
-    }
-
-    /// <summary>
-    /// A base page with added ViewModel support
-    /// </summary>
-    public class BasePage<TViewModel> : BasePage
-        where TViewModel : BaseViewModel, new()
-    {
-        /// <summary>
-        /// The View Model associated with this page
-        /// </summary>
-        private TViewModel m_ViewModel;
-
-        /// <summary>
-        /// The View Model associated with this page
-        /// </summary>
-        public TViewModel ViewModel
-        {
-            get => m_ViewModel;
-            set
-            {
-                // If nothing has changed, return
-                if (m_ViewModel == value)
-                {
-                    return;
-                }
-
-                // Update the value
-                m_ViewModel = value;
-
-                //Set the data context for this page
-                DataContext = m_ViewModel;
-            }
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public BasePage()
-        {
-            // Create a default view model
-            ViewModel = IoC.Get<TViewModel>();
-        }
-
-        /// <summary>
-        /// Constructor with specific view model
-        /// </summary>
-        /// <param name="specificViewModel">The specific view model to use, if any</param>
-        public BasePage(TViewModel specificViewModel = null)
-        {
-            // Set specific view model
-            if (specificViewModel != null)
-            {
-                ViewModel = specificViewModel;
-            }
-            else
-            {
-                // Create a default view model
-                ViewModel = IoC.Get<TViewModel>();
-            }
         }
     }
 }

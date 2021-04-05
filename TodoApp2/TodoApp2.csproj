@@ -122,9 +122,6 @@
     <Compile Include="AttachedProperties\FocusSetter.cs" />
     <Compile Include="AttachedProperties\InputBindingsManager.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
-    <Compile Include="Controls\BubbleContent.xaml.cs">
-      <DependentUpon>BubbleContent.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\CategoryListControl.xaml.cs">
       <DependentUpon>CategoryListControl.xaml</DependentUpon>
     </Compile>
@@ -155,6 +152,7 @@
     <Compile Include="Helpers\TextBoxPreviewKeyDownHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Pages\BasePage.cs" />
+    <Compile Include="Pages\GenericBasePage.cs" />
     <Compile Include="Pages\NotificationPage.xaml.cs">
       <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
@@ -196,10 +194,6 @@
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\FlashWindow.cs" />
     <Compile Include="Window\WindowResizer.cs" />
-    <Page Include="Controls\BubbleContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\CategoryListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

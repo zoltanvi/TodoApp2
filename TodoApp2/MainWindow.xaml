@@ -131,6 +131,7 @@
         <Grid>
 
             <!--  Current page  -->
+
             <Frame
                 AutomationProperties.AutomationId="CurrentPage"
                 local:NoFrameHistory.Value="True"

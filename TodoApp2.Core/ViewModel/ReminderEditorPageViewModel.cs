@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
-    public class ReminderEditorPageViewModel : BaseViewModel
+    public class ReminderEditorPageViewModel : BaseViewModel, IDisposable
     {
         private bool m_Closed;
 
@@ -19,7 +19,11 @@ namespace TodoApp2.Core
         public string SelectedDateString { get; set; }
         public bool IsSelectedDateStringValid { get; set; }
         public DateTime SelectedTime { get; set; }
-        public bool IsReminderOn { get; set; }
+        public bool IsReminderOn
+        {
+            get => ReminderTask.IsReminderOn;
+            set => ReminderTask.IsReminderOn = value;
+        }
 
         public ICommand CloseReminderCommand { get; }
         public ICommand SetReminderCommand { get; }
@@ -30,17 +34,16 @@ namespace TodoApp2.Core
         {
             SetReminderCommand = new RelayCommand(SetReminder);
             ResetReminderCommand = new RelayCommand(ResetReminder);
-            CloseReminderCommand = new RelayCommand(CloseReminder);
+            CloseReminderCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeReminder);
-            OverlayPageService.SetBackgroundClickedAction(CloseReminder);
+            OverlayPageService.SetBackgroundClickedAction(ClosePage);
         }
 
         public ReminderEditorPageViewModel(TaskListItemViewModel reminderTask) : this()
         {
             if (reminderTask != null)
             {
-                ReminderTask = reminderTask;
-                IsReminderOn = ReminderTask.IsReminderOn;
+                ReminderTask = IoC.ClientDatabase.GetTask(reminderTask.Id);
 
                 ResetReminderProperties();
 
@@ -52,18 +55,13 @@ namespace TodoApp2.Core
 
         private void SetReminder()
         {
-            SetReminder(true);
-        }
-
-        private void SetReminder(bool isReminderOn)
-        {
-            IsReminderOn = isReminderOn;
+            IsReminderOn = true;
 
             UpdateTaskReminder();
 
             NotificationService.SetReminder(ReminderTask);
 
-            CloseReminder();
+            ClosePage();
         }
 
         private void ResetReminder()
@@ -82,7 +80,7 @@ namespace TodoApp2.Core
             UpdateTaskReminder();
         }
 
-        private void CloseReminder()
+        private void ClosePage()
         {
             if (!m_Closed)
             {
@@ -99,7 +97,6 @@ namespace TodoApp2.Core
             DateTime reminderDate = SelectedDate.Date + new TimeSpan(SelectedTime.Hour, SelectedTime.Minute, 0);
             ReminderTask.ReminderDate = reminderDate.Ticks;
 
-            ReminderTask.IsReminderOn = IsReminderOn;
             IoC.ClientDatabase.UpdateTask(ReminderTask);
         }
 
@@ -141,6 +138,14 @@ namespace TodoApp2.Core
                     IsSelectedDateStringValid = true;
                     break;
                 }
+            }
+        }
+
+        protected override void OnDispose()
+        {
+            if (!m_Closed)
+            {
+                PropertyChanged -= OnViewModelPropertyChanged;
             }
         }
     }

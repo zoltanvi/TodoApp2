@@ -15,7 +15,7 @@
         <ListView
             AutomationProperties.AutomationId="TaskListListView"
             x:Name="TaskListListView"
-            ItemsSource="{Binding Items}"
+            ItemsSource="{Binding TaskListService.TaskPageItems, Source={x:Static local:ViewModelLocator.Instance}}"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
             BorderThickness="0"

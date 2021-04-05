@@ -36,43 +36,37 @@ namespace TodoApp2.Core
                 Application.OverlayPageVisible = false;
                 OverlayBackgroundVisible = false;
 
+                Application.CloseOverlayPage();
+
                 BackgroundClickedCommand?.Execute(null);
             }
-            
+
             Application.SideMenuPage = ApplicationPage.Category;
         }
 
         public void OpenPage(ApplicationPage page, TaskListItemViewModel task = null)
         {
             BaseViewModel viewModel = null;
-            bool validPage = false;
-            switch (page)
-            {
-                case ApplicationPage.TaskReminder:
-                {
-                    Application.SideMenuVisible = false;
-                    validPage = true;
-                    viewModel = new TaskReminderPageViewModel(task);
-                    break;
-                }
-                case ApplicationPage.ReminderEditor:
-                {
-                    Application.SideMenuVisible = false;
-                    validPage = true;
-                    viewModel = new ReminderEditorPageViewModel(task);
-                    break;
-                }
-                case ApplicationPage.Notification:
-                {
-                    Application.SideMenuVisible = false;
-                    validPage = true;
-                    viewModel = new NotificationPageViewModel(task);
-                    break;
-                }
-            }
+            bool validPage = page == ApplicationPage.TaskReminder ||
+                             page == ApplicationPage.ReminderEditor ||
+                             page == ApplicationPage.Notification;
 
             if (validPage)
             {
+                switch (page)
+                {
+                    case ApplicationPage.TaskReminder:
+                        viewModel = new TaskReminderPageViewModel(task);
+                        break;
+                    case ApplicationPage.ReminderEditor:
+                        viewModel = new ReminderEditorPageViewModel(task);
+                        break;
+                    case ApplicationPage.Notification:
+                        viewModel = new NotificationPageViewModel(task);
+                        break;
+                }
+
+                Application.SideMenuVisible = false;
                 OpenOverlayPage(page, viewModel);
             }
             else

@@ -7,7 +7,7 @@ namespace TodoApp2.Core
     /// <summary>
     /// A view model for each task list item on the task page
     /// </summary>
-    [DebuggerDisplay("[id {Id}] [ord {ListOrder}] [cat {CategoryId}] [fin {IsDone}] [del {Trashed}] [txt {Content}]")]
+    [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}] [content {Content}]")]
     public class TaskListItemViewModel : BaseViewModel, IReorderable, IComparable, IEquatable<TaskListItemViewModel>
     {
         private ClientDatabase Database => IoC.ClientDatabase;
@@ -42,6 +42,24 @@ namespace TodoApp2.Core
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
             UpdateItemContentCommand = new RelayCommand(UpdateContent);
+        }
+
+        public void CopyProperties(TaskListItemViewModel task)
+        {
+            Id = task.Id;
+            CategoryId = task.CategoryId;
+            Content = task.Content;
+            ListOrder = task.ListOrder;
+            IsDone = task.IsDone;
+            CreationDate = task.CreationDate;
+            ModificationDate = task.ModificationDate;
+            Color = task.Color;
+            Trashed = task.Trashed;
+            ReminderDate = task.ReminderDate;
+            IsReminderOn = task.IsReminderOn;
+            ColorPickerVisible = task.ColorPickerVisible;
+            IsEditMode = task.IsEditMode;
+            PendingEditContent = task.PendingEditContent;
         }
 
         public void UpdateContent()
@@ -82,7 +100,6 @@ namespace TodoApp2.Core
 
         private void OpenReminder()
         {
-            //IoC.OverlayPageService.OpenPage(ApplicationPage.ReminderEdit, this);
             IoC.OverlayPageService.OpenPage(ApplicationPage.TaskReminder, this);
         }
 

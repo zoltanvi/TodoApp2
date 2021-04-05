@@ -36,7 +36,7 @@ namespace TodoApp2.Core
 
                 OverlayPageService.ClosePage();
 
-                Mediator.Instance.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
+                Mediator.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
             }
         }
     }
