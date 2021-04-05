@@ -100,7 +100,7 @@
     <Compile Include="PropertyHandling\ThemePropertyValueHandler.cs" />
     <Compile Include="Services\ThemeListService.cs" />
     <Compile Include="ViewModel\Services\TaskListService.cs" />
-    <Compile Include="ViewModel\TaskReminderPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\TaskReminderPageViewModel.cs" />
     <Compile Include="ViewModel\Services\OverlayPageService.cs" />
     <Compile Include="Services\ReminderNotificationService.cs" />
     <Compile Include="Services\TaskScheduler.cs" />
@@ -109,16 +109,16 @@
     <Compile Include="ViewModel\Base\IBaseViewModel.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayParameterizedCommand.cs" />
-    <Compile Include="ViewModel\CategoryPageViewModel.cs" />
-    <Compile Include="ViewModel\CategoryListItemViewModel.cs" />
+    <Compile Include="ViewModel\Pages\CategoryPageViewModel.cs" />
+    <Compile Include="ViewModel\Items\CategoryListItemViewModel.cs" />
     <Compile Include="Interfaces\IReorderable.cs" />
-    <Compile Include="ViewModel\NotificationPageViewModel.cs" />
-    <Compile Include="ViewModel\ReminderEditorPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\NotificationPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\ReminderEditorPageViewModel.cs" />
     <Compile Include="ViewModel\Services\CategoryListService.cs" />
     <Compile Include="Services\ColorListService.cs" />
-    <Compile Include="ViewModel\SettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\TaskListItemViewModel.cs" />
-    <Compile Include="ViewModel\TaskPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Items\TaskListItemViewModel.cs" />
+    <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
