@@ -69,7 +69,7 @@
     <Grid Background="{DynamicResource ContentBackgroundBrush}">
 
         <!--  Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"  -->
-        <Border Margin="16 3" CornerRadius="8">
+        <Border Margin="16 3" CornerRadius="2">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
@@ -80,7 +80,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <!--  Color bar column  -->
-                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="5" />
                     <!--  Checkbox column  -->
                     <ColumnDefinition Width="36" />
                     <!--  Main content column, also the hidden buttons column  -->
@@ -92,7 +92,7 @@
                     Grid.Column="0"
                     AutomationProperties.AutomationId="TaskListItemColorBar"
                     Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}"
-                    CornerRadius="8 0 0 8" />
+                    CornerRadius="2 0 0 2" />
 
                 <CheckBox
                     Grid.Column="1"
@@ -205,7 +205,7 @@
                         Padding="10 0 0 0"
                         HorizontalAlignment="Right"
                         Background="{DynamicResource TaskListItemHoverPanelBrush}"
-                        CornerRadius="0 8 8 0">
+                        CornerRadius="0 2 2 0">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
