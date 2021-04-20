@@ -41,9 +41,10 @@
 
             </Grid>
 
-            <Border
+            <ScrollViewer Grid.Row="1" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+
+                <Border
                 Name="SettingsPanel"
-                Grid.Row="1"
                 Background="Transparent">
 
                 <Grid Margin="15">
@@ -51,6 +52,9 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
+                        <!--Margin-->
+                        <RowDefinition Height="15" />
+                        <!--Version-->
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
 
@@ -137,6 +141,9 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition Height="12"/>
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
                         <!--  Theme ==========================================  -->
@@ -150,14 +157,27 @@
                             Grid.Row="1"
                             FontSize="{StaticResource FontSizeSmall}"
                             FontFamily="{StaticResource FreeSans}"
-                            ItemsSource="{Binding ThemeListService.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                            ItemsSource="{Binding ThemeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
+                        <!--  Color bar thickness ==========================================  -->
+                        <TextBlock
+                            Grid.Row="3"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Item marker thickness"
+                            Margin="0 0 0 4" />
+
+                        <ComboBox
+                            Grid.Row="4"
+                            FontSize="{StaticResource FontSizeSmall}"
+                            FontFamily="{StaticResource FreeSans}"
+                            ItemsSource="{Binding ThicknessListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
                     </Grid>
 
 
                     <!--  VERSION ==========================================  -->
-                    <Grid Grid.Row="3">
+                    <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="auto" />
@@ -171,16 +191,16 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                Version 1.0.2
+                                Version 1.0.3
                             </TextBlock>
                         </Border>
                     </Grid>
 
                 </Grid>
 
-
-
             </Border>
+
+            </ScrollViewer>
 
         </Grid>
     </Border>

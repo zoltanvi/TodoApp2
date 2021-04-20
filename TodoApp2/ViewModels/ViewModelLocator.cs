@@ -30,13 +30,18 @@ namespace TodoApp2
         public static TaskListService TaskListService => IoC.TaskListService;
 
         /// <summary>
-        /// The color list service
+        /// The color list provider
         /// </summary>
-        public static ColorListService ColorListService => IoC.ColorListService;
+        public static ColorListProvider ColorListProvider => IoC.ColorListProvider;
 
         /// <summary>
-        /// The theme list service
+        /// The theme list provider
         /// </summary>
-        public static ThemeListService ThemeListService => IoC.ThemeListService;
+        public static ThemeListProvider ThemeListProvider => IoC.ThemeListProvider;
+
+        /// <summary>
+        /// The thickness list provider
+        /// </summary>
+        public static ThicknessListProvider ThicknessListProvider => IoC.ThicknessListProvider;
     }
 }

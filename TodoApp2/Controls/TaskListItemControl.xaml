@@ -37,7 +37,7 @@
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
-            <MenuItem Header="Change color" ItemsSource="{Binding ColorListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+            <MenuItem Header="Change color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding}" />
@@ -80,7 +80,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <!--  Color bar column  -->
-                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="{Binding Path=ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ThicknessToGridLengthConverter}}" />
                     <!--  Checkbox column  -->
                     <ColumnDefinition Width="36" />
                     <!--  Main content column, also the hidden buttons column  -->

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using TodoApp2.Core;
+using Thickness = System.Windows.Thickness;
 
 namespace TodoApp2
 {

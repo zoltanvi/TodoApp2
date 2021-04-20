@@ -2,11 +2,11 @@
 
 namespace TodoApp2.Core
 {
-    public class ColorListService
+    public class ColorListProvider
     {
         public List<string> Items { get; }
 
-        public ColorListService()
+        public ColorListProvider()
         {
             Items = new List<string>
             {

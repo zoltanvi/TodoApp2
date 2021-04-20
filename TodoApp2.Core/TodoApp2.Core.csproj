@@ -76,6 +76,7 @@
     <Compile Include="Database\TaskChangedEventArgs.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationSettings.cs" />
+    <Compile Include="DataModels\Thickness.cs" />
     <Compile Include="DataModels\Theme.cs" />
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
     <Compile Include="Helpers\StringDateConverterExtender.cs" />
@@ -97,8 +98,10 @@
     <Compile Include="Mediator\MultiDictionary.cs" />
     <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyHandling\ThicknessPropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\ThemePropertyValueHandler.cs" />
-    <Compile Include="Services\ThemeListService.cs" />
+    <Compile Include="ListProviders\ThemeListProvider.cs" />
+    <Compile Include="ListProviders\ThicknessListProvider.cs" />
     <Compile Include="ViewModel\Services\TaskListService.cs" />
     <Compile Include="ViewModel\Pages\TaskReminderPageViewModel.cs" />
     <Compile Include="ViewModel\Services\OverlayPageService.cs" />
@@ -115,7 +118,7 @@
     <Compile Include="ViewModel\Pages\NotificationPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\ReminderEditorPageViewModel.cs" />
     <Compile Include="ViewModel\Services\CategoryListService.cs" />
-    <Compile Include="Services\ColorListService.cs" />
+    <Compile Include="ListProviders\ColorListService.cs" />
     <Compile Include="ViewModel\Pages\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Items\TaskListItemViewModel.cs" />
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />

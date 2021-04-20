@@ -125,6 +125,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <Style x:Key="DarkScrollBarStyle" TargetType="{x:Type ScrollBar}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="false" />

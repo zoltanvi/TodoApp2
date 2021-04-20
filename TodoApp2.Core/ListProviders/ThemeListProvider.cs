@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace TodoApp2.Core
 {
-    public class ThemeListService
+    public class ThemeListProvider
     {
         public List<Theme> Items { get; }
 
-        public ThemeListService()
+        public ThemeListProvider()
         {
             Items = Enum.GetValues(typeof(Theme)).Cast<Theme>().ToList();
         }

@@ -49,14 +49,19 @@ namespace TodoApp2.Core
         public static TaskListService TaskListService => Get<TaskListService>();
 
         /// <summary>
-        /// A shortcut to access the <see cref="ColorListService"/>
+        /// A shortcut to access the <see cref="ColorListProvider"/>
         /// </summary>
-        public static ColorListService ColorListService => Get<ColorListService>();
+        public static ColorListProvider ColorListProvider => Get<ColorListProvider>();
 
         /// <summary>
-        /// A shortcut to access the <see cref="ThemeListService"/>
+        /// A shortcut to access the <see cref="ThemeListProvider"/>
         /// </summary>
-        public static ThemeListService ThemeListService => Get<ThemeListService>();
+        public static ThemeListProvider ThemeListProvider => Get<ThemeListProvider>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="ThicknessListProvider"/>
+        /// </summary>
+        public static ThicknessListProvider ThicknessListProvider => Get<ThicknessListProvider>();
 
         /// <summary>
         /// Gets a service from the IoC, of the specified type
@@ -103,8 +108,9 @@ namespace TodoApp2.Core
             Kernel.Bind<OverlayPageService>().To<OverlayPageService>().InSingletonScope();
             Kernel.Bind<CategoryListService>().To<CategoryListService>().InSingletonScope();
             Kernel.Bind<TaskListService>().To<TaskListService>().InSingletonScope();
-            Kernel.Bind<ColorListService>().To<ColorListService>().InSingletonScope();
-            Kernel.Bind<ThemeListService>().To<ThemeListService>().InSingletonScope();
+            Kernel.Bind<ColorListProvider>().To<ColorListProvider>().InSingletonScope();
+            Kernel.Bind<ThemeListProvider>().To<ThemeListProvider>().InSingletonScope();
+            Kernel.Bind<ThicknessListProvider>().To<ThicknessListProvider>().InSingletonScope();
         }
     }
 }

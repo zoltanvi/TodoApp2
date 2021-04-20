@@ -42,7 +42,7 @@ namespace TodoApp2
         private Theme ChangeToNextTheme()
         {
             // Get the list of Theme values in order to calculate the next value
-            List<Theme> themeValues = IoC.ThemeListService.Items;
+            List<Theme> themeValues = IoC.ThemeListProvider.Items;
 
             // Calculate the next Theme
             int nextThemeIndex = (themeValues.IndexOf(ApplicationSettings.ActiveTheme) + 1) % themeValues.Count;
