@@ -4,12 +4,13 @@ using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
-    public class ReminderEditorPageViewModel : BaseViewModel, IDisposable
+    public class ReminderEditorPageViewModel : BaseViewModel
     {
         private bool m_Closed;
 
-        private ReminderNotificationService NotificationService => IoC.ReminderNotificationService;
-        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
+        private readonly ClientDatabase m_ClientDatabase;
+        private readonly ReminderNotificationService m_NotificationService;
+        private readonly OverlayPageService m_OverlayPageService;
 
         /// <summary>
         /// The task to show the notification for.
@@ -32,25 +33,33 @@ namespace TodoApp2.Core
 
         public ReminderEditorPageViewModel()
         {
+        }
+
+        public ReminderEditorPageViewModel(TaskListItemViewModel reminderTask, OverlayPageService overlayPageService,
+            ClientDatabase clientDatabase, ReminderNotificationService notificationService)
+        {
+            if (reminderTask == null)
+            {
+                throw new ArgumentNullException(nameof(reminderTask));
+            }
+
+            m_ClientDatabase = clientDatabase;
+            m_OverlayPageService = overlayPageService;
+            m_NotificationService = notificationService;
+
             SetReminderCommand = new RelayCommand(SetReminder);
             ResetReminderCommand = new RelayCommand(ResetReminder);
             CloseReminderCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeReminder);
-            OverlayPageService.SetBackgroundClickedAction(ClosePage);
-        }
+            m_OverlayPageService.SetBackgroundClickedAction(ClosePage);
 
-        public ReminderEditorPageViewModel(TaskListItemViewModel reminderTask) : this()
-        {
-            if (reminderTask != null)
-            {
-                ReminderTask = IoC.ClientDatabase.GetTask(reminderTask.Id);
+            ReminderTask = m_ClientDatabase.GetTask(reminderTask.Id);
 
-                ResetReminderProperties();
+            ResetReminderProperties();
 
-                IsSelectedDateStringValid = true;
+            IsSelectedDateStringValid = true;
 
-                PropertyChanged += OnViewModelPropertyChanged;
-            }
+            PropertyChanged += OnViewModelPropertyChanged;
         }
 
         private void SetReminder()
@@ -59,7 +68,7 @@ namespace TodoApp2.Core
 
             UpdateTaskReminder();
 
-            NotificationService.SetReminder(ReminderTask);
+            m_NotificationService.SetReminder(ReminderTask);
 
             ClosePage();
         }
@@ -69,10 +78,10 @@ namespace TodoApp2.Core
             ReminderTask.ReminderDate = 0;
             ResetReminderProperties();
             IsReminderOn = false;
-            
-            IoC.ClientDatabase.UpdateTask(ReminderTask);
 
-            NotificationService.DeleteReminder(ReminderTask);
+            m_ClientDatabase.UpdateTask(ReminderTask);
+
+            m_NotificationService.DeleteReminder(ReminderTask);
         }
 
         private void ChangeReminder()
@@ -88,7 +97,7 @@ namespace TodoApp2.Core
 
                 PropertyChanged -= OnViewModelPropertyChanged;
 
-                OverlayPageService.ClosePage();
+                m_OverlayPageService.ClosePage();
             }
         }
 
@@ -97,7 +106,7 @@ namespace TodoApp2.Core
             DateTime reminderDate = SelectedDate.Date + new TimeSpan(SelectedTime.Hour, SelectedTime.Minute, 0);
             ReminderTask.ReminderDate = reminderDate.Ticks;
 
-            IoC.ClientDatabase.UpdateTask(ReminderTask);
+            m_ClientDatabase.UpdateTask(ReminderTask);
         }
 
         private void ResetReminderProperties()

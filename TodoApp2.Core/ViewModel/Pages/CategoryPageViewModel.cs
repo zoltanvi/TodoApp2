@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -7,8 +6,13 @@ using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
-    public class CategoryPageViewModel : BaseViewModel, IDisposable
+    public class CategoryPageViewModel : BaseViewModel
     {
+        private readonly ClientDatabase m_Database;
+        private readonly ApplicationViewModel m_Application;
+        private readonly OverlayPageService m_OverlayPageService;
+        private readonly CategoryListService m_CategoryListService;
+        
         private int m_LastRemovedId = int.MinValue;
 
         /// <summary>
@@ -21,30 +25,36 @@ namespace TodoApp2.Core
         public ICommand ChangeCategoryCommand { get; }
         public ICommand OpenSettingsPageCommand { get; }
 
-        private ClientDatabase Database => IoC.ClientDatabase;
-        private ApplicationViewModel Application => IoC.Application;
-        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
-        private CategoryListService CategoryListService => IoC.CategoryListService;
-        private ObservableCollection<CategoryListItemViewModel> Items => CategoryListService.Items;
+        private ObservableCollection<CategoryListItemViewModel> Items => m_CategoryListService.Items;
 
         private string CurrentCategory
         {
-            get => CategoryListService.CurrentCategory;
-            set => CategoryListService.CurrentCategory = value;
+            get => m_CategoryListService.CurrentCategory;
+            set => m_CategoryListService.CurrentCategory = value;
         }
 
         public CategoryPageViewModel()
         {
+        }
+
+        public CategoryPageViewModel(ApplicationViewModel applicationViewModel, ClientDatabase database,
+            OverlayPageService overlayPageService, CategoryListService categoryListService)
+        {
+            m_Application = applicationViewModel;
+            m_Database = database;
+            m_OverlayPageService = overlayPageService;
+            m_CategoryListService = categoryListService;
+
             AddCategoryCommand = new RelayCommand(AddCategory);
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
             OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
 
             // Subscribe to the collection changed event for synchronizing with database
-            CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;
+            m_CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;
 
             // Load the application settings to update the CurrentCategory
-            Application.LoadApplicationSettingsOnce();
+            m_Application.LoadApplicationSettingsOnce();
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
@@ -64,7 +74,7 @@ namespace TodoApp2.Core
                         // then this was a drag and drop reorder
                         if (newItem.Id == m_LastRemovedId)
                         {
-                            Database.ReorderCategory(newItem, e.NewStartingIndex);
+                            m_Database.ReorderCategory(newItem, e.NewStartingIndex);
                         }
 
                         m_LastRemovedId = int.MinValue;
@@ -102,16 +112,16 @@ namespace TodoApp2.Core
             };
 
             // Untrash category if it existed before
-            CategoryListItemViewModel existingCategory = Database.GetCategory(PendingAddNewCategoryText);
+            CategoryListItemViewModel existingCategory = m_Database.GetCategory(PendingAddNewCategoryText);
 
             if (existingCategory != null && existingCategory.Trashed)
             {
-                Database.UntrashCategory(existingCategory);
+                m_Database.UntrashCategory(existingCategory);
                 Items.Add(existingCategory);
             }
             // Persist into database if the category is not existed before
             // Database.AddCategory call can't be optimized because the database gives the ID to the category
-            else if (Database.AddCategoryIfNotExists(categoryToAdd))
+            else if (m_Database.AddCategoryIfNotExists(categoryToAdd))
             {
                 // Add the category into the ViewModel list
                 // only if it is currently added to the database
@@ -127,9 +137,9 @@ namespace TodoApp2.Core
             if (obj is CategoryListItemViewModel category)
             {
                 // At least one category is required
-                if (Database.GetActiveCategories().Count > 1)
+                if (m_Database.GetActiveCategories().Count > 1)
                 {
-                    Database.TrashCategory(category);
+                    m_Database.TrashCategory(category);
 
                     Items.Remove(category);
 
@@ -173,12 +183,12 @@ namespace TodoApp2.Core
                     Mediator.NotifyClients(ViewModelMessages.CategoryChanged);
                 }
 
-                OverlayPageService.CloseSideMenu();
+                m_OverlayPageService.CloseSideMenu();
 
                 // Change to task page if it wasn't active
-                if (Application.CurrentPage != ApplicationPage.Task)
+                if (m_Application.CurrentPage != ApplicationPage.Task)
                 {
-                    Application.CurrentPage = ApplicationPage.Task;
+                    m_Application.CurrentPage = ApplicationPage.Task;
                 }
             }
         }
@@ -188,7 +198,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            Application.SideMenuPage = ApplicationPage.Settings;
+            m_Application.SideMenuPage = ApplicationPage.Settings;
         }
 
         /// <summary>
@@ -207,7 +217,7 @@ namespace TodoApp2.Core
 
         protected override void OnDispose()
         {
-            CategoryListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
+            m_CategoryListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
 
             Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }

@@ -20,13 +20,17 @@ namespace TodoApp2
         private int m_OuterMarginSize = 2;
         private int m_WindowRadius = 0;
 
+        private readonly TaskListService m_TaskListService;
+        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly CategoryListService m_CategoryListService;
+        private readonly ClientDatabase m_ClientDatabase;
+
         /// <summary>
         /// The last known dock position
         /// </summary>
         private WindowDockPosition m_DockPosition = WindowDockPosition.Undocked;
 
-        private ApplicationViewModel Application => IoC.Application;
-        private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
+        private ApplicationSettings ApplicationSettings => m_ApplicationViewModel.ApplicationSettings;
 
         #endregion Private Fields
 
@@ -110,9 +114,15 @@ namespace TodoApp2
 
         #region Constructors
 
-        public WindowViewModel(Window window)
+        public WindowViewModel(Window window, ApplicationViewModel applicationViewModel,
+            TaskListService taskListService, CategoryListService categoryListService, ClientDatabase clientDatabase)
         {
             m_Window = window;
+            m_ApplicationViewModel = applicationViewModel;
+            m_TaskListService = taskListService;
+            m_CategoryListService = categoryListService;
+            m_ClientDatabase = clientDatabase;
+
             m_ThemeManager = new ThemeManager();
 
             m_Window.Deactivated += OnWindowDeactivated;
@@ -148,8 +158,8 @@ namespace TodoApp2
             Mediator.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
 
             // Set initial main and side menu pages
-            Application.GoToPage(ApplicationPage.Task, new TaskPageViewModel());
-            Application.SideMenuPage = ApplicationPage.Category;
+            m_ApplicationViewModel.GoToPage(ApplicationPage.Task, new TaskPageViewModel(m_TaskListService, m_CategoryListService, m_ClientDatabase));
+            m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
         }
 
         private void OnThemeChangeRequested(object obj)
@@ -207,7 +217,7 @@ namespace TodoApp2
         private void OnWindowClosed(object sender, EventArgs e)
         {
             // Dispose the database
-            IoC.ClientDatabase.Dispose();
+            m_ClientDatabase.Dispose();
         }
 
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)
@@ -246,7 +256,7 @@ namespace TodoApp2
         {
             // When the window finished loading,
             // load the settings from the database
-            Application.LoadApplicationSettingsOnce();
+            m_ApplicationViewModel.LoadApplicationSettingsOnce();
 
             var left = ApplicationSettings.WindowLeftPos;
             var top = ApplicationSettings.WindowTopPos;
@@ -281,7 +291,7 @@ namespace TodoApp2
             ApplicationSettings.WindowWidth = (int)m_Window.Width;
             ApplicationSettings.WindowHeight = (int)m_Window.Height;
 
-            Application.SaveApplicationSettings();
+            m_ApplicationViewModel.SaveApplicationSettings();
         }
 
         #endregion EventHandlers

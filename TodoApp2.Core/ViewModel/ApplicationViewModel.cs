@@ -13,8 +13,8 @@ namespace TodoApp2.Core
     {
         private bool m_AppSettingsLoadedFirstTime;
 
-        private ClientDatabase ClientDatabase => IoC.ClientDatabase;
-        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
+        private readonly ClientDatabase m_ClientDatabase;
+        private readonly OverlayPageService m_OverlayPageService;
 
         /// <summary>
         /// The sliding side menu content page
@@ -67,8 +67,11 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand ToggleSideMenuCommand { get; }
 
-        public ApplicationViewModel()
+        public ApplicationViewModel(ClientDatabase clientDatabase, OverlayPageService overlayPageService)
         {
+            m_ClientDatabase = clientDatabase;
+            m_OverlayPageService = overlayPageService;
+
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
             
             // Load the application settings to update the CurrentCategory before querying the tasks
@@ -155,12 +158,12 @@ namespace TodoApp2.Core
         {
             if (shouldOpen)
             {
-                OverlayPageService.SetBackgroundClickedAction(ToggleSideMenu);
+                m_OverlayPageService.SetBackgroundClickedAction(ToggleSideMenu);
             }
 
-            OverlayPageService.ClosePage();
+            m_OverlayPageService.ClosePage();
             SideMenuVisible = shouldOpen;
-            OverlayPageService.OverlayBackgroundVisible = shouldOpen;
+            m_OverlayPageService.OverlayBackgroundVisible = shouldOpen;
         }
 
         public void LoadApplicationSettingsOnce()
@@ -175,7 +178,7 @@ namespace TodoApp2.Core
 
         public void LoadApplicationSettings()
         {
-            List<SettingsModel> settings = ClientDatabase.GetSettings();
+            List<SettingsModel> settings = m_ClientDatabase.GetSettings();
             ApplicationSettings.SetSettings(settings);
 
             // If the application is closed while no category was selected,
@@ -183,14 +186,14 @@ namespace TodoApp2.Core
             // This can happen if the settings page were open during closing
             if (string.IsNullOrEmpty(ApplicationSettings.CurrentCategory))
             {
-                ApplicationSettings.CurrentCategory = ClientDatabase.GetActiveCategories().FirstOrDefault()?.Name;
+                ApplicationSettings.CurrentCategory = m_ClientDatabase.GetActiveCategories().FirstOrDefault()?.Name;
             }
         }
 
         public void SaveApplicationSettings()
         {
             List<SettingsModel> settings = ApplicationSettings.GetSettings();
-            ClientDatabase.UpdateSettings(settings);
+            m_ClientDatabase.UpdateSettings(settings);
         }
 
         /// <summary>

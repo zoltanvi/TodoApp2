@@ -7,7 +7,7 @@ namespace TodoApp2
     /// </summary>
     public partial class SettingsPage : BasePage<SettingsPageViewModel>
     {
-        public SettingsPage()
+        public SettingsPage(SettingsPageViewModel viewModel) : base(viewModel)
         {
             InitializeComponent();
         }

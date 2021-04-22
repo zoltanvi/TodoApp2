@@ -5,7 +5,7 @@ namespace TodoApp2.Core
     public class NotificationPageViewModel : BaseViewModel
     {
         private bool m_Closed;
-        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
+        private readonly OverlayPageService m_OverlayPageService;
 
         /// <summary>
         /// The task to show the notification for.
@@ -19,13 +19,15 @@ namespace TodoApp2.Core
 
         public NotificationPageViewModel()
         {
-            CloseNotificationCommand = new RelayCommand(CloseNotification);
-            OverlayPageService.SetBackgroundClickedAction(CloseNotification);
         }
 
-        public NotificationPageViewModel(TaskListItemViewModel notificationTask) : this()
+        public NotificationPageViewModel(TaskListItemViewModel notificationTask, OverlayPageService overlayPageService)
         {
             NotificationTask = notificationTask;
+            m_OverlayPageService = overlayPageService;
+
+            CloseNotificationCommand = new RelayCommand(CloseNotification);
+            m_OverlayPageService.SetBackgroundClickedAction(CloseNotification);
         }
 
         private void CloseNotification()
@@ -34,7 +36,7 @@ namespace TodoApp2.Core
             {
                 m_Closed = true;
 
-                OverlayPageService.ClosePage();
+                m_OverlayPageService.ClosePage();
 
                 Mediator.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
             }

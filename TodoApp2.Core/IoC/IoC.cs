@@ -87,7 +87,6 @@ namespace TodoApp2.Core
             var loadedNotificationService = ReminderNotificationService;
         }
 
-
         /// <summary>
         /// Binds all singleton view models
         /// </summary>
@@ -104,8 +103,8 @@ namespace TodoApp2.Core
         {
             Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
             Kernel.Bind<TaskScheduler>().To<TaskScheduler>().InSingletonScope();
-            Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();
             Kernel.Bind<OverlayPageService>().To<OverlayPageService>().InSingletonScope();
+            Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();
             Kernel.Bind<CategoryListService>().To<CategoryListService>().InSingletonScope();
             Kernel.Bind<TaskListService>().To<TaskListService>().InSingletonScope();
             Kernel.Bind<ColorListProvider>().To<ColorListProvider>().InSingletonScope();

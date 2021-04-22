@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using TodoApp2.Core;
@@ -9,7 +8,6 @@ namespace TodoApp2
     internal class ThemeManager
     {
         private const string s_AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/Themes/";
-        private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
 
         public Theme CurrentTheme { get; private set; }
 
@@ -33,22 +31,6 @@ namespace TodoApp2
             CurrentTheme = newTheme;
 
             return newTheme;
-        }
-
-        /// <summary>
-        /// Changes the current theme to the next one in order.
-        /// The theme order is defined by the values in <see cref="Theme"/> enum.
-        /// </summary>
-        private Theme ChangeToNextTheme()
-        {
-            // Get the list of Theme values in order to calculate the next value
-            List<Theme> themeValues = IoC.ThemeListProvider.Items;
-
-            // Calculate the next Theme
-            int nextThemeIndex = (themeValues.IndexOf(ApplicationSettings.ActiveTheme) + 1) % themeValues.Count;
-            Theme nextTheme = themeValues[nextThemeIndex];
-
-            return ChangeToTheme(ApplicationSettings.ActiveTheme, nextTheme);
         }
 
         private string GetThemeUriPath(Theme theme)

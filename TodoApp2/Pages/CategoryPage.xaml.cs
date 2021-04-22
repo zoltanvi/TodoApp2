@@ -4,7 +4,7 @@ namespace TodoApp2
 {
     public partial class CategoryPage : BasePage<CategoryPageViewModel>
     {
-        public CategoryPage()
+        public CategoryPage(CategoryPageViewModel viewModel) : base(viewModel)
         {
             InitializeComponent();
         }

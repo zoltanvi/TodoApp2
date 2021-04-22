@@ -56,13 +56,13 @@ namespace TodoApp2.Core
                 switch (page)
                 {
                     case ApplicationPage.TaskReminder:
-                        viewModel = new TaskReminderPageViewModel(task);
+                        viewModel = new TaskReminderPageViewModel(task, this, IoC.ClientDatabase);
                         break;
                     case ApplicationPage.ReminderEditor:
-                        viewModel = new ReminderEditorPageViewModel(task);
+                        viewModel = new ReminderEditorPageViewModel(task, this, IoC.ClientDatabase, IoC.ReminderNotificationService);
                         break;
                     case ApplicationPage.Notification:
-                        viewModel = new NotificationPageViewModel(task);
+                        viewModel = new NotificationPageViewModel(task, IoC.OverlayPageService);
                         break;
                 }
 

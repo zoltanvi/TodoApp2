@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -7,13 +8,10 @@ namespace TodoApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private WindowViewModel m_WindowViewModel;
-
         public MainWindow()
         {
             InitializeComponent();
-            m_WindowViewModel = new WindowViewModel(this);
-            DataContext = m_WindowViewModel;
+            DataContext = new WindowViewModel(this, IoC.Application, IoC.TaskListService, IoC.CategoryListService, IoC.ClientDatabase);
         }
     }
 }

@@ -5,8 +5,8 @@ namespace TodoApp2.Core
 {
     public class TaskReminderPageViewModel : BaseViewModel
     {
-        private ReminderNotificationService NotificationService => IoC.ReminderNotificationService;
-        private OverlayPageService OverlayPageService => IoC.OverlayPageService;
+        private readonly OverlayPageService m_OverlayPageService;
+        private readonly ClientDatabase m_ClientDatabase;
 
         /// <summary>
         /// The task to show the notification for.
@@ -25,35 +25,41 @@ namespace TodoApp2.Core
 
         public TaskReminderPageViewModel()
         {
+        }
+
+        public TaskReminderPageViewModel(TaskListItemViewModel reminderTask, OverlayPageService overlayPageService, ClientDatabase clientDatabase)
+        {
+            if (reminderTask == null)
+            {
+                throw new ArgumentNullException(nameof(reminderTask));
+            }
+
+            m_OverlayPageService = overlayPageService;
+            m_ClientDatabase = clientDatabase;
+
             EditReminderCommand = new RelayCommand(EditReminder);
             ClosePageCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeIsOn);
-            OverlayPageService.SetBackgroundClickedAction(ClosePage);
+            m_OverlayPageService.SetBackgroundClickedAction(ClosePage);
+            
+            ReminderTask = m_ClientDatabase.GetTask(reminderTask.Id);
         }
 
         private void ChangeIsOn()
         {
             // ReminderTask.IsReminderOn is modified with the toggle button,
             // so we persist the modification
-            IoC.ClientDatabase.UpdateTask(ReminderTask);
-        }
-
-        public TaskReminderPageViewModel(TaskListItemViewModel reminderTask) : this()
-        {
-            if (reminderTask != null)
-            {
-                ReminderTask = IoC.ClientDatabase.GetTask(reminderTask.Id);
-            }
+            m_ClientDatabase.UpdateTask(ReminderTask);
         }
 
         private void EditReminder()
         {
-            IoC.OverlayPageService.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
+            m_OverlayPageService.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
         }
 
         private void ClosePage()
         {
-            OverlayPageService.ClosePage();
+            m_OverlayPageService.ClosePage();
         }
     }
 }
