@@ -25,8 +25,9 @@
         x:Key="IconButtonBaseStyle"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
-        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
     </Style>
 
     <!--  Hovering Icon Button Base Style  -->
@@ -46,6 +47,7 @@
         x:Key="TitleBarButtonStyle"
         BasedOn="{StaticResource HoveringIconButtonBaseStyle}"
         TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="22" />
         <Setter Property="Width" Value="45" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource TitleBarButtonForegroundBrush}" />
@@ -56,7 +58,7 @@
         x:Key="WindowButtonStyle"
         BasedOn="{StaticResource TitleBarButtonStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="10" />
         <Setter Property="FontWeight" Value="Light" />
     </Style>
 

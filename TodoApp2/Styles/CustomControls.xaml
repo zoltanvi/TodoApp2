@@ -851,11 +851,12 @@
                 <ControlTemplate TargetType="{x:Type CalendarItem}">
                     <ControlTemplate.Resources>
                         <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
+                            <!--Old font: Verdana-->
                             <TextBlock
                                 Margin="0 6 0 6"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                FontFamily="Verdana"
+                                FontFamily="{StaticResource Ubuntu}"
                                 FontSize="14"
                                 FontWeight="Normal"
                                 Foreground="{DynamicResource CalendarDayTitleForegroundBrush}"

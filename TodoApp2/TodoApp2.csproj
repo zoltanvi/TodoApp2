@@ -333,20 +333,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Fonts\ITC Benguiat Book.ttf" />
     <Resource Include="Fonts\SCE-PS3-RD-R-LATIN.TTF" />
-    <Resource Include="Fonts\OpenSans-Bold.ttf" />
-    <Resource Include="Fonts\OpenSans-BoldItalic.ttf" />
-    <Resource Include="Fonts\OpenSans-ExtraBold.ttf" />
-    <Resource Include="Fonts\OpenSans-ExtraBoldItalic.ttf" />
-    <Resource Include="Fonts\OpenSans-Italic.ttf" />
-    <Resource Include="Fonts\OpenSans-Light.ttf" />
-    <Resource Include="Fonts\OpenSans-LightItalic.ttf" />
-    <Resource Include="Fonts\OpenSans-Regular.ttf" />
-    <Resource Include="Fonts\OpenSans-SemiBold.ttf" />
-    <Resource Include="Fonts\OpenSans-SemiBoldItalic.ttf" />
-    <Resource Include="Fonts\FreeSans.ttf" />
-    <Resource Include="Fonts\FreeSansBold.ttf" />
+    <Resource Include="Fonts\Ubuntu-Bold.ttf" />
+    <Resource Include="Fonts\Ubuntu-Regular.ttf" />
+    <Resource Include="Fonts\SegMDL2.ttf" />
+    <Resource Include="Fonts\Ubuntu-Light.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

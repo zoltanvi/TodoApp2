@@ -7,10 +7,10 @@
         <ResourceDictionary Source="ScrollBars.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <system:Double x:Key="FontSizeSmallest">12</system:Double>
-    <system:Double x:Key="FontSizeSmaller">14</system:Double>
-    <system:Double x:Key="FontSizeSmall">16</system:Double>
-    <system:Double x:Key="FontSizeRegular">18</system:Double>
+    <system:Double x:Key="FontSizeSmallest">10</system:Double>
+    <system:Double x:Key="FontSizeSmaller">12</system:Double>
+    <system:Double x:Key="FontSizeSmall">14</system:Double>
+    <system:Double x:Key="FontSizeRegular">16</system:Double>
     <system:Double x:Key="FontSizeRegularIcon">20</system:Double>
     <system:Double x:Key="FontSizeLarge">22</system:Double>
     <system:Double x:Key="FontSizeHuge">26</system:Double>
@@ -22,8 +22,9 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
+        <Setter Property="FontFamily" Value="{StaticResource UbuntuLight}" />
         <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundBrush}" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
         <Setter Property="Background" Value="#00000000" />
     </Style>
 
@@ -32,16 +33,16 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
-        <!--<Setter Property="FontFamily" Value="Segoe UI" />-->
+        <Setter Property="FontFamily" Value="{StaticResource UbuntuLight}" />
         <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundEditModeBrush}" />
         <Setter Property="Background" Value="#00000000" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CaretBrush" Value="{DynamicResource InputTextBoxCaretBrush}" />
     </Style>
 
     <Style x:Key="CategoryTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource FreeSansBold}" />
+        <Setter Property="FontFamily" Value="{StaticResource UbuntuBold}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}" />
         <Setter Property="Foreground" Value="{DynamicResource CategoryTitleForegroundBrush}" />
@@ -65,7 +66,7 @@
     </Style>
 
     <Style x:Key="IconLabelStyle" TargetType="Label">
-        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}"/>
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegularIcon}" />
         <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight" />
@@ -79,7 +80,7 @@
     </Style>
 
     <Style x:Key="BaseInputTextBoxStyle" TargetType="TextBox">
-        <Setter Property="FontFamily" Value="{StaticResource OpenSansLight}" />
+        <Setter Property="FontFamily" Value="{StaticResource Ubuntu}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
         <Setter Property="Foreground" Value="{DynamicResource AddNewTaskTextBoxForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
@@ -191,7 +192,7 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
-        <Setter Property="FontFamily" Value="{StaticResource FreeSans}" />
+        <Setter Property="FontFamily" Value="{StaticResource Ubuntu}" />
         <Setter Property="Foreground" Value="{DynamicResource SettingsDescriptionBrush}" />
     </Style>
 </ResourceDictionary>

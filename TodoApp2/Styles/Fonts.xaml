@@ -3,14 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <FontFamily x:Key="BenguiatBook">pack://application;,,,/Fonts/#Benguiat Book</FontFamily>
     <FontFamily x:Key="SCE-PS3">pack://application;,,,/Fonts/#SCE-PS3 Rodin LATIN Regular</FontFamily>
-    <FontFamily x:Key="OpenSansLight">pack://application;,,,/Fonts/#Open Sans Light</FontFamily>
-    <FontFamily x:Key="OpenSans">pack://application;,,,/Fonts/#Open Sans Regular</FontFamily>
-    <FontFamily x:Key="OpenSansBold">pack://application;,,,/Fonts/#Open Sans Bold</FontFamily>
-    <FontFamily x:Key="OpenSansExtraBold">pack://application;,,,/Fonts/#Open Sans ExtraBold</FontFamily>
-    <FontFamily x:Key="FreeSans">pack://application;,,,/Fonts/#Free Sans</FontFamily>
-    <FontFamily x:Key="FreeSansBold">pack://application;,,,/Fonts/#Free Sans Bold</FontFamily>
+    <FontFamily x:Key="Ubuntu">pack://application;,,,/Fonts/#Ubuntu Regular</FontFamily>
+    <FontFamily x:Key="UbuntuLight">pack://application;,,,/Fonts/#Ubuntu Light</FontFamily>
+    <FontFamily x:Key="UbuntuBold">pack://application;,,,/Fonts/#Ubuntu Bold</FontFamily>
+    <FontFamily x:Key="SegoeMDL2Assets">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
 
     <Style x:Key="BaseStyle" TargetType="{x:Type Control}" />
 

@@ -156,7 +156,7 @@
                         <ComboBox
                             Grid.Row="1"
                             FontSize="{StaticResource FontSizeSmall}"
-                            FontFamily="{StaticResource FreeSans}"
+                            FontFamily="{StaticResource Ubuntu}"
                             ItemsSource="{Binding ThemeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
@@ -170,7 +170,7 @@
                         <ComboBox
                             Grid.Row="4"
                             FontSize="{StaticResource FontSizeSmall}"
-                            FontFamily="{StaticResource FreeSans}"
+                            FontFamily="{StaticResource Ubuntu}"
                             ItemsSource="{Binding ThicknessListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
                     </Grid>

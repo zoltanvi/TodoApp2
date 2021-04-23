@@ -155,7 +155,7 @@
                         Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                         Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                         Text="{Binding ModificationDate, Converter={local:LongToTimestampConverter}}"
-                        FontFamily="{StaticResource FreeSans}"
+                        FontFamily="{StaticResource Ubuntu}"
                         FontSize="{StaticResource FontSizeSmallest}"
                         Foreground="{DynamicResource TimestampForegroundBrush}" />
                 </Grid>
