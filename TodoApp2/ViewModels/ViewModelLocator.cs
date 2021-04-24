@@ -13,8 +13,10 @@ namespace TodoApp2
         public static OverlayPageService OverlayPageService => IoC.OverlayPageService;
         public static CategoryListService CategoryListService => IoC.CategoryListService;
         public static TaskListService TaskListService => IoC.TaskListService;
-        public static ColorListProvider ColorListProvider => IoC.ColorListProvider;
-        public static ThemeListProvider ThemeListProvider => IoC.ThemeListProvider;
-        public static ThicknessListProvider ThicknessListProvider => IoC.ThicknessListProvider;
+
+        public static ColorListProvider ColorListProvider { get; } = new ColorListProvider();
+        public static EnumValuesListProvider<Theme> ThemeListProvider { get; } = new EnumValuesListProvider<Theme>();
+        public static EnumValuesListProvider<Thickness> ThicknessListProvider { get; } = new EnumValuesListProvider<Thickness>();
+        public static EnumValuesListProvider<FontSize> FontSizeListProvider { get; } = new EnumValuesListProvider<FontSize>();
     }
 }

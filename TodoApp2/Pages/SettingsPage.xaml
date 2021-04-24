@@ -144,7 +144,10 @@
                             <RowDefinition Height="12"/>
                             <RowDefinition />
                             <RowDefinition />
-                        </Grid.RowDefinitions>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition />
+                            <RowDefinition />
+                            </Grid.RowDefinitions>
 
                         <!--  Theme ==========================================  -->
                         <TextBlock
@@ -173,7 +176,21 @@
                             FontFamily="{StaticResource Ubuntu}"
                             ItemsSource="{Binding ThicknessListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-                    </Grid>
+
+                        <!--  Task font size ==========================================  -->
+                        <TextBlock
+                            Grid.Row="6"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Task description font size"
+                            Margin="0 0 0 4" />
+
+                        <ComboBox
+                            Grid.Row="7"
+                            FontSize="{StaticResource FontSizeSmall}"
+                            FontFamily="{StaticResource Ubuntu}"
+                            ItemsSource="{Binding FontSizeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                        </Grid>
 
 
                     <!--  VERSION ==========================================  -->
@@ -191,7 +208,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                Version 1.0.3
+                                Version 1.0.4
                             </TextBlock>
                         </Border>
                     </Grid>

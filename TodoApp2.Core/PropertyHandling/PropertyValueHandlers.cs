@@ -6,7 +6,8 @@
         public static IPropertyValueHandler Integer { get; } = new IntegerPropertyValueHandler();
         public static IPropertyValueHandler Long { get; } = new LongPropertyValueHandler();
         public static IPropertyValueHandler String { get; } = new StringPropertyValueHandler();
-        public static IPropertyValueHandler Theme { get; } = new ThemePropertyValueHandler();
-        public static IPropertyValueHandler Thickness { get; } = new ThicknessPropertyValueHandler();
+        public static IPropertyValueHandler Theme { get; } = new EnumPropertyValueHandler<Theme>();
+        public static IPropertyValueHandler Thickness { get; } = new EnumPropertyValueHandler<Thickness>();
+        public static IPropertyValueHandler FontSize { get; } = new EnumPropertyValueHandler<FontSize>();
     }
 }

@@ -34,12 +34,16 @@ namespace TodoApp2.Core
         public Theme ActiveTheme { get; set; }
         public bool IsAlwaysOnTop { get; set; }
         public bool IsModificationDateVisible { get; set; }
+        public Thickness ColorBarThickness { get; set; }
 
         // Item background is visible by default.
         public bool IsItemBackgroundVisible { get; set; } = true;
+        
         // Quick actions is enabled by default.
         public bool IsQuickActionsEnabled { get; set; } = true;
-        public Thickness ColorBarThickness { get; set; }
+        
+        // Default FontSize is medium
+        public FontSize TaskFontSize { get; set; } = FontSize.Medium;
 
         #endregion Properties
 
@@ -59,6 +63,7 @@ namespace TodoApp2.Core
                 { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsItemBackgroundVisible), PropertyValueHandlers.Bool },
                 { nameof(ColorBarThickness), PropertyValueHandlers.Thickness },
+                { nameof(TaskFontSize), PropertyValueHandlers.FontSize },
             };
         }
 

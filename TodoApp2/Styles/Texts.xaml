@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TodoApp2"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
@@ -10,7 +11,7 @@
     <system:Double x:Key="FontSizeSmallest">10</system:Double>
     <system:Double x:Key="FontSizeSmaller">12</system:Double>
     <system:Double x:Key="FontSizeSmall">14</system:Double>
-    <system:Double x:Key="FontSizeRegular">16</system:Double>
+    <system:Double x:Key="FontSizeRegular">18</system:Double>
     <system:Double x:Key="FontSizeRegularIcon">20</system:Double>
     <system:Double x:Key="FontSizeLarge">22</system:Double>
     <system:Double x:Key="FontSizeHuge">26</system:Double>
@@ -21,7 +22,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
         <Setter Property="FontFamily" Value="{StaticResource UbuntuLight}" />
         <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundBrush}" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
@@ -32,7 +33,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
         <Setter Property="FontFamily" Value="{StaticResource UbuntuLight}" />
         <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundEditModeBrush}" />
         <Setter Property="Background" Value="#00000000" />

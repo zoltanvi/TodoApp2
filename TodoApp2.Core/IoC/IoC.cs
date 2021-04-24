@@ -24,11 +24,6 @@ namespace TodoApp2.Core
         public static ClientDatabase ClientDatabase => Get<ClientDatabase>();
 
         /// <summary>
-        /// A shortcut to access the <see cref="ReminderTaskScheduler"/>
-        /// </summary>
-        public static TaskScheduler ReminderTaskScheduler => Get<TaskScheduler>();
-
-        /// <summary>
         /// A shortcut to access the <see cref="ReminderNotificationService"/>
         /// </summary>
         public static ReminderNotificationService ReminderNotificationService => Get<ReminderNotificationService>();
@@ -47,21 +42,6 @@ namespace TodoApp2.Core
         /// A shortcut to access the <see cref="TaskListService"/>
         /// </summary>
         public static TaskListService TaskListService => Get<TaskListService>();
-
-        /// <summary>
-        /// A shortcut to access the <see cref="ColorListProvider"/>
-        /// </summary>
-        public static ColorListProvider ColorListProvider => Get<ColorListProvider>();
-
-        /// <summary>
-        /// A shortcut to access the <see cref="ThemeListProvider"/>
-        /// </summary>
-        public static ThemeListProvider ThemeListProvider => Get<ThemeListProvider>();
-
-        /// <summary>
-        /// A shortcut to access the <see cref="ThicknessListProvider"/>
-        /// </summary>
-        public static ThicknessListProvider ThicknessListProvider => Get<ThicknessListProvider>();
 
         /// <summary>
         /// Gets a service from the IoC, of the specified type
@@ -84,7 +64,7 @@ namespace TodoApp2.Core
             BindSingletonServices();
 
             // Force the lazy load to initialize the service
-            var loadedNotificationService = ReminderNotificationService;
+            ReminderNotificationService loadedNotificationService = ReminderNotificationService;
         }
 
         /// <summary>
@@ -107,9 +87,6 @@ namespace TodoApp2.Core
             Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();
             Kernel.Bind<CategoryListService>().To<CategoryListService>().InSingletonScope();
             Kernel.Bind<TaskListService>().To<TaskListService>().InSingletonScope();
-            Kernel.Bind<ColorListProvider>().To<ColorListProvider>().InSingletonScope();
-            Kernel.Bind<ThemeListProvider>().To<ThemeListProvider>().InSingletonScope();
-            Kernel.Bind<ThicknessListProvider>().To<ThicknessListProvider>().InSingletonScope();
         }
     }
 }

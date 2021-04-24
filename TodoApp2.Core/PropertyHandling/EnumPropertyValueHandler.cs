@@ -2,12 +2,13 @@
 
 namespace TodoApp2.Core
 {
-    public class ThemePropertyValueHandler : IPropertyValueHandler
+    public class EnumPropertyValueHandler<TEnum> : IPropertyValueHandler 
+        where TEnum : struct
     {
         /// <inheritdoc cref="IPropertyValueHandler.SetProperty"/>
         public bool SetProperty(object propertySource, string name, string value)
         {
-            if (Enum.TryParse(value, out Theme parsedValue))
+            if (Enum.TryParse(value, out TEnum parsedValue))
             {
                 try
                 {
@@ -30,7 +31,7 @@ namespace TodoApp2.Core
         {
             try
             {
-                return propertySource.GetPropertyValue<Theme>(name).ToString();
+                return propertySource.GetPropertyValue<TEnum>(name).ToString();
             }
             catch (Exception)
             {

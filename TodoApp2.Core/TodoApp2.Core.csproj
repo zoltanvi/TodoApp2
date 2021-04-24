@@ -76,11 +76,13 @@
     <Compile Include="Database\TaskChangedEventArgs.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationSettings.cs" />
+    <Compile Include="DataModels\FontSize.cs" />
     <Compile Include="DataModels\Thickness.cs" />
     <Compile Include="DataModels\Theme.cs" />
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
     <Compile Include="Helpers\StringDateConverterExtender.cs" />
     <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
+    <Compile Include="ListProviders\EnumValuesListProvider.cs" />
     <Compile Include="Mediator\AsyncEventArgs.cs" />
     <Compile Include="PropertyHandling\DoublePropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\BoolPropertyValueHandler.cs" />
@@ -98,10 +100,7 @@
     <Compile Include="Mediator\MultiDictionary.cs" />
     <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyHandling\ThicknessPropertyValueHandler.cs" />
-    <Compile Include="PropertyHandling\ThemePropertyValueHandler.cs" />
-    <Compile Include="ListProviders\ThemeListProvider.cs" />
-    <Compile Include="ListProviders\ThicknessListProvider.cs" />
+    <Compile Include="PropertyHandling\EnumPropertyValueHandler.cs" />
     <Compile Include="ViewModel\Services\TaskListService.cs" />
     <Compile Include="ViewModel\Pages\TaskReminderPageViewModel.cs" />
     <Compile Include="ViewModel\Services\OverlayPageService.cs" />

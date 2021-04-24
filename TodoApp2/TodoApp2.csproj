@@ -174,6 +174,7 @@
     <Compile Include="ValueConverters\ApplicationPageHelper.cs" />
     <Compile Include="ValueConverters\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
+    <Compile Include="ValueConverters\FontSizeToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityNegatedConverter.cs" />
