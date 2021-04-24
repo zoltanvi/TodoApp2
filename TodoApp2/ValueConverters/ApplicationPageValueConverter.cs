@@ -11,7 +11,7 @@ namespace TodoApp2
     {
         private readonly TaskListService m_TaskListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
-        private readonly ClientDatabase m_ClientDatabase;
+        private readonly Database m_Database;
         private readonly OverlayPageService m_OverlayPageService;
         private readonly CategoryListService m_CategoryListService;
 
@@ -19,7 +19,7 @@ namespace TodoApp2
         {
             m_TaskListService = IoC.TaskListService;
             m_ApplicationViewModel = IoC.Application;
-            m_ClientDatabase = IoC.ClientDatabase;
+            m_Database = IoC.Database;
             m_OverlayPageService = IoC.OverlayPageService;
             m_CategoryListService = IoC.CategoryListService;
         }
@@ -30,10 +30,10 @@ namespace TodoApp2
             switch ((ApplicationPage)value)
             {
                 case ApplicationPage.Task:
-                    return new TaskPage(new TaskPageViewModel(m_TaskListService, m_CategoryListService, m_ClientDatabase), m_TaskListService);
+                    return new TaskPage(new TaskPageViewModel(m_TaskListService, m_CategoryListService, m_Database), m_TaskListService);
 
                 case ApplicationPage.Category:
-                    return new CategoryPage(new CategoryPageViewModel(m_ApplicationViewModel, m_ClientDatabase,
+                    return new CategoryPage(new CategoryPageViewModel(m_ApplicationViewModel, m_Database,
                         m_OverlayPageService, m_CategoryListService));
 
                 case ApplicationPage.Settings:

@@ -13,7 +13,7 @@ namespace TodoApp2.Core
     public class TaskListService : BaseViewModel
     {
         private string CurrentCategory => IoC.CategoryListService.CurrentCategory;
-        private ClientDatabase Database => IoC.ClientDatabase;
+        private Database Database => IoC.Database;
 
         /// <summary>
         /// The task list items
@@ -51,7 +51,7 @@ namespace TodoApp2.Core
             Database.UpdateTask(task);
         }
 
-        /// <inheritdoc cref="ClientDatabase.ReorderTask"/>
+        /// <inheritdoc cref="Core.Database.ReorderTask"/>
         /// <remarks>Updates the task in the list also.</remarks>
         public void ReorderTask(TaskListItemViewModel task, int newPosition)
         {
@@ -70,7 +70,7 @@ namespace TodoApp2.Core
             Database.UpdateTaskList(TaskPageItems);
         }
 
-        /// <inheritdoc cref="ClientDatabase.GetActiveTaskItemsAsync"/>
+        /// <inheritdoc cref="Core.Database.GetActiveTaskItemsAsync"/>
         public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(string categoryName)
         {
             return await Database.GetActiveTaskItemsAsync(categoryName);

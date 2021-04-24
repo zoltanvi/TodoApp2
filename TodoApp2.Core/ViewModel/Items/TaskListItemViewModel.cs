@@ -10,7 +10,7 @@ namespace TodoApp2.Core
     [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}] [content {Content}]")]
     public class TaskListItemViewModel : BaseViewModel, IReorderable
     {
-        private ClientDatabase Database => IoC.ClientDatabase;
+        private Database Database => IoC.Database;
 
         public int Id { get; set; }
         public int CategoryId { get; set; }

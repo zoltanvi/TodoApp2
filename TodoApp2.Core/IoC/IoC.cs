@@ -19,9 +19,9 @@ namespace TodoApp2.Core
         public static ApplicationViewModel Application => Get<ApplicationViewModel>();
 
         /// <summary>
-        /// A shortcut to access the <see cref="ClientDatabase"/>
+        /// A shortcut to access the <see cref="Database"/>
         /// </summary>
-        public static ClientDatabase ClientDatabase => Get<ClientDatabase>();
+        public static Database Database => Get<Database>();
 
         /// <summary>
         /// A shortcut to access the <see cref="ReminderNotificationService"/>
@@ -81,7 +81,7 @@ namespace TodoApp2.Core
         /// </summary>
         private static void BindSingletonServices()
         {
-            Kernel.Bind<ClientDatabase>().To<ClientDatabase>().InSingletonScope();
+            Kernel.Bind<Database>().To<Database>().InSingletonScope();
             Kernel.Bind<TaskScheduler>().To<TaskScheduler>().InSingletonScope();
             Kernel.Bind<OverlayPageService>().To<OverlayPageService>().InSingletonScope();
             Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();

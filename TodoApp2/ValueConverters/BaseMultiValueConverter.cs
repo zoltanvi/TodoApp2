@@ -15,7 +15,7 @@ namespace TodoApp2
         /// <summary>
         /// A single static instance of this value converter
         /// </summary>
-        private static T m_Converter;
+        private static T s_Converter;
 
         #region Markup Extension Methods
 
@@ -26,7 +26,7 @@ namespace TodoApp2
         /// <returns></returns>
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return m_Converter ?? (m_Converter = new T());
+            return s_Converter ?? (s_Converter = new T());
         }
 
         #endregion Markup Extension Methods

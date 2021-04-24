@@ -15,7 +15,7 @@ namespace TodoApp2.Core
 
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
-        private readonly ClientDatabase m_ClientDatabase;
+        private readonly Database m_Database;
 
         private string CurrentCategory => m_CategoryListService.CurrentCategory;
         private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
@@ -49,11 +49,11 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService, ClientDatabase clientDatabase)
+        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService, Database database)
         {
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
-            m_ClientDatabase = clientDatabase;
+            m_Database = database;
 
             AddTaskItemCommand = new RelayCommand(AddTask);
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
@@ -116,13 +116,13 @@ namespace TodoApp2.Core
                     parameters[1] is string categoryToMoveTo)
                 {
                     // TODO: use CategoryListService call instead
-                    CategoryListItemViewModel taskCategory = m_ClientDatabase.GetCategory(task.CategoryId);
+                    CategoryListItemViewModel taskCategory = m_Database.GetCategory(task.CategoryId);
 
                     // If the category is the same as the task is in, there is nothing to do
                     if (taskCategory.Name != categoryToMoveTo)
                     {
                         // TODO: use CategoryListService call instead
-                        CategoryListItemViewModel newCategory = m_ClientDatabase.GetCategory(categoryToMoveTo);
+                        CategoryListItemViewModel newCategory = m_Database.GetCategory(categoryToMoveTo);
                         task.CategoryId = newCategory.Id;
 
                         // Insert into first position.
@@ -200,7 +200,7 @@ namespace TodoApp2.Core
             TaskListItemViewModel taskToAdd = new TaskListItemViewModel
             {
                 // TODO: use CategoryListService call instead
-                CategoryId = m_ClientDatabase.GetCategory(CurrentCategory).Id,
+                CategoryId = m_Database.GetCategory(CurrentCategory).Id,
                 Content = PendingAddNewTaskText,
                 CreationDate = DateTime.Now.Ticks,
                 ModificationDate = DateTime.Now.Ticks

@@ -27,7 +27,7 @@ namespace TodoApp2.Core
 
         public CategoryListService()
         {
-            List<CategoryListItemViewModel> categories = IoC.ClientDatabase.GetActiveCategories();
+            List<CategoryListItemViewModel> categories = IoC.Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
         }
     }

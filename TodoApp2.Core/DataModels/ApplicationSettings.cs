@@ -35,6 +35,7 @@ namespace TodoApp2.Core
         public bool IsAlwaysOnTop { get; set; }
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; }
+        public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
 
         // Item background is visible by default.
         public bool IsItemBackgroundVisible { get; set; } = true;
@@ -44,6 +45,7 @@ namespace TodoApp2.Core
         
         // Default FontSize is medium
         public FontSize TaskFontSize { get; set; } = FontSize.Medium;
+
 
         #endregion Properties
 
@@ -64,6 +66,7 @@ namespace TodoApp2.Core
                 { nameof(IsItemBackgroundVisible), PropertyValueHandlers.Bool },
                 { nameof(ColorBarThickness), PropertyValueHandlers.Thickness },
                 { nameof(TaskFontSize), PropertyValueHandlers.FontSize },
+                { nameof(FontFamily), PropertyValueHandlers.FontFamily },
             };
         }
 

@@ -2,10 +2,14 @@
 {
     public enum FontSize
     {
+        Tiny,
+
         Small,
 
         Medium,
 
-        Big
+        Large,
+
+        Huge
     }
 }

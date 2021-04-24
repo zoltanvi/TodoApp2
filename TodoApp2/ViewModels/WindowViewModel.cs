@@ -23,7 +23,7 @@ namespace TodoApp2
         private readonly TaskListService m_TaskListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
         private readonly CategoryListService m_CategoryListService;
-        private readonly ClientDatabase m_ClientDatabase;
+        private readonly Database m_Database;
 
         /// <summary>
         /// The last known dock position
@@ -115,13 +115,13 @@ namespace TodoApp2
         #region Constructors
 
         public WindowViewModel(Window window, ApplicationViewModel applicationViewModel,
-            TaskListService taskListService, CategoryListService categoryListService, ClientDatabase clientDatabase)
+            TaskListService taskListService, CategoryListService categoryListService, Database database)
         {
             m_Window = window;
             m_ApplicationViewModel = applicationViewModel;
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
-            m_ClientDatabase = clientDatabase;
+            m_Database = database;
 
             m_ThemeManager = new ThemeManager();
 
@@ -158,7 +158,7 @@ namespace TodoApp2
             Mediator.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
 
             // Set initial main and side menu pages
-            m_ApplicationViewModel.GoToPage(ApplicationPage.Task, new TaskPageViewModel(m_TaskListService, m_CategoryListService, m_ClientDatabase));
+            m_ApplicationViewModel.GoToPage(ApplicationPage.Task, new TaskPageViewModel(m_TaskListService, m_CategoryListService, m_Database));
             m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
         }
 
@@ -217,7 +217,7 @@ namespace TodoApp2
         private void OnWindowClosed(object sender, EventArgs e)
         {
             // Dispose the database
-            m_ClientDatabase.Dispose();
+            m_Database.Dispose();
         }
 
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)

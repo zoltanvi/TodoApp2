@@ -11,17 +11,19 @@ namespace TodoApp2
     public class FontSizeToDoubleConverter : BaseValueConverter<FontSizeToDoubleConverter>
     {
         private const double s_DefaultSize = 16;
-        private readonly Dictionary<FontSize, double> m_FontSizes = new Dictionary<FontSize, double>
+        private static readonly Dictionary<FontSize, double> s_FontSizes = new Dictionary<FontSize, double>
         {
+            {FontSize.Tiny, 12},
             {FontSize.Small, 14},
             {FontSize.Medium, s_DefaultSize},
-            {FontSize.Big, 20}
+            {FontSize.Large, 18},
+            {FontSize.Huge, 20}
         };
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             FontSize fValue = (FontSize)value;
-            return m_FontSizes.ContainsKey(fValue) ? m_FontSizes[fValue] : s_DefaultSize;
+            return s_FontSizes.ContainsKey(fValue) ? s_FontSizes[fValue] : s_DefaultSize;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -348,43 +348,47 @@ namespace TodoApp2
             var lCurrentScreen = MonitorFromPoint(lMousePosition, MonitorOptions.MONITOR_DEFAULTTONEAREST);
 
             // If this has changed from the last one, update the transform
-            if (lCurrentScreen != m_LastScreen || m_TransformToDevice == default(Matrix))
+            if (lCurrentScreen != m_LastScreen || m_TransformToDevice == default)
                 GetTransform();
 
             // Store last know screen
             m_LastScreen = lCurrentScreen;
 
             // Get min/max structure to fill with information
-            var lMmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
+            MINMAXINFO lMmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
-            // If it is the primary screen, use the rcWork variable
-            if (lPrimaryScreen.Equals(lCurrentScreen) == true)
+            ///////////////////////////////////
+
+            MINMAXINFO mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
+
+            // Adjust the maximized size and position to fit the work area of the correct monitor
+            int MONITOR_DEFAULTTONEAREST = 0x00000002;
+            IntPtr monitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+
+            if (monitor != IntPtr.Zero)
             {
-                lMmi.ptMaxPosition.X = lPrimaryScreenInfo.rcWork.Left;
-                lMmi.ptMaxPosition.Y = lPrimaryScreenInfo.rcWork.Top;
-                lMmi.ptMaxSize.X = lPrimaryScreenInfo.rcWork.Right - lPrimaryScreenInfo.rcWork.Left;
-                lMmi.ptMaxSize.Y = lPrimaryScreenInfo.rcWork.Bottom - lPrimaryScreenInfo.rcWork.Top;
-            }
-            // Otherwise it's the rcMonitor values
-            else
-            {
-                lMmi.ptMaxPosition.X = lPrimaryScreenInfo.rcMonitor.Left;
-                lMmi.ptMaxPosition.Y = lPrimaryScreenInfo.rcMonitor.Top;
-                lMmi.ptMaxSize.X = lPrimaryScreenInfo.rcMonitor.Right - lPrimaryScreenInfo.rcMonitor.Left;
-                lMmi.ptMaxSize.Y = lPrimaryScreenInfo.rcMonitor.Bottom - lPrimaryScreenInfo.rcMonitor.Top;
+
+                MONITORINFO monitorInfo = new MONITORINFO();
+                GetMonitorInfo(monitor, monitorInfo);
+                RECT rcWorkArea = monitorInfo.rcWork;
+                RECT rcMonitorArea = monitorInfo.rcMonitor;
+                mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.Left - rcMonitorArea.Left);
+                mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.Top - rcMonitorArea.Top);
+                mmi.ptMaxSize.X = Math.Abs(rcWorkArea.Right - rcWorkArea.Left);
+                mmi.ptMaxSize.Y = Math.Abs(rcWorkArea.Bottom - rcWorkArea.Top);
             }
 
             // Set min size
             var minSize = m_TransformToDevice.Transform(new Point(m_Window.MinWidth, m_Window.MinHeight));
 
-            lMmi.ptMinTrackSize.X = (int)minSize.X;
-            lMmi.ptMinTrackSize.Y = (int)minSize.Y;
+            mmi.ptMinTrackSize.X = (int)minSize.X;
+            mmi.ptMinTrackSize.Y = (int)minSize.Y;
 
             // Store new size
-            m_ScreenSize = new Rect(lMmi.ptMaxPosition.X, lMmi.ptMaxPosition.Y, lMmi.ptMaxSize.X, lMmi.ptMaxSize.Y);
+            m_ScreenSize = new Rect(mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y);
 
             // Now we have the max size, allow the host to tweak as needed
-            Marshal.StructureToPtr(lMmi, lParam, true);
+            Marshal.StructureToPtr(mmi, lParam, true);
         }
     }
 

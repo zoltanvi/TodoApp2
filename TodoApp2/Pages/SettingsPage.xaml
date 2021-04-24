@@ -147,6 +147,9 @@
                             <RowDefinition Height="12"/>
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition Height="12"/>
+                            <RowDefinition />
+                            <RowDefinition />
                             </Grid.RowDefinitions>
 
                         <!--  Theme ==========================================  -->
@@ -190,7 +193,23 @@
                             FontFamily="{StaticResource Ubuntu}"
                             ItemsSource="{Binding FontSizeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-                        </Grid>
+
+                        <!--  Task font size ==========================================  -->
+                        <TextBlock
+                            Grid.Row="9"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Font family"
+                            Margin="0 0 0 4" />
+
+                        <ComboBox
+                            Grid.Row="10"
+                            FontSize="{StaticResource FontSizeSmall}"
+                            FontFamily="{StaticResource Ubuntu}"
+                            ItemsSource="{Binding FontFamilyListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
+
+                    </Grid>
 
 
                     <!--  VERSION ==========================================  -->

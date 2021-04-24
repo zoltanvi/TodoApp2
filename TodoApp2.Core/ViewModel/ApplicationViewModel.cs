@@ -13,8 +13,8 @@ namespace TodoApp2.Core
     {
         private bool m_AppSettingsLoadedFirstTime;
 
-        private readonly ClientDatabase m_ClientDatabase;
-        private readonly OverlayPageService m_OverlayPageService;
+        private readonly IDatabase m_Database;
+        private readonly IOverlayPageService m_OverlayPageService;
 
         /// <summary>
         /// The sliding side menu content page
@@ -67,9 +67,9 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand ToggleSideMenuCommand { get; }
 
-        public ApplicationViewModel(ClientDatabase clientDatabase, OverlayPageService overlayPageService)
+        public ApplicationViewModel(Database database, OverlayPageService overlayPageService)
         {
-            m_ClientDatabase = clientDatabase;
+            m_Database = database;
             m_OverlayPageService = overlayPageService;
 
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
@@ -178,7 +178,7 @@ namespace TodoApp2.Core
 
         public void LoadApplicationSettings()
         {
-            List<SettingsModel> settings = m_ClientDatabase.GetSettings();
+            List<SettingsModel> settings = m_Database.GetSettings();
             ApplicationSettings.SetSettings(settings);
 
             // If the application is closed while no category was selected,
@@ -186,14 +186,14 @@ namespace TodoApp2.Core
             // This can happen if the settings page were open during closing
             if (string.IsNullOrEmpty(ApplicationSettings.CurrentCategory))
             {
-                ApplicationSettings.CurrentCategory = m_ClientDatabase.GetActiveCategories().FirstOrDefault()?.Name;
+                ApplicationSettings.CurrentCategory = m_Database.GetActiveCategories().FirstOrDefault()?.Name;
             }
         }
 
         public void SaveApplicationSettings()
         {
             List<SettingsModel> settings = ApplicationSettings.GetSettings();
-            m_ClientDatabase.UpdateSettings(settings);
+            m_Database.UpdateSettings(settings);
         }
 
         /// <summary>

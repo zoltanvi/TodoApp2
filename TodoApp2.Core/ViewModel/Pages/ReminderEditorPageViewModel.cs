@@ -8,7 +8,7 @@ namespace TodoApp2.Core
     {
         private bool m_Closed;
 
-        private readonly ClientDatabase m_ClientDatabase;
+        private readonly Database m_Database;
         private readonly ReminderNotificationService m_NotificationService;
         private readonly OverlayPageService m_OverlayPageService;
 
@@ -36,14 +36,14 @@ namespace TodoApp2.Core
         }
 
         public ReminderEditorPageViewModel(TaskListItemViewModel reminderTask, OverlayPageService overlayPageService,
-            ClientDatabase clientDatabase, ReminderNotificationService notificationService)
+            Database database, ReminderNotificationService notificationService)
         {
             if (reminderTask == null)
             {
                 throw new ArgumentNullException(nameof(reminderTask));
             }
 
-            m_ClientDatabase = clientDatabase;
+            m_Database = database;
             m_OverlayPageService = overlayPageService;
             m_NotificationService = notificationService;
 
@@ -53,7 +53,7 @@ namespace TodoApp2.Core
             ChangeIsReminderOn = new RelayCommand(ChangeReminder);
             m_OverlayPageService.SetBackgroundClickedAction(ClosePage);
 
-            ReminderTask = m_ClientDatabase.GetTask(reminderTask.Id);
+            ReminderTask = m_Database.GetTask(reminderTask.Id);
 
             ResetReminderProperties();
 
@@ -79,7 +79,7 @@ namespace TodoApp2.Core
             ResetReminderProperties();
             IsReminderOn = false;
 
-            m_ClientDatabase.UpdateTask(ReminderTask);
+            m_Database.UpdateTask(ReminderTask);
 
             m_NotificationService.DeleteReminder(ReminderTask);
         }
@@ -106,7 +106,7 @@ namespace TodoApp2.Core
             DateTime reminderDate = SelectedDate.Date + new TimeSpan(SelectedTime.Hour, SelectedTime.Minute, 0);
             ReminderTask.ReminderDate = reminderDate.Ticks;
 
-            m_ClientDatabase.UpdateTask(ReminderTask);
+            m_Database.UpdateTask(ReminderTask);
         }
 
         private void ResetReminderProperties()

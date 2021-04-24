@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace TodoApp2.Core
 {
-    public class OverlayPageService : BaseViewModel
+    public class OverlayPageService : BaseViewModel, IOverlayPageService
     {
         private ApplicationViewModel Application => IoC.Application;
 
@@ -56,10 +56,10 @@ namespace TodoApp2.Core
                 switch (page)
                 {
                     case ApplicationPage.TaskReminder:
-                        viewModel = new TaskReminderPageViewModel(task, this, IoC.ClientDatabase);
+                        viewModel = new TaskReminderPageViewModel(task, this, IoC.Database);
                         break;
                     case ApplicationPage.ReminderEditor:
-                        viewModel = new ReminderEditorPageViewModel(task, this, IoC.ClientDatabase, IoC.ReminderNotificationService);
+                        viewModel = new ReminderEditorPageViewModel(task, this, IoC.Database, IoC.ReminderNotificationService);
                         break;
                     case ApplicationPage.Notification:
                         viewModel = new NotificationPageViewModel(task, IoC.OverlayPageService);

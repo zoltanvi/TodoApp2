@@ -8,13 +8,13 @@ namespace TodoApp2.Core
     /// <summary>
     /// Represents the application client database
     /// </summary>
-    public class ClientDatabase : IDisposable
+    public class Database : IDisposable, IDatabase
     {
         private readonly DataAccessLayer m_DataAccess;
 
         public event EventHandler<TaskChangedEventArgs> TaskChanged;
 
-        public ClientDatabase()
+        public Database()
         {
             m_DataAccess = new DataAccessLayer();
 
@@ -141,7 +141,7 @@ namespace TodoApp2.Core
         /// adds the entry if it not exists.
         /// </summary>
         /// <param name="settings"></param>
-        internal void UpdateSettings(List<SettingsModel> settings)
+        public void UpdateSettings(List<SettingsModel> settings)
         {
             List<SettingsModel> existingSettings = m_DataAccess.GetSettings();
 
