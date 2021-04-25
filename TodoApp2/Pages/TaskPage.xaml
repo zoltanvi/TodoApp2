@@ -23,7 +23,7 @@
             <!--  Current category  -->
             <TextBlock
                 Grid.Row="0"
-                Margin="20 7 0 0"
+                Margin="15 5 0 0"
                 Style="{DynamicResource CategoryTextBlockStyle}"
                 Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}" />
 

@@ -18,7 +18,6 @@ namespace TodoApp2
             { FontFamily.Ubuntu, (MediaFontFamily)Application.Current.TryFindResource("Ubuntu")},
             { FontFamily.SegoeUI, s_DefaultFontFamily },
             { FontFamily.Consolas, new MediaFontFamily("Consolas")},
-            { FontFamily.Calibri, new MediaFontFamily("Calibri")},
             { FontFamily.Verdana, new MediaFontFamily("Verdana")},
     };
 

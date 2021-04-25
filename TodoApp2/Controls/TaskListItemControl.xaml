@@ -69,7 +69,7 @@
     <Grid Background="{DynamicResource ContentBackgroundBrush}">
 
         <!--  Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"  -->
-        <Border Margin="16 3" CornerRadius="2">
+        <Border Margin="4 3" CornerRadius="2">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
@@ -227,7 +227,7 @@
                                 AutomationProperties.AutomationId="TaskListItemPaletteButton"
                                 Command="{Binding ShowColorPickerCommand}"
                                 Content="{DynamicResource SegoeIconPalette}"
-                                Style="{DynamicResource TaskItemButtonYellowStyle}" />
+                                Style="{DynamicResource TaskItemButtonStyle}" />
                             <!--  Trash button  -->
                             <Button
                                 Grid.Column="2"

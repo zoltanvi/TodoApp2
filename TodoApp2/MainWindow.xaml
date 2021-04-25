@@ -36,7 +36,7 @@
                                     BorderBrush="Transparent" />
 
                                 <Border
-                                    BorderThickness="0.4"
+                                    BorderThickness="0.5"
                                     Panel.ZIndex="2"
                                     CornerRadius="{Binding WindowCornerRadius}"
                                     BorderBrush="{DynamicResource ApplicationBorderBrush}" />

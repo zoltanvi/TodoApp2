@@ -31,7 +31,8 @@
                     Grid.Column="0"
                     Margin="15 0 0 0"
                     Style="{DynamicResource CategoryTextBlockStyle}"
-                    Text="Settings" />
+                    Text="Settings" 
+                    />
 
                 <Button
                     Grid.Column="2"
@@ -150,6 +151,9 @@
                             <RowDefinition Height="12"/>
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition Height="12"/>
+                            <RowDefinition />
+                            <RowDefinition />
                             </Grid.RowDefinitions>
 
                         <!--  Theme ==========================================  -->
@@ -194,7 +198,7 @@
                             ItemsSource="{Binding FontSizeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
-                        <!--  Task font size ==========================================  -->
+                        <!--  Task font family ==========================================  -->
                         <TextBlock
                             Grid.Row="9"
                             Style="{DynamicResource SettingsDescriptionStyle}"
@@ -208,6 +212,32 @@
                             ItemsSource="{Binding FontFamilyListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
+
+                        <!--  Accent color ==========================================  -->
+                        <TextBlock
+                            Grid.Row="12"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Accent color"
+                            Margin="0 0 0 4" />
+
+                        <ComboBox
+                            Grid.Row="13"
+                            FontSize="{StaticResource FontSizeSmall}"
+                            FontFamily="{StaticResource Ubuntu}"
+                            ItemsSource="{Binding AccentColorProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Width="200"
+                                        Height="16"
+                                        Background="{Binding Converter={local:StringRGBToBrushConverter}}"
+                                        BorderBrush="Black"
+                                        BorderThickness="1" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                            </ComboBox>
 
                     </Grid>
 

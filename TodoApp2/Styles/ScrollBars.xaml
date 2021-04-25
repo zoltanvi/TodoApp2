@@ -82,19 +82,23 @@
                     <!--<Rectangle x:Name="rectangle" Fill="{StaticResource ScrollbarStaticBrush}" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}" />-->
                     <Border
                         x:Name="rectangle"
-                        Width="8"
+                        Width="10"
+                        Margin="0"
                         Height="{TemplateBinding Height}"
                         Background="{DynamicResource ScrollbarStaticBrush}"
-                        CornerRadius="2"
+                        CornerRadius="0"
                         SnapsToDevicePixels="True" />
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
+                        <!--<Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="rectangle" Property="Background" Value="{DynamicResource ScrollbarMouseOverBrush}" />
-                        </Trigger>
+                            <Setter TargetName="rectangle" Property="Width" Value="20" />
+                            <Setter TargetName="rectangle" Property="Margin" Value="0" />
+                        </Trigger>-->
                         <Trigger Property="IsDragging" Value="true">
                             <Setter TargetName="rectangle" Property="Background" Value="{DynamicResource ScrollbarPressedBrush}" />
                         </Trigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -138,7 +142,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
-                    <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                    <Grid x:Name="Bg" SnapsToDevicePixels="true" Opacity="0">
                         <Grid.RowDefinitions>
                             <!--<RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}" />-->
                             <RowDefinition Height="0.00001*" />
@@ -174,7 +178,7 @@
                                 <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource RepeatButtonTransparent}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb Style="{StaticResource ScrollBarThumbVertical}" />
+                                <Thumb x:Name="ScrollThumb" Style="{StaticResource ScrollBarThumbVertical}" />
                             </Track.Thumb>
                         </Track>
                         <RepeatButton
@@ -195,10 +199,10 @@
                     <ControlTemplate.Triggers>
 
                         <!--  TODO: Think about it  -->
-                        <!--<EventTrigger RoutedEvent="MouseEnter">
+                        <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation From="10" To="30" Duration="0:0:0.3" Storyboard.TargetName="Bg" Storyboard.TargetProperty="Width" />
+                                    <DoubleAnimation From="0" To="1" Duration="0:0:0.3" Storyboard.TargetName="Bg" Storyboard.TargetProperty="Opacity" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -206,10 +210,15 @@
                         <EventTrigger RoutedEvent="MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation From="30" To="10" Duration="0:0:0.3" Storyboard.TargetName="Bg" Storyboard.TargetProperty="Width" />
+                                    <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetName="Bg" Storyboard.TargetProperty="Opacity" Duration="0:0:1.5">
+                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+                                        <DiscreteDoubleKeyFrame KeyTime="0:0:1" Value="1" />
+                                    </DoubleAnimationUsingKeyFrames>-->
+                                    <DoubleAnimation From="3" To="0" Duration="0:0:1.2" Storyboard.TargetName="Bg" Storyboard.TargetProperty="Opacity" />
                                 </Storyboard>
                             </BeginStoryboard>
-                        </EventTrigger>-->
+                        </EventTrigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

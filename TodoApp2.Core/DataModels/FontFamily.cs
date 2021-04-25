@@ -8,8 +8,6 @@
 
         Consolas,
 
-        Calibri,
-
         Verdana
     }
 }

@@ -36,6 +36,7 @@ namespace TodoApp2.Core
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; }
         public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
+        public string AccentColor { get; set; } = "#788CDE";
 
         // Item background is visible by default.
         public bool IsItemBackgroundVisible { get; set; } = true;
@@ -45,7 +46,6 @@ namespace TodoApp2.Core
         
         // Default FontSize is medium
         public FontSize TaskFontSize { get; set; } = FontSize.Medium;
-
 
         #endregion Properties
 
@@ -67,6 +67,7 @@ namespace TodoApp2.Core
                 { nameof(ColorBarThickness), PropertyValueHandlers.Thickness },
                 { nameof(TaskFontSize), PropertyValueHandlers.FontSize },
                 { nameof(FontFamily), PropertyValueHandlers.FontFamily },
+                { nameof(AccentColor), PropertyValueHandlers.String },
             };
         }
 

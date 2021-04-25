@@ -35,9 +35,9 @@
     <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="#7e7e7e" />
     <SolidColorBrush x:Key="CheckBoxCheckBrush" Color="#7e7e7e" />
     <SolidColorBrush x:Key="CheckBoxHoverBackgroundBrush" Color="#4F4F4F" />
-    <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="#474747" />
-    <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="#474747" />
-    <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="#474747" />
+    <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="#696A6B" />
+    <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="#696A6B" />
+    <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="#696A6B" />
     <SolidColorBrush x:Key="TaskItemButtonIconBrush" Color="#bdbdbd" />
     <SolidColorBrush x:Key="TaskItemButtonCalendarHoverBrush" Color="#0A7CFF" />
     <SolidColorBrush x:Key="TaskItemButtonPaletteHoverBrush" Color="#0A7CFF" />

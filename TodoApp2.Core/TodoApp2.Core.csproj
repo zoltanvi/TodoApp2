@@ -84,6 +84,7 @@
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
     <Compile Include="Helpers\StringDateConverterExtender.cs" />
     <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
+    <Compile Include="ListProviders\AccentColorProvider.cs" />
     <Compile Include="ListProviders\EnumValuesListProvider.cs" />
     <Compile Include="Mediator\AsyncEventArgs.cs" />
     <Compile Include="PropertyHandling\DoublePropertyValueHandler.cs" />
