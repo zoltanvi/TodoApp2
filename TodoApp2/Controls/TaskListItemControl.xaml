@@ -16,7 +16,7 @@
     mc:Ignorable="d">
 
     <UserControl.ContextMenu>
-        <ContextMenu Tag="{Binding Tag.DeleteTaskItemCommand, ElementName=TaskListItemUC}">
+        <ContextMenu Tag="{Binding Tag, ElementName=TaskListItemUC}">
             <MenuItem Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Edit" />
             <MenuItem Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Set reminder" />
             <MenuItem Header="Move to" ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">

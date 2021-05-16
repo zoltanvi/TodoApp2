@@ -12,6 +12,17 @@
     d:DesignHeight="60"
     d:DesignWidth="350">
 
+    <UserControl.ContextMenu>
+        <ContextMenu Tag="{Binding Tag, ElementName=CategoryListItemUC}">
+            <MenuItem
+                Command="{Binding Path=PlacementTarget.Tag.DeleteCategoryCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Header="Delete" />
+
+        </ContextMenu>
+
+    </UserControl.ContextMenu>
+
     <Button
         Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}"
         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
