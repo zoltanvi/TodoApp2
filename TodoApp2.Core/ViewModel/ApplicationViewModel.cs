@@ -62,6 +62,9 @@ namespace TodoApp2.Core
         /// </summary>
         public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
 
+        public string LoggedInUserName { get; set; }
+        public bool LoggedIn { get; set; }
+
         /// <summary>
         /// Command for toggle between opened and closed state for the side menu
         /// </summary>

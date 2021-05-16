@@ -851,7 +851,7 @@
                 <ControlTemplate TargetType="{x:Type CalendarItem}">
                     <ControlTemplate.Resources>
                         <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
-                            <!--Old font: Verdana-->
+                            <!--  Old font: Verdana  -->
                             <TextBlock
                                 Margin="0 6 0 6"
                                 HorizontalAlignment="Center"
@@ -889,7 +889,7 @@
                                                         x:Name="path"
                                                         Width="6"
                                                         Height="10"
-                                                        Margin="10,0,0,0"
+                                                        Margin="10 0 0 0"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
                                                         Data="M288.75,232.25 L288.75,240.625 L283,236.625 z"
@@ -932,7 +932,7 @@
                                                         x:Name="path"
                                                         Width="6"
                                                         Height="10"
-                                                        Margin="0,0,10,0"
+                                                        Margin="0 0 10 0"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
                                                         Data="M282.875,231.875 L282.875,240.375 L288.625,236 z"
@@ -968,7 +968,7 @@
                                             <Grid Cursor="Hand">
                                                 <ContentPresenter
                                                     x:Name="buttonContent"
-                                                    Margin="1,10,1,9"
+                                                    Margin="1 10 1 9"
                                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                     Content="{TemplateBinding Content}"

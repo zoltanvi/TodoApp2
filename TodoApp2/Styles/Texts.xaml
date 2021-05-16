@@ -24,7 +24,7 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}" />
-        <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageForegroundBrush}" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
         <Setter Property="Background" Value="#00000000" />
     </Style>
@@ -35,25 +35,31 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}" />
-        <Setter Property="Foreground" Value="{DynamicResource DescriptionForegroundEditModeBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageEditModeForegroundBrush}" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="CaretBrush" Value="{DynamicResource InputTextBoxCaretBrush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}" />
     </Style>
 
     <Style x:Key="CategoryTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="PageTitleTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI Bold" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}" />
-        <Setter Property="Foreground" Value="{DynamicResource CategoryTitleForegroundBrush}" />
-        <Setter Property="Margin" Value="0 2 0 0" />
+        <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
     <Style x:Key="IconLabelStyle" TargetType="Label">
-        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}"/>
+        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegularIcon}" />
-        <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight" />
     </Style>
 
@@ -67,11 +73,11 @@
     <Style x:Key="BaseInputTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="Foreground" Value="{DynamicResource AddNewTaskTextBoxForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageBottomBarForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="TextWrapping" Value="Wrap" />
-        <Setter Property="CaretBrush" Value="{DynamicResource InputTextBoxCaretBrush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -98,7 +104,7 @@
                             Padding="{TemplateBinding Padding}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Foreground="{DynamicResource TextBoxPlaceholderForegroundBrush}"
+                            Foreground="{DynamicResource TextBoxPlaceholderBrush}"
                             IsHitTestVisible="False"
                             Text="{TemplateBinding Tag}">
                             <TextBlock.Style>
@@ -141,7 +147,7 @@
 
     <Style x:Key="NotificationTitleStyle" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -150,7 +156,7 @@
 
     <Style x:Key="NotificationCategoryTitleStyle" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
-        <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="14 0 0 0" />
@@ -158,7 +164,7 @@
 
     <Style x:Key="NotificationReminderDateStyle" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
-        <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="14 0 0 0" />
@@ -166,7 +172,7 @@
 
     <Style x:Key="ReminderLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
-        <Setter Property="Foreground" Value="{DynamicResource IconLabelForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0 0 8 6" />
@@ -178,6 +184,6 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
         <Setter Property="FontFamily" Value="Segoe UI" />
-        <Setter Property="Foreground" Value="{DynamicResource SettingsDescriptionBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
     </Style>
 </ResourceDictionary>

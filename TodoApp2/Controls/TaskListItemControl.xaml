@@ -66,7 +66,7 @@
         </ContextMenu>
     </UserControl.ContextMenu>
 
-    <Grid Background="{DynamicResource ContentBackgroundBrush}">
+    <Grid Background="{DynamicResource TaskPageBackgroundBrush}">
 
         <!--  Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"  -->
         <Border Margin="4 3" CornerRadius="2">
@@ -157,7 +157,7 @@
                         Text="{Binding ModificationDate, Converter={local:LongToTimestampConverter}}"
                         FontFamily="{StaticResource Ubuntu}"
                         FontSize="{StaticResource FontSizeSmallest}"
-                        Foreground="{DynamicResource TimestampForegroundBrush}" />
+                        Foreground="{DynamicResource TaskPageTimestampForegroundBrush}" />
                 </Grid>
 
                 <!--  Hidden buttons  -->
@@ -220,22 +220,23 @@
                                 AutomationProperties.AutomationId="TaskListItemCalendarButton"
                                 Command="{Binding OpenReminderCommand}"
                                 Content="{DynamicResource SegoeIconDateTime}"
-                                Style="{DynamicResource TaskItemButtonStyle}" />
+                                Style="{DynamicResource ButtonQuickActionStyle}" />
                             <!--  Palette button  -->
                             <Button
                                 Grid.Column="1"
                                 AutomationProperties.AutomationId="TaskListItemPaletteButton"
                                 Command="{Binding ShowColorPickerCommand}"
                                 Content="{DynamicResource SegoeIconPalette}"
-                                Style="{DynamicResource TaskItemButtonStyle}" />
+                                Style="{DynamicResource ButtonQuickActionStyle}" />
                             <!--  Trash button  -->
                             <Button
+                                Cursor="Hand"
                                 Grid.Column="2"
                                 AutomationProperties.AutomationId="TaskListItemTrashBinButton"
                                 Command="{Binding Path=DataContext.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                                 CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                                 Content="{DynamicResource SegoeIconTrash}"
-                                Style="{DynamicResource TaskItemButtonRedStyle}" />
+                                Style="{DynamicResource ButtonQuickActionRedStyle}" />
                         </Grid>
                     </Border>
                 </Border>

@@ -11,84 +11,54 @@
     mc:Ignorable="d"
     d:DesignHeight="60"
     d:DesignWidth="350">
-    <Grid x:Name="ParentGrid">
-        <Grid.Background>
-            <MultiBinding Converter="{local:CategorySelectedColorConverter}" UpdateSourceTrigger="PropertyChanged">
-                <Binding Path="Name" />
-                <Binding Path="CategoryListService.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
-            </MultiBinding>
-        </Grid.Background>
 
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="MouseLeftButtonUp">
-                <i:InvokeCommandAction Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}" CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}" />
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
+    <Button
+        Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}"
+        CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
+        Padding="15 5 30 5">
+
+        <Button.Style>
+            <Style BasedOn="{StaticResource ButtonHoverStyle}" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Value="True">
+                        <DataTrigger.Binding>
+                            <MultiBinding>
+                                <MultiBinding.Converter>
+                                    <local:EqualityConverter />
+                                </MultiBinding.Converter>
+                                <Binding Path="Name" />
+                                <Binding Path="CategoryListService.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            </MultiBinding>
+                        </DataTrigger.Binding>
+                        <Setter Property="Background" Value="{DynamicResource CategorySelectedBackgroundBrush}" />
+                    </DataTrigger>
+                    <!--  The mouse over trigger is the second defined one so it can highlight an already selected item also  -->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource CategoryHoverBackgroundBrush}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Button.Style>
 
         <TextBlock
             AutomationProperties.AutomationId="CategoryListItemText"
             Grid.Column="0"
             Text="{Binding Name}"
             Style="{DynamicResource CategoryTextBlockStyle}"
-            FontSize="{DynamicResource FontSizeRegular}"
-            Margin="15 5 30 5">
-            <TextBlock.Foreground>
-                <MultiBinding Converter="{local:CategorySelectedForegroundColorConverter}" UpdateSourceTrigger="PropertyChanged">
-                    <Binding Path="Name" />
-                    <Binding Path="CategoryListService.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
-                </MultiBinding>
-            </TextBlock.Foreground>
-        </TextBlock>
+            FontSize="{DynamicResource FontSizeRegular}" />
+    </Button>
 
-        <Border
-            Grid.Column="0"
-            x:Name="HoverButtonBorder"
-            Opacity="0"
-            Background="Transparent"
-            HorizontalAlignment="Right"
-            Width="{Binding ActualWidth, ElementName=ParentGrid}">
-
-            <Border.Triggers>
-                <EventTrigger RoutedEvent="Border.MouseEnter">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                                From="0"
-                                To="1"
-                                Duration="0:0:0.0"
-                                Storyboard.TargetName="HoverButtonBorder"
-                                Storyboard.TargetProperty="(Opacity)" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-
-                <EventTrigger RoutedEvent="Border.MouseLeave">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                                From="1"
-                                To="0"
-                                Duration="0:0:0.0"
-                                Storyboard.TargetName="HoverButtonBorder"
-                                Storyboard.TargetProperty="(Opacity)" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Border.Triggers>
-
-            <Grid
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Margin="0 0 10 0">
-
-                <!--  Trash button  -->
-                <Button
-                    AutomationProperties.AutomationId="CategoryListItemTrashBinButton"
-                    Style="{DynamicResource TaskItemButtonRedStyle}"
-                    Content="{DynamicResource SegoeIconTrash}"
-                    Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"
-                    CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}" />
-            </Grid>
-        </Border>
-    </Grid>
 </UserControl>

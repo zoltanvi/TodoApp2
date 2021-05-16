@@ -61,7 +61,7 @@
                             Grid.Column="1"
                             Command="{Binding CloseReminderCommand}"
                             Content="{DynamicResource SegoeIconCloseWindow}"
-                            Style="{DynamicResource NotificationCloseButtonStyle}" />
+                            Style="{DynamicResource ButtonInnerWindowStyle}" />
                     </Grid>
                 </Border>
 

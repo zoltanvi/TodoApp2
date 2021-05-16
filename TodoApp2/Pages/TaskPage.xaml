@@ -24,7 +24,7 @@
             <TextBlock
                 Grid.Row="0"
                 Margin="15 5 0 0"
-                Style="{DynamicResource CategoryTextBlockStyle}"
+                Style="{DynamicResource PageTitleTextBlockStyle}"
                 Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}" />
 
             <local:TaskListControl x:Name="MyTaskListControl" Grid.Row="1" />
@@ -32,7 +32,7 @@
             <Border
                 x:Name="BottomBorderPanel"
                 Grid.Row="2"
-                Background="{DynamicResource AddNewTaskTextBoxBackgroundBrush}">
+                Background="{DynamicResource TaskPageBottomBarBackgroundBrush}">
 
                 <TextBox
                     x:Name="AddNewTaskTextBox"

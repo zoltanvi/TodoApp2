@@ -48,7 +48,7 @@
                             Grid.Column="1"
                             Command="{Binding CloseNotificationCommand}"
                             Content="{DynamicResource SegoeIconCloseWindow}"
-                            Style="{DynamicResource NotificationCloseButtonStyle}" />
+                            Style="{DynamicResource ButtonInnerWindowStyle}" />
                     </Grid>
                 </Border>
 
@@ -93,7 +93,7 @@
                     <TextBlock
                         Margin="0 0 18 0"
                         local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text"
-                        Foreground="{DynamicResource DescriptionForegroundBrush}"
+                        Foreground="{DynamicResource TaskPageForegroundBrush}"
                         Text="{Binding NotificationTask.Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
                         TextWrapping="Wrap" />
                 </ScrollViewer>

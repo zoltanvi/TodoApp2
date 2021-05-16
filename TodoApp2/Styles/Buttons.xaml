@@ -1,11 +1,18 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:TodoApp2">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TodoApp2">
 
-    <!--  Button Base Style  -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Texts.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  BASE STYLES =============================================================================================  -->
+
     <Style x:Key="ButtonBaseStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="{DynamicResource BaseButtonForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ButtonBaseForegroundBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -21,66 +28,114 @@
         </Setter>
     </Style>
 
-    <!--  Icon Button Base Style  -->
+
     <Style
-        x:Key="IconButtonBaseStyle"
+        x:Key="ButtonHoverStyle"
+        BasedOn="{StaticResource ButtonBaseStyle}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ButtonHoverBackgroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style
+        x:Key="ButtonIconStyle"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
-        <Setter Property="FontSize" Value="18" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
     </Style>
 
-    <!--  Hovering Icon Button Base Style  -->
+
     <Style
-        x:Key="HoveringIconButtonBaseStyle"
-        BasedOn="{StaticResource IconButtonBaseStyle}"
+        x:Key="ButtonIconHoverStyle"
+        BasedOn="{StaticResource ButtonIconStyle}"
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource TitleBarHoverButtonBackgroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource ButtonHoverBackgroundBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <!--  TitleBar button  -->
+    <!--  TITLE BAR STYLES =============================================================================================  -->
+
     <Style
-        x:Key="TitleBarButtonStyle"
-        BasedOn="{StaticResource HoveringIconButtonBaseStyle}"
+        x:Key="ButtonTitleBarStyle"
+        BasedOn="{StaticResource ButtonIconHoverStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="22" />
         <Setter Property="Width" Value="45" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="FontWeight" Value="Light" />
         <Setter Property="Foreground" Value="{DynamicResource TitleBarButtonForegroundBrush}" />
     </Style>
 
-    <!--  TitleBar Window button  -->
-    <Style
-        x:Key="WindowButtonStyle"
-        BasedOn="{StaticResource TitleBarButtonStyle}"
-        TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="10" />
-        <Setter Property="FontWeight" Value="Light" />
-    </Style>
 
-    <!--  TitleBar Window close button  -->
     <Style
-        x:Key="WindowCloseButtonStyle"
-        BasedOn="{StaticResource TitleBarButtonStyle}"
+        x:Key="ButtonTitleBarCloseWindowStyle"
+        BasedOn="{StaticResource ButtonTitleBarStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontWeight" Value="Light" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource TitleBarHoverCloseButtonBackgroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource ButtonTitleBarCloseHoverBackgroundBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <!--  Task Item button  -->
+
+    <!--  SIDE MENU STYLES =============================================================================================  -->
+
     <Style
-        x:Key="TaskItemButtonStyle"
-        BasedOn="{StaticResource IconButtonBaseStyle}"
+        x:Key="ButtonIconHoverSideMenuStyle"
+        BasedOn="{StaticResource ButtonIconHoverStyle}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource SideMenuButtonHoverBackgroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style
+        x:Key="ButtonLoginStyle"
+        BasedOn="{StaticResource ButtonHoverStyle}"
+        TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource SideMenuButtonHoverBackgroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  SIDE MENU STYLES =============================================================================================  -->
+
+
+
+
+    <!--  Quick action button  -->
+    <Style
+        x:Key="ButtonQuickActionStyle"
+        BasedOn="{StaticResource ButtonIconStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="Width" Value="30" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
@@ -89,15 +144,15 @@
                 <Setter Property="Foreground" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonIconBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TaskItemButtonForegroundBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <!--  Task Item button red  -->
+    <!--  Quick action trash button  -->
     <Style
-        x:Key="TaskItemButtonRedStyle"
-        BasedOn="{StaticResource TaskItemButtonStyle}"
+        x:Key="ButtonQuickActionRedStyle"
+        BasedOn="{StaticResource ButtonQuickActionStyle}"
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -107,15 +162,15 @@
     </Style>
 
     <!--  Color picker button  -->
-    <Style x:Key="ColorPickerButtonStyle" TargetType="{x:Type Button}">
+    <Style x:Key="ButtonColorPickerStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid Width="{TemplateBinding ActualHeight}">
                         <Border
                             Background="{TemplateBinding Background}"
-                            BorderThickness="1"
                             BorderBrush="Black"
+                            BorderThickness="1"
                             CornerRadius="60">
                             <ContentPresenter
                                 HorizontalAlignment="Center"
@@ -141,10 +196,10 @@
         </Setter>
     </Style>
 
-    <!--  TitleBar Window button  -->
+    <!--  Inner window button  -->
     <Style
-        x:Key="NotificationCloseButtonStyle"
-        BasedOn="{StaticResource IconButtonBaseStyle}"
+        x:Key="ButtonInnerWindowStyle"
+        BasedOn="{StaticResource ButtonIconStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Light" />
@@ -152,7 +207,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource NotificationButtonHoverForegroundBrush}" />
+                <Setter Property="Foreground" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="False">
@@ -170,7 +225,7 @@
         <Setter Property="FontWeight" Value="Light" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource NotificationButtonHoverForegroundBrush}" />
+                <Setter Property="Foreground" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource NotificationButtonForegroundBrush}" />
@@ -181,7 +236,7 @@
     <!--  Settings button  -->
     <Style
         x:Key="SettingsButtonStyle"
-        BasedOn="{StaticResource IconButtonBaseStyle}"
+        BasedOn="{StaticResource ButtonIconStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="Width" Value="40" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
@@ -196,7 +251,7 @@
     <Style x:Key="CustomToggleStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="BorderBrush" Value="{DynamicResource ToggleButtonBorderBrush}" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -211,12 +266,12 @@
                         <Border
                             x:Name="normalBorder"
                             Background="Transparent"
-                            BorderBrush="{DynamicResource ToggleButtonBorderBrush}"
-                            BorderThickness="2"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="0.7"
                             CornerRadius="10"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
-                            <!--Background="{DynamicResource ToggleButtonBackgroundCheckedBrush}"-->
+                        <!--  Background="{DynamicResource ToggleButtonBackgroundCheckedBrush}"  -->
                         <Border
                             x:Name="checkedBorder"
                             Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}"
@@ -237,7 +292,7 @@
                             Height="10"
                             Margin="6 0"
                             VerticalAlignment="Center"
-                            Fill="{DynamicResource ToggleButtonGlyphBrush}"
+                            Fill="{TemplateBinding BorderBrush}"
                             RenderTransformOrigin="0.5 0.5"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="0">
@@ -252,7 +307,7 @@
                             Height="10"
                             Margin="6 0"
                             VerticalAlignment="Center"
-                            Fill="{DynamicResource ToggleButtonGlyphCheckedBrush}"
+                            Fill="{TemplateBinding BorderBrush}"
                             RenderTransformOrigin="0.5 0.5"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="0">
@@ -264,20 +319,20 @@
                         <!--  delete opacity=0 to turn on  -->
                         <Label
                             x:Name="onLabel"
+                            Margin="4 -1 0 0"
                             Content="ON"
                             FontSize="9"
-                            Opacity="0"
-                            Foreground="{DynamicResource ToggleButtonGlyphCheckedBrush}"
-                            Margin="4 -1 0 0" />
+                            Foreground="{TemplateBinding BorderBrush}"
+                            Opacity="0" />
 
                         <!--  delete opacity=0 to turn on  -->
                         <Label
                             x:Name="offLabel"
+                            Margin="15 -1 0 0"
                             Content="OFF"
                             FontSize="9"
-                            Opacity="0"
                             Foreground="{DynamicResource ToggleButtonGlyphBrush}"
-                            Margin="15 -1 0 0" />
+                            Opacity="0" />
 
                     </Grid>
 
@@ -302,6 +357,15 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style
+        x:Key="ToggleSideMenuStyle"
+        TargetType="{x:Type ToggleButton}"
+        BasedOn="{StaticResource CustomToggleStyle}">
+
+        <Setter Property="BorderBrush" Value="{DynamicResource SideMenuForegroundBrush}" />
+
     </Style>
 
     <!--  ====================================================================  -->

@@ -30,9 +30,8 @@
                 <TextBlock
                     Grid.Column="0"
                     Margin="15 0 0 0"
-                    Style="{DynamicResource CategoryTextBlockStyle}"
-                    Text="Settings" 
-                    />
+                    Style="{DynamicResource PageTitleTextBlockStyle}"
+                    Text="Settings" />
 
                 <Button
                     Grid.Column="2"
@@ -44,227 +43,227 @@
 
             <ScrollViewer Grid.Row="1" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
 
-                <Border
-                Name="SettingsPanel"
-                Background="Transparent">
+                <Border Name="SettingsPanel" Background="Transparent">
 
-                <Grid Margin="15">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                        <!--Margin-->
-                        <RowDefinition Height="15" />
-                        <!--Version-->
-                        <RowDefinition Height="20" />
-                    </Grid.RowDefinitions>
-
-                    <Grid>
+                    <Grid Margin="15">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="20" />
-
                             <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                            <!--  Margin  -->
+                            <RowDefinition Height="15" />
+                            <!--  Version  -->
                             <RowDefinition Height="20" />
-
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="20" />
-
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="20" />
-
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
 
-                        <!--  Always on top ==========================================  -->
-                        <ToggleButton
-                            Name="AlwaysOnTopToggle"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource CustomToggleStyle}" />
+                        <Grid>
+                            <Grid.RowDefinitions>
 
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Always on top" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
 
-                        <!--  Quick actions ==========================================  -->
-                        <ToggleButton
-                            Name="QuickActionsToggle"
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource CustomToggleStyle}" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
 
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Quick actions on items" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
 
-                        <!--  Item background ==========================================  -->
-                        <ToggleButton
-                            Name="ItemBackgroundEnabledToggle"
-                            Grid.Row="4"
-                            Grid.Column="0"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource CustomToggleStyle}" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
 
-                        <TextBlock
-                            Grid.Row="4"
-                            Grid.Column="2"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Item background visible" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
 
-                        <!--  Modification date ==========================================  -->
-                        <ToggleButton
-                            Name="ModificationDateVisibleToggle"
-                            Grid.Row="6"
-                            Grid.Column="0"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource CustomToggleStyle}" />
+                            <!--  Always on top ==========================================  -->
+                            <ToggleButton
+                                Name="AlwaysOnTopToggle"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                Style="{DynamicResource ToggleSideMenuStyle}" />
 
-                        <TextBlock
-                            Grid.Row="6"
-                            Grid.Column="2"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Modification date on items" />
-                    </Grid>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Always on top" />
 
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition Height="12"/>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition Height="12"/>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition Height="12"/>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition Height="12"/>
-                            <RowDefinition />
-                            <RowDefinition />
+                            <!--  Quick actions ==========================================  -->
+                            <ToggleButton
+                                Name="QuickActionsToggle"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                Style="{DynamicResource ToggleSideMenuStyle}" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Quick actions on items" />
+
+                            <!--  Item background ==========================================  -->
+                            <ToggleButton
+                                Name="ItemBackgroundEnabledToggle"
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                Style="{DynamicResource ToggleSideMenuStyle}" />
+
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Item background visible" />
+
+
+                            <!--  Modification date ==========================================  -->
+                            <ToggleButton
+                                Name="ModificationDateVisibleToggle"
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                Style="{DynamicResource ToggleSideMenuStyle}" />
+
+                            <TextBlock
+                                Grid.Row="6"
+                                Grid.Column="2"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Modification date on items" />
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition Height="12" />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition Height="12" />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition Height="12" />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition Height="12" />
+                                <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
 
-                        <!--  Theme ==========================================  -->
-                        <TextBlock
-                            Grid.Row="0"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Theme"
-                            Margin="0 0 0 4" />
+                            <!--  Theme ==========================================  -->
+                            <TextBlock
+                                Grid.Row="0"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Theme"
+                                Margin="0 0 0 4" />
 
-                        <ComboBox
-                            Grid.Row="1"
-                            FontSize="{StaticResource FontSizeSmall}"
-                            FontFamily="{StaticResource Ubuntu}"
-                            ItemsSource="{Binding ThemeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                            <ComboBox
+                                Grid.Row="1"
+                                FontSize="{StaticResource FontSizeSmall}"
+                                FontFamily="{StaticResource Ubuntu}"
+                                ItemsSource="{Binding ThemeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
-                        <!--  Color bar thickness ==========================================  -->
-                        <TextBlock
-                            Grid.Row="3"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Item marker thickness"
-                            Margin="0 0 0 4" />
+                            <!--  Color bar thickness ==========================================  -->
+                            <TextBlock
+                                Grid.Row="3"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Item marker thickness"
+                                Margin="0 0 0 4" />
 
-                        <ComboBox
-                            Grid.Row="4"
-                            FontSize="{StaticResource FontSizeSmall}"
-                            FontFamily="{StaticResource Ubuntu}"
-                            ItemsSource="{Binding ThicknessListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                            <ComboBox
+                                Grid.Row="4"
+                                FontSize="{StaticResource FontSizeSmall}"
+                                FontFamily="{StaticResource Ubuntu}"
+                                ItemsSource="{Binding ThicknessListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
-                        <!--  Task font size ==========================================  -->
-                        <TextBlock
-                            Grid.Row="6"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Task description font size"
-                            Margin="0 0 0 4" />
+                            <!--  Task font size ==========================================  -->
+                            <TextBlock
+                                Grid.Row="6"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Task description font size"
+                                Margin="0 0 0 4" />
 
-                        <ComboBox
-                            Grid.Row="7"
-                            FontSize="{StaticResource FontSizeSmall}"
-                            FontFamily="{StaticResource Ubuntu}"
-                            ItemsSource="{Binding FontSizeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                            <ComboBox
+                                Grid.Row="7"
+                                FontSize="{StaticResource FontSizeSmall}"
+                                FontFamily="{StaticResource Ubuntu}"
+                                ItemsSource="{Binding FontSizeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
-                        <!--  Task font family ==========================================  -->
-                        <TextBlock
-                            Grid.Row="9"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Font family"
-                            Margin="0 0 0 4" />
+                            <!--  Task font family ==========================================  -->
+                            <TextBlock
+                                Grid.Row="9"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Font family"
+                                Margin="0 0 0 4" />
 
-                        <ComboBox
-                            Grid.Row="10"
-                            FontSize="{StaticResource FontSizeSmall}"
-                            FontFamily="{StaticResource Ubuntu}"
-                            ItemsSource="{Binding FontFamilyListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                            <ComboBox
+                                Grid.Row="10"
+                                FontSize="{StaticResource FontSizeSmall}"
+                                FontFamily="{StaticResource Ubuntu}"
+                                ItemsSource="{Binding FontFamilyListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
 
-                        <!--  Accent color ==========================================  -->
-                        <TextBlock
-                            Grid.Row="12"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Accent color"
-                            Margin="0 0 0 4" />
+                            <!--  Accent color ==========================================  -->
+                            <TextBlock
+                                Grid.Row="12"
+                                Style="{DynamicResource SettingsDescriptionStyle}"
+                                Text="Accent color"
+                                Margin="0 0 0 4" />
 
-                        <ComboBox
-                            Grid.Row="13"
-                            FontSize="{StaticResource FontSizeSmall}"
-                            FontFamily="{StaticResource Ubuntu}"
-                            ItemsSource="{Binding AccentColorProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" >
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Border
-                                        Width="200"
-                                        Height="16"
-                                        Background="{Binding Converter={local:StringRGBToBrushConverter}}"
-                                        BorderBrush="Black"
-                                        BorderThickness="1" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
+                            <ComboBox
+                                Grid.Row="13"
+                                FontSize="{StaticResource FontSizeSmall}"
+                                FontFamily="{StaticResource Ubuntu}"
+                                ItemsSource="{Binding AccentColorProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            Width="200"
+                                            Height="16"
+                                            Background="{Binding Converter={local:StringRGBToBrushConverter}}"
+                                            BorderBrush="Black"
+                                            BorderThickness="1" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
 
                             </ComboBox>
 
+                        </Grid>
+
+
+                        <!--  VERSION ==========================================  -->
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Column="1"
+                                Background="{DynamicResource VersionLabelBackgroundBrush}"
+                                CornerRadius="4">
+                                <TextBlock
+                                    Margin="10 0 10 0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource VersionLabelForegroundBrush}">
+                                    Version 1.0.5
+                                </TextBlock>
+                            </Border>
+                        </Grid>
+
                     </Grid>
 
-
-                    <!--  VERSION ==========================================  -->
-                    <Grid Grid.Row="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Border
-                            Grid.Column="1"
-                            Background="{DynamicResource VersionLabelBackgroundBrush}"
-                            CornerRadius="4">
-                            <TextBlock
-                                Margin="10 0 10 0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                Version 1.0.5
-                            </TextBlock>
-                        </Border>
-                    </Grid>
-
-                </Grid>
-
-            </Border>
+                </Border>
 
             </ScrollViewer>
 

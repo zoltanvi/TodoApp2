@@ -18,6 +18,21 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,7 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -176,6 +191,7 @@
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\EnumToBoldFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\EnumToFontFamilyConverter.cs" />
+    <Compile Include="ValueConverters\EqualityConverter.cs" />
     <Compile Include="ValueConverters\FontSizeToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />
@@ -350,7 +366,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoApp2.Core\TodoApp2.Core.csproj">
       <Project>{ae97f324-618b-4ea9-b00d-2a805d47861e}</Project>
@@ -358,7 +385,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Old_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

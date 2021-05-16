@@ -17,9 +17,10 @@ namespace TodoApp2
             string selectedCategoryName = (string)values[1];
             if (selectedCategoryName == categoryName)
             {
-                return (Brush)Application.Current.TryFindResource("CategoryTitleSelectedBackgroundBrush");
+                return (Brush)Application.Current.TryFindResource("CategorySelectedBackgroundBrush");
             }
-            return (Brush)Application.Current.TryFindResource("CategoryTitleBackgroundBrush");
+            return new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+            //return (Brush)Application.Current.TryFindResource("SideMenuBackgroundBrush");
         }
 
         public override object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

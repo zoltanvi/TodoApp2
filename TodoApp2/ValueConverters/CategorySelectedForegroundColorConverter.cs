@@ -17,7 +17,7 @@ namespace TodoApp2
             string selectedCategoryName = (string)values[1];
             if (selectedCategoryName == categoryName)
             {
-                return (Brush)Application.Current.TryFindResource("CategoryTitleSelectedForegroundBrush");
+                return (Brush)Application.Current.TryFindResource("CategorySelectedForegroundBrush");
             }
             return (Brush)Application.Current.TryFindResource("CategoryTitleForegroundBrush");
         }

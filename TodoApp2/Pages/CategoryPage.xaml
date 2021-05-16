@@ -30,25 +30,54 @@
             </Grid.ColumnDefinitions>
 
 
-            <Grid Grid.Row="0" Margin="0 5 5 15">
+            <Grid Grid.Row="0" Margin="0 0 0 25">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock
+                <!--  Login button  -->
+                <Button
                     Grid.Column="0"
-                    Margin="15 0 0 0"
-                    Style="{DynamicResource CategoryTextBlockStyle}"
-                    Text="Categories" />
+                    Grid.ColumnSpan="2"
+                    Command="{Binding OpenSettingsPageCommand}"
+                    Style="{DynamicResource ButtonLoginStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Grid.Column="0"
+                            Width="36"
+                            Height="36"
+                            Margin="10 0"
+                            Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}"
+                            CornerRadius="0">
+                            <Canvas Height="34" Width="34">
+                                <Path Fill="{DynamicResource SideMenuForegroundBrush}" Data="M 30.355469 26.65625 C 30.355469 28.175781 29.894531 29.375 28.972656 30.253906 C 28.046875 31.132812 26.820312 31.570312 25.292969 31.570312 L 8.707031 31.570312 C 7.179688 31.570312 5.953125 31.132812 5.027344 30.253906 C 4.105469 29.375 3.644531 28.175781 3.644531 26.65625 C 3.644531 25.988281 3.664062 25.332031 3.710938 24.695312 C 3.753906 24.054688 3.84375 23.367188 3.976562 22.625 C 4.109375 21.886719 4.273438 21.199219 4.476562 20.566406 C 4.679688 19.933594 4.953125 19.316406 5.292969 18.71875 C 5.636719 18.117188 6.027344 17.605469 6.46875 17.179688 C 6.914062 16.757812 7.453125 16.417969 8.09375 16.164062 C 8.730469 15.914062 9.4375 15.785156 10.207031 15.785156 C 10.320312 15.785156 10.585938 15.921875 11.003906 16.195312 C 11.421875 16.464844 11.894531 16.769531 12.417969 17.105469 C 12.941406 17.441406 13.625 17.742188 14.46875 18.015625 C 15.308594 18.285156 16.152344 18.421875 17 18.421875 C 17.847656 18.421875 18.691406 18.285156 19.53125 18.015625 C 20.375 17.742188 21.058594 17.441406 21.582031 17.105469 C 22.105469 16.769531 22.578125 16.464844 22.996094 16.195312 C 23.414062 15.921875 23.679688 15.785156 23.792969 15.785156 C 24.5625 15.785156 25.269531 15.914062 25.90625 16.164062 C 26.546875 16.417969 27.085938 16.757812 27.53125 17.179688 C 27.972656 17.605469 28.363281 18.117188 28.707031 18.71875 C 29.046875 19.316406 29.320312 19.933594 29.523438 20.566406 C 29.726562 21.199219 29.890625 21.886719 30.023438 22.625 C 30.15625 23.367188 30.246094 24.054688 30.289062 24.695312 C 30.335938 25.332031 30.355469 25.988281 30.355469 26.65625 Z M 24.285156 9.714844 C 24.285156 11.726562 23.574219 13.441406 22.152344 14.867188 C 20.726562 16.289062 19.011719 17 17 17 C 14.988281 17 13.273438 16.289062 11.847656 14.867188 C 10.425781 13.441406 9.714844 11.726562 9.714844 9.714844 C 9.714844 7.703125 10.425781 5.984375 11.847656 4.5625 C 13.273438 3.140625 14.988281 2.429688 17 2.429688 C 19.011719 2.429688 20.726562 3.140625 22.152344 4.5625 C 23.574219 5.984375 24.285156 7.703125 24.285156 9.714844 Z M 24.285156 9.714844 " />
+                            </Canvas>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+
+                            <TextBlock Text="Logged User" FontSize="16" />
+
+                            <TextBlock Text="loggeduser@gmail.com" FontSize="12" />
+
+                        </StackPanel>
+
+                    </Grid>
+                </Button>
 
                 <Button
                     Grid.Column="2"
                     AutomationProperties.AutomationId="SettingsButton"
                     Command="{Binding OpenSettingsPageCommand}"
                     Content="{DynamicResource SegoeIconSettings}"
-                    Style="{DynamicResource SettingsButtonStyle}" />
+                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                    Width="38" />
 
             </Grid>
 
@@ -59,35 +88,19 @@
                 Grid.ColumnSpan="2" />
         </Grid>
         <!--  ADD NEW CATEGORY  -->
-        <Border Grid.Row="1" Background="{DynamicResource AddNewCategoryTextBoxBackgroundBrush}">
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!--<Label
-                    Grid.Column="0"
-                    Content="{DynamicResource SegoeIconAdd}"
-                    Style="{DynamicResource IconLabelStyle}"
-                    Margin="20 0 0 0"
-                    VerticalAlignment="Center"
-                />-->
-                <TextBox
-                    Grid.Column="1"
-                    MinWidth="240"
-                    Margin="10 0 10 0"
-                    VerticalAlignment="Center"
-                    AutomationProperties.AutomationId="AddNewCategoryTextBox"
-                    Style="{StaticResource AddNewTaskTextBoxStyle}"
-                    Tag="Add new category"
-                    Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding AddCategoryCommand}" />
-                    </TextBox.InputBindings>
-                </TextBox>
-            </Grid>
+        <Border Grid.Row="1" Background="{DynamicResource SideMenuBottomBarBackgroundBrush}">
+            <TextBox
+                MinWidth="240"
+                Margin="10 0 10 0"
+                VerticalAlignment="Center"
+                AutomationProperties.AutomationId="AddNewCategoryTextBox"
+                Style="{StaticResource AddNewTaskTextBoxStyle}"
+                Tag="Add new category"
+                Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding AddCategoryCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
         </Border>
     </Grid>
 </local:BasePage>

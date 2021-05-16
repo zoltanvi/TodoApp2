@@ -51,7 +51,7 @@
                             Grid.Column="2"
                             Command="{Binding ClosePageCommand}"
                             Content="{DynamicResource SegoeIconCloseWindow}"
-                            Style="{DynamicResource NotificationCloseButtonStyle}" />
+                            Style="{DynamicResource ButtonInnerWindowStyle}" />
                     </Grid>
                 </Border>
 
@@ -67,11 +67,12 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Button
-                            Grid.Column="0"
-                            Command="{Binding EditReminderCommand}"
-                            Content="{Binding ReminderDateTime, Converter={local:LongToFormattedLongDateConverter}}"
-                            Style="{DynamicResource ReminderButtonStyle}" />
+                        <Viewbox Grid.Column="0" StretchDirection="DownOnly">
+                            <Button
+                                Command="{Binding EditReminderCommand}"
+                                Content="{Binding ReminderDateTime, Converter={local:LongToFormattedLongDateConverter}}"
+                                Style="{DynamicResource ReminderButtonStyle}" />
+                        </Viewbox>
 
                         <ToggleButton
                             Name="IsReminderOnToggle"

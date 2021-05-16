@@ -29,43 +29,43 @@
 
                 <Button
                     Grid.Column="0"
-                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Style="{DynamicResource ButtonColorPickerStyle}"
                     Background="#FA3C4C"
                     Command="{Binding SetColorCommand}"
                     CommandParameter="#FA3C4C" />
                 <Button
                     Grid.Column="1"
-                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Style="{DynamicResource ButtonColorPickerStyle}"
                     Background="#DC80FF"
                     Command="{Binding SetColorCommand}"
                     CommandParameter="#DC80FF" />
                 <Button
                     Grid.Column="2"
-                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Style="{DynamicResource ButtonColorPickerStyle}"
                     Background="#2168FF"
                     Command="{Binding SetColorCommand}"
                     CommandParameter="#2168FF" />
                 <Button
                     Grid.Column="3"
-                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Style="{DynamicResource ButtonColorPickerStyle}"
                     Background="#8BC24A"
                     Command="{Binding SetColorCommand}"
                     CommandParameter="#8BC24A" />
                 <Button
                     Grid.Column="4"
-                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Style="{DynamicResource ButtonColorPickerStyle}"
                     Background="#FFEB3C"
                     Command="{Binding SetColorCommand}"
                     CommandParameter="#FFEB3C" />
                 <Button
                     Grid.Column="5"
-                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Style="{DynamicResource ButtonColorPickerStyle}"
                     Background="#E98500"
                     Command="{Binding SetColorCommand}"
                     CommandParameter="#E98500" />
                 <Button
                     Grid.Column="6"
-                    Style="{DynamicResource ColorPickerButtonStyle}"
+                    Style="{DynamicResource ButtonColorPickerStyle}"
                     Background="{DynamicResource TaskItemBackgroundBrush}"
                     Command="{Binding SetColorCommand}"
                     CommandParameter="Transparent" />
