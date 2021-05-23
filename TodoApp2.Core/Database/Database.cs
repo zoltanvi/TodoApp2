@@ -10,14 +10,21 @@ namespace TodoApp2.Core
     /// </summary>
     public class Database : IDisposable, IDatabase
     {
-        private readonly DataAccessLayer m_DataAccess;
+        private DataAccessLayer m_DataAccess;
 
         public event EventHandler<TaskChangedEventArgs> TaskChanged;
 
-        public Database()
+        public Database(bool online = false)
         {
-            m_DataAccess = new DataAccessLayer();
+            Reinitialize(online);
+        }
 
+        public void Reinitialize(bool online = false)
+        {
+            m_DataAccess?.Dispose();
+
+            m_DataAccess = new DataAccessLayer(online);
+            
             // Initialize the database
             m_DataAccess.InitializeDatabase();
         }

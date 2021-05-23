@@ -14,7 +14,7 @@ namespace TodoApp2.Core
         private bool m_AppSettingsLoadedFirstTime;
 
         private readonly IDatabase m_Database;
-        private readonly IOverlayPageService m_OverlayPageService;
+        public IOverlayPageService OverlayPageService { get; set; }
 
         /// <summary>
         /// The sliding side menu content page
@@ -62,19 +62,14 @@ namespace TodoApp2.Core
         /// </summary>
         public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
 
-        public string LoggedInUserName { get; set; }
-        public bool LoggedIn { get; set; }
-
         /// <summary>
         /// Command for toggle between opened and closed state for the side menu
         /// </summary>
         public ICommand ToggleSideMenuCommand { get; }
 
-        public ApplicationViewModel(Database database, OverlayPageService overlayPageService)
+        public ApplicationViewModel(IDatabase database)
         {
             m_Database = database;
-            m_OverlayPageService = overlayPageService;
-
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
             
             // Load the application settings to update the CurrentCategory before querying the tasks
@@ -161,12 +156,12 @@ namespace TodoApp2.Core
         {
             if (shouldOpen)
             {
-                m_OverlayPageService.SetBackgroundClickedAction(ToggleSideMenu);
+                OverlayPageService.SetBackgroundClickedAction(ToggleSideMenu);
             }
 
-            m_OverlayPageService.ClosePage();
+            OverlayPageService.ClosePage();
             SideMenuVisible = shouldOpen;
-            m_OverlayPageService.OverlayBackgroundVisible = shouldOpen;
+            OverlayPageService.OverlayBackgroundVisible = shouldOpen;
         }
 
         public void LoadApplicationSettingsOnce()

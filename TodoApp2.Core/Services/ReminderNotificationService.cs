@@ -8,13 +8,15 @@ namespace TodoApp2.Core
         private const bool s_PlaySound = true;
         private bool m_CanShowNotification = true;
         private readonly Queue<TaskListItemViewModel> m_NotificationQueue;
+        private readonly IDatabase m_Database;
         private readonly TaskScheduler m_TaskScheduler;
-        private readonly Database m_Database;
+        private readonly OverlayPageService m_OverlayPageService;
 
-        public ReminderNotificationService(TaskScheduler taskScheduler, Database database)
+        public ReminderNotificationService(IDatabase database, TaskScheduler taskScheduler, OverlayPageService overlayPageService)
         {
-            m_TaskScheduler = taskScheduler;
             m_Database = database;
+            m_TaskScheduler = taskScheduler;
+            m_OverlayPageService = overlayPageService;
 
             m_NotificationQueue = new Queue<TaskListItemViewModel>();
             m_TaskScheduler.ScheduledAction = ShowNotification;
@@ -76,7 +78,7 @@ namespace TodoApp2.Core
                     notificationTask.IsReminderOn = false;
                     m_Database.UpdateTask(notificationTask);
 
-                    IoC.OverlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
+                    m_OverlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
                     Mediator.NotifyClients(ViewModelMessages.WindowFlashRequested, s_PlaySound);
                 }
             }

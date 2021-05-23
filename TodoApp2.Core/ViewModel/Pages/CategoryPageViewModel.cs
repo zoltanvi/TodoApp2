@@ -8,7 +8,7 @@ namespace TodoApp2.Core
 {
     public class CategoryPageViewModel : BaseViewModel
     {
-        private readonly Database m_Database;
+        private readonly IDatabase m_Database;
         private readonly ApplicationViewModel m_Application;
         private readonly OverlayPageService m_OverlayPageService;
         private readonly CategoryListService m_CategoryListService;
@@ -37,7 +37,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public CategoryPageViewModel(ApplicationViewModel applicationViewModel, Database database,
+        public CategoryPageViewModel(ApplicationViewModel applicationViewModel, IDatabase database,
             OverlayPageService overlayPageService, CategoryListService categoryListService)
         {
             m_Application = applicationViewModel;

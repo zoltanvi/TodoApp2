@@ -11,7 +11,7 @@ namespace TodoApp2
     {
         private readonly TaskListService m_TaskListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
-        private readonly Database m_Database;
+        private readonly IDatabase m_Database;
         private readonly OverlayPageService m_OverlayPageService;
         private readonly CategoryListService m_CategoryListService;
 

@@ -6,7 +6,10 @@ namespace TodoApp2.Core
 {
     public class OverlayPageService : BaseViewModel, IOverlayPageService
     {
-        private ApplicationViewModel Application => IoC.Application;
+        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly IDatabase m_Database;
+
+        public ReminderNotificationService ReminderNotificationService { get; set; }
 
         /// <summary>
         /// True if the overlay background should be shown
@@ -18,6 +21,12 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand BackgroundClickedCommand { get; private set; }
 
+        public OverlayPageService(ApplicationViewModel applicationViewModel, IDatabase database)
+        {
+            m_ApplicationViewModel = applicationViewModel;
+            m_Database = database;
+        }
+
         public void SetBackgroundClickedAction(Action action)
         {
             BackgroundClickedCommand = new RelayCommand(action);
@@ -25,23 +34,23 @@ namespace TodoApp2.Core
 
         public void CloseSideMenu()
         {
-            Application.SideMenuVisible = false;
+            m_ApplicationViewModel.SideMenuVisible = false;
             OverlayBackgroundVisible = false;
         }
 
         public void ClosePage()
         {
-            if (Application.OverlayPageVisible)
+            if (m_ApplicationViewModel.OverlayPageVisible)
             {
-                Application.OverlayPageVisible = false;
+                m_ApplicationViewModel.OverlayPageVisible = false;
                 OverlayBackgroundVisible = false;
 
-                Application.CloseOverlayPage();
+                m_ApplicationViewModel.CloseOverlayPage();
 
                 BackgroundClickedCommand?.Execute(null);
             }
 
-            Application.SideMenuPage = ApplicationPage.Category;
+            m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
         }
 
         public void OpenPage(ApplicationPage page, TaskListItemViewModel task = null)
@@ -56,17 +65,17 @@ namespace TodoApp2.Core
                 switch (page)
                 {
                     case ApplicationPage.TaskReminder:
-                        viewModel = new TaskReminderPageViewModel(task, this, IoC.Database);
+                        viewModel = new TaskReminderPageViewModel(task, this, m_Database);
                         break;
                     case ApplicationPage.ReminderEditor:
-                        viewModel = new ReminderEditorPageViewModel(task, this, IoC.Database, IoC.ReminderNotificationService);
+                        viewModel = new ReminderEditorPageViewModel(task, this, m_Database, ReminderNotificationService);
                         break;
                     case ApplicationPage.Notification:
-                        viewModel = new NotificationPageViewModel(task, IoC.OverlayPageService);
+                        viewModel = new NotificationPageViewModel(task, this);
                         break;
                 }
 
-                Application.SideMenuVisible = false;
+                m_ApplicationViewModel.SideMenuVisible = false;
                 OpenOverlayPage(page, viewModel);
             }
             else
@@ -82,7 +91,7 @@ namespace TodoApp2.Core
         /// <param name="viewModel">The view model of the page.</param>
         private void OpenOverlayPage(ApplicationPage page, BaseViewModel viewModel)
         {
-            Application.GoToOverlayPage(page, true, viewModel);
+            m_ApplicationViewModel.GoToOverlayPage(page, true, viewModel);
 
             OverlayBackgroundVisible = true;
         }

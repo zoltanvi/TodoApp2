@@ -16,7 +16,7 @@ namespace TodoApp2.Core
 
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
-        private readonly Database m_Database;
+        private readonly IDatabase m_Database;
 
         private string CurrentCategory => m_CategoryListService.CurrentCategory;
         private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
@@ -66,7 +66,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService, Database database)
+        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService, IDatabase database)
         {
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;

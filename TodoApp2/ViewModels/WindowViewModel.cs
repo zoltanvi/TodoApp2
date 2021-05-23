@@ -23,7 +23,7 @@ namespace TodoApp2
         private readonly TaskListService m_TaskListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
         private readonly CategoryListService m_CategoryListService;
-        private readonly Database m_Database;
+        private readonly IDatabase m_Database;
 
         /// <summary>
         /// The last known dock position
@@ -115,7 +115,7 @@ namespace TodoApp2
         #region Constructors
 
         public WindowViewModel(Window window, ApplicationViewModel applicationViewModel,
-            TaskListService taskListService, CategoryListService categoryListService, Database database)
+            TaskListService taskListService, CategoryListService categoryListService, IDatabase database)
         {
             m_Window = window;
             m_ApplicationViewModel = applicationViewModel;

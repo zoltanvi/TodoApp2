@@ -12,23 +12,27 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskListService : BaseViewModel
     {
-        private string CurrentCategory => IoC.CategoryListService.CurrentCategory;
-        private Database Database => IoC.Database;
+        private readonly CategoryListService m_CategoryListService;
+        private readonly IDatabase m_Database;
+        private string CurrentCategory => m_CategoryListService.CurrentCategory;
 
         /// <summary>
         /// The task list items
         /// </summary>
         public ObservableCollection<TaskListItemViewModel> TaskPageItems { get; }
-
-        public TaskListService()
+        
+        public TaskListService(IDatabase database, CategoryListService categoryListService)
         {
+            m_Database = database;
+            m_CategoryListService = categoryListService;
+
             // Query the items with the current category
-            List<TaskListItemViewModel> items = Database.GetActiveTaskItems(CurrentCategory);
+            List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(CurrentCategory);
 
             // Fill the actual list with the queried items
             TaskPageItems = new ObservableCollection<TaskListItemViewModel>(items);
 
-            Database.TaskChanged += OnClientDatabaseTaskChanged;
+            m_Database.TaskChanged += OnClientDatabaseTaskChanged;
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
@@ -38,7 +42,7 @@ namespace TodoApp2.Core
         {
             // Persist into database and set the task ID
             // Note: The database gives the ID to the task
-            Database.AddTask(task);
+            m_Database.AddTask(task);
 
             // Add the task into the list
             TaskPageItems.Insert(0, task);
@@ -48,7 +52,7 @@ namespace TodoApp2.Core
         {
             TaskListItemViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
             taskToUpdate?.CopyProperties(task);
-            Database.UpdateTask(task);
+            m_Database.UpdateTask(task);
         }
 
         /// <inheritdoc cref="Core.Database.ReorderTask"/>
@@ -57,7 +61,7 @@ namespace TodoApp2.Core
         {
             TaskListItemViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
             taskToUpdate?.CopyProperties(task);
-            Database.ReorderTask(task, newPosition);
+            m_Database.ReorderTask(task, newPosition);
         }
 
         public void RemoveTask(TaskListItemViewModel task)
@@ -67,13 +71,13 @@ namespace TodoApp2.Core
 
         public void PersistTaskList()
         {
-            Database.UpdateTaskList(TaskPageItems);
+            m_Database.UpdateTaskList(TaskPageItems);
         }
 
         /// <inheritdoc cref="Core.Database.GetActiveTaskItemsAsync"/>
         public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(string categoryName)
         {
-            return await Database.GetActiveTaskItemsAsync(categoryName);
+            return await m_Database.GetActiveTaskItemsAsync(categoryName);
         }
 
         private void OnClientDatabaseTaskChanged(object sender, TaskChangedEventArgs e)

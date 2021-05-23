@@ -8,7 +8,7 @@ namespace TodoApp2.Core
     {
         private bool m_Closed;
 
-        private readonly Database m_Database;
+        private readonly IDatabase m_Database;
         private readonly ReminderNotificationService m_NotificationService;
         private readonly OverlayPageService m_OverlayPageService;
 
@@ -36,7 +36,7 @@ namespace TodoApp2.Core
         }
 
         public ReminderEditorPageViewModel(TaskListItemViewModel reminderTask, OverlayPageService overlayPageService,
-            Database database, ReminderNotificationService notificationService)
+            IDatabase database, ReminderNotificationService notificationService)
         {
             if (reminderTask == null)
             {

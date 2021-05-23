@@ -17,7 +17,8 @@ namespace TodoApp2.Core
         #region Private Constants
 
         private const string DatabaseName = "TodoApp2Database.db";
-        private static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), DatabaseName);
+        private const string OnlineDatabaseName = "TodoApp2Database.db";
+        private static string DatabasePath { get; set; }
 
         private const string Task = "Task";
         private const string Settings = "Settings";
@@ -57,8 +58,11 @@ namespace TodoApp2.Core
 
         private readonly SQLiteConnection m_Connection;
 
-        public DataAccessLayer()
+        public DataAccessLayer(bool online = false)
         {
+            DatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                online ? OnlineDatabaseName : DatabaseName);
+            
             m_Connection = new SQLiteConnection($"Data Source={DatabasePath};");
             m_Connection.Open();
         }

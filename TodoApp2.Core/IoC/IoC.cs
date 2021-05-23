@@ -1,5 +1,4 @@
-﻿using System;
-using Ninject;
+﻿using Ninject;
 
 namespace TodoApp2.Core
 {
@@ -21,12 +20,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// A shortcut to access the <see cref="Database"/>
         /// </summary>
-        public static Database Database => Get<Database>();
-
-        /// <summary>
-        /// A shortcut to access the <see cref="ReminderNotificationService"/>
-        /// </summary>
-        public static ReminderNotificationService ReminderNotificationService => Get<ReminderNotificationService>();
+        public static IDatabase Database => Get<IDatabase>();
         
         /// <summary>
         /// A shortcut to access the <see cref="OverlayPageService"/>
@@ -60,33 +54,32 @@ namespace TodoApp2.Core
         /// </summary>
         public static void Setup()
         {
-            BindSingletonViewModels();
-            BindSingletonServices();
+            var sessionManager = new SessionManager();
+            
+            var database = new Database(sessionManager.OnlineMode);
+            Kernel.Bind<IDatabase>().ToConstant(database);
+            
+            var applicationViewModel = new ApplicationViewModel(database);
+            Kernel.Bind<ApplicationViewModel>().ToConstant(applicationViewModel);
 
-            // Force the lazy load to initialize the service
-            ReminderNotificationService loadedNotificationService = ReminderNotificationService;
-        }
+            var overlayPageService = new OverlayPageService(applicationViewModel, database);
+            Kernel.Bind<OverlayPageService>().ToConstant(overlayPageService);
+            // This dependency must be set here. Workaround to avoid circular dependencies
+            applicationViewModel.OverlayPageService = overlayPageService;
 
-        /// <summary>
-        /// Binds all singleton view models
-        /// </summary>
-        private static void BindSingletonViewModels()
-        {
-            // Bind to a single instance
-            Kernel.Bind<ApplicationViewModel>().To<ApplicationViewModel>().InSingletonScope();
-        }
+            var taskScheduler = new TaskScheduler();
+            Kernel.Bind<TaskScheduler>().ToConstant(taskScheduler);
 
-        /// <summary>
-        /// Binds all singleton services
-        /// </summary>
-        private static void BindSingletonServices()
-        {
-            Kernel.Bind<Database>().To<Database>().InSingletonScope();
-            Kernel.Bind<TaskScheduler>().To<TaskScheduler>().InSingletonScope();
-            Kernel.Bind<OverlayPageService>().To<OverlayPageService>().InSingletonScope();
-            Kernel.Bind<ReminderNotificationService>().To<ReminderNotificationService>().InSingletonScope();
-            Kernel.Bind<CategoryListService>().To<CategoryListService>().InSingletonScope();
-            Kernel.Bind<TaskListService>().To<TaskListService>().InSingletonScope();
+            var reminderNotificationService = new ReminderNotificationService(database, taskScheduler, overlayPageService);
+            Kernel.Bind<ReminderNotificationService>().ToConstant(reminderNotificationService);
+            // This dependency must be set here. Workaround to avoid circular dependencies
+            overlayPageService.ReminderNotificationService = reminderNotificationService;
+
+            var categoryListService = new CategoryListService(applicationViewModel, database);
+            Kernel.Bind<CategoryListService>().ToConstant(categoryListService);
+
+            var taskListService = new TaskListService(database, categoryListService);
+            Kernel.Bind<TaskListService>().ToConstant(taskListService);
         }
     }
 }

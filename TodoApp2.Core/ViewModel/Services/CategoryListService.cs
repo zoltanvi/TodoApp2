@@ -9,7 +9,8 @@ namespace TodoApp2.Core
     /// </summary>
     public class CategoryListService : BaseViewModel
     {
-        private ApplicationSettings ApplicationSettings => IoC.Application.ApplicationSettings;
+        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly IDatabase m_Database;
 
         /// <summary>
         /// The category list items
@@ -21,13 +22,16 @@ namespace TodoApp2.Core
         /// </summary>
         public string CurrentCategory
         {
-            get => ApplicationSettings.CurrentCategory;
-            set => ApplicationSettings.CurrentCategory = value;
+            get => m_ApplicationViewModel.ApplicationSettings.CurrentCategory;
+            set => m_ApplicationViewModel.ApplicationSettings.CurrentCategory = value;
         }
 
-        public CategoryListService()
+        public CategoryListService(ApplicationViewModel applicationViewModel, IDatabase database)
         {
-            List<CategoryListItemViewModel> categories = IoC.Database.GetActiveCategories();
+            m_ApplicationViewModel = applicationViewModel;
+            m_Database = database;
+
+            List<CategoryListItemViewModel> categories = m_Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
         }
     }

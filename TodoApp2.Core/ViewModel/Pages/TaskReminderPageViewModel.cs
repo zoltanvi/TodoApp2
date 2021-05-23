@@ -6,7 +6,7 @@ namespace TodoApp2.Core
     public class TaskReminderPageViewModel : BaseViewModel
     {
         private readonly OverlayPageService m_OverlayPageService;
-        private readonly Database m_Database;
+        private readonly IDatabase m_Database;
 
         /// <summary>
         /// The task to show the notification for.
@@ -27,7 +27,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskReminderPageViewModel(TaskListItemViewModel reminderTask, OverlayPageService overlayPageService, Database database)
+        public TaskReminderPageViewModel(TaskListItemViewModel reminderTask, OverlayPageService overlayPageService, IDatabase database)
         {
             if (reminderTask == null)
             {
