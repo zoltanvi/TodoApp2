@@ -29,5 +29,17 @@
         /// The Application theme changed
         /// </summary>
         ThemeChanged,
+
+        /// <summary>
+        /// Online mode change has been requested.
+        /// Changes should be persisted at this point because the database is going to be changed.
+        /// </summary>
+        OnlineModeChangeRequested,
+
+        /// <summary>
+        /// Online mode changed.
+        /// The new database is ready for use.
+        /// </summary>
+        OnlineModeChanged
     }
 }

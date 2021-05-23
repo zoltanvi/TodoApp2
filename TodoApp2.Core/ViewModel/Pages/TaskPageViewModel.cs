@@ -86,7 +86,7 @@ namespace TodoApp2.Core
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
-        
+
         private void ModifyTaskIsDone(object obj)
         {
             if (obj is TaskListItemViewModel task)

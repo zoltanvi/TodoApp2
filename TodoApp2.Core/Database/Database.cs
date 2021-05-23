@@ -21,12 +21,14 @@ namespace TodoApp2.Core
 
         public void Reinitialize(bool online = false)
         {
+            Mediator.NotifyClients(ViewModelMessages.OnlineModeChangeRequested);
             m_DataAccess?.Dispose();
 
             m_DataAccess = new DataAccessLayer(online);
             
             // Initialize the database
             m_DataAccess.InitializeDatabase();
+            Mediator.NotifyClients(ViewModelMessages.OnlineModeChanged);
         }
 
         /// <summary>

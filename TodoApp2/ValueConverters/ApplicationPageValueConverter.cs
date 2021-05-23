@@ -18,7 +18,7 @@ namespace TodoApp2
         public ApplicationPageValueConverter()
         {
             m_TaskListService = IoC.TaskListService;
-            m_ApplicationViewModel = IoC.Application;
+            m_ApplicationViewModel = IoC.ApplicationViewModel;
             m_Database = IoC.Database;
             m_OverlayPageService = IoC.OverlayPageService;
             m_CategoryListService = IoC.CategoryListService;

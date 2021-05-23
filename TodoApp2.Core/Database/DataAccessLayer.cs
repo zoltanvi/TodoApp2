@@ -17,7 +17,7 @@ namespace TodoApp2.Core
         #region Private Constants
 
         private const string DatabaseName = "TodoApp2Database.db";
-        private const string OnlineDatabaseName = "TodoApp2Database.db";
+        private const string OnlineDatabaseName = "TodoApp2Database-online.db";
         private static string DatabasePath { get; set; }
 
         private const string Task = "Task";

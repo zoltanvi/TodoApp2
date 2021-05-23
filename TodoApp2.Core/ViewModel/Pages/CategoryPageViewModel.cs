@@ -24,6 +24,8 @@ namespace TodoApp2.Core
         public ICommand DeleteCategoryCommand { get; }
         public ICommand ChangeCategoryCommand { get; }
         public ICommand OpenSettingsPageCommand { get; }
+        public ICommand LogInCommand { get; }
+        public ICommand LogOutCommand { get; }
 
         private ObservableCollection<CategoryListItemViewModel> Items => m_CategoryListService.Items;
 
@@ -49,6 +51,8 @@ namespace TodoApp2.Core
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
             OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
+            LogInCommand = new RelayCommand(IoC.SessionManager.LogIn);
+            LogOutCommand = new RelayCommand(IoC.SessionManager.LogOut);
 
             // Subscribe to the collection changed event for synchronizing with database
             m_CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;

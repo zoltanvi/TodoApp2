@@ -20,7 +20,7 @@ namespace TodoApp2.Core
         /// The task list items
         /// </summary>
         public ObservableCollection<TaskListItemViewModel> TaskPageItems { get; }
-        
+
         public TaskListService(IDatabase database, CategoryListService categoryListService)
         {
             m_Database = database;
@@ -36,6 +36,20 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+            Mediator.Register(OnOnlineModeChangeRequested, ViewModelMessages.OnlineModeChangeRequested);
+            Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
+        }
+
+        private void OnOnlineModeChangeRequested(object obj)
+        {
+            PersistTaskList();
+        }
+
+        private void OnOnlineModeChanged(object obj)
+        {
+            TaskPageItems.Clear();
+            List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(CurrentCategory);
+            TaskPageItems.AddRange(items);
         }
 
         public void AddNewTask(TaskListItemViewModel task)

@@ -11,7 +11,7 @@ namespace TodoApp2
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new WindowViewModel(this, IoC.Application, IoC.TaskListService, IoC.CategoryListService, IoC.Database);
+            DataContext = new WindowViewModel(this, IoC.ApplicationViewModel, IoC.TaskListService, IoC.CategoryListService, IoC.Database);
         }
     }
 }

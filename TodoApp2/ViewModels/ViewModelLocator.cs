@@ -9,10 +9,11 @@ namespace TodoApp2
     {
         public static ViewModelLocator Instance { get; } = new ViewModelLocator();
         
-        public static ApplicationViewModel ApplicationViewModel => IoC.Application;
+        public static ApplicationViewModel ApplicationViewModel => IoC.ApplicationViewModel;
         public static OverlayPageService OverlayPageService => IoC.OverlayPageService;
         public static CategoryListService CategoryListService => IoC.CategoryListService;
         public static TaskListService TaskListService => IoC.TaskListService;
+        public static SessionManager SessionManager => IoC.SessionManager;
 
         public static ColorListProvider ColorListProvider { get; } = new ColorListProvider();
         public static EnumValuesListProvider<Theme> ThemeListProvider { get; } = new EnumValuesListProvider<Theme>();

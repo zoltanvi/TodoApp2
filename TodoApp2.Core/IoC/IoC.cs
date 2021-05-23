@@ -12,30 +12,17 @@ namespace TodoApp2.Core
         /// </summary>
         private static IKernel Kernel { get; } = new StandardKernel();
 
-        /// <summary>
-        /// A shortcut to access the <see cref="ApplicationViewModel"/>
-        /// </summary>
-        public static ApplicationViewModel Application => Get<ApplicationViewModel>();
+        public static ApplicationViewModel ApplicationViewModel => Get<ApplicationViewModel>();
 
-        /// <summary>
-        /// A shortcut to access the <see cref="Database"/>
-        /// </summary>
         public static IDatabase Database => Get<IDatabase>();
         
-        /// <summary>
-        /// A shortcut to access the <see cref="OverlayPageService"/>
-        /// </summary>
         public static OverlayPageService OverlayPageService => Get<OverlayPageService>();
 
-        /// <summary>
-        /// A shortcut to access the <see cref="CategoryListService"/>
-        /// </summary>
         public static CategoryListService CategoryListService => Get<CategoryListService>();
 
-        /// <summary>
-        /// A shortcut to access the <see cref="TaskListService"/>
-        /// </summary>
         public static TaskListService TaskListService => Get<TaskListService>();
+
+        public static SessionManager SessionManager => Get<SessionManager>();
 
         /// <summary>
         /// Gets a service from the IoC, of the specified type
@@ -55,11 +42,12 @@ namespace TodoApp2.Core
         public static void Setup()
         {
             var sessionManager = new SessionManager();
+            Kernel.Bind<SessionManager>().ToConstant(sessionManager);
             
             var database = new Database(sessionManager.OnlineMode);
             Kernel.Bind<IDatabase>().ToConstant(database);
             
-            var applicationViewModel = new ApplicationViewModel(database);
+            var applicationViewModel = new ApplicationViewModel(database, sessionManager);
             Kernel.Bind<ApplicationViewModel>().ToConstant(applicationViewModel);
 
             var overlayPageService = new OverlayPageService(applicationViewModel, database);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace TodoApp2.Core
@@ -31,8 +32,17 @@ namespace TodoApp2.Core
             m_ApplicationViewModel = applicationViewModel;
             m_Database = database;
 
+            Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
+
             List<CategoryListItemViewModel> categories = m_Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
+        }
+
+        private void OnOnlineModeChanged(object obj)
+        {
+            Items.Clear();
+            List<CategoryListItemViewModel> categories = m_Database.GetActiveCategories();
+            Items.AddRange(categories);
         }
     }
 }

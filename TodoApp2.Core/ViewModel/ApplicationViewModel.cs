@@ -14,6 +14,8 @@ namespace TodoApp2.Core
         private bool m_AppSettingsLoadedFirstTime;
 
         private readonly IDatabase m_Database;
+        private readonly SessionManager m_SessionManager;
+
         public IOverlayPageService OverlayPageService { get; set; }
 
         /// <summary>
@@ -67,15 +69,29 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand ToggleSideMenuCommand { get; }
 
-        public ApplicationViewModel(IDatabase database)
+        public ApplicationViewModel(IDatabase database, SessionManager sessionManager)
         {
             m_Database = database;
+            m_SessionManager = sessionManager;
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
             
+            Mediator.Register(OnOnlineModeChangeRequested, ViewModelMessages.OnlineModeChangeRequested);
+            Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
+
             // Load the application settings to update the CurrentCategory before querying the tasks
             LoadApplicationSettingsOnce();
             
             ApplicationSettings.PropertyChanged += OnApplicationSettingsPropertyChanged;
+        }
+
+        private void OnOnlineModeChangeRequested(object obj)
+        {
+            SaveApplicationSettings();
+        }
+
+        private void OnOnlineModeChanged(object obj)
+        {
+            LoadApplicationSettings();
         }
 
         /// <summary>
