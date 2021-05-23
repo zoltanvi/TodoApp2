@@ -52,7 +52,7 @@
     <Style x:Key="PageTitleTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI Bold" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}" />
-        <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PageTitleForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 

@@ -37,6 +37,7 @@
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
+            <Separator />
             <MenuItem Header="Change color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
@@ -57,11 +58,14 @@
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
+            <MenuItem Header="Reset colors in category" Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
             <Separator />
             <MenuItem
+                Header="Delete"
                 Command="{Binding Path=PlacementTarget.Tag.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                Header="Delete" />
+                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem Header="Delete done items" Command="{Binding Path=PlacementTarget.Tag.DeleteDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem Header="Delete all items" Command="{Binding Path=PlacementTarget.Tag.DeleteAllCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
 
         </ContextMenu>
     </UserControl.ContextMenu>

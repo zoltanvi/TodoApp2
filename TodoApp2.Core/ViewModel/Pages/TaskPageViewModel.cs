@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -19,29 +20,45 @@ namespace TodoApp2.Core
 
         private string CurrentCategory => m_CategoryListService.CurrentCategory;
         private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
-        
+
         /// <summary>
         /// The content / description text for the current task being written
         /// </summary>
         public string PendingAddNewTaskText { get; set; }
 
         /// <summary>
-        /// The command for when the user presses Enter in the "Add new task" TextBox
+        /// Adds a new task item
         /// </summary>
         public ICommand AddTaskItemCommand { get; }
 
         /// <summary>
-        /// The command for when the trash button is pressed in the task item
+        /// Deletes the task item
         /// </summary>
         public ICommand DeleteTaskItemCommand { get; }
 
         /// <summary>
-        /// The command for when the done checkbox is checked in the task item
+        /// Deletes every task item from the current category
+        /// </summary>
+        public ICommand DeleteAllCommand { get; }
+
+        /// <summary>
+        /// Deletes every DONE task item from the current category
+        /// </summary>
+        public ICommand DeleteDoneCommand { get; }
+        
+
+        /// <summary>
+        /// Resets each task items color in the current category
+        /// </summary>
+        public ICommand ResetColorsCommand { get; }
+
+        /// <summary>
+        /// Marks the task item as done
         /// </summary>
         public ICommand TaskIsDoneModifiedCommand { get; }
 
         /// <summary>
-        /// The command to move a task item into another category
+        /// Moves the task item into another category
         /// </summary>
         public ICommand MoveToCategoryCommand { get; }
 
@@ -57,16 +74,19 @@ namespace TodoApp2.Core
 
             AddTaskItemCommand = new RelayCommand(AddTask);
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
+            DeleteDoneCommand = new RelayCommand(TrashDone);
+            DeleteAllCommand = new RelayCommand(TrashAll);
+            ResetColorsCommand = new RelayCommand(ResetColors);
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
             MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
 
             // Subscribe to the collection changed event for synchronizing with database
             Items.CollectionChanged += ItemsOnCollectionChanged;
-            
+
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
-
+        
         private void ModifyTaskIsDone(object obj)
         {
             if (obj is TaskListItemViewModel task)
@@ -102,6 +122,54 @@ namespace TodoApp2.Core
                 // Remove from the list
                 m_TaskListService.RemoveTask(task);
             }
+        }
+        
+        /// <inheritdoc cref="DeleteAllCommand"/>
+        private void TrashAll()
+        {
+            TrashTasks(Items);
+        }
+
+        /// <inheritdoc cref="DeleteDoneCommand"/>
+        private void TrashDone()
+        {
+            TrashTasks(Items.Where(i => i.IsDone));
+        }
+
+        /// <summary>
+        /// Trashes every item from the <paramref name="taskList"/>.
+        /// Only persists the items 
+        /// </summary>
+        /// <param name="taskList"></param>
+        private void TrashTasks(IEnumerable<TaskListItemViewModel> taskList)
+        {
+            var items = new List<TaskListItemViewModel>(taskList);
+
+            foreach (TaskListItemViewModel item in items)
+            {
+                // Set Trashed property to true so it won't be listed in the active list
+                item.Trashed = true;
+
+                // Indicate that it is an invalid order
+                item.ListOrder = long.MinValue;
+            }
+
+            m_TaskListService.PersistTaskList();
+
+            foreach (TaskListItemViewModel item in items)
+            {
+                m_TaskListService.RemoveTask(item);
+            }
+        }
+
+        private void ResetColors()
+        {
+            foreach (TaskListItemViewModel item in Items)
+            {
+                item.Color = string.Empty;
+            }
+
+            m_TaskListService.PersistTaskList();
         }
 
         /// <summary>

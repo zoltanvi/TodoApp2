@@ -25,6 +25,8 @@
     <SolidColorBrush x:Key="CategorySelectedBackgroundBrush" Color="#454138" />
     <SolidColorBrush x:Key="CategoryHoverBackgroundBrush" Color="#0fffffff" />
 
+    <SolidColorBrush x:Key="PageTitleForegroundBrush" Color="#454138" />
+
     <SolidColorBrush x:Key="TaskPageBackgroundBrush" Color="#CDC8B0" />
     <SolidColorBrush x:Key="TaskPageForegroundBrush" Color="#2B2A26" />
     <SolidColorBrush x:Key="TaskPageEditModeForegroundBrush" Color="#CD664D" />

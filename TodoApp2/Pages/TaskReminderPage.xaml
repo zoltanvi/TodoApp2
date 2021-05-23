@@ -69,6 +69,7 @@
 
                         <Viewbox Grid.Column="0" StretchDirection="DownOnly">
                             <Button
+                                Cursor="Hand"
                                 Command="{Binding EditReminderCommand}"
                                 Content="{Binding ReminderDateTime, Converter={local:LongToFormattedLongDateConverter}}"
                                 Style="{DynamicResource ReminderButtonStyle}" />
