@@ -11,12 +11,14 @@ namespace TodoApp2.Core
     public class Database : IDisposable, IDatabase
     {
         private DataAccessLayer m_DataAccess;
+        private readonly SessionManager m_SessionManager;
 
         public event EventHandler<TaskChangedEventArgs> TaskChanged;
 
-        public Database(bool online = false)
+        public Database(SessionManager sessionManager)
         {
-            Reinitialize(online);
+            m_SessionManager = sessionManager;
+            Reinitialize(sessionManager.OnlineMode);
         }
 
         public void Reinitialize(bool online = false)
@@ -24,8 +26,18 @@ namespace TodoApp2.Core
             Mediator.NotifyClients(ViewModelMessages.OnlineModeChangeRequested);
             m_DataAccess?.Dispose();
 
+            if (online)
+            {
+                m_SessionManager.AuthenticateAndGetUserInfo();
+                m_SessionManager.Download();
+            }
+            else
+            {
+                m_SessionManager.Upload();
+            }
+
             m_DataAccess = new DataAccessLayer(online);
-            
+
             // Initialize the database
             m_DataAccess.InitializeDatabase();
             Mediator.NotifyClients(ViewModelMessages.OnlineModeChanged);
@@ -418,7 +430,12 @@ namespace TodoApp2.Core
 
         public void Dispose()
         {
-            m_DataAccess.Dispose();
+            m_DataAccess?.Dispose();
+            
+            if (m_SessionManager.OnlineMode)
+            {
+                m_SessionManager.Upload();
+            }
         }
     }
 }

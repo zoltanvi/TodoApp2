@@ -30,7 +30,7 @@
                 <TextBlock
                     Grid.Column="0"
                     Margin="15 0 0 0"
-                    Style="{DynamicResource PageTitleTextBlockStyle}"
+                    Style="{DynamicResource SideMenuTitleTextBlockStyle}"
                     Text="Settings" />
 
                 <Button

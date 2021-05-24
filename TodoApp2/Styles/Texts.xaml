@@ -56,6 +56,13 @@
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
+    <Style
+        x:Key="SideMenuTitleTextBlockStyle"
+        TargetType="TextBlock"
+        BasedOn="{StaticResource PageTitleTextBlockStyle}">
+        <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
+    </Style>
+
     <Style x:Key="IconLabelStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegularIcon}" />

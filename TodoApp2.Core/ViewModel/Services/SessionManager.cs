@@ -7,8 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
+using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
+using File = System.IO.File;
+using GoogleFile = Google.Apis.Drive.v3.Data.File;
 
 namespace TodoApp2.Core
 {
@@ -31,7 +34,7 @@ namespace TodoApp2.Core
             get
             {
                 bool loggedIn = false;
-                
+
                 if (OnlineMode)
                 {
                     loggedIn = DisplayName != string.Empty && EmailAddress != string.Empty;
@@ -56,7 +59,7 @@ namespace TodoApp2.Core
             {
                 if (OnlineMode)
                 {
-                    GetUserInfo();
+                    AuthenticateAndGetUserInfo();
                 }
                 return m_DisplayName;
             }
@@ -68,7 +71,7 @@ namespace TodoApp2.Core
             {
                 if (OnlineMode)
                 {
-                    GetUserInfo();
+                    AuthenticateAndGetUserInfo();
                 }
                 return m_EmailAddress;
             }
@@ -76,13 +79,13 @@ namespace TodoApp2.Core
 
         public void LogOut()
         {
+            IoC.Database.Reinitialize(false);
+            
             m_UserCredential?.RevokeTokenAsync(CancellationToken.None);
             Directory.Delete(s_CredentialsFolderPath, true);
 
             m_DisplayName = string.Empty;
             m_EmailAddress = string.Empty;
-
-            IoC.Database.Reinitialize(OnlineMode);
 
             OnPropertyChanged(nameof(DisplayName));
             OnPropertyChanged(nameof(EmailAddress));
@@ -91,16 +94,107 @@ namespace TodoApp2.Core
 
         public void LogIn()
         {
-            GetUserInfo();
+            AuthenticateAndGetUserInfo();
 
-            IoC.Database.Reinitialize(OnlineMode);
+            IoC.Database.Reinitialize(true);
 
             OnPropertyChanged(nameof(IsLoggedIn));
             OnPropertyChanged(nameof(DisplayName));
             OnPropertyChanged(nameof(EmailAddress));
         }
 
-        private void GetUserInfo()
+        public void Download()
+        {
+            // Define parameters of request.
+            FilesResource.ListRequest listRequest = m_Service.Files.List();
+            //listRequest.PageSize = 10;
+            listRequest.Fields = "nextPageToken, files(id, name)";
+
+            IList<GoogleFile> files = listRequest.Execute().Files;
+
+            GoogleFile onlineDbFile = files.FirstOrDefault(f => f.Name == DataAccessLayer.OnlineDatabaseName);
+
+            if (onlineDbFile != null)
+            {
+                // Download file
+                using (var stream = new FileStream(DataAccessLayer.OnlineDatabasePath, FileMode.OpenOrCreate))
+                {
+                    Google.Apis.Download.IDownloadProgress asd = m_Service.Files.Get(onlineDbFile.Id).DownloadWithStatus(stream);
+                }
+            }
+            else
+            {
+                // If there is nothing on the server yet, delete the existing online db file.
+                // It is probably from other account.
+                if (File.Exists(DataAccessLayer.OnlineDatabasePath))
+                {
+                    File.Delete(DataAccessLayer.OnlineDatabasePath);
+                }
+            }
+        }
+
+        private static string GetMimeType(string fileName)
+        {
+            string mimeType = "application/unknown";
+            string ext = Path.GetExtension(fileName)?.ToLower();
+            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+           
+            if (regKey?.GetValue("Content Type") != null)
+            {
+                mimeType = regKey.GetValue("Content Type").ToString();
+            }
+
+            System.Diagnostics.Debug.WriteLine(mimeType);
+            return mimeType;
+        }
+
+        public void Upload()
+        {
+            if (m_Service == null)
+            {
+                return;
+            }
+
+            // Define parameters of request.
+            FilesResource.ListRequest listRequest = m_Service.Files.List();
+            listRequest.Fields = "nextPageToken, files(id, name)";
+
+            IList<GoogleFile> files = listRequest.Execute().Files;
+
+            GoogleFile onlineDbFile = files.FirstOrDefault(f => f.Name == DataAccessLayer.OnlineDatabaseName);
+
+            if (onlineDbFile == null)
+            {
+                onlineDbFile = new GoogleFile
+                {
+                    Name = DataAccessLayer.OnlineDatabaseName
+                };
+
+                byte[] byteArray = System.IO.File.ReadAllBytes(DataAccessLayer.OnlineDatabasePath);
+
+                using (var stream = new MemoryStream(byteArray))
+                {
+                    FilesResource.CreateMediaUpload uploadRequest = m_Service.Files.Create(onlineDbFile, stream,
+                        GetMimeType(DataAccessLayer.OnlineDatabasePath));
+                    uploadRequest.Upload();
+                }
+            }
+            else
+            {
+                // Update file on google drive
+                GoogleFile updatedFileMetadata = new GoogleFile { Name = onlineDbFile.Name };
+
+                using (var stream = new FileStream(DataAccessLayer.OnlineDatabasePath, FileMode.OpenOrCreate))
+                {
+                    FilesResource.UpdateMediaUpload updateRequest = m_Service.Files.Update(updatedFileMetadata,
+                        onlineDbFile.Id, stream, onlineDbFile.FileExtension);
+                    updateRequest.Upload();
+                    //GoogleFile file = updateRequest.ResponseBody;
+                }
+            }
+        }
+
+        public void AuthenticateAndGetUserInfo()
         {
             if (string.IsNullOrEmpty(m_DisplayName) || string.IsNullOrEmpty(m_EmailAddress))
             {
@@ -145,6 +239,8 @@ namespace TodoApp2.Core
                 HttpClientInitializer = m_UserCredential,
                 ApplicationName = s_ApplicationName,
             });
+
+            m_Service.HttpClient.Timeout = TimeSpan.FromMinutes(1);
         }
     }
 }

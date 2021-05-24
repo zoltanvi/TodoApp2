@@ -44,7 +44,7 @@ namespace TodoApp2.Core
             var sessionManager = new SessionManager();
             Kernel.Bind<SessionManager>().ToConstant(sessionManager);
             
-            var database = new Database(sessionManager.OnlineMode);
+            var database = new Database(sessionManager);
             Kernel.Bind<IDatabase>().ToConstant(database);
             
             var applicationViewModel = new ApplicationViewModel(database, sessionManager);

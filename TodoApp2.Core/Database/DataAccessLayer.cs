@@ -13,12 +13,13 @@ namespace TodoApp2.Core
     {
         public const long DefaultListOrder = long.MaxValue / 2;
         public const long ListOrderInterval = 1_000_000_000_000;
+        
+        public const string OfflineDatabaseName = "TodoApp2Database.db";
+        public const string OnlineDatabaseName = "TodoApp2Database-online.db";
+        public static string OfflineDatabasePath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), OfflineDatabaseName);
+        public static string OnlineDatabasePath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), OnlineDatabaseName);
 
         #region Private Constants
-
-        private const string DatabaseName = "TodoApp2Database.db";
-        private const string OnlineDatabaseName = "TodoApp2Database-online.db";
-        private static string DatabasePath { get; set; }
 
         private const string Task = "Task";
         private const string Settings = "Settings";
@@ -60,10 +61,8 @@ namespace TodoApp2.Core
 
         public DataAccessLayer(bool online = false)
         {
-            DatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                online ? OnlineDatabaseName : DatabaseName);
-            
-            m_Connection = new SQLiteConnection($"Data Source={DatabasePath};");
+            string dbPath = online ? OnlineDatabasePath : OfflineDatabasePath;
+            m_Connection = new SQLiteConnection($"Data Source={dbPath};");
             m_Connection.Open();
         }
 
@@ -100,27 +99,31 @@ namespace TodoApp2.Core
                 $" FOREIGN KEY ({CategoryId}) REFERENCES {Category} ({Id}) ON UPDATE CASCADE ON DELETE CASCADE " +
                 $"); ";
 
-            if (!File.Exists(DatabasePath))
+            if (!File.Exists(OfflineDatabasePath))
             {
-                FileStream fs = File.Create(DatabasePath);
+                FileStream fs = File.Create(OfflineDatabasePath);
                 fs.Close();
             }
 
             // Prepare database
             SQLiteCommand dbCommand = new SQLiteCommand(prepareCommand, m_Connection);
             dbCommand.ExecuteReader();
+            dbCommand.Dispose();
 
             // Create SETTINGS table
             dbCommand = new SQLiteCommand(createSettingsTable, m_Connection);
             dbCommand.ExecuteReader();
+            dbCommand.Dispose();
 
             // Create CATEGORY table
             dbCommand = new SQLiteCommand(createCategoryTable, m_Connection);
             dbCommand.ExecuteReader();
+            dbCommand.Dispose();
 
             // Create TASK table
             dbCommand = new SQLiteCommand(createTaskTable, m_Connection);
             dbCommand.ExecuteReader();
+            dbCommand.Dispose();
 
             AddDefaultCategoryIfNotExists();
             AddDefaultSettingsIfNotExists();
@@ -154,6 +157,9 @@ namespace TodoApp2.Core
                 });
             }
 
+            command.Dispose();
+            reader.Dispose();
+
             return items;
         }
 
@@ -179,6 +185,9 @@ namespace TodoApp2.Core
                 break;
             }
 
+            command.Dispose();
+            reader.Dispose();
+
             return nextId;
         }
 
@@ -202,6 +211,7 @@ namespace TodoApp2.Core
             };
 
             command.ExecuteReader();
+            command.Dispose();
         }
 
         /// <summary>
@@ -229,6 +239,7 @@ namespace TodoApp2.Core
                     };
 
                     command.ExecuteNonQuery();
+                    command.Dispose();
                 }
 
                 transaction.Commit();
@@ -257,7 +268,9 @@ namespace TodoApp2.Core
                 }
             };
 
-            return command.ExecuteNonQuery() > 0;
+            var result = command.ExecuteNonQuery() > 0;
+            command.Dispose();
+            return result;
         }
 
         /// <summary>
@@ -288,6 +301,7 @@ namespace TodoApp2.Core
                     };
 
                     modifiedItems += command.ExecuteNonQuery();
+                    command.Dispose();
                 }
 
                 transaction.Commit();
@@ -313,7 +327,9 @@ namespace TodoApp2.Core
                 }
             };
 
-            return command.ExecuteNonQuery() > 0;
+            var result = command.ExecuteNonQuery() > 0;
+            command.Dispose();
+            return result;
         }
 
         #endregion Settings
@@ -347,6 +363,8 @@ namespace TodoApp2.Core
                 });
             }
 
+            command.Dispose();
+            reader.Dispose();
             return items;
         }
 
@@ -359,14 +377,14 @@ namespace TodoApp2.Core
         {
             CategoryListItemViewModel item = null;
 
-            SQLiteCommand selectCommand = new SQLiteCommand
+            SQLiteCommand command = new SQLiteCommand
             {
                 Connection = m_Connection,
                 CommandText = $"SELECT * FROM {Category} WHERE {Name} = {ParameterName}",
                 Parameters = { new SQLiteParameter(ParameterName, name) }
             };
 
-            SQLiteDataReader reader = selectCommand.ExecuteReader();
+            SQLiteDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
@@ -379,6 +397,8 @@ namespace TodoApp2.Core
                 };
             }
 
+            command.Dispose();
+            reader.Dispose();
             return item;
         }
 
@@ -404,6 +424,8 @@ namespace TodoApp2.Core
                 break;
             }
 
+            command.Dispose();
+            reader.Dispose();
             return nextId;
         }
 
@@ -447,6 +469,7 @@ namespace TodoApp2.Core
             };
 
             command.ExecuteReader();
+            command.Dispose();
         }
 
         /// <summary>
@@ -473,7 +496,9 @@ namespace TodoApp2.Core
                 }
             };
 
-            return command.ExecuteNonQuery() > 0;
+            var result = command.ExecuteNonQuery() > 0;
+            command.Dispose();
+            return result;
         }
 
         /// <summary>
@@ -490,7 +515,7 @@ namespace TodoApp2.Core
             {
                 foreach (var category in categoryList)
                 {
-                    SQLiteCommand updateCommand = new SQLiteCommand
+                    SQLiteCommand command = new SQLiteCommand
                     {
                         Connection = m_Connection,
                         CommandText = $"UPDATE {Category} SET " +
@@ -503,7 +528,8 @@ namespace TodoApp2.Core
                         }
                     };
 
-                    modifiedItems += updateCommand.ExecuteNonQuery();
+                    modifiedItems += command.ExecuteNonQuery();
+                    command.Dispose();
                 }
 
                 transaction.Commit();
@@ -524,13 +550,13 @@ namespace TodoApp2.Core
         {
             List<TaskListItemViewModel> items = new List<TaskListItemViewModel>();
 
-            SQLiteCommand selectCommand = new SQLiteCommand
+            SQLiteCommand command = new SQLiteCommand
             {
                 Connection = m_Connection,
                 CommandText = $"SELECT * FROM {Task} ORDER BY {ListOrder} ;",
             };
 
-            SQLiteDataReader reader = selectCommand.ExecuteReader();
+            SQLiteDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
@@ -551,7 +577,9 @@ namespace TodoApp2.Core
 
                 items.Add(readTask);
             }
-
+            
+            command.Dispose();
+            reader.Dispose();
             return items;
         }
 
@@ -563,7 +591,7 @@ namespace TodoApp2.Core
         public TaskListItemViewModel GetTask(int id)
         {
             TaskListItemViewModel readTask = null;
-            SQLiteCommand selectCommand = new SQLiteCommand
+            SQLiteCommand command = new SQLiteCommand
             {
                 Connection = m_Connection,
                 CommandText = $"SELECT * FROM {Task} WHERE {Id} = {ParameterId} ;",
@@ -573,7 +601,7 @@ namespace TodoApp2.Core
                 }
             };
 
-            SQLiteDataReader reader = selectCommand.ExecuteReader();
+            SQLiteDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
@@ -595,6 +623,8 @@ namespace TodoApp2.Core
                 break;
             }
 
+            command.Dispose();
+            reader.Dispose();
             return readTask;
         }
 
@@ -620,6 +650,8 @@ namespace TodoApp2.Core
                 break;
             }
 
+            command.Dispose();
+            reader.Dispose();
             return nextId;
         }
 
@@ -672,6 +704,7 @@ namespace TodoApp2.Core
             };
 
             command.ExecuteReader();
+            command.Dispose();
         }
 
         /// <summary>
@@ -711,8 +744,9 @@ namespace TodoApp2.Core
                     new SQLiteParameter(ParameterIsReminderOn, task.IsReminderOn),
                 }
             };
-
-            return command.ExecuteNonQuery() > 0;
+            var result = command.ExecuteNonQuery() > 0;
+            command.Dispose();
+            return result;
         }
 
         /// <summary>
@@ -761,6 +795,7 @@ namespace TodoApp2.Core
                     };
 
                     modifiedItems += command.ExecuteNonQuery();
+                    command.Dispose();
                 }
 
                 transaction.Commit();
@@ -797,6 +832,7 @@ namespace TodoApp2.Core
                     };
 
                     modifiedItems += command.ExecuteNonQuery();
+                    command.Dispose();
                 }
 
                 transaction.Commit();
@@ -869,13 +905,15 @@ namespace TodoApp2.Core
                 return reader.SafeGetLongFromString(ListOrder);
             }
 
+            command.Dispose();
+            reader.Dispose();
             return DefaultListOrder;
         }
 
         public void Dispose()
         {
-            m_Connection.Close();
-            m_Connection.Dispose();
+            m_Connection?.Close();
+            m_Connection?.Dispose();
         }
     }
 }

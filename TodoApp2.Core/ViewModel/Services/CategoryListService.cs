@@ -43,6 +43,7 @@ namespace TodoApp2.Core
             Items.Clear();
             List<CategoryListItemViewModel> categories = m_Database.GetActiveCategories();
             Items.AddRange(categories);
+            OnPropertyChanged(nameof(CurrentCategory));
         }
     }
 }

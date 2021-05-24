@@ -41,9 +41,16 @@
                 <Button
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Command="{Binding LogOutCommand}"
                     Style="{DynamicResource ButtonLoginStyle}"
                     Visibility="{Binding SessionManager.IsLoggedIn, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}">
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                                Command="{Binding LogOutCommand}"
+                                Header="Log out"
+                                FontSize="{StaticResource FontSizeRegular}" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -100,7 +107,11 @@
                             </Canvas>
                         </Border>
 
-                        <TextBlock Grid.Column="1" Text="Log in" FontSize="16" VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="Log in"
+                            FontSize="16"
+                            VerticalAlignment="Center" />
                     </Grid>
                 </Button>
 
