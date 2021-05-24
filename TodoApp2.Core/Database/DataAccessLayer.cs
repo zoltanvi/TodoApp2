@@ -13,7 +13,7 @@ namespace TodoApp2.Core
     {
         public const long DefaultListOrder = long.MaxValue / 2;
         public const long ListOrderInterval = 1_000_000_000_000;
-        
+
         public const string OfflineDatabaseName = "TodoApp2Database.db";
         public const string OnlineDatabaseName = "TodoApp2Database-online.db";
         public static string OfflineDatabasePath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), OfflineDatabaseName);
@@ -98,32 +98,30 @@ namespace TodoApp2.Core
                 $" {IsReminderOn} INTEGER DEFAULT (0), " +
                 $" FOREIGN KEY ({CategoryId}) REFERENCES {Category} ({Id}) ON UPDATE CASCADE ON DELETE CASCADE " +
                 $"); ";
-
-            if (!File.Exists(OfflineDatabasePath))
+            
+            // Prepare database
+            using (SQLiteCommand dbCommand = new SQLiteCommand(prepareCommand, m_Connection))
+            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
             {
-                FileStream fs = File.Create(OfflineDatabasePath);
-                fs.Close();
             }
 
-            // Prepare database
-            SQLiteCommand dbCommand = new SQLiteCommand(prepareCommand, m_Connection);
-            dbCommand.ExecuteReader();
-            dbCommand.Dispose();
-
             // Create SETTINGS table
-            dbCommand = new SQLiteCommand(createSettingsTable, m_Connection);
-            dbCommand.ExecuteReader();
-            dbCommand.Dispose();
+            using (SQLiteCommand dbCommand = new SQLiteCommand(createSettingsTable, m_Connection))
+            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
+            {
+            }
 
             // Create CATEGORY table
-            dbCommand = new SQLiteCommand(createCategoryTable, m_Connection);
-            dbCommand.ExecuteReader();
-            dbCommand.Dispose();
+            using (SQLiteCommand dbCommand = new SQLiteCommand(createCategoryTable, m_Connection))
+            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
+            {
+            }
 
             // Create TASK table
-            dbCommand = new SQLiteCommand(createTaskTable, m_Connection);
-            dbCommand.ExecuteReader();
-            dbCommand.Dispose();
+            using (SQLiteCommand dbCommand = new SQLiteCommand(createTaskTable, m_Connection))
+            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
+            {
+            }
 
             AddDefaultCategoryIfNotExists();
             AddDefaultSettingsIfNotExists();
@@ -139,26 +137,23 @@ namespace TodoApp2.Core
         {
             List<SettingsModel> items = new List<SettingsModel>();
 
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Settings}"
-            };
+                command.CommandText = $"SELECT * FROM {Settings}";
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                items.Add(new SettingsModel
+                using (SQLiteDataReader reader = command.ExecuteReader())
                 {
-                    Id = reader.SafeGetInt(Id),
-                    Key = reader.SafeGetString(Key),
-                    Value = reader.SafeGetString(Value)
-                });
+                    while (reader.Read())
+                    {
+                        items.Add(new SettingsModel
+                        {
+                            Id = reader.SafeGetInt(Id),
+                            Key = reader.SafeGetString(Key),
+                            Value = reader.SafeGetString(Value)
+                        });
+                    }
+                }
             }
-
-            command.Dispose();
-            reader.Dispose();
 
             return items;
         }
@@ -171,22 +166,19 @@ namespace TodoApp2.Core
         {
             int nextId = int.MinValue;
 
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Settings} ORDER BY {Id} DESC LIMIT 1"
-            };
+                command.CommandText = $"SELECT * FROM {Settings} ORDER BY {Id} DESC LIMIT 1";
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                nextId = reader.SafeGetInt(Id) + 1;
-                break;
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        nextId = reader.SafeGetInt(Id) + 1;
+                        break;
+                    }
+                }
             }
-
-            command.Dispose();
-            reader.Dispose();
 
             return nextId;
         }
@@ -197,21 +189,22 @@ namespace TodoApp2.Core
         /// <param name="settings"></param>
         public void AddSetting(SettingsModel settings)
         {
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"INSERT INTO {Settings} ({Id}, {Key}, {Value}) " +
-                              $" VALUES ({ParameterId}, {ParameterKey}, {ParameterValue});",
-                Parameters =
+                command.CommandText = $"INSERT INTO {Settings} ({Id}, {Key}, {Value}) " +
+                                      $" VALUES ({ParameterId}, {ParameterKey}, {ParameterValue});";
+
+                command.Parameters.AddRange(new[]
                 {
                     new SQLiteParameter(ParameterId, settings.Id),
                     new SQLiteParameter(ParameterKey, settings.Key),
                     new SQLiteParameter(ParameterValue, settings.Value)
-                }
-            };
+                });
 
-            command.ExecuteReader();
-            command.Dispose();
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                }
+            }
         }
 
         /// <summary>
@@ -225,23 +218,21 @@ namespace TodoApp2.Core
             {
                 foreach (var settings in settingsList)
                 {
-                    SQLiteCommand command = new SQLiteCommand
+                    using (SQLiteCommand command = new SQLiteCommand(m_Connection))
                     {
-                        Connection = m_Connection,
-                        CommandText = $"INSERT INTO {Settings} ({Id}, {Key}, {Value}) " +
-                                      $" VALUES ({ParameterId}, {ParameterKey}, {ParameterValue});",
-                        Parameters =
+                        command.CommandText = $"INSERT INTO {Settings} ({Id}, {Key}, {Value}) " +
+                                              $" VALUES ({ParameterId}, {ParameterKey}, {ParameterValue});";
+
+                        command.Parameters.AddRange(new[]
                         {
                             new SQLiteParameter(ParameterId, settings.Id),
                             new SQLiteParameter(ParameterKey, settings.Key),
                             new SQLiteParameter(ParameterValue, settings.Value)
-                        }
-                    };
+                        });
 
-                    command.ExecuteNonQuery();
-                    command.Dispose();
+                        command.ExecuteNonQuery();
+                    }
                 }
-
                 transaction.Commit();
             }
         }
@@ -253,23 +244,25 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public bool UpdateSetting(SettingsModel settings)
         {
-            SQLiteCommand command = new SQLiteCommand
+            bool result = false;
+
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"UPDATE {Settings} SET " +
-                              $"  {Key} = {ParameterKey}, " +
-                              $"  {Value} = {ParameterValue} " +
-                              $" WHERE {Id} = {ParameterId};",
-                Parameters =
+                command.CommandText = $"UPDATE {Settings} SET " +
+                                      $"  {Key} = {ParameterKey}, " +
+                                      $"  {Value} = {ParameterValue} " +
+                                      $" WHERE {Id} = {ParameterId};";
+
+                command.Parameters.AddRange(new[]
                 {
                     new SQLiteParameter(ParameterId, settings.Id),
                     new SQLiteParameter(ParameterKey, settings.Key),
-                    new SQLiteParameter(ParameterValue, settings.Value),
-                }
-            };
+                    new SQLiteParameter(ParameterValue, settings.Value)
+                });
 
-            var result = command.ExecuteNonQuery() > 0;
-            command.Dispose();
+                result = command.ExecuteNonQuery() > 0;
+            }
+
             return result;
         }
 
@@ -287,21 +280,20 @@ namespace TodoApp2.Core
             {
                 foreach (var setting in settingsList)
                 {
-                    SQLiteCommand command = new SQLiteCommand
+                    using (SQLiteCommand command = new SQLiteCommand(m_Connection))
                     {
-                        Connection = m_Connection,
-                        CommandText = $"UPDATE {Settings} SET " +
-                                      $"  {Value} = {ParameterValue} " +
-                                      $" WHERE {Key} = {ParameterKey};",
-                        Parameters =
+                        command.CommandText = $"UPDATE {Settings} SET " +
+                                              $"  {Value} = {ParameterValue} " +
+                                              $" WHERE {Key} = {ParameterKey};";
+
+                        command.Parameters.AddRange(new[]
                         {
                             new SQLiteParameter(ParameterKey, setting.Key),
-                            new SQLiteParameter(ParameterValue, setting.Value),
-                        }
-                    };
+                            new SQLiteParameter(ParameterValue, setting.Value)
+                        });
 
-                    modifiedItems += command.ExecuteNonQuery();
-                    command.Dispose();
+                        modifiedItems += command.ExecuteNonQuery();
+                    }
                 }
 
                 transaction.Commit();
@@ -316,19 +308,17 @@ namespace TodoApp2.Core
         /// <param name="settings"></param>
         public bool DeleteSettings(SettingsModel settings)
         {
-            SQLiteCommand command = new SQLiteCommand
+            bool result = false;
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"DELETE FROM {Settings} " +
-                              $" WHERE {Id} = {ParameterId};",
-                Parameters =
-                {
-                    new SQLiteParameter(ParameterId, settings.Id),
-                }
-            };
+                command.CommandText = $"DELETE FROM {Settings} " +
+                                      $" WHERE {Id} = {ParameterId};";
 
-            var result = command.ExecuteNonQuery() > 0;
-            command.Dispose();
+                command.Parameters.Add(new SQLiteParameter(ParameterId, settings.Id));
+
+                result = command.ExecuteNonQuery() > 0;
+            }
+
             return result;
         }
 
@@ -344,27 +334,25 @@ namespace TodoApp2.Core
         {
             List<CategoryListItemViewModel> items = new List<CategoryListItemViewModel>();
 
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Category} ORDER BY {ListOrder}"
-            };
+                command.CommandText = $"SELECT * FROM {Category} ORDER BY {ListOrder}";
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                items.Add(new CategoryListItemViewModel
+                using (SQLiteDataReader reader = command.ExecuteReader())
                 {
-                    Id = reader.SafeGetInt(Id),
-                    Name = reader.SafeGetString(Name),
-                    ListOrder = reader.SafeGetLongFromString(ListOrder),
-                    Trashed = reader.SafeGetBoolFromInt(Trashed)
-                });
+                    while (reader.Read())
+                    {
+                        items.Add(new CategoryListItemViewModel
+                        {
+                            Id = reader.SafeGetInt(Id),
+                            Name = reader.SafeGetString(Name),
+                            ListOrder = reader.SafeGetLongFromString(ListOrder),
+                            Trashed = reader.SafeGetBoolFromInt(Trashed)
+                        });
+                    }
+                }
             }
 
-            command.Dispose();
-            reader.Dispose();
             return items;
         }
 
@@ -377,28 +365,26 @@ namespace TodoApp2.Core
         {
             CategoryListItemViewModel item = null;
 
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Category} WHERE {Name} = {ParameterName}",
-                Parameters = { new SQLiteParameter(ParameterName, name) }
-            };
+                command.CommandText = $"SELECT * FROM {Category} WHERE {Name} = {ParameterName}";
+                command.Parameters.Add(new SQLiteParameter(ParameterName, name));
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                item = new CategoryListItemViewModel
+                using (SQLiteDataReader reader = command.ExecuteReader())
                 {
-                    Id = reader.SafeGetInt(Id),
-                    Name = reader.SafeGetString(Name),
-                    ListOrder = reader.SafeGetLongFromString(ListOrder),
-                    Trashed = reader.SafeGetBoolFromInt(Trashed)
-                };
+                    while (reader.Read())
+                    {
+                        item = new CategoryListItemViewModel
+                        {
+                            Id = reader.SafeGetInt(Id),
+                            Name = reader.SafeGetString(Name),
+                            ListOrder = reader.SafeGetLongFromString(ListOrder),
+                            Trashed = reader.SafeGetBoolFromInt(Trashed)
+                        };
+                    }
+                }
             }
 
-            command.Dispose();
-            reader.Dispose();
             return item;
         }
 
@@ -410,22 +396,20 @@ namespace TodoApp2.Core
         {
             int nextId = int.MinValue;
 
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Category} ORDER BY {Id} DESC LIMIT 1"
-            };
+                command.CommandText = $"SELECT * FROM {Category} ORDER BY {Id} DESC LIMIT 1";
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                nextId = reader.SafeGetInt(Id) + 1;
-                break;
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        nextId = reader.SafeGetInt(Id) + 1;
+                        break;
+                    }
+                }
             }
 
-            command.Dispose();
-            reader.Dispose();
             return nextId;
         }
 
@@ -454,22 +438,23 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public void AddCategory(CategoryListItemViewModel category)
         {
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"INSERT INTO {Category} ({Id}, {Name}, {ListOrder}, {Trashed}) " +
-                              $" VALUES ({ParameterId}, {ParameterName}, {ParameterListOrder}, {ParameterTrashed});",
-                Parameters =
+                command.CommandText = $"INSERT INTO {Category} ({Id}, {Name}, {ListOrder}, {Trashed}) " +
+                                      $" VALUES ({ParameterId}, {ParameterName}, {ParameterListOrder}, {ParameterTrashed});";
+
+                command.Parameters.AddRange(new[]
                 {
                     new SQLiteParameter(ParameterId, category.Id),
                     new SQLiteParameter(ParameterName, category.Name),
                     new SQLiteParameter(ParameterListOrder, category.ListOrder.ToString("D19")),
                     new SQLiteParameter(ParameterTrashed, category.Trashed)
-                }
-            };
+                });
 
-            command.ExecuteReader();
-            command.Dispose();
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                }
+            }
         }
 
         /// <summary>
@@ -479,25 +464,26 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public bool UpdateCategory(CategoryListItemViewModel category)
         {
-            SQLiteCommand command = new SQLiteCommand
+            bool result = false;
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"UPDATE {Category} SET " +
-                              $" {Name} = {ParameterName}, " +
-                              $" {ListOrder} = {ParameterListOrder}, " +
-                              $" {Trashed} = {ParameterTrashed} " +
-                              $" WHERE {Id} IS {ParameterId};",
-                Parameters =
+                command.CommandText = $"UPDATE {Category} SET " +
+                                      $" {Name} = {ParameterName}, " +
+                                      $" {ListOrder} = {ParameterListOrder}, " +
+                                      $" {Trashed} = {ParameterTrashed} " +
+                                      $" WHERE {Id} IS {ParameterId};";
+
+                command.Parameters.AddRange(new[]
                 {
                     new SQLiteParameter(ParameterName, category.Name),
                     new SQLiteParameter(ParameterListOrder, category.ListOrder.ToString("D19")),
                     new SQLiteParameter(ParameterTrashed, category.Trashed),
                     new SQLiteParameter(ParameterId, category.Id)
-                }
-            };
+                });
 
-            var result = command.ExecuteNonQuery() > 0;
-            command.Dispose();
+                result = command.ExecuteNonQuery() > 0;
+            }
+
             return result;
         }
 
@@ -515,21 +501,20 @@ namespace TodoApp2.Core
             {
                 foreach (var category in categoryList)
                 {
-                    SQLiteCommand command = new SQLiteCommand
+                    using (SQLiteCommand command = new SQLiteCommand(m_Connection))
                     {
-                        Connection = m_Connection,
-                        CommandText = $"UPDATE {Category} SET " +
-                                      $" {ListOrder} = {ParameterListOrder} " +
-                                      $" WHERE {Id} = {ParameterId};",
-                        Parameters =
+                        command.CommandText = $"UPDATE {Category} SET " +
+                                              $" {ListOrder} = {ParameterListOrder} " +
+                                              $" WHERE {Id} = {ParameterId};";
+
+                        command.Parameters.AddRange(new[]
                         {
                             new SQLiteParameter(ParameterId, category.Id),
-                            new SQLiteParameter(ParameterListOrder, category.ListOrder.ToString("D19")),
-                        }
-                    };
+                            new SQLiteParameter(ParameterListOrder, category.ListOrder.ToString("D19"))
+                        });
 
-                    modifiedItems += command.ExecuteNonQuery();
-                    command.Dispose();
+                        modifiedItems += command.ExecuteNonQuery();
+                    }
                 }
 
                 transaction.Commit();
@@ -550,36 +535,34 @@ namespace TodoApp2.Core
         {
             List<TaskListItemViewModel> items = new List<TaskListItemViewModel>();
 
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Task} ORDER BY {ListOrder} ;",
-            };
+                command.CommandText = $"SELECT * FROM {Task} ORDER BY {ListOrder} ;";
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                TaskListItemViewModel readTask = new TaskListItemViewModel
+                using (SQLiteDataReader reader = command.ExecuteReader())
                 {
-                    Id = reader.SafeGetInt(Id),
-                    CategoryId = reader.SafeGetInt(CategoryId),
-                    Content = reader.SafeGetString(Content),
-                    ListOrder = reader.SafeGetLongFromString(ListOrder),
-                    IsDone = reader.SafeGetBoolFromInt(IsDone),
-                    CreationDate = reader.SafeGetLong(CreationDate),
-                    ModificationDate = reader.SafeGetLong(ModificationDate),
-                    Color = reader.SafeGetString(Color),
-                    Trashed = reader.SafeGetBoolFromInt(Trashed),
-                    ReminderDate = reader.SafeGetLong(ReminderDate),
-                    IsReminderOn = reader.SafeGetBoolFromInt(IsReminderOn)
-                };
+                    while (reader.Read())
+                    {
+                        TaskListItemViewModel readTask = new TaskListItemViewModel
+                        {
+                            Id = reader.SafeGetInt(Id),
+                            CategoryId = reader.SafeGetInt(CategoryId),
+                            Content = reader.SafeGetString(Content),
+                            ListOrder = reader.SafeGetLongFromString(ListOrder),
+                            IsDone = reader.SafeGetBoolFromInt(IsDone),
+                            CreationDate = reader.SafeGetLong(CreationDate),
+                            ModificationDate = reader.SafeGetLong(ModificationDate),
+                            Color = reader.SafeGetString(Color),
+                            Trashed = reader.SafeGetBoolFromInt(Trashed),
+                            ReminderDate = reader.SafeGetLong(ReminderDate),
+                            IsReminderOn = reader.SafeGetBoolFromInt(IsReminderOn)
+                        };
 
-                items.Add(readTask);
+                        items.Add(readTask);
+                    }
+                }
             }
-            
-            command.Dispose();
-            reader.Dispose();
+
             return items;
         }
 
@@ -591,40 +574,36 @@ namespace TodoApp2.Core
         public TaskListItemViewModel GetTask(int id)
         {
             TaskListItemViewModel readTask = null;
-            SQLiteCommand command = new SQLiteCommand
+
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Task} WHERE {Id} = {ParameterId} ;",
-                Parameters =
+                command.CommandText = $"SELECT * FROM {Task} WHERE {Id} = {ParameterId} ;";
+                command.Parameters.Add(new SQLiteParameter(ParameterId, id));
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
                 {
-                    new SQLiteParameter(ParameterId, id), 
+                    while (reader.Read())
+                    {
+                        readTask = new TaskListItemViewModel
+                        {
+                            Id = reader.SafeGetInt(Id),
+                            CategoryId = reader.SafeGetInt(CategoryId),
+                            Content = reader.SafeGetString(Content),
+                            ListOrder = reader.SafeGetLongFromString(ListOrder),
+                            IsDone = reader.SafeGetBoolFromInt(IsDone),
+                            CreationDate = reader.SafeGetLong(CreationDate),
+                            ModificationDate = reader.SafeGetLong(ModificationDate),
+                            Color = reader.SafeGetString(Color),
+                            Trashed = reader.SafeGetBoolFromInt(Trashed),
+                            ReminderDate = reader.SafeGetLong(ReminderDate),
+                            IsReminderOn = reader.SafeGetBoolFromInt(IsReminderOn),
+                        };
+
+                        break;
+                    }
                 }
-            };
-
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                readTask = new TaskListItemViewModel
-                {
-                    Id = reader.SafeGetInt(Id),
-                    CategoryId = reader.SafeGetInt(CategoryId),
-                    Content = reader.SafeGetString(Content),
-                    ListOrder = reader.SafeGetLongFromString(ListOrder),
-                    IsDone = reader.SafeGetBoolFromInt(IsDone),
-                    CreationDate = reader.SafeGetLong(CreationDate),
-                    ModificationDate = reader.SafeGetLong(ModificationDate),
-                    Color = reader.SafeGetString(Color),
-                    Trashed = reader.SafeGetBoolFromInt(Trashed),
-                    ReminderDate = reader.SafeGetLong(ReminderDate),
-                    IsReminderOn = reader.SafeGetBoolFromInt(IsReminderOn),
-                };
-
-                break;
             }
 
-            command.Dispose();
-            reader.Dispose();
             return readTask;
         }
 
@@ -636,22 +615,20 @@ namespace TodoApp2.Core
         {
             int nextId = 0;
 
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {Task} ORDER BY {Id} DESC LIMIT 1"
-            };
+                command.CommandText = $"SELECT * FROM {Task} ORDER BY {Id} DESC LIMIT 1";
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                nextId = reader.SafeGetInt(Id) + 1;
-                break;
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        nextId = reader.SafeGetInt(Id) + 1;
+                        break;
+                    }
+                }
             }
 
-            command.Dispose();
-            reader.Dispose();
             return nextId;
         }
 
@@ -680,14 +657,14 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public void AddTask(TaskListItemViewModel taskListItem)
         {
-            SQLiteCommand command = new SQLiteCommand
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"INSERT INTO {Task} " +
-                              $" ({Id}, {CategoryId}, {Content}, {ListOrder}, {IsDone}, {CreationDate}, {ModificationDate}, {Color}, {Trashed}, {ReminderDate}, {IsReminderOn}) " +
-                              $" VALUES ({ParameterId}, {ParameterCategoryId}, {ParameterContent}, {ParameterListOrder}, {ParameterIsDone}, " +
-                              $" {ParameterCreationDate}, {ParameterModificationDate}, {ParameterColor}, {ParameterTrashed}, {ParameterReminderDate}, {ParameterIsReminderOn});",
-                Parameters =
+                command.CommandText = $"INSERT INTO {Task} " +
+                                      $" ({Id}, {CategoryId}, {Content}, {ListOrder}, {IsDone}, {CreationDate}, {ModificationDate}, {Color}, {Trashed}, {ReminderDate}, {IsReminderOn}) " +
+                                      $" VALUES ({ParameterId}, {ParameterCategoryId}, {ParameterContent}, {ParameterListOrder}, {ParameterIsDone}, " +
+                                      $" {ParameterCreationDate}, {ParameterModificationDate}, {ParameterColor}, {ParameterTrashed}, {ParameterReminderDate}, {ParameterIsReminderOn});";
+
+                command.Parameters.AddRange(new[]
                 {
                     new SQLiteParameter(ParameterId, taskListItem.Id),
                     new SQLiteParameter(ParameterCategoryId, taskListItem.CategoryId),
@@ -699,12 +676,13 @@ namespace TodoApp2.Core
                     new SQLiteParameter(ParameterColor, taskListItem.Color),
                     new SQLiteParameter(ParameterTrashed, taskListItem.Trashed),
                     new SQLiteParameter(ParameterReminderDate, taskListItem.ReminderDate),
-                    new SQLiteParameter(ParameterIsReminderOn, taskListItem.IsReminderOn),
-                }
-            };
+                    new SQLiteParameter(ParameterIsReminderOn, taskListItem.IsReminderOn)
+                });
 
-            command.ExecuteReader();
-            command.Dispose();
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                }
+            }
         }
 
         /// <summary>
@@ -714,22 +692,22 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public bool UpdateTask(TaskListItemViewModel task)
         {
-            SQLiteCommand command = new SQLiteCommand
+            bool result = false;
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                Connection = m_Connection,
-                CommandText = $"UPDATE {Task} SET " +
-                              $"  {CategoryId} = {ParameterCategoryId}, " +
-                              $"  {Content} = {ParameterContent}, " +
-                              $"  {ListOrder} = {ParameterListOrder}, " +
-                              $"  {IsDone} = {ParameterIsDone}, " +
-                              $"  {CreationDate} = {ParameterCreationDate}, " +
-                              $"  {ModificationDate} = {ParameterModificationDate}, " +
-                              $"  {Color} = {ParameterColor}, " +
-                              $"  {Trashed} = {ParameterTrashed}, " +
-                              $"  {ReminderDate} = {ParameterReminderDate}, " +
-                              $"  {IsReminderOn} = {ParameterIsReminderOn} " +
-                              $" WHERE {Id} = {ParameterId};",
-                Parameters =
+                command.CommandText = $"UPDATE {Task} SET " +
+                                      $"  {CategoryId} = {ParameterCategoryId}, " +
+                                      $"  {Content} = {ParameterContent}, " +
+                                      $"  {ListOrder} = {ParameterListOrder}, " +
+                                      $"  {IsDone} = {ParameterIsDone}, " +
+                                      $"  {CreationDate} = {ParameterCreationDate}, " +
+                                      $"  {ModificationDate} = {ParameterModificationDate}, " +
+                                      $"  {Color} = {ParameterColor}, " +
+                                      $"  {Trashed} = {ParameterTrashed}, " +
+                                      $"  {ReminderDate} = {ParameterReminderDate}, " +
+                                      $"  {IsReminderOn} = {ParameterIsReminderOn} " +
+                                      $" WHERE {Id} = {ParameterId};";
+                command.Parameters.AddRange(new[]
                 {
                     new SQLiteParameter(ParameterId, task.Id),
                     new SQLiteParameter(ParameterCategoryId, task.CategoryId),
@@ -741,11 +719,12 @@ namespace TodoApp2.Core
                     new SQLiteParameter(ParameterColor, task.Color),
                     new SQLiteParameter(ParameterTrashed, task.Trashed),
                     new SQLiteParameter(ParameterReminderDate, task.ReminderDate),
-                    new SQLiteParameter(ParameterIsReminderOn, task.IsReminderOn),
-                }
-            };
-            var result = command.ExecuteNonQuery() > 0;
-            command.Dispose();
+                    new SQLiteParameter(ParameterIsReminderOn, task.IsReminderOn)
+                });
+
+                result = command.ExecuteNonQuery() > 0;
+            }
+
             return result;
         }
 
@@ -763,22 +742,21 @@ namespace TodoApp2.Core
             {
                 foreach (var task in taskList)
                 {
-                    SQLiteCommand command = new SQLiteCommand
+                    using (SQLiteCommand command = new SQLiteCommand(m_Connection))
                     {
-                        Connection = m_Connection,
-                        CommandText = $"UPDATE {Task} SET " +
-                                      $"  {CategoryId} = {ParameterCategoryId}, " +
-                                      $"  {Content} = {ParameterContent}, " +
-                                      $"  {ListOrder} = {ParameterListOrder}, " +
-                                      $"  {IsDone} = {ParameterIsDone}, " +
-                                      $"  {CreationDate} = {ParameterCreationDate}, " +
-                                      $"  {ModificationDate} = {ParameterModificationDate}, " +
-                                      $"  {Color} = {ParameterColor}, " +
-                                      $"  {Trashed} = {ParameterTrashed}, " +
-                                      $"  {ReminderDate} = {ParameterReminderDate}, " +
-                                      $"  {IsReminderOn} = {ParameterIsReminderOn} " +
-                                      $" WHERE {Id} = {ParameterId};",
-                        Parameters =
+                        command.CommandText = $"UPDATE {Task} SET " +
+                                              $"  {CategoryId} = {ParameterCategoryId}, " +
+                                              $"  {Content} = {ParameterContent}, " +
+                                              $"  {ListOrder} = {ParameterListOrder}, " +
+                                              $"  {IsDone} = {ParameterIsDone}, " +
+                                              $"  {CreationDate} = {ParameterCreationDate}, " +
+                                              $"  {ModificationDate} = {ParameterModificationDate}, " +
+                                              $"  {Color} = {ParameterColor}, " +
+                                              $"  {Trashed} = {ParameterTrashed}, " +
+                                              $"  {ReminderDate} = {ParameterReminderDate}, " +
+                                              $"  {IsReminderOn} = {ParameterIsReminderOn} " +
+                                              $" WHERE {Id} = {ParameterId};";
+                        command.Parameters.AddRange(new[]
                         {
                             new SQLiteParameter(ParameterId, task.Id),
                             new SQLiteParameter(ParameterCategoryId, task.CategoryId),
@@ -790,12 +768,11 @@ namespace TodoApp2.Core
                             new SQLiteParameter(ParameterColor, task.Color),
                             new SQLiteParameter(ParameterTrashed, task.Trashed),
                             new SQLiteParameter(ParameterReminderDate, task.ReminderDate),
-                            new SQLiteParameter(ParameterIsReminderOn, task.IsReminderOn),
-                        }
-                    };
+                            new SQLiteParameter(ParameterIsReminderOn, task.IsReminderOn)
+                        });
 
-                    modifiedItems += command.ExecuteNonQuery();
-                    command.Dispose();
+                        modifiedItems += command.ExecuteNonQuery();
+                    }
                 }
 
                 transaction.Commit();
@@ -818,21 +795,19 @@ namespace TodoApp2.Core
             {
                 foreach (var todoTask in taskList)
                 {
-                    SQLiteCommand command = new SQLiteCommand
+                    using (SQLiteCommand command = new SQLiteCommand(m_Connection))
                     {
-                        Connection = m_Connection,
-                        CommandText = $"UPDATE {Task} SET " +
-                                      $" {ListOrder} = {ParameterListOrder} " +
-                                      $" WHERE {Id} = {ParameterId};",
-                        Parameters =
+                        command.CommandText = $"UPDATE {Task} SET " +
+                                              $" {ListOrder} = {ParameterListOrder} " +
+                                              $" WHERE {Id} = {ParameterId};";
+                        command.Parameters.AddRange(new[]
                         {
                             new SQLiteParameter(ParameterId, todoTask.Id),
-                            new SQLiteParameter(ParameterListOrder, todoTask.ListOrder.ToString("D19")),
-                        }
-                    };
+                            new SQLiteParameter(ParameterListOrder, todoTask.ListOrder.ToString("D19"))
+                        });
 
-                    modifiedItems += command.ExecuteNonQuery();
-                    command.Dispose();
+                        modifiedItems += command.ExecuteNonQuery();
+                    }
                 }
 
                 transaction.Commit();
@@ -892,27 +867,29 @@ namespace TodoApp2.Core
         private long GetListOrder(string table, bool first)
         {
             string ordering = first ? string.Empty : "DESC";
-            SQLiteCommand command = new SQLiteCommand
-            {
-                Connection = m_Connection,
-                CommandText = $"SELECT * FROM {table} WHERE {Trashed} = 0 ORDER BY {ListOrder} {ordering} LIMIT 1"
-            };
+            long listOrder = DefaultListOrder;
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                return reader.SafeGetLongFromString(ListOrder);
+                command.CommandText = $"SELECT * FROM {table} WHERE {Trashed} = 0 ORDER BY {ListOrder} {ordering} LIMIT 1";
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        listOrder = reader.SafeGetLongFromString(ListOrder);
+                        break;
+                    }
+                }
             }
 
-            command.Dispose();
-            reader.Dispose();
-            return DefaultListOrder;
+            return listOrder;
         }
 
         public void Dispose()
         {
             m_Connection?.Close();
+
             m_Connection?.Dispose();
         }
     }
