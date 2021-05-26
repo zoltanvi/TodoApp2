@@ -28,7 +28,11 @@ namespace TodoApp2.Core
 
             if (online)
             {
-                m_SessionManager.AuthenticateAndGetUserInfo();
+                if (!m_SessionManager.AuthenticateAndGetUserInfo())
+                {
+                    return;
+                }
+
                 m_SessionManager.Download();
             }
             else

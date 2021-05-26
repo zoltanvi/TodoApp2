@@ -80,7 +80,7 @@ namespace TodoApp2.Core
         public void LogOut()
         {
             IoC.Database.Reinitialize(false);
-            
+
             m_UserCredential?.RevokeTokenAsync(CancellationToken.None);
             Directory.Delete(s_CredentialsFolderPath, true);
 
@@ -94,13 +94,14 @@ namespace TodoApp2.Core
 
         public void LogIn()
         {
-            AuthenticateAndGetUserInfo();
+            if (AuthenticateAndGetUserInfo())
+            {
+                IoC.Database.Reinitialize(true);
 
-            IoC.Database.Reinitialize(true);
-
-            OnPropertyChanged(nameof(IsLoggedIn));
-            OnPropertyChanged(nameof(DisplayName));
-            OnPropertyChanged(nameof(EmailAddress));
+                OnPropertyChanged(nameof(IsLoggedIn));
+                OnPropertyChanged(nameof(DisplayName));
+                OnPropertyChanged(nameof(EmailAddress));
+            }
         }
 
         public void Download()
@@ -138,7 +139,7 @@ namespace TodoApp2.Core
             string mimeType = "application/unknown";
             string ext = Path.GetExtension(fileName)?.ToLower();
             Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
-           
+
             if (regKey?.GetValue("Content Type") != null)
             {
                 mimeType = regKey.GetValue("Content Type").ToString();
@@ -194,11 +195,12 @@ namespace TodoApp2.Core
             }
         }
 
-        public void AuthenticateAndGetUserInfo()
+        public bool AuthenticateAndGetUserInfo()
         {
+            bool success = true;
             if (string.IsNullOrEmpty(m_DisplayName) || string.IsNullOrEmpty(m_EmailAddress))
             {
-                AuthenticateUser();
+                success = AuthenticateUser();
 
                 try
                 {
@@ -211,26 +213,42 @@ namespace TodoApp2.Core
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Need to reauthenticate.");
+                    success = false;
                     m_DisplayName = string.Empty;
                     m_EmailAddress = string.Empty;
                 }
             }
+
+            return success;
         }
 
-        private void AuthenticateUser()
+        private bool AuthenticateUser()
         {
+            bool success = false;
             using (var stream = new FileStream(s_Credentials, FileMode.Open, FileAccess.Read))
             {
                 var dataStorage = new FileDataStore(s_CredentialsFolderPath, true);
                 var secrets = GoogleClientSecrets.Load(stream).Secrets;
 
-                m_UserCredential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    secrets,
-                    m_Scopes,
-                    s_User,
-                    CancellationToken.None,
-                    dataStorage).Result;
+                try
+                {
+                    // 30 sec timeout.
+                    // If the login was unsuccessful during this time, the user must try it again.
+                    CancellationTokenSource cts = new CancellationTokenSource(new TimeSpan(0, 0, 30));
+
+                    m_UserCredential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        secrets,
+                        m_Scopes,
+                        s_User,
+                        cts.Token,
+                        dataStorage).Result;
+
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    success = false;
+                }
             }
 
             // Create Drive API service.
@@ -240,7 +258,7 @@ namespace TodoApp2.Core
                 ApplicationName = s_ApplicationName,
             });
 
-            m_Service.HttpClient.Timeout = TimeSpan.FromMinutes(1);
+            return success;
         }
     }
 }
