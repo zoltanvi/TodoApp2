@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
-using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using File = System.IO.File;
@@ -22,9 +20,8 @@ namespace TodoApp2.Core
         private const string s_Credentials = "credentials.json";
         private const string s_User = "user";
         private readonly string[] m_Scopes = { DriveService.Scope.Drive };
-
-        private string m_DisplayName;
         private string m_EmailAddress;
+        private bool m_IsLoggingInProgress;
 
         private DriveService m_Service;
         private UserCredential m_UserCredential;
@@ -53,29 +50,9 @@ namespace TodoApp2.Core
             }
         }
 
-        public string DisplayName
-        {
-            get
-            {
-                if (OnlineMode)
-                {
-                    AuthenticateAndGetUserInfo();
-                }
-                return m_DisplayName;
-            }
-        }
+        public string DisplayName { get; private set; }
 
-        public string EmailAddress
-        {
-            get
-            {
-                if (OnlineMode)
-                {
-                    AuthenticateAndGetUserInfo();
-                }
-                return m_EmailAddress;
-            }
-        }
+        public string EmailAddress { get; private set; }
 
         public void LogOut()
         {
@@ -84,7 +61,7 @@ namespace TodoApp2.Core
             m_UserCredential?.RevokeTokenAsync(CancellationToken.None);
             Directory.Delete(s_CredentialsFolderPath, true);
 
-            m_DisplayName = string.Empty;
+            DisplayName = string.Empty;
             m_EmailAddress = string.Empty;
 
             OnPropertyChanged(nameof(DisplayName));
@@ -92,15 +69,20 @@ namespace TodoApp2.Core
             OnPropertyChanged(nameof(IsLoggedIn));
         }
 
-        public void LogIn()
+        public async void LogIn()
         {
-            if (AuthenticateAndGetUserInfo())
+            // Prevent starting another login if one is already started
+            if (!m_IsLoggingInProgress)
             {
-                IoC.Database.Reinitialize(true);
+                if (await AuthenticateAndGetUserInfo())
+                {
+                    IoC.Database.Reinitialize(true);
 
-                OnPropertyChanged(nameof(IsLoggedIn));
-                OnPropertyChanged(nameof(DisplayName));
-                OnPropertyChanged(nameof(EmailAddress));
+                    OnPropertyChanged(nameof(IsLoggedIn));
+                    OnPropertyChanged(nameof(DisplayName));
+                    OnPropertyChanged(nameof(EmailAddress));
+                    m_IsLoggingInProgress = false;
+                }
             }
         }
 
@@ -108,7 +90,6 @@ namespace TodoApp2.Core
         {
             // Define parameters of request.
             FilesResource.ListRequest listRequest = m_Service.Files.List();
-            //listRequest.PageSize = 10;
             listRequest.Fields = "nextPageToken, files(id, name)";
 
             IList<GoogleFile> files = listRequest.Execute().Files;
@@ -133,22 +114,7 @@ namespace TodoApp2.Core
                 }
             }
         }
-
-        private static string GetMimeType(string fileName)
-        {
-            string mimeType = "application/unknown";
-            string ext = Path.GetExtension(fileName)?.ToLower();
-            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
-
-            if (regKey?.GetValue("Content Type") != null)
-            {
-                mimeType = regKey.GetValue("Content Type").ToString();
-            }
-
-            System.Diagnostics.Debug.WriteLine(mimeType);
-            return mimeType;
-        }
-
+        
         public void Upload()
         {
             if (m_Service == null)
@@ -190,17 +156,18 @@ namespace TodoApp2.Core
                     FilesResource.UpdateMediaUpload updateRequest = m_Service.Files.Update(updatedFileMetadata,
                         onlineDbFile.Id, stream, onlineDbFile.FileExtension);
                     updateRequest.Upload();
-                    //GoogleFile file = updateRequest.ResponseBody;
                 }
             }
         }
 
-        public bool AuthenticateAndGetUserInfo()
+        public async Task<bool> AuthenticateAndGetUserInfo()
         {
             bool success = true;
-            if (string.IsNullOrEmpty(m_DisplayName) || string.IsNullOrEmpty(m_EmailAddress))
+            if (string.IsNullOrEmpty(DisplayName) || string.IsNullOrEmpty(m_EmailAddress))
             {
-                success = AuthenticateUser();
+                m_IsLoggingInProgress = true;
+
+                success = await AuthenticateUserAsync();
 
                 try
                 {
@@ -208,13 +175,13 @@ namespace TodoApp2.Core
                     var aboutRequest = m_Service.About.Get();
                     aboutRequest.Fields = "user";
                     var about = aboutRequest.Execute();
-                    m_DisplayName = about.User.DisplayName;
+                    DisplayName = about.User.DisplayName;
                     m_EmailAddress = about.User.EmailAddress;
                 }
                 catch (Exception e)
                 {
                     success = false;
-                    m_DisplayName = string.Empty;
+                    DisplayName = string.Empty;
                     m_EmailAddress = string.Empty;
                 }
             }
@@ -222,7 +189,7 @@ namespace TodoApp2.Core
             return success;
         }
 
-        private bool AuthenticateUser()
+        private async Task<bool> AuthenticateUserAsync()
         {
             bool success = false;
             using (var stream = new FileStream(s_Credentials, FileMode.Open, FileAccess.Read))
@@ -236,18 +203,19 @@ namespace TodoApp2.Core
                     // If the login was unsuccessful during this time, the user must try it again.
                     CancellationTokenSource cts = new CancellationTokenSource(new TimeSpan(0, 0, 30));
 
-                    m_UserCredential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    m_UserCredential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                         secrets,
                         m_Scopes,
                         s_User,
                         cts.Token,
-                        dataStorage).Result;
+                        dataStorage);
 
                     success = true;
                 }
                 catch (Exception e)
                 {
                     success = false;
+                    m_IsLoggingInProgress = false;
                 }
             }
 
@@ -259,6 +227,21 @@ namespace TodoApp2.Core
             });
 
             return success;
+        }
+
+        private static string GetMimeType(string fileName)
+        {
+            string mimeType = "application/unknown";
+            string ext = Path.GetExtension(fileName)?.ToLower();
+            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+
+            if (regKey?.GetValue("Content Type") != null)
+            {
+                mimeType = regKey.GetValue("Content Type").ToString();
+            }
+
+            System.Diagnostics.Debug.WriteLine(mimeType);
+            return mimeType;
         }
     }
 }
