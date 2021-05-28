@@ -24,6 +24,9 @@ namespace TodoApp2.Core
 
         public static SessionManager SessionManager => Get<SessionManager>();
 
+        public static MessageService MessageService => Get<MessageService>();
+
+
         /// <summary>
         /// Gets a service from the IoC, of the specified type
         /// </summary>
@@ -41,7 +44,10 @@ namespace TodoApp2.Core
         /// </summary>
         public static void Setup()
         {
-            var sessionManager = new SessionManager();
+            var messageService = new MessageService();
+            Kernel.Bind<MessageService>().ToConstant(messageService);
+            
+            var sessionManager = new SessionManager(messageService);
             Kernel.Bind<SessionManager>().ToConstant(sessionManager);
             
             var database = new Database(sessionManager);

@@ -12,7 +12,9 @@ namespace TodoApp2.Core
         private readonly ApplicationViewModel m_Application;
         private readonly OverlayPageService m_OverlayPageService;
         private readonly CategoryListService m_CategoryListService;
-        
+        private readonly MessageService m_MessageService;
+
+
         private int m_LastRemovedId = int.MinValue;
 
         /// <summary>
@@ -40,12 +42,13 @@ namespace TodoApp2.Core
         }
 
         public CategoryPageViewModel(ApplicationViewModel applicationViewModel, IDatabase database,
-            OverlayPageService overlayPageService, CategoryListService categoryListService)
+            OverlayPageService overlayPageService, CategoryListService categoryListService, MessageService messageService)
         {
             m_Application = applicationViewModel;
             m_Database = database;
             m_OverlayPageService = overlayPageService;
             m_CategoryListService = categoryListService;
+            m_MessageService = messageService;
 
             AddCategoryCommand = new RelayCommand(AddCategory);
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
@@ -156,7 +159,7 @@ namespace TodoApp2.Core
                 }
                 else
                 {
-                    // TODO: error message
+                    m_MessageService.ShowError("Cannot delete last category.");
                 }
             }
         }

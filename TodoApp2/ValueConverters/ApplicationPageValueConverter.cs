@@ -14,6 +14,7 @@ namespace TodoApp2
         private readonly IDatabase m_Database;
         private readonly OverlayPageService m_OverlayPageService;
         private readonly CategoryListService m_CategoryListService;
+        private readonly MessageService m_MessageService;
 
         public ApplicationPageValueConverter()
         {
@@ -22,6 +23,7 @@ namespace TodoApp2
             m_Database = IoC.Database;
             m_OverlayPageService = IoC.OverlayPageService;
             m_CategoryListService = IoC.CategoryListService;
+            m_MessageService = IoC.MessageService;
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -34,7 +36,7 @@ namespace TodoApp2
 
                 case ApplicationPage.Category:
                     return new CategoryPage(new CategoryPageViewModel(m_ApplicationViewModel, m_Database,
-                        m_OverlayPageService, m_CategoryListService));
+                        m_OverlayPageService, m_CategoryListService, m_MessageService));
 
                 case ApplicationPage.Settings:
                     return new SettingsPage(new SettingsPageViewModel(m_ApplicationViewModel));

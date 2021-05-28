@@ -21,18 +21,13 @@ namespace TodoApp2.Core
             Reinitialize(sessionManager.OnlineMode);
         }
 
-        public void Reinitialize(bool online = false)
+        public async Task Reinitialize(bool online = false)
         {
             Mediator.NotifyClients(ViewModelMessages.OnlineModeChangeRequested);
             m_DataAccess?.Dispose();
 
-            if (online)
+            if (online && await m_SessionManager.AuthenticateUserAsync())
             {
-                if (!m_SessionManager.AuthenticateAndGetUserInfo().Result)
-                {
-                    return;
-                }
-
                 m_SessionManager.Download();
             }
             else
@@ -117,7 +112,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// Gets the category item with the provided ID
         /// </summary>
-        /// <param name="categoryName"></param>
+        /// <param name="categoryId"></param>
         /// <returns></returns>
         public CategoryListItemViewModel GetCategory(int categoryId)
         {

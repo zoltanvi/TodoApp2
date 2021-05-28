@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -10,168 +11,102 @@ namespace TodoApp2
     /// </summary>
     public static class FrameworkElementAnimations
     {
-        /// <summary>
-        /// Slides an element in from the right
-        /// </summary>
-        /// <param name="element">The element to animate</param>
-        /// <param name="seconds">The time the animation will take</param>
-        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
-        /// <returns></returns>
         public static async Task SlideAndFadeInFromRightAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
-            // Create the storyboard
-            Storyboard sb = new Storyboard();
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddSlideInFromRight(seconds, element.ActualWidth, keepMargin: keepMargin);
+                storyboard.AddFadeIn(seconds);
 
-            // Add slide from right animation
-            sb.AddSlideFromRight(seconds, element.ActualWidth, keepMargin: keepMargin);
-
-            // Add fade in animation
-            sb.AddFadeIn(seconds);
-
-            // Start animating
-            sb.Begin(element);
-
-            // Make page visible
-            element.Visibility = Visibility.Visible;
-
-            // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            }, seconds, keepMargin);
         }
 
-        /// <summary>
-        /// Slides an element in from the right
-        /// </summary>
-        /// <param name="element">The element to animate</param>
-        /// <param name="seconds">The time the animation will take</param>
-        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
-        /// <returns></returns>
         public static async Task SlideAndFadeInFromLeftAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
-            // Create the storyboard
-            Storyboard sb = new Storyboard();
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddSlideInFromLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
+                storyboard.AddFadeIn(seconds);
 
-            // Add slide from left animation
-            sb.AddSlideFromLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
-
-            // Add fade in animation
-            sb.AddFadeIn(seconds);
-
-            // Start animating
-            sb.Begin(element);
-
-            // Make page visible
-            element.Visibility = Visibility.Visible;
-
-            // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            }, seconds, keepMargin);
         }
 
-        /// <summary>
-        /// Slides an element out to the left
-        /// </summary>
-        /// <param name="element">The element to animate</param>
-        /// <param name="seconds">The time the animation will take</param>
-        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
-        /// <returns></returns>
         public static async Task SlideAndFadeOutToLeftAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
-            // Create the storyboard
-            Storyboard sb = new Storyboard();
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddSlideOutToLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
+                storyboard.AddFadeOut(seconds);
 
-            // Add slide to left animation
-            sb.AddSlideToLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
-
-            // Add fade in animation
-            sb.AddFadeOut(seconds);
-
-            // Start animating
-            sb.Begin(element);
-
-            // Make page visible
-            element.Visibility = Visibility.Visible;
-
-            // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            }, seconds, keepMargin);
         }
 
-        /// <summary>
-        /// Slides an element out to the right
-        /// </summary>
-        /// <param name="element">The element to animate</param>
-        /// <param name="seconds">The time the animation will take</param>
-        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
-        /// <returns></returns>
         public static async Task SlideAndFadeOutToRightAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
-            // Create the storyboard
-            Storyboard sb = new Storyboard();
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddSlideOutToRight(seconds, element.ActualWidth, keepMargin: keepMargin);
+                storyboard.AddFadeOut(seconds);
 
-            // Add slide to right animation
-            sb.AddSlideToRight(seconds, element.ActualWidth, keepMargin: keepMargin);
-
-            // Add fade in animation
-            sb.AddFadeOut(seconds);
-
-            // Start animating
-            sb.Begin(element);
-
-            // Make page visible
-            element.Visibility = Visibility.Visible;
-
-            // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            }, seconds, keepMargin);
         }
 
-        /// <summary>
-        /// Fades an element in
-        /// </summary>
-        /// <param name="element">The element to animate</param>
-        /// <param name="seconds">The time the animation will take</param>
-        /// <returns></returns>
+        public static async Task SlideInFromBottomAsync(this FrameworkElement element, float seconds = 0.3f)
+        {
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddSlideFromBottom(seconds, element.ActualHeight);
+
+            }, seconds);
+        }
+
+        public static async Task SlideOutToBottomAsync(this FrameworkElement element, float seconds = 0.3f)
+        {
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddSlideToBottom(seconds, element.ActualHeight);
+
+            }, seconds);
+        }
+
+        public static async Task SlideInFromTopAsync(this FrameworkElement element, float seconds = 0.3f)
+        {
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddSlideFromTop(seconds, element.ActualHeight);
+
+            }, seconds);
+        }
+
+        public static async Task SlideOutToTopAsync(this FrameworkElement element, float seconds = 0.3f)
+        {
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddSlideToTop(seconds, element.ActualHeight);
+
+            }, seconds);
+        }
+
         public static async Task FadeInAsync(this FrameworkElement element, float seconds = 0.3f)
         {
-            // Create the storyboard
-            Storyboard sb = new Storyboard();
-
             element.ShowElement();
 
-            // Add fade in animation
-            sb.AddFadeIn(seconds);
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddFadeIn(seconds);
 
-            // Start animating
-            sb.Begin(element);
-
-            // Make element visible
-            element.Visibility = Visibility.Visible;
-
-            // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            }, seconds);
 
             element.ShowElement();
         }
 
-        /// <summary>
-        /// Fades an element out
-        /// </summary>
-        /// <param name="element">The element to animate</param>
-        /// <param name="seconds">The time the animation will take</param>
-        /// <returns></returns>
         public static async Task FadeOutAsync(this FrameworkElement element, float seconds = 0.3f)
         {
-            // Create the storyboard
-            Storyboard sb = new Storyboard();
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddFadeOut(seconds);
 
-            // Add fade in animation
-            sb.AddFadeOut(seconds);
-
-            // Start animating
-            sb.Begin(element);
-
-            // Make element visible
-            element.Visibility = Visibility.Visible;
-
-            // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            }, seconds);
 
             element.HideElement();
         }
@@ -244,6 +179,19 @@ namespace TodoApp2
             sb.Begin(element);
 
             // Make element visible
+            element.Visibility = Visibility.Visible;
+
+            // Wait for it to finish
+            await Task.Delay((int)(seconds * 1000));
+        }
+
+        private static async Task DoAnimation(this FrameworkElement element, Action<Storyboard> animationFunc, float seconds = 0.3f, bool keepMargin = true)
+        {
+            Storyboard sb = new Storyboard();
+
+            animationFunc.Invoke(sb);
+
+            sb.Begin(element);
             element.Visibility = Visibility.Visible;
 
             // Wait for it to finish

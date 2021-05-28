@@ -14,6 +14,7 @@ namespace TodoApp2
         public static CategoryListService CategoryListService => IoC.CategoryListService;
         public static TaskListService TaskListService => IoC.TaskListService;
         public static SessionManager SessionManager => IoC.SessionManager;
+        public static MessageService MessageService => IoC.MessageService;
 
         public static ColorListProvider ColorListProvider { get; } = new ColorListProvider();
         public static EnumValuesListProvider<Theme> ThemeListProvider { get; } = new EnumValuesListProvider<Theme>();

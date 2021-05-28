@@ -9,13 +9,6 @@
     <FontFamily x:Key="UbuntuBold">pack://application;,,,/Fonts/#Ubuntu Bold</FontFamily>
     <FontFamily x:Key="SegoeMDL2Assets">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
 
-    <Style x:Key="BaseStyle" TargetType="{x:Type Control}" />
-
-    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type Button}" />
-    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type Label}" />
-    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type TextBox}" />
-    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type ListView}" />
-
     <!--  Button icon characters  -->
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
     <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>

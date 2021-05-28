@@ -144,10 +144,6 @@
             <!--  Overlay background  -->
             <local:OverlayBackgroundControl AutomationProperties.AutomationId="OverlayBackgroundControl" />
 
-            <!--
-                local:AnimateFadeInProperty.Value="{Binding OverlayPageService.OverlayBackgroundVisible,
-                Source={x:Static local:ViewModelLocator.Instance}}" />
-            -->
 
             <!--  Navigator menu panel  -->
             <local:SideMenuControl local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}" AutomationProperties.AutomationId="SideMenuControl">
@@ -158,7 +154,34 @@
                     AutomationProperties.AutomationId="SideMenuPage"
                     Content="{Binding}"
                     DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
+
             </local:SideMenuControl>
+
+            <Grid VerticalAlignment="Top" local:AnimateSlideInFromTopProperty.Value="{Binding MessageService.MessageLineVisible, Source={x:Static local:ViewModelLocator.Instance}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Margin="10"
+                    Grid.Column="1"
+                    MaxHeight="100"
+                    CornerRadius="2"
+                    SnapsToDevicePixels="True"
+                    Background="{Binding MessageService.BackgroundColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}">
+                    <TextBlock
+                        Margin="10 0"
+                        TextWrapping="Wrap"
+                        FontSize="{StaticResource FontSizeMedium}"
+                        FontFamily="Segoe UI"
+                        Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{Binding MessageService.TextColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}" />
+                </Border>
+            </Grid>
+
         </Grid>
     </Border>
 </Window>

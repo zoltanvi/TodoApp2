@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -20,53 +19,41 @@ namespace TodoApp2.Core
         private const string s_Credentials = "credentials.json";
         private const string s_User = "user";
         private readonly string[] m_Scopes = { DriveService.Scope.Drive };
-        private string m_EmailAddress;
         private bool m_IsLoggingInProgress;
 
-        private DriveService m_Service;
+        private DriveService m_DriveService;
         private UserCredential m_UserCredential;
+        private readonly MessageService m_MessageService;
 
-        public bool IsLoggedIn
+        public SessionManager(MessageService messageService)
         {
-            get
-            {
-                bool loggedIn = false;
-
-                if (OnlineMode)
-                {
-                    loggedIn = DisplayName != string.Empty && EmailAddress != string.Empty;
-                }
-
-                return loggedIn;
-            }
+            m_MessageService = messageService;
         }
 
-        public bool OnlineMode
+        public string DisplayName { get; private set; } = string.Empty;
+        public string EmailAddress { get; private set; } = string.Empty;
+        public bool IsLoggedIn => OnlineMode && 
+                                  !string.IsNullOrEmpty(DisplayName) && 
+                                  !string.IsNullOrEmpty(EmailAddress);
+        public bool OnlineMode => Directory.Exists(s_CredentialsFolderPath) &&
+                                  Directory.EnumerateFiles(s_CredentialsFolderPath)
+                                      .Any(f => f.EndsWith("TokenResponse-user"));
+
+        public async void LogOut()
         {
-            get
-            {
-                var exists = Directory.Exists(s_CredentialsFolderPath);
-                return exists && Directory.EnumerateFiles(s_CredentialsFolderPath).Any(f => f.EndsWith("TokenResponse-user"));
-            }
-        }
+            await IoC.Database.Reinitialize();
 
-        public string DisplayName { get; private set; }
-
-        public string EmailAddress { get; private set; }
-
-        public void LogOut()
-        {
-            IoC.Database.Reinitialize(false);
-
-            m_UserCredential?.RevokeTokenAsync(CancellationToken.None);
+            await m_UserCredential.RevokeTokenAsync(CancellationToken.None);
             Directory.Delete(s_CredentialsFolderPath, true);
 
             DisplayName = string.Empty;
-            m_EmailAddress = string.Empty;
+            EmailAddress = string.Empty;
 
             OnPropertyChanged(nameof(DisplayName));
             OnPropertyChanged(nameof(EmailAddress));
             OnPropertyChanged(nameof(IsLoggedIn));
+            m_IsLoggingInProgress = false;
+            m_MessageService.ShowSuccess("Logged out successfully.", TimeSpan.FromSeconds(3));
         }
 
         public async void LogIn()
@@ -74,124 +61,102 @@ namespace TodoApp2.Core
             // Prevent starting another login if one is already started
             if (!m_IsLoggingInProgress)
             {
-                if (await AuthenticateAndGetUserInfo())
+                m_MessageService.ShowInfo("Login started.", TimeSpan.FromSeconds(3));
+                
+                if (await AuthenticateUserAsync())
                 {
-                    IoC.Database.Reinitialize(true);
+                    await IoC.Database.Reinitialize(true);
 
                     OnPropertyChanged(nameof(IsLoggedIn));
                     OnPropertyChanged(nameof(DisplayName));
                     OnPropertyChanged(nameof(EmailAddress));
                     m_IsLoggingInProgress = false;
+                    m_MessageService.ShowSuccess("Logged in successfully.", TimeSpan.FromSeconds(3));
                 }
+            }
+            else
+            {
+                m_MessageService.ShowWarning("Login in progress.", TimeSpan.FromSeconds(2));
             }
         }
 
         public void Download()
         {
-            // Define parameters of request.
-            FilesResource.ListRequest listRequest = m_Service.Files.List();
-            listRequest.Fields = "nextPageToken, files(id, name)";
-
-            IList<GoogleFile> files = listRequest.Execute().Files;
-
-            GoogleFile onlineDbFile = files.FirstOrDefault(f => f.Name == DataAccessLayer.OnlineDatabaseName);
-
-            if (onlineDbFile != null)
+            if (SafeGetServerDatabaseFile(out var onlineDatabaseFile))
             {
-                // Download file
-                using (var stream = new FileStream(DataAccessLayer.OnlineDatabasePath, FileMode.OpenOrCreate))
+                if (onlineDatabaseFile != null)
                 {
-                    Google.Apis.Download.IDownloadProgress asd = m_Service.Files.Get(onlineDbFile.Id).DownloadWithStatus(stream);
+                    // Download file
+                    using (var stream = new FileStream(DataAccessLayer.OnlineDatabasePath, FileMode.OpenOrCreate))
+                    {
+                        var progress = m_DriveService.Files.Get(onlineDatabaseFile.Id).DownloadWithStatus(stream);
+                    }
                 }
-            }
-            else
-            {
-                // If there is nothing on the server yet, delete the existing online db file.
-                // It is probably from other account.
-                if (File.Exists(DataAccessLayer.OnlineDatabasePath))
+                else
                 {
-                    File.Delete(DataAccessLayer.OnlineDatabasePath);
+                    // If there is nothing on the server yet, delete the existing online db file.
+                    // It is probably from other account.
+                    if (File.Exists(DataAccessLayer.OnlineDatabasePath))
+                    {
+                        File.Delete(DataAccessLayer.OnlineDatabasePath);
+                    }
                 }
             }
         }
-        
+
         public void Upload()
         {
-            if (m_Service == null)
+            // If the list request could not be executed, skip uploading
+            if (m_DriveService != null && SafeGetServerDatabaseFile(out var onlineDatabaseFile))
             {
-                return;
-            }
-
-            // Define parameters of request.
-            FilesResource.ListRequest listRequest = m_Service.Files.List();
-            listRequest.Fields = "nextPageToken, files(id, name)";
-
-            IList<GoogleFile> files = listRequest.Execute().Files;
-
-            GoogleFile onlineDbFile = files.FirstOrDefault(f => f.Name == DataAccessLayer.OnlineDatabaseName);
-
-            if (onlineDbFile == null)
-            {
-                onlineDbFile = new GoogleFile
+                if (onlineDatabaseFile == null)
                 {
-                    Name = DataAccessLayer.OnlineDatabaseName
-                };
+                    // Upload file to google drive
+                    onlineDatabaseFile = new GoogleFile { Name = DataAccessLayer.OnlineDatabaseName };
 
-                byte[] byteArray = System.IO.File.ReadAllBytes(DataAccessLayer.OnlineDatabasePath);
-
-                using (var stream = new MemoryStream(byteArray))
-                {
-                    FilesResource.CreateMediaUpload uploadRequest = m_Service.Files.Create(onlineDbFile, stream,
-                        GetMimeType(DataAccessLayer.OnlineDatabasePath));
-                    uploadRequest.Upload();
+                    using (var stream = new FileStream(DataAccessLayer.OnlineDatabasePath, FileMode.OpenOrCreate))
+                    {
+                        var uploadRequest = m_DriveService.Files.Create(onlineDatabaseFile, stream, null);
+                        uploadRequest.Upload();
+                    }
                 }
-            }
-            else
-            {
-                // Update file on google drive
-                GoogleFile updatedFileMetadata = new GoogleFile { Name = onlineDbFile.Name };
-
-                using (var stream = new FileStream(DataAccessLayer.OnlineDatabasePath, FileMode.OpenOrCreate))
+                else
                 {
-                    FilesResource.UpdateMediaUpload updateRequest = m_Service.Files.Update(updatedFileMetadata,
-                        onlineDbFile.Id, stream, onlineDbFile.FileExtension);
-                    updateRequest.Upload();
+                    // Update file on google drive
+                    GoogleFile updatedFileMetadata = new GoogleFile { Name = onlineDatabaseFile.Name };
+
+                    using (var stream = new FileStream(DataAccessLayer.OnlineDatabasePath, FileMode.OpenOrCreate))
+                    {
+                        var updateRequest = m_DriveService.Files.Update(updatedFileMetadata, onlineDatabaseFile.Id, stream, null);
+                        updateRequest.Upload();
+                    }
                 }
             }
         }
 
-        public async Task<bool> AuthenticateAndGetUserInfo()
+        public async Task<bool> AuthenticateUserAsync()
         {
-            bool success = true;
-            if (string.IsNullOrEmpty(DisplayName) || string.IsNullOrEmpty(m_EmailAddress))
+            bool success = false;
+            if (string.IsNullOrEmpty(DisplayName) || string.IsNullOrEmpty(EmailAddress))
             {
                 m_IsLoggingInProgress = true;
-
-                success = await AuthenticateUserAsync();
-
-                try
+                
+                if (await TryAuthenticateUserAsync())
                 {
-                    // Get username 
-                    var aboutRequest = m_Service.About.Get();
-                    aboutRequest.Fields = "user";
-                    var about = aboutRequest.Execute();
-                    DisplayName = about.User.DisplayName;
-                    m_EmailAddress = about.User.EmailAddress;
-                }
-                catch (Exception e)
-                {
-                    success = false;
-                    DisplayName = string.Empty;
-                    m_EmailAddress = string.Empty;
+                    success = UpdateUserInfo();
                 }
             }
 
             return success;
         }
 
-        private async Task<bool> AuthenticateUserAsync()
+        /// <summary>
+        /// Authenticates the user. May require user action!
+        /// </summary>
+        /// <returns>Returns true if the user authentication was successful, false otherwise.</returns>
+        private async Task<bool> TryAuthenticateUserAsync()
         {
-            bool success = false;
+            bool success = true;
             using (var stream = new FileStream(s_Credentials, FileMode.Open, FileAccess.Read))
             {
                 var dataStorage = new FileDataStore(s_CredentialsFolderPath, true);
@@ -209,18 +174,23 @@ namespace TodoApp2.Core
                         s_User,
                         cts.Token,
                         dataStorage);
-
-                    success = true;
+                }
+                catch (OperationCanceledException e)
+                {
+                    success = false;
+                    m_IsLoggingInProgress = false;
+                    m_MessageService.ShowError("Login timed out. Please try again!");
                 }
                 catch (Exception e)
                 {
                     success = false;
                     m_IsLoggingInProgress = false;
+                    m_MessageService.ShowError("Login failed.");
                 }
             }
 
             // Create Drive API service.
-            m_Service = new DriveService(new BaseClientService.Initializer()
+            m_DriveService = new DriveService(new BaseClientService.Initializer
             {
                 HttpClientInitializer = m_UserCredential,
                 ApplicationName = s_ApplicationName,
@@ -229,19 +199,56 @@ namespace TodoApp2.Core
             return success;
         }
 
-        private static string GetMimeType(string fileName)
+        /// <summary>
+        /// Gets the database file from google drive.
+        /// </summary>
+        /// <param name="onlineDatabaseFile">The database file. Null if getting it was not successful.</param>
+        /// <returns>Returns true if getting the file was successful, false otherwise.</returns>
+        private bool SafeGetServerDatabaseFile(out GoogleFile onlineDatabaseFile)
         {
-            string mimeType = "application/unknown";
-            string ext = Path.GetExtension(fileName)?.ToLower();
-            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+            FilesResource.ListRequest listRequest = m_DriveService.Files.List();
+            listRequest.Fields = "nextPageToken, files(id, name)";
 
-            if (regKey?.GetValue("Content Type") != null)
+            bool success = true;
+            onlineDatabaseFile = null;
+
+            try
             {
-                mimeType = regKey.GetValue("Content Type").ToString();
+                var files = listRequest.Execute().Files;
+                onlineDatabaseFile = files?.FirstOrDefault(f => f.Name == DataAccessLayer.OnlineDatabaseName);
+            }
+            catch (Exception e)
+            {
+                success = false;
             }
 
-            System.Diagnostics.Debug.WriteLine(mimeType);
-            return mimeType;
+            return success;
+        }
+
+        /// <summary>
+        /// Updates the user info (<see cref="DisplayName"/>, <see cref="EmailAddress"/>).
+        /// </summary>
+        /// <returns>Returns true if updating the user info was successful, false otherwise.</returns>
+        private bool UpdateUserInfo()
+        {
+            bool success = true;
+            try
+            {
+                var aboutRequest = m_DriveService.About.Get();
+                aboutRequest.Fields = "user";
+                var about = aboutRequest.Execute();
+
+                DisplayName = about.User.DisplayName;
+                EmailAddress = about.User.EmailAddress;
+            }
+            catch (Exception e)
+            {
+                success = false;
+                DisplayName = string.Empty;
+                EmailAddress = string.Empty;
+            }
+
+            return success;
         }
     }
 }

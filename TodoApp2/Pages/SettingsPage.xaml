@@ -256,7 +256,7 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                    Version 1.0.6
+                                    Version 1.1.0
                                 </TextBlock>
                             </Border>
                         </Grid>
