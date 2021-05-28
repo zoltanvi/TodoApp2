@@ -73,6 +73,10 @@ namespace TodoApp2.Core
                     m_IsLoggingInProgress = false;
                     m_MessageService.ShowSuccess("Logged in successfully.", TimeSpan.FromSeconds(3));
                 }
+                else
+                {
+                    m_MessageService.ShowError("Login failed. Please check the network connection!");
+                }
             }
             else
             {
@@ -144,6 +148,10 @@ namespace TodoApp2.Core
                 if (await TryAuthenticateUserAsync())
                 {
                     success = UpdateUserInfo();
+                    if (!success)
+                    {
+                        m_IsLoggingInProgress = false;
+                    }
                 }
             }
 

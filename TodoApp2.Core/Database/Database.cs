@@ -12,12 +12,15 @@ namespace TodoApp2.Core
     {
         private DataAccessLayer m_DataAccess;
         private readonly SessionManager m_SessionManager;
+        private readonly MessageService m_MessageService;
 
         public event EventHandler<TaskChangedEventArgs> TaskChanged;
 
-        public Database(SessionManager sessionManager)
+        public Database(SessionManager sessionManager, MessageService messageService)
         {
             m_SessionManager = sessionManager;
+            m_MessageService = messageService;
+
             Reinitialize(sessionManager.OnlineMode);
         }
 
@@ -26,7 +29,16 @@ namespace TodoApp2.Core
             Mediator.NotifyClients(ViewModelMessages.OnlineModeChangeRequested);
             m_DataAccess?.Dispose();
 
-            if (online && await m_SessionManager.AuthenticateUserAsync())
+            if (online)
+            {
+                if (!await m_SessionManager.AuthenticateUserAsync())
+                {
+                    online = false;
+                    m_MessageService.ShowError("User could not be authenticated.\nPlease check the network connection!\nSwitched to offline mode.", TimeSpan.FromSeconds(10));
+                }
+            }
+
+            if (online)
             {
                 m_SessionManager.Download();
             }
