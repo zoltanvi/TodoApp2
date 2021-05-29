@@ -20,6 +20,7 @@ namespace TodoApp2.Core
         private const string s_User = "user";
         private readonly string[] m_Scopes = { DriveService.Scope.Drive };
         private bool m_IsLoggingInProgress;
+        private bool m_IsAuthenticated;
 
         private DriveService m_DriveService;
         private UserCredential m_UserCredential;
@@ -43,7 +44,14 @@ namespace TodoApp2.Core
         {
             await IoC.Database.Reinitialize();
 
-            await m_UserCredential.RevokeTokenAsync(CancellationToken.None);
+            try
+            {
+                await m_UserCredential.RevokeTokenAsync(CancellationToken.None);
+            }
+            catch (Exception e)
+            {
+                // This isn't much of an error, the directory gets deleted anyway.
+            }
             Directory.Delete(s_CredentialsFolderPath, true);
 
             DisplayName = string.Empty;
@@ -53,6 +61,7 @@ namespace TodoApp2.Core
             OnPropertyChanged(nameof(EmailAddress));
             OnPropertyChanged(nameof(IsLoggedIn));
             m_IsLoggingInProgress = false;
+            m_IsAuthenticated = false;
             m_MessageService.ShowSuccess("Logged out successfully.", TimeSpan.FromSeconds(3));
         }
 
@@ -70,7 +79,7 @@ namespace TodoApp2.Core
                     OnPropertyChanged(nameof(IsLoggedIn));
                     OnPropertyChanged(nameof(DisplayName));
                     OnPropertyChanged(nameof(EmailAddress));
-                    m_IsLoggingInProgress = false;
+
                     m_MessageService.ShowSuccess("Logged in successfully.", TimeSpan.FromSeconds(3));
                 }
                 else
@@ -140,18 +149,13 @@ namespace TodoApp2.Core
 
         public async Task<bool> AuthenticateUserAsync()
         {
-            bool success = false;
-            if (string.IsNullOrEmpty(DisplayName) || string.IsNullOrEmpty(EmailAddress))
+            bool success = m_IsAuthenticated;
+            if (!m_IsAuthenticated)
             {
-                m_IsLoggingInProgress = true;
-                
                 if (await TryAuthenticateUserAsync())
                 {
                     success = UpdateUserInfo();
-                    if (!success)
-                    {
-                        m_IsLoggingInProgress = false;
-                    }
+                    m_IsAuthenticated &= success;
                 }
             }
 
@@ -164,6 +168,7 @@ namespace TodoApp2.Core
         /// <returns>Returns true if the user authentication was successful, false otherwise.</returns>
         private async Task<bool> TryAuthenticateUserAsync()
         {
+            m_IsLoggingInProgress = true;
             bool success = true;
             using (var stream = new FileStream(s_Credentials, FileMode.Open, FileAccess.Read))
             {
@@ -186,13 +191,11 @@ namespace TodoApp2.Core
                 catch (OperationCanceledException e)
                 {
                     success = false;
-                    m_IsLoggingInProgress = false;
                     m_MessageService.ShowError("Login timed out. Please try again!");
                 }
                 catch (Exception e)
                 {
                     success = false;
-                    m_IsLoggingInProgress = false;
                     m_MessageService.ShowError("Login failed.");
                 }
             }
@@ -204,6 +207,7 @@ namespace TodoApp2.Core
                 ApplicationName = s_ApplicationName,
             });
 
+            m_IsLoggingInProgress = false;
             return success;
         }
 
