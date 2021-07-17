@@ -73,7 +73,7 @@ namespace TodoApp2
         {
             await DoAnimation(element, storyboard =>
             {
-                storyboard.AddSlideFromTop(seconds, element.ActualHeight);
+                storyboard.AddSlideFromTop(seconds, element.ActualHeight + 40);
 
             }, seconds);
         }
@@ -82,7 +82,7 @@ namespace TodoApp2
         {
             await DoAnimation(element, storyboard =>
             {
-                storyboard.AddSlideToTop(seconds, element.ActualHeight);
+                storyboard.AddSlideToTop(seconds, element.ActualHeight + 40);
 
             }, seconds);
         }

@@ -18,7 +18,6 @@ namespace TodoApp2
         private readonly WindowResizer m_Resizer;
         private readonly ThemeManager m_ThemeManager;
         private int m_OuterMarginSize = 2;
-        private int m_WindowRadius = 0;
 
         private readonly TaskListService m_TaskListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
@@ -56,7 +55,7 @@ namespace TodoApp2
         /// <summary>
         /// The size of the resize border around the window
         /// </summary>
-        public int ResizeBorder => m_Window.WindowState == WindowState.Maximized ? 0 : 4;
+        public int ResizeBorder => m_Window.WindowState == WindowState.Maximized ? 0 : 5;
 
         /// <summary>
         /// The size of the resize border around the window, taking into account the outer margin
@@ -79,24 +78,15 @@ namespace TodoApp2
         public Thickness OuterMarginThickness => new Thickness(OuterMarginSize);
 
         /// <summary>
-        /// The radius of the edges of the window
+        /// The radius of the edges of the window.
+        /// If it is maximized or docked, no border
         /// </summary>
-        public int WindowRadius
-        {
-            // If it is maximized or docked, no border
-            get => Borderless ? 0 : m_WindowRadius;
-            set => m_WindowRadius = value;
-        }
+        public int WindowRadius => Borderless ? 0 : ApplicationSettings.WindowCornerRadius;
 
         /// <summary>
         /// True if the window should be borderless because it is docked or maximized
         /// </summary>
         public bool Borderless => IsDocked || m_Window.WindowState == WindowState.Maximized || m_DockPosition != WindowDockPosition.Undocked;
-
-        /// <summary>
-        /// The radius of the edges of the window
-        /// </summary>
-        public CornerRadius WindowCornerRadius => new CornerRadius(WindowRadius);
 
         /// <summary>
         /// The height of the title bar / caption of the window
@@ -238,7 +228,6 @@ namespace TodoApp2
             OnPropertyChanged(nameof(ResizeBorderThickness));
             OnPropertyChanged(nameof(OuterMarginSize));
             OnPropertyChanged(nameof(OuterMarginThickness));
-            OnPropertyChanged(nameof(WindowCornerRadius));
             OnPropertyChanged(nameof(WindowRadius));
             WindowResized();
         }
@@ -332,7 +321,6 @@ namespace TodoApp2
             OnPropertyChanged(nameof(OuterMarginSize));
             OnPropertyChanged(nameof(OuterMarginThickness));
             OnPropertyChanged(nameof(WindowRadius));
-            OnPropertyChanged(nameof(WindowCornerRadius));
         }
 
         /// <summary>

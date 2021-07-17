@@ -12,7 +12,7 @@
     x:TypeArguments="core:CategoryPageViewModel"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Margin="0 10 0 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="44" />
@@ -39,6 +39,8 @@
 
                 <!--  Logged in button  -->
                 <Button
+                    Margin="5"
+                    Height="60"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Style="{DynamicResource ButtonLoginStyle}"
@@ -79,6 +81,8 @@
 
                 <!--  Log in button  -->
                 <Button
+                    Margin="5"
+                    Height="60"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Command="{Binding LogInCommand}"
@@ -116,12 +120,13 @@
                 </Button>
 
                 <Button
+                    Margin="5"
                     Grid.Column="2"
                     AutomationProperties.AutomationId="SettingsButton"
                     Command="{Binding OpenSettingsPageCommand}"
                     Content="{DynamicResource SegoeIconSettings}"
                     Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
-                    Width="38" />
+                    Width="50" />
 
             </Grid>
 
@@ -133,6 +138,14 @@
         </Grid>
         <!--  ADD NEW CATEGORY  -->
         <Border Grid.Row="1" Background="{DynamicResource SideMenuBottomBarBackgroundBrush}">
+            <Border.CornerRadius>
+                <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                </MultiBinding>
+            </Border.CornerRadius>
             <TextBox
                 MinWidth="240"
                 Margin="10 0 10 0"

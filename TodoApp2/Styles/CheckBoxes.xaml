@@ -93,7 +93,7 @@
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="optionMark" Property="Opacity" Value="1" />
                             <Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource CheckBoxCheckBrush}" />
-                            <Setter TargetName="optionMark" Property="Margin" Value="1" />
+                            <Setter TargetName="optionMark" Property="Margin" Value="1 2.5 0 0" />
                             <!--<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource TaskItemBackgroundBrush}" />-->
                             <!--<Setter TargetName="checkBoxBorder" Property="BorderThickness" Value="2" />-->
                         </Trigger>

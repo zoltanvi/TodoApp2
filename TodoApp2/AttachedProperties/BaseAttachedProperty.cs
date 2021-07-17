@@ -6,10 +6,10 @@ namespace TodoApp2
     /// <summary>
     /// A base attached property to replace the vanilla WPF attached property
     /// </summary>
-    /// <typeparam name="Parent">The parent class to be the attached property</typeparam>
-    /// <typeparam name="Property">The type of this attached property</typeparam>
-    public abstract class BaseAttachedProperty<Parent, Property>
-        where Parent : BaseAttachedProperty<Parent, Property>, new()
+    /// <typeparam name="TParent">The parent class to be the attached property</typeparam>
+    /// <typeparam name="TProperty">The type of this attached property</typeparam>
+    public abstract class BaseAttachedProperty<TParent, TProperty>
+        where TParent : BaseAttachedProperty<TParent, TProperty>, new()
     {
         #region Public Events
 
@@ -30,7 +30,7 @@ namespace TodoApp2
         /// <summary>
         /// A singleton instance of our parent class
         /// </summary>
-        public static Parent Instance { get; private set; } = new Parent();
+        public static TParent Instance { get; } = new TParent();
 
         #endregion Public Properties
 
@@ -41,10 +41,10 @@ namespace TodoApp2
         /// </summary>
         public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(
             "Value",
-            typeof(Property),
-            typeof(BaseAttachedProperty<Parent, Property>),
+            typeof(TProperty),
+            typeof(BaseAttachedProperty<TParent, TProperty>),
             new UIPropertyMetadata(
-                default(Property),
+                default(TProperty),
                 new PropertyChangedCallback(OnValuePropertyChanged),
                 new CoerceValueCallback(OnValuePropertyUpdated)
                 ));
@@ -85,14 +85,14 @@ namespace TodoApp2
         /// </summary>
         /// <param name="d">The element to get the property from</param>
         /// <returns></returns>
-        public static Property GetValue(DependencyObject d) => (Property)d.GetValue(ValueProperty);
+        public static TProperty GetValue(DependencyObject d) => (TProperty)d.GetValue(ValueProperty);
 
         /// <summary>
         /// Sets the attached property
         /// </summary>
         /// <param name="d">The element to get the property from</param>
         /// <param name="value">The value to set the property to</param>
-        public static void SetValue(DependencyObject d, Property value) => d.SetValue(ValueProperty, value);
+        public static void SetValue(DependencyObject d, TProperty value) => d.SetValue(ValueProperty, value);
 
         #endregion Attached Property Definitions
 

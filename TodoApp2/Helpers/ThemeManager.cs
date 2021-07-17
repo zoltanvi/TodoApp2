@@ -53,6 +53,11 @@ namespace TodoApp2
                     fullPath += "LightTheme.xaml";
                     break;
                 }
+                case Theme.White:
+                {
+                    fullPath += "WhiteTheme.xaml";
+                    break;
+                }
                 case Theme.Beige:
                 {
                     fullPath += "BeigeTheme.xaml";

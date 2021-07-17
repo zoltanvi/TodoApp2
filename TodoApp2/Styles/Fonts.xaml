@@ -9,6 +9,12 @@
     <FontFamily x:Key="UbuntuBold">pack://application;,,,/Fonts/#Ubuntu Bold</FontFamily>
     <FontFamily x:Key="SegoeMDL2Assets">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
 
+    <FontFamily x:Key="SegoeUIVariable">pack://application;,,,/Fonts/#Segoe-UI-Variable-Static-Text</FontFamily>
+    <FontFamily x:Key="SegoeUIVariableLight">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Light</FontFamily>
+    <FontFamily x:Key="SegoeUIVariableBold">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Bold</FontFamily>
+    <FontFamily x:Key="SegoeUIVariableSemilight">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Semilight</FontFamily>
+    <FontFamily x:Key="SegoeUIVariableSemibold">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Semibold</FontFamily>
+
     <!--  Button icon characters  -->
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
     <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>

@@ -45,182 +45,132 @@
 
                 <Border Name="SettingsPanel" Background="Transparent">
 
-                    <Grid Margin="15">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                            <!--  Margin  -->
-                            <RowDefinition Height="15" />
-                            <!--  Version  -->
-                            <RowDefinition Height="20" />
-                        </Grid.RowDefinitions>
+                    <StackPanel Margin="15" Orientation="Vertical">
 
-                        <Grid>
-                            <Grid.RowDefinitions>
-
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
-
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
-
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
-
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
-
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-
-                            <!--  Always on top ==========================================  -->
+                        <!--  Always on top  -->
+                        <StackPanel
+                            Height="20"
+                            Margin="0 0 0 10"
+                            Orientation="Horizontal">
                             <ToggleButton
                                 Name="AlwaysOnTopToggle"
-                                Grid.Row="0"
-                                Grid.Column="0"
+                                Margin="0 0 20 0"
                                 IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                                 Style="{DynamicResource ToggleSideMenuStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Always on top" />
+                        </StackPanel>
 
-                            <TextBlock
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                Style="{DynamicResource SettingsDescriptionStyle}"
-                                Text="Always on top" />
-
-                            <!--  Quick actions ==========================================  -->
+                        <!--  Quick actions  -->
+                        <StackPanel
+                            Height="20"
+                            Margin="0 0 0 10"
+                            Orientation="Horizontal">
                             <ToggleButton
                                 Name="QuickActionsToggle"
-                                Grid.Row="2"
-                                Grid.Column="0"
+                                Margin="0 0 20 0"
                                 IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                                 Style="{DynamicResource ToggleSideMenuStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Quick actions on items" />
+                        </StackPanel>
 
-                            <TextBlock
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Style="{DynamicResource SettingsDescriptionStyle}"
-                                Text="Quick actions on items" />
-
-                            <!--  Item background ==========================================  -->
+                        <!--  Item background  -->
+                        <StackPanel
+                            Height="20"
+                            Margin="0 0 0 10"
+                            Orientation="Horizontal">
                             <ToggleButton
                                 Name="ItemBackgroundEnabledToggle"
-                                Grid.Row="4"
-                                Grid.Column="0"
+                                Margin="0 0 20 0"
                                 IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                                 Style="{DynamicResource ToggleSideMenuStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Item background visible" />
+                        </StackPanel>
 
-                            <TextBlock
-                                Grid.Row="4"
-                                Grid.Column="2"
-                                Style="{DynamicResource SettingsDescriptionStyle}"
-                                Text="Item background visible" />
-
-
-                            <!--  Modification date ==========================================  -->
+                        <!--  Modification date  -->
+                        <StackPanel
+                            Height="20"
+                            Margin="0 0 0 10"
+                            Orientation="Horizontal">
                             <ToggleButton
                                 Name="ModificationDateVisibleToggle"
-                                Grid.Row="6"
-                                Grid.Column="0"
+                                Margin="0 0 20 0"
                                 IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                                 Style="{DynamicResource ToggleSideMenuStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Modification date on items" />
+                        </StackPanel>
 
+                        <!--  Rounded window corners  -->
+                        <StackPanel
+                            Height="20"
+                            Margin="0 0 0 10"
+                            Orientation="Horizontal">
+                            <ToggleButton
+                                Name="RoundedCornersToggle"
+                                Margin="0 0 20 0"
+                                IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RoundedWindowCorners, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                Style="{DynamicResource ToggleSideMenuStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Rounded window corners" />
+                        </StackPanel>
+
+                        <!--  Theme  -->
+                        <StackPanel Margin="0 10 0 10" Orientation="Vertical">
                             <TextBlock
-                                Grid.Row="6"
-                                Grid.Column="2"
-                                Style="{DynamicResource SettingsDescriptionStyle}"
-                                Text="Modification date on items" />
-                        </Grid>
-
-                        <Grid Grid.Row="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition Height="12" />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition Height="12" />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition Height="12" />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition Height="12" />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-
-                            <!--  Theme ==========================================  -->
-                            <TextBlock
-                                Grid.Row="0"
                                 Style="{DynamicResource SettingsDescriptionStyle}"
                                 Text="Theme"
                                 Margin="0 0 0 4" />
-
                             <ComboBox
-                                Grid.Row="1"
                                 FontSize="{StaticResource FontSizeSmall}"
                                 FontFamily="{StaticResource Ubuntu}"
                                 ItemsSource="{Binding ThemeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                 SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                        </StackPanel>
 
-                            <!--  Color bar thickness ==========================================  -->
+                        <!--  Item marker thickness  -->
+                        <StackPanel Margin="0 0 0 10" Orientation="Vertical">
                             <TextBlock
-                                Grid.Row="3"
                                 Style="{DynamicResource SettingsDescriptionStyle}"
                                 Text="Item marker thickness"
                                 Margin="0 0 0 4" />
-
                             <ComboBox
-                                Grid.Row="4"
                                 FontSize="{StaticResource FontSizeSmall}"
                                 FontFamily="{StaticResource Ubuntu}"
                                 ItemsSource="{Binding ThicknessListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                 SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                        </StackPanel>
 
-                            <!--  Task font size ==========================================  -->
+                        <!--  Task font size  -->
+                        <StackPanel Margin="0 0 0 10" Orientation="Vertical">
                             <TextBlock
-                                Grid.Row="6"
                                 Style="{DynamicResource SettingsDescriptionStyle}"
                                 Text="Task description font size"
                                 Margin="0 0 0 4" />
-
                             <ComboBox
-                                Grid.Row="7"
                                 FontSize="{StaticResource FontSizeSmall}"
                                 FontFamily="{StaticResource Ubuntu}"
                                 ItemsSource="{Binding FontSizeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                 SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                        </StackPanel>
 
-                            <!--  Task font family ==========================================  -->
+                        <!--  Task font family  -->
+                        <StackPanel Margin="0 0 0 10" Orientation="Vertical">
                             <TextBlock
-                                Grid.Row="9"
                                 Style="{DynamicResource SettingsDescriptionStyle}"
                                 Text="Font family"
                                 Margin="0 0 0 4" />
-
                             <ComboBox
-                                Grid.Row="10"
                                 FontSize="{StaticResource FontSizeSmall}"
                                 FontFamily="{StaticResource Ubuntu}"
                                 ItemsSource="{Binding FontFamilyListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                 SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                        </StackPanel>
 
-
-                            <!--  Accent color ==========================================  -->
+                        <!--  Accent color  -->
+                        <StackPanel Margin="0 0 0 10" Orientation="Vertical">
                             <TextBlock
-                                Grid.Row="12"
                                 Style="{DynamicResource SettingsDescriptionStyle}"
                                 Text="Accent color"
                                 Margin="0 0 0 4" />
-
                             <ComboBox
-                                Grid.Row="13"
                                 FontSize="{StaticResource FontSizeSmall}"
                                 FontFamily="{StaticResource Ubuntu}"
                                 ItemsSource="{Binding AccentColorProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
@@ -235,36 +185,34 @@
                                             BorderThickness="1" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
-
                             </ComboBox>
+                        </StackPanel>
 
-                        </Grid>
+                        <!--  VERSION  -->
+                        <StackPanel Margin="0 20 0 0" Orientation="Vertical">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Grid.Column="1"
+                                    Background="{DynamicResource VersionLabelBackgroundBrush}"
+                                    CornerRadius="2">
+                                    <TextBlock
+                                        Margin="10 0 10 0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource VersionLabelForegroundBrush}">
+                                        Version 1.1.1
+                                    </TextBlock>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
 
 
-                        <!--  VERSION ==========================================  -->
-                        <Grid Grid.Row="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <Border
-                                Grid.Column="1"
-                                Background="{DynamicResource VersionLabelBackgroundBrush}"
-                                CornerRadius="4">
-                                <TextBlock
-                                    Margin="10 0 10 0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                    Version 1.1.0
-                                </TextBlock>
-                            </Border>
-                        </Grid>
-
-                    </Grid>
-
+                    </StackPanel>
                 </Border>
-
             </ScrollViewer>
 
         </Grid>

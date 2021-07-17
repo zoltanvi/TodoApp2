@@ -33,6 +33,7 @@
     <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="#bdbdbd" />
     <SolidColorBrush x:Key="TaskPageBottomBarBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="TaskPageBottomBarForegroundBrush" Color="#E1E1E1" />
+    <SolidColorBrush x:Key="TaskPageBottomBarBorderBrush" Color="#111111" />
 
     <Color x:Key="TaskItemBackgroundTransparent">#002F3031</Color>
     <Color x:Key="TaskItemBackground">#2F3031</Color>
@@ -40,6 +41,7 @@
     <SolidColorBrush x:Key="TaskItemHatchedHatchBrush" Color="#537F7F7F" />
     <SolidColorBrush x:Key="TaskItemButtonForegroundBrush" Color="#bdbdbd" />
     <SolidColorBrush x:Key="TaskItemButtonTrashHoverBrush" Color="#FA504D" />
+    <SolidColorBrush x:Key="TaskItemBorderBrush" Color="{StaticResource TaskItemBackground}" />
 
     <SolidColorBrush x:Key="InnerWindowForegroundBrush" Color="#ffffff" />
     <SolidColorBrush x:Key="TextBoxCaretBrush" Color="White" />

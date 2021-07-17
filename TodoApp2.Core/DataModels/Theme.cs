@@ -8,6 +8,8 @@
 
         Light,
 
+        White,
+
         Beige
     }
 }

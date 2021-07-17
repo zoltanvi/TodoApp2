@@ -15,7 +15,7 @@
     <system:Double x:Key="FontSizeRegular">18</system:Double>
     <system:Double x:Key="FontSizeRegularIcon">20</system:Double>
     <system:Double x:Key="FontSizeLarge">22</system:Double>
-    <system:Double x:Key="FontSizeHuge">26</system:Double>
+    <system:Double x:Key="FontSizeHuge">28</system:Double>
     <system:Double x:Key="FontSizeIconLarge">30</system:Double>
     <system:Double x:Key="FontSizeGiant">40</system:Double>
 
@@ -51,7 +51,7 @@
     </Style>
 
     <Style x:Key="PageTitleTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe UI Bold" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeUIVariableSemibold}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeHuge}" />
         <Setter Property="Foreground" Value="{DynamicResource PageTitleForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />

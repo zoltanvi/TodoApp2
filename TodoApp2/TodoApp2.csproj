@@ -189,10 +189,12 @@
     <Compile Include="ValueConverters\ApplicationPageHelper.cs" />
     <Compile Include="ValueConverters\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
+    <Compile Include="ValueConverters\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\EnumToBoldFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\EnumToFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\EqualityConverter.cs" />
     <Compile Include="ValueConverters\FontSizeToDoubleConverter.cs" />
+    <Compile Include="ValueConverters\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityNegatedConverter.cs" />
@@ -317,6 +319,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Themes\WhiteTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Themes\LightTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -357,6 +363,11 @@
     <Resource Include="Fonts\Ubuntu-Regular.ttf" />
     <Resource Include="Fonts\SegMDL2.ttf" />
     <Resource Include="Fonts\Ubuntu-Light.ttf" />
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Bold.ttf" />
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Light.ttf" />
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Semibold.ttf" />
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Semilight.ttf" />
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

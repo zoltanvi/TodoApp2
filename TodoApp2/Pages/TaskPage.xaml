@@ -23,7 +23,7 @@
             <!--  Current category  -->
             <TextBlock
                 Grid.Row="0"
-                Margin="15 5 0 0"
+                Margin="15 10 0 10"
                 Style="{DynamicResource PageTitleTextBlockStyle}"
                 Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}" />
 
@@ -32,8 +32,17 @@
             <Border
                 x:Name="BottomBorderPanel"
                 Grid.Row="2"
-                Background="{DynamicResource TaskPageBottomBarBackgroundBrush}">
-
+                Background="{DynamicResource TaskPageBottomBarBackgroundBrush}"
+                BorderBrush="{DynamicResource TaskPageBottomBarBorderBrush}"
+                BorderThickness="0 1 0 0">
+                <Border.CornerRadius>
+                    <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                        <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                        <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                        <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    </MultiBinding>
+                </Border.CornerRadius>
                 <TextBox
                     x:Name="AddNewTaskTextBox"
                     Grid.Column="1"

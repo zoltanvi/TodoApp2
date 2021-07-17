@@ -26,6 +26,14 @@
                             <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, Source={x:Static local:ViewModelLocator.Instance}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <Border.CornerRadius>
+                        <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
+                        </MultiBinding>
+                    </Border.CornerRadius>
                 </Border>
 
                 <!--  Overlay page is in front of the background  -->

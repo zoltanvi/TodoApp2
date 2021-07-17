@@ -22,6 +22,7 @@ namespace TodoApp2.Core
     /// </remarks>
     public class ApplicationSettings : BaseViewModel
     {
+        private bool m_RoundedWindowCorners;
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
 
         #region Properties
@@ -37,6 +38,20 @@ namespace TodoApp2.Core
         public Thickness ColorBarThickness { get; set; }
         public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
         public string AccentColor { get; set; } = "#788CDE";
+        public int WindowCornerRadius { get; set; }
+
+        public bool RoundedWindowCorners
+        {
+            get => m_RoundedWindowCorners;
+            set
+            {
+                m_RoundedWindowCorners = value;
+                WindowCornerRadius = value ? 8 : NoRadius;
+                OnPropertyChanged(nameof(WindowCornerRadius));
+            }
+        }
+
+        public int NoRadius { get; } = 0;
 
         // Item background is visible by default.
         public bool IsItemBackgroundVisible { get; set; } = true;
@@ -68,6 +83,8 @@ namespace TodoApp2.Core
                 { nameof(TaskFontSize), PropertyValueHandlers.FontSize },
                 { nameof(FontFamily), PropertyValueHandlers.FontFamily },
                 { nameof(AccentColor), PropertyValueHandlers.String },
+                { nameof(RoundedWindowCorners), PropertyValueHandlers.Bool },
+                { nameof(WindowCornerRadius), PropertyValueHandlers.Integer },
             };
         }
 

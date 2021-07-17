@@ -14,7 +14,7 @@ namespace TodoApp2.Core.Test.ViewModel
         public void Setup()
         {
             // TODO: fix mocks
-            m_ApplicationViewModel = new ApplicationViewModel(Substitute.For<IDatabase>(), new SessionManager());
+            m_ApplicationViewModel = new ApplicationViewModel(Substitute.For<IDatabase>(), new SessionManager(new MessageService()));
             m_BaseViewModelMock = Substitute.For<IBaseViewModel>();
         }
 

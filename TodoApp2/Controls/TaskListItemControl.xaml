@@ -72,8 +72,22 @@
 
     <Grid Background="{DynamicResource TaskPageBackgroundBrush}">
 
-        <!--  Background="{Binding IsDone, Converter={local:BackgroundBrushConverter}}"  -->
-        <Border Margin="4 3" CornerRadius="2">
+
+        <!--  Color bar overlaying the border  -->
+        <Border
+            Width="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ThicknessToDoubleConverter}}"
+            Margin="4 2"
+            Panel.ZIndex="1000"
+            HorizontalAlignment="Left"
+            AutomationProperties.AutomationId="TaskListItemColorBar"
+            Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}"
+            CornerRadius="2 0 0 2" />
+
+        <Border
+            Margin="4 2"
+            CornerRadius="2"
+            BorderBrush="{DynamicResource TaskItemBorderBrush}"
+            BorderThickness="1">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
@@ -91,12 +105,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!--  Color bar  -->
-                <Border
+                <!--  Color bar inside the border  -->
+                <!--<Border
                     Grid.Column="0"
                     AutomationProperties.AutomationId="TaskListItemColorBar"
                     Background="{Binding Color, Converter={local:StringRGBToBrushConverter}}"
-                    CornerRadius="2 0 0 2" />
+                    CornerRadius="2 0 0 2" />-->
 
                 <CheckBox
                     Grid.Column="1"
