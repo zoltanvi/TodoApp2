@@ -19,14 +19,6 @@
                 Width="300"
                 ClipToBounds="True"
                 HorizontalAlignment="Left">
-                <Border.CornerRadius>
-                    <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                    </MultiBinding>
-                </Border.CornerRadius>
 
                 <ContentPresenter />
 

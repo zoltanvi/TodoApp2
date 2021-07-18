@@ -23,7 +23,18 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--  Outer border with the drop shadow margin  -->
-                        <Border Margin="{Binding OuterMarginThickness}">
+                        <Border CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}">
+                            <Border.Clip>
+                                <RectangleGeometry RadiusX="{Binding CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}">
+                                    <RectangleGeometry.Rect>
+                                        <MultiBinding Converter="{local:WidthAndHeightToRectConverter}">
+                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Border}}" />
+                                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType={x:Type Border}}" />
+                                        </MultiBinding>
+                                    </RectangleGeometry.Rect>
+                                </RectangleGeometry>
+                            </Border.Clip>
+
 
                             <!--  Main window outline  -->
                             <Grid>
@@ -33,14 +44,17 @@
                                 <Border
                                     Panel.ZIndex="2"
                                     BorderBrush="{DynamicResource ApplicationBorderBrush}"
-                                    BorderThickness="0.5"
+                                    BorderThickness="0.7"
                                     CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}" />
 
                                 <!--  Window border and drop shadow  -->
                                 <Border Background="{DynamicResource TaskPageBackgroundBrush}" CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}">
                                     <!--<Border.Effect>
-                                        <DropShadowEffect ShadowDepth="2" Opacity="0.8" />
-                                    </Border.Effect>-->
+                                            <DropShadowEffect
+                                                ShadowDepth="2"
+                                                Opacity="0.8"
+                                                BlurRadius="4" />
+                                        </Border.Effect>-->
 
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -56,7 +70,7 @@
                                             Grid.Column="0"
                                             Panel.ZIndex="0"
                                             Background="{DynamicResource TitleBarBackgroundBrush}">
-                                            <Border.CornerRadius>
+                                            <!--<Border.CornerRadius>
                                                 <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding
                                                         Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius"
@@ -67,7 +81,7 @@
                                                         Source="{x:Static local:ViewModelLocator.Instance}"
                                                         NotifyOnSourceUpdated="True" />
                                                 </MultiBinding>
-                                            </Border.CornerRadius>
+                                            </Border.CornerRadius>-->
 
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -91,13 +105,13 @@
 
                                                     <Button.Resources>
                                                         <Style TargetType="Border">
-                                                            <Setter Property="CornerRadius">
+                                                            <!--<Setter Property="CornerRadius">
                                                                 <Setter.Value>
                                                                     <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
                                                                         <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
                                                                     </MultiBinding>
                                                                 </Setter.Value>
-                                                            </Setter>
+                                                            </Setter>-->
                                                         </Style>
                                                     </Button.Resources>
                                                 </Button>
@@ -129,14 +143,14 @@
                                                         FontSize="12">
                                                         <Button.Resources>
                                                             <Style TargetType="Border">
-                                                                <Setter Property="CornerRadius">
+                                                                <!--<Setter Property="CornerRadius">
                                                                     <Setter.Value>
                                                                         <MultiBinding Converter="{local:CornerRadiusConverter}">
                                                                             <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
                                                                             <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
                                                                         </MultiBinding>
                                                                     </Setter.Value>
-                                                                </Setter>
+                                                                </Setter>-->
                                                             </Style>
                                                         </Button.Resources>
 
@@ -155,6 +169,7 @@
                                     </Grid>
                                 </Border>
                             </Grid>
+
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>

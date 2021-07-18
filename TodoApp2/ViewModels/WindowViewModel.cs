@@ -43,8 +43,8 @@ namespace TodoApp2
 
         #region Window settings
 
-        public double WindowMinimumWidth { get; set; } = 320;
-        public double WindowMinimumHeight { get; set; } = 400;
+        public double WindowMinimumWidth { get; set; } = 300;
+        public double WindowMinimumHeight { get; set; } = 215;
         public double ContentPadding { get; set; } = 0;
 
         /// <summary>
@@ -213,6 +213,7 @@ namespace TodoApp2
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)
         {
             IsDocked = e.IsDocked;
+            ApplicationSettings.WindowCornerRadius = IsDocked ? 0 : 8;
             WindowResized();
         }
 

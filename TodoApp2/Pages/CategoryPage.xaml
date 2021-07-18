@@ -127,7 +127,6 @@
                     Content="{DynamicResource SegoeIconSettings}"
                     Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
                     Width="50" />
-
             </Grid>
 
             <!--  Category list  -->
@@ -138,14 +137,6 @@
         </Grid>
         <!--  ADD NEW CATEGORY  -->
         <Border Grid.Row="1" Background="{DynamicResource SideMenuBottomBarBackgroundBrush}">
-            <Border.CornerRadius>
-                <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
-                    <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                    <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                    <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                    <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                </MultiBinding>
-            </Border.CornerRadius>
             <TextBox
                 MinWidth="240"
                 Margin="10 0 10 0"

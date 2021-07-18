@@ -35,14 +35,6 @@
                 Background="{DynamicResource TaskPageBottomBarBackgroundBrush}"
                 BorderBrush="{DynamicResource TaskPageBottomBarBorderBrush}"
                 BorderThickness="0 1 0 0">
-                <Border.CornerRadius>
-                    <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                    </MultiBinding>
-                </Border.CornerRadius>
                 <TextBox
                     x:Name="AddNewTaskTextBox"
                     Grid.Column="1"
