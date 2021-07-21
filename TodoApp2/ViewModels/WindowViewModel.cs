@@ -17,7 +17,6 @@ namespace TodoApp2
         private readonly Window m_Window;
         private readonly WindowResizer m_Resizer;
         private readonly ThemeManager m_ThemeManager;
-        private int m_OuterMarginSize = 2;
 
         private readonly TaskListService m_TaskListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
@@ -63,32 +62,6 @@ namespace TodoApp2
         public Thickness ResizeBorderThickness => new Thickness(ResizeBorder);
 
         /// <summary>
-        /// The margin around the window to allow for a drop shadow
-        /// </summary>
-        public int OuterMarginSize
-        {
-            // If it is maximized or docked, no border
-            get => Borderless ? 0 : m_OuterMarginSize;
-            set => m_OuterMarginSize = value;
-        }
-
-        /// <summary>
-        /// The margin around the window to allow for a drop shadow
-        /// </summary>
-        public Thickness OuterMarginThickness => new Thickness(OuterMarginSize);
-
-        /// <summary>
-        /// The radius of the edges of the window.
-        /// If it is maximized or docked, no border
-        /// </summary>
-        public int WindowRadius => Borderless ? 0 : ApplicationSettings.WindowCornerRadius;
-
-        /// <summary>
-        /// True if the window should be borderless because it is docked or maximized
-        /// </summary>
-        public bool Borderless => IsDocked || m_Window.WindowState == WindowState.Maximized || m_DockPosition != WindowDockPosition.Undocked;
-
-        /// <summary>
         /// The height of the title bar / caption of the window
         /// </summary>
         public int TitleBarHeight { get; set; } = 32;
@@ -99,6 +72,7 @@ namespace TodoApp2
         public GridLength TitleBarGridHeight => new GridLength(TitleBarHeight);
 
         public bool IsDocked { get; set; }
+        private bool IsMaximized { get; set; }
 
         #endregion Window settings
 
@@ -163,15 +137,6 @@ namespace TodoApp2
 
         #endregion Constructors
 
-        #region Public methods
-
-        public void NotifyThemeChanged()
-        {
-            Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
-        }
-
-        #endregion Public methods
-        
         #region EventHandlers
 
         private void OnWindowFlashRequested(object obj)
@@ -213,8 +178,13 @@ namespace TodoApp2
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)
         {
             IsDocked = e.IsDocked;
-            ApplicationSettings.WindowCornerRadius = IsDocked ? 0 : 8;
+            UpdateWindowCornerRadius();
             WindowResized();
+        }
+
+        private void UpdateWindowCornerRadius()
+        {
+            ApplicationSettings.WindowCornerRadius = IsDocked || m_DockPosition != WindowDockPosition.Undocked || IsMaximized ? 0 : 8;
         }
 
         private void OnWindowDeactivated(object sender, EventArgs e)
@@ -227,9 +197,6 @@ namespace TodoApp2
         {
             // Fire off events for all properties that are affected by a resize
             OnPropertyChanged(nameof(ResizeBorderThickness));
-            OnPropertyChanged(nameof(OuterMarginSize));
-            OnPropertyChanged(nameof(OuterMarginThickness));
-            OnPropertyChanged(nameof(WindowRadius));
             WindowResized();
         }
 
@@ -316,12 +283,11 @@ namespace TodoApp2
         /// </summary>
         private void WindowResized()
         {
+            IsMaximized = m_Window.WindowState == WindowState.Maximized;
+            UpdateWindowCornerRadius();
+
             // Fire off events for all properties that are affected by a resize
-            OnPropertyChanged(nameof(Borderless));
             OnPropertyChanged(nameof(ResizeBorderThickness));
-            OnPropertyChanged(nameof(OuterMarginSize));
-            OnPropertyChanged(nameof(OuterMarginThickness));
-            OnPropertyChanged(nameof(WindowRadius));
         }
 
         /// <summary>
