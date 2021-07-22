@@ -2,7 +2,7 @@
 {
     public enum FontFamily
     {
-        SegoeUI,
+        Segoe_UI,
 
         Ubuntu,
 

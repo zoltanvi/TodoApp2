@@ -182,7 +182,6 @@
                 <Border
                     x:Name="HoverButtonBorder"
                     Grid.Column="2"
-                    Width="100"
                     HorizontalAlignment="Right"
                     AutomationProperties.AutomationId="TaskListItemHiddenPanel"
                     Background="Transparent"
@@ -236,6 +235,7 @@
                             <Button
                                 Grid.Column="0"
                                 AutomationProperties.AutomationId="TaskListItemCalendarButton"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                                 Command="{Binding OpenReminderCommand}"
                                 Content="{DynamicResource SegoeIconDateTime}"
                                 Style="{DynamicResource ButtonQuickActionStyle}" />
@@ -243,6 +243,7 @@
                             <Button
                                 Grid.Column="1"
                                 AutomationProperties.AutomationId="TaskListItemPaletteButton"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                                 Command="{Binding ShowColorPickerCommand}"
                                 Content="{DynamicResource SegoeIconPalette}"
                                 Style="{DynamicResource ButtonQuickActionStyle}" />
@@ -251,6 +252,7 @@
                                 Cursor="Hand"
                                 Grid.Column="2"
                                 AutomationProperties.AutomationId="TaskListItemTrashBinButton"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                                 Command="{Binding Path=DataContext.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                                 CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                                 Content="{DynamicResource SegoeIconTrash}"

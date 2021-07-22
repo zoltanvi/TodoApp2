@@ -36,7 +36,7 @@ namespace TodoApp2.Core
         public bool IsAlwaysOnTop { get; set; }
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; }
-        public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
+        public FontFamily FontFamily { get; set; } = FontFamily.Segoe_UI;
         public string AccentColor { get; set; } = "#788CDE";
         public int WindowCornerRadius { get; set; }
 
@@ -56,9 +56,12 @@ namespace TodoApp2.Core
         // Item background is visible by default.
         public bool IsItemBackgroundVisible { get; set; } = true;
         
-        // Quick actions is enabled by default.
+        // Quick actions are enabled by default.
         public bool IsQuickActionsEnabled { get; set; } = true;
-        
+        public bool IsQuickActionsReminderEnabled { get; set; } = true;
+        public bool IsQuickActionsColorEnabled { get; set; } = true;
+        public bool IsQuickActionsTrashEnabled { get; set; } = true;
+
         // Default FontSize is medium
         public FontSize TaskFontSize { get; set; } = FontSize.Medium;
 
@@ -78,6 +81,9 @@ namespace TodoApp2.Core
                 { nameof(IsAlwaysOnTop), PropertyValueHandlers.Bool },
                 { nameof(IsModificationDateVisible), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsReminderEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsColorEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsTrashEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsItemBackgroundVisible), PropertyValueHandlers.Bool },
                 { nameof(ColorBarThickness), PropertyValueHandlers.Thickness },
                 { nameof(TaskFontSize), PropertyValueHandlers.FontSize },

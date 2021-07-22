@@ -16,7 +16,7 @@ namespace TodoApp2
         private static readonly Dictionary<FontFamily, MediaFontFamily> s_FontFamilies = new Dictionary<FontFamily, MediaFontFamily>
         {
             { FontFamily.Ubuntu, (MediaFontFamily)Application.Current.TryFindResource("UbuntuBold")},
-            { FontFamily.SegoeUI, s_DefaultFontFamily },
+            { FontFamily.Segoe_UI, s_DefaultFontFamily },
             { FontFamily.Consolas, new MediaFontFamily("Consolas Bold")},
             { FontFamily.Verdana, new MediaFontFamily("Verdana Bold")},
     };
