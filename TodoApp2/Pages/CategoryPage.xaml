@@ -102,7 +102,7 @@
                             Height="36"
                             Margin="10 0"
                             Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}"
-                            CornerRadius="0">
+                            CornerRadius="4">
                             <Canvas Height="34" Width="34">
                                 <Path
                                     StrokeThickness="1"

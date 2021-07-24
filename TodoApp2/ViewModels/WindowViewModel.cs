@@ -22,6 +22,7 @@ namespace TodoApp2
         private readonly ApplicationViewModel m_ApplicationViewModel;
         private readonly CategoryListService m_CategoryListService;
         private readonly IDatabase m_Database;
+        private readonly DragDropMediator m_DragDropMediator;
 
         /// <summary>
         /// The last known dock position
@@ -122,8 +123,13 @@ namespace TodoApp2
             Mediator.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
 
             // Set initial main and side menu pages
-            m_ApplicationViewModel.GoToPage(ApplicationPage.Task, new TaskPageViewModel(m_TaskListService, m_CategoryListService, m_Database));
+            m_ApplicationViewModel.CurrentPage = ApplicationPage.Task;
+
+            // TODO: delete?
+            //m_ApplicationViewModel.GoToPage(ApplicationPage.Task, new TaskPageViewModel(m_TaskListService, m_CategoryListService, m_Database));
             m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
+
+            m_DragDropMediator = new DragDropMediator();
         }
 
         private void OnThemeChangeRequested(object obj)
@@ -184,7 +190,11 @@ namespace TodoApp2
 
         private void UpdateWindowCornerRadius()
         {
-            ApplicationSettings.WindowCornerRadius = IsDocked || m_DockPosition != WindowDockPosition.Undocked || IsMaximized ? 0 : 8;
+            bool isDocked = IsDocked || m_DockPosition != WindowDockPosition.Undocked;
+            bool roundedCornersAllowed = !(isDocked || IsMaximized);
+            bool isRoundedCornersOn = ApplicationSettings.RoundedWindowCorners;
+
+            ApplicationSettings.WindowCornerRadius = roundedCornersAllowed && isRoundedCornersOn ? 8 : 0;
         }
 
         private void OnWindowDeactivated(object sender, EventArgs e)

@@ -29,4 +29,7 @@
     <system:String x:Key="SegoeIconChangeTheme">&#xE793;</system:String>
     <system:String x:Key="SegoeIconAlwaysOnTop">&#xE727;</system:String>
     <system:String x:Key="SegoeIconBack">&#xE830;</system:String>
+    <system:String x:Key="SegoeIconPin">&#xE840;</system:String>
+    <system:String x:Key="SegoeIconUnpin">&#xE77A;</system:String>
+
 </ResourceDictionary>

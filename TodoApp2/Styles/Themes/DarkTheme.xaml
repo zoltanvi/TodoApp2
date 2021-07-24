@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TodoApp2"
     x:Name="DarkThemeResourceDictionary">
 
     <!--  BRUSHES (cannot be in a separate xaml because the theme switch would not work)  -->
@@ -167,6 +168,23 @@
                 RenderOptions.EdgeMode="Aliased"
                 Stroke="{DynamicResource TaskItemHatchedHatchBrush}"
                 StrokeEndLineCap="Square" />
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <VisualBrush
+        x:Key="StripeBrush"
+        TileMode="None"
+        Viewbox="0 0 18 18"
+        ViewboxUnits="Absolute"
+        Viewport="0 0 18 18"
+        ViewportUnits="Absolute">
+        <VisualBrush.Visual>
+            <Path
+                Data="M 3 -6 L 24 14"
+                RenderOptions.EdgeMode="Aliased"
+                Stroke="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}"
+                StrokeThickness="5"
+                StrokeEndLineCap="Flat" />
         </VisualBrush.Visual>
     </VisualBrush>
 

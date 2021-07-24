@@ -1,4 +1,5 @@
-﻿using TodoApp2.Core;
+﻿using GongSolutions.Wpf.DragDrop;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -23,5 +24,6 @@ namespace TodoApp2
         public static EnumValuesListProvider<FontFamily> FontFamilyListProvider { get; } = new EnumValuesListProvider<FontFamily>();
 
         public static AccentColorProvider AccentColorProvider { get; } = new AccentColorProvider();
+        public static CustomDropHandler CustomDropHandler { get; } = new CustomDropHandler();
     }
 }

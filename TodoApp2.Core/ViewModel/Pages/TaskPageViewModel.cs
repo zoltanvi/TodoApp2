@@ -11,9 +11,7 @@ namespace TodoApp2.Core
     /// A view model the task list item on the task page
     /// </summary>
     public class TaskPageViewModel : BaseViewModel
-    {
-        private int m_LastRemovedId = int.MinValue;
-
+    { 
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
         private readonly IDatabase m_Database;
@@ -45,7 +43,16 @@ namespace TodoApp2.Core
         /// Deletes every DONE task item from the current category
         /// </summary>
         public ICommand DeleteDoneCommand { get; }
-        
+
+        /// <summary>
+        /// Pins the task item
+        /// </summary>
+        public ICommand PinTaskItemCommand { get; }
+
+        /// <summary>
+        /// Unpins the task item
+        /// </summary>
+        public ICommand UnpinTaskItemCommand { get; }
 
         /// <summary>
         /// Resets each task items color in the current category
@@ -75,13 +82,12 @@ namespace TodoApp2.Core
             AddTaskItemCommand = new RelayCommand(AddTask);
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
             DeleteDoneCommand = new RelayCommand(TrashDone);
+            PinTaskItemCommand = new RelayParameterizedCommand(Pin);
+            UnpinTaskItemCommand = new RelayParameterizedCommand(Unpin);
             DeleteAllCommand = new RelayCommand(TrashAll);
             ResetColorsCommand = new RelayCommand(ResetColors);
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
             MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
-
-            // Subscribe to the collection changed event for synchronizing with database
-            Items.CollectionChanged += ItemsOnCollectionChanged;
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
@@ -97,6 +103,8 @@ namespace TodoApp2.Core
                 // all task modifications will be persisted
                 if (task.IsDone)
                 {
+                    // A done item cannot be pinned.
+                    task.Pinned = false;
                     MoveTaskToEnd(task);
                 }
                 else
@@ -193,9 +201,9 @@ namespace TodoApp2.Core
                         CategoryListItemViewModel newCategory = m_Database.GetCategory(categoryToMoveTo);
                         task.CategoryId = newCategory.Id;
 
-                        // Insert into first position.
-                        // The modification gets persisted
-                        m_TaskListService.ReorderTask(task, 0);
+                        // Insert into the first correct position.
+                        int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task);
+                        m_TaskListService.ReorderTask(task, newIndex);
 
                         // Delete the item from the currently listed items
                         m_TaskListService.RemoveTask(task);
@@ -204,53 +212,36 @@ namespace TodoApp2.Core
             }
         }
 
-        /// <summary>
-        /// Called when the Items collection changes.
-        /// We want to synchronize the list order when it happens.
-        /// Note: The Drag & Drop causes a Remove and Add action sequence.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Pin(object obj)
         {
-            switch (e.Action)
+            if (obj is TaskListItemViewModel task)
             {
-                case NotifyCollectionChangedAction.Add:
-                {
-                    if (e.NewItems.Count > 0)
-                    {
-                        TaskListItemViewModel newItem = (TaskListItemViewModel)e.NewItems[0];
+                // 1. Set task to pinned
+                task.Pinned = true;
 
-                        // If the newly added item is the same as the last deleted one,
-                        // then this was a drag and drop reorder
-                        if (newItem.Id == m_LastRemovedId)
-                        {
-                            m_TaskListService.ReorderTask(newItem, e.NewStartingIndex);
-                        }
+                // 2. A pinned task is not done yet.
+                task.IsDone = false;
 
-                        m_LastRemovedId = int.MinValue;
-                    }
-                    break;
-                }
-                case NotifyCollectionChangedAction.Remove:
-                {
-                    if (e.OldItems.Count > 0)
-                    {
-                        TaskListItemViewModel last = (TaskListItemViewModel)e.OldItems[0];
+                // 3. Reorder task to the top of the list
+                m_TaskListService.ReorderTask(task, 0, true);
+            }
+        }
 
-                        m_LastRemovedId = last.Id;
-                    }
-                    break;
-                }
-                case NotifyCollectionChangedAction.Move:
-                {
-                    if (e.NewItems.Count > 0)
-                    {
-                        TaskListItemViewModel newItem = (TaskListItemViewModel)e.NewItems[0];
-                        m_TaskListService.ReorderTask(newItem, e.NewStartingIndex);
-                    }
-                    break;
-                }
+        private async void Unpin(object obj)
+        {
+            if (obj is TaskListItemViewModel task)
+            {
+                // 1. Get the tasks in the category
+                var taskList = await m_TaskListService.GetActiveTaskItemsAsync(CurrentCategory);
+
+                // 2. Count all pinned items. The currently pinned item is in this list.
+                int pinnedItemCount = taskList.Count(i => i.Pinned);
+
+                // 3. Set task to pinned
+                task.Pinned = false;
+
+                // 4. Reorder task below the already pinned tasks and above the not-pinned tasks
+                m_TaskListService.ReorderTask(task, pinnedItemCount - 1, true);
             }
         }
 
@@ -283,7 +274,6 @@ namespace TodoApp2.Core
 
         private void MoveTaskToEnd(TaskListItemViewModel task)
         {
-            int oldIndex = Items.IndexOf(task);
             int newIndex = Items.Count - 1;
 
             for (int i = Items.Count - 1; i >= 0; i--)
@@ -295,13 +285,14 @@ namespace TodoApp2.Core
                 }
             }
 
-            Items.Move(oldIndex, newIndex);
+            m_TaskListService.ReorderTask(task, newIndex, true);
         }
 
         private void MoveTaskToTop(TaskListItemViewModel task)
         {
-            int oldIndex = Items.IndexOf(task);
-            Items.Move(oldIndex, 0);
+            // Get the valid index. E.g: A normal item cannot be above the pinned ones.
+            int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task);
+            m_TaskListService.ReorderTask(task, newIndex, true);
         }
 
         /// <summary>
@@ -320,8 +311,6 @@ namespace TodoApp2.Core
 
         protected override void OnDispose()
         {
-            Items.CollectionChanged -= ItemsOnCollectionChanged;
-
             Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
     }

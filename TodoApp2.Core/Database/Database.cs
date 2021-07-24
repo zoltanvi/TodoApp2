@@ -34,7 +34,9 @@ namespace TodoApp2.Core
                 if (!await m_SessionManager.AuthenticateUserAsync())
                 {
                     online = false;
-                    m_MessageService.ShowError("User could not be authenticated.\nPlease check the network connection!\nSwitched to offline mode.", TimeSpan.FromSeconds(10));
+                    m_MessageService.ShowError("User could not be authenticated.\n" +
+                                               "Please check the network connection!\n" +
+                                               "Switched to offline mode.", TimeSpan.FromSeconds(10));
                 }
             }
 
@@ -128,9 +130,7 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public CategoryListItemViewModel GetCategory(int categoryId)
         {
-            // TODO: write query for it
-            var allCategories = m_DataAccess.GetCategories();
-            return allCategories.FirstOrDefault(category => category.Id == categoryId);
+            return m_DataAccess.GetCategory(categoryId);
         }
 
         /// <summary>

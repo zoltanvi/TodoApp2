@@ -97,6 +97,18 @@
                                 Style="{DynamicResource ToggleSideMenuStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Marker color button" />
                         </StackPanel>
+                        <!--  Pin button  -->
+                        <StackPanel
+                            Height="20"
+                            Margin="20 0 0 10"
+                            Orientation="Horizontal">
+                            <ToggleButton
+                                Name="QuickActionPinToggle"
+                                Margin="0 0 20 0"
+                                IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                Style="{DynamicResource ToggleSideMenuStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Pin button" />
+                        </StackPanel>
                         <!--  Delete button  -->
                         <StackPanel
                             Height="20"
@@ -192,7 +204,7 @@
                         <StackPanel Margin="0 0 0 10" Orientation="Vertical">
                             <TextBlock
                                 Style="{DynamicResource SettingsDescriptionStyle}"
-                                Text="Font family"
+                                Text="Task description font family"
                                 Margin="0 0 0 4" />
                             <ComboBox
                                 FontSize="{StaticResource FontSizeSmall}"
@@ -241,7 +253,7 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                        Version 1.1.2
+                                        Version 1.2.0
                                     </TextBlock>
                                 </Border>
                             </Grid>

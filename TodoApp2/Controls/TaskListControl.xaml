@@ -18,6 +18,7 @@
             ItemsSource="{Binding TaskListService.TaskPageItems, Source={x:Static local:ViewModelLocator.Instance}}"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.DropHandler="{Binding CustomDropHandler, Source={x:Static local:ViewModelLocator.Instance}}"
             BorderThickness="0"
             Background="Transparent"
             HorizontalContentAlignment="Stretch"

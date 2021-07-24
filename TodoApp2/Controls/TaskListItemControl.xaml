@@ -17,6 +17,18 @@
 
     <UserControl.ContextMenu>
         <ContextMenu Tag="{Binding Tag, ElementName=TaskListItemUC}">
+            <MenuItem
+                Header="Pin item"
+                Command="{Binding Path=PlacementTarget.Tag.PinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Visibility="{Binding Path=PlacementTarget.DataContext.Pinned, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={local:BoolToVisibilityNegatedConverter}}" />
+
+            <MenuItem
+                Header="Unpin item"
+                Command="{Binding Path=PlacementTarget.Tag.UnpinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Visibility="{Binding Path=PlacementTarget.DataContext.Pinned, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={local:BoolToVisibilityConverter}}" />
+
             <MenuItem Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Edit" />
             <MenuItem Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Set reminder" />
             <MenuItem Header="Move to" ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
@@ -87,6 +99,13 @@
             Margin="4 2"
             CornerRadius="2"
             BorderBrush="{DynamicResource TaskItemBorderBrush}"
+            BorderThickness="1"
+            Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}" />
+
+        <Border
+            Margin="4 2"
+            CornerRadius="2"
+            BorderBrush="Transparent"
             BorderThickness="1">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
@@ -178,6 +197,14 @@
                         Foreground="{DynamicResource TaskPageTimestampForegroundBrush}" />
                 </Grid>
 
+                <!--  Pin stripe  -->
+                <Border
+                    Visibility="{Binding Pinned, Converter={local:BoolToVisibilityConverter}}"
+                    Grid.Column="2"
+                    Width="18"
+                    HorizontalAlignment="Right"
+                    Background="{DynamicResource StripeBrush}" />
+
                 <!--  Hidden buttons  -->
                 <Border
                     x:Name="HoverButtonBorder"
@@ -229,6 +256,7 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                                 <ColumnDefinition />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <!--  Calendar button  -->
@@ -247,10 +275,30 @@
                                 Command="{Binding ShowColorPickerCommand}"
                                 Content="{DynamicResource SegoeIconPalette}"
                                 Style="{DynamicResource ButtonQuickActionStyle}" />
+                            <!--  Pin button  -->
+                            <Grid Grid.Column="2" Visibility="{Binding Pinned, Converter={local:BoolToVisibilityNegatedConverter}}">
+                                <Button
+                                    AutomationProperties.AutomationId="TaskListItemPinButton"
+                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                    Command="{Binding Path=DataContext.PinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
+                                    CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
+                                    Content="{DynamicResource SegoeIconPin}"
+                                    Style="{DynamicResource ButtonQuickActionStyle}" />
+                            </Grid>
+                            <!--  Unpin button  -->
+                            <Grid Grid.Column="2" Visibility="{Binding Pinned, Converter={local:BoolToVisibilityConverter}}">
+                                <Button
+                                    AutomationProperties.AutomationId="TaskListItemUnpinButton"
+                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                    Command="{Binding Path=DataContext.UnpinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
+                                    CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
+                                    Content="{DynamicResource SegoeIconUnpin}"
+                                    Style="{DynamicResource ButtonQuickActionStyle}" />
+                            </Grid>
                             <!--  Trash button  -->
                             <Button
                                 Cursor="Hand"
-                                Grid.Column="2"
+                                Grid.Column="3"
                                 AutomationProperties.AutomationId="TaskListItemTrashBinButton"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                                 Command="{Binding Path=DataContext.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"

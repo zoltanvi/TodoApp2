@@ -58,8 +58,9 @@ namespace TodoApp2.Core
         
         // Quick actions are enabled by default.
         public bool IsQuickActionsEnabled { get; set; } = true;
-        public bool IsQuickActionsReminderEnabled { get; set; } = true;
-        public bool IsQuickActionsColorEnabled { get; set; } = true;
+        public bool IsQuickActionsReminderEnabled { get; set; } = false;
+        public bool IsQuickActionsColorEnabled { get; set; } = false;
+        public bool IsQuickActionsPinEnabled { get; set; } = false;
         public bool IsQuickActionsTrashEnabled { get; set; } = true;
 
         // Default FontSize is medium
@@ -83,6 +84,7 @@ namespace TodoApp2.Core
                 { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsReminderEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsColorEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsPinEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsTrashEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsItemBackgroundVisible), PropertyValueHandlers.Bool },
                 { nameof(ColorBarThickness), PropertyValueHandlers.Thickness },

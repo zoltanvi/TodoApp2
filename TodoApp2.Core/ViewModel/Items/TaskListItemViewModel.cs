@@ -15,6 +15,7 @@ namespace TodoApp2.Core
         public int Id { get; set; }
         public int CategoryId { get; set; }
         public string Content { get; set; }
+        public bool Pinned { get; set; }
         public long ListOrder { get; set; }
         public bool IsDone { get; set; }
         public long CreationDate { get; set; }
