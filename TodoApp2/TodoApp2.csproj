@@ -193,6 +193,7 @@
     <Compile Include="ValueConverters\EnumToFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\EqualityConverter.cs" />
     <Compile Include="ValueConverters\FontSizeToDoubleConverter.cs" />
+    <Compile Include="ValueConverters\StringToSideMenuDynamicBrushConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />

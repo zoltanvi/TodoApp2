@@ -37,7 +37,7 @@ namespace TodoApp2.Core
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; }
         public FontFamily FontFamily { get; set; } = FontFamily.Segoe_UI;
-        public string AccentColor { get; set; } = "#788CDE";
+        public string AccentColor { get; set; } = "#0291cd";
         public int WindowCornerRadius { get; set; }
 
         public bool RoundedWindowCorners

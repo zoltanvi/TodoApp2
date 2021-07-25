@@ -300,6 +300,7 @@
                             CornerRadius="10"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />-->
 
+                        <!--  Fill="{TemplateBinding BorderBrush}"  -->
                         <Ellipse
                             x:Name="normalOptionMark"
                             Width="10"
@@ -320,8 +321,8 @@
                             Width="10"
                             Height="10"
                             Margin="6 0"
+                            Fill="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringToSideMenuDynamicBrushConverter}}"
                             VerticalAlignment="Center"
-                            Fill="{TemplateBinding BorderBrush}"
                             RenderTransformOrigin="0.5 0.5"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="0">
