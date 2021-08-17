@@ -35,7 +35,7 @@ namespace TodoApp2.Core
         public Theme ActiveTheme { get; set; }
         public bool IsAlwaysOnTop { get; set; }
         public bool IsModificationDateVisible { get; set; }
-        public Thickness ColorBarThickness { get; set; }
+        public Thickness ColorBarThickness { get; set; } = Thickness.Medium;
         public FontFamily FontFamily { get; set; } = FontFamily.Segoe_UI;
         public string AccentColor { get; set; } = "#0291cd";
         public int WindowCornerRadius { get; set; }
@@ -58,9 +58,9 @@ namespace TodoApp2.Core
         
         // Quick actions are enabled by default.
         public bool IsQuickActionsEnabled { get; set; } = true;
-        public bool IsQuickActionsReminderEnabled { get; set; } = false;
-        public bool IsQuickActionsColorEnabled { get; set; } = false;
-        public bool IsQuickActionsPinEnabled { get; set; } = false;
+        public bool IsQuickActionsReminderEnabled { get; set; } = true;
+        public bool IsQuickActionsColorEnabled { get; set; } = true;
+        public bool IsQuickActionsPinEnabled { get; set; } = true;
         public bool IsQuickActionsTrashEnabled { get; set; } = true;
 
         // Default FontSize is medium

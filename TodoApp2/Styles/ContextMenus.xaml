@@ -125,9 +125,10 @@
                         x:Name="Border"
                         Background="{DynamicResource ContextMenuBackgroundBrush}"
                         BorderBrush="{DynamicResource ContextMenuBorderBrush}"
-                        BorderThickness="1">
+                        BorderThickness="1"
+                        ClipToBounds="True">
                         <StackPanel
-                            Margin="0 2"
+                            Margin="0 0"
                             ClipToBounds="True"
                             IsItemsHost="True"
                             Orientation="Vertical" />
@@ -369,6 +370,7 @@
     <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemForegroundBrush}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
         <Style.Triggers>
             <Trigger Property="Role" Value="TopLevelHeader">
                 <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelHeaderTemplateKey}}" />

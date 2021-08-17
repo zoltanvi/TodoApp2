@@ -11,6 +11,15 @@ namespace TodoApp2.Core
             Items = new List<string>
             {
                 "Transparent",
+                "#0093E5",
+                "#D300E5",
+                "#00E5A1",
+                "#E5B300",
+                "#E52900",
+                "#B267DF",
+                "#D1D1D1",
+                "#C3FF18",
+
                 "#D0896B",
                 "#DAA576",
                 "#E6C27F",

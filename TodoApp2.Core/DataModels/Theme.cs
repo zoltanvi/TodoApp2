@@ -10,6 +10,6 @@
 
         White,
 
-        Beige
+        //Beige
     }
 }

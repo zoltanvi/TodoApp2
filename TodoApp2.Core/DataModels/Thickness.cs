@@ -2,7 +2,11 @@
 {
     public enum Thickness
     {
+        VeryThin,
+
         Thin,
+
+        Medium,
 
         Thick
     }

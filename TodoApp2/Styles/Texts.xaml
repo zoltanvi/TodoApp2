@@ -194,4 +194,21 @@
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
     </Style>
+
+    <Style
+        x:Key="SettingsDescriptionBoldStyle"
+        TargetType="TextBlock"
+        BasedOn="{StaticResource SettingsDescriptionStyle}">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style
+        x:Key="SettingsIconLabelStyle"
+        TargetType="Label"
+        BasedOn="{StaticResource IconLabelStyle}">
+        <Setter Property="Margin" Value="0 0 10 0" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+        <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
+    </Style>
 </ResourceDictionary>

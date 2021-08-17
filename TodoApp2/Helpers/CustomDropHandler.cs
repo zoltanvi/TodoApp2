@@ -24,30 +24,39 @@ namespace TodoApp2
         {
             if (dropInfo?.DragInfo != null)
             {
-                int insertIndex = dropInfo.UnfilteredInsertIndex;
+                int newIndex = dropInfo.UnfilteredInsertIndex;
                 IList sourceList = dropInfo.DragInfo.SourceCollection.TryGetList();
                 object item = ExtractData(dropInfo.Data).OfType<object>().FirstOrDefault();
-                int itemIndex = sourceList.IndexOf(item);
+                int oldIndex = sourceList.IndexOf(item);
 
-                if (itemIndex != -1)
+                // Decrement index because the item is going to be removed before it is inserted again
+                newIndex--;
+
+                // Dropped above itself in the list, the previous decrementation was not necessary.
+                if (newIndex + 1 <= oldIndex)
+                {
+                    newIndex++;
+                }
+
+                if (oldIndex != -1)
                 {
                     // Notify clients to allow them to alter the insert index.
-                    var args = new DragDropEventArgs {Item = item, OldIndex = itemIndex, NewIndex = insertIndex};
+                    var args = new DragDropEventArgs {Item = item, OldIndex = oldIndex, NewIndex = newIndex};
                     BeforeItemDropped?.Invoke(this, args);
 
                     // Alter the insert index if the client requested it.
                     if (AlterInsertIndex)
                     {
-                        insertIndex = NewInsertIndex;
+                        newIndex = NewInsertIndex;
                         AlterInsertIndex = false;
                     }
 
                     sourceList.Remove(item);
 
                     // The list got smaller, check for over-indexing (inserting into last index)
-                    insertIndex = Math.Min(insertIndex, sourceList.Count);
+                    newIndex = Math.Min(newIndex, sourceList.Count);
 
-                    sourceList.Insert(insertIndex, item);
+                    sourceList.Insert(newIndex, item);
                 }
             }
         }

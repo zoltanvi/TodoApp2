@@ -35,7 +35,6 @@ namespace TodoApp2.Core
                 "#f76c8a",
                 "#e84b60",
                 "#7158a6",
-
             };
 
         }

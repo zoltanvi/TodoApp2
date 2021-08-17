@@ -202,7 +202,7 @@ namespace TodoApp2.Core
                         task.CategoryId = newCategory.Id;
 
                         // Insert into the first correct position.
-                        int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task);
+                        int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task, categoryToMoveTo);
                         m_TaskListService.ReorderTask(task, newIndex);
 
                         // Delete the item from the currently listed items

@@ -16,8 +16,14 @@ namespace TodoApp2
 
             switch ((Thickness)value)
             {
+                case Thickness.VeryThin:
+                    gridLength = new GridLength(1);
+                    break;
                 case Thickness.Thin:
                     gridLength = new GridLength(3);
+                    break;
+                case Thickness.Medium:
+                    gridLength = new GridLength(4);
                     break;
                 case Thickness.Thick:
                     gridLength = new GridLength(6);

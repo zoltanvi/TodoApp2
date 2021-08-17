@@ -139,11 +139,43 @@ namespace TodoApp2.Core
             TaskPageItems.AddRange(filteredItems);
         }
 
+        /// <summary>
+        /// Returns the correct reorder index of the <paramref name="task"/>
+        /// in the currently active category task list.
+        /// </summary>
+        /// <param name="newIndex">The index where the task should be moved.</param>
+        /// <param name="task">The task to reorder.</param>
+        /// <returns> the correct reorder index where the task can be moved.</returns>
         public int GetCorrectReorderIndex(int newIndex, TaskListItemViewModel task)
+        {
+            return GetReorderIndex(newIndex, task, TaskPageItems);
+        }
+        
+        /// <summary>
+        /// Returns the correct reorder index of the <paramref name="task"/>
+        /// in the <paramref name="categoryName"/> category task list.
+        /// </summary>
+        /// <param name="newIndex">The index where the task should be moved.</param>
+        /// <param name="task">The task to reorder.</param>
+        /// <param name="categoryName">The category where the task should be moved.</param>
+        /// <returns> the correct reorder index where the task can be moved.</returns>
+        public int GetCorrectReorderIndex(int newIndex, TaskListItemViewModel task, string categoryName)
         {
             if (task != null)
             {
-                var pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
+                List<TaskListItemViewModel> categoryTasks = m_Database.GetActiveTaskItems(categoryName);
+                newIndex = GetReorderIndex(newIndex, task, categoryTasks);
+            }
+
+            return newIndex;
+        }
+
+        private int GetReorderIndex(int newIndex, TaskListItemViewModel task,
+            IEnumerable<TaskListItemViewModel> taskList)
+        {
+            if (task != null)
+            {
+                var pinnedItemsCount = taskList.Count(i => i.Pinned);
 
                 // If the task is pinned,
                 // it must be on top of the list or directly before or after another pinned item

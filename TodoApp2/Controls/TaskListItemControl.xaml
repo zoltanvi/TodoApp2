@@ -142,7 +142,7 @@
                     Style="{DynamicResource TaskCheckBoxStyle}" />
 
                 <!--  Main content  -->
-                <Grid Grid.Column="2" Margin="6">
+                <Grid Grid.Column="2" Margin="0 4">
                     <Grid.RowDefinitions>
                         <!--  Task description row  -->
                         <RowDefinition Height="*" />
@@ -186,15 +186,22 @@
                         </i:Interaction.Triggers>
                     </TextBox>
 
-                    <!--  Timestamp  -->
+
                     <TextBlock
                         Grid.Row="1"
                         Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                         Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                         Text="{Binding ModificationDate, Converter={local:LongToTimestampConverter}}"
-                        FontFamily="{StaticResource Ubuntu}"
+                        FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}"
                         FontSize="{StaticResource FontSizeSmallest}"
                         Foreground="{DynamicResource TaskPageTimestampForegroundBrush}" />
+
+                    <!--
+                        TextOptions.TextFormattingMode="Display"
+                        TextOptions.TextRenderingMode="ClearType"
+                        TextOptions.TextHintingMode="Fixed"
+                    -->
+
                 </Grid>
 
                 <!--  Pin stripe  -->

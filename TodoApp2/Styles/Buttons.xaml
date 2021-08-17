@@ -46,8 +46,7 @@
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
     </Style>
 
 
@@ -106,7 +105,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="6">
+                        CornerRadius="4">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
@@ -128,7 +127,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="6">
+                        CornerRadius="4">
                         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
@@ -185,7 +184,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="Black"
                             BorderThickness="1"
-                            CornerRadius="60">
+                            CornerRadius="6">
                             <ContentPresenter
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -196,7 +195,7 @@
                             x:Name="darkener"
                             Background="Black"
                             BorderThickness="0"
-                            CornerRadius="60"
+                            CornerRadius="6"
                             Opacity="0.2"
                             Visibility="Hidden" />
                     </Grid>
@@ -321,7 +320,7 @@
                             Width="10"
                             Height="10"
                             Margin="6 0"
-                            Fill="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringToSideMenuDynamicBrushConverter}}"
+                            Fill="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:DynamicBrushConverterSideMenu}}"
                             VerticalAlignment="Center"
                             RenderTransformOrigin="0.5 0.5"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
@@ -380,7 +379,7 @@
         BasedOn="{StaticResource CustomToggleStyle}">
 
         <Setter Property="BorderBrush" Value="{DynamicResource SideMenuForegroundBrush}" />
-
+        <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
 
     <!--  ====================================================================  -->

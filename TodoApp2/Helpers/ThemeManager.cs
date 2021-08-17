@@ -58,11 +58,11 @@ namespace TodoApp2
                     fullPath += "WhiteTheme.xaml";
                     break;
                 }
-                case Theme.Beige:
-                {
-                    fullPath += "BeigeTheme.xaml";
-                    break;
-                }
+                //case Theme.Beige:
+                //{
+                //    fullPath += "BeigeTheme.xaml";
+                //    break;
+                //}
                 default:
                 {
                     throw new ArgumentException("The given theme is not yet defined!");

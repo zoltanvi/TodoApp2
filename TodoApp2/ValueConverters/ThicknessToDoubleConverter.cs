@@ -14,11 +14,17 @@ namespace TodoApp2
             double thickness = 0;
             switch ((Thickness)value)
             {
+                case Thickness.VeryThin:
+                    thickness = 1;
+                    break;
                 case Thickness.Thin:
                     thickness = 3;
                     break;
+                case Thickness.Medium:
+                    thickness = 5;
+                    break;
                 case Thickness.Thick:
-                    thickness = 6;
+                    thickness = 8;
                     break;
             }
 
