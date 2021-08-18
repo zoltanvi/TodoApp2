@@ -133,6 +133,7 @@
                     Style="{DynamicResource SideMenuTitleTextBlockStyle}"
                     Text="Categories" />
 
+                <!--  Settings button  -->
                 <Button
                     Grid.Column="1"
                     AutomationProperties.AutomationId="SettingsButton"

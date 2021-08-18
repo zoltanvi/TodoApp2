@@ -19,8 +19,14 @@
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
     <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>
     <system:String x:Key="SegoeIconMinimizeWindow">&#xE921;</system:String>
+
     <system:String x:Key="SegoeIconMaximizeWindow">&#xE922;</system:String>
+    <system:String x:Key="SegoeIconMaximizeWindow2">&#xE739;</system:String>
+    <system:String x:Key="SegoeIconRestoreWindow">&#xE923;</system:String>
+
     <system:String x:Key="SegoeIconCloseWindow">&#xE8BB;</system:String>
+    <system:String x:Key="SegoeIconCloseWindow2">&#xE894;</system:String>
+
     <system:String x:Key="SegoeIconAdd">&#xE710;</system:String>
     <system:String x:Key="SegoeIconDateTime">&#xEC92;</system:String>
     <system:String x:Key="SegoeIconCalendar">&#xE787;</system:String>

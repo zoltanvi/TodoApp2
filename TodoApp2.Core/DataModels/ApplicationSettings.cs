@@ -66,6 +66,8 @@ namespace TodoApp2.Core
         // Default FontSize is medium
         public FontSize TaskFontSize { get; set; } = FontSize.Medium;
 
+        public bool IsTitleBarDateVisible { get; set; } = false;
+
         #endregion Properties
 
         public ApplicationSettings()
@@ -93,6 +95,7 @@ namespace TodoApp2.Core
                 { nameof(AccentColor), PropertyValueHandlers.String },
                 { nameof(RoundedWindowCorners), PropertyValueHandlers.Bool },
                 { nameof(WindowCornerRadius), PropertyValueHandlers.Integer },
+                { nameof(IsTitleBarDateVisible), PropertyValueHandlers.Bool },
             };
         }
 

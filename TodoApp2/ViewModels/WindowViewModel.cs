@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using TodoApp2.Core;
 using Thickness = System.Windows.Thickness;
 
@@ -73,7 +74,8 @@ namespace TodoApp2
         public GridLength TitleBarGridHeight => new GridLength(TitleBarHeight);
 
         public bool IsDocked { get; set; }
-        private bool IsMaximized { get; set; }
+        public bool IsMaximized { get; set; }
+        public string CurrentTime { get; set; }
 
         #endregion Window settings
 
@@ -124,12 +126,22 @@ namespace TodoApp2
 
             // Set initial main and side menu pages
             m_ApplicationViewModel.CurrentPage = ApplicationPage.Task;
-
-            // TODO: delete?
-            //m_ApplicationViewModel.GoToPage(ApplicationPage.Task, new TaskPageViewModel(m_TaskListService, m_CategoryListService, m_Database));
             m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
 
             m_DragDropMediator = new DragDropMediator();
+
+            Timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 10) };
+            CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
+            Timer.Tick += TimerOnTick;
+            Timer.Start();
+        }
+
+        private DispatcherTimer Timer;
+        private const string DateTimeFormatString = "yyyy-MM-dd HH:mm";
+
+        private void TimerOnTick(object sender, EventArgs e)
+        {
+            CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
         }
 
         private void OnThemeChangeRequested(object obj)

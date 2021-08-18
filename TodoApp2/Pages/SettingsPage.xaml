@@ -68,6 +68,13 @@
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RoundedWindowCorners, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
+                        <!--  Title bar date  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconCalendar}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Title bar date visible" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+
                         <!--  Theme  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconTheme}" />

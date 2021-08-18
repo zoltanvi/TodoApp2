@@ -49,12 +49,7 @@
 
                                 <!--  Window border and drop shadow  -->
                                 <Border Background="{DynamicResource TaskPageBackgroundBrush}" CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}">
-                                    <!--<Border.Effect>
-                                            <DropShadowEffect
-                                                ShadowDepth="2"
-                                                Opacity="0.8"
-                                                BlurRadius="4" />
-                                        </Border.Effect>-->
+
 
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -70,18 +65,6 @@
                                             Grid.Column="0"
                                             Panel.ZIndex="0"
                                             Background="{DynamicResource TitleBarBackgroundBrush}">
-                                            <!--<Border.CornerRadius>
-                                                <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding
-                                                        Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius"
-                                                        Source="{x:Static local:ViewModelLocator.Instance}"
-                                                        NotifyOnSourceUpdated="True" />
-                                                    <Binding
-                                                        Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius"
-                                                        Source="{x:Static local:ViewModelLocator.Instance}"
-                                                        NotifyOnSourceUpdated="True" />
-                                                </MultiBinding>
-                                            </Border.CornerRadius>-->
 
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -101,22 +84,18 @@
                                                     AutomationProperties.AutomationId="SideMenuButton"
                                                     Command="{Binding ApplicationViewModel.ToggleSideMenuCommand, Source={x:Static local:ViewModelLocator.Instance}}"
                                                     Content="{DynamicResource SegoeIconMenu}"
-                                                    Style="{DynamicResource ButtonTitleBarStyle}">
+                                                    Style="{DynamicResource ButtonTitleBarStyle}"
+                                                    FontSize="16" />
 
-                                                    <Button.Resources>
-                                                        <Style TargetType="Border">
-                                                            <!--<Setter Property="CornerRadius">
-                                                                <Setter.Value>
-                                                                    <MultiBinding Converter="{local:CornerRadiusConverter}" UpdateSourceTrigger="PropertyChanged">
-                                                                        <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                                                                    </MultiBinding>
-                                                                </Setter.Value>
-                                                            </Setter>-->
-                                                        </Style>
-                                                    </Button.Resources>
-                                                </Button>
-
-                                                <!--  Here could be the window title  -->
+                                                <!--  Title bar date  -->
+                                                <Grid Grid.Column="1">
+                                                    <Label
+                                                        Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                                        Content="{Binding CurrentTime}"
+                                                        Foreground="{DynamicResource TitleBarForegroundBrush}"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center" />
+                                                </Grid>
 
                                                 <!--  Window buttons  -->
                                                 <StackPanel Grid.Column="2" Orientation="Horizontal">
@@ -125,36 +104,20 @@
                                                         AutomationProperties.AutomationId="MinimizeWindow"
                                                         Command="{Binding MinimizeCommand}"
                                                         Content="{DynamicResource SegoeIconMinimizeWindow}"
-                                                        Style="{DynamicResource ButtonTitleBarStyle}"
-                                                        FontSize="10" />
+                                                        Style="{DynamicResource ButtonTitleBarStyle}" />
                                                     <Button
                                                         x:Name="MaximizeWindow"
                                                         AutomationProperties.AutomationId="MaximizeWindow"
                                                         Command="{Binding MaximizeCommand}"
-                                                        Content="{DynamicResource SegoeIconMaximizeWindow}"
+                                                        Content="{Binding IsMaximized, Converter={local:BoolToMaximizeRestoreCharConverter}}"
                                                         Style="{DynamicResource ButtonTitleBarStyle}"
-                                                        FontSize="10" />
+                                                    />
                                                     <Button
                                                         Name="CloseWindow"
                                                         AutomationProperties.AutomationId="CloseWindow"
                                                         Command="{Binding CloseCommand}"
-                                                        Content="{DynamicResource SegoeIconCloseWindow}"
-                                                        Style="{DynamicResource ButtonTitleBarCloseWindowStyle}"
-                                                        FontSize="12">
-                                                        <Button.Resources>
-                                                            <Style TargetType="Border">
-                                                                <!--<Setter Property="CornerRadius">
-                                                                    <Setter.Value>
-                                                                        <MultiBinding Converter="{local:CornerRadiusConverter}">
-                                                                            <Binding Path="ApplicationViewModel.ApplicationSettings.NoRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                                                                            <Binding Path="ApplicationViewModel.ApplicationSettings.WindowCornerRadius" Source="{x:Static local:ViewModelLocator.Instance}" />
-                                                                        </MultiBinding>
-                                                                    </Setter.Value>
-                                                                </Setter>-->
-                                                            </Style>
-                                                        </Button.Resources>
-
-                                                    </Button>
+                                                        Content="{DynamicResource SegoeIconCloseWindow2}"
+                                                        Style="{DynamicResource ButtonTitleBarCloseWindowStyle}" />
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -189,7 +152,6 @@
         <Grid>
 
             <!--  Current page  -->
-
             <Frame
                 local:NoFrameHistory.Value="True"
                 AutomationProperties.AutomationId="CurrentPage"
@@ -199,19 +161,15 @@
             <!--  Overlay background  -->
             <local:OverlayBackgroundControl AutomationProperties.AutomationId="OverlayBackgroundControl" />
 
-
             <!--  Navigator menu panel  -->
             <Border>
                 <local:SideMenuControl local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}" AutomationProperties.AutomationId="SideMenuControl">
-
                     <!--  Side menu page  -->
-
                     <Frame
                         local:NoFrameHistory.Value="True"
                         AutomationProperties.AutomationId="SideMenuPage"
                         Content="{Binding}"
                         DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
-
                 </local:SideMenuControl>
             </Border>
 

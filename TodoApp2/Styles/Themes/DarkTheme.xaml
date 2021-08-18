@@ -18,7 +18,7 @@
     <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="SideMenuBottomBarForegroundBrush" Color="#E1E1E1" />
     <SolidColorBrush x:Key="SideMenuBottomBarBackgroundBrush" Color="#292929" />
-    <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="#3A3A3A" />
+    <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="#333333" />
 
     <SolidColorBrush x:Key="ButtonDeleteHoverBrush" Color="#E55F3E" />
 

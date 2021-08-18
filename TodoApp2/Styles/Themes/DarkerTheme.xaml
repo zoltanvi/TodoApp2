@@ -11,20 +11,20 @@
     <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="#E4E4E4" />
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="#202020" />
 
-    <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="#303030" />
-    <SolidColorBrush x:Key="ButtonTitleBarCloseHoverBackgroundBrush" Color="#FF311E" />
+    <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="#383838" />
+    <SolidColorBrush x:Key="ButtonTitleBarCloseHoverBackgroundBrush" Color="#D44E42" />
 
     <SolidColorBrush x:Key="SideMenuForegroundBrush" Color="#E4E4E4" />
     <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="#202020" />
     <SolidColorBrush x:Key="SideMenuBottomBarForegroundBrush" Color="#F3F3F3" />
     <SolidColorBrush x:Key="SideMenuBottomBarBackgroundBrush" Color="#1C1C1C" />
-    <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="#303030" />
+    <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="#383838" />
 
     <SolidColorBrush x:Key="ButtonDeleteHoverBrush" Color="#FF311E" />
 
     <SolidColorBrush x:Key="CategorySelectedForegroundBrush" Color="#E4E4E4" />
-    <SolidColorBrush x:Key="CategorySelectedBackgroundBrush" Color="#1A1A1A" />
-    <SolidColorBrush x:Key="CategoryHoverBackgroundBrush" Color="#1f000000" />
+    <SolidColorBrush x:Key="CategorySelectedBackgroundBrush" Color="#404040" />
+    <SolidColorBrush x:Key="CategoryHoverBackgroundBrush" Color="#303030" />
 
     <SolidColorBrush x:Key="PageTitleForegroundBrush" Color="#FFFFFF" />
 
