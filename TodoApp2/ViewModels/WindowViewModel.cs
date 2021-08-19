@@ -212,7 +212,12 @@ namespace TodoApp2
         private void OnWindowDeactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
-            window.Topmost = ApplicationSettings.IsAlwaysOnTop;
+            bool isAlwaysOnTop = ApplicationSettings.IsAlwaysOnTop;
+            window.Topmost = isAlwaysOnTop;
+            if (isAlwaysOnTop)
+            {
+                window.Show();
+            }
         }
 
         private void OnWindowStateChanged(object sender, EventArgs e)
