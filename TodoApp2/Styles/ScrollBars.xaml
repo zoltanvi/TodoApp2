@@ -86,7 +86,7 @@
                         Margin="0"
                         Height="{TemplateBinding Height}"
                         Background="{DynamicResource ScrollbarStaticBrush}"
-                        CornerRadius="0"
+                        CornerRadius="4"
                         SnapsToDevicePixels="True" />
 
                     <ControlTemplate.Triggers>

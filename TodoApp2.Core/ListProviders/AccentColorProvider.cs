@@ -11,7 +11,7 @@ namespace TodoApp2.Core
             Items = new List<string>
             {
                 "#3a3f47",
-                "#18b978",
+                "#3BA55D",
                 "#01adb5",
                 "#01e0ff",
                 "#0291cd",

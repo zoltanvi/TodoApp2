@@ -38,22 +38,27 @@ namespace TodoApp2
             string fullPath = s_AbsoluteThemePathPrefix;
             switch (theme)
             {
-                case Theme.Darker:
+                case Theme.Dark_1:
                 {
                     fullPath += "DarkerTheme.xaml";
                     break;
                 }
-                case Theme.Dark:
+                case Theme.Dark_2:
                 {
                     fullPath += "DarkTheme.xaml";
                     break;
                 }
-                case Theme.Light:
+                case Theme.Dark_3:
+                {
+                    fullPath += "MediumDarkTheme.xaml";
+                    break;
+                }
+                case Theme.Light_1:
                 {
                     fullPath += "LightTheme.xaml";
                     break;
                 }
-                case Theme.White:
+                case Theme.Light_2:
                 {
                     fullPath += "WhiteTheme.xaml";
                     break;

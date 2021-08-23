@@ -71,8 +71,8 @@
                             <Grid x:Name="markGrid">
                                 <Path
                                     x:Name="optionMark"
-                                    Margin="3"
-                                    Data="F1 M 0 7.89 L 1.665 5.82 L 6.39 9.6 L 10.935 1.33 L 12.85 2.68 6.885 13.2 Z"
+                                    Margin="0"
+                                    Data="F1 M 2.874 8.694 L 4.454 6.731 L 6.44 8.265 L 10.277 3.639 L 12.308 5.309 L 6.711 11.583 Z"
                                     Fill="{DynamicResource TaskItemBackgroundBrush}"
                                     Opacity="0"
                                     Stretch="None" />
@@ -93,21 +93,20 @@
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="optionMark" Property="Opacity" Value="1" />
                             <Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource CheckBoxCheckBrush}" />
-                            <Setter TargetName="optionMark" Property="Margin" Value="1 2.5 0 0" />
-                            <!--<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource TaskItemBackgroundBrush}" />-->
-                            <!--<Setter TargetName="checkBoxBorder" Property="BorderThickness" Value="2" />-->
+                            <Setter TargetName="optionMark" Property="Margin" Value="1 3 0 0" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource CheckBoxBorderBrush}" />
                             <Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource TaskItemBackgroundBrush}" />
-                            <Setter TargetName="checkBoxBorder" Property="BorderThickness" Value="0" />
                             <Setter TargetName="optionMark" Property="Opacity" Value="1" />
-                            <Setter TargetName="indeterminateMark" Property="Opacity" Value="0" />
-                            <Setter TargetName="optionMark" Property="Margin" Value="3" />
+                            <Setter TargetName="optionMark" Property="Margin" Value="2" />
+                            <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource CheckBoxBorderBrush}" />
+                            <Setter TargetName="checkBoxBorder" Property="BorderThickness" Value="0" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter TargetName="optionMark" Property="Margin" Value="0" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}">
                             <Setter TargetName="optionMark" Property="Opacity" Value="0" />
-                            <Setter TargetName="indeterminateMark" Property="Opacity" Value="1" />
                         </Trigger>
 
                         <EventTrigger RoutedEvent="Checked">

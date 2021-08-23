@@ -59,7 +59,6 @@
     <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="#696A6B" />
 
 
-    <SolidColorBrush x:Key="BubbleBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="#414141" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="ReminderItemBackgroundBrush" Color="#404040" />

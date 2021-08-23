@@ -2,13 +2,15 @@
 {
     public enum Theme
     {
-        Darker,
+        Dark_1,
 
-        Dark,
+        Dark_2,
 
-        Light,
+        Dark_3,
 
-        White,
+        Light_1,
+
+        Light_2,
 
         //Beige
     }

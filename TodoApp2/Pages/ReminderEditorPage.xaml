@@ -26,9 +26,19 @@
             VerticalAlignment="Center"
             Margin="20 70"
             Background="{DynamicResource OverlayPageBackgroundBrush}"
-            CornerRadius="5">
+            CornerRadius="4">
+            <Border.Clip>
+                <RectangleGeometry RadiusX="{Binding CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}">
+                    <RectangleGeometry.Rect>
+                        <MultiBinding Converter="{local:WidthAndHeightToRectConverter}">
+                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Border}}" />
+                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType={x:Type Border}}" />
+                        </MultiBinding>
+                    </RectangleGeometry.Rect>
+                </RectangleGeometry>
+            </Border.Clip>
 
-            <Grid >
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32" />
                     <RowDefinition Height="Auto" />
@@ -38,10 +48,7 @@
                 </Grid.RowDefinitions>
 
                 <!--  Titlebar  -->
-                <Border
-                    Grid.Row="0"
-                    BorderBrush="{DynamicResource NotificationBorderBrush}"
-                    BorderThickness="0 0 0 1">
+                <Border Grid.Row="0" BorderBrush="{DynamicResource NotificationBorderBrush}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -121,10 +128,7 @@
                     SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
                     Style="{DynamicResource CalendarStyle}" />
 
-                <Border
-                    Grid.Row="4"
-                    BorderBrush="{DynamicResource NotificationBorderBrush}"
-                    BorderThickness="0 1 0 0">
+                <Border Grid.Row="4" BorderBrush="{DynamicResource NotificationBorderBrush}">
                     <Grid Height="30" Margin="0 0 0 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -135,20 +139,18 @@
                         <Button
                             Grid.Column="0"
                             BorderBrush="{DynamicResource NotificationBorderBrush}"
-                            BorderThickness="0 0 1 0"
                             Command="{Binding ResetReminderCommand}"
                             Content="Reset"
-                            Style="{DynamicResource ReminderButtonStyle}" />
+                            Style="{DynamicResource ReminderBottomButtonStyle}" />
 
                         <!--  SET button  -->
                         <Button
                             Grid.Column="1"
                             BorderBrush="{DynamicResource NotificationBorderBrush}"
-                            BorderThickness="1 0 0 0"
                             Command="{Binding SetReminderCommand}"
                             Content="Set"
                             IsEnabled="{Binding IsSelectedDateStringValid}"
-                            Style="{DynamicResource ReminderButtonStyle}" />
+                            Style="{DynamicResource ReminderBottomButtonStyle}" />
                     </Grid>
                 </Border>
             </Grid>

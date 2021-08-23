@@ -18,7 +18,7 @@
     <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="#F2F2F2" />
     <SolidColorBrush x:Key="SideMenuBottomBarForegroundBrush" Color="#414141" />
     <SolidColorBrush x:Key="SideMenuBottomBarBackgroundBrush" Color="#CECECE" />
-    <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="#E7E7E7" />
+    <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="#C5C5C5" />
 
     <SolidColorBrush x:Key="ButtonDeleteHoverBrush" Color="#E55F3E" />
 
@@ -59,7 +59,6 @@
     <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="#B7B7B7" />
 
 
-    <SolidColorBrush x:Key="BubbleBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="#E1E1E1" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="#E6E6E6" />
     <SolidColorBrush x:Key="ReminderItemBackgroundBrush" Color="#B7B7B7" />
