@@ -144,7 +144,7 @@
     <SolidColorBrush x:Key="ComboBoxButtonMouseOverBrush" Color="#2E2E2E" />
     <SolidColorBrush x:Key="ComboBoxButtonCheckedBrush" Color="#585858" />
     <SolidColorBrush x:Key="ComboBoxSelectedItemForegroundBrush" Color="White" />
-    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundBrush" Color="#333333" />
+    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundBrush" Color="#27292B" />
     <SolidColorBrush x:Key="ComboBoxDropDownForegroundBrush" Color="White" />
     <SolidColorBrush x:Key="ComboBoxDropDownMouseOverBrush" Color="#424242" />
 

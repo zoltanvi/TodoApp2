@@ -28,8 +28,6 @@ namespace TodoApp2.Core
         public bool IsEditMode { get; set; }
         public string PendingEditContent { get; set; }
 
-        public ICommand ShowColorPickerCommand { get; }
-        public ICommand HideColorPickerCommand { get; }
         public ICommand SetColorCommand { get; }
         public ICommand OpenReminderCommand { get; }
         public ICommand EditItemCommand { get; }
@@ -37,9 +35,7 @@ namespace TodoApp2.Core
 
         public TaskListItemViewModel()
         {
-            ShowColorPickerCommand = new RelayCommand(ShowColorPicker);
-            HideColorPickerCommand = new RelayCommand(HideColorPicker);
-            SetColorCommand = new RelayParameterizedCommand(SetColor);
+            SetColorCommand = new RelayCommand(SetColor);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
             UpdateItemContentCommand = new RelayCommand(UpdateContent);
@@ -104,23 +100,9 @@ namespace TodoApp2.Core
             IoC.OverlayPageService.OpenPage(ApplicationPage.TaskReminder, this);
         }
 
-        private void SetColor(object obj)
+        private void SetColor()
         {
-            if (obj is string colorString)
-            {
-                Color = colorString;
-                Database.UpdateTask(this);
-            }
-        }
-
-        private void HideColorPicker()
-        {
-            ColorPickerVisible = false;
-        }
-
-        private void ShowColorPicker()
-        {
-            ColorPickerVisible = true;
+            Database.UpdateTask(this);
         }
     }
 }

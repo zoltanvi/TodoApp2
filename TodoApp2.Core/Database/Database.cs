@@ -204,8 +204,8 @@ namespace TodoApp2.Core
             task.Id = m_DataAccess.GetTaskNextId();
 
             // Generate a ListOrder for the item
-            long lastListOrder = m_DataAccess.GetTaskFirstListOrder();
-            task.ListOrder = GetPreviousListOrder(lastListOrder);
+            long firstListOrder = m_DataAccess.GetTaskFirstListOrder();
+            task.ListOrder = GetPreviousListOrder(firstListOrder);
 
             // Persist task into database
             m_DataAccess.AddTask(task);

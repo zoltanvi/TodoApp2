@@ -274,14 +274,25 @@
                                 Command="{Binding OpenReminderCommand}"
                                 Content="{DynamicResource SegoeIconDateTime}"
                                 Style="{DynamicResource ButtonQuickActionStyle}" />
-                            <!--  Palette button  -->
-                            <Button
+
+                            <!--  Color picker  -->
+                            <ComboBox
                                 Grid.Column="1"
-                                AutomationProperties.AutomationId="TaskListItemPaletteButton"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
-                                Command="{Binding ShowColorPickerCommand}"
-                                Content="{DynamicResource SegoeIconPalette}"
-                                Style="{DynamicResource ButtonQuickActionStyle}" />
+                                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Style="{DynamicResource ColorPickerTableStyle}"
+                                ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
+                                SelectedItem="{Binding Color, Mode=TwoWay}">
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SetColorCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+
+
                             <!--  Pin button  -->
                             <Grid Grid.Column="2" Visibility="{Binding Pinned, Converter={local:BoolToVisibilityNegatedConverter}}">
                                 <Button
@@ -316,20 +327,6 @@
                     </Border>
                 </Border>
 
-                <local:ColorPickerControl
-                    Grid.Column="2"
-                    Margin="0 0 24 0"
-                    HorizontalContentAlignment="Right"
-                    AutomationProperties.AutomationId="TaskListItemColorPickerControl"
-                    Visibility="{Binding ColorPickerVisible, Converter={local:BoolToVisibilityConverter}}">
-
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseLeave">
-                            <i:InvokeCommandAction Command="{Binding HideColorPickerCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-
-                </local:ColorPickerControl>
             </Grid>
         </Border>
     </Grid>

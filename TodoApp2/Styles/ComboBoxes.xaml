@@ -53,7 +53,7 @@
             Background="{TemplateBinding Background}" />
     </ControlTemplate>
 
-    <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+    <Style TargetType="{x:Type ComboBox}">
         <Style.Resources>
             <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
         </Style.Resources>
@@ -168,6 +168,201 @@
                             <Setter Property="Foreground" Value="#888888" />
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  COLOR PICKER STYLE  -->
+
+    <ControlTemplate x:Key="ColorPickerToggleButton" TargetType="{x:Type ToggleButton}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Border
+                x:Name="Border"
+                Grid.ColumnSpan="2"
+                CornerRadius="0"
+                Background="Transparent"
+                BorderBrush="{DynamicResource ComboBoxBorderBrush}"
+                BorderThickness="0" />
+            <Path
+                x:Name="Arrow"
+                Grid.Column="1"
+                Fill="{DynamicResource ComboBoxArrowBrush}"
+                HorizontalAlignment="Left"
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                Data="M 0,0 L 0,2 L 4,6 L 8,2 L 8,0 L 4,0 z" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true" />
+            <Trigger Property="ToggleButton.IsChecked" Value="true" />
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="#888888" />
+                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <Style x:Key="ColorPickerTableStyle" TargetType="{x:Type ComboBox}">
+        <Style.Resources>
+            <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
+        </Style.Resources>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <!--<Setter Property="MinWidth" Value="50" />-->
+        <!--<Setter Property="MinHeight" Value="26" />-->
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Foreground" Value="{DynamicResource ComboBoxSelectedItemForegroundBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Width="{TemplateBinding Width}">
+                        <ToggleButton
+                            x:Name="ToggleButton"
+                            Template="{StaticResource ColorPickerToggleButton}"
+                            Focusable="false"
+                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press" />
+                        <ContentPresenter
+                            x:Name="ContentSite"
+                            IsHitTestVisible="False"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="0 0 0 0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
+                        <TextBox
+                            x:Name="PART_EditableTextBox"
+                            Style="{x:Null}"
+                            Template="{StaticResource ComboBoxTextBox}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="0 0 0 0"
+                            Focusable="True"
+                            Background="#FFC15C5C"
+                            Foreground="LightBlue"
+                            Visibility="Hidden"
+                            IsReadOnly="{TemplateBinding IsReadOnly}" />
+                        <Popup
+                            x:Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            PopupAnimation="Fade">
+
+                            <Grid
+                                x:Name="DropDown"
+                                SnapsToDevicePixels="True"
+                                MinWidth="{TemplateBinding ActualWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border
+                                    x:Name="DropDownBorder"
+                                    Background="{DynamicResource ComboBoxDropDownBackgroundBrush}"
+                                    BorderThickness="0"
+                                    CornerRadius="4"
+                                    BorderBrush="#888888" />
+
+                                <WrapPanel
+                                    Margin="8"
+                                    Orientation="Vertical"
+                                    IsItemsHost="True"
+                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                    Height="140" />
+
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="HasItems" Value="false">
+                            <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
+                        </Trigger>-->
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="#888888" />
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                        </Trigger>
+                        <Trigger SourceName="Popup" Property="AllowsTransparency" Value="true">
+                            <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="4" />
+                            <Setter TargetName="DropDownBorder" Property="Margin" Value="0" />
+                        </Trigger>
+                        <Trigger Property="IsEditable" Value="true">
+                            <Setter Property="IsTabStop" Value="false" />
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="ColorPickerItemTemplate">
+        <Grid>
+            <Border
+                x:Name="ItemBorder"
+                Width="16"
+                Height="16"
+                CornerRadius="2"
+                Background="{Binding}" />
+
+            <Path
+                Stroke="Red"
+                StrokeThickness="1"
+                Name="DiagonalLine"
+                Visibility="Collapsed">
+                <Path.Data>
+                    <LineGeometry StartPoint="15,0" EndPoint="0,15" />
+                </Path.Data>
+            </Path>
+
+        </Grid>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding}" Value="Transparent">
+                <Setter Property="Background" TargetName="ItemBorder" Value="White" />
+                <Setter Property="Visibility" TargetName="DiagonalLine" Value="Visible" />
+                <Setter Property="BorderThickness" TargetName="ItemBorder" Value="0.5" />
+                <Setter Property="BorderBrush" TargetName="ItemBorder" Value="Black" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <Style x:Key="ColorPickerItemContainerStyle" TargetType="ComboBoxItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border
+                        Name="PaddingBorder"
+                        Padding="6"
+                        Background="Transparent">
+                        <Border
+                            Name="HighlightBorder"
+                            BorderBrush="{Binding}"
+                            CornerRadius="2">
+                            <ContentPresenter />
+                        </Border>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="BorderThickness" TargetName="HighlightBorder" Value="1" />
+                            <Setter Property="Margin" TargetName="HighlightBorder" Value="-2" />
+                            <Setter Property="Padding" TargetName="HighlightBorder" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
