@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Helpers\CustomDropHandler.cs" />
     <Compile Include="Helpers\DragDropMediator.cs" />
+    <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\TextBoxPreviewKeyDownHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Pages\BasePage.cs" />
@@ -210,7 +211,6 @@
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BackgroundBrushConverter.cs" />
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
-    <Compile Include="ValueConverters\WidthAndHeightToRectConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\FlashWindow.cs" />

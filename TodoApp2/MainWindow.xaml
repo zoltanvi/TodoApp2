@@ -23,24 +23,22 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--  Outer border with the drop shadow margin  -->
-                        <Border CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}">
+                        <Border
+                            CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}"
+                            local:SizeObserver.Observe="True"
+                            local:SizeObserver.ObservedWidth="{Binding MyWidth, Mode=OneWayToSource}"
+                            local:SizeObserver.ObservedHeight="{Binding MyHeight, Mode=OneWayToSource}">
                             <Border.Clip>
-                                <RectangleGeometry RadiusX="{Binding CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}">
-                                    <RectangleGeometry.Rect>
-                                        <MultiBinding Converter="{local:WidthAndHeightToRectConverter}">
-                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Border}}" />
-                                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType={x:Type Border}}" />
-                                        </MultiBinding>
-                                    </RectangleGeometry.Rect>
-                                </RectangleGeometry>
+                                <RectangleGeometry
+                                    RadiusX="{Binding CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}"
+                                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
+                                    Rect="{Binding ClipRect}" />
                             </Border.Clip>
-
 
                             <!--  Main window outline  -->
                             <Grid>
 
                                 <!--  Outer dragging border  -->
-
                                 <Border
                                     Panel.ZIndex="2"
                                     BorderBrush="{DynamicResource ApplicationBorderBrush}"
@@ -110,8 +108,7 @@
                                                         AutomationProperties.AutomationId="MaximizeWindow"
                                                         Command="{Binding MaximizeCommand}"
                                                         Content="{Binding IsMaximized, Converter={local:BoolToMaximizeRestoreCharConverter}}"
-                                                        Style="{DynamicResource ButtonTitleBarStyle}"
-                                                    />
+                                                        Style="{DynamicResource ButtonTitleBarStyle}" />
                                                     <Button
                                                         Name="CloseWindow"
                                                         AutomationProperties.AutomationId="CloseWindow"

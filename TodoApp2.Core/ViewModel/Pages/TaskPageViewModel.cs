@@ -262,7 +262,8 @@ namespace TodoApp2.Core
                 CategoryId = m_Database.GetCategory(CurrentCategory).Id,
                 Content = PendingAddNewTaskText,
                 CreationDate = DateTime.Now.Ticks,
-                ModificationDate = DateTime.Now.Ticks
+                ModificationDate = DateTime.Now.Ticks,
+                Color = "Transparent"
             };
 
             // Add task to list and persist it

@@ -18,6 +18,8 @@ namespace TodoApp2
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
+            SubscribeToExceptionHandling();
+
             // Let the base application do what it needs
             base.OnStartup(e);
 
@@ -27,7 +29,10 @@ namespace TodoApp2
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
+        }
 
+        private void SubscribeToExceptionHandling()
+        {
             string appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string crashReportFileName = "TodoApp2_CrashReport.txt";
             m_CrashReportPath = Path.Combine(appDataFolderPath, crashReportFileName);

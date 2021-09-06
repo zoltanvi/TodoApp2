@@ -78,6 +78,14 @@ namespace TodoApp2
         public string CurrentTime { get; set; }
 
         #endregion Window settings
+        
+        #region Workaround
+        // WORKAROUND properties for MultiBinding bug
+        // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
+        public double MyWidth { get; set; }
+        public double MyHeight { get; set; }
+        public Rect ClipRect => new Rect(0, 0, MyWidth, MyHeight);
+        #endregion Workaround
 
         #region Constructors
 

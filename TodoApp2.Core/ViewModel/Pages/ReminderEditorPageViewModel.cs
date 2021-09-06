@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -25,6 +26,14 @@ namespace TodoApp2.Core
             get => ReminderTask.IsReminderOn;
             set => ReminderTask.IsReminderOn = value;
         }
+
+        #region Workaround
+        // WORKAROUND properties for MultiBinding bug
+        // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
+        public double MyWidth { get; set; }
+        public double MyHeight { get; set; }
+        public Rect ClipRect => new Rect(0, 0, MyWidth, MyHeight);
+        #endregion Workaround
 
         public ICommand CloseReminderCommand { get; }
         public ICommand SetReminderCommand { get; }
