@@ -29,9 +29,15 @@
                 CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                 Visibility="{Binding Path=PlacementTarget.DataContext.Pinned, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={local:BoolToVisibilityConverter}}" />
 
-            <MenuItem Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Edit" />
-            <MenuItem Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Set reminder" />
-            <MenuItem Header="Move to" ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+            <MenuItem
+                Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Header="Edit" />
+            <MenuItem
+                Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Header="Set reminder" />
+            <MenuItem
+                Header="Move to"
+                ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding Name}" />
@@ -40,7 +46,9 @@
                             <Setter.Value>
                                 <MultiBinding Converter="{local:TaskContextMenuCommandParameterConverter}">
                                     <MultiBinding.Bindings>
-                                        <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType={x:Type local:TaskListItemControl}}" />
+                                        <Binding
+                                            Path="DataContext"
+                                            RelativeSource="{RelativeSource AncestorType={x:Type local:TaskListItemControl}}" />
                                         <Binding Path="Name" />
                                     </MultiBinding.Bindings>
                                 </MultiBinding>
@@ -50,12 +58,14 @@
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
             <Separator />
-            <MenuItem Header="Change color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+            <MenuItem
+                Header="Change color"
+                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding}" />
                         <Setter Property="Foreground" Value="{Binding Converter={local:StringRGBToBrushConverter}}" />
-                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetColorCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetColorParameterizedCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
                         <Setter Property="CommandParameter" Value="{Binding}" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
@@ -70,14 +80,20 @@
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
-            <MenuItem Header="Reset colors in category" Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem
+                Header="Reset colors in category"
+                Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
             <Separator />
             <MenuItem
                 Header="Delete"
                 Command="{Binding Path=PlacementTarget.Tag.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                 CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-            <MenuItem Header="Delete done items" Command="{Binding Path=PlacementTarget.Tag.DeleteDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-            <MenuItem Header="Delete all items" Command="{Binding Path=PlacementTarget.Tag.DeleteAllCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem
+                Header="Delete done items"
+                Command="{Binding Path=PlacementTarget.Tag.DeleteDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem
+                Header="Delete all items"
+                Command="{Binding Path=PlacementTarget.Tag.DeleteAllCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
 
         </ContextMenu>
     </UserControl.ContextMenu>
@@ -108,9 +124,13 @@
             BorderBrush="Transparent"
             BorderThickness="1">
             <Border.Background>
-                <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
+                <MultiBinding
+                    Converter="{local:BackgroundBrushConverter}"
+                    UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
-                    <Binding Path="ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding
+                        Path="ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible"
+                        Source="{x:Static local:ViewModelLocator.Instance}" />
                 </MultiBinding>
             </Border.Background>
 
@@ -142,7 +162,9 @@
                     Style="{DynamicResource TaskCheckBoxStyle}" />
 
                 <!--  Main content  -->
-                <Grid Grid.Column="2" Margin="0 4">
+                <Grid
+                    Grid.Column="2"
+                    Margin="0 4">
                     <Grid.RowDefinitions>
                         <!--  Task description row  -->
                         <RowDefinition Height="*" />
@@ -164,7 +186,9 @@
                         Text="{Binding Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
                         Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}">
                         <TextBlock.InputBindings>
-                            <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
+                            <MouseBinding
+                                Command="{Binding EditItemCommand}"
+                                Gesture="LeftDoubleClick" />
                         </TextBlock.InputBindings>
                     </TextBlock>
 
@@ -294,7 +318,9 @@
 
 
                             <!--  Pin button  -->
-                            <Grid Grid.Column="2" Visibility="{Binding Pinned, Converter={local:BoolToVisibilityNegatedConverter}}">
+                            <Grid
+                                Grid.Column="2"
+                                Visibility="{Binding Pinned, Converter={local:BoolToVisibilityNegatedConverter}}">
                                 <Button
                                     AutomationProperties.AutomationId="TaskListItemPinButton"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
@@ -304,7 +330,9 @@
                                     Style="{DynamicResource ButtonQuickActionStyle}" />
                             </Grid>
                             <!--  Unpin button  -->
-                            <Grid Grid.Column="2" Visibility="{Binding Pinned, Converter={local:BoolToVisibilityConverter}}">
+                            <Grid
+                                Grid.Column="2"
+                                Visibility="{Binding Pinned, Converter={local:BoolToVisibilityConverter}}">
                                 <Button
                                     AutomationProperties.AutomationId="TaskListItemUnpinButton"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"

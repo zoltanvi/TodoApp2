@@ -29,6 +29,7 @@ namespace TodoApp2.Core
         public string PendingEditContent { get; set; }
 
         public ICommand SetColorCommand { get; }
+        public ICommand SetColorParameterizedCommand { get; }
         public ICommand OpenReminderCommand { get; }
         public ICommand EditItemCommand { get; }
         public ICommand UpdateItemContentCommand { get; }
@@ -36,6 +37,7 @@ namespace TodoApp2.Core
         public TaskListItemViewModel()
         {
             SetColorCommand = new RelayCommand(SetColor);
+            SetColorParameterizedCommand = new RelayParameterizedCommand(SetColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
             UpdateItemContentCommand = new RelayCommand(UpdateContent);
@@ -102,7 +104,17 @@ namespace TodoApp2.Core
 
         private void SetColor()
         {
+            // Combobox changes the Color property directly, we just need to persist it
             Database.UpdateTask(this);
+        }
+
+        private void SetColorParameterized(object obj)
+        {
+            if (obj is string colorString)
+            {
+                // Combobox will trigger the SetColor command so this value will be persisted!
+                Color = colorString;
+            }
         }
     }
 }
