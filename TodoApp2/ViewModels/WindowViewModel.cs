@@ -296,7 +296,7 @@ namespace TodoApp2
         private void LoadBackTheme()
         {
             // Theme.Darker is the default, it is always the current theme at application start
-            m_ThemeManager.ChangeToTheme(Theme.Dark_1, ApplicationSettings.ActiveTheme);
+            m_ThemeManager.ChangeToTheme(Theme.ExtraDark, ApplicationSettings.ActiveTheme);
         }
 
         /// <summary>

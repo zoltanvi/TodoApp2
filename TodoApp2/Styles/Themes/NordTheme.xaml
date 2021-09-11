@@ -145,7 +145,7 @@
     <SolidColorBrush x:Key="ComboBoxSelectedItemForegroundBrush" Color="White" />
     <SolidColorBrush x:Key="ComboBoxDropDownBackgroundBrush" Color="#2e3440" />
     <SolidColorBrush x:Key="ComboBoxDropDownForegroundBrush" Color="White" />
-    <SolidColorBrush x:Key="ComboBoxDropDownMouseOverBrush" Color="#424242" />
+    <SolidColorBrush x:Key="ComboBoxDropDownMouseOverBrush" Color="#3b4252" />
 
 
     <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush" StartPoint="0,0" EndPoint="1,0">

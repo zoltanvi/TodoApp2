@@ -35,49 +35,8 @@ namespace TodoApp2
 
         private string GetThemeUriPath(Theme theme)
         {
-            string fullPath = s_AbsoluteThemePathPrefix;
-            switch (theme)
-            {
-                case Theme.Dark_1:
-                {
-                    fullPath += "DarkerTheme.xaml";
-                    break;
-                }
-                case Theme.Dark_2:
-                {
-                    fullPath += "DarkTheme.xaml";
-                    break;
-                }
-                case Theme.Dark_3:
-                {
-                    fullPath += "MediumDarkTheme.xaml";
-                    break;
-                }
-                case Theme.Nord:
-                {
-                    fullPath += "NordTheme.xaml";
-                    break;
-                }
-                case Theme.Light_1:
-                {
-                    fullPath += "LightTheme.xaml";
-                    break;
-                }
-                case Theme.Light_2:
-                {
-                    fullPath += "WhiteTheme.xaml";
-                    break;
-                }
-                //case Theme.Beige:
-                //{
-                //    fullPath += "BeigeTheme.xaml";
-                //    break;
-                //}
-                default:
-                {
-                    throw new ArgumentException("The given theme is not yet defined!");
-                }
-            }
+            string fullPath = $"{s_AbsoluteThemePathPrefix}{theme}Theme.xaml";
+
             return fullPath;
         }
 

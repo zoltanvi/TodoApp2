@@ -188,6 +188,7 @@
     <Compile Include="ValueConverters\BoolToApplicationBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToMaximizeRestoreCharConverter.cs" />
+    <Compile Include="ValueConverters\CamelCaseConverter.cs" />
     <Compile Include="ValueConverters\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\EnumToBoldFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\EnumToFontFamilyConverter.cs" />
@@ -307,11 +308,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\Themes\MediumDarkTheme.xaml">
+    <Page Include="Styles\Themes\GrayTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\Themes\DarkerTheme.xaml">
+    <Page Include="Styles\Themes\ExtraDarkTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -327,7 +328,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\Themes\WhiteTheme.xaml">
+    <Page Include="Styles\Themes\ExtraLightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

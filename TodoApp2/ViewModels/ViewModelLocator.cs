@@ -18,10 +18,6 @@ namespace TodoApp2
         public static MessageService MessageService => IoC.MessageService;
 
         public static ColorListProvider ColorListProvider { get; } = new ColorListProvider();
-        public static EnumValuesListProvider<Theme> ThemeListProvider { get; } = new EnumValuesListProvider<Theme>();
-        public static EnumValuesListProvider<Thickness> ThicknessListProvider { get; } = new EnumValuesListProvider<Thickness>();
-        public static EnumValuesListProvider<FontSize> FontSizeListProvider { get; } = new EnumValuesListProvider<FontSize>();
-        public static EnumValuesListProvider<FontFamily> FontFamilyListProvider { get; } = new EnumValuesListProvider<FontFamily>();
 
         public static AccentColorProvider AccentColorProvider { get; } = new AccentColorProvider();
         public static CustomDropHandler CustomDropHandler { get; } = new CustomDropHandler();

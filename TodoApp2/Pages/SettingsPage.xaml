@@ -5,11 +5,46 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:local="clr-namespace:TodoApp2"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:sys="clr-namespace:System;assembly=mscorlib"
                 Title="SettingsPage"
                 d:DesignHeight="450"
                 d:DesignWidth="800"
                 x:TypeArguments="core:SettingsPageViewModel"
                 mc:Ignorable="d">
+    <local:BasePage.Resources>
+        <ObjectDataProvider MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}"
+                            x:Key="ThemeDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="core:Theme" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}"
+                            x:Key="ThicknessDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="core:Thickness" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}"
+                            x:Key="FontSizeDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="core:FontSize" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}"
+                            x:Key="FontFamilyDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="core:FontFamily" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+    </local:BasePage.Resources>
 
     <Border>
         <Grid>
@@ -77,11 +112,17 @@
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconTheme}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Theme" />
                             <ComboBox HorizontalAlignment="Right"
-                                      Width="100"
+                                      Width="110"
                                       FontSize="{StaticResource FontSizeSmall}"
                                       FontFamily="{StaticResource Ubuntu}"
-                                      ItemsSource="{Binding ThemeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                      SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                                      ItemsSource="{Binding Source={StaticResource ThemeDataProvider}}"
+                                      SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={local:CamelCaseConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </DockPanel>
 
                         <!--  Accent color  -->
@@ -89,7 +130,7 @@
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconPalette}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Accent color" />
                             <ComboBox HorizontalAlignment="Right"
-                                      Width="100"
+                                      Width="110"
                                       FontSize="{StaticResource FontSizeSmall}"
                                       FontFamily="{StaticResource Ubuntu}"
                                       ItemsSource="{Binding AccentColorProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
@@ -136,8 +177,14 @@
                                       Width="100"
                                       FontSize="{StaticResource FontSizeSmall}"
                                       FontFamily="{StaticResource Ubuntu}"
-                                      ItemsSource="{Binding ThicknessListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                      SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                                      ItemsSource="{Binding Source={StaticResource ThicknessDataProvider}}"
+                                      SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={local:CamelCaseConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </DockPanel>
 
                         <!--  Task font size  -->
@@ -148,8 +195,14 @@
                                       Width="100"
                                       FontSize="{StaticResource FontSizeSmall}"
                                       FontFamily="{StaticResource Ubuntu}"
-                                      ItemsSource="{Binding FontSizeListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                      SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                                      ItemsSource="{Binding Source={StaticResource FontSizeDataProvider}}"
+                                      SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={local:CamelCaseConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </DockPanel>
 
                         <!--  Task font family  -->
@@ -160,8 +213,14 @@
                                       Width="100"
                                       FontSize="{StaticResource FontSizeSmall}"
                                       FontFamily="{StaticResource Ubuntu}"
-                                      ItemsSource="{Binding FontFamilyListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                      SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                                      ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
+                                      SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={local:CamelCaseConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </DockPanel>
 
                         <!--  =====================================================  -->

@@ -36,7 +36,7 @@ namespace TodoApp2.Core
         public bool IsAlwaysOnTop { get; set; }
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; } = Thickness.Medium;
-        public FontFamily FontFamily { get; set; } = FontFamily.Segoe_UI;
+        public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
         public string AccentColor { get; set; } = "#0291cd";
         public int WindowCornerRadius { get; set; }
 

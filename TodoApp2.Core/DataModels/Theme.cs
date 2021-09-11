@@ -2,17 +2,17 @@
 {
     public enum Theme
     {
-        Dark_1,
+        ExtraDark,
 
-        Dark_2,
+        Dark,
 
-        Dark_3,
+        Gray,
 
         Nord,
 
-        Light_1,
+        Light,
 
-        Light_2,
+        ExtraLight,
 
         //Beige
     }
