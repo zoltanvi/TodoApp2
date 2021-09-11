@@ -4,6 +4,9 @@ A customizable and portable WPF ToDo application.
 ## Simple dark theme
 ![Darker theme](TodoApp2/Images/Readme/01.png)
 
+## Nord theme
+![Nord theme](TodoApp2/Images/Readme/08.png)
+
 ## Context menu
 ![Context menu](TodoApp2/Images/Readme/02.png)
 

@@ -8,6 +8,8 @@
 
         Dark_3,
 
+        Nord,
+
         Light_1,
 
         Light_2,
