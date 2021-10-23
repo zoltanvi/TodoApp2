@@ -11,7 +11,6 @@ namespace TodoApp2.Core
         Task Reinitialize(bool online = false);
         bool AddCategoryIfNotExists(CategoryListItemViewModel categoryToAdd);
         void AddSetting(SettingsModel setting);
-        void AddTask(TaskListItemViewModel task);
         void Dispose();
         List<CategoryListItemViewModel> GetActiveCategories();
         List<TaskListItemViewModel> GetActiveTaskItems();
