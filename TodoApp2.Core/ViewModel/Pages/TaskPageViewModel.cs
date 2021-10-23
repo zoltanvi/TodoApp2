@@ -255,19 +255,8 @@ namespace TodoApp2.Core
                 return;
             }
 
-            // Create the new task instance
-            TaskListItemViewModel taskToAdd = new TaskListItemViewModel
-            {
-                // TODO: use CategoryListService call instead
-                CategoryId = m_Database.GetCategory(CurrentCategory).Id,
-                Content = PendingAddNewTaskText,
-                CreationDate = DateTime.Now.Ticks,
-                ModificationDate = DateTime.Now.Ticks,
-                Color = "Transparent"
-            };
-
             // Add task to list and persist it
-            m_TaskListService.AddNewTask(taskToAdd);
+            m_TaskListService.AddNewTask(PendingAddNewTaskText);
 
             // Reset the input TextBox text
             PendingAddNewTaskText = string.Empty;

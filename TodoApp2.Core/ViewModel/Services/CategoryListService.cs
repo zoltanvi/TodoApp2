@@ -26,6 +26,8 @@ namespace TodoApp2.Core
             set => m_ApplicationViewModel.ApplicationSettings.CurrentCategory = value;
         }
 
+        public CategoryListItemViewModel GetCurrentCategory => m_Database.GetCategory(CurrentCategory);
+
         public CategoryListService(ApplicationViewModel applicationViewModel, IDatabase database)
         {
             m_ApplicationViewModel = applicationViewModel;

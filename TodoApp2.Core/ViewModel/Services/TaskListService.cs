@@ -57,14 +57,13 @@ namespace TodoApp2.Core
             TaskPageItems.AddRange(items);
         }
 
-        public void AddNewTask(TaskListItemViewModel task)
+        public void AddNewTask(string taskContent)
         {
-            // Persist into database and set the task ID
-            // Note: The database gives the ID to the task
-            m_Database.AddTask(task);
-
             var pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
+            var currentCategoryId = m_CategoryListService.GetCurrentCategory.Id;
 
+            var task = m_Database.CreateTask(taskContent, currentCategoryId, pinnedItemsCount);
+            
             // Add the task into the list
             TaskPageItems.Insert(pinnedItemsCount, task);
         }

@@ -195,20 +195,33 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
-        /// Inserts a task into the database
+        /// Creates a new task and persists it into the database
         /// </summary>
-        /// <param name="task"></param>
-        public void AddTask(TaskListItemViewModel task)
+        /// <param name="taskContent">The displayed task content</param>
+        /// <param name="categoryId">The ID of the task category</param>
+        /// <param name="position">The position of the task in the list</param>
+        /// <returns>The created task</returns>
+        public TaskListItemViewModel CreateTask(string taskContent, int categoryId, int position)
         {
-            // Generate an ID for the item
-            task.Id = m_DataAccess.GetTaskNextId();
-
             // Generate a ListOrder for the item
             long firstListOrder = m_DataAccess.GetTaskFirstListOrder();
-            task.ListOrder = GetPreviousListOrder(firstListOrder);
 
-            // Persist task into database
+            TaskListItemViewModel task = new TaskListItemViewModel
+            {
+                Id = m_DataAccess.GetTaskNextId(),
+                CategoryId = categoryId,
+                Content = taskContent,
+                CreationDate = DateTime.Now.Ticks,
+                ModificationDate = DateTime.Now.Ticks,
+                Color = "Transparent",
+                ListOrder = GetPreviousListOrder(firstListOrder)
+            };
+
             m_DataAccess.AddTask(task);
+            
+            ReorderTask(task, position);
+
+            return task;
         }
 
         /// <summary>
@@ -448,5 +461,6 @@ namespace TodoApp2.Core
                 m_SessionManager.Upload();
             }
         }
+
     }
 }

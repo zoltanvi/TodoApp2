@@ -30,5 +30,6 @@ namespace TodoApp2.Core
         void UpdateTask(TaskListItemViewModel task);
         void UpdateTaskList(IEnumerable<IReorderable> taskList);
         void UpdateTaskListOrder(IEnumerable<IReorderable> taskList);
+        TaskListItemViewModel CreateTask(string taskContent, int categoryId, int position);
     }
 }
