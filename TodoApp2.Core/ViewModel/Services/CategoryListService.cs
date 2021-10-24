@@ -26,8 +26,6 @@ namespace TodoApp2.Core
             set => m_ApplicationViewModel.ApplicationSettings.CurrentCategory = value;
         }
 
-        public CategoryListItemViewModel GetCurrentCategory => m_Database.GetCategory(CurrentCategory);
-
         public CategoryListService(ApplicationViewModel applicationViewModel, IDatabase database)
         {
             m_ApplicationViewModel = applicationViewModel;
@@ -38,6 +36,11 @@ namespace TodoApp2.Core
             List<CategoryListItemViewModel> categories = m_Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
         }
+        
+        public CategoryListItemViewModel GetCurrentCategory => m_Database.GetCategory(CurrentCategory);
+        
+        public CategoryListItemViewModel GetCategory(int id) => m_Database.GetCategory(id);
+        public CategoryListItemViewModel GetCategory(string categoryName) => m_Database.GetCategory(categoryName);
 
         private void OnOnlineModeChanged(object obj)
         {

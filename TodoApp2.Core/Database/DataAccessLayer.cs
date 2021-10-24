@@ -669,30 +669,28 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
-        /// Inserts a new record into the Task table
+        /// Creates a new Task and persists it into the Task table
         /// </summary>
-        /// <param name="taskListItem"></param>
-        /// <returns></returns>
-        public void AddTask(TaskListItemViewModel taskListItem)
+        /// <param name="taskContent">The content of the task</param>
+        /// <param name="categoryId">The category of the task</param>
+        /// <returns>The created task.</returns>
+        public TaskListItemViewModel CreateTask(string taskContent, int categoryId)
         {
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            TaskListItemViewModel task = new TaskListItemViewModel
             {
-                command.CommandText = $"INSERT INTO {Table.Task} " +
-                                      $" ({Column.Id}, {Column.CategoryId}, {Column.Content}, " +
-                                      $" {Column.ListOrder}, {Column.Pinned}, {Column.IsDone}, " +
-                                      $" {Column.CreationDate}, {Column.ModificationDate}, {Column.Color}, " +
-                                      $" {Column.Trashed}, {Column.ReminderDate}, {Column.IsReminderOn}) " +
-                                      $" VALUES ({Parameter.Id}, {Parameter.CategoryId}, {Parameter.Content}, " +
-                                      $" {Parameter.ListOrder}, {Parameter.Pinned}, {Parameter.IsDone}, " +
-                                      $" {Parameter.CreationDate}, {Parameter.ModificationDate}, {Parameter.Color}, " +
-                                      $" {Parameter.Trashed}, {Parameter.ReminderDate}, {Parameter.IsReminderOn});";
+                Id = GetTaskNextId(),
+                CategoryId = categoryId,
+                Content = taskContent,
+                CreationDate = DateTime.Now.Ticks,
+                ModificationDate = DateTime.Now.Ticks,
+                Color = "Transparent",
+                // The task is inserted at the top of the list by default
+                ListOrder = GetTaskFirstListOrder() - ListOrderInterval
+            };
 
-                command.Parameters.AddRange(CreateTaskParameterList(taskListItem));
+            AddTask(task);
 
-                using (SQLiteDataReader reader = command.ExecuteReader())
-                {
-                }
-            }
+            return task;
         }
 
         /// <summary>
@@ -801,6 +799,33 @@ namespace TodoApp2.Core
             }
 
             return modifiedItems;
+        }
+
+        /// <summary>
+        /// Inserts a new record into the Task table
+        /// </summary>
+        /// <param name="taskListItem"></param>
+        /// <returns></returns>
+        private void AddTask(TaskListItemViewModel taskListItem)
+        {
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            {
+                command.CommandText = $"INSERT INTO {Table.Task} " +
+                                      $" ({Column.Id}, {Column.CategoryId}, {Column.Content}, " +
+                                      $" {Column.ListOrder}, {Column.Pinned}, {Column.IsDone}, " +
+                                      $" {Column.CreationDate}, {Column.ModificationDate}, {Column.Color}, " +
+                                      $" {Column.Trashed}, {Column.ReminderDate}, {Column.IsReminderOn}) " +
+                                      $" VALUES ({Parameter.Id}, {Parameter.CategoryId}, {Parameter.Content}, " +
+                                      $" {Parameter.ListOrder}, {Parameter.Pinned}, {Parameter.IsDone}, " +
+                                      $" {Parameter.CreationDate}, {Parameter.ModificationDate}, {Parameter.Color}, " +
+                                      $" {Parameter.Trashed}, {Parameter.ReminderDate}, {Parameter.IsReminderOn});";
+
+                command.Parameters.AddRange(CreateTaskParameterList(taskListItem));
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                }
+            }
         }
 
         /// <summary>

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 
@@ -14,7 +12,6 @@ namespace TodoApp2.Core
     { 
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
-        private readonly IDatabase m_Database;
 
         private string CurrentCategory => m_CategoryListService.CurrentCategory;
         private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
@@ -73,11 +70,10 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService, IDatabase database)
+        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService)
         {
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
-            m_Database = database;
 
             AddTaskItemCommand = new RelayCommand(AddTask);
             DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
@@ -191,14 +187,12 @@ namespace TodoApp2.Core
                 if (parameters[0] is TaskListItemViewModel task &&
                     parameters[1] is string categoryToMoveTo)
                 {
-                    // TODO: use CategoryListService call instead
-                    CategoryListItemViewModel taskCategory = m_Database.GetCategory(task.CategoryId);
+                    CategoryListItemViewModel taskCategory = m_CategoryListService.GetCategory(task.CategoryId);
 
                     // If the category is the same as the task is in, there is nothing to do
                     if (taskCategory.Name != categoryToMoveTo)
                     {
-                        // TODO: use CategoryListService call instead
-                        CategoryListItemViewModel newCategory = m_Database.GetCategory(categoryToMoveTo);
+                        CategoryListItemViewModel newCategory = m_CategoryListService.GetCategory(categoryToMoveTo);
                         task.CategoryId = newCategory.Id;
 
                         // Insert into the first correct position.

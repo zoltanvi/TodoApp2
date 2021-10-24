@@ -203,25 +203,11 @@ namespace TodoApp2.Core
         /// <returns>The created task</returns>
         public TaskListItemViewModel CreateTask(string taskContent, int categoryId, int position)
         {
-            // Generate a ListOrder for the item
-            long firstListOrder = m_DataAccess.GetTaskFirstListOrder();
+            var createdTask = m_DataAccess.CreateTask(taskContent, categoryId);
 
-            TaskListItemViewModel task = new TaskListItemViewModel
-            {
-                Id = m_DataAccess.GetTaskNextId(),
-                CategoryId = categoryId,
-                Content = taskContent,
-                CreationDate = DateTime.Now.Ticks,
-                ModificationDate = DateTime.Now.Ticks,
-                Color = "Transparent",
-                ListOrder = GetPreviousListOrder(firstListOrder)
-            };
+            ReorderTask(createdTask, position);
 
-            m_DataAccess.AddTask(task);
-            
-            ReorderTask(task, position);
-
-            return task;
+            return createdTask;
         }
 
         /// <summary>
