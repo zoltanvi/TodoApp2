@@ -99,6 +99,9 @@ namespace TodoApp2
             m_Database = database;
 
             m_ThemeManager = new ThemeManager();
+            
+            //ThemeEditor themeEditor = new ThemeEditor(m_ThemeManager);
+            //themeEditor.Show();
 
             m_Window.Deactivated += OnWindowDeactivated;
 
@@ -157,7 +160,6 @@ namespace TodoApp2
             if (ApplicationSettings.ActiveTheme != m_ThemeManager.CurrentTheme)
             {
                 m_ThemeManager.ChangeToTheme(m_ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
-                Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using TodoApp2.Core;
 
 namespace TodoApp2
@@ -11,6 +12,10 @@ namespace TodoApp2
 
         public Theme CurrentTheme { get; private set; }
 
+        public ResourceDictionary CurrentThemeDictionary { get; private set; }
+
+        public event EventHandler ThemeChanged;
+
         /// <summary>
         /// Changes the current theme to the provided one.
         /// </summary>
@@ -18,19 +23,33 @@ namespace TodoApp2
         /// <param name="newTheme">The theme to change to.</param>
         public Theme ChangeToTheme(Theme oldTheme, Theme newTheme)
         {
+            string newThemePath = GetThemeUriPath(newTheme);
+            Uri newUri = new Uri(newThemePath, UriKind.RelativeOrAbsolute);
+            CurrentThemeDictionary = new ResourceDictionary() { Source = newUri };
+
             if (oldTheme != newTheme)
             {
-                // Get the resource paths
-                var oldThemePath = GetThemeUriPath(oldTheme);
-                var newThemePath = GetThemeUriPath(newTheme);
+                string oldThemePath = GetThemeUriPath(oldTheme);
 
                 // Change the old theme to the new one
                 ChangeTheme(oldThemePath, newThemePath);
             }
 
             CurrentTheme = newTheme;
+            ThemeChanged?.Invoke(this, EventArgs.Empty);
+            Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
 
             return newTheme;
+        }
+
+        public void UpdateTheme(string changedKey, SolidColorBrush changedValue)
+        {
+            ResourceDictionary currentResources = Application.Current.Resources;
+            if (currentResources.Contains(changedKey))
+            {
+                currentResources[changedKey] = changedValue;
+            }
+            Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
         }
 
         private string GetThemeUriPath(Theme theme)

@@ -183,6 +183,9 @@
     <Compile Include="Pages\TaskPage.xaml.cs">
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\ThemeEditor.xaml.cs">
+      <DependentUpon>ThemeEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\ApplicationPageHelper.cs" />
     <Compile Include="ValueConverters\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToApplicationBorderBrushConverter.cs" />
@@ -194,6 +197,8 @@
     <Compile Include="ValueConverters\EnumToFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\EqualityConverter.cs" />
     <Compile Include="ValueConverters\FontSizeToDoubleConverter.cs" />
+    <Compile Include="ValueConverters\SolidColorBrushToStringConverter.cs" />
+    <Compile Include="ValueConverters\StringToColorConverter.cs" />
     <Compile Include="ValueConverters\StringToDynamicBrushConverters.cs" />
     <Compile Include="ValueConverters\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
@@ -212,6 +217,7 @@
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BackgroundBrushConverter.cs" />
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
+    <Compile Include="ViewModels\ThemeEditorViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\FlashWindow.cs" />
@@ -348,6 +354,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Editors\ThemeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -416,6 +426,7 @@
   <ItemGroup>
     <SplashScreen Include="Images\SplashImg.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
