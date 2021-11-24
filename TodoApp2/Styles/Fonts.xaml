@@ -1,7 +1,6 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:system="clr-namespace:System;assembly=mscorlib">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <FontFamily x:Key="SCE-PS3">pack://application;,,,/Fonts/#SCE-PS3 Rodin LATIN Regular</FontFamily>
     <FontFamily x:Key="Ubuntu">pack://application;,,,/Fonts/#Ubuntu Regular</FontFamily>
@@ -35,11 +34,13 @@
     <system:String x:Key="SegoeIconBack">&#xE830;</system:String>
     <system:String x:Key="SegoeIconPin">&#xE840;</system:String>
     <system:String x:Key="SegoeIconUnpin">&#xE77A;</system:String>
+    <system:String x:Key="SegoeIconPinFilled">&#xE842;</system:String>
     <system:String x:Key="SegoeIconAlwaysOnTop">&#xE78B;</system:String>
     <system:String x:Key="SegoeIconRoundedCorners">&#xEC12;</system:String>
     <system:String x:Key="SegoeIconTheme">&#xE771;</system:String>
     <system:String x:Key="SegoeIconFontFamily">&#xE8D2;</system:String>
     <system:String x:Key="SegoeIconFontSize">&#xE8E9;</system:String>
+    <system:String x:Key="SegoeIconTitle">&#xEC0A;</system:String>
 
     <system:String x:Key="SegoeIconColorBar">&#xEA4B;</system:String>
     <system:String x:Key="SegoeIconBackgroundVisible">&#xF16D;</system:String>

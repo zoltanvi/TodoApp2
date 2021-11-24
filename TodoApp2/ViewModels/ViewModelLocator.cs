@@ -1,5 +1,4 @@
-﻿using GongSolutions.Wpf.DragDrop;
-using TodoApp2.Core;
+﻿using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -16,6 +15,7 @@ namespace TodoApp2
         public static TaskListService TaskListService => IoC.TaskListService;
         public static SessionManager SessionManager => IoC.SessionManager;
         public static MessageService MessageService => IoC.MessageService;
+        public static UIScaler UIScaler => IoC.UIScaler;
 
         public static ColorListProvider ColorListProvider { get; } = new ColorListProvider();
 

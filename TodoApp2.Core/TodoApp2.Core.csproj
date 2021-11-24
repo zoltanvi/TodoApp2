@@ -145,6 +145,7 @@
     <Compile Include="ViewModel\Pages\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Items\TaskListItemViewModel.cs" />
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
+    <Compile Include="ViewModel\Services\UIScaler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

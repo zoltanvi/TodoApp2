@@ -13,39 +13,31 @@ namespace TodoApp2
     /// </summary>
     public class WindowViewModel : BaseViewModel
     {
-        #region Private Fields
+        private const string s_DateTimeFormatString = "yyyy-MM-dd HH:mm";
 
         private readonly Window m_Window;
         private readonly WindowResizer m_Resizer;
         private readonly ThemeManager m_ThemeManager;
 
-        private readonly TaskListService m_TaskListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
-        private readonly CategoryListService m_CategoryListService;
         private readonly IDatabase m_Database;
         private readonly DragDropMediator m_DragDropMediator;
-
+        private readonly DispatcherTimer m_Timer;
+        
         /// <summary>
         /// The last known dock position
         /// </summary>
         private WindowDockPosition m_DockPosition = WindowDockPosition.Undocked;
 
-        private ApplicationSettings ApplicationSettings => m_ApplicationViewModel.ApplicationSettings;
-
-        #endregion Private Fields
-
-        #region Window handling commands
+        public ApplicationSettings ApplicationSettings => m_ApplicationViewModel.ApplicationSettings;
+        public UIScaler UIScaler => ViewModelLocator.UIScaler;
 
         public ICommand MinimizeCommand { get; }
         public ICommand MaximizeCommand { get; }
         public ICommand CloseCommand { get; }
 
-        #endregion Window handling commands
-
-        #region Window settings
-
-        public double WindowMinimumWidth { get; set; } = 300;
-        public double WindowMinimumHeight { get; set; } = 215;
+        public double WindowMinimumWidth { get; set; } = 210;
+        public double WindowMinimumHeight { get; set; } = 100;
         public double ContentPadding { get; set; } = 0;
 
         /// <summary>
@@ -77,8 +69,6 @@ namespace TodoApp2
         public bool IsMaximized { get; set; }
         public string CurrentTime { get; set; }
 
-        #endregion Window settings
-        
         #region Workaround
         // WORKAROUND properties for MultiBinding bug
         // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
@@ -87,19 +77,14 @@ namespace TodoApp2
         public Rect ClipRect => new Rect(0, 0, MyWidth, MyHeight);
         #endregion Workaround
 
-        #region Constructors
-
-        public WindowViewModel(Window window, ApplicationViewModel applicationViewModel,
-            TaskListService taskListService, CategoryListService categoryListService, IDatabase database)
+        public WindowViewModel(Window window, ApplicationViewModel applicationViewModel, IDatabase database)
         {
             m_Window = window;
             m_ApplicationViewModel = applicationViewModel;
-            m_TaskListService = taskListService;
-            m_CategoryListService = categoryListService;
             m_Database = database;
 
             m_ThemeManager = new ThemeManager();
-            
+
             //ThemeEditor themeEditor = new ThemeEditor(m_ThemeManager);
             //themeEditor.Show();
 
@@ -141,31 +126,36 @@ namespace TodoApp2
 
             m_DragDropMediator = new DragDropMediator();
 
-            Timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 10) };
-            CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
-            Timer.Tick += TimerOnTick;
-            Timer.Start();
+            m_Timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 3) };
+            CurrentTime = DateTime.Now.ToString(s_DateTimeFormatString);
+            m_Timer.Tick += TimerOnTick;
+            m_Timer.Start();
         }
 
-        private DispatcherTimer Timer;
-        private const string DateTimeFormatString = "yyyy-MM-dd HH:mm";
-
-        private void TimerOnTick(object sender, EventArgs e)
+        public void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
-        }
-
-        private void OnThemeChangeRequested(object obj)
-        {
-            if (ApplicationSettings.ActiveTheme != m_ThemeManager.CurrentTheme)
+            if (Keyboard.Modifiers == ModifierKeys.Control)
             {
-                m_ThemeManager.ChangeToTheme(m_ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
+                if (e.Delta > 0)
+                {
+                    ZoomIn();
+                }
+                else if (e.Delta < 0)
+                {
+                    ZoomOut();
+                }
             }
         }
 
-        #endregion Constructors
+        private void ZoomOut()
+        {
+            ViewModelLocator.UIScaler.ZoomOut();
+        }
 
-        #region EventHandlers
+        private void ZoomIn()
+        {
+            ViewModelLocator.UIScaler.ZoomIn();
+        }
 
         private void OnWindowFlashRequested(object obj)
         {
@@ -288,9 +278,18 @@ namespace TodoApp2
             m_ApplicationViewModel.SaveApplicationSettings();
         }
 
-        #endregion EventHandlers
+        private void TimerOnTick(object sender, EventArgs e)
+        {
+            CurrentTime = DateTime.Now.ToString(s_DateTimeFormatString);
+        }
 
-        #region Private helpers
+        private void OnThemeChangeRequested(object obj)
+        {
+            if (ApplicationSettings.ActiveTheme != m_ThemeManager.CurrentTheme)
+            {
+                m_ThemeManager.ChangeToTheme(m_ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
+            }
+        }
 
         /// <summary>
         /// Loads the initial theme that was saved in the database
@@ -358,7 +357,5 @@ namespace TodoApp2
 
             return window.Top;
         }
-
-        #endregion Private helpers
     }
 }

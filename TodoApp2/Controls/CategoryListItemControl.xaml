@@ -71,7 +71,7 @@
             Grid.Column="0"
             Text="{Binding Name}"
             Style="{DynamicResource CategoryTextBlockStyle}"
-            FontSize="{DynamicResource FontSizeRegular}" />
+            FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
     </Button>
 
 </UserControl>

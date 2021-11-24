@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TodoApp2.Core
 {
@@ -32,6 +33,7 @@ namespace TodoApp2.Core
         public int WindowWidth { get; set; }
         public int WindowHeight { get; set; }
         public string CurrentCategory { get; set; }
+        public bool CategoryTitleVisible { get; set; } = true;
         public Theme ActiveTheme { get; set; }
         public bool IsAlwaysOnTop { get; set; }
         public bool IsModificationDateVisible { get; set; }
@@ -80,6 +82,7 @@ namespace TodoApp2.Core
                 { nameof(WindowWidth), PropertyValueHandlers.Integer },
                 { nameof(WindowHeight), PropertyValueHandlers.Integer },
                 { nameof(CurrentCategory), PropertyValueHandlers.String },
+                { nameof(CategoryTitleVisible), PropertyValueHandlers.Bool },
                 { nameof(ActiveTheme), PropertyValueHandlers.Theme },
                 { nameof(IsAlwaysOnTop), PropertyValueHandlers.Bool },
                 { nameof(IsModificationDateVisible), PropertyValueHandlers.Bool },
@@ -97,6 +100,14 @@ namespace TodoApp2.Core
                 { nameof(WindowCornerRadius), PropertyValueHandlers.Integer },
                 { nameof(IsTitleBarDateVisible), PropertyValueHandlers.Bool },
             };
+
+            IoC.UIScaler.Zoomed += OnZoomed;
+        }
+
+        private void OnZoomed(object sender, EventArgs e)
+        {
+            // This is needed to trigger the task font size update
+            OnPropertyChanged(nameof(TaskFontSize));
         }
 
         /// <summary>

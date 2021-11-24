@@ -61,8 +61,8 @@
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="{Binding Color, Source={StaticResource SideMenuBackgroundBrush}}" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="{Binding Color, Source={StaticResource SideMenuBackgroundBrush}}" />
     <SolidColorBrush x:Key="ReminderItemBackgroundBrush" Color="#2e3440" />
-    <SolidColorBrush x:Key="NotificationBorderBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="ReminderDateBorderBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="NotificationBorderBrush" Color="#5e81ac" />
+    <SolidColorBrush x:Key="ReminderDateBorderBrush" Color="#5e81ac" />
     <SolidColorBrush x:Key="ReminderDateInvalidBorderBrush" Color="{Binding Color, Source={StaticResource ButtonTitleBarCloseHoverBackgroundBrush}}" />
     <SolidColorBrush x:Key="SettingsButtonHoverForegroundBrush" Color="#0A7CFF" />
 

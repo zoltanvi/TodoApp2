@@ -23,7 +23,7 @@ namespace TodoApp2
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             FontSize fValue = (FontSize)value;
-            return s_FontSizes.ContainsKey(fValue) ? s_FontSizes[fValue] : s_DefaultSize;
+            return (s_FontSizes.ContainsKey(fValue) ? s_FontSizes[fValue] : s_DefaultSize) * UIScaler.StaticScaleValue;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

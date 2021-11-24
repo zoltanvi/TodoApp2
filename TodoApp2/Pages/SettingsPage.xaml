@@ -67,7 +67,6 @@
                            Text="Settings" />
 
                 <Button Grid.Column="2"
-                        Width="40"
                         Command="{Binding BackToPrevPageCommand}"
                         Content="{DynamicResource SegoeIconBack}"
                         Style="{DynamicResource ButtonIconHoverSideMenuStyle}" />
@@ -107,13 +106,20 @@
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
+                        <!--  Category title visible  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconTitle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Category title visible" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+
                         <!--  Theme  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconTheme}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Theme" />
                             <ComboBox HorizontalAlignment="Right"
-                                      Width="110"
-                                      FontSize="{StaticResource FontSizeSmall}"
+                                      Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                      FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
                                       FontFamily="{StaticResource Ubuntu}"
                                       ItemsSource="{Binding Source={StaticResource ThemeDataProvider}}"
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
@@ -130,18 +136,20 @@
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconPalette}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Accent color" />
                             <ComboBox HorizontalAlignment="Right"
-                                      Width="110"
-                                      FontSize="{StaticResource FontSizeSmall}"
+                                      Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                      FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
                                       FontFamily="{StaticResource Ubuntu}"
                                       ItemsSource="{Binding AccentColorProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Width="56"
-                                                Height="16"
-                                                Background="{Binding Converter={local:StringRGBToBrushConverter}}"
-                                                BorderBrush="Black"
-                                                BorderThickness="1" />
+                                        <StackPanel>
+                                            <Border Background="{Binding Converter={local:StringRGBToBrushConverter}}"
+                                                    BorderBrush="Black"
+                                                    BorderThickness="1">
+                                                <Label FontSize="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" Content="                          " />
+                                            </Border>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
@@ -174,8 +182,8 @@
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconColorBar}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Color bar thickness" />
                             <ComboBox HorizontalAlignment="Right"
-                                      Width="100"
-                                      FontSize="{StaticResource FontSizeSmall}"
+                                      Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                      FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
                                       FontFamily="{StaticResource Ubuntu}"
                                       ItemsSource="{Binding Source={StaticResource ThicknessDataProvider}}"
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
@@ -192,8 +200,8 @@
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconFontSize}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Font size" />
                             <ComboBox HorizontalAlignment="Right"
-                                      Width="100"
-                                      FontSize="{StaticResource FontSizeSmall}"
+                                      Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                      FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
                                       FontFamily="{StaticResource Ubuntu}"
                                       ItemsSource="{Binding Source={StaticResource FontSizeDataProvider}}"
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
@@ -210,8 +218,8 @@
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconFontFamily}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Font family" />
                             <ComboBox HorizontalAlignment="Right"
-                                      Width="100"
-                                      FontSize="{StaticResource FontSizeSmall}"
+                                      Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                      FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
                                       FontFamily="{StaticResource Ubuntu}"
                                       ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
@@ -274,8 +282,9 @@
                                     <TextBlock Margin="10 0 10 0"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
-                                               Foreground="{DynamicResource VersionLabelForegroundBrush}">
-                                        Version 1.3.4
+                                               Foreground="{DynamicResource VersionLabelForegroundBrush}"
+                                               FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}">
+                                        Version 1.4.0
                                     </TextBlock>
                                 </Border>
                             </Grid>

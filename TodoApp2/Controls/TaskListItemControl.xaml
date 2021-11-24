@@ -58,11 +58,11 @@
                 </MenuItem.ItemContainerStyle>
                 <MenuItem.ItemTemplate>
                     <DataTemplate>
-                        <Border Width="50"
-                                Height="15"
-                                Background="{Binding Converter={local:StringRGBToBrushConverter}}"
+                        <Border Background="{Binding Converter={local:StringRGBToBrushConverter}}"
                                 BorderBrush="Black"
-                                BorderThickness="1" />
+                                BorderThickness="1">
+                            <Label FontSize="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" Content="                          " />
+                        </Border>
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
@@ -133,7 +133,7 @@
                           Style="{DynamicResource TaskCheckBoxStyle}" />
 
                 <!--  Main content  -->
-                <Grid Grid.Column="2" Margin="0 4">
+                <Grid Grid.Column="2" Margin="0 4 10 4">
                     <Grid.RowDefinitions>
                         <!--  Task description row  -->
                         <RowDefinition Height="*" />
@@ -181,7 +181,7 @@
                                Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                                Text="{Binding ModificationDate, Converter={local:LongToTimestampConverter}}"
                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}"
-                               FontSize="{StaticResource FontSizeSmallest}"
+                               FontSize="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}"
                                Foreground="{DynamicResource TaskPageTimestampForegroundBrush}" />
 
                     <!--
@@ -192,12 +192,25 @@
 
                 </Grid>
 
-                <!--  Pin stripe  -->
+                <!--  Pin icon  -->
                 <Border Visibility="{Binding Pinned, Converter={local:BoolToVisibilityConverter}}"
                         Grid.Column="2"
-                        Width="18"
                         HorizontalAlignment="Right"
-                        Background="{DynamicResource StripeBrush}" />
+                        Background="Transparent">
+                    <Grid>
+                        <Label Content="{DynamicResource SegoeIconPinFilled}"
+                               Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}}"
+                               Padding="2"
+                               FontFamily="{StaticResource SegoeMDL2Assets}" />
+                        <Label Content="{DynamicResource SegoeIconPin}"
+                               Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}}"
+                               Padding="2"
+                               FontFamily="{StaticResource SegoeMDL2Assets}" />
+                        <Grid.LayoutTransform>
+                            <ScaleTransform ScaleX="-1" />
+                        </Grid.LayoutTransform>
+                    </Grid>
+                </Border>
 
                 <!--  Hidden buttons  -->
                 <Border x:Name="HoverButtonBorder"

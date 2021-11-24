@@ -26,6 +26,7 @@ namespace TodoApp2.Core
 
         public static MessageService MessageService => Get<MessageService>();
 
+        public static UIScaler UIScaler => Get<UIScaler>();
 
         /// <summary>
         /// Gets a service from the IoC, of the specified type
@@ -44,6 +45,9 @@ namespace TodoApp2.Core
         /// </summary>
         public static void Setup()
         {
+            var uiScaler = new UIScaler();
+            Kernel.Bind<UIScaler>().ToConstant(uiScaler);
+
             var messageService = new MessageService();
             Kernel.Bind<MessageService>().ToConstant(messageService);
             
