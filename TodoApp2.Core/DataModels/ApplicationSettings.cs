@@ -24,9 +24,8 @@ namespace TodoApp2.Core
     public class ApplicationSettings : BaseViewModel
     {
         private bool m_RoundedWindowCorners;
-        private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
 
-        #region Properties
+        private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
 
         public int WindowLeftPos { get; set; }
         public int WindowTopPos { get; set; }
@@ -41,6 +40,21 @@ namespace TodoApp2.Core
         public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
         public string AccentColor { get; set; } = "#0291cd";
         public int WindowCornerRadius { get; set; }
+        public int NoRadius { get; } = 0;
+        public bool IsItemBackgroundVisible { get; set; } = true;
+        public bool IsQuickActionsEnabled { get; set; } = true;
+        public bool IsQuickActionsReminderEnabled { get; set; } = true;
+        public bool IsQuickActionsColorEnabled { get; set; } = true;
+        public bool IsQuickActionsPinEnabled { get; set; } = true;
+        public bool IsQuickActionsTrashEnabled { get; set; } = true;
+        public FontSize TaskFontSize { get; set; } = FontSize.Medium;
+        public bool IsTitleBarDateVisible { get; set; } = false;
+
+        public double Scaling
+        {
+            get => IoC.UIScaler.ScaleValue;
+            set => IoC.UIScaler.SetScaling(value);
+        }
 
         public bool RoundedWindowCorners
         {
@@ -52,25 +66,6 @@ namespace TodoApp2.Core
                 OnPropertyChanged(nameof(WindowCornerRadius));
             }
         }
-
-        public int NoRadius { get; } = 0;
-
-        // Item background is visible by default.
-        public bool IsItemBackgroundVisible { get; set; } = true;
-        
-        // Quick actions are enabled by default.
-        public bool IsQuickActionsEnabled { get; set; } = true;
-        public bool IsQuickActionsReminderEnabled { get; set; } = true;
-        public bool IsQuickActionsColorEnabled { get; set; } = true;
-        public bool IsQuickActionsPinEnabled { get; set; } = true;
-        public bool IsQuickActionsTrashEnabled { get; set; } = true;
-
-        // Default FontSize is medium
-        public FontSize TaskFontSize { get; set; } = FontSize.Medium;
-
-        public bool IsTitleBarDateVisible { get; set; } = false;
-
-        #endregion Properties
 
         public ApplicationSettings()
         {
@@ -99,6 +94,7 @@ namespace TodoApp2.Core
                 { nameof(RoundedWindowCorners), PropertyValueHandlers.Bool },
                 { nameof(WindowCornerRadius), PropertyValueHandlers.Integer },
                 { nameof(IsTitleBarDateVisible), PropertyValueHandlers.Bool },
+                { nameof(Scaling), PropertyValueHandlers.Double },
             };
 
             IoC.UIScaler.Zoomed += OnZoomed;

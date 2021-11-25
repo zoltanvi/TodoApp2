@@ -41,7 +41,7 @@ namespace TodoApp2
         private const double OriginalSettingsComboboxWidth = 110;
         private double m_ScalingPercent = s_OriginalScalingPercent;
     
-        public static double StaticScaleValue { get; set; } = 1;
+        public static double StaticScaleValue { get; private set; } = 1;
         public double ScaleValue => StaticScaleValue;
 
         public FontSizes FontSize { get; } = new FontSizes();
@@ -65,6 +65,19 @@ namespace TodoApp2
             Zoom(true);
         }
 
+        public void SetScaling(double value)
+        {
+            bool zoomed = value != StaticScaleValue;
+            StaticScaleValue = value;
+            m_ScalingPercent = StaticScaleValue * 100;
+            OnPropertyChanged(string.Empty);
+
+            if (zoomed)
+            {
+                Zoomed?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private void Zoom(bool zoomIn)
         {
             double zoomOffset = 0;
@@ -83,11 +96,7 @@ namespace TodoApp2
             }
 
             m_ScalingPercent += zoomOffset;
-            StaticScaleValue = m_ScalingPercent / s_OriginalScalingPercent;
-
-            OnPropertyChanged(string.Empty);
-
-            Zoomed?.Invoke(this, EventArgs.Empty);
+            SetScaling(m_ScalingPercent / s_OriginalScalingPercent);
             IoC.MessageService.ShowInfo($"{m_ScalingPercent} %");
         }
     }

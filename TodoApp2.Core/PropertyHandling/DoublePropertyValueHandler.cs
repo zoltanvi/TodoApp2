@@ -8,7 +8,7 @@ namespace TodoApp2.Core
         /// <inheritdoc cref="IPropertyValueHandler.SetProperty"/>
         public bool SetProperty(object propertySource, string name, string value)
         {
-            if (double.TryParse(value, out double parsedValue))
+            if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsedValue))
             {
                 try
                 {
