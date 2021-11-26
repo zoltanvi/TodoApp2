@@ -67,6 +67,7 @@ namespace TodoApp2
 
         public void SetScaling(double value)
         {
+            value = Math.Round(value, 3);
             bool zoomed = value != StaticScaleValue;
             StaticScaleValue = value;
             m_ScalingPercent = StaticScaleValue * 100;

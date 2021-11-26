@@ -20,7 +20,6 @@
                 Grid.Row="1"
                 Background="{DynamicResource OverlayPageBackgroundBrush}"
                 CornerRadius="5">
-
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

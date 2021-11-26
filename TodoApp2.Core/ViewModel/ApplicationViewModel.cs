@@ -74,7 +74,7 @@ namespace TodoApp2.Core
             m_Database = database;
             m_SessionManager = sessionManager;
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
-            
+
             Mediator.Register(OnOnlineModeChangeRequested, ViewModelMessages.OnlineModeChangeRequested);
             Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
 
