@@ -35,6 +35,8 @@ namespace TodoApp2
         public ICommand MinimizeCommand { get; }
         public ICommand MaximizeCommand { get; }
         public ICommand CloseCommand { get; }
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
 
         public double WindowMinimumWidth { get; set; } = 210;
         public double WindowMinimumHeight { get; set; } = 100;
@@ -106,6 +108,8 @@ namespace TodoApp2
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
+            UndoCommand = new RelayCommand(() => {IoC.UndoManager.Undo();});
+            RedoCommand = new RelayCommand(() => {IoC.UndoManager.Redo();});
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
@@ -143,6 +147,21 @@ namespace TodoApp2
                 else if (e.Delta < 0)
                 {
                     ZoomOut();
+                }
+            }
+        }
+
+        public void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (e.Key == Key.Z)
+                {
+                    IoC.UndoManager.Undo();
+                } 
+                else if (e.Key == Key.Y)
+                {
+                    IoC.UndoManager.Redo();
                 }
             }
         }

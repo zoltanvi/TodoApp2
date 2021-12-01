@@ -578,13 +578,93 @@ namespace TodoApp2.Core
         /// Gets every record from the Task table
         /// </summary>
         /// <returns></returns>
-        public List<TaskListItemViewModel> GetTasks()
+        public List<TaskListItemViewModel> GetActiveTasks()
         {
             List<TaskListItemViewModel> items = new List<TaskListItemViewModel>();
 
             using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                command.CommandText = $"SELECT * FROM {Table.Task} ORDER BY {Column.ListOrder} ;";
+                command.CommandText = $"SELECT * FROM {Table.Task} " +
+                                      $" WHERE {Column.Trashed} = 0 " +
+                                      $" ORDER BY {Column.ListOrder} ;";
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TaskListItemViewModel readTask = ReadTask(reader);
+                        items.Add(readTask);
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Gets every task from the given category
+        /// </summary>
+        /// <returns></returns>
+        public List<TaskListItemViewModel> GetTasksFromCategory(CategoryListItemViewModel category)
+        {
+            List<TaskListItemViewModel> items = GetTasksFromCategory(category.Id);
+            
+            return items;
+        }
+
+        /// <summary>
+        /// Gets every task from the given category
+        /// </summary>
+        /// <returns></returns>
+        public List<TaskListItemViewModel> GetTasksFromCategory(string categoryName)
+        {
+            CategoryListItemViewModel category = GetCategory(categoryName);
+            List<TaskListItemViewModel> items = GetTasksFromCategory(category);
+
+            return items;
+        }
+
+        /// <summary>
+        /// Gets every task from the given category
+        /// </summary>
+        /// <returns></returns>
+        public List<TaskListItemViewModel> GetTasksFromCategory(int categoryId)
+        {
+            List<TaskListItemViewModel> items = new List<TaskListItemViewModel>();
+
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            {
+                command.CommandText = $"SELECT * FROM {Table.Task} " +
+                                      $" WHERE {Column.CategoryId} = {categoryId} " +
+                                      $" ORDER BY {Column.ListOrder} ;";
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TaskListItemViewModel readTask = ReadTask(reader);
+                        items.Add(readTask);
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Gets every task from the given category
+        /// </summary>
+        /// <returns></returns>
+        public List<TaskListItemViewModel> GetActiveTasksFromCategory(int categoryId)
+        {
+            List<TaskListItemViewModel> items = new List<TaskListItemViewModel>();
+
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            {
+                command.CommandText = $"SELECT * FROM {Table.Task} " +
+                                      $" WHERE {Column.CategoryId} = {categoryId} " +
+                                      $" AND {Column.Trashed} = 0 " +
+                                      $" ORDER BY {Column.ListOrder} ;";
 
                 using (SQLiteDataReader reader = command.ExecuteReader())
                 {

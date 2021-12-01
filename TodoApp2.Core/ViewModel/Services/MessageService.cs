@@ -18,8 +18,10 @@ namespace TodoApp2.Core
         private readonly DispatcherTimer m_Timer;
         private readonly TimeSpan m_MaxInterval;
         private readonly TimeSpan m_DefaultDuration;
+        private readonly TimeSpan m_UndoDuration;
 
         public bool MessageLineVisible { get; private set; }
+        public bool UndoButtonVisible { get; private set; }
         public string BackgroundColor { get; private set; } = s_WarningBackground;
         public string TextColor { get; private set; } = s_WarningForeground;
         public string Message { get; private set; }
@@ -28,8 +30,21 @@ namespace TodoApp2.Core
         {
             m_MaxInterval = new TimeSpan(int.MaxValue);
             m_DefaultDuration = TimeSpan.FromSeconds(4);
+            m_UndoDuration = TimeSpan.FromSeconds(1);
             m_Timer = new DispatcherTimer{ Interval = m_MaxInterval };
             m_Timer.Tick += TimerOnTick;
+        }
+
+        public void ShowUndo(string message)
+        {
+            //UndoButtonVisible = true;
+            ShowMessage(message, m_UndoDuration, s_InfoBackground, s_InfoForeground);
+        }
+
+        public void HideMessage()
+        {
+            // Immediately hides the message.
+            TimerOnTick(this, EventArgs.Empty);
         }
 
         public void ShowSuccess(string message)
@@ -91,6 +106,7 @@ namespace TodoApp2.Core
         private void TimerOnTick(object sender, EventArgs e)
         {
             MessageLineVisible = false;
+            UndoButtonVisible = false;
             m_Timer.Stop();
             m_Timer.Interval = m_MaxInterval;
         }

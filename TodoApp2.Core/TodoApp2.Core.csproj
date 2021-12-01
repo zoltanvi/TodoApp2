@@ -89,6 +89,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Undo\CommandObject.cs" />
+    <Compile Include="Commands\Undo\IUndoableCommand.cs" />
+    <Compile Include="Commands\Undo\UndoableCommand.cs" />
+    <Compile Include="Commands\Undo\UndoItem.cs" />
+    <Compile Include="Commands\Undo\UndoManager.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\DataAccessLayer.cs" />
     <Compile Include="Database\IDatabase.cs" />

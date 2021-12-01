@@ -168,6 +168,7 @@ namespace TodoApp2.Core
         {
             if (obj is CategoryListItemViewModel category)
             {
+                IoC.UndoManager.ClearHistory();
                 SetCurrentCategory(category.Name);
             }
         }

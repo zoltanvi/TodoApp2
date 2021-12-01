@@ -22,6 +22,9 @@
         <i:EventTrigger EventName="PreviewMouseWheel">
             <ie:CallMethodAction MethodName="OnPreviewMouseWheel" TargetObject="{Binding}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="KeyDown">
+            <ie:CallMethodAction MethodName="OnKeyDown" TargetObject="{Binding}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Window.Resources>
@@ -172,19 +175,30 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Border Margin="10"
+                        Padding="10 0"
                         Grid.Column="1"
                         MaxHeight="100"
                         CornerRadius="2"
                         SnapsToDevicePixels="True"
                         Background="{Binding MessageService.BackgroundColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}">
-                    <TextBlock Margin="10 0"
-                               TextWrapping="Wrap"
-                               FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
-                               FontFamily="Segoe UI"
-                               Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding MessageService.TextColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}" />
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left"
+                                   TextWrapping="Wrap"
+                                   FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
+                                   FontFamily="Segoe UI"
+                                   Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="{Binding MessageService.TextColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}" />
+
+                        <Button DockPanel.Dock="Right"
+                                Visibility="{Binding MessageService.UndoButtonVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                Margin="30 2 0 2"
+                                Command="{Binding UndoCommand}"
+                                Content="Undo"
+                                Style="{DynamicResource ReminderBottomButtonStyle}" />
+                    </DockPanel>
+
                 </Border>
             </Grid>
 

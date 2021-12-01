@@ -80,14 +80,11 @@ namespace TodoApp2.Core
                 return new List<TaskListItemViewModel>();
             }
 
-            // Get category with the specified name
-            CategoryListItemViewModel category = m_DataAccess.GetCategory(categoryName);
-
             // Returns the task list from the database ordered by ListOrder column
-            List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks();
+            List<TaskListItemViewModel> tasksFromCategory = m_DataAccess.GetTasksFromCategory(categoryName);
 
             // Return only the items from the provided category which are not trashed
-            return allTasks.Where(task => task.CategoryId == category.Id && task.Trashed == false).ToList();
+            return tasksFromCategory.Where(task => task.Trashed == false).ToList();
         }
 
         /// <summary>
@@ -96,11 +93,9 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public List<TaskListItemViewModel> GetActiveTaskItems()
         {
-            // Returns the task list from the database ordered by ListOrder column
-            List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks();
+            List<TaskListItemViewModel> activeTasks = m_DataAccess.GetActiveTasks();
 
-            // Return only the items which are not trashed
-            return allTasks.Where(task => task.Trashed == false).ToList();
+            return activeTasks.ToList();
         }
 
         /// <summary>
@@ -254,21 +249,20 @@ namespace TodoApp2.Core
         /// <param name="newPosition"></param>
         public void ReorderTask(TaskListItemViewModel task, int newPosition)
         {
-            // Get all task items
-            List<TaskListItemViewModel> allTasks = m_DataAccess.GetTasks();
+            // Get all non-trashed task items from the task's category
+            List<TaskListItemViewModel> activeTasksFromCategory =
+                m_DataAccess.GetActiveTasksFromCategory(task.CategoryId);
 
-            // Filter out
-            // - The reordered task
-            // - The tasks from other categories
-            // - The trashed tasks
-            List<IReorderable> filteredOrderedTasks = allTasks.Where(
-                t => t.CategoryId == task.CategoryId &&
-                t.Id != task.Id &&
-                t.Trashed == false).Cast<IReorderable>().ToList();
+            // Filter out the reordered task
+            List<IReorderable> filteredOrderedTasks =
+                activeTasksFromCategory.Where(t => t.Id != task.Id).Cast<IReorderable>().ToList();
 
-            var itemToReorder = task as IReorderable;
+            IReorderable itemToReorder = task as IReorderable;
+
             ReorderItem(filteredOrderedTasks, itemToReorder, newPosition, UpdateTaskListOrder);
+            
             m_DataAccess.UpdateTask(task);
+            
             TaskChanged?.Invoke(this, new TaskChangedEventArgs(task));
         }
 
@@ -370,8 +364,12 @@ namespace TodoApp2.Core
         private void ReorderItem(List<IReorderable> orderedItems, IReorderable itemToReorder,
             int newPosition, Action<IEnumerable<IReorderable>> updateStrategy)
         {
-            // If there is no other item besides the itemToReorder, there is nothing to do
-            if (orderedItems.Count == 0) return;
+            // If there is no other item besides the itemToReorder, set the default ListOrder
+            if (orderedItems.Count == 0)
+            {
+                itemToReorder.ListOrder = DataAccessLayer.DefaultListOrder;
+                return;
+            }
 
             // If the item moved to the top of the list, calculate the previous order for it
             if (newPosition == 0)

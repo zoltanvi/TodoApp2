@@ -28,6 +28,8 @@ namespace TodoApp2.Core
 
         public static UIScaler UIScaler => Get<UIScaler>();
 
+        public static UndoManager UndoManager => Get<UndoManager>();
+
         /// <summary>
         /// Gets a service from the IoC, of the specified type
         /// </summary>
@@ -47,6 +49,9 @@ namespace TodoApp2.Core
         {
             var uiScaler = new UIScaler();
             Kernel.Bind<UIScaler>().ToConstant(uiScaler);
+
+            var undoManager = new UndoManager();
+            Kernel.Bind<UndoManager>().ToConstant(undoManager);
 
             var messageService = new MessageService();
             Kernel.Bind<MessageService>().ToConstant(messageService);

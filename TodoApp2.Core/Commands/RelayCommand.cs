@@ -36,6 +36,7 @@ namespace TodoApp2.Core
         /// <param name="parameter"></param>
         public void Execute(object parameter)
         {
+            //IoC.UndoManager.ClearHistory();
             m_Action?.Invoke();
         }
     }

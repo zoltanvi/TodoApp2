@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -9,7 +11,7 @@ namespace TodoApp2.Core
     /// A view model the task list item on the task page
     /// </summary>
     public class TaskPageViewModel : BaseViewModel
-    { 
+    {
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
 
@@ -75,8 +77,9 @@ namespace TodoApp2.Core
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
 
-            AddTaskItemCommand = new RelayCommand(AddTask);
-            DeleteTaskItemCommand = new RelayParameterizedCommand(TrashTask);
+            AddTaskItemCommand = new UndoableCommand(DoAddTask, RedoAddTask, UndoAddTask);
+            DeleteTaskItemCommand = new UndoableCommand(DoTrashTask, RedoTrashTask, UndoTrashTask);
+
             DeleteDoneCommand = new RelayCommand(TrashDone);
             PinTaskItemCommand = new RelayParameterizedCommand(Pin);
             UnpinTaskItemCommand = new RelayParameterizedCommand(Unpin);
@@ -87,6 +90,102 @@ namespace TodoApp2.Core
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+        }
+
+        private void UndoTrashTask(CommandObject commandObject)
+        {
+            if (commandObject?.CommandResult is Tuple<int, TaskListItemViewModel> tuple)
+            {
+                tuple.Item2.Trashed = false;
+                
+                m_TaskListService.UntrashExistingTask(tuple.Item2, tuple.Item1);
+            }
+        }
+
+        private CommandObject RedoTrashTask(CommandObject commandObject)
+        {
+            if (commandObject?.CommandResult is Tuple<int, TaskListItemViewModel> tuple)
+            {
+                commandObject.CommandArgument = tuple.Item2;
+            }
+
+            return DoTrashTask(commandObject);
+        }
+
+        private CommandObject DoTrashTask(CommandObject commandObject)
+        {
+            CommandObject result = CommandObject.NotHandled;
+
+            if (commandObject?.CommandArgument is TaskListItemViewModel task)
+            {
+                int oldPosition = m_TaskListService.TaskPageItems.IndexOf(task);
+
+                // Set Trashed property to true so it won't be listed in the active list
+                task.Trashed = true;
+
+                // Indicate that it is an invalid order
+                task.ListOrder = long.MinValue;
+
+                // Persist modifications
+                m_TaskListService.UpdateTask(task);
+
+                // Remove from the list
+                m_TaskListService.RemoveTaskFromMemory(task);
+
+                result = new CommandObject(true, new Tuple<int, TaskListItemViewModel>(oldPosition, task), null,
+                    "Task deleted.");
+            }
+
+            return result;
+        }
+
+        private CommandObject DoAddTask(CommandObject arg)
+        {
+            // If the text is empty or only whitespace, refuse
+            // If the text only contains format characters, refuse
+            string trimmed = PendingAddNewTaskText?.Replace("`", string.Empty);
+            if (string.IsNullOrWhiteSpace(PendingAddNewTaskText) || string.IsNullOrWhiteSpace(trimmed))
+            {
+                return CommandObject.NotHandled;
+            }
+
+            // Add task to list and persist it
+            TaskListItemViewModel task = m_TaskListService.AddNewTask(PendingAddNewTaskText);
+
+            // Reset the input TextBox text
+            PendingAddNewTaskText = string.Empty;
+
+            return new CommandObject(true, task);
+        }
+
+        private void UndoAddTask(CommandObject commandObject)
+        {
+            if (commandObject != null && commandObject.CommandResult is TaskListItemViewModel task)
+            {
+                task.Trashed = true;
+                task.ListOrder = long.MinValue;
+                m_TaskListService.UpdateTask(task);
+                m_TaskListService.RemoveTaskFromMemory(task);
+            }
+        }
+
+        private CommandObject RedoAddTask(CommandObject commandObject)
+        {
+            var result = CommandObject.NotHandled;
+            if (commandObject.CommandResult is TaskListItemViewModel task)
+            {
+                List<TaskListItemViewModel> taskList =
+                    Task.Run(() => m_TaskListService.GetActiveTaskItemsAsync(CurrentCategory)).Result;
+
+                int pinnedItemCount = taskList.Count(i => i.Pinned);
+                int position = task.Pinned ? 0 : pinnedItemCount;
+
+                m_TaskListService.UntrashExistingTask(task, position);
+
+                result = new CommandObject(true, task);
+            }
+
+            return result;
         }
 
         private void ModifyTaskIsDone(object obj)
@@ -110,24 +209,7 @@ namespace TodoApp2.Core
             }
         }
 
-        private void TrashTask(object obj)
-        {
-            if (obj is TaskListItemViewModel task)
-            {
-                // Set Trashed property to true so it won't be listed in the active list
-                task.Trashed = true;
 
-                // Indicate that it is an invalid order
-                task.ListOrder = long.MinValue;
-
-                // Persist modifications
-                m_TaskListService.UpdateTask(task);
-
-                // Remove from the list
-                m_TaskListService.RemoveTask(task);
-            }
-        }
-        
         /// <inheritdoc cref="DeleteAllCommand"/>
         private void TrashAll()
         {
@@ -162,7 +244,7 @@ namespace TodoApp2.Core
 
             foreach (TaskListItemViewModel item in items)
             {
-                m_TaskListService.RemoveTask(item);
+                m_TaskListService.RemoveTaskFromMemory(item);
             }
         }
 
@@ -200,7 +282,7 @@ namespace TodoApp2.Core
                         m_TaskListService.ReorderTask(task, newIndex);
 
                         // Delete the item from the currently listed items
-                        m_TaskListService.RemoveTask(task);
+                        m_TaskListService.RemoveTaskFromMemory(task);
                     }
                 }
             }
@@ -231,7 +313,7 @@ namespace TodoApp2.Core
                 // 2. Count all pinned items. The currently pinned item is in this list.
                 int pinnedItemCount = taskList.Count(i => i.Pinned);
 
-                // 3. Set task to pinned
+                // 3. Set task to not pinned
                 task.Pinned = false;
 
                 // 4. Reorder task below the already pinned tasks and above the not-pinned tasks
@@ -239,7 +321,7 @@ namespace TodoApp2.Core
             }
         }
 
-        public void AddTask()
+        private void AddTaskOld()
         {
             // If the text is empty or only whitespace, refuse
             // If the text only contains format characters, refuse

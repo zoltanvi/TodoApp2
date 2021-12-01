@@ -43,7 +43,8 @@ namespace TodoApp2
         private void AddNewTaskTextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             // Add task on enter, handle modifier keys
-            TextBoxPreviewKeyDownHelper.TextBox_PreviewKeyDown(sender, e, ViewModel.AddTask);
+            TextBoxPreviewKeyDownHelper.TextBox_PreviewKeyDown(sender, e,
+                () => { ViewModel.AddTaskItemCommand?.Execute(null); });
         }
     }
 }

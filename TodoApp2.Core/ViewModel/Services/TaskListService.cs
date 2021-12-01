@@ -57,7 +57,7 @@ namespace TodoApp2.Core
             TaskPageItems.AddRange(items);
         }
 
-        public void AddNewTask(string taskContent)
+        public TaskListItemViewModel AddNewTask(string taskContent)
         {
             var pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
             var currentCategoryId = m_CategoryListService.GetCurrentCategory.Id;
@@ -66,6 +66,20 @@ namespace TodoApp2.Core
             
             // Add the task into the list
             TaskPageItems.Insert(pinnedItemsCount, task);
+
+            return task;
+        }
+
+        public TaskListItemViewModel UntrashExistingTask(TaskListItemViewModel task, int oldPosition)
+        {
+            task.Trashed = false;
+
+            // The task exist in the database but not in the list.
+            TaskPageItems.Insert(0, task);
+            
+            ReorderTask(task, oldPosition, true);
+
+            return task;
         }
 
         public void UpdateTask(TaskListItemViewModel task)
@@ -83,6 +97,8 @@ namespace TodoApp2.Core
         /// </param>
         public void ReorderTask(TaskListItemViewModel task, int newPosition, bool changeInCollection = false)
         {
+            newPosition = newPosition == -1 ? 0 : newPosition;
+
             TaskListItemViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
             
             if (taskToUpdate != null)
@@ -99,7 +115,7 @@ namespace TodoApp2.Core
             }
         }
 
-        public void RemoveTask(TaskListItemViewModel task)
+        public void RemoveTaskFromMemory(TaskListItemViewModel task)
         {
             TaskPageItems.Remove(task);
         }
