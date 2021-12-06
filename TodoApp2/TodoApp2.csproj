@@ -158,6 +158,7 @@
     <Compile Include="Controls\TaskListItemControl.xaml.cs">
       <DependentUpon>TaskListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Formatters\TextFormatter.cs" />
     <Compile Include="Helpers\CustomDropHandler.cs" />
     <Compile Include="Helpers\DragDropMediator.cs" />
     <Compile Include="Helpers\SizeObserver.cs" />

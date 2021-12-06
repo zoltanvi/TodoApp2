@@ -1,8 +1,7 @@
-﻿using System.Text;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -104,56 +103,9 @@ namespace TodoApp2
         {
             if (sender is TextBlock textBlock)
             {
-                bool formatted = false;
-                string text = textBlock.Text;
-
-                // Create the textBlock inline collection from scratch
-                textBlock.Inlines.Clear();
-
-                // Iterate the text as a character array
-                // When the current char is a format char, save the text buffer
-                // into the inline collection with the corresponding formatting
-                // and switch formatting on / off
-                // So basically this only switches the formatting flag on/off and writes the text
-                StringBuilder stringBuilder = new StringBuilder();
-                foreach (char character in text)
-                {
-                    if (character != TextBoxPreviewKeyDownHelper.FormatCharacter)
-                    {
-                        stringBuilder.Append(character);
-                    }
-                    else
-                    {
-                        if (stringBuilder.Length > 0)
-                        {
-                            AddInline(textBlock, stringBuilder, ref formatted);
-                        }
-                        formatted = !formatted;
-                    }
-                }
-
-                AddInline(textBlock, stringBuilder, ref formatted);
+                TextFormatter textFormatter = new TextFormatter();
+                textFormatter.FormatText(textBlock);
             }
-        }
-
-        // Helper to add the StringBuilder content to the textBlock with correct formatting
-        private static void AddInline(TextBlock destination, StringBuilder stringBuilder, ref bool formatted)
-        {
-            if (formatted)
-            {
-                Run inline = new Run(stringBuilder.ToString())
-                {
-                    //FontFamily = ConsolasFont,
-                    Foreground = HighLightColor
-                };
-                destination.Inlines.Add(inline);
-            }
-            else
-            {
-                destination.Inlines.Add(new Run(stringBuilder.ToString()));
-            }
-
-            stringBuilder.Clear();
         }
 
         #endregion FormatTextOnTargetUpdated

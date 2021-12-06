@@ -31,6 +31,7 @@
 
     <Style x:Key="TaskListItemDescriptionTextBoxStyle" TargetType="TextBox">
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="AcceptsReturn" Value="True" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />

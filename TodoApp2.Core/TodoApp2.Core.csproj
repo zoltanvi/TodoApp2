@@ -127,6 +127,7 @@
     <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyHandling\EnumPropertyValueHandler.cs" />
+    <Compile Include="Serialization\TextDeserializer.cs" />
     <Compile Include="ViewModel\Services\MessageService.cs" />
     <Compile Include="ViewModel\Services\SessionManager.cs" />
     <Compile Include="ViewModel\Services\IOverlayPageService.cs" />

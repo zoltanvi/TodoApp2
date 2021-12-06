@@ -161,6 +161,7 @@
                     <!--  Text editor mode  -->
                     <!--  IMPORTANT: FocusSetter Attached property must be after Visibility property in order to work!  -->
                     <TextBox Grid.Row="0"
+                             local:InputBindingsManager.FormatTextOnTargetUpdated="TextBox.Text"
                              AutomationProperties.AutomationId="TaskListItemEditText"
                              Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
                              PreviewKeyDown="TextBox_PreviewKeyDown"

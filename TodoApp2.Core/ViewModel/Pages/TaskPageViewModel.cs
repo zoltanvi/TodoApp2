@@ -149,6 +149,11 @@ namespace TodoApp2.Core
                 return CommandObject.NotHandled;
             }
 
+            if (!PendingAddNewTaskText.StartsWith("<txt>"))
+            {
+                PendingAddNewTaskText = "<txt>" + PendingAddNewTaskText + "</txt>";
+            }
+
             // Add task to list and persist it
             TaskListItemViewModel task = m_TaskListService.AddNewTask(PendingAddNewTaskText);
 
