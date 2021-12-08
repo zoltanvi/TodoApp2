@@ -5,6 +5,7 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:local="clr-namespace:TodoApp2"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                 Title="TaskPage"
                 d:DesignHeight="480"
                 d:DesignWidth="380"
@@ -33,7 +34,22 @@
                     Background="{DynamicResource TaskPageBottomBarBackgroundBrush}"
                     BorderBrush="{DynamicResource TaskPageBottomBarBorderBrush}"
                     BorderThickness="0 1 0 0">
-                <TextBox x:Name="AddNewTaskTextBox"
+
+                <local:BindableRichTextBox x:Name="AddNewTaskTextBox"
+                                           Padding="10"
+                                           VerticalAlignment="Bottom"
+                                           MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                                           AcceptsTab="True"
+                                           PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
+                                           AutomationProperties.AutomationId="AddNewTaskTextBox"
+                                           ScrollViewer.CanContentScroll="False"
+                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                           ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                           Style="{DynamicResource TaskListItemDescriptionRichTextBoxStyle}"
+                                           DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           IsEmpty="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!--<TextBox x:Name="AddNewTaskTextBox"
                          Padding="10"
                          VerticalAlignment="Bottom"
                          MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
@@ -46,7 +62,7 @@
                          ScrollViewer.VerticalScrollBarVisibility="Auto"
                          Style="{DynamicResource AddNewTaskTextBoxStyle}"
                          Tag="Add new task"
-                         Text="{Binding PendingAddNewTaskText, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding AddTaskTextBoxContent, UpdateSourceTrigger=PropertyChanged}" />-->
             </Border>
         </Grid>
     </Border>

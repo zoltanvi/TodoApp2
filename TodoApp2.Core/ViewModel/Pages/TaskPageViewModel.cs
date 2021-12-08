@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,7 +22,12 @@ namespace TodoApp2.Core
         /// <summary>
         /// The content / description text for the current task being written
         /// </summary>
-        public string PendingAddNewTaskText { get; set; }
+        public string AddTaskTextBoxContent { get; set; }
+
+        /// <summary>
+        /// Is the Add new task TextBox empty or only contains whitespace?
+        /// </summary>
+        public bool IsAddTaskTextBoxEmpty { get; set; }
 
         /// <summary>
         /// Adds a new task item
@@ -141,24 +147,16 @@ namespace TodoApp2.Core
 
         private CommandObject DoAddTask(CommandObject arg)
         {
-            // If the text is empty or only whitespace, refuse
-            // If the text only contains format characters, refuse
-            string trimmed = PendingAddNewTaskText?.Replace("`", string.Empty);
-            if (string.IsNullOrWhiteSpace(PendingAddNewTaskText) || string.IsNullOrWhiteSpace(trimmed))
+            if (IsAddTaskTextBoxEmpty)
             {
                 return CommandObject.NotHandled;
             }
 
-            if (!PendingAddNewTaskText.StartsWith("<txt>"))
-            {
-                PendingAddNewTaskText = "<txt>" + PendingAddNewTaskText + "</txt>";
-            }
-
             // Add task to list and persist it
-            TaskListItemViewModel task = m_TaskListService.AddNewTask(PendingAddNewTaskText);
+            TaskListItemViewModel task = m_TaskListService.AddNewTask(AddTaskTextBoxContent);
 
             // Reset the input TextBox text
-            PendingAddNewTaskText = string.Empty;
+            AddTaskTextBoxContent = string.Empty;
 
             return new CommandObject(true, task);
         }
@@ -324,23 +322,6 @@ namespace TodoApp2.Core
                 // 4. Reorder task below the already pinned tasks and above the not-pinned tasks
                 m_TaskListService.ReorderTask(task, pinnedItemCount - 1, true);
             }
-        }
-
-        private void AddTaskOld()
-        {
-            // If the text is empty or only whitespace, refuse
-            // If the text only contains format characters, refuse
-            string trimmed = PendingAddNewTaskText?.Replace("`", string.Empty);
-            if (string.IsNullOrWhiteSpace(PendingAddNewTaskText) || string.IsNullOrWhiteSpace(trimmed))
-            {
-                return;
-            }
-
-            // Add task to list and persist it
-            m_TaskListService.AddNewTask(PendingAddNewTaskText);
-
-            // Reset the input TextBox text
-            PendingAddNewTaskText = string.Empty;
         }
 
         private void MoveTaskToEnd(TaskListItemViewModel task)

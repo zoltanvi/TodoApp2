@@ -10,6 +10,7 @@ namespace TodoApp2.Core
     [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}] [content {Content}]")]
     public class TaskListItemViewModel : BaseViewModel, IReorderable
     {
+        private string m_ContentRollback = string.Empty;
         private IDatabase Database => IoC.Database;
 
         public int Id { get; set; }
@@ -26,8 +27,7 @@ namespace TodoApp2.Core
         public bool IsReminderOn { get; set; }
         public bool ColorPickerVisible { get; set; }
         public bool IsEditMode { get; set; }
-        public string PendingEditContent { get; set; }
-
+        public bool IsEmptyContent { get; set; }
         public ICommand SetColorCommand { get; }
         public ICommand SetColorParameterizedCommand { get; }
         public ICommand OpenReminderCommand { get; }
@@ -58,40 +58,29 @@ namespace TodoApp2.Core
             IsReminderOn = task.IsReminderOn;
             ColorPickerVisible = task.ColorPickerVisible;
             IsEditMode = task.IsEditMode;
-            PendingEditContent = task.PendingEditContent;
         }
 
         public void UpdateContent()
         {
-            // If the text is empty or only whitespace, refuse
-            // If the text only contains format characters, refuse
-            // If the content did not changed, refuse
-            string trimmed = PendingEditContent?.Replace("`", string.Empty);
-            if (!string.IsNullOrWhiteSpace(PendingEditContent) &&
-                !string.IsNullOrWhiteSpace(trimmed) &&
-                Content != PendingEditContent)
+            if (IsEmptyContent)
             {
-                // 1. Changes are accepted
-                Content = PendingEditContent;
-
-                // 2. Update modification date
+                // Empty content is rejected, roll back the previous content.
+                Content = m_ContentRollback;
+            }
+            else
+            {
+                //Modifications are accepted, update task
                 ModificationDate = DateTime.Now.Ticks;
-
-                // 3. Persist changes into database
                 Database.UpdateTask(this);
             }
-
-            // Switch back from edit mode
+         
             IsEditMode = false;
-
-            // Clear edit text
-            PendingEditContent = string.Empty;
         }
 
         private void EditItem()
         {
-            // Copy the content as the pending text
-            PendingEditContent = Content;
+            // Save the content before editing for a possible rollback
+            m_ContentRollback = Content;
 
             // Enable editing
             IsEditMode = true;

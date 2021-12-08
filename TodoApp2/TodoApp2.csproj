@@ -135,8 +135,8 @@
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\FocusSetter.cs" />
-    <Compile Include="AttachedProperties\InputBindingsManager.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
+    <Compile Include="Controls\BindableRichTextBox.cs" />
     <Compile Include="Controls\CategoryListControl.xaml.cs">
       <DependentUpon>CategoryListControl.xaml</DependentUpon>
     </Compile>
@@ -201,6 +201,7 @@
     <Compile Include="ValueConverters\SolidColorBrushToStringConverter.cs" />
     <Compile Include="ValueConverters\StringToColorConverter.cs" />
     <Compile Include="ValueConverters\StringToDynamicBrushConverters.cs" />
+    <Compile Include="ValueConverters\TextToFlowDocumentConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />

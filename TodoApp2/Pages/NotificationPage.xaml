@@ -86,16 +86,26 @@
                            Style="{DynamicResource NotificationReminderDateStyle}" />
                 </Grid>
 
-                <ScrollViewer Grid.Row="2"
+                <!--<ScrollViewer Grid.Row="2"
                               Margin="16 10 0 16"
-                              Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
-                    <TextBlock Margin="0 0 18 0"
-                               local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text"
-                               Foreground="{DynamicResource TaskPageForegroundBrush}"
+                              Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">-->
+
+                <local:BindableRichTextBox Grid.Row="2"
+                                           Margin="16 10 0 16"
+                                           Padding="10"
+                                           VerticalAlignment="Bottom"
+                                           MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                                           ScrollViewer.CanContentScroll="False"
+                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                           ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                           Style="{DynamicResource TaskListItemDescriptionRichTextBoxStyle}"
+                                           DocumentContent="{Binding NotificationTask.Content, Mode=TwoWay, NotifyOnTargetUpdated=True}" />
+
+
+                <!--<TextBlock Margin="0 0 18 0"
                                Text="{Binding NotificationTask.Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
-                               Style="{DynamicResource TaskListItemDescriptionTextBlockStyle}"
-                               TextWrapping="Wrap" />
-                </ScrollViewer>
+                               Style="{DynamicResource TaskListItemDescriptionTextBlockStyle}" />-->
+                <!--</ScrollViewer>-->
             </Grid>
         </Border>
     </Grid>

@@ -103,7 +103,6 @@
                     <TextBox Grid.Row="1"
                              Grid.Column="0"
                              Margin="0 0 10 0"
-                             local:InputBindingsManager.UpdatePropertyOnEnterPress="TextBox.Text"
                              Background="#00000000"
                              BorderBrush="{Binding IsSelectedDateStringValid, Converter={local:BoolToBorderBrushConverter}, Mode=TwoWay}"
                              FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"

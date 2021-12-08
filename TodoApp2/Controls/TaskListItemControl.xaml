@@ -10,7 +10,7 @@
              MinHeight="40"
              d:DesignHeight="60"
              d:DesignWidth="350"
-             dd:DragDrop.DragSourceIgnore="{Binding IsEditMode}"
+             dd:DragDrop.IsDragSource="{Binding IsEditMode}"
              AutomationProperties.AutomationId="TaskListItemUC"
              mc:Ignorable="d">
 
@@ -141,42 +141,39 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--  Task description  -->
-
-                    <!--  Display formatted text  -->
-                    <TextBlock Name="TaskListItemDisplayText"
-                               Grid.Row="0"
-                               local:InputBindingsManager.FormatTextOnTargetUpdated="TextBlock.Text"
-                               AutomationProperties.AutomationId="TaskListItemDisplayText"
-                               Focusable="False"
-                               Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
-                               Style="{DynamicResource TaskListItemDescriptionTextBlockStyle}"
-                               Text="{Binding Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
-                               Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}">
-                        <TextBlock.InputBindings>
-                            <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
-                        </TextBlock.InputBindings>
-                    </TextBlock>
-
-                    <!--  Text editor mode  -->
-                    <!--  IMPORTANT: FocusSetter Attached property must be after Visibility property in order to work!  -->
-                    <TextBox Grid.Row="0"
-                             local:InputBindingsManager.FormatTextOnTargetUpdated="TextBox.Text"
-                             AutomationProperties.AutomationId="TaskListItemEditText"
-                             Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
-                             PreviewKeyDown="TextBox_PreviewKeyDown"
-                             Style="{DynamicResource TaskListItemDescriptionTextBoxStyle}"
-                             Text="{Binding PendingEditContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityConverter}}"
-                             local:FocusSetter.Value="{Binding IsEditMode}">
+                    <!--
+                        Task description
+                        ========================================================
+                        IMPORTANT: FocusSetter Attached property must be
+                        after Visibility property (if defined) in order to work!
+                    -->
+                    <local:BindableRichTextBox Grid.Row="0"
+                                               Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                                               Style="{DynamicResource TaskListItemDescriptionRichTextBoxStyle}"
+                                               IsHitTestVisible="{Binding IsEditMode}"
+                                               Focusable="{Binding IsEditMode}"
+                                               PreviewKeyDown="TextBox_PreviewKeyDown"
+                                               local:FocusSetter.Value="{Binding IsEditMode}"
+                                               DocumentContent="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               IsEmpty="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="LostFocus">
                                 <i:InvokeCommandAction Command="{Binding UpdateItemContentCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                    </TextBox>
 
+                    </local:BindableRichTextBox>
 
+                    <!--  Catch double click to change to edit mode  -->
+                    <Border Grid.Row="0"
+                            Background="Transparent"
+                            Visibility="{Binding IsEditMode, Converter={local:BoolToVisibilityNegatedConverter}}">
+                        <Border.InputBindings>
+                            <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
+                        </Border.InputBindings>
+                    </Border>
+
+                    <!--  Modification date  -->
                     <TextBlock Grid.Row="1"
                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                                Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
