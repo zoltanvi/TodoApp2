@@ -155,7 +155,7 @@
                                                PreviewKeyDown="TextBox_PreviewKeyDown"
                                                local:FocusSetter.Value="{Binding IsEditMode}"
                                                DocumentContent="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                               IsEmpty="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                               IsEmptyOrWhiteSpace="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="LostFocus">
                                 <i:InvokeCommandAction Command="{Binding UpdateItemContentCommand}" />

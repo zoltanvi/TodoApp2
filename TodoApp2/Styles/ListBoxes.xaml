@@ -1,9 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--  ListBox template  -->
-    <ControlTemplate x:Key="TaskListControlTemplate"
-                     TargetType="{x:Type ListBox}">
+    <ControlTemplate x:Key="TaskListControlTemplate" TargetType="{x:Type ListBox}">
         <Border x:Name="Bd"
                 Padding="1"
                 Background="{TemplateBinding Background}"
@@ -30,17 +28,14 @@
                     <Condition Property="IsGrouping" Value="True" />
                     <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="ScrollViewer.CanContentScroll"
-                        Value="False" />
+                <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <!--  ScrollViewer template  -->
-    <ControlTemplate x:Key="TaskListControlScrollViewerControlTemplate"
-                     TargetType="{x:Type ScrollViewer}">
-        <Grid x:Name="Grid"
-              Background="{TemplateBinding Background}">
+    <ControlTemplate x:Key="TaskListControlScrollViewerControlTemplate" TargetType="{x:Type ScrollViewer}">
+        <Grid x:Name="Grid" Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

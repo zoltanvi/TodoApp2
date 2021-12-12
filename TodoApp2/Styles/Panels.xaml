@@ -4,4 +4,8 @@
         <Setter Property="Margin" Value="0 0 0 10" />
     </Style>
 
+    <Style TargetType="ToolBar">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
 </ResourceDictionary>

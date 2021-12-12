@@ -136,8 +136,7 @@
                         AutomationProperties.AutomationId="SettingsButton"
                         Command="{Binding OpenSettingsPageCommand}"
                         Content="{DynamicResource SegoeIconSettings}"
-                        Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
-                />
+                        Style="{DynamicResource ButtonIconHoverSideMenuStyle}" />
             </Grid>
 
             <!--  Category list  -->
@@ -151,8 +150,7 @@
                 Background="{DynamicResource SideMenuBottomBarBackgroundBrush}"
                 BorderBrush="{DynamicResource TaskPageBottomBarBorderBrush}"
                 BorderThickness="0 1 0 0">
-            <TextBox 
-                     Padding="10"
+            <TextBox Padding="10"
                      VerticalAlignment="Bottom"
                      AutomationProperties.AutomationId="AddNewCategoryTextBox"
                      Style="{StaticResource AddNewTaskTextBoxStyle}"

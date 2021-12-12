@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace TodoApp2
@@ -21,8 +20,13 @@ namespace TodoApp2
                 {
                     // Since the focus not necessary changes, it needs a manual update
                     richTextBox.UpdateContent();
-                    
+
                     //Keyboard.ClearFocus();
+
+                    // TODO: Debug why it is not working
+                    // Clear undo stack
+                    richTextBox.IsUndoEnabled = false;
+                    richTextBox.IsUndoEnabled = true;
 
                     enterAction();
 

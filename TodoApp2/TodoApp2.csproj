@@ -201,7 +201,6 @@
     <Compile Include="ValueConverters\SolidColorBrushToStringConverter.cs" />
     <Compile Include="ValueConverters\StringToColorConverter.cs" />
     <Compile Include="ValueConverters\StringToDynamicBrushConverters.cs" />
-    <Compile Include="ValueConverters\TextToFlowDocumentConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />

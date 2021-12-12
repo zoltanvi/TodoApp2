@@ -43,23 +43,176 @@
         <Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}" />
     </Style>
 
-    <Style x:Key="TaskListItemDescriptionRichTextBoxStyle" TargetType="RichTextBox">
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="AcceptsReturn" Value="True" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
+
+    <Style x:Key="BaseRichTextBoxStyle" TargetType="RichTextBox">
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}" />
-        <Setter Property="Foreground" Value="{DynamicResource TaskPageForegroundBrush}" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageBottomBarForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Style.Resources>
+            <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
+
+            <!--  Fixes line heights in RichTextBoxes  -->
+            <Style TargetType="{x:Type Paragraph}">
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+        </Style.Resources>
     </Style>
 
-    <!--  Fixes line heights in RichTextBoxes  -->
-    <Style TargetType="{x:Type Paragraph}">
-        <Setter Property="Margin" Value="0" />
+    <Style x:Key="FormattableRichTextBoxStyle"
+           TargetType="RichTextBox"
+           BasedOn="{StaticResource BaseRichTextBoxStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:BindableRichTextBox}">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0">
+                            <DockPanel>
+                                <ToolBar DockPanel.Dock="Top"
+                                         IsTabStop="False"
+                                         ToolBarTray.IsLocked="True">
+                                    <ToggleButton IsChecked="{Binding IsSelectionBold, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  Command="EditingCommands.ToggleBold"
+                                                  CommandTarget="{Binding ElementName=PART_ContentHost}"
+                                                  ToolTip="Bold"
+                                                  Content="{DynamicResource SegoeIconBold}"
+                                                  FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                    <ToggleButton IsChecked="{Binding IsSelectionItalic, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  Command="EditingCommands.ToggleItalic"
+                                                  CommandTarget="{Binding ElementName=PART_ContentHost}"
+                                                  ToolTip="Italic"
+                                                  Content="{DynamicResource SegoeIconItalic}"
+                                                  FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                    <ToggleButton IsChecked="{Binding IsSelectionUnderlined, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  Command="EditingCommands.ToggleUnderline"
+                                                  CommandTarget="{Binding ElementName=PART_ContentHost}"
+                                                  ToolTip="Underline"
+                                                  Content="{DynamicResource SegoeIconUnderlined}"
+                                                  FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                </ToolBar>
+                            </DockPanel>
+                        </Border>
+
+                        <!--  Main content  -->
+                        <Border x:Name="border"
+                                Grid.Row="1"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="false"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+
+                        <!--  Watermark text  -->
+                        <TextBlock x:Name="PART_placeholder"
+                                   Grid.Row="1"
+                                   Margin="2 0 0 0"
+                                   Padding="{TemplateBinding Padding}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextBoxPlaceholderBrush}"
+                                   IsHitTestVisible="False"
+                                   Text="{TemplateBinding Tag}">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Value="true">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Value="false">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
+
+    <Style x:Key="TaskListItemDescriptionRichTextBoxStyle"
+           TargetType="RichTextBox"
+           BasedOn="{StaticResource BaseRichTextBoxStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:BindableRichTextBox}">
+
+                    <Grid>
+                        <Border x:Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="false"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+
+                        <TextBlock x:Name="PART_placeholder"
+                                   Margin="2 0 0 0"
+                                   Padding="{TemplateBinding Padding}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextBoxPlaceholderBrush}"
+                                   IsHitTestVisible="False"
+                                   Text="{TemplateBinding Tag}">
+
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Value="true">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Value="false">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
 
     <Style x:Key="CategoryTextBlockStyle" TargetType="TextBlock">
@@ -221,4 +374,5 @@
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
     </Style>
+
 </ResourceDictionary>
