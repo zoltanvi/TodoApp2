@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -7,6 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -16,6 +19,7 @@ namespace TodoApp2
         private static readonly IEnumerable<Block> s_EmptyBlocks = new FlowDocument().Blocks;
 
         private bool m_IsExecuting;
+        private StringRGBToBrushConverter m_ColorConverter;
 
         /// <summary>
         /// The Document of the <see cref="BindableRichTextBox"/> serialized into an xml format.
@@ -36,6 +40,18 @@ namespace TodoApp2
         public static readonly DependencyProperty IsSelectionBoldProperty = DependencyProperty.Register(nameof(IsSelectionBold), typeof(bool), typeof(BindableRichTextBox), new PropertyMetadata());
         public static readonly DependencyProperty IsSelectionItalicProperty = DependencyProperty.Register(nameof(IsSelectionItalic), typeof(bool), typeof(BindableRichTextBox), new PropertyMetadata());
         public static readonly DependencyProperty IsSelectionUnderlinedProperty = DependencyProperty.Register(nameof(IsSelectionUnderlined), typeof(bool), typeof(BindableRichTextBox), new PropertyMetadata());
+        
+        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(BindableRichTextBox), new PropertyMetadata(default(string)));
+
+        public string SelectedColor
+        {
+            get => (string)GetValue(SelectedColorProperty);
+            set => SetValue(SelectedColorProperty, value);
+        }
+
+        public ICommand ApplyColorCommand { get; set; }
+
+        public ICommand ResetFormattingCommand { get; set; }
 
         /// <see cref="DocumentContentProperty"/>
         public string DocumentContent
@@ -97,6 +113,8 @@ namespace TodoApp2
 
         public BindableRichTextBox()
         {
+            m_ColorConverter = new StringRGBToBrushConverter();
+
             IsEmpty = true;
             IsEmptyOrWhiteSpace = true;
 
@@ -107,6 +125,29 @@ namespace TodoApp2
 
             DataObject.AddPastingHandler(this, OnPaste);
             CommandManager.AddPreviewExecutedHandler(this, OnExecuted);
+            
+            ApplyColorCommand = new RelayCommand(ApplyColor);
+            ResetFormattingCommand = new RelayCommand(ResetFormatting);
+        }
+
+        private void ResetFormatting()
+        {
+            Selection.ClearAllProperties();
+            UpdateContent();
+        }
+
+        private void ApplyColor()
+        {
+            SolidColorBrush color = m_ColorConverter.Convert(SelectedColor, typeof(SolidColorBrush), null, CultureInfo.InvariantCulture) as SolidColorBrush;
+            if (color?.Color.A != 0)
+            {
+                Selection.ApplyPropertyValue(TextElement.ForegroundProperty, color);
+            }
+            else
+            {
+                SolidColorBrush defaultColor = (SolidColorBrush)Application.Current.TryFindResource("TaskPageForegroundBrush");
+                Selection.ApplyPropertyValue(TextElement.ForegroundProperty, defaultColor);
+            }
         }
 
         private void OnExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -183,17 +224,7 @@ namespace TodoApp2
             // Delete text formatting on Ctrl + G
             if (e.Key == Key.G && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             {
-                TextRange textRange = new TextRange(Document.ContentStart, Document.ContentEnd);
-                string[] documentLines = textRange.Text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                
-                Document.Blocks.Clear();
-
-                foreach (string documentLine in documentLines)
-                {
-                    Document.Blocks.Add(new Paragraph(new Run(documentLine)));
-                }
-
-                UpdateContent();
+                ResetFormatting();
             }
         }
 

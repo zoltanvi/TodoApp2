@@ -366,6 +366,7 @@
     </DataTemplate>
 
     <Style x:Key="ColorPickerItemContainerStyle" TargetType="ComboBoxItem">
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">

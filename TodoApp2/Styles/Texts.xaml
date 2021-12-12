@@ -1,10 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TodoApp2"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ScrollBars.xaml" />
+        <ResourceDictionary Source="ComboBoxes.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <system:Double x:Key="FontSizeSmallest">10</system:Double>
@@ -88,20 +90,74 @@
                                                   Command="EditingCommands.ToggleBold"
                                                   CommandTarget="{Binding ElementName=PART_ContentHost}"
                                                   ToolTip="Bold"
+                                                  Focusable="False"
+                                                  Margin="5 0"
                                                   Content="{DynamicResource SegoeIconBold}"
+                                                  Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
                                                   FontFamily="{StaticResource SegoeMDL2Assets}" />
                                     <ToggleButton IsChecked="{Binding IsSelectionItalic, RelativeSource={RelativeSource TemplatedParent}}"
                                                   Command="EditingCommands.ToggleItalic"
                                                   CommandTarget="{Binding ElementName=PART_ContentHost}"
                                                   ToolTip="Italic"
+                                                  Focusable="False"
+                                                  Margin="5 0"
                                                   Content="{DynamicResource SegoeIconItalic}"
+                                                  Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
                                                   FontFamily="{StaticResource SegoeMDL2Assets}" />
                                     <ToggleButton IsChecked="{Binding IsSelectionUnderlined, RelativeSource={RelativeSource TemplatedParent}}"
                                                   Command="EditingCommands.ToggleUnderline"
                                                   CommandTarget="{Binding ElementName=PART_ContentHost}"
                                                   ToolTip="Underline"
+                                                  Focusable="False"
+                                                  Margin="5 0"
                                                   Content="{DynamicResource SegoeIconUnderlined}"
+                                                  Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
                                                   FontFamily="{StaticResource SegoeMDL2Assets}" />
+
+                                    <Separator Margin="5 0" />
+
+                                    <Button Command="EditingCommands.IncreaseFontSize"
+                                            CommandTarget="{Binding ElementName=PART_ContentHost}"
+                                            ToolTip="Increase size"
+                                            Focusable="False"
+                                            Margin="5 0"
+                                            Content="{DynamicResource SegoeIconFontSizeIncrease}"
+                                            Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
+                                            FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                    <Button Command="EditingCommands.DecreaseFontSize"
+                                            CommandTarget="{Binding ElementName=PART_ContentHost}"
+                                            ToolTip="Decrease size"
+                                            Focusable="False"
+                                            Margin="5 0"
+                                            Content="{DynamicResource SegoeIconFontSizeDecrease}"
+                                            Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
+                                            FontFamily="{StaticResource SegoeMDL2Assets}" />
+
+                                    <Separator Margin="5 0" />
+
+                                    <ComboBox Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                              ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                              Style="{DynamicResource ColorPickerTableStyle}"
+                                              Margin="5 0"
+                                              ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                              ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
+                                              Focusable="False"
+                                              SelectedItem="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding ApplyColorCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+
+                                    <Button Command="{Binding ResetFormattingCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                            CommandTarget="{Binding ElementName=PART_ContentHost}"
+                                            ToolTip="Reset formatting"
+                                            Focusable="False"
+                                            Margin="5 0"
+                                            Content="{DynamicResource SegoeIconDeleteFormatting}"
+                                            Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
+                                            FontFamily="{StaticResource SegoeMDL2Assets}" />
                                 </ToolBar>
                             </DockPanel>
                         </Border>
