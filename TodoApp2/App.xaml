@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Styles/Themes/ExtraDarkTheme.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 <ResourceDictionary Source="Styles/ComboBoxes.xaml" />
+                <ResourceDictionary Source="Styles/Panels.xaml" />
                 <ResourceDictionary Source="Styles/Texts.xaml" />
                 <ResourceDictionary Source="Styles/ContextMenus.xaml" />
                 <ResourceDictionary Source="Styles/Buttons.xaml" />
@@ -17,7 +18,6 @@
                 <ResourceDictionary Source="Styles/ScrollBars.xaml" />
                 <ResourceDictionary Source="Styles/ListBoxes.xaml" />
                 <ResourceDictionary Source="Styles/CustomControls.xaml" />
-                <ResourceDictionary Source="Styles/Panels.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

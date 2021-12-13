@@ -7,6 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ScrollBars.xaml" />
         <ResourceDictionary Source="ComboBoxes.xaml" />
+        <ResourceDictionary Source="Panels.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <system:Double x:Key="FontSizeSmallest">10</system:Double>
@@ -85,6 +86,7 @@
                             <DockPanel>
                                 <ToolBar DockPanel.Dock="Top"
                                          IsTabStop="False"
+                                         Template="{StaticResource CustomToolBarControlTemplate}"
                                          ToolBarTray.IsLocked="True">
                                     <ToggleButton IsChecked="{Binding IsSelectionBold, RelativeSource={RelativeSource TemplatedParent}}"
                                                   Command="EditingCommands.ToggleBold"
