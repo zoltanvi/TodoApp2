@@ -43,6 +43,10 @@
     <SolidColorBrush x:Key="TaskItemButtonTrashHoverBrush" Color="#FA504D" />
     <SolidColorBrush x:Key="TaskItemBorderBrush" Color="#E5E5E5" />
 
+    <SolidColorBrush x:Key="TextEditorButtonCheckedBackgroundBrush" Color="#B9B9B9" />
+    <SolidColorBrush x:Key="TextEditorButtonHoverBackgroundBrush" Color="#a8a8a8" />
+    <SolidColorBrush x:Key="TextEditorButtonPressedBackgroundBrush" Color="#949494" />
+
     <SolidColorBrush x:Key="InnerWindowForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="TextBoxCaretBrush" Color="Black" />
     <SolidColorBrush x:Key="TextBoxPlaceholderBrush" Color="#373737" />

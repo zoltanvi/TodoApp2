@@ -284,7 +284,7 @@
                                                VerticalAlignment="Center"
                                                Foreground="{DynamicResource VersionLabelForegroundBrush}"
                                                FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}">
-                                        Version 1.4.3
+                                        Version 1.5.0
                                     </TextBlock>
                                 </Border>
                             </Grid>

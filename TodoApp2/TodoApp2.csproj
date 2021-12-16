@@ -136,7 +136,8 @@
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\FocusSetter.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
-    <Compile Include="Controls\BindableRichTextBox.cs" />
+    <Compile Include="Controls\ColorPickerComboBox.cs" />
+    <Compile Include="Controls\TextEditorBox.cs" />
     <Compile Include="Controls\CategoryListControl.xaml.cs">
       <DependentUpon>CategoryListControl.xaml</DependentUpon>
     </Compile>

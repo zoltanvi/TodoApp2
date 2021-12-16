@@ -74,7 +74,7 @@
            BasedOn="{StaticResource BaseRichTextBoxStyle}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:BindableRichTextBox}">
+                <ControlTemplate TargetType="{x:Type local:TextEditorBox}">
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -86,80 +86,60 @@
                             <DockPanel>
                                 <ToolBar DockPanel.Dock="Top"
                                          IsTabStop="False"
+                                         Visibility="{Binding IsFocused, RelativeSource={RelativeSource TemplatedParent}, Converter={local:BoolToVisibilityConverter}}"
                                          Template="{StaticResource CustomToolBarControlTemplate}"
                                          ToolBarTray.IsLocked="True">
                                     <ToggleButton IsChecked="{Binding IsSelectionBold, RelativeSource={RelativeSource TemplatedParent}}"
                                                   Command="EditingCommands.ToggleBold"
                                                   CommandTarget="{Binding ElementName=PART_ContentHost}"
                                                   ToolTip="Bold"
-                                                  Focusable="False"
-                                                  Margin="5 0"
-                                                  Content="{DynamicResource SegoeIconBold}"
-                                                  Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
-                                                  FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                                  Style="{DynamicResource TextEditorToggleButtonStyle}"
+                                                  Content="{DynamicResource SegoeIconBold}" />
                                     <ToggleButton IsChecked="{Binding IsSelectionItalic, RelativeSource={RelativeSource TemplatedParent}}"
                                                   Command="EditingCommands.ToggleItalic"
                                                   CommandTarget="{Binding ElementName=PART_ContentHost}"
                                                   ToolTip="Italic"
-                                                  Focusable="False"
-                                                  Margin="5 0"
-                                                  Content="{DynamicResource SegoeIconItalic}"
-                                                  Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
-                                                  FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                                  Style="{DynamicResource TextEditorToggleButtonStyle}"
+                                                  Content="{DynamicResource SegoeIconItalic}" />
                                     <ToggleButton IsChecked="{Binding IsSelectionUnderlined, RelativeSource={RelativeSource TemplatedParent}}"
                                                   Command="EditingCommands.ToggleUnderline"
                                                   CommandTarget="{Binding ElementName=PART_ContentHost}"
                                                   ToolTip="Underline"
-                                                  Focusable="False"
-                                                  Margin="5 0"
-                                                  Content="{DynamicResource SegoeIconUnderlined}"
-                                                  Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
-                                                  FontFamily="{StaticResource SegoeMDL2Assets}" />
-
-                                    <Separator Margin="5 0" />
+                                                  Style="{DynamicResource TextEditorToggleButtonStyle}"
+                                                  Content="{DynamicResource SegoeIconUnderlined}" />
 
                                     <Button Command="EditingCommands.IncreaseFontSize"
                                             CommandTarget="{Binding ElementName=PART_ContentHost}"
                                             ToolTip="Increase size"
-                                            Focusable="False"
-                                            Margin="5 0"
-                                            Content="{DynamicResource SegoeIconFontSizeIncrease}"
-                                            Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
-                                            FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                            Style="{DynamicResource TextEditorButtonStyle}"
+                                            Content="{DynamicResource SegoeIconFontSizeIncrease}" />
                                     <Button Command="EditingCommands.DecreaseFontSize"
                                             CommandTarget="{Binding ElementName=PART_ContentHost}"
                                             ToolTip="Decrease size"
-                                            Focusable="False"
-                                            Margin="5 0"
-                                            Content="{DynamicResource SegoeIconFontSizeDecrease}"
-                                            Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
-                                            FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                            Style="{DynamicResource TextEditorButtonStyle}"
+                                            Content="{DynamicResource SegoeIconFontSizeDecrease}" />
 
-                                    <Separator Margin="5 0" />
-
-                                    <ComboBox Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
-                                              ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                              Style="{DynamicResource ColorPickerTableStyle}"
-                                              Margin="5 0"
-                                              ItemTemplate="{StaticResource ColorPickerItemTemplate}"
-                                              ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
-                                              Focusable="False"
-                                              SelectedItem="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
+                                    <!--  Style="{DynamicResource ColorPickerTableStyle}"  -->
+                                    <!--  SelectedItem="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  -->
+                                    <local:ColorPickerComboBox ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                                               AppliedColor="{Binding AppliedColor, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                               IsSynchronizedWithCurrentItem="True"
+                                                               Style="{DynamicResource ColorPickerButtonStyle}"
+                                                               ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
+                                                               ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                                               Focusable="False">
+                                        <!--<i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <i:InvokeCommandAction Command="{Binding ApplyColorCommand, RelativeSource={RelativeSource TemplatedParent}}" />
                                             </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </ComboBox>
+                                        </i:Interaction.Triggers>-->
+                                    </local:ColorPickerComboBox>
 
                                     <Button Command="{Binding ResetFormattingCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                             CommandTarget="{Binding ElementName=PART_ContentHost}"
                                             ToolTip="Reset formatting"
-                                            Focusable="False"
-                                            Margin="5 0"
-                                            Content="{DynamicResource SegoeIconDeleteFormatting}"
-                                            Foreground="{DynamicResource TaskPageBottomBarForegroundBrush}"
-                                            FontFamily="{StaticResource SegoeMDL2Assets}" />
+                                            Style="{DynamicResource TextEditorButtonStyle}"
+                                            Content="{DynamicResource SegoeIconDeleteFormatting}" />
                                 </ToolBar>
                             </DockPanel>
                         </Border>
@@ -220,7 +200,7 @@
            BasedOn="{StaticResource BaseRichTextBoxStyle}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:BindableRichTextBox}">
+                <ControlTemplate TargetType="{x:Type local:TextEditorBox}">
 
                     <Grid>
                         <Border x:Name="border"

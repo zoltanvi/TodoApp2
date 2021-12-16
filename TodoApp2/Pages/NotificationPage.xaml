@@ -90,7 +90,7 @@
                               Margin="16 10 0 16"
                               Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">-->
 
-                <local:BindableRichTextBox Grid.Row="2"
+                <local:TextEditorBox Grid.Row="2"
                                            Margin="16 10 0 16"
                                            Padding="10"
                                            VerticalAlignment="Bottom"

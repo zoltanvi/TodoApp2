@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -13,47 +12,29 @@ using TodoApp2.Core;
 
 namespace TodoApp2
 {
-    public class BindableRichTextBox : RichTextBox
+    public class TextEditorBox : RichTextBox
     {
         private static readonly string s_EmptyContent = XamlWriter.Save(new FlowDocument());
         private static readonly IEnumerable<Block> s_EmptyBlocks = new FlowDocument().Blocks;
 
+        private readonly StringRGBToBrushConverter m_ColorConverter;
         private bool m_IsExecuting;
-        private StringRGBToBrushConverter m_ColorConverter;
 
         /// <summary>
-        /// The Document of the <see cref="BindableRichTextBox"/> serialized into an xml format.
+        /// The Document of the <see cref="TextEditorBox"/> serialized into an xml format.
         /// </summary>
-        public static readonly DependencyProperty DocumentContentProperty = DependencyProperty.Register(nameof(DocumentContent), typeof(string), typeof(BindableRichTextBox), new PropertyMetadata(OnContentChanged));
+        public static readonly DependencyProperty DocumentContentProperty = DependencyProperty.Register(nameof(DocumentContent), typeof(string), typeof(TextEditorBox), new PropertyMetadata(OnContentChanged));
 
-        /// <summary>
-        /// Indicates whether the <see cref="BindableRichTextBox"/> is empty or not.
-        /// If the content is only whitespace, it returns true also.
-        /// </summary>
-        public static readonly DependencyProperty IsEmptyOrWhiteSpaceProperty = DependencyProperty.Register(nameof(IsEmptyOrWhiteSpace), typeof(bool), typeof(BindableRichTextBox), new PropertyMetadata());
+        public static readonly DependencyProperty IsEmptyOrWhiteSpaceProperty = DependencyProperty.Register(nameof(IsEmptyOrWhiteSpace), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
+        public static readonly DependencyProperty IsEmptyProperty = DependencyProperty.Register(nameof(IsEmpty), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
 
-        /// <summary>
-        /// Indicates whether the <see cref="BindableRichTextBox"/> is completely empty or not.
-        /// </summary>
-        public static readonly DependencyProperty IsEmptyProperty = DependencyProperty.Register(nameof(IsEmpty), typeof(bool), typeof(BindableRichTextBox), new PropertyMetadata());
-
-        public static readonly DependencyProperty IsSelectionBoldProperty = DependencyProperty.Register(nameof(IsSelectionBold), typeof(bool), typeof(BindableRichTextBox), new PropertyMetadata());
-        public static readonly DependencyProperty IsSelectionItalicProperty = DependencyProperty.Register(nameof(IsSelectionItalic), typeof(bool), typeof(BindableRichTextBox), new PropertyMetadata());
-        public static readonly DependencyProperty IsSelectionUnderlinedProperty = DependencyProperty.Register(nameof(IsSelectionUnderlined), typeof(bool), typeof(BindableRichTextBox), new PropertyMetadata());
+        public static readonly DependencyProperty IsSelectionBoldProperty = DependencyProperty.Register(nameof(IsSelectionBold), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
+        public static readonly DependencyProperty IsSelectionItalicProperty = DependencyProperty.Register(nameof(IsSelectionItalic), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
+        public static readonly DependencyProperty IsSelectionUnderlinedProperty = DependencyProperty.Register(nameof(IsSelectionUnderlined), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
         
-        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(BindableRichTextBox), new PropertyMetadata(default(string)));
+        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(TextEditorBox), new PropertyMetadata());
+        public static readonly DependencyProperty AppliedColorProperty = DependencyProperty.Register(nameof(AppliedColor), typeof(string), typeof(TextEditorBox), new PropertyMetadata(OnAppliedColorChanged));
 
-        public string SelectedColor
-        {
-            get => (string)GetValue(SelectedColorProperty);
-            set => SetValue(SelectedColorProperty, value);
-        }
-
-        public ICommand ApplyColorCommand { get; set; }
-
-        public ICommand ResetFormattingCommand { get; set; }
-
-        /// <see cref="DocumentContentProperty"/>
         public string DocumentContent
         {
             get => (string)GetValue(DocumentContentProperty);
@@ -79,14 +60,12 @@ namespace TodoApp2
             }
         }
 
-        /// <see cref="IsEmptyOrWhiteSpaceProperty"/>
         public bool IsEmptyOrWhiteSpace
         {
             get => (bool)GetValue(IsEmptyOrWhiteSpaceProperty);
             set => SetValue(IsEmptyOrWhiteSpaceProperty, value);
         }
 
-        /// <see cref="IsEmptyProperty"/>
         public bool IsEmpty
         {
             get => (bool)GetValue(IsEmptyProperty);
@@ -111,7 +90,21 @@ namespace TodoApp2
             set => SetValue(IsSelectionUnderlinedProperty, value);
         }
 
-        public BindableRichTextBox()
+        public string SelectedColor
+        {
+            get => (string)GetValue(SelectedColorProperty);
+            set => SetValue(SelectedColorProperty, value);
+        }
+
+        public string AppliedColor
+        {
+            get => (string)GetValue(AppliedColorProperty);
+            set => SetValue(AppliedColorProperty, value);
+        }
+
+        public ICommand ResetFormattingCommand { get; set; }
+
+        public TextEditorBox()
         {
             m_ColorConverter = new StringRGBToBrushConverter();
 
@@ -126,8 +119,19 @@ namespace TodoApp2
             DataObject.AddPastingHandler(this, OnPaste);
             CommandManager.AddPreviewExecutedHandler(this, OnExecuted);
             
-            ApplyColorCommand = new RelayCommand(ApplyColor);
             ResetFormattingCommand = new RelayCommand(ResetFormatting);
+        }
+
+        public void UpdateContent()
+        {
+            // Update the IsEmptyOrWhiteSpace property.
+            // It is not necessary to be updated in every TextChange event
+            TextRange textRange = new TextRange(Document.ContentStart, Document.ContentEnd);
+            IsEmptyOrWhiteSpace = string.IsNullOrWhiteSpace(textRange.Text);
+
+            // Update the content
+            string result = XamlWriter.Save(Document);
+            DocumentContent = result;
         }
 
         private void ResetFormatting()
@@ -136,9 +140,17 @@ namespace TodoApp2
             UpdateContent();
         }
 
-        private void ApplyColor()
+        private static void OnAppliedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            SolidColorBrush color = m_ColorConverter.Convert(SelectedColor, typeof(SolidColorBrush), null, CultureInfo.InvariantCulture) as SolidColorBrush;
+            if (d is TextEditorBox textEditorBox && e.NewValue is string newColor)
+            {
+                textEditorBox.ApplyColor(newColor);
+            }
+        }
+
+        private void ApplyColor(string newColor)
+        {
+            SolidColorBrush color = m_ColorConverter.Convert(newColor, typeof(SolidColorBrush), null, CultureInfo.InvariantCulture) as SolidColorBrush;
             if (color?.Color.A != 0)
             {
                 Selection.ApplyPropertyValue(TextElement.ForegroundProperty, color);
@@ -152,13 +164,14 @@ namespace TodoApp2
 
         private void OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
+            // First execute the command then do the update
             if (!m_IsExecuting)
             {
                 m_IsExecuting = true;
 
                 e.Command?.Execute(e.Parameter);
                 e.Handled = true;
-                
+
                 if (e.Command == EditingCommands.ToggleBold)
                 {
                     UpdateSelectionBold();
@@ -176,18 +189,6 @@ namespace TodoApp2
             }
         }
 
-        public void UpdateContent()
-        {
-            // Update the IsEmptyOrWhiteSpace property.
-            // It is not necessary to be updated in every TextChange event
-            TextRange textRange = new TextRange(Document.ContentStart, Document.ContentEnd);
-            IsEmptyOrWhiteSpace = string.IsNullOrWhiteSpace(textRange.Text);
-
-            // Update the content
-            string result = XamlWriter.Save(Document);
-            DocumentContent = result;
-        }
-
         private void UpdateSelectionBold()
         {
             object fontWeight = Selection.GetPropertyValue(TextElement.FontWeightProperty);
@@ -203,15 +204,45 @@ namespace TodoApp2
         private void UpdateSelectionUnderlined()
         {
             object decorations = Selection.GetPropertyValue(Inline.TextDecorationsProperty);
-            IsSelectionUnderlined = decorations != DependencyProperty.UnsetValue && decorations.Equals(TextDecorations.Underline);
+            IsSelectionUnderlined = false;
+
+            if (decorations != DependencyProperty.UnsetValue && decorations is TextDecorationCollection decorationCollection)
+            {
+                foreach (TextDecoration textDecoration in decorationCollection)
+                {
+                    if (textDecoration.Location == TextDecorationLocation.Underline)
+                    {
+                        IsSelectionUnderlined = true;
+                        break;
+                    }
+                    //else if (textDecoration.Location == TextDecorationLocation.Strikethrough)
+                    //{
+                    //}
+                }
+            }
         }
 
+        private void UpdateSelectionColor()
+        {
+            string oldValue = SelectedColor;
+            object foreground = Selection.GetPropertyValue(TextElement.ForegroundProperty);
+            string color = "Transparent";
+            
+            if (foreground != DependencyProperty.UnsetValue)
+            {
+                color = (string)m_ColorConverter.ConvertBack(foreground, typeof(string), null, CultureInfo.InvariantCulture);
+            }
+
+            SelectedColor = color;
+        }
 
         private void OnSelectionChanged(object sender, RoutedEventArgs e)
         {
             UpdateSelectionBold();
             UpdateSelectionItalic();
             UpdateSelectionUnderlined();
+
+            UpdateSelectionColor();
 
             //var tmp = Selection.GetPropertyValue(TextElement.FontFamilyProperty);
             //tmp = Selection.GetPropertyValue(TextElement.FontSizeProperty);
@@ -237,7 +268,6 @@ namespace TodoApp2
             }
         }
 
-
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
             IsEmpty = IsRichTextBoxEmpty(this);
@@ -250,9 +280,10 @@ namespace TodoApp2
 
         private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is BindableRichTextBox bindableRichTextBox && e.NewValue is string newContent)
+            if (d is TextEditorBox textEditorBox && 
+                e.NewValue is string newContent)
             {
-                bindableRichTextBox.DocumentContent = newContent;
+                textEditorBox.DocumentContent = newContent;
             }
         }
 

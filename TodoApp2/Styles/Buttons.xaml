@@ -39,7 +39,6 @@
         </Setter>
     </Style>
 
-
     <Style x:Key="ButtonHoverStyle"
            BasedOn="{StaticResource ButtonBaseStyle}"
            TargetType="{x:Type Button}">
@@ -69,6 +68,25 @@
         </Style.Triggers>
     </Style>
 
+
+    <Style x:Key="TextEditorButtonStyle"
+           BasedOn="{StaticResource ButtonIconStyle}"
+           TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageBottomBarForegroundBrush}" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="5" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource TextEditorButtonHoverBackgroundBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{DynamicResource TextEditorButtonPressedBackgroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!--  TITLE BAR STYLES =============================================================================================  -->
 
     <Style x:Key="ButtonTitleBarStyle"
@@ -78,7 +96,7 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="FontSize" Value="10" />
-        <Setter Property="Foreground" Value="{DynamicResource TitleBarButtonForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TitleBarForegroundBrush}" />
     </Style>
 
     <Style x:Key="ButtonTitleBarCloseWindowStyle"
@@ -436,6 +454,105 @@
 
         <Setter Property="BorderBrush" Value="{DynamicResource SideMenuForegroundBrush}" />
         <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="TextEditorToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageBottomBarForegroundBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource TextEditorButtonCheckedBackgroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource TextEditorButtonHoverBackgroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource TextEditorButtonPressedBackgroundBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InternalColorPickerButtonStyle"
+           BasedOn="{StaticResource ButtonBaseStyle}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border x:Name="ItemBorder"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </Border>
+                        <Path Stroke="Red"
+                              StrokeThickness="1"
+                              Name="DiagonalLine"
+                              Visibility="Collapsed">
+                            <Path.Data>
+                                <LineGeometry StartPoint="15,0" EndPoint="0,15" />
+                            </Path.Data>
+                            <Path.LayoutTransform>
+                                <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            </Path.LayoutTransform>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=Background, RelativeSource={RelativeSource Self}}" Value="Transparent">
+                            <Setter Property="Background"
+                                    TargetName="ItemBorder"
+                                    Value="White" />
+                            <Setter Property="Visibility"
+                                    TargetName="DiagonalLine"
+                                    Value="Visible" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="ItemBorder"
+                                    Value="0.5" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="ItemBorder"
+                                    Value="Black" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
     </Style>
 
     <!--  ====================================================================  -->

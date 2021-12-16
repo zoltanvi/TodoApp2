@@ -147,22 +147,22 @@
                         IMPORTANT: FocusSetter Attached property must be
                         after Visibility property (if defined) in order to work!
                     -->
-                    <local:BindableRichTextBox Grid.Row="0"
-                                               Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
-                                               Style="{DynamicResource TaskListItemDescriptionRichTextBoxStyle}"
-                                               IsHitTestVisible="{Binding IsEditMode}"
-                                               Focusable="{Binding IsEditMode}"
-                                               PreviewKeyDown="TextBox_PreviewKeyDown"
-                                               local:FocusSetter.Value="{Binding IsEditMode}"
-                                               DocumentContent="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                               IsEmptyOrWhiteSpace="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <local:TextEditorBox Grid.Row="0"
+                                         Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                                         Style="{DynamicResource FormattableRichTextBoxStyle}"
+                                         IsHitTestVisible="{Binding IsEditMode}"
+                                         Focusable="{Binding IsEditMode}"
+                                         PreviewKeyDown="TextBox_PreviewKeyDown"
+                                         local:FocusSetter.Value="{Binding IsEditMode}"
+                                         DocumentContent="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         IsEmptyOrWhiteSpace="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="LostFocus">
                                 <i:InvokeCommandAction Command="{Binding UpdateItemContentCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 
-                    </local:BindableRichTextBox>
+                    </local:TextEditorBox>
 
                     <!--  Catch double click to change to edit mode  -->
                     <Border Grid.Row="0"

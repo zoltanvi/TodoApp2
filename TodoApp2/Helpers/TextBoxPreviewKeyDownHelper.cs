@@ -13,7 +13,7 @@ namespace TodoApp2
         /// <param name="enterAction">The action to execute when the enter key is pressed.</param>
         public static void TextBox_PreviewKeyDown(object sender, KeyEventArgs e, Action enterAction)
         {
-            if (sender is BindableRichTextBox richTextBox)
+            if (sender is TextEditorBox richTextBox)
             {
                 // Check if we have pressed enter
                 if (e.Key == Key.Enter && !Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))

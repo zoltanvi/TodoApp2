@@ -35,19 +35,19 @@
                     BorderThickness="0 1 0 0">
 
                 <DockPanel>
-                    <local:BindableRichTextBox Padding="10"
-                                               VerticalAlignment="Bottom"
-                                               MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
-                                               AcceptsTab="True"
-                                               PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
-                                               AutomationProperties.AutomationId="AddNewTaskTextBox"
-                                               ScrollViewer.CanContentScroll="False"
-                                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                               Tag="Add new task"
-                                               Style="{DynamicResource FormattableRichTextBoxStyle}"
-                                               DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                               IsEmptyOrWhiteSpace="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <local:TextEditorBox Padding="10"
+                                         VerticalAlignment="Bottom"
+                                         MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                                         AcceptsTab="True"
+                                         PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
+                                         AutomationProperties.AutomationId="AddNewTaskTextBox"
+                                         ScrollViewer.CanContentScroll="False"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                         Tag="Add new task"
+                                         Style="{DynamicResource FormattableRichTextBoxStyle}"
+                                         DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         IsEmptyOrWhiteSpace="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </DockPanel>
 
             </Border>
