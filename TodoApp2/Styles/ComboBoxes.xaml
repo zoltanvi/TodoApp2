@@ -387,11 +387,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
+        <!--<Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource TextEditorButtonHoverBackgroundBrush}" />
             </Trigger>
-        </Style.Triggers>
+        </Style.Triggers>-->
     </Style>
 
     <DataTemplate x:Key="ColorPickerItemTemplate">

@@ -54,6 +54,7 @@
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}" />
+        <Setter Property="AutoWordSelection" Value="False" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="AcceptsReturn" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
