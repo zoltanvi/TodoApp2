@@ -14,6 +14,7 @@ namespace TodoApp2
     public class WindowViewModel : BaseViewModel
     {
         private const string s_DateTimeFormatString = "yyyy-MM-dd HH:mm";
+        private const int s_ResizeBorderSize = 9;
 
         private readonly Window m_Window;
         private readonly WindowResizer m_Resizer;
@@ -46,11 +47,11 @@ namespace TodoApp2
         /// The padding of the inner content of the main window
         /// </summary>
         public Thickness InnerContentPadding => new Thickness(ContentPadding);
-
+        
         /// <summary>
         /// The size of the resize border around the window
         /// </summary>
-        public int ResizeBorder => m_Window.WindowState == WindowState.Maximized ? 0 : 5;
+        public int ResizeBorder => m_Window.WindowState == WindowState.Maximized ? 0 : s_ResizeBorderSize;
 
         /// <summary>
         /// The size of the resize border around the window, taking into account the outer margin
@@ -69,6 +70,7 @@ namespace TodoApp2
 
         public bool IsDocked { get; set; }
         public bool IsMaximized { get; set; }
+        public bool IsMaximizedOrDocked { get; set; }
         public string CurrentTime { get; set; }
 
         #region Workaround
@@ -76,7 +78,9 @@ namespace TodoApp2
         // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
         public double MyWidth { get; set; }
         public double MyHeight { get; set; }
+        public int OuterMargin { get; set; } = 2 * s_ResizeBorderSize;
         public Rect ClipRect => new Rect(0, 0, MyWidth, MyHeight);
+        public Rect OuterClipRect => new Rect(0, 0, MyWidth + OuterMargin, MyHeight + OuterMargin);
         #endregion Workaround
 
         public WindowViewModel(Window window, ApplicationViewModel applicationViewModel, IDatabase database)
@@ -215,6 +219,7 @@ namespace TodoApp2
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)
         {
             IsDocked = e.IsDocked;
+            IsMaximizedOrDocked = IsMaximized || IsDocked;
             UpdateWindowCornerRadius();
             WindowResized();
         }
@@ -339,6 +344,7 @@ namespace TodoApp2
         private void WindowResized()
         {
             IsMaximized = m_Window.WindowState == WindowState.Maximized;
+            IsMaximizedOrDocked = IsMaximized || IsDocked;
             UpdateWindowCornerRadius();
 
             // Fire off events for all properties that are affected by a resize

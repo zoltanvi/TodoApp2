@@ -8,13 +8,13 @@
     <SolidColorBrush x:Key="ApplicationBorderBrush" Color="#B3B3B3" />
 
     <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="#000000" />
-    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="#F2F2F2" />
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="#EEEEEE" />
 
     <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="#E5E5E5" />
     <SolidColorBrush x:Key="ButtonTitleBarCloseHoverBackgroundBrush" Color="#FF311E" />
 
     <SolidColorBrush x:Key="SideMenuForegroundBrush" Color="#000000" />
-    <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="#F2F2F2" />
+    <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="#EEEEEE" />
     <SolidColorBrush x:Key="SideMenuBottomBarForegroundBrush" Color="#414141" />
     <SolidColorBrush x:Key="SideMenuBottomBarBackgroundBrush" Color="#CECECE" />
     <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="#C5C5C5" />
@@ -27,21 +27,31 @@
 
     <SolidColorBrush x:Key="PageTitleForegroundBrush" Color="#000000" />
 
-    <SolidColorBrush x:Key="TaskPageBackgroundBrush" Color="#F2F2F2" />
+    <SolidColorBrush x:Key="TaskPageForegroundDarkBrush" Color="#000000" />
+    <SolidColorBrush x:Key="TaskPageForegroundLightBrush" Color="#FFFFFF" />
+
+    <SolidColorBrush x:Key="TaskPageBackgroundBrush" Color="#FFFFFF" />
+    <!--<SolidColorBrush x:Key="TaskPageForegroundBrush" Color="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:DynamicBrushConverterTaskItem}}" />-->
     <SolidColorBrush x:Key="TaskPageForegroundBrush" Color="#000000" />
     <SolidColorBrush x:Key="TaskPageEditModeForegroundBrush" Color="#005395" />
     <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="#383838" />
-    <SolidColorBrush x:Key="TaskPageBottomBarBackgroundBrush" Color="#EEEEEE" />
+    <SolidColorBrush x:Key="TaskPageBottomBarBackgroundBrush" Color="#E2E2E2" />
     <SolidColorBrush x:Key="TaskPageBottomBarForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="TaskPageBottomBarBorderBrush" Color="#E0E0E0" />
 
-    <Color x:Key="TaskItemBackgroundTransparent">#00FBFBFB</Color>
-    <Color x:Key="TaskItemBackground">#FBFBFB</Color>
-    <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{StaticResource TaskItemBackground}" />
+    <Color x:Key="TaskItemBackgroundTransparent">#00c2e9fb</Color>
+    <Color x:Key="TaskItemBackground">#c2e9fb</Color>
+
+    <LinearGradientBrush x:Key="TaskItemBackgroundBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Offset="0" Color="#a1c4fd" />
+        <GradientStop Offset="1" Color="#c2e9fb" />
+    </LinearGradientBrush>
+
+    <!--<SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}}" />-->
     <SolidColorBrush x:Key="TaskItemHatchedHatchBrush" Color="#F1F0E5" />
     <SolidColorBrush x:Key="TaskItemButtonForegroundBrush" Color="#1E1D1D" />
     <SolidColorBrush x:Key="TaskItemButtonTrashHoverBrush" Color="#FA504D" />
-    <SolidColorBrush x:Key="TaskItemBorderBrush" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="TaskItemBorderBrush" Color="Transparent" />
 
     <SolidColorBrush x:Key="TextEditorButtonCheckedBackgroundBrush" Color="#B9B9B9" />
     <SolidColorBrush x:Key="TextEditorButtonHoverBackgroundBrush" Color="#a8a8a8" />
@@ -49,12 +59,12 @@
 
     <SolidColorBrush x:Key="InnerWindowForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="TextBoxCaretBrush" Color="Black" />
-    <SolidColorBrush x:Key="TextBoxPlaceholderBrush" Color="#373737" />
+    <SolidColorBrush x:Key="TextBoxPlaceholderBrush" Color="#545454" />
 
     <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="#E9FFFFFF" />
 
-    <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="#B7B7B7" />
-    <SolidColorBrush x:Key="CheckBoxCheckBrush" Color="#B7B7B7" />
+    <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="#000000" />
+    <SolidColorBrush x:Key="CheckBoxCheckBrush" Color="#000000" />
     <SolidColorBrush x:Key="CheckBoxHoverBackgroundBrush" Color="#B7B7B7" />
 
     <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="#B7B7B7" />

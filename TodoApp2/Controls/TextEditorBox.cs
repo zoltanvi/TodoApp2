@@ -252,8 +252,8 @@ namespace TodoApp2
         {
             // TODO: Implement Shift + TAB
 
-            // Delete text formatting on Ctrl + G
-            if (e.Key == Key.G && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            // Delete text formatting on Ctrl + H
+            if (e.Key == Key.H && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             {
                 ResetFormatting();
             }

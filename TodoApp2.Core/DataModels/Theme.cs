@@ -10,10 +10,16 @@
 
         Nord,
 
-        Light,
+        ExtraDarkBlue,
+
+        PastelPink,
+
+        PastelGreen,
+
+        PastelBlue,
+
+        PastelLight,
 
         ExtraLight,
-
-        //Beige
     }
 }

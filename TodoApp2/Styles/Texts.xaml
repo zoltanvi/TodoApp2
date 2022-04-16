@@ -194,6 +194,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageForegroundBrush}" />
     </Style>
 
     <Style x:Key="TaskListItemDescriptionRichTextBoxStyle"
