@@ -150,7 +150,7 @@
                 Background="{DynamicResource SideMenuBottomBarBackgroundBrush}"
                 BorderBrush="{DynamicResource TaskPageBottomBarBorderBrush}"
                 BorderThickness="0 1 0 0">
-            <TextBox Padding="10"
+            <TextBox Padding="8.5"
                      VerticalAlignment="Bottom"
                      AutomationProperties.AutomationId="AddNewCategoryTextBox"
                      Style="{StaticResource AddNewTaskTextBoxStyle}"

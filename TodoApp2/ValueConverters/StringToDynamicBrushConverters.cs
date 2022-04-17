@@ -25,34 +25,13 @@ namespace TodoApp2
         }
     }
 
-    public class DynamicBrushConverterTaskItem : BaseValueConverter<DynamicBrushConverterTaskItem>
-    {
-        private readonly StringToDynamicBrushConverterBase m_Converter;
-
-        public DynamicBrushConverterTaskItem()
-        {
-            m_Converter = new StringToDynamicBrushConverterBase("TaskPageForegroundLightBrush", "TaskPageForegroundDarkBrush");
-        }
-
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            SolidColorBrush brush = (SolidColorBrush)m_Converter.Convert(value, targetType, parameter, culture);
-            return brush.Color;
-        }
-
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class DynamicBrushConverterSideMenu : BaseValueConverter<DynamicBrushConverterSideMenu>
     {
         private readonly StringToDynamicBrushConverterBase m_Converter;
 
         public DynamicBrushConverterSideMenu()
         {
-            m_Converter = new StringToDynamicBrushConverterBase("SideMenuForegroundBrush", "SideMenuBackgroundBrush");
+            m_Converter = new StringToDynamicBrushConverterBase("SideMenuForegroundBrush", "SideMenuBackgroundSolidBrush");
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

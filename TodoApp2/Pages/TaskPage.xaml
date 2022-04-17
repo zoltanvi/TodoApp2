@@ -30,9 +30,7 @@
 
             <Border x:Name="BottomBorderPanel"
                     Grid.Row="2"
-                    Background="{DynamicResource TaskPageBottomBarBackgroundBrush}"
-                    BorderBrush="{DynamicResource TaskPageBottomBarBorderBrush}"
-                    BorderThickness="0 1 0 0">
+                    Style="{DynamicResource BottomPanelStyle}">
 
                 <DockPanel>
                     <local:TextEditorBox Padding="10"

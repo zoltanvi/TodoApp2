@@ -77,8 +77,7 @@
         </ContextMenu>
     </UserControl.ContextMenu>
 
-    <Grid Background="{DynamicResource TaskPageBackgroundBrush}">
-
+    <Grid Background="Transparent">
 
         <!--  Color bar overlaying the border  -->
         <Border Width="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ThicknessToDoubleConverter}}"

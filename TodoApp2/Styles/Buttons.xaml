@@ -20,7 +20,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <TextBlock Foreground="{TemplateBinding Foreground}"
-                                   Background="{TemplateBinding Background}"
+                                   Background="Transparent"
                                    FontWeight="{TemplateBinding FontWeight}"
                                    FontStretch="{TemplateBinding FontStretch}"
                                    FontStyle="{TemplateBinding FontStyle}"

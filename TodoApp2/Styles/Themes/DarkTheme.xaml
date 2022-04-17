@@ -15,6 +15,7 @@
 
     <SolidColorBrush x:Key="SideMenuForegroundBrush" Color="#F1F1F1" />
     <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="#333333" />
+    <SolidColorBrush x:Key="SideMenuBackgroundSolidBrush" Color="#333333" />
     <SolidColorBrush x:Key="SideMenuBottomBarForegroundBrush" Color="#E1E1E1" />
     <SolidColorBrush x:Key="SideMenuBottomBarBackgroundBrush" Color="#292929" />
     <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="#404040" />
@@ -185,5 +186,11 @@
                   StrokeEndLineCap="Flat" />
         </VisualBrush.Visual>
     </VisualBrush>
+
+    <Style x:Key="BottomPanelStyle" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource TaskPageBottomBarBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TaskPageBottomBarBorderBrush}" />
+        <Setter Property="BorderThickness" Value="0 1 0 0" />
+    </Style>
 
 </ResourceDictionary>

@@ -10,11 +10,13 @@
 
         Nord,
 
+        Peach,
+
+        Ocean,
+
         ExtraDarkBlue,
 
         PastelPink,
-
-        PastelGreen,
 
         PastelBlue,
 
