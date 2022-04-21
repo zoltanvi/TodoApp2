@@ -28,6 +28,8 @@
                 VerticalAlignment="Center"
                 Margin="20 70"
                 Background="{DynamicResource OverlayPageBackgroundBrush}"
+                BorderBrush="{DynamicResource ApplicationBorderBrush}"
+                BorderThickness="1"
                 CornerRadius="4"
                 local:SizeObserver.Observe="True"
                 local:SizeObserver.ObservedWidth="{Binding MyWidth, Mode=OneWayToSource}"

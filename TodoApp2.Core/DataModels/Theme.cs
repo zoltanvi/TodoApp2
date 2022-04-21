@@ -3,25 +3,23 @@
     public enum Theme
     {
         ExtraDark,
-
         Dark,
-
+        
         Gray,
-
         Nord,
 
         Peach,
-
         Ocean,
 
         ExtraDarkBlue,
 
-        PastelPink,
-
-        PastelBlue,
-
+        Yellow,
+        Green,
+        Pink,
+        Purple,
+        Blue,
+        
         PastelLight,
-
         ExtraLight,
     }
 }

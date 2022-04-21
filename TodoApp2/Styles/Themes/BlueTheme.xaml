@@ -5,68 +5,55 @@
 
     <!--  BRUSHES (cannot be in a separate xaml because the theme switch would not work)  -->
 
-    <Color x:Key="ThemeLighterColor">#86C3E9</Color>
-    <Color x:Key="ThemeDarkerColor">#50B9FC</Color>
-    <Color x:Key="ThemeSpecialColor">#54B6F1</Color>
-    <Color x:Key="ThemeSpecialColor2">#70E2E5</Color>
+    <Color x:Key="ThemeLighterColor">#E2F1FF</Color>
+    <Color x:Key="ThemeDarkerColor">#CDE9FF</Color>
+    <Color x:Key="ThemeSpecialColor">#ffffff</Color>
 
-    <SolidColorBrush x:Key="ApplicationBorderBrush" Color="{DynamicResource ThemeLighterColor}" />
+    <SolidColorBrush x:Key="ApplicationBorderBrush" Color="#8000BFFF" />
 
-    <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="#000000" />
-    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{DynamicResource ThemeLighterColor}" />
+    <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="Black" />
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{DynamicResource ThemeDarkerColor}" />
 
-    <Color x:Key="ButtonHoverBackground">#40000000</Color>
-    <Color x:Key="ButtonHoverBackgroundLight">#28000000</Color>
+    <Color x:Key="ButtonHoverBackground">#28000000</Color>
+    <Color x:Key="ButtonHoverBackgroundLight">#1A000000</Color>
 
     <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="{DynamicResource ButtonHoverBackground}" />
     <SolidColorBrush x:Key="ButtonTitleBarCloseHoverBackgroundBrush" Color="#FF311E" />
 
-    <SolidColorBrush x:Key="SideMenuForegroundBrush" Color="#000000" />
+    <SolidColorBrush x:Key="SideMenuForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="SideMenuBackgroundSolidBrush" Color="{DynamicResource ThemeDarkerColor}" />
 
-    <LinearGradientBrush x:Key="SideMenuBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0" Color="{DynamicResource ThemeLighterColor}" />
-        <GradientStop Offset="0.2" Color="#70E2E5" />
-        <GradientStop Offset="0.5" Color="#EBF3D7" />
-        <GradientStop Offset="0.8" Color="#C8BDFD" />
-        <GradientStop Offset="1" Color="{DynamicResource ThemeDarkerColor}" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SideMenuBackgroundBrush" Color="{DynamicResource ThemeSpecialColor}" />
 
-    <SolidColorBrush x:Key="SideMenuBottomBarForegroundBrush" Color="#414141" />
-    <SolidColorBrush x:Key="SideMenuBottomBarBackgroundBrush" Color="{DynamicResource ThemeSpecialColor}" />
+    <SolidColorBrush x:Key="SideMenuBottomBarForegroundBrush" Color="Black" />
+    <SolidColorBrush x:Key="SideMenuBottomBarBackgroundBrush" Color="{DynamicResource ThemeDarkerColor}" />
     <SolidColorBrush x:Key="SideMenuButtonHoverBackgroundBrush" Color="{DynamicResource ButtonHoverBackground}" />
 
     <SolidColorBrush x:Key="ButtonDeleteHoverBrush" Color="#E55F3E" />
 
-    <SolidColorBrush x:Key="CategorySelectedForegroundBrush" Color="#000000" />
+    <SolidColorBrush x:Key="CategorySelectedForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="CategorySelectedBackgroundBrush" Color="{DynamicResource ButtonHoverBackground}" />
     <SolidColorBrush x:Key="CategoryHoverBackgroundBrush" Color="{DynamicResource ButtonHoverBackgroundLight}" />
 
-    <SolidColorBrush x:Key="PageTitleForegroundBrush" Color="#000000" />
+    <SolidColorBrush x:Key="PageTitleForegroundBrush" Color="Black" />
 
-    <SolidColorBrush x:Key="TaskPageForegroundDarkBrush" Color="#000000" />
+    <SolidColorBrush x:Key="TaskPageForegroundDarkBrush" Color="Black" />
     <SolidColorBrush x:Key="TaskPageForegroundLightBrush" Color="#FFFFFF" />
 
-    <LinearGradientBrush x:Key="TaskPageBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0" Color="{DynamicResource ThemeLighterColor}" />
-        <GradientStop Offset="0.2" Color="#70E2E5" />
-        <GradientStop Offset="0.5" Color="#EBF3D7" />
-        <GradientStop Offset="0.8" Color="#C8BDFD" />
-        <GradientStop Offset="1" Color="{DynamicResource ThemeDarkerColor}" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="TaskPageBackgroundBrush" Color="{DynamicResource ThemeLighterColor}" />
 
     <!--<SolidColorBrush x:Key="TaskPageForegroundBrush" Color="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:DynamicBrushConverterTaskItem}}" />-->
-    <SolidColorBrush x:Key="TaskPageForegroundBrush" Color="#000000" />
+    <SolidColorBrush x:Key="TaskPageForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="TaskPageEditModeForegroundBrush" Color="#005395" />
     <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="#383838" />
-    <SolidColorBrush x:Key="TaskPageBottomBarBackgroundBrush" Color="{DynamicResource ThemeSpecialColor}" />
+    <SolidColorBrush x:Key="TaskPageBottomBarBackgroundBrush" Color="{DynamicResource ThemeDarkerColor}" />
     <SolidColorBrush x:Key="TaskPageBottomBarForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="TaskPageBottomBarBorderBrush" Color="Transparent" />
 
-    <Color x:Key="TaskItemBackgroundTransparent">#00F5F5F5</Color>
-    <Color x:Key="TaskItemBackground">#F5F5F5</Color>
+    <Color x:Key="TaskItemBackgroundTransparent">#00CDE9FF</Color>
+    <Color x:Key="TaskItemBackground">#CDE9FF</Color>
 
-    <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="TaskItemBackgroundBrush" Color="{DynamicResource ThemeDarkerColor}" />
 
     <SolidColorBrush x:Key="TaskItemHatchedHatchBrush" Color="#F1F0E5" />
     <SolidColorBrush x:Key="TaskItemButtonForegroundBrush" Color="#1E1D1D" />
@@ -81,31 +68,27 @@
     <SolidColorBrush x:Key="TextBoxCaretBrush" Color="Black" />
     <SolidColorBrush x:Key="TextBoxPlaceholderBrush" Color="#545454" />
 
-    <LinearGradientBrush x:Key="OverlayBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0" Color="#78FFF4D9" />
-        <GradientStop Offset="1" Color="#78FFCDBD" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="#80FFFFFF" />
 
-    <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="#000000" />
-    <SolidColorBrush x:Key="CheckBoxCheckBrush" Color="#000000" />
+    <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="Black" />
+    <SolidColorBrush x:Key="CheckBoxCheckBrush" Color="Black" />
     <SolidColorBrush x:Key="CheckBoxHoverBackgroundBrush" Color="{DynamicResource ThemeSpecialColor}" />
 
-    <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="#8054B6F1" /> <!--{DynamicResource ThemeSpecialColor}-->
-    <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="#8054B6F1" /> <!--{DynamicResource ThemeSpecialColor}-->
-    <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="{DynamicResource ThemeSpecialColor}" />
-
+    <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="#8081D4FA" />
+    <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="#8081D4FA" />
+    <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="#03A9F4" />
 
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="#E1E1E1" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="{DynamicResource ThemeLighterColor}" />
-    <SolidColorBrush x:Key="ReminderItemBackgroundBrush" Color="{DynamicResource ThemeSpecialColor2}" />
+    <SolidColorBrush x:Key="ReminderItemBackgroundBrush" Color="{DynamicResource ThemeDarkerColor}" />
     <SolidColorBrush x:Key="NotificationBorderBrush" Color="#5C5C5C" />
-    <SolidColorBrush x:Key="ReminderDateBorderBrush" Color="#000000" />
+    <SolidColorBrush x:Key="ReminderDateBorderBrush" Color="#828282" />
     <SolidColorBrush x:Key="ReminderDateInvalidBorderBrush" Color="#FF3100" />
     <SolidColorBrush x:Key="SettingsButtonHoverForegroundBrush" Color="#0A7CFF" />
 
-    <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="#000000" />
+    <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="Black" />
     <SolidColorBrush x:Key="ToggleButtonBackgroundCheckedBrush" Color="#0A7CFF" />
-    <SolidColorBrush x:Key="ToggleButtonGlyphBrush" Color="#000000" />
+    <SolidColorBrush x:Key="ToggleButtonGlyphBrush" Color="Black" />
     <SolidColorBrush x:Key="ToggleButtonGlyphCheckedBrush" Color="#FFFFFF" />
 
     <SolidColorBrush x:Key="TimePickerButtonBackgroundBrush" Color="{DynamicResource ThemeDarkerColor}" />
@@ -113,15 +96,16 @@
     <SolidColorBrush x:Key="TimePickerForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="DatePickerForegroundBrush" Color="Black" />
 
-    <Color x:Key="CalendarDayTitleForeground">#F5F5F5</Color>
+    <Color x:Key="CalendarDayTitleForeground">#DA0050</Color>
     <Color x:Key="CalendarBackground">Transparent</Color>
     <Color x:Key="CalendarNormalDayForeground">Black</Color>
-    <Color x:Key="CalendarDisabledDayForeground">#EBF3D7</Color>
+    <Color x:Key="CalendarDisabledDayForeground">#FFADADAD</Color>
     <Color x:Key="CalendarPrevNextButton">Black</Color>
-    <Color x:Key="CalendarPrevNextButtonHovered">#54B6F1</Color> <!--{DynamicResource ThemeSpecialColor}-->
-    <Color x:Key="CalendarPrevNextButtonBackground">#EBF3D7</Color> <!--{DynamicResource ThemeDarkerColor}-->
+    <Color x:Key="CalendarPrevNextButtonHovered">#DA0050</Color>
+    <Color x:Key="CalendarPrevNextButtonBackground">#CDE9FF</Color>
+   
     <Color x:Key="CalendarDate">Black</Color>
-    <Color x:Key="CalendarDateHovered">#54B6F1</Color> <!--{DynamicResource ThemeSpecialColor}-->
+    <Color x:Key="CalendarDateHovered">#DA0050</Color>
     <Color x:Key="CalendarSelectedDayForeground">Black</Color>
     <Color x:Key="CalendarSelectedDayBackground">#FF838383</Color>
     <Color x:Key="CalendarItemMouseOverBackground">#979797</Color>
@@ -168,16 +152,16 @@
     <SolidColorBrush x:Key="RadioButton.Checked.Background" Color="#FF0063B1" />
     <SolidColorBrush x:Key="RadioButton.Checked.Border" Color="#FF0063B1" />
     <SolidColorBrush x:Key="RadioButton.Checked.Glyph" Color="#FFFFFFFF" />
-    <SolidColorBrush x:Key="ButtonBaseForegroundBrush" Color="#000000" />
-    <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="ButtonBaseForegroundBrush" Color="Black" />
+    <SolidColorBrush x:Key="VersionLabelBackgroundBrush" Color="{DynamicResource ThemeDarkerColor}" />
     <SolidColorBrush x:Key="VersionLabelForegroundBrush" Color="Black" />
 
-    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#000000" />
-    <SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="Black" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="{DynamicResource ThemeSpecialColor}" />
     <SolidColorBrush x:Key="ComboBoxButtonBrush" Color="{DynamicResource ThemeLighterColor}" />
     <SolidColorBrush x:Key="ComboBoxButtonMouseOverBrush" Color="{DynamicResource ThemeLighterColor}" />
     <SolidColorBrush x:Key="ComboBoxButtonCheckedBrush" Color="#A8A8A8" />
-    <SolidColorBrush x:Key="ComboBoxArrowBrush" Color="#000000" />
+    <SolidColorBrush x:Key="ComboBoxArrowBrush" Color="Black" />
     <SolidColorBrush x:Key="ComboBoxSelectedItemForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="ComboBoxDropDownBackgroundBrush" Color="#f5f5f5" />
     <SolidColorBrush x:Key="ComboBoxDropDownForegroundBrush" Color="Black" />
