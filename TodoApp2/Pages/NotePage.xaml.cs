@@ -36,49 +36,56 @@ namespace TodoApp2
 
         private void NoteContentTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Tab && sender is TextBox textBox)
+            if (sender is TextBox textBox)
             {
-                string text = textBox.Text; 
-                string selectedText = textBox.SelectedText;
-                int selectionLength = textBox.SelectionLength;
-                int caretIndex = textBox.CaretIndex;
-
-                if (ContainsLineEndChar(selectedText))
+                if (e.Key == Key.S && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
                 {
-                    if(selectionLength > 0)
+                    ViewModel.SaveNoteContent();
+                }
+                if (e.Key == Key.Tab)
+                {
+                    string text = textBox.Text;
+                    string selectedText = textBox.SelectedText;
+                    int selectionLength = textBox.SelectionLength;
+                    int caretIndex = textBox.CaretIndex;
+
+                    if (ContainsLineEndChar(selectedText))
                     {
-                        if (!Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                        if (selectionLength > 0)
                         {
-                            int correctedStartIndex = SearchStartOfLine(text, caretIndex, out int offset);
-                            if(correctedStartIndex == -1)
+                            if (!Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
                             {
-                                correctedStartIndex = 0;
+                                int correctedStartIndex = SearchStartOfLine(text, caretIndex, out int offset);
+                                if (correctedStartIndex == -1)
+                                {
+                                    correctedStartIndex = 0;
+                                }
+
+                                if (SearchForward(text, selectedText, caretIndex, selectionLength))
+                                {
+                                    textBox.Text = ShiftRight(text, correctedStartIndex, selectionLength + offset - 1);
+                                }
+                            }
+                            else
+                            {
+
                             }
 
-                            if (SearchForward(text, selectedText, caretIndex, selectionLength))
-                            {
-                                textBox.Text = ShiftRight(text, correctedStartIndex, selectionLength + offset - 1);
-                            }
                         }
-                        else
-                        {
-
-                        }
-
                     }
-                }
-                else
-                {
-                    if(selectionLength > 0)
+                    else
                     {
-                        text = text.Remove(caretIndex, selectionLength);
+                        if (selectionLength > 0)
+                        {
+                            text = text.Remove(caretIndex, selectionLength);
+                        }
+
+                        textBox.Text = text.Insert(caretIndex, "    ");
+                        textBox.CaretIndex = caretIndex + 4;
                     }
 
-                    textBox.Text = text.Insert(caretIndex, "    ");
-                    textBox.CaretIndex = caretIndex + 4;
+                    e.Handled = true;
                 }
-                
-                e.Handled = true;
             }
         }
 
@@ -96,14 +103,14 @@ namespace TodoApp2
 
         private bool SearchForward(string input, string subString, int startPosition, int length)
         {
-            if(input.Length < startPosition + length)
+            if (input.Length < startPosition + length)
             {
                 return false;
             }
 
             for (int i = startPosition, j = 0; i < startPosition + length; i++, j++)
             {
-                if(input[i] != subString[j])
+                if (input[i] != subString[j])
                 {
                     return false;
                 }
@@ -117,7 +124,7 @@ namespace TodoApp2
             offset = 0;
             for (int i = selectionStart; i >= 0; i--)
             {
-                if(input[i] == '\n')
+                if (input[i] == '\n')
                 {
                     return i;
                 }
@@ -131,7 +138,7 @@ namespace TodoApp2
         {
             StringBuilder sb = new StringBuilder();
 
-            if(startPosition == 0)
+            if (startPosition == 0)
             {
                 sb.Append(' ', 4);
             }

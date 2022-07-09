@@ -69,6 +69,11 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand ToggleSideMenuCommand { get; }
 
+        /// <summary>
+        /// The value change triggers the animation
+        /// </summary>
+        public bool SaveIconVisible { get; set; }
+
         public ApplicationViewModel(IDatabase database, SessionManager sessionManager)
         {
             m_Database = database;

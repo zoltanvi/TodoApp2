@@ -172,19 +172,23 @@ namespace TodoApp2.Core
         {
             List<SettingsModel> existingSettings = m_DataAccess.GetSettings();
 
-            var existingSettingsDictionary = existingSettings.ToDictionary(settingsModel => settingsModel.Key);
+            Dictionary<string, SettingsModel> existingSettingsDictionary = 
+                existingSettings.ToDictionary(settingsModel => settingsModel.Key);
 
-            var settingsToUpdate = settings.Where(s => existingSettingsDictionary.ContainsKey(s.Key));
-            var settingsToAdd = settings.Where(s => !existingSettingsDictionary.ContainsKey(s.Key));
-
-            int nextId = m_DataAccess.GetSettingsNextId();
-
-            foreach (var settingsModel in settingsToAdd)
+            IEnumerable<SettingsModel> settingsToUpdate = settings.Where(s => existingSettingsDictionary.ContainsKey(s.Key));
+            IEnumerable<SettingsModel> settingsToAdd = settings.Where(s => !existingSettingsDictionary.ContainsKey(s.Key));
+            
+            if (settingsToAdd.Any())
             {
-                settingsModel.Id = nextId++;
-            }
+                int nextId = m_DataAccess.GetSettingsNextId();
 
-            m_DataAccess.AddSettings(settingsToAdd);
+                foreach (var settingsModel in settingsToAdd)
+                {
+                    settingsModel.Id = nextId++;
+                }
+
+                m_DataAccess.AddSettings(settingsToAdd);
+            }
 
             m_DataAccess.UpdateSettings(settingsToUpdate);
         }

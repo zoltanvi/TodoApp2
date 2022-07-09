@@ -198,6 +198,7 @@
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderThicknessConverter.cs" />
     <Compile Include="ValueConverters\BoolToMaximizeRestoreCharConverter.cs" />
+    <Compile Include="ValueConverters\BoolToTextWrappingConverter.cs" />
     <Compile Include="ValueConverters\CamelCaseConverter.cs" />
     <Compile Include="ValueConverters\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\EnumToBoldFontFamilyConverter.cs" />

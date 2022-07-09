@@ -17,8 +17,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        
+
+
         <local:CustomScrollViewer Grid.Row="0"
                 VerticalScrollBarVisibility="Auto"
                 HorizontalScrollBarVisibility="Disabled"
@@ -57,22 +57,28 @@
                                           Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
 
                     <!-- Note content ============================================== -->
+                            <TextBox 
+                                    Grid.Column="1"
+                                     Padding="5 5" 
+                                     VerticalAlignment="Stretch"
+                                     Name="NoteContentTextBox"
+                                     Style="{StaticResource NotePageTextBoxStyle}"
+                                     TextWrapping="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, 
+                                        Source={x:Static local:ViewModelLocator.Instance}, 
+                                        UpdateSourceTrigger=PropertyChanged, Converter={local:BoolToTextWrappingConverter}}"
+                                     Text="{Binding ApplicationViewModel.ApplicationSettings.NoteContent, 
+                                        Source={x:Static local:ViewModelLocator.Instance}, 
+                                        Mode=TwoWay, 
+                                        UpdateSourceTrigger=PropertyChanged}"   
+                                     PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"/>
 
-                    <TextBox Grid.Column="1" 
-                         Padding="5 5" 
-                         VerticalAlignment="Stretch"
-                         Name="NoteContentTextBox"
-                         Style="{StaticResource NotePageTextBoxStyle}"
-                         Text="{Binding ApplicationViewModel.ApplicationSettings.NoteContent, 
-                            Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                             PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"/>
                 </local:CustomScrollViewer>
 
             </Grid>
         </local:CustomScrollViewer>
 
         <!-- Horizontal scrollbar ============================================== -->
-        
+
         <ScrollBar Grid.Row="1" 
                    x:Name="HorizontalScrollBarControl"
                    Orientation="Horizontal" 

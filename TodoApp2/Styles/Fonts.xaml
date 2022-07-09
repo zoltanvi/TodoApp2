@@ -52,6 +52,8 @@
     <system:String x:Key="SegoeIconFontFamily">&#xE8D2;</system:String>
     <system:String x:Key="SegoeIconFontSize">&#xE8E9;</system:String>
     <system:String x:Key="SegoeIconTitle">&#xEC0A;</system:String>
+    <system:String x:Key="SegoeIconWordWrap">&#xE8E4;</system:String>
+    <system:String x:Key="SegoeIconSave">&#xE74E;</system:String>
 
     <system:String x:Key="SegoeIconColorBar">&#xEA4B;</system:String>
     <system:String x:Key="SegoeIconBackgroundVisible">&#xF16D;</system:String>

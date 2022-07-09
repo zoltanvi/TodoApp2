@@ -164,6 +164,19 @@ namespace TodoApp2
         }
     }
 
+    public class AnimateFadeInAndOutProperty : AnimateBaseProperty<AnimateFadeInAndOutProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
+        {
+            if (!firstLoad)
+            {
+                await element.FadeInAsync(DefaultAnimationDuration);
+                await Task.Delay(1000);
+                await element.FadeOutAsync(DefaultAnimationDuration);
+            }
+        }
+    }
+
     public class AnimateGrowProperty : AnimateBaseProperty<AnimateGrowProperty>
     {
         protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)

@@ -82,15 +82,13 @@
 
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
-
-                                                        <!--  Side menu button column  -->
                                                         <ColumnDefinition Width="Auto" />
-                                                        <!--  Maybe title  -->
+                                                        <ColumnDefinition Width="Auto" />
                                                         <ColumnDefinition Width="*" />
-                                                        <!--  Windows Button  -->
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
 
+      
                                                     <!--  Side menu button  -->
                                                     <Button Name="SideMenuButton"
                                                             Grid.Column="0"
@@ -100,9 +98,18 @@
                                                             Style="{DynamicResource ButtonTitleBarStyle}"
                                                             FontSize="16" />
 
+                                                    <Label Content="{DynamicResource SegoeIconSave}"
+                                                           Grid.Column="1"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Visibility="Collapsed"
+                                                           local:AnimateFadeInAndOutProperty.Value="{Binding ApplicationViewModel.SaveIconVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                                                            Style="{DynamicResource IconLabelStyle}" FontSize="16" />
+
                                                     <!--  Title bar date  -->
-                                                    <Grid Grid.Column="1">
-                                                        <Label Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                                    <Grid Grid.Column="1" Grid.ColumnSpan="2">
+
+                                                          <Label Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                                                                Content="{Binding CurrentTime}"
                                                                Foreground="{DynamicResource TitleBarForegroundBrush}"
                                                                VerticalAlignment="Center"
@@ -110,7 +117,7 @@
                                                     </Grid>
 
                                                     <!--  Window buttons  -->
-                                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                    <StackPanel Grid.Column="3" Orientation="Horizontal">
                                                         <Button x:Name="MinimizeWindow"
                                                                 AutomationProperties.AutomationId="MinimizeWindow"
                                                                 Command="{Binding MinimizeCommand}"

@@ -51,6 +51,7 @@ namespace TodoApp2.Core
         public FontSize TaskFontSize { get; set; } = FontSize.Medium;
         public bool IsTitleBarDateVisible { get; set; } = false;
         public string NoteContent { get; set; }
+        public bool NotePageWordWrap { get; set; }
 
         public double Scaling
         {
@@ -99,6 +100,7 @@ namespace TodoApp2.Core
                 { nameof(IsTitleBarDateVisible), PropertyValueHandlers.Bool },
                 { nameof(Scaling), PropertyValueHandlers.Double },
                 { nameof(NoteContent), PropertyValueHandlers.String },
+                { nameof(NotePageWordWrap), PropertyValueHandlers.Bool },
             };
 
             IoC.UIScaler.Zoomed += OnZoomed;
@@ -151,6 +153,25 @@ namespace TodoApp2.Core
             }
 
             return settings;
+        }
+
+        /// <summary>
+        /// Returns a single setting if valid, null otherwise
+        /// </summary>
+        /// <returns></returns>
+        public SettingsModel GetSetting(string propertyName)
+        {
+            if (IsPropertyNameValid(propertyName))
+            {
+                IPropertyValueHandler propertyLoader = PropertyDescriptors[propertyName];
+                return new SettingsModel
+                {
+                    Key = propertyName,
+                    Value = propertyLoader.GetProperty(this, propertyName)
+                };
+            }
+
+            return null;
         }
 
         /// <summary>
