@@ -52,27 +52,51 @@ namespace TodoApp2
                     case ApplicationPage.Task:
                     {
                         applicationPage = ApplicationPage.Task;
-                        TaskPageViewModel taskPageViewModel =
-                            new TaskPageViewModel(m_TaskListService, m_CategoryListService);
+
+                        TaskPageViewModel taskPageViewModel = new TaskPageViewModel(m_TaskListService, m_CategoryListService);
+
                         viewModel = taskPageViewModel;
                         page = new TaskPage(taskPageViewModel, m_TaskListService);
+
                         break;
                     }
                     case ApplicationPage.Category:
                     {
                         applicationPage = ApplicationPage.Category;
-                        CategoryPageViewModel categoryPageViewModel = new CategoryPageViewModel(m_ApplicationViewModel,
-                            m_Database, m_OverlayPageService, m_CategoryListService, m_MessageService);
+
+                        CategoryPageViewModel categoryPageViewModel = new CategoryPageViewModel(
+                            m_ApplicationViewModel,
+                            m_Database,
+                            m_OverlayPageService,
+                            m_CategoryListService,
+                            m_MessageService);
+
                         viewModel = categoryPageViewModel;
                         page = new CategoryPage(categoryPageViewModel);
+
                         break;
                     }
                     case ApplicationPage.Settings:
                     {
                         applicationPage = ApplicationPage.Settings;
+
                         SettingsPageViewModel settingsPageViewModel = new SettingsPageViewModel(m_ApplicationViewModel);
+
                         viewModel = settingsPageViewModel;
                         page = new SettingsPage(settingsPageViewModel);
+
+                        break;
+                    }
+                    case ApplicationPage.Note:
+                    {
+                        applicationPage = ApplicationPage.Note;
+
+                        // TODO:
+                        NotePageViewModel notePageViewModel = new NotePageViewModel();
+
+                        viewModel = notePageViewModel;
+                        page = new NotePage(notePageViewModel);
+
                         break;
                     }
                 }

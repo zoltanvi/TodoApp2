@@ -18,11 +18,11 @@ namespace TodoApp2
             if (values[0] is bool isDone)
             {
                 bool isItemBackgroundVisible = (bool)values[1];
-                
+
                 // The task list item background is hatched when the task is done and the background is enabled in the settings
                 // Brush is always got from resources because this way it can dynamically change during runtime
                 if (!isItemBackgroundVisible) return s_Transparent;
-                
+
                 return isDone ? Application.Current.TryFindResource("HatchBrush") : Application.Current.TryFindResource("TaskItemBackgroundBrush");
             }
 

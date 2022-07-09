@@ -3,11 +3,16 @@
     public enum FontFamily
     {
         SegoeUI,
-
         Ubuntu,
+        Verdana,
 
         Consolas,
+        SourceCodePro,
+        CascadiaMono,
+        CascadiaMonoSemiLight,
+        CascadiaMonoLight,
+        CascadiaMonoExtraLight,
 
-        Verdana
+
     }
 }

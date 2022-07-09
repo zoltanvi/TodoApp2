@@ -2,7 +2,7 @@
 
 namespace TodoApp2.Core
 {
-    public class EnumPropertyValueHandler<TEnum> : IPropertyValueHandler 
+    public class EnumPropertyValueHandler<TEnum> : IPropertyValueHandler
         where TEnum : struct
     {
         /// <inheritdoc cref="IPropertyValueHandler.SetProperty"/>

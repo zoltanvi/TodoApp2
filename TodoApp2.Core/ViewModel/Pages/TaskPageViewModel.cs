@@ -102,7 +102,7 @@ namespace TodoApp2.Core
             if (commandObject?.CommandResult is Tuple<int, TaskListItemViewModel> tuple)
             {
                 tuple.Item2.Trashed = false;
-                
+
                 m_TaskListService.UntrashExistingTask(tuple.Item2, tuple.Item1);
             }
         }

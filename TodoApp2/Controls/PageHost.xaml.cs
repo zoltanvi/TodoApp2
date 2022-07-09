@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using TodoApp2.Core;
@@ -83,13 +82,13 @@ namespace TodoApp2
                 //    // Remove old page
                 //    Application.Current.Dispatcher.Invoke(() =>
                 //    {
-                        if (oldPage.ViewModelObject is IDisposable disposableViewModel)
-                        {
-                            // Dispose the old ViewModel before switching to the new page
-                            disposableViewModel.Dispose();
-                        }
+                if (oldPage.ViewModelObject is IDisposable disposableViewModel)
+                {
+                    // Dispose the old ViewModel before switching to the new page
+                    disposableViewModel.Dispose();
+                }
 
-                        //oldPageFrame.Content = null;
+                //oldPageFrame.Content = null;
                 //    });
                 //});
             }

@@ -11,7 +11,7 @@ namespace TodoApp2.Core
     public class BaseViewModel : IBaseViewModel, INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         /// <summary>
         /// Call this to fire a <see cref="PropertyChanged"/> event
         /// </summary>

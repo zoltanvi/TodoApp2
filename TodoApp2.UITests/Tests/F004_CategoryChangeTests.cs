@@ -1,9 +1,4 @@
-﻿using System.Windows.Automation;
-using Gu.Wpf.UiAutomation;
-using NUnit.Framework;
-using TodoApp2.UITests.Automation;
-using Point = System.Windows.Point;
-using Rect = System.Windows.Rect;
+﻿using NUnit.Framework;
 
 namespace TodoApp2.UITests.Tests
 {

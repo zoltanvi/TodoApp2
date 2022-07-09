@@ -13,10 +13,21 @@
     <FontFamily x:Key="SegoeUIVariableBold">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Bold</FontFamily>
     <FontFamily x:Key="SegoeUIVariableSemilight">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Semilight</FontFamily>
     <FontFamily x:Key="SegoeUIVariableSemibold">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Semibold</FontFamily>
+   
+    <FontFamily x:Key="SourceCodeProRegular">pack://application;,,,/Fonts/#Source Code Pro Regular</FontFamily>
+    <FontFamily x:Key="SourceCodeProBold">pack://application;,,,/Fonts/#Source Code Pro Bold</FontFamily>
+
+    <FontFamily x:Key="CascadiaMonoRegular">pack://application;,,,/Fonts/#Cascadia Mono Regular</FontFamily>
+    <FontFamily x:Key="CascadiaMonoBold">pack://application;,,,/Fonts/#Cascadia Mono Bold</FontFamily>
+    <FontFamily x:Key="CascadiaMonoSemiLight">pack://application;,,,/Fonts/#Cascadia Mono SemiLight</FontFamily>
+    <FontFamily x:Key="CascadiaMonoSemiBold">pack://application;,,,/Fonts/#Cascadia Mono SemiBold</FontFamily>
+    <FontFamily x:Key="CascadiaMonoLight">pack://application;,,,/Fonts/#Cascadia Mono Light</FontFamily>
+    <FontFamily x:Key="CascadiaMonoExtraLight">pack://application;,,,/Fonts/#Cascadia Mono ExtraLight</FontFamily>
 
     <!--  Button icon characters  -->
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
     <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>
+    <system:String x:Key="SegoeIconNote">&#xE70B;</system:String>
     <system:String x:Key="SegoeIconMinimizeWindow">&#xE921;</system:String>
 
     <system:String x:Key="SegoeIconMaximizeWindow">&#xE922;</system:String>

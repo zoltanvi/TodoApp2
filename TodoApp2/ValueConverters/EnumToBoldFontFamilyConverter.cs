@@ -15,13 +15,19 @@ namespace TodoApp2
         private static readonly MediaFontFamily s_DefaultFontFamily = new MediaFontFamily("Segoe UI Bold");
         private static readonly Dictionary<FontFamily, MediaFontFamily> s_FontFamilies = new Dictionary<FontFamily, MediaFontFamily>
         {
-            { FontFamily.Ubuntu, (MediaFontFamily)Application.Current.TryFindResource("UbuntuBold")},
             { FontFamily.SegoeUI, s_DefaultFontFamily },
+            { FontFamily.Ubuntu, (MediaFontFamily)Application.Current.TryFindResource("UbuntuBold")},
             { FontFamily.Consolas, new MediaFontFamily("Consolas Bold")},
             { FontFamily.Verdana, new MediaFontFamily("Verdana Bold")},
+
+            { FontFamily.SourceCodePro, (MediaFontFamily)Application.Current.TryFindResource("SourceCodeProBold")},
+            { FontFamily.CascadiaMono, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoBold")},
+            { FontFamily.CascadiaMonoSemiLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoSemiBold")},
+            { FontFamily.CascadiaMonoLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoSemiBold")},
+            { FontFamily.CascadiaMonoExtraLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoRegular")},
     };
 
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             FontFamily fValue = (FontFamily)value;
             return s_FontFamilies.ContainsKey(fValue) ? s_FontFamilies[fValue] : s_DefaultFontFamily;

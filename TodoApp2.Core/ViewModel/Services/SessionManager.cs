@@ -33,8 +33,8 @@ namespace TodoApp2.Core
 
         public string DisplayName { get; private set; } = string.Empty;
         public string EmailAddress { get; private set; } = string.Empty;
-        public bool IsLoggedIn => OnlineMode && 
-                                  !string.IsNullOrEmpty(DisplayName) && 
+        public bool IsLoggedIn => OnlineMode &&
+                                  !string.IsNullOrEmpty(DisplayName) &&
                                   !string.IsNullOrEmpty(EmailAddress);
         public bool OnlineMode => Directory.Exists(s_CredentialsFolderPath) &&
                                   Directory.EnumerateFiles(s_CredentialsFolderPath)
@@ -71,7 +71,7 @@ namespace TodoApp2.Core
             if (!m_IsLoggingInProgress)
             {
                 m_MessageService.ShowInfo("Login started.", TimeSpan.FromSeconds(3));
-                
+
                 if (await AuthenticateUserAsync())
                 {
                     await IoC.Database.Reinitialize(true);

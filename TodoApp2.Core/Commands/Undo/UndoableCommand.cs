@@ -33,8 +33,8 @@ namespace TodoApp2.Core
         /// <param name="redoAction">The callback to run when redoing the command.</param>
         /// <param name="undoAction">The callback to run when undoing the command.</param>
         public UndoableCommand(
-            Func<CommandObject, CommandObject> doAction, 
-            Func<CommandObject, CommandObject> redoAction, 
+            Func<CommandObject, CommandObject> doAction,
+            Func<CommandObject, CommandObject> redoAction,
             Action<CommandObject> undoAction)
         {
             m_UndoManager = IoC.UndoManager;

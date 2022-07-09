@@ -80,7 +80,7 @@ namespace TodoApp2.Core
 
             // Load the application settings to update the CurrentCategory before querying the tasks
             LoadApplicationSettingsOnce();
-            
+
             ApplicationSettings.PropertyChanged += OnApplicationSettingsPropertyChanged;
         }
 

@@ -21,29 +21,45 @@
     <system:Double x:Key="FontSizeIconLarge">30</system:Double>
     <system:Double x:Key="FontSizeGiant">40</system:Double>
 
-    <Style x:Key="TaskListItemDescriptionTextBlockStyle" TargetType="TextBlock">
+    <Style x:Key="BaseTextBlockClearTypeStyle" TargetType="TextBlock">
+        <!--<Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextHintingMode" Value="Fixed"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>-->
+    </Style>
+
+    <Style x:Key="BaseLabelClearTypeStyle" TargetType="Label">
+        <!--<Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextHintingMode" Value="Fixed"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>-->
+    </Style>
+
+    <Style x:Key="TaskListItemDescriptionTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockClearTypeStyle}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}" />
         <Setter Property="Foreground" Value="{DynamicResource TaskPageForegroundBrush}" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+        <!--<Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>-->
         <Setter Property="Background" Value="#00000000" />
     </Style>
 
-    <Style x:Key="TaskListItemDescriptionTextBoxStyle" TargetType="TextBox">
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="AcceptsReturn" Value="True" />
-        <Setter Property="TextWrapping" Value="Wrap" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
+    <Style x:Key="NotePageTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}" />
-        <Setter Property="Foreground" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageBottomBarForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}" />
+        <Setter Property="AutoWordSelection" Value="False" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="AcceptsTab" Value="True" />
+        <!--<Setter Property="TextWrapping" Value="Wrap" />-->
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <!--<Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>-->
+
     </Style>
 
 
@@ -58,7 +74,8 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="AcceptsReturn" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <!--<Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>-->
+        
         <Style.Resources>
             <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
 
@@ -155,7 +172,15 @@
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Focusable="false"
                                           HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden" />
+                                          VerticalScrollBarVisibility="Hidden" >
+                                <!--<ScrollViewer.ContentTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="{Binding Background, ElementName=PART_ContentHost}" RenderOptions.ClearTypeHint="Enabled">
+                                            <ContentPresenter Content="{Binding Path=Content, ElementName=PART_ContentHost}"></ContentPresenter>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ScrollViewer.ContentTemplate>-->
+                            </ScrollViewer>
                         </Border>
 
                         <!--  Watermark text  -->
@@ -169,7 +194,7 @@
                                    IsHitTestVisible="False"
                                    Text="{TemplateBinding Tag}">
                             <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockClearTypeStyle}">
                                     <Setter Property="Visibility" Value="Visible" />
                                     <Style.Triggers>
                                         <DataTrigger Value="true">
@@ -213,7 +238,15 @@
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Focusable="false"
                                           HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden" />
+                                          VerticalScrollBarVisibility="Hidden" >
+                                <!--<ScrollViewer.ContentTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="{Binding Background, ElementName=PART_ContentHost}" RenderOptions.ClearTypeHint="Enabled">
+                                            <ContentPresenter Content="{Binding Path=Content, ElementName=PART_ContentHost}"></ContentPresenter>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ScrollViewer.ContentTemplate>-->
+                            </ScrollViewer>
                         </Border>
 
                         <TextBlock x:Name="PART_placeholder"
@@ -226,7 +259,7 @@
                                    Text="{TemplateBinding Tag}">
 
                             <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockClearTypeStyle}">
                                     <Setter Property="Visibility" Value="Visible" />
                                     <Style.Triggers>
                                         <DataTrigger Value="true">
@@ -255,14 +288,14 @@
 
 
 
-    <Style x:Key="CategoryTextBlockStyle" TargetType="TextBlock">
+    <Style x:Key="CategoryTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockClearTypeStyle}">
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
-    <Style x:Key="PageTitleTextBlockStyle" TargetType="TextBlock">
+    <Style x:Key="PageTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockClearTypeStyle}">
         <Setter Property="FontFamily" Value="{StaticResource SegoeUIVariableSemibold}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource PageTitleForegroundBrush}" />
@@ -275,7 +308,7 @@
         <Setter Property="Foreground" Value="{DynamicResource SideMenuForegroundBrush}" />
     </Style>
 
-    <Style x:Key="IconLabelStyle" TargetType="Label">
+    <Style x:Key="IconLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelClearTypeStyle}">
         <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
@@ -295,6 +328,7 @@
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="TextWrapping" Value="Wrap" />
+        <!--<Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>-->
         <Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}" />
 
         <Setter Property="Template">
@@ -310,7 +344,15 @@
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Focusable="False"
                                           HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden" />
+                                          VerticalScrollBarVisibility="Hidden" >
+                                <!--<ScrollViewer.ContentTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="{Binding Background, ElementName=PART_ContentHost}" RenderOptions.ClearTypeHint="Enabled">
+                                            <ContentPresenter Content="{Binding Path=Content, ElementName=PART_ContentHost}"></ContentPresenter>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ScrollViewer.ContentTemplate>-->
+                            </ScrollViewer>
                         </Border>
 
                         <TextBlock x:Name="placeholder"
@@ -322,7 +364,7 @@
                                    IsHitTestVisible="False"
                                    Text="{TemplateBinding Tag}">
                             <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockClearTypeStyle}">
                                     <Setter Property="Visibility" Value="Collapsed" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
@@ -358,7 +400,7 @@
         </Style.Resources>
     </Style>
 
-    <Style x:Key="NotificationTitleStyle" TargetType="Label">
+    <Style x:Key="NotificationTitleStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelClearTypeStyle}">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight" />
@@ -367,7 +409,7 @@
         <Setter Property="Padding" Value="0 4 0 0" />
     </Style>
 
-    <Style x:Key="NotificationCategoryTitleStyle" TargetType="Label">
+    <Style x:Key="NotificationCategoryTitleStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelClearTypeStyle}">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -375,7 +417,7 @@
         <Setter Property="Margin" Value="14 0 0 0" />
     </Style>
 
-    <Style x:Key="NotificationReminderDateStyle" TargetType="Label">
+    <Style x:Key="NotificationReminderDateStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelClearTypeStyle}">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -383,7 +425,7 @@
         <Setter Property="Margin" Value="14 0 0 0" />
     </Style>
 
-    <Style x:Key="ReminderLabelStyle" TargetType="Label">
+    <Style x:Key="ReminderLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelClearTypeStyle}">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource InnerWindowForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -391,7 +433,7 @@
         <Setter Property="Margin" Value="0 0 8 6" />
     </Style>
 
-    <Style x:Key="SettingsDescriptionStyle" TargetType="TextBlock">
+    <Style x:Key="SettingsDescriptionStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockClearTypeStyle}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />

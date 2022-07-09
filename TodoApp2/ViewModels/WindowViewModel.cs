@@ -24,7 +24,7 @@ namespace TodoApp2
         private readonly IDatabase m_Database;
         private readonly DragDropMediator m_DragDropMediator;
         private readonly DispatcherTimer m_Timer;
-        
+
         /// <summary>
         /// The last known dock position
         /// </summary>
@@ -47,7 +47,7 @@ namespace TodoApp2
         /// The padding of the inner content of the main window
         /// </summary>
         public Thickness InnerContentPadding => new Thickness(ContentPadding);
-        
+
         /// <summary>
         /// The size of the resize border around the window
         /// </summary>
@@ -112,8 +112,8 @@ namespace TodoApp2
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => m_Window.Close());
-            UndoCommand = new RelayCommand(() => {IoC.UndoManager.Undo();});
-            RedoCommand = new RelayCommand(() => {IoC.UndoManager.Redo();});
+            UndoCommand = new RelayCommand(() => { IoC.UndoManager.Undo(); });
+            RedoCommand = new RelayCommand(() => { IoC.UndoManager.Redo(); });
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
@@ -157,15 +157,33 @@ namespace TodoApp2
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (Keyboard.Modifiers == ModifierKeys.Control)
+            if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                if (e.Key == Key.Z)
+                Key key = e.Key;
+
+                // Ctrl + Z, Ctrl + Y
+                if (key == Key.Z)
                 {
                     IoC.UndoManager.Undo();
-                } 
-                else if (e.Key == Key.Y)
+                }
+                else if (key == Key.Y)
                 {
                     IoC.UndoManager.Redo();
+                }
+
+                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                {
+                    // Ctrl + Shift + J, Ctrl + Shift + L
+                    if (key == Key.J || key == Key.L)
+                    {
+                        int themeCount = m_ThemeManager.ThemeList.Count;
+                        int currentIndex = m_ThemeManager.ThemeList.IndexOf(ApplicationSettings.ActiveTheme);
+                        int indexOffset = key == Key.L ? 1 : -1;
+                        int nextIndex = (currentIndex + indexOffset) % themeCount;
+                        nextIndex = nextIndex < 0 ? themeCount - 1 : nextIndex;
+                        ApplicationSettings.ActiveTheme = m_ThemeManager.ThemeList[nextIndex];
+                        //ChangeToActiveTheme();
+                    }
                 }
             }
         }
@@ -308,6 +326,11 @@ namespace TodoApp2
         }
 
         private void OnThemeChangeRequested(object obj)
+        {
+            ChangeToActiveTheme();
+        }
+
+        private void ChangeToActiveTheme()
         {
             if (ApplicationSettings.ActiveTheme != m_ThemeManager.CurrentTheme)
             {

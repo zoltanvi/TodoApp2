@@ -15,9 +15,9 @@ namespace TodoApp2.Core
         }
 
         public void Execute(
-            Func<CommandObject, CommandObject> doAction, 
-            Func<CommandObject, CommandObject> redoAction, 
-            Action<CommandObject> undoAction, 
+            Func<CommandObject, CommandObject> doAction,
+            Func<CommandObject, CommandObject> redoAction,
+            Action<CommandObject> undoAction,
             object parameter = null)
         {
             CommandObject commandObject = doAction?.Invoke(new CommandObject(false, null, parameter));
@@ -39,7 +39,7 @@ namespace TodoApp2.Core
             if (m_UndoStack.Count > 0)
             {
                 IoC.MessageService.HideMessage();
-             
+
                 UndoItem undoItem = m_UndoStack.Pop();
                 undoItem.CommandObject.Handled = false;
                 m_RedoStack.Push(undoItem);

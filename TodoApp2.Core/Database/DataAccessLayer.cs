@@ -61,7 +61,7 @@ namespace TodoApp2.Core
         #endregion Nested classes
 
         private static string AppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        
+
         public const long DefaultListOrder = long.MaxValue / 2;
         public const long ListOrderInterval = 1_000_000_000_000;
 
@@ -608,7 +608,7 @@ namespace TodoApp2.Core
         public List<TaskListItemViewModel> GetTasksFromCategory(CategoryListItemViewModel category)
         {
             List<TaskListItemViewModel> items = GetTasksFromCategory(category.Id);
-            
+
             return items;
         }
 

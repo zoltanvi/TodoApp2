@@ -79,6 +79,7 @@
                        Maximum="{TemplateBinding ScrollableWidth}"
                        Minimum="0"
                        Orientation="Horizontal"
+                       Style="{DynamicResource DarkScrollBarStyle}"
                        ViewportSize="{TemplateBinding ViewportWidth}"
                        Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
                        Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />

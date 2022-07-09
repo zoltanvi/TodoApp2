@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -63,7 +62,7 @@ namespace TodoApp2.Core
             var currentCategoryId = m_CategoryListService.GetCurrentCategory.Id;
 
             var task = m_Database.CreateTask(taskContent, currentCategoryId, pinnedItemsCount);
-            
+
             // Add the task into the list
             TaskPageItems.Insert(pinnedItemsCount, task);
 
@@ -76,7 +75,7 @@ namespace TodoApp2.Core
 
             // The task exist in the database but not in the list.
             TaskPageItems.Insert(0, task);
-            
+
             ReorderTask(task, oldPosition, true);
 
             return task;
@@ -100,7 +99,7 @@ namespace TodoApp2.Core
             newPosition = newPosition == -1 ? 0 : newPosition;
 
             TaskListItemViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
-            
+
             if (taskToUpdate != null)
             {
                 taskToUpdate.CopyProperties(task);
@@ -165,7 +164,7 @@ namespace TodoApp2.Core
         {
             return GetReorderIndex(newIndex, task, TaskPageItems);
         }
-        
+
         /// <summary>
         /// Returns the correct reorder index of the <paramref name="task"/>
         /// in the <paramref name="categoryName"/> category task list.

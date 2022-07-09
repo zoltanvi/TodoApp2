@@ -33,6 +33,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <!--  LOGIN buttons  -->
@@ -131,8 +132,15 @@
                            Style="{DynamicResource SideMenuTitleTextBlockStyle}"
                            Text="Categories" />
 
-                <!--  Settings button  -->
+                <!--  Note button  -->
                 <Button Grid.Column="1"
+                        AutomationProperties.AutomationId="NoteButton"
+                        Command="{Binding OpenNotePageCommand}"
+                        Content="{DynamicResource SegoeIconNote}"
+                        Style="{DynamicResource ButtonIconHoverSideMenuStyle}" />
+                
+                <!--  Settings button  -->
+                <Button Grid.Column="2"
                         AutomationProperties.AutomationId="SettingsButton"
                         Command="{Binding OpenSettingsPageCommand}"
                         Content="{DynamicResource SegoeIconSettings}"

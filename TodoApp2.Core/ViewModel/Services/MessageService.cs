@@ -31,7 +31,7 @@ namespace TodoApp2.Core
             m_MaxInterval = new TimeSpan(int.MaxValue);
             m_DefaultDuration = TimeSpan.FromSeconds(4);
             m_UndoDuration = TimeSpan.FromSeconds(1);
-            m_Timer = new DispatcherTimer{ Interval = m_MaxInterval };
+            m_Timer = new DispatcherTimer { Interval = m_MaxInterval };
             m_Timer.Tick += TimerOnTick;
         }
 
@@ -98,7 +98,7 @@ namespace TodoApp2.Core
             OnPropertyChanged(nameof(BackgroundColor));
             OnPropertyChanged(nameof(TextColor));
             OnPropertyChanged(nameof(Message));
-            
+
             m_Timer.Interval = duration;
             m_Timer.Start();
         }

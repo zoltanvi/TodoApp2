@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -11,10 +12,20 @@ namespace TodoApp2
         private const string s_AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/Themes/";
 
         public Theme CurrentTheme { get; private set; }
-
         public ResourceDictionary CurrentThemeDictionary { get; private set; }
-
+        public List<Theme> ThemeList { get; }
         public event EventHandler ThemeChanged;
+
+        public ThemeManager()
+        {
+            ThemeList = new List<Theme>();
+            Array values = Enum.GetValues(typeof(Theme));
+
+            foreach (Theme item in values)
+            {
+                ThemeList.Add(item);
+            }
+        }
 
         /// <summary>
         /// Changes the current theme to the provided one.

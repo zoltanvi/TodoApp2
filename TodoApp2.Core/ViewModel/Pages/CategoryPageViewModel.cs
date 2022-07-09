@@ -26,6 +26,7 @@ namespace TodoApp2.Core
         public ICommand DeleteCategoryCommand { get; }
         public ICommand ChangeCategoryCommand { get; }
         public ICommand OpenSettingsPageCommand { get; }
+        public ICommand OpenNotePageCommand { get; }
         public ICommand LogInCommand { get; }
         public ICommand LogOutCommand { get; }
 
@@ -54,6 +55,7 @@ namespace TodoApp2.Core
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
             OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
+            OpenNotePageCommand = new RelayCommand(OpenNotePage);
             LogInCommand = new RelayCommand(IoC.SessionManager.LogIn);
             LogOutCommand = new RelayCommand(IoC.SessionManager.LogOut);
 
@@ -207,6 +209,20 @@ namespace TodoApp2.Core
         private void OpenSettingsPage()
         {
             m_Application.SideMenuPage = ApplicationPage.Settings;
+        }
+
+        /// <summary>
+        /// Opens the note page
+        /// </summary>
+        private void OpenNotePage()
+        {
+            if (m_Application.CurrentPage != ApplicationPage.Note)
+            {
+                m_Application.CurrentPage = ApplicationPage.Note;
+            }
+
+            m_OverlayPageService.CloseSideMenu();
+            m_CategoryListService.CurrentCategory = string.Empty;
         }
 
         /// <summary>

@@ -260,9 +260,9 @@ namespace TodoApp2.Core
             IReorderable itemToReorder = task as IReorderable;
 
             ReorderItem(filteredOrderedTasks, itemToReorder, newPosition, UpdateTaskListOrder);
-            
+
             m_DataAccess.UpdateTask(task);
-            
+
             TaskChanged?.Invoke(this, new TaskChangedEventArgs(task));
         }
 
@@ -439,7 +439,7 @@ namespace TodoApp2.Core
         public void Dispose()
         {
             m_DataAccess?.Dispose();
-            
+
             if (m_SessionManager.OnlineMode)
             {
                 m_SessionManager.Upload();

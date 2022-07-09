@@ -31,7 +31,7 @@ namespace TodoApp2
         public static readonly DependencyProperty IsSelectionBoldProperty = DependencyProperty.Register(nameof(IsSelectionBold), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty IsSelectionItalicProperty = DependencyProperty.Register(nameof(IsSelectionItalic), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty IsSelectionUnderlinedProperty = DependencyProperty.Register(nameof(IsSelectionUnderlined), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
-        
+
         public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(TextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty AppliedColorProperty = DependencyProperty.Register(nameof(AppliedColor), typeof(string), typeof(TextEditorBox), new PropertyMetadata(OnAppliedColorChanged));
 
@@ -118,7 +118,7 @@ namespace TodoApp2
 
             DataObject.AddPastingHandler(this, OnPaste);
             CommandManager.AddPreviewExecutedHandler(this, OnExecuted);
-            
+
             ResetFormattingCommand = new RelayCommand(ResetFormatting);
         }
 
@@ -227,7 +227,7 @@ namespace TodoApp2
             string oldValue = SelectedColor;
             object foreground = Selection.GetPropertyValue(TextElement.ForegroundProperty);
             string color = "Transparent";
-            
+
             if (foreground != DependencyProperty.UnsetValue)
             {
                 color = (string)m_ColorConverter.ConvertBack(foreground, typeof(string), null, CultureInfo.InvariantCulture);
@@ -280,7 +280,7 @@ namespace TodoApp2
 
         private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is TextEditorBox textEditorBox && 
+            if (d is TextEditorBox textEditorBox &&
                 e.NewValue is string newContent)
             {
                 textEditorBox.DocumentContent = newContent;

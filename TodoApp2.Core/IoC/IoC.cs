@@ -15,7 +15,7 @@ namespace TodoApp2.Core
         public static ApplicationViewModel ApplicationViewModel => Get<ApplicationViewModel>();
 
         public static IDatabase Database => Get<IDatabase>();
-        
+
         public static OverlayPageService OverlayPageService => Get<OverlayPageService>();
 
         public static CategoryListService CategoryListService => Get<CategoryListService>();
@@ -60,13 +60,13 @@ namespace TodoApp2.Core
 
             var messageService = new MessageService();
             Kernel.Bind<MessageService>().ToConstant(messageService);
-            
+
             var sessionManager = new SessionManager(messageService);
             Kernel.Bind<SessionManager>().ToConstant(sessionManager);
-            
+
             var database = new Database(sessionManager, messageService);
             Kernel.Bind<IDatabase>().ToConstant(database);
-            
+
             var applicationViewModel = new ApplicationViewModel(database, sessionManager);
             Kernel.Bind<ApplicationViewModel>().ToConstant(applicationViewModel);
 
@@ -85,7 +85,7 @@ namespace TodoApp2.Core
 
             var categoryListService = new CategoryListService(applicationViewModel, database);
             Kernel.Bind<CategoryListService>().ToConstant(categoryListService);
-            
+
             var taskListService = new TaskListService(database, categoryListService);
             Kernel.Bind<TaskListService>().ToConstant(taskListService);
         }

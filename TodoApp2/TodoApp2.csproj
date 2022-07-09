@@ -137,6 +137,7 @@
     <Compile Include="AttachedProperties\FocusSetter.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="Controls\ColorPickerComboBox.cs" />
+    <Compile Include="Controls\CustomScrollViewer.cs" />
     <Compile Include="Controls\TextEditorBox.cs" />
     <Compile Include="Controls\CategoryListControl.xaml.cs">
       <DependentUpon>CategoryListControl.xaml</DependentUpon>
@@ -167,6 +168,9 @@
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\GenericBasePage.cs" />
+    <Compile Include="Pages\NotePage.xaml.cs">
+      <DependentUpon>NotePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\NotificationPage.xaml.cs">
       <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
@@ -203,6 +207,7 @@
     <Compile Include="ValueConverters\SolidColorBrushToStringConverter.cs" />
     <Compile Include="ValueConverters\StringToColorConverter.cs" />
     <Compile Include="ValueConverters\StringToDynamicBrushConverters.cs" />
+    <Compile Include="ValueConverters\TextToLineNumbersConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />
@@ -265,6 +270,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\NotePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\NotificationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -422,6 +431,14 @@
     <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Semibold.ttf" />
     <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Semilight.ttf" />
     <Resource Include="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
+    <Resource Include="Fonts\SourceCodePro-Regular.ttf" />
+    <Resource Include="Fonts\CascadiaMono.ttf" />
+    <Resource Include="Fonts\CascadiaMono-ExtraLight.ttf" />
+    <Resource Include="Fonts\CascadiaMono-Light.ttf" />
+    <Resource Include="Fonts\CascadiaMono-SemiLight.ttf" />
+    <Resource Include="Fonts\CascadiaMono-Bold.ttf" />
+    <Resource Include="Fonts\CascadiaMono-SemiBold.ttf" />
+    <Resource Include="Fonts\SourceCodePro-Bold.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

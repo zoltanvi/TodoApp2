@@ -172,16 +172,50 @@
                         </Border.InputBindings>
                     </Border>
 
-                    <!--  Modification date  -->
-                    <TextBlock Grid.Row="1"
-                               Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6 0 0 0">
+
+                        <Label Content="Created: " 
+                               Padding="0"
                                Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
-                               Text="{Binding ModificationDate, Converter={local:LongToTimestampConverter}}"
+                               Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}"
-                               FontSize="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}"
-                               Foreground="{DynamicResource TaskPageTimestampForegroundBrush}" />
+                               FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                               Foreground="{DynamicResource TaskPageTimestampForegroundBrush}"
+                               />
+
+                        <!--  Creation date  -->
+                        <TextBlock Grid.Row="1"
+                                   Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                   Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                                   Text="{Binding CreationDate, Converter={local:LongToTimestampConverter}}"
+                                   FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}"
+                                   FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                   Foreground="{DynamicResource TaskPageTimestampForegroundBrush}"
+                                   Margin="0 0 16 0"
+                                   />
+
+                        <Label Content="Modified: " 
+                               Padding="0"
+                               Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                               Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                               FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}"
+                               FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                               Foreground="{DynamicResource TaskPageTimestampForegroundBrush}"
+                               />
+
+                        <!--  Modification date  -->
+                        <TextBlock Grid.Row="1"
+                                   Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                   Opacity="{Binding IsDone, Converter={local:BoolToOpacityConverter}}"
+                                   Text="{Binding ModificationDate, Converter={local:LongToTimestampConverter}}"
+                                   FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}"
+                                   FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                   Foreground="{DynamicResource TaskPageTimestampForegroundBrush}"
+                                   />
+                    </StackPanel>
 
                     <!--
+                        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>
                         TextOptions.TextFormattingMode="Display"
                         TextOptions.TextRenderingMode="ClearType"
                         TextOptions.TextHintingMode="Fixed"

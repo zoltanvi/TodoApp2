@@ -35,6 +35,7 @@ namespace TodoApp2.Core
         public bool CategoryTitleVisible { get; set; } = true;
         public Theme ActiveTheme { get; set; }
         public bool IsAlwaysOnTop { get; set; }
+        public bool IsCreationDateVisible { get; set; }
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; } = Thickness.Medium;
         public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
@@ -49,6 +50,7 @@ namespace TodoApp2.Core
         public bool IsQuickActionsTrashEnabled { get; set; } = true;
         public FontSize TaskFontSize { get; set; } = FontSize.Medium;
         public bool IsTitleBarDateVisible { get; set; } = false;
+        public string NoteContent { get; set; }
 
         public double Scaling
         {
@@ -80,6 +82,7 @@ namespace TodoApp2.Core
                 { nameof(CategoryTitleVisible), PropertyValueHandlers.Bool },
                 { nameof(ActiveTheme), PropertyValueHandlers.Theme },
                 { nameof(IsAlwaysOnTop), PropertyValueHandlers.Bool },
+                { nameof(IsCreationDateVisible), PropertyValueHandlers.Bool },
                 { nameof(IsModificationDateVisible), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsReminderEnabled), PropertyValueHandlers.Bool },
@@ -95,6 +98,7 @@ namespace TodoApp2.Core
                 { nameof(WindowCornerRadius), PropertyValueHandlers.Integer },
                 { nameof(IsTitleBarDateVisible), PropertyValueHandlers.Bool },
                 { nameof(Scaling), PropertyValueHandlers.Double },
+                { nameof(NoteContent), PropertyValueHandlers.String },
             };
 
             IoC.UIScaler.Zoomed += OnZoomed;

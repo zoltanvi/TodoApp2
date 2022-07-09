@@ -18,7 +18,7 @@ namespace TodoApp2
         public bool AlterInsertIndex { get; set; }
         public int NewInsertIndex { get; set; }
 
-        public event EventHandler<DragDropEventArgs> BeforeItemDropped; 
+        public event EventHandler<DragDropEventArgs> BeforeItemDropped;
 
         public override void Drop(IDropInfo dropInfo)
         {
@@ -41,7 +41,7 @@ namespace TodoApp2
                 if (oldIndex != -1)
                 {
                     // Notify clients to allow them to alter the insert index.
-                    var args = new DragDropEventArgs {Item = item, OldIndex = oldIndex, NewIndex = newIndex};
+                    var args = new DragDropEventArgs { Item = item, OldIndex = oldIndex, NewIndex = newIndex };
                     BeforeItemDropped?.Invoke(this, args);
 
                     // Alter the insert index if the client requested it.

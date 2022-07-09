@@ -39,7 +39,7 @@ namespace TodoApp2
             do
             {
                 // End element
-                if (xmlReader.NodeType == XmlNodeType.EndElement && 
+                if (xmlReader.NodeType == XmlNodeType.EndElement &&
                     xmlReader.Name == XmlElements.Txt)
                 {
                     return;

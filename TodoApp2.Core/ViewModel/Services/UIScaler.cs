@@ -31,7 +31,7 @@ namespace TodoApp2
             public double RegularIcon => OriginalRegularIcon * StaticScaleValue;
             public double LargeIcon => OriginalLargeIcon * StaticScaleValue;
         }
-        
+
         private const double s_OriginalScalingPercent = 100;
         private const double OriginalSideMenuWidth = 300;
         private const double OriginalTextBoxMaxHeight = 324;
@@ -41,7 +41,7 @@ namespace TodoApp2
         private const double OriginalColorPickerItemSize = 16;
         private const double OriginalSettingsComboboxWidth = 110;
         private double m_ScalingPercent = s_OriginalScalingPercent;
-    
+
         public static double StaticScaleValue { get; private set; } = 1;
         public double ScaleValue => StaticScaleValue;
 

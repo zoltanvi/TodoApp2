@@ -19,6 +19,12 @@ namespace TodoApp2
             { FontFamily.Ubuntu, (MediaFontFamily)Application.Current.TryFindResource("Ubuntu")},
             { FontFamily.Consolas, new MediaFontFamily("Consolas")},
             { FontFamily.Verdana, new MediaFontFamily("Verdana")},
+
+            { FontFamily.SourceCodePro, (MediaFontFamily)Application.Current.TryFindResource("SourceCodeProRegular")},
+            { FontFamily.CascadiaMono, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoRegular")},
+            { FontFamily.CascadiaMonoSemiLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoSemiLight")},
+            { FontFamily.CascadiaMonoLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoLight")},
+            { FontFamily.CascadiaMonoExtraLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoExtraLight")},
     };
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

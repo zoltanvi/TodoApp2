@@ -25,7 +25,7 @@ namespace TodoApp2
             set
             {
                 m_Value = value;
-                Changed?.Invoke(this, new ThemeEditorEntryEventArgs{ChangedKey = Key, ChangedValue = value});
+                Changed?.Invoke(this, new ThemeEditorEntryEventArgs { ChangedKey = Key, ChangedValue = value });
             }
         }
 
@@ -41,7 +41,7 @@ namespace TodoApp2
     public class ThemeEditorViewModel : BaseViewModel
     {
         private readonly ThemeManager m_ThemeManager;
-        
+
         public ObservableCollection<ThemeEditorEntry> Items { get; set; }
 
         public ThemeEditorViewModel()

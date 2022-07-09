@@ -4,7 +4,7 @@
     {
         ExtraDark,
         Dark,
-        
+
         Gray,
         Nord,
 
@@ -18,7 +18,7 @@
         Pink,
         Purple,
         Blue,
-        
+
         PastelLight,
         ExtraLight,
     }

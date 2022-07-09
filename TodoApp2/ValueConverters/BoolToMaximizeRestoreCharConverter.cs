@@ -9,7 +9,7 @@ namespace TodoApp2
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string maximizeButtonContent = (string)Application.Current.TryFindResource("SegoeIconMaximizeWindow2");
-            
+
             if (value is bool isMaximized && isMaximized)
             {
                 maximizeButtonContent = (string)Application.Current.TryFindResource("SegoeIconRestoreWindow");

@@ -41,5 +41,10 @@
         /// The notification page (pops up when a notification occurs)
         /// </summary>
         Notification,
+
+        /// <summary>
+        /// The note page
+        /// </summary>
+        Note,
     }
 }

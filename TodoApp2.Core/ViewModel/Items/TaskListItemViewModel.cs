@@ -73,7 +73,7 @@ namespace TodoApp2.Core
                 ModificationDate = DateTime.Now.Ticks;
                 Database.UpdateTask(this);
             }
-         
+
             IsEditMode = false;
         }
 

@@ -41,7 +41,7 @@ namespace TodoApp2.Core
             ClosePageCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeIsOn);
             m_OverlayPageService.SetBackgroundClickedAction(ClosePage);
-            
+
             ReminderTask = m_Database.GetTask(reminderTask.Id);
         }
 

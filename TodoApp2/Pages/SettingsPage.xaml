@@ -170,6 +170,13 @@
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
+                        <!--  Creation date  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconCalendar}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Creation date visible" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+
                         <!--  Modification date  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconCalendar}" />
@@ -284,7 +291,7 @@
                                                VerticalAlignment="Center"
                                                Foreground="{DynamicResource VersionLabelForegroundBrush}"
                                                FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}">
-                                        Version 1.5.2
+                                        Version 1.5.3.1
                                     </TextBlock>
                                 </Border>
                             </Grid>
