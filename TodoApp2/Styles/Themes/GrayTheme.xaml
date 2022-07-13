@@ -30,9 +30,9 @@
     <SolidColorBrush x:Key="PageTitleForegroundBrush" Color="#FFFFFF" />
 
     <SolidColorBrush x:Key="TaskPageBackgroundBrush" Color="#36393F" />
-    <SolidColorBrush x:Key="TaskPageForegroundBrush" Color="#ECEAEE" />
+    <SolidColorBrush x:Key="TaskPageForegroundBrush" Color="#F8F8F8" />
     <SolidColorBrush x:Key="TaskPageEditModeForegroundBrush" Color="#0080FF" />
-    <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="#A5A5A5" />
+    <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="{Binding Color, Source={StaticResource TaskPageForegroundBrush}}" Opacity="0.7" />
     <SolidColorBrush x:Key="TaskPageBottomBarBackgroundBrush" Color="#292B2F" />
     <SolidColorBrush x:Key="TaskPageBottomBarForegroundBrush" Color="#F3F3F3" />
     <SolidColorBrush x:Key="TaskPageBottomBarBorderBrush" Color="#2D2D2D" />
@@ -59,10 +59,11 @@
     <SolidColorBrush x:Key="CheckBoxCheckBrush" Color="{Binding Color, Source={StaticResource CheckBoxBorderBrush}}" />
     <SolidColorBrush x:Key="CheckBoxHoverBackgroundBrush" Color="#4F4F4F" />
 
-    <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="#202225" />
+    <SolidColorBrush x:Key="ScrollbarStaticBrush" Color="#A5ADBC" />
     <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="{Binding Color, Source={StaticResource ScrollbarStaticBrush}}" />
     <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="{Binding Color, Source={StaticResource ScrollbarStaticBrush}}" />
 
+    <SolidColorBrush x:Key="NotePageNumberForeground" Color="{Binding Color, Source={StaticResource TaskPageForegroundBrush}}" />
 
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="{Binding Color, Source={StaticResource SideMenuBackgroundBrush}}" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="{Binding Color, Source={StaticResource SideMenuBackgroundBrush}}" />

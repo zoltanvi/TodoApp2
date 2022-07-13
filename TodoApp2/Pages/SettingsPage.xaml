@@ -163,6 +163,13 @@
                             <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task settings" />
                         </DockPanel>
 
+                        <!--  Compact mode  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconCompactMode}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Compact mode" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsCompactMode, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+                        
                         <!--  Item background  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconBackgroundVisible}" />
@@ -276,16 +283,41 @@
 
                         <!--  =====================================================  -->
 
-                        <!--  Task settings  --><!--
+                          <!--Note page settings--><!--  
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}" Margin="0 15 0 10">
                             <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Note page settings" />
                         </DockPanel>
 
-                        --><!--  Pin button  --><!--
+                          --><!--  --><!--  
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconWordWrap}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Word wrap" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>-->
+
+                        <!--  =====================================================  -->
+
+                        <!--Text rendering settings--><!--
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}" Margin="0 15 0 10">
+                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Text rendering settings" />
+                        </DockPanel>
+
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconWordWrap}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="TextFormattingMode" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TextFormattingMode, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconWordWrap}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="TextRenderingMode" />
+                            <TextBox Text="{Binding ApplicationViewModel.ApplicationSettings.TextRenderingMode, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"/>
+                        </DockPanel>
+
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconWordWrap}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="ClearTypeHint" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.ClearTypeHint, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>-->
 
 
@@ -304,7 +336,7 @@
                                                VerticalAlignment="Center"
                                                Foreground="{DynamicResource VersionLabelForegroundBrush}"
                                                FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}">
-                                        Version 1.5.4
+                                        Version 1.5.5
                                     </TextBlock>
                                 </Border>
                             </Grid>

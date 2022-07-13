@@ -48,7 +48,7 @@
     <Style x:Key="NotePageTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:EnumToFontFamilyConverter}}" />
         <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:FontSizeToDoubleConverter}}" />
-        <Setter Property="Foreground" Value="{DynamicResource TaskPageBottomBarForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TaskPageForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}" />

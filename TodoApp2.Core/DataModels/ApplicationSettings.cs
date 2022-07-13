@@ -52,6 +52,15 @@ namespace TodoApp2.Core
         public bool IsTitleBarDateVisible { get; set; } = false;
         public string NoteContent { get; set; }
         public bool NotePageWordWrap { get; set; }
+        public bool IsCompactMode { get; set; }
+
+        #region Testing
+
+        public string TextRenderingMode { get; set; }
+        public bool TextFormattingMode { get; set; }
+        public bool ClearTypeHint { get; set; }
+
+        #endregion
 
         public double Scaling
         {
@@ -101,6 +110,10 @@ namespace TodoApp2.Core
                 { nameof(Scaling), PropertyValueHandlers.Double },
                 { nameof(NoteContent), PropertyValueHandlers.String },
                 { nameof(NotePageWordWrap), PropertyValueHandlers.Bool },
+                { nameof(TextRenderingMode), PropertyValueHandlers.String },
+                { nameof(TextFormattingMode), PropertyValueHandlers.Bool },
+                { nameof(ClearTypeHint), PropertyValueHandlers.Bool },
+                { nameof(IsCompactMode), PropertyValueHandlers.Bool },
             };
 
             IoC.UIScaler.Zoomed += OnZoomed;

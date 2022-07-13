@@ -51,7 +51,7 @@
     <!--<SolidColorBrush x:Key="TaskPageForegroundBrush" Color="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:DynamicBrushConverterTaskItem}}" />-->
     <SolidColorBrush x:Key="TaskPageForegroundBrush" Color="#000000" />
     <SolidColorBrush x:Key="TaskPageEditModeForegroundBrush" Color="#005395" />
-    <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="#383838" />
+    <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="{Binding Color, Source={StaticResource TaskPageForegroundBrush}}" Opacity="0.7" />
     <SolidColorBrush x:Key="TaskPageBottomBarBackgroundBrush" Color="#F28B6A" />
     <SolidColorBrush x:Key="TaskPageBottomBarForegroundBrush" Color="Black" />
     <SolidColorBrush x:Key="TaskPageBottomBarBorderBrush" Color="Transparent" />
@@ -88,6 +88,8 @@
     <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="{DynamicResource ThemeSpecialColor}" />
 
 
+    <SolidColorBrush x:Key="NotePageNumberForeground" Color="{Binding Color, Source={StaticResource TaskPageForegroundBrush}}" />
+    
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="#E1E1E1" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="{DynamicResource ThemeLighterColor}" />
     <SolidColorBrush x:Key="ReminderItemBackgroundBrush" Color="{DynamicResource ThemeDarkerColor}" />

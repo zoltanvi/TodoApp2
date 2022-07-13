@@ -31,7 +31,7 @@
     <SolidColorBrush x:Key="TaskPageBackgroundBrush" Color="#1D1E1F" />
     <SolidColorBrush x:Key="TaskPageForegroundBrush" Color="White" />
     <SolidColorBrush x:Key="TaskPageEditModeForegroundBrush" Color="#0080FF" />
-    <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="#A5A5A5" />
+    <SolidColorBrush x:Key="TaskPageTimestampForegroundBrush" Color="{Binding Color, Source={StaticResource TaskPageForegroundBrush}}" Opacity="0.7" />
     <SolidColorBrush x:Key="TaskPageBottomBarBackgroundBrush" Color="#1C1C1C" />
     <SolidColorBrush x:Key="TaskPageBottomBarForegroundBrush" Color="#F3F3F3" />
     <SolidColorBrush x:Key="TaskPageBottomBarBorderBrush" Color="#2D2D2D" />
@@ -67,6 +67,7 @@
     <SolidColorBrush x:Key="ScrollbarMouseOverBrush" Color="#696A6B" />
     <SolidColorBrush x:Key="ScrollbarPressedBrush" Color="#696A6B" />
 
+    <SolidColorBrush x:Key="NotePageNumberForeground" Color="{Binding Color, Source={StaticResource TaskPageForegroundBrush}}" />
 
     <SolidColorBrush x:Key="ColorPickerBackgroundBrush" Color="#414141" />
     <SolidColorBrush x:Key="OverlayPageBackgroundBrush" Color="#28292A" />

@@ -431,6 +431,21 @@
                         TargetName="ItemBorder"
                         Value="Black" />
             </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="">
+                <Setter Property="Background"
+                        TargetName="ItemBorder"
+                        Value="White" />
+                <Setter Property="Visibility"
+                        TargetName="DiagonalLine"
+                        Value="Visible" />
+                <Setter Property="BorderThickness"
+                        TargetName="ItemBorder"
+                        Value="0.5" />
+                <Setter Property="BorderBrush"
+                        TargetName="ItemBorder"
+                        Value="Black" />
+            </DataTrigger>
+            
         </DataTemplate.Triggers>
     </DataTemplate>
 

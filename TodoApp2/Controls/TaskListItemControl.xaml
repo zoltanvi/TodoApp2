@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              x:Name="TaskListItemUC"
-             MinHeight="40"
+             MinHeight="{Binding ApplicationViewModel.ApplicationSettings.IsCompactMode, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToCompactModeConverter}}"
              d:DesignHeight="60"
              d:DesignWidth="350"
              dd:DragDrop.IsDragSource="{Binding IsEditMode}"
@@ -132,7 +132,7 @@
                           Style="{DynamicResource TaskCheckBoxStyle}" />
 
                 <!--  Main content  -->
-                <Grid Grid.Column="2" Margin="0 4 10 4">
+                <Grid Grid.Column="2" Margin="0 2 10 2">
                     <Grid.RowDefinitions>
                         <!--  Task description row  -->
                         <RowDefinition Height="*" />

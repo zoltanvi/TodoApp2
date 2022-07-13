@@ -58,6 +58,8 @@
     <system:String x:Key="SegoeIconColorBar">&#xEA4B;</system:String>
     <system:String x:Key="SegoeIconBackgroundVisible">&#xF16D;</system:String>
 
+    <system:String x:Key="SegoeIconCompactMode">&#xE71D;</system:String>
+    
     <system:String x:Key="SegoeIconBold">&#xE8DD;</system:String>
     <system:String x:Key="SegoeIconItalic">&#xE8DB;</system:String>
     <system:String x:Key="SegoeIconUnderlined">&#xE8DC;</system:String>

@@ -96,7 +96,7 @@
                             Margin="0"
                             Height="{TemplateBinding Height}"
                             Background="{DynamicResource ScrollbarStaticBrush}"
-                            CornerRadius="4"
+                            CornerRadius="0"
                             SnapsToDevicePixels="True" />
 
                     <ControlTemplate.Triggers>
@@ -133,7 +133,7 @@
                             Margin="0"
                             Width="{TemplateBinding Width}"
                             Background="{DynamicResource ScrollbarStaticBrush}"
-                            CornerRadius="4"
+                            CornerRadius="0"
                             SnapsToDevicePixels="True" />
 
                     <ControlTemplate.Triggers>
@@ -266,6 +266,8 @@
                                     <ColumnDefinition Width="0.00001*" />
                                     <ColumnDefinition MaxWidth="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}}" />
                                 </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" Background="{TemplateBinding Background}"/>
+                                <Border Grid.Column="2" Background="{TemplateBinding Background}"/>
                                 <Border Grid.Column="1"
                                         Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -274,11 +276,13 @@
                                               Command="{x:Static ScrollBar.LineLeftCommand}"
                                               IsEnabled="{TemplateBinding IsMouseOver}"
                                               Style="{StaticResource ScrollBarButton}"
+                                              Background="{TemplateBinding Background}"
                                               Visibility="Hidden">
                                     <Path x:Name="ArrowLeft"
                                           Margin="3"
                                           Data="M 3.18,7 C3.18,7 5,7 5,7 5,7 1.81,3.5 1.81,3.5 1.81,3.5 5,0 5,0 5,0 3.18,0 3.18,0 3.18,0 0,3.5 0,3.5 0,3.5 3.18,7 3.18,7 z"
                                           Fill="{StaticResource ScrollBar.Static.Glyph}"
+
                                           Stretch="Uniform" />
                                 </RepeatButton>
                                 <Track x:Name="PART_Track"
@@ -299,6 +303,7 @@
                                               Command="{x:Static ScrollBar.LineRightCommand}"
                                               IsEnabled="{TemplateBinding IsMouseOver}"
                                               Style="{StaticResource ScrollBarButton}" 
+                                              Background="{TemplateBinding Background}"
                                               Visibility="Hidden">
                                     <Path x:Name="ArrowRight"
                                           Margin="3"

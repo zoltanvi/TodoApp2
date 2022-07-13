@@ -36,6 +36,7 @@
 
                     <TextBox
                         Style="{StaticResource NotePageTextBoxStyle}"
+                        Foreground="{DynamicResource NotePageNumberForeground}"
                         IsReadOnly="True"
                         Focusable="False"
                         Margin="0 5"
@@ -55,7 +56,7 @@
                                           HorizontalScrollBarVisibility="Hidden"
                                           ScrollChanged="HorizontalScrollViewer_ScrollChanged"
                                           Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
-
+                    
                     <!-- Note content ============================================== -->
                             <TextBox 
                                     Grid.Column="1"
@@ -70,7 +71,27 @@
                                         Source={x:Static local:ViewModelLocator.Instance}, 
                                         Mode=TwoWay, 
                                         UpdateSourceTrigger=PropertyChanged}"   
-                                     PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"/>
+                                     PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"
+                                
+                                />
+                    
+                                <!--TextOptions.TextFormattingMode="{Binding ApplicationViewModel.ApplicationSettings.TextFormattingMode, 
+                                Source={x:Static local:ViewModelLocator.Instance}, 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Mode=TwoWay, 
+                                Converter={local:TextFormattingModeConverter}}"
+                                    
+                                TextOptions.TextRenderingMode="{Binding ApplicationViewModel.ApplicationSettings.TextRenderingMode, 
+                                Source={x:Static local:ViewModelLocator.Instance}, 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Mode=TwoWay, 
+                                Converter={local:TextRenderingModeConverter}}"
+                                
+                                RenderOptions.ClearTypeHint="{Binding ApplicationViewModel.ApplicationSettings.ClearTypeHint, 
+                                Source={x:Static local:ViewModelLocator.Instance}, 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Mode=TwoWay, 
+                                Converter={local:ClearTypeHintConverter}}"-->
 
                 </local:CustomScrollViewer>
 
@@ -86,6 +107,7 @@
                    Minimum="0" 
                    Maximum="{Binding ScrollableWidth, ElementName=HorizontalScrollViewer}" 
                    Scroll="ScrollBar_Scroll"
+                   Background="{DynamicResource TitleBarBackgroundBrush}"
                    ViewportSize="{Binding ViewportWidth, ElementName=HorizontalScrollViewer}"
                    />
 

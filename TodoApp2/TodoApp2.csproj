@@ -197,6 +197,7 @@
     <Compile Include="ValueConverters\BoolToApplicationBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\BoolToBorderThicknessConverter.cs" />
+    <Compile Include="ValueConverters\BoolToCompactModeConverter.cs" />
     <Compile Include="ValueConverters\BoolToMaximizeRestoreCharConverter.cs" />
     <Compile Include="ValueConverters\BoolToTextWrappingConverter.cs" />
     <Compile Include="ValueConverters\CamelCaseConverter.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="ValueConverters\SolidColorBrushToStringConverter.cs" />
     <Compile Include="ValueConverters\StringToColorConverter.cs" />
     <Compile Include="ValueConverters\StringToDynamicBrushConverters.cs" />
+    <Compile Include="ValueConverters\TestValueConverters.cs" />
     <Compile Include="ValueConverters\TextToLineNumbersConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
@@ -378,6 +380,10 @@
     <Page Include="Styles\Themes\PurpleTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\VisualStudioBlueTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Themes\YellowTheme.xaml">
       <Generator>MSBuild:Compile</Generator>

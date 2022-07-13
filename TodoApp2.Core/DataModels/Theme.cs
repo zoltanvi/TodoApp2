@@ -8,10 +8,11 @@
         Gray,
         Nord,
 
-        Peach,
-        Ocean,
+        //Peach,
+        //Ocean,
+        VisualStudioBlue,
 
-        ExtraDarkBlue,
+        //ExtraDarkBlue,
 
         Yellow,
         Green,
