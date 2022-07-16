@@ -24,6 +24,7 @@ namespace TodoApp2.Core
     public class ApplicationSettings : BaseViewModel
     {
         private bool m_RoundedWindowCorners;
+        private IUIScaler m_UiScaler;
 
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
 
@@ -79,8 +80,10 @@ namespace TodoApp2.Core
             }
         }
 
-        public ApplicationSettings()
+        public ApplicationSettings(IUIScaler uiScaler)
         {
+            m_UiScaler = uiScaler;
+
             // This dictionary describes the data that is stored in database in the Settings table
             PropertyDescriptors = new Dictionary<string, IPropertyValueHandler>
             {
@@ -116,7 +119,7 @@ namespace TodoApp2.Core
                 { nameof(IsCompactMode), PropertyValueHandlers.Bool },
             };
 
-            IoC.UIScaler.Zoomed += OnZoomed;
+            m_UiScaler.Zoomed += OnZoomed;
         }
 
         private void OnZoomed(object sender, EventArgs e)

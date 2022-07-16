@@ -61,13 +61,15 @@ namespace TodoApp2.Core
             var messageService = new MessageService();
             Kernel.Bind<MessageService>().ToConstant(messageService);
 
-            var sessionManager = new SessionManager(messageService);
-            Kernel.Bind<SessionManager>().ToConstant(sessionManager);
+            // TODO: Disabled feature
+            //var sessionManager = new SessionManager(messageService);
+            //Kernel.Bind<SessionManager>().ToConstant(sessionManager);
+            SessionManager sessionManager = null;
 
             var database = new Database(sessionManager, messageService);
             Kernel.Bind<IDatabase>().ToConstant(database);
 
-            var applicationViewModel = new ApplicationViewModel(database, sessionManager);
+            var applicationViewModel = new ApplicationViewModel(database, sessionManager, uiScaler);
             Kernel.Bind<ApplicationViewModel>().ToConstant(applicationViewModel);
 
             var overlayPageService = new OverlayPageService(applicationViewModel, database);

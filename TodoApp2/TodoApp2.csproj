@@ -192,42 +192,33 @@
     <Compile Include="Editors\ThemeEditor.xaml.cs">
       <DependentUpon>ThemeEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ValueConverters\ApplicationPageHelper.cs" />
-    <Compile Include="ValueConverters\BaseMultiValueConverter.cs" />
-    <Compile Include="ValueConverters\BoolToApplicationBorderBrushConverter.cs" />
-    <Compile Include="ValueConverters\BoolToBorderBrushConverter.cs" />
-    <Compile Include="ValueConverters\BoolToBorderThicknessConverter.cs" />
-    <Compile Include="ValueConverters\BoolToCompactModeConverter.cs" />
-    <Compile Include="ValueConverters\BoolToMaximizeRestoreCharConverter.cs" />
-    <Compile Include="ValueConverters\BoolToTextWrappingConverter.cs" />
-    <Compile Include="ValueConverters\CamelCaseConverter.cs" />
-    <Compile Include="ValueConverters\CornerRadiusConverter.cs" />
-    <Compile Include="ValueConverters\EnumToBoldFontFamilyConverter.cs" />
-    <Compile Include="ValueConverters\EnumToFontFamilyConverter.cs" />
-    <Compile Include="ValueConverters\EqualityConverter.cs" />
-    <Compile Include="ValueConverters\FontSizeToDoubleConverter.cs" />
-    <Compile Include="ValueConverters\SolidColorBrushToStringConverter.cs" />
-    <Compile Include="ValueConverters\StringToColorConverter.cs" />
-    <Compile Include="ValueConverters\StringToDynamicBrushConverters.cs" />
-    <Compile Include="ValueConverters\TestValueConverters.cs" />
-    <Compile Include="ValueConverters\TextToLineNumbersConverter.cs" />
-    <Compile Include="ValueConverters\ThicknessToDoubleConverter.cs" />
-    <Compile Include="ValueConverters\ThicknessToGridLengthConverter.cs" />
-    <Compile Include="ValueConverters\LongToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\BoolToVisibilityNegatedConverter.cs" />
-    <Compile Include="ValueConverters\CategorySelectedForegroundColorConverter.cs" />
-    <Compile Include="ValueConverters\LongToFormattedLongDateConverter.cs" />
-    <Compile Include="ValueConverters\BoolToOpacityConverter.cs" />
-    <Compile Include="ValueConverters\CategorySelectedColorConverter.cs" />
-    <Compile Include="ValueConverters\BoolToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\LongToTimestampConverter.cs" />
-    <Compile Include="ValueConverters\StringToDateConverter.cs" />
-    <Compile Include="ValueConverters\TaskContextMenuCommandParameterConverter.cs" />
-    <Compile Include="ValueConverters\TextDecorationConverter.cs" />
-    <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
-    <Compile Include="ValueConverters\BaseValueConverter.cs" />
-    <Compile Include="ValueConverters\BackgroundBrushConverter.cs" />
-    <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
+    <Compile Include="Helpers\ApplicationPageHelper.cs" />
+    <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
+    <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
+    <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\Single\Brush\StringToDynamicBrushConverterBase.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BaseBoolValueConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToDoubleConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToResourceConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToBorderThicknessConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToTextWrappingConverter.cs" />
+    <Compile Include="ValueConverters\Single\CamelCaseConverter.cs" />
+    <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />
+    <Compile Include="ValueConverters\Single\Text\EnumToFontFamilyConverter.cs" />
+    <Compile Include="ValueConverters\Multi\EqualityConverter.cs" />
+    <Compile Include="ValueConverters\Single\Text\FontSizeToDoubleConverter.cs" />
+    <Compile Include="ValueConverters\Single\Brush\SolidColorBrushToStringConverter.cs" />
+    <Compile Include="ValueConverters\Single\Brush\StringToColorConverter.cs" />
+    <Compile Include="ValueConverters\Single\Text\TextToLineNumbersConverter.cs" />
+    <Compile Include="ValueConverters\Single\ThicknessToDoubleConverter.cs" />
+    <Compile Include="ValueConverters\Single\ThicknessToGridLengthConverter.cs" />
+    <Compile Include="ValueConverters\Single\LongToFormattedLongDateConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\Single\LongToTimestampConverter.cs" />
+    <Compile Include="ValueConverters\Multi\TaskContextMenuCommandParameterConverter.cs" />
+    <Compile Include="ValueConverters\Single\ApplicationPageValueConverter.cs" />
+    <Compile Include="ValueConverters\Multi\BackgroundBrushConverter.cs" />
+    <Compile Include="ValueConverters\Single\Brush\StringRGBToBrushConverter.cs" />
     <Compile Include="ViewModels\ThemeEditorViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -298,6 +289,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TaskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ValueConverters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

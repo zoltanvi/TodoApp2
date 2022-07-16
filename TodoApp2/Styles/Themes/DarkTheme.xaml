@@ -182,7 +182,7 @@
         <VisualBrush.Visual>
             <Path Data="M 3 -6 L 24 14"
                   RenderOptions.EdgeMode="Aliased"
-                  Stroke="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}"
+                  Stroke="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource stringRGBToBrushConverter}}"
                   StrokeThickness="5"
                   StrokeEndLineCap="Flat" />
         </VisualBrush.Visual>

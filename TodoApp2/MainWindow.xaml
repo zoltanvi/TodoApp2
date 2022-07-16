@@ -34,16 +34,16 @@
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--  Outer border with the drop shadow margin  -->
 
-                        <Border Padding="{Binding IsMaximizedOrDocked, Converter={local:BoolToBorderThicknessConverter}}"
+                        <Border Padding="{Binding IsMaximizedOrDocked, Converter={StaticResource boolToBorderThicknessConverter}}"
                                 Background="#01000000"
-                                CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}">
+                                CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}">
                             <Border.Clip>
                                 <RectangleGeometry RadiusX="{Binding CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}"
                                                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
                                                    Rect="{Binding OuterClipRect}" />
                             </Border.Clip>
 
-                            <Border CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}"
+                            <Border CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}"
                                     local:SizeObserver.Observe="True"
                                     local:SizeObserver.ObservedWidth="{Binding MyWidth, Mode=OneWayToSource}"
                                     local:SizeObserver.ObservedHeight="{Binding MyHeight, Mode=OneWayToSource}">
@@ -60,11 +60,10 @@
                                     <Border Panel.ZIndex="2"
                                             BorderBrush="{DynamicResource ApplicationBorderBrush}"
                                             BorderThickness="1"
-                                            CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}" />
+                                            CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}" />
 
                                     <!--  Window border and drop shadow  -->
-                                    <Border Background="{DynamicResource TaskPageBackgroundBrush}" CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:SingleCornerRadiusConverter}}">
-
+                                    <Border Background="{DynamicResource TaskPageBackgroundBrush}" CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}">
 
                                         <Grid>
                                             <Grid.RowDefinitions>
@@ -109,7 +108,9 @@
                                                     <!--  Title bar date  -->
                                                     <Grid Grid.Column="1" Grid.ColumnSpan="2">
 
-                                                          <Label Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                                          <Label Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, 
+                                                              Source={x:Static local:ViewModelLocator.Instance}, 
+                                                              Converter={StaticResource boolToVisibilityConverter}}"
                                                                Content="{Binding CurrentTime}"
                                                                Foreground="{DynamicResource TitleBarForegroundBrush}"
                                                                VerticalAlignment="Center"
@@ -126,7 +127,7 @@
                                                         <Button x:Name="MaximizeWindow"
                                                                 AutomationProperties.AutomationId="MaximizeWindow"
                                                                 Command="{Binding MaximizeCommand}"
-                                                                Content="{Binding IsMaximized, Converter={local:BoolToMaximizeRestoreCharConverter}}"
+                                                                Content="{Binding IsMaximized, Converter={StaticResource boolToMaximizeRestoreConverter}}"
                                                                 Style="{DynamicResource ButtonTitleBarStyle}" />
                                                         <Button Name="CloseWindow"
                                                                 AutomationProperties.AutomationId="CloseWindow"
@@ -169,7 +170,7 @@
             <Frame local:NoFrameHistory.Value="True"
                    AutomationProperties.AutomationId="CurrentPage"
                    Content="{Binding}"
-                   DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
+                   DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
 
             <!--  Overlay background  -->
             <local:OverlayBackgroundControl AutomationProperties.AutomationId="OverlayBackgroundControl" />
@@ -181,7 +182,7 @@
                     <Frame local:NoFrameHistory.Value="True"
                            AutomationProperties.AutomationId="SideMenuPage"
                            Content="{Binding}"
-                           DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}" />
+                           DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
                 </local:SideMenuControl>
             </Border>
 
@@ -198,7 +199,7 @@
                         MaxHeight="100"
                         CornerRadius="2"
                         SnapsToDevicePixels="True"
-                        Background="{Binding MessageService.BackgroundColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}">
+                        Background="{Binding MessageService.BackgroundColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource stringRGBToBrushConverter}}">
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Left"
                                    TextWrapping="Wrap"
@@ -207,10 +208,10 @@
                                    Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Foreground="{Binding MessageService.TextColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:StringRGBToBrushConverter}}" />
+                                   Foreground="{Binding MessageService.TextColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource stringRGBToBrushConverter}}" />
 
                         <Button DockPanel.Dock="Right"
-                                Visibility="{Binding MessageService.UndoButtonVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                                Visibility="{Binding MessageService.UndoButtonVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                                 Margin="30 2 0 2"
                                 Command="{Binding UndoCommand}"
                                 Content="Undo"

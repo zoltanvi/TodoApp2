@@ -18,7 +18,7 @@
                 <Border x:Name="OverlayBackgroundBorder"
                         AutomationProperties.AutomationId="OverlayBackgroundBorder"
                         Background="{DynamicResource OverlayBackgroundBrush}"
-                        Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}">
+                        Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, Source={x:Static local:ViewModelLocator.Instance}}" />

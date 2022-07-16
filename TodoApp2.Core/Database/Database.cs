@@ -21,7 +21,8 @@ namespace TodoApp2.Core
             m_SessionManager = sessionManager;
             m_MessageService = messageService;
 
-            Reinitialize(sessionManager.OnlineMode);
+            //Reinitialize(sessionManager.OnlineMode);
+            Reinitialize();
         }
 
         public async Task Reinitialize(bool online = false)
@@ -29,25 +30,25 @@ namespace TodoApp2.Core
             Mediator.NotifyClients(ViewModelMessages.OnlineModeChangeRequested);
             m_DataAccess?.Dispose();
 
-            if (online)
-            {
-                if (!await m_SessionManager.AuthenticateUserAsync())
-                {
-                    online = false;
-                    m_MessageService.ShowError("User could not be authenticated.\n" +
-                                               "Please check the network connection!\n" +
-                                               "Switched to offline mode.", TimeSpan.FromSeconds(10));
-                }
-            }
+            //if (online)
+            //{
+            //    if (!await m_SessionManager.AuthenticateUserAsync())
+            //    {
+            //        online = false;
+            //        m_MessageService.ShowError("User could not be authenticated.\n" +
+            //                                   "Please check the network connection!\n" +
+            //                                   "Switched to offline mode.", TimeSpan.FromSeconds(10));
+            //    }
+            //}
 
-            if (online)
-            {
-                m_SessionManager.Download();
-            }
-            else
-            {
-                m_SessionManager.Upload();
-            }
+            //if (online)
+            //{
+            //    m_SessionManager.Download();
+            //}
+            //else
+            //{
+            //    m_SessionManager.Upload();
+            //}
 
             m_DataAccess = new DataAccessLayer(online);
 
@@ -444,10 +445,10 @@ namespace TodoApp2.Core
         {
             m_DataAccess?.Dispose();
 
-            if (m_SessionManager.OnlineMode)
-            {
-                m_SessionManager.Upload();
-            }
+            //if (m_SessionManager.OnlineMode)
+            //{
+            //    m_SessionManager.Upload();
+            //}
         }
 
     }

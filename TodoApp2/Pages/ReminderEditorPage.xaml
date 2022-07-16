@@ -106,7 +106,8 @@
                              Grid.Column="0"
                              Margin="0 0 10 0"
                              Background="#00000000"
-                             BorderBrush="{Binding IsSelectedDateStringValid, Converter={local:BoolToBorderBrushConverter}, Mode=TwoWay}"
+                             BorderBrush="{Binding IsSelectedDateStringValid, 
+                                Converter={StaticResource reminderBoolToBrushConverter}, Mode=TwoWay}"
                              FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"
                              Foreground="{DynamicResource DatePickerForegroundBrush}"
                              Text="{Binding SelectedDateString, Mode=TwoWay}" />

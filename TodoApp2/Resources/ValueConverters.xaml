@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TodoApp2"
+                    >
+    <local:StringRGBToBrushConverter x:Key="stringRGBToBrushConverter" />
+
+    <local:DynamicSolidColorBrushConverter x:Key="sideMenuDynamicBrushConverter" LightName="SideMenuForegroundBrush" DarkName="SideMenuBackgroundSolidBrush" />
+    <local:DynamicSolidColorBrushConverter x:Key="titleBarDynamicBrushConverter" LightName="ButtonHoverBackgroundBrushLight" DarkName="ButtonHoverBackgroundBrushDark" />
+
+    <local:BoolToBorderThicknessConverter x:Key="boolToBorderThicknessConverter" />
+    <local:BoolToDoubleConverter x:Key="boolToTaskOpacityConverter" PositiveValue="0.25" NegativeValue="1"/>
+    <local:BoolToDoubleConverter x:Key="boolToCompactModeConverter" PositiveValue="10" NegativeValue="40"/>
+    <local:BoolToResourceConverter x:Key="reminderBoolToBrushConverter" PositiveResourceName="ReminderDateBorderBrush" NegativeResourceName="ReminderDateInvalidBorderBrush"/>
+    <local:BoolToResourceConverter x:Key="boolToMaximizeRestoreConverter" PositiveResourceName="SegoeIconRestoreWindow" NegativeResourceName="SegoeIconMaximizeWindow2" />
+    <local:BoolToTextWrappingConverter x:Key="boolToTextWrappingConverter" />
+    <local:BoolToVisibilityConverter x:Key="boolToVisibilityNegatedConverter" Negated="True" />
+    <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" Negated="False" />
+
+    <local:EnumToFontFamilyConverter x:Key="enumToFontFamilyConverter" />
+    <local:FontSizeToDoubleConverter x:Key="fontSizeToDoubleConverter" />
+    <local:TextToLineNumbersConverter x:Key="textToLineNumbersConverter" />
+
+    <local:ApplicationPageValueConverter x:Key="applicationPageValueConverter" />
+    <local:CamelCaseConverter x:Key="camelCaseConverter" />
+    <local:LongToFormattedLongDateConverter x:Key="longToFormattedLongDateConverter" />
+    <local:LongToTimestampConverter x:Key="longToTimestampConverter" />
+    <local:SingleCornerRadiusConverter x:Key="singleCornerRadiusConverter" />
+    <local:ThicknessToDoubleConverter x:Key="thicknessToDoubleConverter" />
+    <local:ThicknessToGridLengthConverter x:Key="thicknessToGridLengthConverter" />
+
+
+
+</ResourceDictionary>

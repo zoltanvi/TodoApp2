@@ -17,9 +17,17 @@ namespace TodoApp2.UITests.Tests
         {
             Logger.Info("Setting up test fixture.");
 
-            // Delete database file
+            // Rename old database file
             Logger.Info("Deleting database file");
-            File.Delete(Constants.DatabasePath);
+
+            string newPath = Constants.DatabasePath;
+            char appendChar = '_';
+            while (File.Exists(newPath))
+            {
+                newPath = newPath.Replace(".db", $"{appendChar}.db");
+            }
+
+            File.Move(Constants.DatabasePath, newPath);
 
             Logger.Info("Launching application...");
             using var app = Application.AttachOrLaunch(Constants.ExeFileName);

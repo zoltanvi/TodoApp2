@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using TodoApp2.Core;
 
 namespace TodoApp2
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class UIScaler : BaseViewModel
+    public class UIScaler : BaseViewModel, IUIScaler
     {
         public class FontSizes : BaseViewModel
         {

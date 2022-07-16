@@ -498,7 +498,7 @@
                                     Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
                                     Margin="3"
                                     Style="{DynamicResource InternalColorPickerButtonStyle}"
-                                    Background="{Binding DisplayColor, RelativeSource={RelativeSource TemplatedParent}, Converter={local:StringRGBToBrushConverter}}"
+                                    Background="{Binding DisplayColor, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
                                     Command="{Binding ApplyDisplayColorCommand, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Grid>
 

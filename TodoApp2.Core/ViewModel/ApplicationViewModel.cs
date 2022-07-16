@@ -12,6 +12,7 @@ namespace TodoApp2.Core
     public class ApplicationViewModel : BaseViewModel
     {
         private bool m_AppSettingsLoadedFirstTime;
+        private IUIScaler m_UiScaler;
 
         private readonly IDatabase m_Database;
         private readonly SessionManager m_SessionManager;
@@ -62,7 +63,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The settings for the whole application
         /// </summary>
-        public ApplicationSettings ApplicationSettings { get; } = new ApplicationSettings();
+        public ApplicationSettings ApplicationSettings { get; }
 
         /// <summary>
         /// Command for toggle between opened and closed state for the side menu
@@ -74,11 +75,14 @@ namespace TodoApp2.Core
         /// </summary>
         public bool SaveIconVisible { get; set; }
 
-        public ApplicationViewModel(IDatabase database, SessionManager sessionManager)
+        public ApplicationViewModel(IDatabase database, SessionManager sessionManager, IUIScaler uiScaler)
         {
             m_Database = database;
             m_SessionManager = sessionManager;
+            m_UiScaler = uiScaler;
+
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
+            ApplicationSettings = new ApplicationSettings(m_UiScaler);
 
             Mediator.Register(OnOnlineModeChangeRequested, ViewModelMessages.OnlineModeChangeRequested);
             Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
@@ -205,7 +209,7 @@ namespace TodoApp2.Core
             // This can happen if the settings page were open during closing
             if (string.IsNullOrEmpty(ApplicationSettings.CurrentCategory))
             {
-                ApplicationSettings.CurrentCategory = m_Database.GetActiveCategories().FirstOrDefault()?.Name;
+                ApplicationSettings.CurrentCategory = m_Database.GetActiveCategories()?.FirstOrDefault()?.Name;
             }
         }
 

@@ -12,7 +12,11 @@ namespace TodoApp2.Core
         /// The task to show the notification for.
         /// </summary>
         public TaskListItemViewModel ReminderTask { get; }
+
         public long ReminderDateTime => ReminderTask?.ReminderDate ?? 0;
+
+        public bool IsReminderOnToggle => ReminderDateTime > 0;
+
         public bool IsReminderOn
         {
             get => ReminderTask.IsReminderOn;

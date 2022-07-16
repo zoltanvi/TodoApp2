@@ -20,8 +20,8 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding Key}" Grid.Column="0" />
-                        <xctk:ColorPicker SelectedColor="{Binding Value, Converter={local:StringToColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
-                        <TextBox Text="{Binding Value, Converter={local:SolidColorBrushToStringConverter}}" Grid.Column="2" />
+                        <xctk:ColorPicker SelectedColor="{Binding Value, Converter={StaticResource stringToColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+                        <TextBox Text="{Binding Value, Converter={StaticResource solidColorBrushToStringConverter}}" Grid.Column="2" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

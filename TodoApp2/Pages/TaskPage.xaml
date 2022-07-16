@@ -22,7 +22,7 @@
             <!--  Current category  -->
             <TextBlock Grid.Row="0"
                        Margin="15 10 0 10"
-                       Visibility="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BoolToVisibilityConverter}}"
+                       Visibility="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                        Style="{DynamicResource PageTitleTextBlockStyle}"
                        Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}" />
 

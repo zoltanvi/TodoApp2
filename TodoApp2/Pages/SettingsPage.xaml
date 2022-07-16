@@ -125,7 +125,7 @@
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={local:CamelCaseConverter}}" />
+                                        <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
@@ -144,7 +144,7 @@
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <Border Background="{Binding Converter={local:StringRGBToBrushConverter}}"
+                                            <Border Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
                                                     BorderBrush="Black"
                                                     BorderThickness="1">
                                                 <Label FontSize="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" Content="                          " />
@@ -203,7 +203,7 @@
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={local:CamelCaseConverter}}" />
+                                        <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
@@ -221,7 +221,7 @@
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={local:CamelCaseConverter}}" />
+                                        <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
@@ -239,7 +239,7 @@
                                       SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={local:CamelCaseConverter}}" />
+                                        <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
@@ -336,7 +336,7 @@
                                                VerticalAlignment="Center"
                                                Foreground="{DynamicResource VersionLabelForegroundBrush}"
                                                FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}">
-                                        Version 1.5.5
+                                        Version 1.5.6
                                     </TextBlock>
                                 </Border>
                             </Grid>
