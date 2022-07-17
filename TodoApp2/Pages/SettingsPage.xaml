@@ -335,8 +335,9 @@
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                Foreground="{DynamicResource VersionLabelForegroundBrush}"
-                                               FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}">
-                                        Version 1.5.6
+                                               FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
+                                               Text="{StaticResource CurrentVersion}"
+                                               >
                                     </TextBlock>
                                 </Border>
                             </Grid>

@@ -10,7 +10,7 @@
 
         //Peach,
         //Ocean,
-        VisualStudioBlue,
+        VSBlue,
 
         //ExtraDarkBlue,
 
