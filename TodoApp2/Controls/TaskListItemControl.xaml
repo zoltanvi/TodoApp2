@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dd="urn:gong-wpf-dragdrop"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              x:Name="TaskListItemUC"
@@ -157,11 +157,11 @@
                                          local:FocusSetter.Value="{Binding IsEditMode}"
                                          DocumentContent="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEmptyOrWhiteSpace="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="LostFocus">
-                                <i:InvokeCommandAction Command="{Binding UpdateItemContentCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="LostFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UpdateItemContentCommand}" />
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
 
                     </local:TextEditorBox>
 
@@ -312,11 +312,11 @@
                                       ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
                                       SelectedItem="{Binding Color, Mode=TwoWay}">
 
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding SetColorCommand}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                                <Behaviors:Interaction.Triggers>
+                                    <Behaviors:EventTrigger EventName="SelectionChanged">
+                                        <Behaviors:InvokeCommandAction Command="{Binding SetColorCommand}" />
+                                    </Behaviors:EventTrigger>
+                                </Behaviors:Interaction.Triggers>
                             </ComboBox>
 
 

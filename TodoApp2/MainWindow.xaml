@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:TodoApp2"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         Name="TodoApp2Window"
         Title="TodoApp"
         Width="380"
@@ -18,14 +17,14 @@
         WindowStyle="None"
         mc:Ignorable="d">
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="PreviewMouseWheel">
-            <ie:CallMethodAction MethodName="OnPreviewMouseWheel" TargetObject="{Binding}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="KeyDown">
-            <ie:CallMethodAction MethodName="OnKeyDown" TargetObject="{Binding}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <Behaviors:Interaction.Triggers>
+        <Behaviors:EventTrigger EventName="PreviewMouseWheel">
+            <Behaviors:CallMethodAction MethodName="OnPreviewMouseWheel" TargetObject="{Binding}" />
+        </Behaviors:EventTrigger>
+        <Behaviors:EventTrigger EventName="KeyDown">
+            <Behaviors:CallMethodAction MethodName="OnKeyDown" TargetObject="{Binding}" />
+        </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">

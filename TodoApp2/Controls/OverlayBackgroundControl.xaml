@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:TodoApp2"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Name="OverlayBackground"
@@ -19,11 +19,11 @@
                         AutomationProperties.AutomationId="OverlayBackgroundBorder"
                         Background="{DynamicResource OverlayBackgroundBrush}"
                         Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, Source={x:Static local:ViewModelLocator.Instance}}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                    <Behaviors:Interaction.Triggers>
+                        <Behaviors:EventTrigger EventName="MouseDown">
+                            <Behaviors:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, Source={x:Static local:ViewModelLocator.Instance}}" />
+                        </Behaviors:EventTrigger>
+                    </Behaviors:Interaction.Triggers>
                 </Border>
 
                 <!--  Overlay page is in front of the background  -->
