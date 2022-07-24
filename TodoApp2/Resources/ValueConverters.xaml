@@ -4,13 +4,13 @@
                     >
     <local:StringRGBToBrushConverter x:Key="stringRGBToBrushConverter" />
 
-    <local:DynamicSolidColorBrushConverter x:Key="sideMenuDynamicBrushConverter" LightName="SideMenuForegroundBrush" DarkName="SideMenuBackgroundSolidBrush" />
+    <local:DynamicSolidColorBrushConverter x:Key="toggleButtonDynamicBrushConverter" LightName="ForegroundBrush" DarkName="PageBgBrush" />
     <local:DynamicSolidColorBrushConverter x:Key="titleBarDynamicBrushConverter" LightName="ButtonHoverBackgroundBrushLight" DarkName="ButtonHoverBackgroundBrushDark" />
 
     <local:BoolToBorderThicknessConverter x:Key="boolToBorderThicknessConverter" />
     <local:BoolToDoubleConverter x:Key="boolToTaskOpacityConverter" PositiveValue="0.25" NegativeValue="1"/>
     <local:BoolToDoubleConverter x:Key="boolToCompactModeConverter" PositiveValue="10" NegativeValue="40"/>
-    <local:BoolToResourceConverter x:Key="reminderBoolToBrushConverter" PositiveResourceName="ReminderDateBorderBrush" NegativeResourceName="ReminderDateInvalidBorderBrush"/>
+    <local:BoolToResourceConverter x:Key="reminderBoolToBrushConverter" PositiveResourceName="CommonBorderBrush" NegativeResourceName="TextBoxErrorBorderBrush"/>
     <local:BoolToResourceConverter x:Key="boolToMaximizeRestoreConverter" PositiveResourceName="SegoeIconRestoreWindow" NegativeResourceName="SegoeIconMaximizeWindow2" />
     <local:BoolToTextWrappingConverter x:Key="boolToTextWrappingConverter" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityNegatedConverter" Negated="True" />

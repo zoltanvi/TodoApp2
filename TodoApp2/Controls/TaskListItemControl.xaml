@@ -83,7 +83,7 @@
 
         <!--  Color bar overlaying the border  -->
         <Border Width="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource thicknessToDoubleConverter}}"
-                Margin="4 3"
+                Margin="4 2"
                 Panel.ZIndex="1000"
                 HorizontalAlignment="Left"
                 AutomationProperties.AutomationId="TaskListItemColorBar"
@@ -92,13 +92,14 @@
 
         <Border Margin="4 2"
                 CornerRadius="2"
-                BorderBrush="{DynamicResource TaskItemBorderBrush}"
+                BorderBrush="{DynamicResource TaskBorderBrush}"
                 BorderThickness="1"
                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
         <Border Margin="4 2"
                 CornerRadius="2"
                 BorderBrush="Transparent"
+                x:Name="TaskListItemBackground"
                 BorderThickness="1">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
@@ -125,13 +126,15 @@
                     CornerRadius="2 0 0 2" />-->
 
                 <CheckBox Grid.Column="1"
+                          Foreground="{Binding ElementName=TaskListItemBackground, Path=Background}"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           AutomationProperties.AutomationId="TaskListItemCheckBox"
                           Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                           CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                           IsChecked="{Binding IsDone}"
-                          Style="{DynamicResource TaskCheckBoxStyle}" />
+                          Style="{DynamicResource TaskCheckBoxStyle}"
+                          />
 
                 <!--  Main content  -->
                 <Grid Grid.Column="2" Margin="0 2 10 2">
@@ -182,7 +185,7 @@
                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
-                               Foreground="{DynamicResource TaskPageTimestampForegroundBrush}"
+                               Foreground="{DynamicResource TaskDateBrush}"
                                />
 
                         <!--  Creation date  -->
@@ -192,7 +195,7 @@
                                    Text="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
                                    FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                    FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
-                                   Foreground="{DynamicResource TaskPageTimestampForegroundBrush}"
+                                   Foreground="{DynamicResource TaskDateBrush}"
                                    Margin="0 0 16 0"
                                    />
 
@@ -202,7 +205,7 @@
                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
-                               Foreground="{DynamicResource TaskPageTimestampForegroundBrush}"
+                               Foreground="{DynamicResource TaskDateBrush}"
                                />
 
                         <!--  Modification date  -->
@@ -212,7 +215,7 @@
                                    Text="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
                                    FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                    FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
-                                   Foreground="{DynamicResource TaskPageTimestampForegroundBrush}"
+                                   Foreground="{DynamicResource TaskDateBrush}"
                                    />
                     </StackPanel>
 
@@ -229,6 +232,7 @@
                 <Border Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityConverter}}"
                         Grid.Column="2"
                         HorizontalAlignment="Right"
+                        Margin="0 0 8 0"
                         Background="Transparent">
                     <Grid>
                         <Label Content="{DynamicResource SegoeIconPinFilled}"
@@ -253,6 +257,7 @@
                         Background="Transparent"
                         IsEnabled="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
                         Opacity="0"
+                        Margin="0 0 10 0"
                         Visibility="{Binding IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
 
                     <Border.Triggers>
@@ -263,7 +268,7 @@
                                                      Storyboard.TargetProperty="(Opacity)"
                                                      From="0"
                                                      To="1"
-                                                     Duration="0:0:0.35" />
+                                                     Duration="0:0:0.15" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -275,7 +280,7 @@
                                                      Storyboard.TargetProperty="(Opacity)"
                                                      From="1"
                                                      To="0"
-                                                     Duration="0:0:0.15" />
+                                                     Duration="0:0:0.05" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>

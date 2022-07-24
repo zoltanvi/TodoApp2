@@ -57,12 +57,15 @@
 
                                     <!--  Outer dragging border  -->
                                     <Border Panel.ZIndex="2"
-                                            BorderBrush="{DynamicResource ApplicationBorderBrush}"
+                                            BorderBrush="{DynamicResource AppBorderBrush}"
                                             BorderThickness="1"
                                             CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}" />
 
                                     <!--  Window border and drop shadow  -->
-                                    <Border Background="{DynamicResource TaskPageBackgroundBrush}" CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}">
+                                    <Border Background="{DynamicResource PageBgBrush}" 
+                                            CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, 
+                                                Source={x:Static local:ViewModelLocator.Instance}, 
+                                                Converter={StaticResource singleCornerRadiusConverter}}">   
 
                                         <Grid>
                                             <Grid.RowDefinitions>
@@ -76,7 +79,7 @@
                                             <!--  Title Bar  -->
                                             <Border Grid.Column="0"
                                                     Panel.ZIndex="0"
-                                                    Background="{DynamicResource TitleBarBackgroundBrush}">
+                                                    Background="{DynamicResource TitleBarBgBrush}">
 
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -102,7 +105,10 @@
                                                            VerticalAlignment="Center"
                                                            Visibility="Collapsed"
                                                            local:AnimateFadeInAndOutProperty.Value="{Binding ApplicationViewModel.SaveIconVisible, Source={x:Static local:ViewModelLocator.Instance}}"
-                                                            Style="{DynamicResource IconLabelStyle}" FontSize="16" />
+                                                           Style="{DynamicResource IconLabelStyle}" 
+                                                           FontSize="16"
+                                                           Foreground="{DynamicResource TitleBarBrush}"
+                                                           />
 
                                                     <!--  Title bar date  -->
                                                     <Grid Grid.Column="1" Grid.ColumnSpan="2">
@@ -111,7 +117,7 @@
                                                               Source={x:Static local:ViewModelLocator.Instance}, 
                                                               Converter={StaticResource boolToVisibilityConverter}}"
                                                                Content="{Binding CurrentTime}"
-                                                               Foreground="{DynamicResource TitleBarForegroundBrush}"
+                                                               Foreground="{DynamicResource TitleBarBrush}"
                                                                VerticalAlignment="Center"
                                                                HorizontalAlignment="Center" />
                                                     </Grid>

@@ -15,7 +15,7 @@ namespace TodoApp2
         public ResourceDictionary CurrentThemeDictionary { get; private set; }
         public List<Theme> ThemeList { get; }
         public event EventHandler ThemeChanged;
-
+        private Dictionary<Theme, IColorScheme> m_ColorSchemes;
         public ThemeManager()
         {
             ThemeList = new List<Theme>();
@@ -25,6 +25,12 @@ namespace TodoApp2
             {
                 ThemeList.Add(item);
             }
+
+            m_ColorSchemes = new Dictionary<Theme, IColorScheme>()
+            {
+                //{Theme.VSBlue, new VSBlueColorScheme() },
+                //{Theme.Yellow, new YellowColorScheme() }
+            };
         }
 
         /// <summary>
@@ -45,6 +51,17 @@ namespace TodoApp2
                 // Change the old theme to the new one
                 ChangeTheme(oldThemePath, newThemePath);
             }
+
+            if (m_ColorSchemes.ContainsKey(newTheme))
+            {
+                //m_ColorSchemes[newTheme].ChangeColors();
+            }
+
+            //if (newTheme == Theme.VSBlue)
+            //{
+            //    RedBorder redBorder = new RedBorder();
+            //    redBorder.ChangeColor();
+            //}
 
             CurrentTheme = newTheme;
             ThemeChanged?.Invoke(this, EventArgs.Empty);

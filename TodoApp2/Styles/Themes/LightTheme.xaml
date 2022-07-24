@@ -3,54 +3,54 @@
                     xmlns:local="clr-namespace:TodoApp2">
 
     <Color x:Key="Transparent">#00000000</Color>
-    <Color x:Key="ThemeOpposite">#FFFFFF</Color>
+    <Color x:Key="ThemeOpposite">#000000</Color>
 
-    <Color x:Key="Foreground">#FFFFFF</Color>
-    <Color x:Key="TitleBar">#E4E4E4</Color>
-    <Color x:Key="Caret">#FFFFFF</Color>
-    <Color x:Key="EditorButton">#F3F3F3</Color>
-    <Color x:Key="Placeholder">#F3F3F3</Color>
+    <Color x:Key="Foreground">#000000</Color>
+    <Color x:Key="TitleBar">#000000</Color>
+    <Color x:Key="Caret">#000000</Color>
+    <Color x:Key="EditorButton">#000000</Color>
+    <Color x:Key="Placeholder">#828282</Color>
     <Color x:Key="CheckBox">#7e7e7e</Color>
-    <Color x:Key="LineNumber">#FFFFFF</Color>
+    <Color x:Key="LineNumber">#828282</Color>
     <Color x:Key="TaskDate">#FFFFFF</Color>
     <Color x:Key="CalendarDayColumn">#5CB6FF</Color>
     <Color x:Key="CalendarDisabledDays">#4E4E4E</Color>
 
-    <Color x:Key="PageBg">#1D1E1F</Color>
-    <Color x:Key="SideMenuBg">#1D1E1F</Color>
-    <Color x:Key="TitleBarBg">#18191A</Color>
-    <Color x:Key="BottomBarBg">#1C1C1C</Color>
-    <Color x:Key="TaskBg">#222324</Color>
-    <Color x:Key="TaskTransparentBg">#00222324</Color>
-    <Color x:Key="TaskDoneBg">#537F7F7F</Color>
-    <Color x:Key="SelectionBg">#1ED5B7</Color>
-    <Color x:Key="ScrollBarBg">#696A6B</Color>
-    <Color x:Key="ScrollBarPressedBg">#6E7882</Color>
-    <Color x:Key="SelectedCategoryBg">#404040</Color>
-    <Color x:Key="ComboBoxBg">#1E1E1E</Color>
-    <Color x:Key="ComboBoxButtonBg">#2E2E2E</Color>
-    <Color x:Key="ComboBoxDropDownBg">#333333</Color>
-    <Color x:Key="CalendarButtonBg">#3F4040</Color>
-    <Color x:Key="PopUpBg">#28292A</Color>
-    <Color x:Key="OverlayBg">#111111</Color>
-    <Color x:Key="ContextMenuBg">#2F3031</Color>
+    <Color x:Key="PageBg">#FFFFFF</Color>
+    <Color x:Key="SideMenuBg">#FFFFFF</Color>
+    <Color x:Key="TitleBarBg">#E6E6E6</Color>
+    <Color x:Key="BottomBarBg">#EEEEEE</Color>
+    <Color x:Key="TaskBg">#EEEEEE</Color>
+    <Color x:Key="TaskTransparentBg">#00EEEEEE</Color>
+    <Color x:Key="TaskDoneBg">#80E0E0E0</Color>
+    <Color x:Key="SelectionBg">#3A9CFF</Color>
+    <Color x:Key="ScrollBarBg">#B7B7B7</Color>
+    <Color x:Key="ScrollBarPressedBg">#9FA2A8</Color>
+    <Color x:Key="SelectedCategoryBg">#DEDEDE</Color>
+    <Color x:Key="ComboBoxBg">#FFFFFF</Color>
+    <Color x:Key="ComboBoxButtonBg">#F1F1F1</Color>
+    <Color x:Key="ComboBoxDropDownBg">#FFFFFF</Color>
+    <Color x:Key="CalendarButtonBg">#D6D6D6</Color>
+    <Color x:Key="PopUpBg">#EEEEEE</Color>
+    <Color x:Key="OverlayBg">#FFFFFF</Color>
+    <Color x:Key="ContextMenuBg">#FFFFFF</Color>
 
-    <Color x:Key="HoverCategoryBg">#303030</Color>
-    <Color x:Key="HoverTitleBarButtonBg">#383838</Color>
-    <Color x:Key="HoverCloseButtonBg">#D44E42</Color>
-    <Color x:Key="HoverButtonBg">#383838</Color>
-    <Color x:Key="HoverEditorButtonBg">#5f5f5f</Color>
-    <Color x:Key="CheckedEditorButtonBg">#494949</Color>
-    <Color x:Key="HoverContextMenuBg">#5E5E5E</Color>
-    <Color x:Key="CheckedComboBoxButtonBg">#585858</Color>
+    <Color x:Key="HoverCategoryBg">#EDEDED</Color>
+    <Color x:Key="HoverTitleBarButtonBg">#D7D7D7</Color>
+    <Color x:Key="HoverCloseButtonBg">#F76E62</Color>
+    <Color x:Key="HoverButtonBg">#DDDDDD</Color>
+    <Color x:Key="HoverEditorButtonBg">#D6D6D6</Color>
+    <Color x:Key="CheckedEditorButtonBg">#C2C2C2</Color>
+    <Color x:Key="HoverContextMenuBg">#EDEDED</Color>
+    <Color x:Key="CheckedComboBoxButtonBg">#E2E2E2</Color>
 
     <Color x:Key="CommonBorder">#5C5C5C</Color>
-    <Color x:Key="AppBorder">#404040</Color>
+    <Color x:Key="AppBorder">#B3B3B3</Color>
     <Color x:Key="ComboBoxBorder">#404040</Color>
     <Color x:Key="PopUpBorder">#404040</Color>
-    <Color x:Key="BottomBarBorder">#2D2D2D</Color>
+    <Color x:Key="BottomBarBorder">#DDDDDD</Color>
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
-    <Color x:Key="TaskBorder">#2D2D2D</Color>
+    <Color x:Key="TaskBorder">#80E0E0E0</Color>
     <Color x:Key="CheckBoxBorder">#7e7e7e</Color>
     <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
     <Color x:Key="ContextMenuBorder">#000000</Color>
@@ -103,7 +103,7 @@
     <SolidColorBrush x:Key="HoverEditorButtonBgBrush" Color="{DynamicResource HoverEditorButtonBg}" />
     <SolidColorBrush x:Key="CheckedEditorButtonBgBrush" Color="{DynamicResource CheckedEditorButtonBg}" />
     <SolidColorBrush x:Key="HoverContextMenuBgBrush" Color="{DynamicResource HoverContextMenuBg}" />
-    <SolidColorBrush x:Key="HoverBaseButtonBgBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.2" />
+    <SolidColorBrush x:Key="HoverBaseButtonBgBrush" Color="{DynamicResource HoverComboBoxDropDownBg}" />
     <SolidColorBrush x:Key="HoverCalendarItemBgBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.1" />
     <SolidColorBrush x:Key="CheckedComboBoxButtonBgBrush" Color="{DynamicResource CheckedComboBoxButtonBg}" />
     <SolidColorBrush x:Key="HoverComboBoxDropDownItemBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.1" />

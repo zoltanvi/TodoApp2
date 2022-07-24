@@ -4,8 +4,9 @@
                     x:Name="LightThemeResourceDictionary">
 
     <!--  BRUSHES (cannot be in a separate xaml because the theme switch would not work)  -->
+    <Color x:Key="AppBorderColor">#B3B3B3</Color>
 
-    <SolidColorBrush x:Key="ApplicationBorderBrush" Color="#B3B3B3" />
+    
 
     <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="#000000" />
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="#ffffff" />
@@ -49,9 +50,9 @@
     <SolidColorBrush x:Key="TextEditorButtonHoverBackgroundBrush" Color="#a8a8a8" />
     <SolidColorBrush x:Key="TextEditorButtonPressedBackgroundBrush" Color="#949494" />
 
-    <SolidColorBrush x:Key="InnerWindowForegroundBrush" Color="Black" />
-    <SolidColorBrush x:Key="TextBoxCaretBrush" Color="Black" />
-    <SolidColorBrush x:Key="TextBoxPlaceholderBrush" Color="#545454" />
+    <SolidColorBrush x:Key="ForegroundBrush" Color="Black" />
+    <SolidColorBrush x:Key="CaretBrush" Color="Black" />
+    <SolidColorBrush x:Key="PlaceholderBrush" Color="#545454" />
 
     <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="#80FFFFFF" />
 

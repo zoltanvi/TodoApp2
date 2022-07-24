@@ -31,7 +31,7 @@ namespace TodoApp2
         }
 
         private const double s_OriginalScalingPercent = 100;
-        private const double OriginalSideMenuWidth = 300;
+        private const double OriginalSideMenuWidth = 350;
         private const double OriginalTextBoxMaxHeight = 324;
         private const double OriginalColorPickerHeight = 22;
         private const double OriginalColorPickerWidth = 32;

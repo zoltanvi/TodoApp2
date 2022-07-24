@@ -3,24 +3,20 @@
     public enum Theme
     {
         ExtraDark,
-        Dark,
+        //Dark,
 
-        Gray,
-        Nord,
+        //Gray,
+        //Nord,
 
-        //Peach,
-        //Ocean,
         VSBlue,
 
-        //ExtraDarkBlue,
+        //Yellow,
+        //Green,
+        //Pink,
+        //Purple,
+        //Blue,
 
-        Yellow,
-        Green,
-        Pink,
-        Purple,
-        Blue,
-
-        PastelLight,
-        ExtraLight,
+        Light,
+        //ExtraLight,
     }
 }

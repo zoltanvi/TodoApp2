@@ -56,8 +56,8 @@ namespace TodoApp2.Core
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
             OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
             OpenNotePageCommand = new RelayCommand(OpenNotePage);
-            LogInCommand = new RelayCommand(IoC.SessionManager.LogIn);
-            LogOutCommand = new RelayCommand(IoC.SessionManager.LogOut);
+            //LogInCommand = new RelayCommand(IoC.SessionManager.LogIn);
+            //LogOutCommand = new RelayCommand(IoC.SessionManager.LogOut);
 
             // Subscribe to the collection changed event for synchronizing with database
             m_CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;

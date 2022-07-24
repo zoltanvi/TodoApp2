@@ -30,13 +30,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0"  Background="{DynamicResource TitleBarBackgroundBrush}">
+                <Border Grid.Column="0"  Background="{DynamicResource TitleBarBgBrush}">
 
                     <!-- Line numbers ============================================== -->
 
                     <TextBox
                         Style="{StaticResource NotePageTextBoxStyle}"
-                        Foreground="{DynamicResource NotePageNumberForeground}"
+                        Foreground="{DynamicResource LineNumberBrush}"
+                        Cursor="Arrow"
                         IsReadOnly="True"
                         Focusable="False"
                         Margin="0 5"
@@ -56,42 +57,23 @@
                                           HorizontalScrollBarVisibility="Hidden"
                                           ScrollChanged="HorizontalScrollViewer_ScrollChanged"
                                           Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
-                    
+
                     <!-- Note content ============================================== -->
-                            <TextBox 
-                                    Grid.Column="1"
-                                     Padding="5 5" 
-                                     VerticalAlignment="Stretch"
-                                     Name="NoteContentTextBox"
-                                     Style="{StaticResource NotePageTextBoxStyle}"
-                                     TextWrapping="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, 
-                                        Source={x:Static local:ViewModelLocator.Instance}, 
-                                        UpdateSourceTrigger=PropertyChanged, Converter={StaticResource boolToTextWrappingConverter}}"
-                                     Text="{Binding ApplicationViewModel.ApplicationSettings.NoteContent, 
-                                        Source={x:Static local:ViewModelLocator.Instance}, 
-                                        Mode=TwoWay, 
-                                        UpdateSourceTrigger=PropertyChanged}"   
-                                     PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"
-                                
+                    <TextBox 
+                        Grid.Column="1"
+                         Padding="5 5" 
+                         VerticalAlignment="Stretch"
+                         Name="NoteContentTextBox"
+                         Style="{StaticResource NotePageTextBoxStyle}"
+                         TextWrapping="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, 
+                            Source={x:Static local:ViewModelLocator.Instance}, 
+                            UpdateSourceTrigger=PropertyChanged, Converter={StaticResource boolToTextWrappingConverter}}"
+                         Text="{Binding ApplicationViewModel.ApplicationSettings.NoteContent, 
+                            Source={x:Static local:ViewModelLocator.Instance}, 
+                            Mode=TwoWay, 
+                            UpdateSourceTrigger=PropertyChanged}"   
+                         PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"
                                 />
-                    
-                                <!--TextOptions.TextFormattingMode="{Binding ApplicationViewModel.ApplicationSettings.TextFormattingMode, 
-                                Source={x:Static local:ViewModelLocator.Instance}, 
-                                UpdateSourceTrigger=PropertyChanged, 
-                                Mode=TwoWay, 
-                                Converter={local:TextFormattingModeConverter}}"
-                                    
-                                TextOptions.TextRenderingMode="{Binding ApplicationViewModel.ApplicationSettings.TextRenderingMode, 
-                                Source={x:Static local:ViewModelLocator.Instance}, 
-                                UpdateSourceTrigger=PropertyChanged, 
-                                Mode=TwoWay, 
-                                Converter={local:TextRenderingModeConverter}}"
-                                
-                                RenderOptions.ClearTypeHint="{Binding ApplicationViewModel.ApplicationSettings.ClearTypeHint, 
-                                Source={x:Static local:ViewModelLocator.Instance}, 
-                                UpdateSourceTrigger=PropertyChanged, 
-                                Mode=TwoWay, 
-                                Converter={local:ClearTypeHintConverter}}"-->
 
                 </local:CustomScrollViewer>
 
@@ -107,7 +89,7 @@
                    Minimum="0" 
                    Maximum="{Binding ScrollableWidth, ElementName=HorizontalScrollViewer}" 
                    Scroll="ScrollBar_Scroll"
-                   Background="{DynamicResource TitleBarBackgroundBrush}"
+                   Background="{DynamicResource TitleBarBgBrush}"
                    ViewportSize="{Binding ViewportWidth, ElementName=HorizontalScrollViewer}"
                    />
 

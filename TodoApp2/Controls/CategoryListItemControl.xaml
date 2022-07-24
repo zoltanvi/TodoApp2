@@ -52,11 +52,11 @@
                                 <Binding Path="CategoryListService.CurrentCategory" Source="{x:Static local:ViewModelLocator.Instance}" />
                             </MultiBinding>
                         </DataTrigger.Binding>
-                        <Setter Property="Background" Value="{DynamicResource CategorySelectedBackgroundBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
                     </DataTrigger>
                     <!--  The mouse over trigger is the second defined one so it can highlight an already selected item also  -->
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource CategoryHoverBackgroundBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

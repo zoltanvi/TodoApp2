@@ -297,4 +297,10 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <Style x:Key="BottomPanelStyle" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource TaskPageBottomBarBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BottomBarBorderBrush}" />
+        <Setter Property="BorderThickness" Value="0 1 0 0" />
+    </Style>
+
 </ResourceDictionary>

@@ -157,7 +157,7 @@ namespace TodoApp2
             }
             else
             {
-                SolidColorBrush defaultColor = (SolidColorBrush)Application.Current.TryFindResource("TaskPageForegroundBrush");
+                SolidColorBrush defaultColor = (SolidColorBrush)Application.Current.TryFindResource("ForegroundBrush");
                 Selection.ApplyPropertyValue(TextElement.ForegroundProperty, defaultColor);
             }
         }

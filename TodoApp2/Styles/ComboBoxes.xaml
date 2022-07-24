@@ -13,18 +13,18 @@
             <Border x:Name="Border"
                     Grid.ColumnSpan="2"
                     CornerRadius="0"
-                    Background="{DynamicResource ComboBoxButtonBrush}"
+                    Background="{DynamicResource ComboBoxButtonBgBrush}"
                     BorderBrush="{DynamicResource ComboBoxBorderBrush}"
                     BorderThickness="2" />
             <Border Grid.Column="0"
                     CornerRadius="0"
                     Margin="2"
-                    Background="{DynamicResource ComboBoxBackgroundBrush}"
+                    Background="{DynamicResource ComboBoxBgBrush}"
                     BorderBrush="{DynamicResource ComboBoxBorderBrush}"
                     BorderThickness="0 0 0 0" />
             <Path x:Name="Arrow"
                   Grid.Column="1"
-                  Fill="{DynamicResource ComboBoxArrowBrush}"
+                  Fill="{DynamicResource ForegroundBrush}"
                   HorizontalAlignment="Left"
                   Margin="6 0 0 0"
                   VerticalAlignment="Center"
@@ -34,12 +34,12 @@
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
                 <Setter TargetName="Border"
                         Property="Background"
-                        Value="{DynamicResource ComboBoxButtonMouseOverBrush}" />
+                        Value="{DynamicResource ComboBoxButtonBgBrush}" />
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true">
                 <Setter TargetName="Border"
                         Property="Background"
-                        Value="{DynamicResource ComboBoxButtonCheckedBrush}" />
+                        Value="{DynamicResource CheckedComboBoxButtonBgBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="Border"
@@ -73,7 +73,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="MinWidth" Value="50" />
         <Setter Property="MinHeight" Value="26" />
-        <Setter Property="Foreground" Value="{DynamicResource ComboBoxSelectedItemForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -114,9 +114,9 @@
                                   MinWidth="{TemplateBinding ActualWidth}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
-                                        Background="{DynamicResource ComboBoxDropDownBackgroundBrush}"
-                                        BorderThickness="0"
-                                        BorderBrush="#888888" />
+                                        Background="{DynamicResource ComboBoxBgBrush}"
+                                        BorderThickness="1"
+                                        BorderBrush="{DynamicResource ComboBoxBorderBrush}" />
                                 <ScrollViewer Margin="0 4" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
@@ -163,7 +163,7 @@
     <!--  SimpleStyles: ComboBoxItem  -->
     <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="Foreground" Value="{DynamicResource ComboBoxDropDownForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
@@ -177,7 +177,7 @@
                         <Trigger Property="IsHighlighted" Value="true">
                             <Setter TargetName="Border"
                                     Property="Background"
-                                    Value="{DynamicResource ComboBoxDropDownMouseOverBrush}" />
+                                    Value="{DynamicResource HoverComboBoxDropDownItemBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="#888888" />
@@ -204,7 +204,7 @@
                     BorderThickness="{TemplateBinding BorderThickness}" />
             <Path x:Name="Arrow"
                   Grid.Column="1"
-                  Fill="{DynamicResource ComboBoxArrowBrush}"
+                  Fill="{DynamicResource ForegroundBrush}"
                   HorizontalAlignment="Left"
                   Margin="0 0 0 0"
                   VerticalAlignment="Center"
@@ -214,7 +214,9 @@
             </Grid.LayoutTransform>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="ToggleButton.IsMouseOver" Value="true" />
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true" >
+                <Setter TargetName="Arrow" Property="Fill" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource stringRGBToBrushConverter}}" />
+            </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true" />
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="#888888" />
@@ -237,7 +239,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Width" Value="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
-        <Setter Property="Foreground" Value="{DynamicResource ComboBoxSelectedItemForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -269,10 +271,10 @@
                                       MinWidth="{TemplateBinding ActualWidth}"
                                       MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder"
-                                            Background="{DynamicResource ComboBoxDropDownBackgroundBrush}"
-                                            BorderThickness="0"
+                                            Background="{DynamicResource ComboBoxBgBrush}"
+                                            BorderThickness="1"
                                             CornerRadius="4"
-                                            BorderBrush="#888888" />
+                                            BorderBrush="{DynamicResource ComboBoxBorderBrush}" />
 
                                     <WrapPanel Margin="8"
                                                Orientation="Vertical"
@@ -350,10 +352,10 @@
                                       MinWidth="{TemplateBinding ActualWidth}"
                                       MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder"
-                                            Background="{DynamicResource ComboBoxDropDownBackgroundBrush}"
-                                            BorderThickness="0"
+                                            Background="{DynamicResource ComboBoxBgBrush}"
+                                            BorderThickness="1"
                                             CornerRadius="4"
-                                            BorderBrush="#888888" />
+                                            BorderBrush="{DynamicResource CommonBorderBrush}" />
 
                                     <WrapPanel Margin="8"
                                                Orientation="Vertical"
@@ -389,7 +391,7 @@
         </Setter>
         <!--<Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource TextEditorButtonHoverBackgroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource HoverEditorButtonBgBrush}" />
             </Trigger>
         </Style.Triggers>-->
     </Style>

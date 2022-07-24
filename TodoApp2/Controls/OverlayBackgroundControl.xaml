@@ -17,7 +17,7 @@
                 <!--  Overlay background is behind the content  -->
                 <Border x:Name="OverlayBackgroundBorder"
                         AutomationProperties.AutomationId="OverlayBackgroundBorder"
-                        Background="{DynamicResource OverlayBackgroundBrush}"
+                        Background="{DynamicResource OverlayBgBrush}"
                         Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="MouseDown">

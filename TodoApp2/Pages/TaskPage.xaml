@@ -43,6 +43,7 @@
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
                                          Tag="Add new task"
+                                         Background="{DynamicResource BottomBarBgBrush}"
                                          Style="{DynamicResource FormattableRichTextBoxStyle}"
                                          DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEmptyOrWhiteSpace="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

@@ -7,8 +7,8 @@
     <!--  Time picker  -->
     <Style x:Key="TimePickerStyle" TargetType="{x:Type xctk:TimePicker}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource TimePickerForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="#5C5C5C" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CommonBorderBrush}" />
         <Setter Property="BorderThickness" Value="1 1 1 1" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="IsTabStop" Value="False" />
@@ -39,6 +39,7 @@
                                             AllowSpin="{TemplateBinding AllowSpin}"
                                             Background="{TemplateBinding Background}"
                                             BorderBrush="{TemplateBinding BorderBrush}"
+                                            Foreground="{TemplateBinding Foreground}"
                                             BorderThickness="{TemplateBinding BorderThickness}"
                                             ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
                                             IsTabStop="False"
@@ -69,7 +70,7 @@
                             <xctk:ButtonSpinner.Style>
                                 <Style TargetType="{x:Type xctk:ButtonSpinner}">
                                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
                                     <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlNormalBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}" />
                                     <Setter Property="BorderThickness" Value="1" />
                                     <Setter Property="Focusable" Value="False" />
@@ -115,7 +116,7 @@
                                                                               HorizontalAlignment="Center"
                                                                               VerticalAlignment="Center"
                                                                               Data="M0,5L4.5,0.5 9,5 6,5 4.5,3.5 3,5z"
-                                                                              Fill="White"
+                                                                              Fill="{DynamicResource ForegroundBrush}"
                                                                               Focusable="False"
                                                                               SnapsToDevicePixels="True" />
                                                                     </DataTemplate>
@@ -133,7 +134,7 @@
                                                                               HorizontalAlignment="Center"
                                                                               VerticalAlignment="Center"
                                                                               Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z"
-                                                                              Fill="White"
+                                                                              Fill="{DynamicResource ForegroundBrush}"
                                                                               Focusable="False"
                                                                               SnapsToDevicePixels="True" />
                                                                     </DataTemplate>
@@ -155,6 +156,7 @@
                                       Grid.Column="1"
                                       Background="Red"
                                       Focusable="False"
+                                      Foreground="{TemplateBinding Foreground}"
                                       IsChecked="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}}">
                             <ToggleButton.IsHitTestVisible>
                                 <Binding Path="IsOpen" RelativeSource="{RelativeSource TemplatedParent}">
@@ -177,9 +179,8 @@
                                             <ControlTemplate TargetType="{x:Type ToggleButton}">
                                                 <Grid SnapsToDevicePixels="True">
                                                     <xctk:ButtonChrome x:Name="ToggleButtonChrome"
-                                                                       Background="{DynamicResource TimePickerButtonBackgroundBrush}"
+                                                                       Background="{DynamicResource ComboBoxButtonBgBrush}"
                                                                        CornerRadius="0">
-                                                        <!--  RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderChecked="{Binding IsOpen, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:TimePicker}}}" RenderEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:TimePicker}}}" >  -->
 
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
@@ -201,7 +202,7 @@
                                                                       Height="5"
                                                                       Margin="0 1 0 0"
                                                                       Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z"
-                                                                      Fill="White" />
+                                                                      Fill="{DynamicResource ForegroundBrush}" />
                                                                 <Grid.LayoutTransform>
                                                                     <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
                                                                 </Grid.LayoutTransform>
@@ -249,7 +250,7 @@
                                     BorderThickness="1">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="#FFF0F0F0" />
+                                        <GradientStop Offset="0" Color="Red" />
                                         <GradientStop Offset="1" Color="#FFE5E5E5" />
                                     </LinearGradientBrush>
                                 </Border.Background>
@@ -260,6 +261,8 @@
                                         <ListBox.ItemContainerStyle>
                                             <Style TargetType="{x:Type ListBoxItem}">
                                                 <Setter Property="Padding" Value="4" />
+                                                <!--<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>-->
+                                                <!--<Setter Property="Background" Value="{DynamicResource ContextMenuBackgroundBrush}"/>-->
                                                 <Style.Triggers>
                                                     <MultiTrigger>
                                                         <MultiTrigger.Conditions>
@@ -275,7 +278,7 @@
                                                             <Condition Property="IsSelected" Value="True" />
                                                         </MultiTrigger.Conditions>
                                                         <!--<Setter Property="Background" Value="#FFC4E5F6" />-->
-                                                        <Setter Property="BorderBrush" Value="#FF26A0DA" />
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource HoverContextMenuBgBrush}" />
                                                     </MultiTrigger>
                                                     <MultiTrigger>
                                                         <MultiTrigger.Conditions>
@@ -283,7 +286,7 @@
                                                             <Condition Property="IsSelected" Value="True" />
                                                         </MultiTrigger.Conditions>
                                                         <!--<Setter Property="Background" Value="#FFD1E8FF" />-->
-                                                        <Setter Property="BorderBrush" Value="#FF66A7E8" />
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource HoverContextMenuBgBrush}" />
                                                     </MultiTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -357,7 +360,7 @@
 
     <Style x:Key="BaseButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Background" Value="{DynamicResource TimePickerButtonBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ComboBoxButtonBgBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="BorderThickness" Value="1 0 0 0" />
@@ -389,19 +392,19 @@
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="border"
                                     Property="Background"
-                                    Value="{DynamicResource TimePickerButtonBackgroundHoveredBrush}" />
+                                    Value="{DynamicResource HoverBaseButtonBgBrush}" />
                             <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}" />-->
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="border"
                                     Property="Background"
-                                    Value="{DynamicResource TimePickerButtonBackgroundHoveredBrush}" />
+                                    Value="{DynamicResource HoverBaseButtonBgBrush}" />
                             <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}" />-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter TargetName="border"
                                     Property="Background"
-                                    Value="{DynamicResource TimePickerButtonBackgroundHoveredBrush}" />
+                                    Value="{DynamicResource HoverBaseButtonBgBrush}" />
                             <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}" />-->
                             <Setter TargetName="contentPresenter"
                                     Property="TextElement.Foreground"
@@ -421,7 +424,7 @@
 
     <!--  Calendar  -->
     <Style x:Key="CalendarStyle" TargetType="{x:Type Calendar}">
-        <Setter Property="Background" Value="{DynamicResource CalendarBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource TransparentBrush}" />
         <Setter Property="CalendarDayButtonStyle" Value="{DynamicResource CalendarDayButtonStyle}" />
         <Setter Property="CalendarButtonStyle" Value="{DynamicResource CalendarButtonStyle}" />
         <Setter Property="Template">
@@ -444,7 +447,7 @@
 
     <!--  Calendar day view style  -->
     <Style x:Key="CalendarDayButtonStyle" TargetType="{x:Type CalendarDayButton}">
-        <Setter Property="Background" Value="{DynamicResource CalendarItemMouseOverBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource HoverCalendarItemBgBrush}" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -455,7 +458,7 @@
                 <ControlTemplate TargetType="CalendarDayButton">
                     <Grid>
                         <Rectangle x:Name="TodayBackground"
-                                   Fill="#FF464646"
+                                   Fill="{DynamicResource CalendarTodayBgBrush}"
                                    Opacity="0"
                                    RadiusX="1"
                                    RadiusY="1" />
@@ -480,11 +483,11 @@
                                         IsTabStop="False">
                             <ContentControl.Foreground>
                                 <LinearGradientBrush>
-                                    <!--  First 2 is the selected day  -->
-                                    <GradientStop Offset="0" Color="{DynamicResource CalendarNormalDayForeground}" />
-                                    <GradientStop Offset="0" Color="{DynamicResource CalendarNormalDayForeground}" />
-                                    <GradientStop Offset="0" Color="{DynamicResource CalendarNormalDayForeground}" />
-                                    <GradientStop Offset="1" Color="{DynamicResource CalendarNormalDayForeground}" />
+                                      <!--First 2 is the selected day-->  
+                                    <GradientStop Offset="0" Color="{DynamicResource Foreground}" />
+                                    <GradientStop Offset="0" Color="{DynamicResource Foreground}" />
+                                    <GradientStop Offset="0" Color="{DynamicResource Foreground}" />
+                                    <GradientStop Offset="1" Color="{DynamicResource Foreground}" />
                                 </LinearGradientBrush>
                             </ContentControl.Foreground>
                         </ContentControl>
@@ -585,11 +588,11 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetName="Content"
                                                         Storyboard.TargetProperty="(ContentControl.Foreground).(GradientBrush.GradientStops)[2].(GradientStop.Color)"
-                                                        To="{DynamicResource CalendarDisabledDayForeground}"
+                                                        To="{DynamicResource CalendarDisabledDays}"
                                                         Duration="0" />
                                         <ColorAnimation Storyboard.TargetName="Content"
                                                         Storyboard.TargetProperty="(ContentControl.Foreground).(GradientBrush.GradientStops)[3].(GradientStop.Color)"
-                                                        To="{DynamicResource CalendarDisabledDayForeground}"
+                                                        To="{DynamicResource CalendarDisabledDays}"
                                                         Duration="0" />
                                     </Storyboard>
                                 </VisualState>
@@ -709,36 +712,31 @@
                         <Rectangle x:Name="SelectedBackground"
                                    Opacity="0"
                                    RadiusX="1"
-                                   RadiusY="1">
-                            <Rectangle.Fill>
-                                <SolidColorBrush Color="{DynamicResource CalendarItemMouseOverBackground}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
+                                   RadiusY="1"
+                                   Fill="{DynamicResource HoverCalendarItemBgBrush}"
+                                   />
+
                         <Rectangle x:Name="Background"
                                    Opacity="0"
                                    RadiusX="0"
-                                   RadiusY="0">
-                            <Rectangle.Fill>
-                                <SolidColorBrush Color="{DynamicResource CalendarItemMouseOverBackground}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
+                                   RadiusY="0"
+                                   Fill="{DynamicResource HoverCalendarItemBgBrush}"
+                                   />
                         <ContentPresenter x:Name="NormalText"
                                           Margin="14 0 14 1"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <TextElement.Foreground>
-                                <SolidColorBrush Color="{DynamicResource CalendarNormalDayForeground}" />
+                                <SolidColorBrush Color="{DynamicResource Foreground}" />
                             </TextElement.Foreground>
                         </ContentPresenter>
                         <Rectangle x:Name="CalendarButtonFocusVisual"
                                    IsHitTestVisible="false"
                                    RadiusX="1"
                                    RadiusY="1"
-                                   Visibility="Collapsed">
-                            <Rectangle.Stroke>
-                                <SolidColorBrush Color="{DynamicResource CalendarItemMouseOverBackground}" />
-                            </Rectangle.Stroke>
-                        </Rectangle>
+                                   Visibility="Collapsed"
+                                   Fill="{DynamicResource HoverCalendarItemBgBrush}"
+                                   />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="CommonStates">
                                 <VisualStateGroup.Transitions>
@@ -785,7 +783,7 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetName="NormalText"
                                                         Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                        To="{DynamicResource CalendarDisabledDayForeground}"
+                                                        To="{DynamicResource CalendarDisabledDays}"
                                                         Duration="0" />
                                     </Storyboard>
                                 </VisualState>
@@ -836,7 +834,7 @@
                                        FontFamily="{StaticResource Ubuntu}"
                                        FontSize="14"
                                        FontWeight="Normal"
-                                       Foreground="{DynamicResource CalendarDayTitleForegroundBrush}"
+                                       Foreground="{DynamicResource CalendarDayColumnBrush}"
                                        Text="{Binding}" />
                         </DataTemplate>
                     </ControlTemplate.Resources>
@@ -855,7 +853,7 @@
                                     <Grid.Resources>
                                         <ControlTemplate x:Key="PreviousButtonTemplate" TargetType="{x:Type Button}">
                                             <Grid Cursor="Hand">
-                                                <Rectangle Fill="{DynamicResource CalendarPrevNextButtonBackgroundBrush}"
+                                                <Rectangle Fill="{DynamicResource CalendarButtonBgBrush}"
                                                            Opacity="1"
                                                            Stretch="Fill" />
                                                 <Grid>
@@ -866,20 +864,20 @@
                                                           HorizontalAlignment="Left"
                                                           VerticalAlignment="Center"
                                                           Data="M288.75,232.25 L288.75,240.625 L283,236.625 z"
-                                                          Fill="{DynamicResource CalendarPrevNextButtonBrush}"
+                                                          Fill="{DynamicResource ForegroundBrush}"
                                                           Stretch="Fill" />
                                                 </Grid>
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Normal" />
-                                                        <VisualState x:Name="MouseOver">
+                                                        <!--<VisualState x:Name="MouseOver">
                                                             <Storyboard>
                                                                 <ColorAnimation Storyboard.TargetName="path"
                                                                                 Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
-                                                                                To="{DynamicResource CalendarPrevNextButtonHovered}"
+                                                                                To="{DynamicResource CalendarButtonBg}"
                                                                                 Duration="0" />
                                                             </Storyboard>
-                                                        </VisualState>
+                                                        </VisualState>-->
                                                         <VisualState x:Name="Disabled">
                                                             <Storyboard>
                                                                 <DoubleAnimation Storyboard.TargetName="path"
@@ -894,7 +892,7 @@
                                         </ControlTemplate>
                                         <ControlTemplate x:Key="NextButtonTemplate" TargetType="{x:Type Button}">
                                             <Grid Cursor="Hand">
-                                                <Rectangle Fill="{DynamicResource CalendarPrevNextButtonBackgroundBrush}"
+                                                <Rectangle Fill="{DynamicResource CalendarButtonBgBrush}"
                                                            Opacity="1"
                                                            Stretch="Fill" />
                                                 <Grid>
@@ -905,20 +903,20 @@
                                                           HorizontalAlignment="Right"
                                                           VerticalAlignment="Center"
                                                           Data="M282.875,231.875 L282.875,240.375 L288.625,236 z"
-                                                          Fill="{DynamicResource CalendarPrevNextButtonBrush}"
+                                                          Fill="{DynamicResource ForegroundBrush}"
                                                           Stretch="Fill" />
                                                 </Grid>
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Normal" />
-                                                        <VisualState x:Name="MouseOver">
+                                                        <!--<VisualState x:Name="MouseOver">
                                                             <Storyboard>
                                                                 <ColorAnimation Storyboard.TargetName="path"
                                                                                 Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
-                                                                                To="{DynamicResource CalendarPrevNextButtonHovered}"
+                                                                                To="{DynamicResource CalendarButtonBg}"
                                                                                 Duration="0" />
                                                             </Storyboard>
-                                                        </VisualState>
+                                                        </VisualState>-->
                                                         <VisualState x:Name="Disabled">
                                                             <Storyboard>
                                                                 <DoubleAnimation Storyboard.TargetName="path"
@@ -939,18 +937,18 @@
                                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                                   Content="{TemplateBinding Content}"
                                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                                  TextElement.Foreground="{DynamicResource CalendarDateBrush}" />
+                                                                  TextElement.Foreground="{DynamicResource ForegroundBrush}" />
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Normal" />
-                                                        <VisualState x:Name="MouseOver">
+                                                        <!--<VisualState x:Name="MouseOver">
                                                             <Storyboard>
                                                                 <ColorAnimation Storyboard.TargetName="buttonContent"
                                                                                 Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                                                To="{DynamicResource CalendarPrevNextButtonHovered}"
+                                                                                To="{DynamicResource CalendarButtonBg}"
                                                                                 Duration="0" />
                                                             </Storyboard>
-                                                        </VisualState>
+                                                        </VisualState>-->
                                                         <VisualState x:Name="Disabled">
                                                             <Storyboard>
                                                                 <DoubleAnimation Storyboard.TargetName="buttonContent"

@@ -21,7 +21,7 @@ namespace TodoApp2
                 // Brush is always got from resources because this way it can dynamically change during runtime
                 if (!isBackgroundVisible) return s_Transparent;
 
-                return isDone ? Application.Current.TryFindResource("HatchBrush") : Application.Current.TryFindResource("TaskItemBackgroundBrush");
+                return isDone ? Application.Current.TryFindResource("HatchBrush") : Application.Current.TryFindResource("TaskBgBrush");
             }
 
             return false;

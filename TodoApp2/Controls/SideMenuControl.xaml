@@ -13,7 +13,7 @@
         <ControlTemplate TargetType="UserControl">
 
             <Border x:Name="NavigatorContentBorder"
-                    Background="{DynamicResource SideMenuBackgroundBrush}"
+                    Background="{DynamicResource SideMenuBgBrush}"
                     Width="{Binding UIScaler.SideMenuWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                     ClipToBounds="True"
                     HorizontalAlignment="Left">

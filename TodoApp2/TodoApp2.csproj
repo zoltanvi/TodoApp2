@@ -163,6 +163,8 @@
     <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\TextBoxPreviewKeyDownHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
+    <Compile Include="Styles\Themes\ColorSchemes\BaseColorScheme.cs" />
+    <Compile Include="Styles\Themes\ColorSchemes\YellowColorScheme.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\GenericBasePage.cs" />
     <Compile Include="Pages\NotePage.xaml.cs">
@@ -190,6 +192,8 @@
       <DependentUpon>ThemeEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApplicationPageHelper.cs" />
+    <Compile Include="Styles\Themes\ColorSchemes\IColorScheme.cs" />
+    <Compile Include="Styles\Themes\ColorSchemes\VSBlueColorScheme.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
@@ -317,29 +321,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Themes\BeigeTheme.xaml">
+    <Page Include="Styles\Themes\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\Themes\GreenTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\NordTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\GrayTheme.xaml">
+    <Page Include="Styles\Themes\VSBlueTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Themes\ExtraDarkTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\DarkTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Fonts.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -348,46 +340,6 @@
     <Page Include="Styles\Buttons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\ExtraLightTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\ExtraDarkBlueTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\PastelLightTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\OceanTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\PeachTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\BlueTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\PurpleTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\VSBlueTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Themes\YellowTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\PinkTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ListBoxes.xaml">
       <SubType>Designer</SubType>

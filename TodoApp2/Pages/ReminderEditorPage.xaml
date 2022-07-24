@@ -27,8 +27,8 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Margin="20 70"
-                Background="{DynamicResource OverlayPageBackgroundBrush}"
-                BorderBrush="{DynamicResource ApplicationBorderBrush}"
+                Background="{DynamicResource PopUpBgBrush}"
+                BorderBrush="{DynamicResource AppBorderBrush}"
                 BorderThickness="1"
                 CornerRadius="4"
                 local:SizeObserver.Observe="True"
@@ -51,7 +51,7 @@
 
                 <!--  Titlebar  -->
                 <Border Grid.Row="0"
-                        BorderBrush="{DynamicResource NotificationBorderBrush}"
+                        BorderBrush="{DynamicResource CommonBorderBrush}"
                         BorderThickness="0 0 0 1">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -105,11 +105,12 @@
                     <TextBox Grid.Row="1"
                              Grid.Column="0"
                              Margin="0 0 10 0"
+                             Style="{DynamicResource DateTextBoxStyle}"
                              Background="#00000000"
                              BorderBrush="{Binding IsSelectedDateStringValid, 
                                 Converter={StaticResource reminderBoolToBrushConverter}, Mode=TwoWay}"
                              FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"
-                             Foreground="{DynamicResource DatePickerForegroundBrush}"
+                             Foreground="{DynamicResource ForegroundBrush}"
                              Text="{Binding SelectedDateString, Mode=TwoWay}" />
 
                     <!--  TimePicker  -->
@@ -128,7 +129,7 @@
                           SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
                           Style="{DynamicResource CalendarStyle}" />
 
-                <Border Grid.Row="4" BorderBrush="{DynamicResource NotificationBorderBrush}">
+                <Border Grid.Row="4" BorderBrush="{DynamicResource CommonBorderBrush}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -137,14 +138,14 @@
 
                         <!--  RESET button  -->
                         <Button Grid.Column="0"
-                                BorderBrush="{DynamicResource NotificationBorderBrush}"
+                                BorderBrush="{DynamicResource CommonBorderBrush}"
                                 Command="{Binding ResetReminderCommand}"
                                 Content="Reset"
                                 Style="{DynamicResource ReminderBottomButtonStyle}" />
 
                         <!--  SET button  -->
                         <Button Grid.Column="1"
-                                BorderBrush="{DynamicResource NotificationBorderBrush}"
+                                BorderBrush="{DynamicResource CommonBorderBrush}"
                                 Command="{Binding SetReminderCommand}"
                                 Content="Set"
                                 IsEnabled="{Binding IsSelectedDateStringValid}"

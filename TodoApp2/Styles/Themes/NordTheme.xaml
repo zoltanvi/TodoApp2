@@ -4,8 +4,9 @@
                     x:Name="DarkThemeResourceDictionary">
 
     <!--  BRUSHES (cannot be in a separate xaml because the theme switch would not work)  -->
+    <Color x:Key="AppBorderColor">#5e81ac</Color>
 
-    <SolidColorBrush x:Key="ApplicationBorderBrush" Color="#5e81ac" />
+    
 
     <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="#eceff4" />
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="#2e3440" />
@@ -49,9 +50,9 @@
     <SolidColorBrush x:Key="TextEditorButtonHoverBackgroundBrush" Color="#4B5C7D" />
     <SolidColorBrush x:Key="TextEditorButtonPressedBackgroundBrush" Color="#566A91" />
 
-    <SolidColorBrush x:Key="InnerWindowForegroundBrush" Color="#ffffff" />
-    <SolidColorBrush x:Key="TextBoxCaretBrush" Color="White" />
-    <SolidColorBrush x:Key="TextBoxPlaceholderBrush" Color="#A8A8A8" />
+    <SolidColorBrush x:Key="ForegroundBrush" Color="#ffffff" />
+    <SolidColorBrush x:Key="CaretBrush" Color="White" />
+    <SolidColorBrush x:Key="PlaceholderBrush" Color="#A8A8A8" />
 
     <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="#C8111111" />
 

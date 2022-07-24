@@ -78,7 +78,7 @@
 
                 <Border Background="Transparent">
 
-                    <StackPanel Margin="15" Orientation="Vertical">
+                    <StackPanel Margin="15 20 20 20" Orientation="Vertical">
 
                         <!--  Window settings  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
@@ -329,12 +329,12 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="1"
-                                        Background="{DynamicResource VersionLabelBackgroundBrush}"
+                                        Background="{DynamicResource VersionLabelBgBrush}"
                                         CornerRadius="2">
                                     <TextBlock Margin="10 0 10 0"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
-                                               Foreground="{DynamicResource VersionLabelForegroundBrush}"
+                                               Foreground="{DynamicResource ForegroundBrush}"
                                                FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
                                                Text="{StaticResource CurrentVersion}"
                                                >
