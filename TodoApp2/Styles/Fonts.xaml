@@ -55,6 +55,11 @@
     <system:String x:Key="SegoeIconWordWrap">&#xE8E4;</system:String>
     <system:String x:Key="SegoeIconSave">&#xE74E;</system:String>
 
+    <system:String x:Key="SegoeIconChevronUp">&#xE70E;</system:String>
+    <system:String x:Key="SegoeIconChevronDown">&#xE70D;</system:String>
+    <system:String x:Key="SegoeIconChevronLeft">&#xE76B;</system:String>
+    <system:String x:Key="SegoeIconChevronRight">&#xE76C;</system:String>
+
     <system:String x:Key="SegoeIconColorBar">&#xEA4B;</system:String>
     <system:String x:Key="SegoeIconBackgroundVisible">&#xF16D;</system:String>
 

@@ -204,16 +204,17 @@
                         MaxHeight="100"
                         CornerRadius="2"
                         SnapsToDevicePixels="True"
-                        Background="{Binding MessageService.BackgroundColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource stringRGBToBrushConverter}}">
+                        Background="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBackgroundConverter}}">
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Left"
                                    TextWrapping="Wrap"
                                    FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
                                    FontFamily="Segoe UI"
+                                   FontWeight="Bold"
                                    Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Foreground="{Binding MessageService.TextColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource stringRGBToBrushConverter}}" />
+                                   Foreground="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToForegroundConverter}}" />
 
                         <Button DockPanel.Dock="Right"
                                 Visibility="{Binding MessageService.UndoButtonVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"

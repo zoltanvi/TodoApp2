@@ -108,11 +108,21 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <Border Grid.Row="0" Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0" 
+                                Grid.Column="1" 
+                                Background="{TemplateBinding Background}"
+                                x:Name="ToolBarBorder"
+                                >
                             <DockPanel>
+                                         <!--Visibility="{Binding IsFocused, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"-->
                                 <ToolBar DockPanel.Dock="Top"
                                          IsTabStop="False"
-                                         Visibility="{Binding IsFocused, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
+                                         Visibility="{Binding IsChecked, ElementName=IsEditorOpenToggle, Converter={StaticResource boolToVisibilityConverter}}"
                                          Template="{StaticResource CustomToolBarControlTemplate}"
                                          ToolBarTray.IsLocked="True">
                                     <ToggleButton IsChecked="{Binding IsSelectionBold, RelativeSource={RelativeSource TemplatedParent}}"
@@ -171,8 +181,11 @@
                         </Border>
 
                         <!--  Main content  -->
+                                <!--Background="{TemplateBinding Background}"-->
                         <Border x:Name="border"
                                 Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0 0 10 0"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}"
@@ -191,10 +204,26 @@
                             </ScrollViewer>
                         </Border>
 
+                        <Border Grid.Row="1" 
+                                Grid.ColumnSpan="2" 
+                                Height="15" 
+                                Width="15"
+                                HorizontalAlignment="right"
+                                VerticalAlignment="Top"
+                                Visibility="{Binding IsFocused, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}">
+                            <ToggleButton 
+                                Style="{DynamicResource TextEditorArrowToggleButtonStyle}" 
+                                x:Name="IsEditorOpenToggle" 
+                                Foreground="{DynamicResource ForegroundBrush}"
+                                IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}"
+                                />
+                        </Border>
+
                         <!--  Watermark text  -->
                         <TextBlock x:Name="PART_placeholder"
                                    Grid.Row="1"
-                                   Margin="2 0 0 0"
+                                   Grid.Column="1"
+                                   Margin="2 0 10 0"
                                    Padding="{TemplateBinding Padding}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -221,14 +250,13 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-
                     </Grid>
 
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBgBrush}"></Setter>
+        <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBgBrush}"/>
     </Style>
 
     <Style x:Key="TaskListItemDescriptionRichTextBoxStyle"

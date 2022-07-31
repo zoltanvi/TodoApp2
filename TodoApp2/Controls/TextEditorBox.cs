@@ -35,6 +35,14 @@ namespace TodoApp2
         public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(TextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty AppliedColorProperty = DependencyProperty.Register(nameof(AppliedColor), typeof(string), typeof(TextEditorBox), new PropertyMetadata(OnAppliedColorChanged));
 
+        public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
+        
+        public bool IsChecked
+        {
+            get { return (bool)GetValue(IsCheckedProperty); }
+            set { SetValue(IsCheckedProperty, value); }
+        }
+
         public string DocumentContent
         {
             get => (string)GetValue(DocumentContentProperty);
@@ -276,6 +284,7 @@ namespace TodoApp2
         private void OnLostFocus(object sender, RoutedEventArgs e)
         {
             UpdateContent();
+            IsChecked = false;
         }
 
         private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

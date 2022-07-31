@@ -321,6 +321,64 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="TextEditorArrowToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border" Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" SnapsToDevicePixels="true">
+                        <Grid>
+
+                            <Viewbox>
+                                <Label x:Name="ArrowTop"
+                                       Style="{StaticResource IconLabelStyle}"
+                                       Padding="0"
+                                       Margin="0"
+                                       Content="{StaticResource SegoeIconChevronUp}" />
+                            </Viewbox>
+
+                            <Viewbox>
+                                <Label x:Name="ArrowRight"
+                                   Style="{StaticResource IconLabelStyle}"
+                                   Padding="0"
+                                   Margin="0"
+                                   Content="{StaticResource SegoeIconChevronRight}" />
+                            </Viewbox>
+
+                            <ContentPresenter 
+                                    x:Name="contentPresenter" 
+                                    Focusable="False" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                    Margin="{TemplateBinding Padding}" 
+                                    RecognizesAccessKey="True"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Visibility="Collapsed"
+                                    />
+                        </Grid>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource HoverEditorButtonBgBrush}"/>
+                        </Trigger>-->
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter Property="Visibility" TargetName="ArrowRight" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="ArrowTop" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Visibility" TargetName="ArrowRight" Value="Collapsed"/>
+                            <Setter Property="Visibility" TargetName="ArrowTop" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--  Toggle Button style  -->
     <Style x:Key="CustomToggleStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="BorderBrush" Value="{DynamicResource ToggleButtonBorderBrush}" />
@@ -460,7 +518,7 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Margin" Value="2 0" />
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
-        
+
         <Setter Property="Opacity" Value="0.6" />
         <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
@@ -558,5 +616,7 @@
     </Style>
 
     <!--  ====================================================================  -->
+
+
 
 </ResourceDictionary>

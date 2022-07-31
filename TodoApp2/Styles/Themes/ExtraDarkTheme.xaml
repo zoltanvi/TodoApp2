@@ -15,6 +15,8 @@
     <Color x:Key="TaskDate">#FFFFFF</Color>
     <Color x:Key="CalendarDayColumn">#5CB6FF</Color>
     <Color x:Key="CalendarDisabledDays">#4E4E4E</Color>
+    <Color x:Key="MessageInfo">#000000</Color>
+    <Color x:Key="MessageWarning">#000000</Color>
 
     <Color x:Key="PageBg">#1D1E1F</Color>
     <Color x:Key="SideMenuBg">#1D1E1F</Color>
@@ -34,6 +36,8 @@
     <Color x:Key="PopUpBg">#28292A</Color>
     <Color x:Key="OverlayBg">#111111</Color>
     <Color x:Key="ContextMenuBg">#2F3031</Color>
+    <Color x:Key="MessageInfoBg">#5BB2FA</Color>
+    <Color x:Key="MessageWarningBg">#d0b132</Color>
 
     <Color x:Key="HoverCategoryBg">#303030</Color>
     <Color x:Key="HoverTitleBarButtonBg">#383838</Color>
@@ -70,7 +74,9 @@
     <SolidColorBrush x:Key="TaskDateBrush" Color="{DynamicResource Foreground}" Opacity="0.65" />
     <SolidColorBrush x:Key="CalendarDayColumnBrush" Color="{DynamicResource CalendarDayColumn}" />
     <SolidColorBrush x:Key="CalendarDisabledDaysBrush" Color="{DynamicResource CalendarDisabledDays}" />
-
+    <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
+    <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
+    
     <!--Background-->
     <SolidColorBrush x:Key="PageBgBrush" Color="{DynamicResource PageBg}" />
     <SolidColorBrush x:Key="SideMenuBgBrush" Color="{DynamicResource SideMenuBg}" />
@@ -94,6 +100,8 @@
     <SolidColorBrush x:Key="VersionLabelBgBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.2" />
     <SolidColorBrush x:Key="ContextMenuBackgroundBrush" Color="{DynamicResource ContextMenuBg}" />
     <SolidColorBrush x:Key="ContextMenuSelectedBackgroundBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.1" />
+    <SolidColorBrush x:Key="MessageInfoBgBrush" Color="{DynamicResource MessageInfoBg}" />
+    <SolidColorBrush x:Key="MessageWarningBgBrush" Color="{DynamicResource MessageWarningBg}" />
 
     <!--Hover-->
     <SolidColorBrush x:Key="HoverCategoryBgBrush" Color="{DynamicResource HoverCategoryBg}" />

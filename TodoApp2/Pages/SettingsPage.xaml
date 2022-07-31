@@ -191,6 +191,13 @@
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
+                        <!--  Color bar rounded  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconRoundedCorners}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Rounded color bar" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+
                         <!--  Color bar thickness  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconColorBar}" />

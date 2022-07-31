@@ -254,7 +254,7 @@ namespace TodoApp2.Core
         {
             foreach (TaskListItemViewModel item in Items)
             {
-                item.Color = string.Empty;
+                item.Color = "Transparent";
             }
 
             m_TaskListService.PersistTaskList();

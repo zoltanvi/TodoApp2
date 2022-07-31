@@ -11,15 +11,15 @@ namespace TodoApp2
     public class ThemeEditorEntryEventArgs : EventArgs
     {
         public string ChangedKey { get; set; }
-        public SolidColorBrush ChangedValue { get; set; }
+        public Color ChangedValue { get; set; }
     }
 
     public class ThemeEditorEntry
     {
-        private SolidColorBrush m_Value;
+        private Color m_Value;
         public string Key { get; set; }
 
-        public SolidColorBrush Value
+        public Color Value
         {
             get => m_Value;
             set
@@ -29,7 +29,7 @@ namespace TodoApp2
             }
         }
 
-        public ThemeEditorEntry(string key, SolidColorBrush value)
+        public ThemeEditorEntry(string key, Color value)
         {
             Key = key;
             Value = value;
@@ -70,7 +70,7 @@ namespace TodoApp2
 
             foreach (DictionaryEntry dictionaryEntry in entries.OrderBy(entry => entry.Key))
             {
-                if (dictionaryEntry.Key is string key && dictionaryEntry.Value is SolidColorBrush value)
+                if (dictionaryEntry.Key is string key && dictionaryEntry.Value is Color value)
                 {
                     var entry = new ThemeEditorEntry(key, value);
                     entry.Changed += OnEntryChanged;
@@ -81,7 +81,7 @@ namespace TodoApp2
 
         private void OnEntryChanged(object sender, ThemeEditorEntryEventArgs args)
         {
-            m_ThemeManager.UpdateTheme(args.ChangedKey, args.ChangedValue);
+            m_ThemeManager.UpdateTheme(args.ChangedKey, new SolidColorBrush(args.ChangedValue));
         }
     }
 }

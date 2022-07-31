@@ -2,7 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TodoApp2"
                     >
+    
     <local:StringRGBToBrushConverter x:Key="stringRGBToBrushConverter" />
+    <local:SolidColorBrushToStringConverter x:Key="solidColorBrushToStringConverter" />
+    <local:MessageTypeToBrushConverter x:Key="messageTypeToForegroundConverter" InfoBrushName="MessageInfoBrush" WarningBrushName="MessageWarningBrush" />
+    <local:MessageTypeToBrushConverter x:Key="messageTypeToBackgroundConverter" InfoBrushName="MessageInfoBgBrush" WarningBrushName="MessageWarningBgBrush" />
 
     <local:DynamicSolidColorBrushConverter x:Key="toggleButtonDynamicBrushConverter" LightName="ForegroundBrush" DarkName="PageBgBrush" />
     <local:DynamicSolidColorBrushConverter x:Key="titleBarDynamicBrushConverter" LightName="ButtonHoverBackgroundBrushLight" DarkName="ButtonHoverBackgroundBrushDark" />
@@ -15,6 +19,7 @@
     <local:BoolToTextWrappingConverter x:Key="boolToTextWrappingConverter" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityNegatedConverter" Negated="True" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" Negated="False" />
+    <local:BoolToCornerRadiusConverter x:Key="boolToCornerRadiusConverter" />
 
     <local:EnumToFontFamilyConverter x:Key="enumToFontFamilyConverter" />
     <local:FontSizeToDoubleConverter x:Key="fontSizeToDoubleConverter" />
@@ -27,7 +32,6 @@
     <local:SingleCornerRadiusConverter x:Key="singleCornerRadiusConverter" />
     <local:ThicknessToDoubleConverter x:Key="thicknessToDoubleConverter" />
     <local:ThicknessToGridLengthConverter x:Key="thicknessToGridLengthConverter" />
-
 
 
 </ResourceDictionary>

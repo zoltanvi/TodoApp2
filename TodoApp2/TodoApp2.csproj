@@ -55,7 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -197,8 +197,10 @@
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\Single\Brush\MessageTypeToBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringToDynamicBrushConverterBase.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BaseBoolValueConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToCornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToDoubleConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToResourceConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToBorderThicknessConverter.cs" />
@@ -321,6 +323,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Themes\DarkBlueTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Themes\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -422,18 +428,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Old_Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icon.ico" />
+    <Resource Include="Images\OldIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <SplashScreen Include="Images\SplashImg.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -20,7 +20,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding Key}" Grid.Column="0" />
-                        <xctk:ColorPicker SelectedColor="{Binding Value, Converter={StaticResource stringToColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+                        <xctk:ColorPicker SelectedColor="{Binding Value, Converter={StaticResource stringRGBToBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
                         <TextBox Text="{Binding Value, Converter={StaticResource solidColorBrushToStringConverter}}" Grid.Column="2" />
                     </Grid>
                 </DataTemplate>

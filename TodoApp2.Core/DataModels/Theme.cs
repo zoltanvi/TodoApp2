@@ -5,6 +5,8 @@
         ExtraDark,
         //Dark,
 
+        DarkBlue,
+
         //Gray,
         //Nord,
 

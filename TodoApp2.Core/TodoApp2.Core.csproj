@@ -84,6 +84,7 @@
     <Compile Include="DataModels\ApplicationSettings.cs" />
     <Compile Include="DataModels\FontFamily.cs" />
     <Compile Include="DataModels\FontSize.cs" />
+    <Compile Include="DataModels\MessageType.cs" />
     <Compile Include="DataModels\Thickness.cs" />
     <Compile Include="DataModels\Theme.cs" />
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />

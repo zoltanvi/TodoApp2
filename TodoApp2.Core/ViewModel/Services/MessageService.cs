@@ -5,16 +5,6 @@ namespace TodoApp2.Core
 {
     public class MessageService : BaseViewModel
     {
-        private const string s_SuccessForeground = "#000000";
-        private const string s_InfoForeground = "#FFFFFF";
-        private const string s_WarningForeground = "#000000";
-        private const string s_ErrorForeground = "#FFFFFF";
-
-        private const string s_SuccessBackground = "#59C359";
-        private const string s_InfoBackground = "#1BA1E2";
-        private const string s_WarningBackground = "#FFCC00";
-        private const string s_ErrorBackground = "#E51400";
-
         private readonly DispatcherTimer m_Timer;
         private readonly TimeSpan m_MaxInterval;
         private readonly TimeSpan m_DefaultDuration;
@@ -22,8 +12,7 @@ namespace TodoApp2.Core
 
         public bool MessageLineVisible { get; private set; }
         public bool UndoButtonVisible { get; private set; }
-        public string BackgroundColor { get; private set; } = s_WarningBackground;
-        public string TextColor { get; private set; } = s_WarningForeground;
+        public MessageType MessageType { get; private set; } = MessageType.Invalid;
         public string Message { get; private set; }
 
         public MessageService()
@@ -38,7 +27,7 @@ namespace TodoApp2.Core
         public void ShowUndo(string message)
         {
             //UndoButtonVisible = true;
-            ShowMessage(message, m_UndoDuration, s_InfoBackground, s_InfoForeground);
+            ShowMessage(message, m_UndoDuration, MessageType.Warning);
         }
 
         public void HideMessage()
@@ -49,32 +38,17 @@ namespace TodoApp2.Core
 
         public void ShowSuccess(string message)
         {
-            ShowSuccess(message, m_DefaultDuration);
-        }
-
-        public void ShowSuccess(string message, TimeSpan duration)
-        {
-            ShowMessage(message, duration, s_SuccessBackground, s_SuccessForeground);
+            ShowMessage(message, m_DefaultDuration, MessageType.Success);
         }
 
         public void ShowInfo(string message)
         {
-            ShowInfo(message, m_DefaultDuration);
-        }
-
-        public void ShowInfo(string message, TimeSpan duration)
-        {
-            ShowMessage(message, duration, s_InfoBackground, s_InfoForeground);
+            ShowMessage(message, m_DefaultDuration, MessageType.Info);
         }
 
         public void ShowWarning(string message)
         {
-            ShowWarning(message, m_DefaultDuration);
-        }
-
-        public void ShowWarning(string message, TimeSpan duration)
-        {
-            ShowMessage(message, duration, s_WarningBackground, s_WarningForeground);
+            ShowMessage(message, m_DefaultDuration, MessageType.Warning);
         }
 
         public void ShowError(string message)
@@ -84,19 +58,18 @@ namespace TodoApp2.Core
 
         public void ShowError(string message, TimeSpan duration)
         {
-            ShowMessage(message, duration, s_ErrorBackground, s_ErrorForeground);
+            ShowMessage(message, duration, MessageType.Error);
         }
 
-        private void ShowMessage(string message, TimeSpan duration, string backgroundColor, string textColor)
+        private void ShowMessage(string message, TimeSpan duration, MessageType messageType)
         {
+            MessageType = messageType;
             MessageLineVisible = true;
-            Message = message;
-            BackgroundColor = backgroundColor;
-            TextColor = textColor;
 
+            Message = message;
+
+            OnPropertyChanged(nameof(MessageType));
             OnPropertyChanged(nameof(MessageLineVisible));
-            OnPropertyChanged(nameof(BackgroundColor));
-            OnPropertyChanged(nameof(TextColor));
             OnPropertyChanged(nameof(Message));
 
             m_Timer.Interval = duration;
@@ -107,6 +80,8 @@ namespace TodoApp2.Core
         {
             MessageLineVisible = false;
             UndoButtonVisible = false;
+            MessageType = MessageType.Invalid;
+
             m_Timer.Stop();
             m_Timer.Interval = m_MaxInterval;
         }
