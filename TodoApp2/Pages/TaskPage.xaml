@@ -30,6 +30,7 @@
 
             <Border x:Name="BottomBorderPanel"
                     Grid.Row="2"
+                    Background="{DynamicResource BottomBarBgBrush}"
                     Style="{DynamicResource BottomPanelStyle}">
 
                 <DockPanel>
@@ -43,7 +44,6 @@
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
                                          Tag="Add new task"
-                                         Background="{DynamicResource BottomBarBgBrush}"
                                          Style="{DynamicResource FormattableRichTextBoxStyle}"
                                          DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEmptyOrWhiteSpace="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

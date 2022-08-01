@@ -8,7 +8,7 @@
         DarkBlue,
 
         //Gray,
-        //Nord,
+        Nord,
 
         VSBlue,
 

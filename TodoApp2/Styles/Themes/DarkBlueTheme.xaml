@@ -55,7 +55,7 @@
     <Color x:Key="BottomBarBorder">#181a1f</Color>
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
     <Color x:Key="TaskBorder">#181a1f</Color>
-    <Color x:Key="CheckBoxBorder">#7e7e7e</Color>
+    <Color x:Key="CheckBoxBorder">#687D96</Color>
     <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
     <Color x:Key="ContextMenuBorder">#000000</Color>
     

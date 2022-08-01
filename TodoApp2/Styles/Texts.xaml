@@ -214,6 +214,7 @@
                             <ToggleButton 
                                 Style="{DynamicResource TextEditorArrowToggleButtonStyle}" 
                                 x:Name="IsEditorOpenToggle" 
+                                Margin="2"
                                 Foreground="{DynamicResource ForegroundBrush}"
                                 IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}"
                                 />
