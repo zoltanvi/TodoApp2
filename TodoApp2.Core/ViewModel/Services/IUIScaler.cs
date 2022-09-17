@@ -4,7 +4,7 @@ namespace TodoApp2
 {
     public interface IUIScaler
     {
-        double ColorPickerDropDownHeight { get; }
+        double ColorPickerDropDownWidth { get; }
         double ColorPickerHeight { get; }
         double ColorPickerItemSize { get; }
         double ColorPickerOnlyDropDownWidth { get; }

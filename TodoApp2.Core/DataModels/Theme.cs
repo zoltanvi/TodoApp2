@@ -7,6 +7,8 @@
 
         DarkBlue,
 
+        BlueTint,
+
         //Gray,
         Nord,
 

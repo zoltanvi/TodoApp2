@@ -39,6 +39,7 @@ namespace TodoApp2
         private const double OriginalColorPickerItemSize = 16;
         private const double OriginalSettingsComboboxWidth = 110;
         private double m_ScalingPercent = s_OriginalScalingPercent;
+        private const int s_ColorPickerColumns = 10;
 
         public static double StaticScaleValue { get; private set; } = 1;
         public double ScaleValue => StaticScaleValue;
@@ -51,7 +52,7 @@ namespace TodoApp2
         public double ColorPickerOnlyDropDownWidth => OriginalColorPickerOnlyDropDownWidth * ScaleValue;
         public double ColorPickerItemSize => OriginalColorPickerItemSize * ScaleValue;
         public double SettingsComboboxWidth => OriginalSettingsComboboxWidth * ScaleValue;
-        public double ColorPickerDropDownHeight => 44 + 16 + (5 * ColorPickerItemSize);
+        public double ColorPickerDropDownWidth => 44 + 16 + (s_ColorPickerColumns * ColorPickerItemSize);
 
         public event EventHandler Zoomed;
 
