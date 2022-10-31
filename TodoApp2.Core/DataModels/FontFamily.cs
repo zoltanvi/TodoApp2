@@ -3,6 +3,11 @@
     public enum FontFamily
     {
         SegoeUI,
+
+        Inter,
+        InterLight,
+        InterBold,
+
         Ubuntu,
         Verdana,
 
@@ -12,7 +17,6 @@
         CascadiaMonoSemiLight,
         CascadiaMonoLight,
         CascadiaMonoExtraLight,
-
 
     }
 }

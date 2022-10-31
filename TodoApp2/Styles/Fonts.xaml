@@ -25,6 +25,16 @@
     <FontFamily x:Key="CascadiaMonoLight">pack://application;,,,/Fonts/#Cascadia Mono Light</FontFamily>
     <FontFamily x:Key="CascadiaMonoExtraLight">pack://application;,,,/Fonts/#Cascadia Mono ExtraLight</FontFamily>
 
+    <FontFamily x:Key="InterBlack">pack://application;,,,/Fonts/Inter/#Inter Black</FontFamily>
+    <FontFamily x:Key="InterBold">pack://application;,,,/Fonts/Inter/#Inter Bold</FontFamily>
+    <FontFamily x:Key="InterExtraBold">pack://application;,,,/Fonts/Inter/#Inter ExtraBold</FontFamily>
+    <FontFamily x:Key="InterExtraLight">pack://application;,,,/Fonts/Inter/#Inter ExtraLight</FontFamily>
+    <FontFamily x:Key="InterLight">pack://application;,,,/Fonts/Inter/#Inter Light</FontFamily>
+    <FontFamily x:Key="InterMedium">pack://application;,,,/Fonts/Inter/#Inter Medium</FontFamily>
+    <FontFamily x:Key="Inter">pack://application;,,,/Fonts/Inter/#Inter Regular</FontFamily>
+    <FontFamily x:Key="InterSemiBold">pack://application;,,,/Fonts/Inter/#Inter SemiBold</FontFamily>
+    <FontFamily x:Key="InterThin">pack://application;,,,/Fonts/Inter/#Inter Thin</FontFamily>
+
     <!--  Button icon characters  -->
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
     <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>

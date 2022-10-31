@@ -365,10 +365,43 @@
         x:Key="PageTitleTextBlockStyle"
         BasedOn="{StaticResource BaseTextBlockClearTypeStyle}"
         TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource SegoeUIVariableSemibold}" />
+        <Setter Property="FontFamily" Value="{StaticResource InterBold}" />
+        <!--<Setter Property="FontFamily" Value="{StaticResource SegoeUIVariableSemibold}" />-->
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="PageTitleTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="{StaticResource InterBold}" />
+        <!--<Setter Property="FontFamily" Value="{StaticResource SegoeUIVariableSemibold}" />-->
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="CaretBrush" Value="{DynamicResource CaretBrush}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <ScrollViewer
+                            x:Name="PART_ContentHost"
+                            Focusable="False"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden" />
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style
@@ -477,37 +510,6 @@
             <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
         </Style.Resources>
         <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBgBrush}" />
-    </Style>
-
-    <Style x:Key="PageTitleTextBoxStyle" TargetType="TextBox">
-        <Setter Property="FontFamily" Value="{StaticResource SegoeUIVariableSemibold}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="FontStyle" Value="Italic" />
-        <Setter Property="CaretBrush" Value="{DynamicResource CaretBrush}" />
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                    <Border
-                        x:Name="border"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        SnapsToDevicePixels="True">
-                        <ScrollViewer
-                            x:Name="PART_ContentHost"
-                            Focusable="False"
-                            HorizontalScrollBarVisibility="Hidden"
-                            VerticalScrollBarVisibility="Hidden" />
-                    </Border>
-
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style

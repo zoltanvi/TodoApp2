@@ -25,6 +25,10 @@ namespace TodoApp2
             { FontFamily.CascadiaMonoSemiLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoSemiLight")},
             { FontFamily.CascadiaMonoLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoLight")},
             { FontFamily.CascadiaMonoExtraLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoExtraLight")},
+
+            { FontFamily.Inter, (MediaFontFamily)Application.Current.TryFindResource("Inter")},
+            { FontFamily.InterLight, (MediaFontFamily)Application.Current.TryFindResource("InterLight")},
+            { FontFamily.InterBold, (MediaFontFamily)Application.Current.TryFindResource("InterBold")},
         };
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

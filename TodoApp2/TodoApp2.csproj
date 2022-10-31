@@ -410,6 +410,15 @@
     <Resource Include="Fonts\CascadiaMono-Bold.ttf" />
     <Resource Include="Fonts\CascadiaMono-SemiBold.ttf" />
     <Resource Include="Fonts\SourceCodePro-Bold.ttf" />
+    <Resource Include="Fonts\Inter\Inter-Black.ttf" />
+    <Resource Include="Fonts\Inter\Inter-Bold.ttf" />
+    <Resource Include="Fonts\Inter\Inter-ExtraBold.ttf" />
+    <Resource Include="Fonts\Inter\Inter-ExtraLight.ttf" />
+    <Resource Include="Fonts\Inter\Inter-Light.ttf" />
+    <Resource Include="Fonts\Inter\Inter-Medium.ttf" />
+    <Resource Include="Fonts\Inter\Inter-Regular.ttf" />
+    <Resource Include="Fonts\Inter\Inter-SemiBold.ttf" />
+    <Resource Include="Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
