@@ -1,6 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <FontFamily x:Key="SCE-PS3">pack://application;,,,/Fonts/#SCE-PS3 Rodin LATIN Regular</FontFamily>
     <FontFamily x:Key="Ubuntu">pack://application;,,,/Fonts/#Ubuntu Regular</FontFamily>
@@ -13,7 +14,7 @@
     <FontFamily x:Key="SegoeUIVariableBold">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Bold</FontFamily>
     <FontFamily x:Key="SegoeUIVariableSemilight">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Semilight</FontFamily>
     <FontFamily x:Key="SegoeUIVariableSemibold">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Semibold</FontFamily>
-   
+
     <FontFamily x:Key="SourceCodeProRegular">pack://application;,,,/Fonts/#Source Code Pro Regular</FontFamily>
     <FontFamily x:Key="SourceCodeProBold">pack://application;,,,/Fonts/#Source Code Pro Bold</FontFamily>
 
@@ -64,7 +65,7 @@
     <system:String x:Key="SegoeIconBackgroundVisible">&#xF16D;</system:String>
 
     <system:String x:Key="SegoeIconCompactMode">&#xE71D;</system:String>
-    
+
     <system:String x:Key="SegoeIconBold">&#xE8DD;</system:String>
     <system:String x:Key="SegoeIconItalic">&#xE8DB;</system:String>
     <system:String x:Key="SegoeIconUnderlined">&#xE8DC;</system:String>

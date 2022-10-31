@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace TodoApp2.Core
 {
@@ -31,10 +33,23 @@ namespace TodoApp2.Core
             m_ApplicationViewModel = applicationViewModel;
             m_Database = database;
 
+            m_Database.CategoryChanged += OnDatabaseCategoryChanged;
+
             Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
 
             List<CategoryListItemViewModel> categories = m_Database.GetActiveCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
+        }
+
+        private void OnDatabaseCategoryChanged(object sender, CategoryChangedEventArgs e)
+        {
+            // Update the category in the app settings
+            CurrentCategory = e.ChangedCategory.Name;
+
+            // Update the category in the items list
+            CategoryListItemViewModel modifiedItem = Items.FirstOrDefault(item => item.Id == e.ChangedCategory.Id);
+            modifiedItem.Name = e.ChangedCategory.Name;
+            m_ApplicationViewModel.SaveApplicationSettings();
         }
 
         public CategoryListItemViewModel GetCurrentCategory => m_Database.GetCategory(CurrentCategory);

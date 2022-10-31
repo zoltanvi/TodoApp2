@@ -4,11 +4,12 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="2"
-                               SnapsToDevicePixels="true"
-                               Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                               StrokeDashArray="1 2"
-                               StrokeThickness="1" />
+                    <Rectangle
+                        Margin="2"
+                        SnapsToDevicePixels="true"
+                        Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                        StrokeDashArray="1 2"
+                        StrokeThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -19,11 +20,12 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="14 0 0 0"
-                               SnapsToDevicePixels="true"
-                               Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                               StrokeDashArray="1 2"
-                               StrokeThickness="1" />
+                    <Rectangle
+                        Margin="14,0,0,0"
+                        SnapsToDevicePixels="true"
+                        Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                        StrokeDashArray="1 2"
+                        StrokeThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -47,34 +49,38 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
-                    <Grid x:Name="templateRoot"
-                          Background="Transparent"
-                          SnapsToDevicePixels="True">
+                    <Grid
+                        x:Name="templateRoot"
+                        Background="Transparent"
+                        SnapsToDevicePixels="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border x:Name="checkBoxBorder"
-                                Width="20"
-                                Height="20"
-                                Margin="1"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                BorderBrush="{DynamicResource CheckBoxBorderBrush}"
-                                BorderThickness="1.5"
-                                CornerRadius="30">
+                        <Border
+                            x:Name="checkBoxBorder"
+                            Width="20"
+                            Height="20"
+                            Margin="1"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            BorderBrush="{DynamicResource CheckBoxBorderBrush}"
+                            BorderThickness="1.5"
+                            CornerRadius="30">
                             <Grid x:Name="markGrid">
-                                <Path x:Name="optionMark"
-                                      Margin="0"
-                                      Data="F1 M 2.874 8.694 L 4.454 6.731 L 6.44 8.265 L 10.277 3.639 L 12.308 5.309 L 6.711 11.583 Z"
-                                      Fill="{TemplateBinding Foreground}"
-                                      Opacity="0"
-                                      Stretch="None" />
+                                <Path
+                                    x:Name="optionMark"
+                                    Margin="0"
+                                    Data="F1 M 2.874 8.694 L 4.454 6.731 L 6.44 8.265 L 10.277 3.639 L 12.308 5.309 L 6.711 11.583 Z"
+                                    Fill="{TemplateBinding Foreground}"
+                                    Opacity="0"
+                                    Stretch="None" />
 
-                                    <Rectangle x:Name="indeterminateMark"
-                                           Margin="2"
-                                           Fill="{StaticResource OptionMark.Static.Glyph}"
-                                           Opacity="0" />
+                                <Rectangle
+                                    x:Name="indeterminateMark"
+                                    Margin="2"
+                                    Fill="{StaticResource OptionMark.Static.Glyph}"
+                                    Opacity="0" />
                             </Grid>
                         </Border>
                     </Grid>
@@ -85,57 +91,39 @@
                         <Trigger Property="IsEnabled" Value="false" />
                         <Trigger Property="IsPressed" Value="true" />
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="optionMark"
-                                    Property="Opacity"
-                                    Value="1" />
-                            <Setter TargetName="optionMark"
-                                    Property="Fill"
-                                    Value="{DynamicResource CheckBoxBorderBrush}" />
-                            <Setter TargetName="optionMark"
-                                    Property="Margin"
-                                    Value="1 3 0 0" />
+                            <Setter TargetName="optionMark" Property="Opacity" Value="1" />
+                            <Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource CheckBoxBorderBrush}" />
+                            <Setter TargetName="optionMark" Property="Margin" Value="1,3,0,0" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="optionMark"
-                                    Property="Fill"
-                                    Value="{DynamicResource PageBgBrush}" />
-                            <Setter TargetName="optionMark"
-                                    Property="Opacity"
-                                    Value="1" />
-                            <Setter TargetName="optionMark"
-                                    Property="Margin"
-                                    Value="2" />
-                            <Setter TargetName="checkBoxBorder"
-                                    Property="Background"
-                                    Value="{DynamicResource CheckBoxBorderBrush}" />
-                            <Setter TargetName="checkBoxBorder"
-                                    Property="BorderThickness"
-                                    Value="0" />
+                            <Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource PageBgBrush}" />
+                            <Setter TargetName="optionMark" Property="Opacity" Value="1" />
+                            <Setter TargetName="optionMark" Property="Margin" Value="2" />
+                            <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource CheckBoxBorderBrush}" />
+                            <Setter TargetName="checkBoxBorder" Property="BorderThickness" Value="0" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="false">
-                            <Setter TargetName="optionMark"
-                                    Property="Margin"
-                                    Value="0" />
+                            <Setter TargetName="optionMark" Property="Margin" Value="0" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}">
-                            <Setter TargetName="optionMark"
-                                    Property="Opacity"
-                                    Value="0" />
+                            <Setter TargetName="optionMark" Property="Opacity" Value="0" />
                         </Trigger>
 
                         <EventTrigger RoutedEvent="Checked">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="checkBoxBorder"
-                                                     Storyboard.TargetProperty="Width"
-                                                     From="1"
-                                                     To="20"
-                                                     Duration="0:0:0.15" />
-                                    <DoubleAnimation Storyboard.TargetName="checkBoxBorder"
-                                                     Storyboard.TargetProperty="Height"
-                                                     From="1"
-                                                     To="20"
-                                                     Duration="0:0:0.15" />
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="checkBoxBorder"
+                                        Storyboard.TargetProperty="Width"
+                                        From="1"
+                                        To="20"
+                                        Duration="0:0:0.15" />
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="checkBoxBorder"
+                                        Storyboard.TargetProperty="Height"
+                                        From="1"
+                                        To="20"
+                                        Duration="0:0:0.15" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>

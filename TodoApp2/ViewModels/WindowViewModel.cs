@@ -24,6 +24,7 @@ namespace TodoApp2
         private readonly IDatabase m_Database;
         private readonly DragDropMediator m_DragDropMediator;
         private readonly DispatcherTimer m_Timer;
+        private bool m_Closing;
 
         /// <summary>
         /// The last known dock position
@@ -253,12 +254,15 @@ namespace TodoApp2
 
         private void OnWindowDeactivated(object sender, EventArgs e)
         {
-            Window window = (Window)sender;
-            bool isAlwaysOnTop = ApplicationSettings.IsAlwaysOnTop;
-            window.Topmost = isAlwaysOnTop;
-            if (isAlwaysOnTop)
+            if (!m_Closing)
             {
-                window.Show();
+                Window window = (Window)sender;
+                bool isAlwaysOnTop = ApplicationSettings.IsAlwaysOnTop;
+                window.Topmost = isAlwaysOnTop;
+                if (isAlwaysOnTop)
+                {
+                    window.Show();
+                }
             }
         }
 
@@ -318,6 +322,7 @@ namespace TodoApp2
             ApplicationSettings.WindowHeight = (int)m_Window.Height;
 
             m_ApplicationViewModel.SaveApplicationSettings();
+            m_Closing = true;
         }
 
         private void TimerOnTick(object sender, EventArgs e)

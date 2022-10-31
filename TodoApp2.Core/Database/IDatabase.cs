@@ -7,6 +7,7 @@ namespace TodoApp2.Core
     public interface IDatabase
     {
         event EventHandler<TaskChangedEventArgs> TaskChanged;
+        event EventHandler<CategoryChangedEventArgs> CategoryChanged;
 
         Task Reinitialize(bool online = false);
         bool AddCategoryIfNotExists(CategoryListItemViewModel categoryToAdd);
@@ -24,6 +25,7 @@ namespace TodoApp2.Core
         void ReorderTask(TaskListItemViewModel task, int newPosition);
         void TrashCategory(CategoryListItemViewModel category);
         void UntrashCategory(CategoryListItemViewModel category);
+        void UpdateCategory(CategoryListItemViewModel category);
         void UpdateSettings(List<SettingsModel> settings);
         void UpdateCategoryListOrder(IEnumerable<IReorderable> categoryList);
         void UpdateTask(TaskListItemViewModel task);

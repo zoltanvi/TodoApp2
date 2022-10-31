@@ -1,21 +1,45 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:TodoApp2"
-                    >
-    
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TodoApp2">
+
     <local:StringRGBToBrushConverter x:Key="stringRGBToBrushConverter" />
     <local:SolidColorBrushToStringConverter x:Key="solidColorBrushToStringConverter" />
-    <local:MessageTypeToBrushConverter x:Key="messageTypeToForegroundConverter" InfoBrushName="MessageInfoBrush" WarningBrushName="MessageWarningBrush" />
-    <local:MessageTypeToBrushConverter x:Key="messageTypeToBackgroundConverter" InfoBrushName="MessageInfoBgBrush" WarningBrushName="MessageWarningBgBrush" />
+    <local:MessageTypeToBrushConverter
+        x:Key="messageTypeToForegroundConverter"
+        InfoBrushName="MessageInfoBrush"
+        WarningBrushName="MessageWarningBrush" />
+    <local:MessageTypeToBrushConverter
+        x:Key="messageTypeToBackgroundConverter"
+        InfoBrushName="MessageInfoBgBrush"
+        WarningBrushName="MessageWarningBgBrush" />
 
-    <local:DynamicSolidColorBrushConverter x:Key="toggleButtonDynamicBrushConverter" LightName="ForegroundBrush" DarkName="PageBgBrush" />
-    <local:DynamicSolidColorBrushConverter x:Key="titleBarDynamicBrushConverter" LightName="ButtonHoverBackgroundBrushLight" DarkName="ButtonHoverBackgroundBrushDark" />
+    <local:DynamicSolidColorBrushConverter
+        x:Key="toggleButtonDynamicBrushConverter"
+        DarkName="PageBgBrush"
+        LightName="ForegroundBrush" />
+    <local:DynamicSolidColorBrushConverter
+        x:Key="titleBarDynamicBrushConverter"
+        DarkName="ButtonHoverBackgroundBrushDark"
+        LightName="ButtonHoverBackgroundBrushLight" />
 
     <local:BoolToBorderThicknessConverter x:Key="boolToBorderThicknessConverter" />
-    <local:BoolToDoubleConverter x:Key="boolToTaskOpacityConverter" PositiveValue="0.25" NegativeValue="1"/>
-    <local:BoolToDoubleConverter x:Key="boolToCompactModeConverter" PositiveValue="10" NegativeValue="40"/>
-    <local:BoolToResourceConverter x:Key="reminderBoolToBrushConverter" PositiveResourceName="CommonBorderBrush" NegativeResourceName="TextBoxErrorBorderBrush"/>
-    <local:BoolToResourceConverter x:Key="boolToMaximizeRestoreConverter" PositiveResourceName="SegoeIconRestoreWindow" NegativeResourceName="SegoeIconMaximizeWindow2" />
+    <local:BoolToDoubleConverter
+        x:Key="boolToTaskOpacityConverter"
+        NegativeValue="1"
+        PositiveValue="0.25" />
+    <local:BoolToDoubleConverter
+        x:Key="boolToCompactModeConverter"
+        NegativeValue="40"
+        PositiveValue="10" />
+    <local:BoolToResourceConverter
+        x:Key="reminderBoolToBrushConverter"
+        NegativeResourceName="TextBoxErrorBorderBrush"
+        PositiveResourceName="CommonBorderBrush" />
+    <local:BoolToResourceConverter
+        x:Key="boolToMaximizeRestoreConverter"
+        NegativeResourceName="SegoeIconMaximizeWindow2"
+        PositiveResourceName="SegoeIconRestoreWindow" />
     <local:BoolToTextWrappingConverter x:Key="boolToTextWrappingConverter" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityNegatedConverter" Negated="True" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" Negated="False" />

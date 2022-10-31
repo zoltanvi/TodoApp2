@@ -2,26 +2,24 @@
 
     <!--  ListBox template  -->
     <ControlTemplate x:Key="TaskListControlTemplate" TargetType="{x:Type ListBox}">
-        <Border x:Name="Bd"
-                Padding="1"
-                Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                SnapsToDevicePixels="True">
-            <ScrollViewer Padding="{TemplateBinding Padding}"
-                          Focusable="False"
-                          Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+        <Border
+            x:Name="Bd"
+            Padding="1"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            SnapsToDevicePixels="True">
+            <ScrollViewer
+                Padding="{TemplateBinding Padding}"
+                Focusable="False"
+                Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </ScrollViewer>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Bd"
-                        Property="Background"
-                        Value="White" />
-                <Setter TargetName="Bd"
-                        Property="BorderBrush"
-                        Value="#FFD9D9D9" />
+                <Setter TargetName="Bd" Property="Background" Value="White" />
+                <Setter TargetName="Bd" Property="BorderBrush" Value="#FFD9D9D9" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -45,44 +43,48 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Rectangle x:Name="Corner"
-                       Grid.Row="1"
-                       Grid.Column="1"
-                       Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
-            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Margin="{TemplateBinding Padding}"
-                                    CanContentScroll="{TemplateBinding CanContentScroll}"
-                                    CanHorizontallyScroll="False"
-                                    CanVerticallyScroll="False"
-                                    Content="{TemplateBinding Content}"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}" />
-            <ScrollBar x:Name="PART_VerticalScrollBar"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       HorizontalAlignment="Right"
-                       AutomationProperties.AutomationId="VerticalScrollBar"
-                       Cursor="Arrow"
-                       Maximum="{TemplateBinding ScrollableHeight}"
-                       Minimum="0"
-                       Style="{DynamicResource DarkScrollBarStyle}"
-                       ViewportSize="{TemplateBinding ViewportHeight}"
-                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
-            <ScrollBar x:Name="PART_HorizontalScrollBar"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       VerticalAlignment="Bottom"
-                       AutomationProperties.AutomationId="HorizontalScrollBar"
-                       Cursor="Arrow"
-                       Maximum="{TemplateBinding ScrollableWidth}"
-                       Minimum="0"
-                       Orientation="Horizontal"
-                       Style="{DynamicResource DarkScrollBarStyle}"
-                       ViewportSize="{TemplateBinding ViewportWidth}"
-                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
-                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+            <Rectangle
+                x:Name="Corner"
+                Grid.Row="1"
+                Grid.Column="1"
+                Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+            <ScrollContentPresenter
+                x:Name="PART_ScrollContentPresenter"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="{TemplateBinding Padding}"
+                CanContentScroll="{TemplateBinding CanContentScroll}"
+                CanHorizontallyScroll="False"
+                CanVerticallyScroll="False"
+                Content="{TemplateBinding Content}"
+                ContentTemplate="{TemplateBinding ContentTemplate}" />
+            <ScrollBar
+                x:Name="PART_VerticalScrollBar"
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                AutomationProperties.AutomationId="VerticalScrollBar"
+                Cursor="Arrow"
+                Maximum="{TemplateBinding ScrollableHeight}"
+                Minimum="0"
+                Style="{DynamicResource DarkScrollBarStyle}"
+                ViewportSize="{TemplateBinding ViewportHeight}"
+                Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+            <ScrollBar
+                x:Name="PART_HorizontalScrollBar"
+                Grid.Row="0"
+                Grid.Column="0"
+                VerticalAlignment="Bottom"
+                AutomationProperties.AutomationId="HorizontalScrollBar"
+                Cursor="Arrow"
+                Maximum="{TemplateBinding ScrollableWidth}"
+                Minimum="0"
+                Orientation="Horizontal"
+                Style="{DynamicResource DarkScrollBarStyle}"
+                ViewportSize="{TemplateBinding ViewportWidth}"
+                Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
     </ControlTemplate>
 </ResourceDictionary>

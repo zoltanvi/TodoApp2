@@ -1,15 +1,17 @@
-﻿<local:BasePage x:Class="TodoApp2.TaskPage"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
-                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                xmlns:local="clr-namespace:TodoApp2"
-                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                Title="TaskPage"
-                d:DesignHeight="480"
-                d:DesignWidth="380"
-                x:TypeArguments="core:TaskPageViewModel"
-                mc:Ignorable="d">
+﻿<local:BasePage
+    x:Class="TodoApp2.TaskPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="TaskPage"
+    d:DesignHeight="480"
+    d:DesignWidth="380"
+    x:TypeArguments="core:TaskPageViewModel"
+    mc:Ignorable="d">
 
     <Border Background="{DynamicResource ApplicationBackgroundBrush}">
         <Grid>
@@ -19,34 +21,94 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!--  Current category  -->
-            <TextBlock Grid.Row="0"
-                       Margin="15 10 0 10"
-                       Visibility="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                       Style="{DynamicResource PageTitleTextBlockStyle}"
-                       Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}" />
+            <!--  Current category display text  -->
+            <TextBlock
+                Grid.Row="0"
+                Margin="15,10,0,10"
+                Style="{DynamicResource PageTitleTextBlockStyle}"
+                Text="{Binding CategoryListService.CurrentCategory, Source={x:Static local:ViewModelLocator.Instance}}">
+                <!--  Visibility="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"  -->
+                <TextBlock.Visibility>
+                    <MultiBinding>
+                        <MultiBinding.Converter>
+                            <local:BoolToVisibilityMultiValueConverter />
+                        </MultiBinding.Converter>
+                        <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                        <Binding
+                            Mode="OneWay"
+                            Path="IsCategoryInDisplayMode"
+                            UpdateSourceTrigger="PropertyChanged" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+
+            </TextBlock>
+
+            <!--  Current category edit mode  -->
+            <local:ClickSelectTextBox
+                Grid.Row="0"
+                Margin="13,10,0,10"
+                Style="{DynamicResource PageTitleTextBoxStyle}"
+                Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                <TextBox.Visibility>
+                    <MultiBinding>
+                        <MultiBinding.Converter>
+                            <local:BoolToVisibilityMultiValueConverter />
+                        </MultiBinding.Converter>
+                        <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                        <Binding
+                            Mode="OneWay"
+                            Path="IsCategoryInEditMode"
+                            UpdateSourceTrigger="PropertyChanged" />
+                    </MultiBinding>
+                </TextBox.Visibility>
+
+                <Behaviors:Interaction.Triggers>
+                    <Behaviors:EventTrigger EventName="LostFocus">
+                        <Behaviors:InvokeCommandAction Command="{Binding FinishCategoryEditCommand}" />
+                    </Behaviors:EventTrigger>
+                </Behaviors:Interaction.Triggers>
+
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding FinishCategoryEditCommand}" />
+                </TextBox.InputBindings>
+
+
+            </local:ClickSelectTextBox>
+
+            <!--  border to catch double click event  -->
+            <Border
+                Grid.Row="0"
+                Background="Transparent"
+                Visibility="{Binding IsCategoryInEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                <Border.InputBindings>
+                    <MouseBinding Command="{Binding EditCategoryCommand}" Gesture="LeftClick" />
+                </Border.InputBindings>
+            </Border>
 
             <local:TaskListControl x:Name="MyTaskListControl" Grid.Row="1" />
 
-            <Border x:Name="BottomBorderPanel"
-                    Grid.Row="2"
-                    Background="{DynamicResource BottomBarBgBrush}"
-                    Style="{DynamicResource BottomPanelStyle}">
+            <Border
+                x:Name="BottomBorderPanel"
+                Grid.Row="2"
+                Background="{DynamicResource BottomBarBgBrush}"
+                Style="{DynamicResource BottomPanelStyle}">
 
                 <DockPanel>
-                    <local:TextEditorBox Padding="10"
-                                         VerticalAlignment="Bottom"
-                                         MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
-                                         AcceptsTab="True"
-                                         PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
-                                         AutomationProperties.AutomationId="AddNewTaskTextBox"
-                                         ScrollViewer.CanContentScroll="False"
-                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                         Tag="Add new task"
-                                         Style="{DynamicResource FormattableRichTextBoxStyle}"
-                                         DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         IsEmptyOrWhiteSpace="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <local:TextEditorBox
+                        MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                        Padding="10"
+                        VerticalAlignment="Bottom"
+                        AcceptsTab="True"
+                        AutomationProperties.AutomationId="AddNewTaskTextBox"
+                        DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEmptyOrWhiteSpace="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
+                        ScrollViewer.CanContentScroll="False"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        Style="{DynamicResource FormattableRichTextBoxStyle}"
+                        Tag="Add new task" />
                 </DockPanel>
 
             </Border>

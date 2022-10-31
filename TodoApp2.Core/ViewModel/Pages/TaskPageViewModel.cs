@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,11 +13,18 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskPageViewModel : BaseViewModel
     {
+        private readonly IDatabase m_Database;
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
+        private string m_RenameCategoryContentBefore;
 
         private string CurrentCategory => m_CategoryListService.CurrentCategory;
         private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
+
+        /// <summary>
+        /// The content for the textbox to rename the current category
+        /// </summary>
+        public string RenameCategoryContent { get; set; }
 
         /// <summary>
         /// The content / description text for the current task being written
@@ -27,6 +35,16 @@ namespace TodoApp2.Core
         /// Is the Add new task TextBox empty or only contains whitespace?
         /// </summary>
         public bool IsAddTaskTextBoxEmpty { get; set; }
+
+        /// <summary>
+        /// True if the category name is in edit mode
+        /// </summary>
+        public bool IsCategoryInEditMode { get; set; }
+
+        /// <summary>
+        /// True if the category name is in display mode
+        /// </summary>
+        public bool IsCategoryInDisplayMode => !IsCategoryInEditMode;
 
         /// <summary>
         /// Adds a new task item
@@ -73,12 +91,24 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand MoveToCategoryCommand { get; }
 
+        /// <summary>
+        /// Enters edit mode to change the category name
+        /// </summary>
+        public ICommand EditCategoryCommand { get; }
+
+        /// <summary>
+        /// Finishes edit mode and changes to display mode for the category name
+        /// </summary>
+        public ICommand FinishCategoryEditCommand { get; }
+
+
         public TaskPageViewModel()
         {
         }
 
-        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService)
+        public TaskPageViewModel(IDatabase database, TaskListService taskListService, CategoryListService categoryListService)
         {
+            m_Database = database;
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
 
@@ -93,8 +123,13 @@ namespace TodoApp2.Core
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
             MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
 
+            EditCategoryCommand = new RelayCommand(EditCategory);
+            FinishCategoryEditCommand = new RelayCommand(FinishCategoryEdit);
+
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+
+            Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
         }
 
         private void UndoTrashTask(CommandObject commandObject)
@@ -290,6 +325,31 @@ namespace TodoApp2.Core
             }
         }
 
+        /// <summary>
+        /// Enters edit mode to change the category name
+        /// </summary>
+        private void EditCategory()
+        {
+            IsCategoryInEditMode = true;
+            RenameCategoryContent = m_CategoryListService.CurrentCategory;
+            m_RenameCategoryContentBefore = RenameCategoryContent;
+        }
+
+        /// <summary>
+        /// Exits the edit mode and updates the category name
+        /// </summary>
+        private void FinishCategoryEdit()
+        {
+            if (m_RenameCategoryContentBefore != RenameCategoryContent)
+            {
+                CategoryListItemViewModel currentCategory = m_CategoryListService.GetCurrentCategory;
+                currentCategory.Name = RenameCategoryContent;
+                m_Database.UpdateCategory(currentCategory);
+            }
+
+            IsCategoryInEditMode = false;
+        }
+
         private void Pin(object obj)
         {
             if (obj is TaskListItemViewModel task)
@@ -358,6 +418,11 @@ namespace TodoApp2.Core
             // Clear the items and add back the cleared items to refresh the list (repaint)
             Items.Clear();
             Items.AddRange(itemsBackup);
+        }
+
+        private void OnCategoryChanged(object obj)
+        {
+            IsCategoryInEditMode = false;
         }
 
         protected override void OnDispose()

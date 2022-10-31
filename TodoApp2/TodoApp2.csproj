@@ -133,6 +133,7 @@
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\FocusSetter.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
+    <Compile Include="Controls\ClickSelectTextBox.cs" />
     <Compile Include="Controls\ColorPickerComboBox.cs" />
     <Compile Include="Controls\CustomScrollViewer.cs" />
     <Compile Include="Controls\TextEditorBox.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Styles\Themes\ColorSchemes\IColorScheme.cs" />
     <Compile Include="Styles\Themes\ColorSchemes\VSBlueColorScheme.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
+    <Compile Include="ValueConverters\Multi\BoolToVisibilityMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\MessageTypeToBrushConverter.cs" />

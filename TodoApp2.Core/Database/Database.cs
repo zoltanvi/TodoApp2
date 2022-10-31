@@ -15,6 +15,7 @@ namespace TodoApp2.Core
         private readonly MessageService m_MessageService;
 
         public event EventHandler<TaskChangedEventArgs> TaskChanged;
+        public event EventHandler<CategoryChangedEventArgs> CategoryChanged;
 
         public Database(SessionManager sessionManager, MessageService messageService)
         {
@@ -350,6 +351,17 @@ namespace TodoApp2.Core
 
             // Persist the change into the database
             m_DataAccess.UpdateCategory(category);
+        }
+
+        /// <summary>
+        /// Updates a category in the database
+        /// </summary>
+        /// <param name="category"></param>
+        public void UpdateCategory(CategoryListItemViewModel category)
+        {
+            CategoryListItemViewModel originalCategory = m_DataAccess.GetCategory(category.Id);
+            m_DataAccess.UpdateCategory(category);
+            CategoryChanged?.Invoke(this, new CategoryChangedEventArgs(originalCategory, category));
         }
 
         /// <summary>
