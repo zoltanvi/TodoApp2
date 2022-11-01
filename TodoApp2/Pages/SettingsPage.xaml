@@ -165,12 +165,18 @@
                             </ComboBox>
                         </DockPanel>
 
-
                         <!--  =====================================================  -->
 
                         <!--  Task settings  -->
                         <DockPanel Margin="0,15,0,10" Style="{StaticResource SettingsDockPanelStyle}">
                             <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task settings" />
+                        </DockPanel>
+
+                        <!--  Insert new task to the end  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Content="{DynamicResource SegoeIconTaskOrder}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Insert new task to the end" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.InsertOrderReversed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
                         <!--  Compact mode  -->

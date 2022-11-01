@@ -88,7 +88,7 @@ namespace TodoApp2.Core
             var categoryListService = new CategoryListService(applicationViewModel, database);
             Kernel.Bind<CategoryListService>().ToConstant(categoryListService);
 
-            var taskListService = new TaskListService(database, categoryListService);
+            var taskListService = new TaskListService(database, categoryListService, applicationViewModel);
             Kernel.Bind<TaskListService>().ToConstant(taskListService);
         }
     }

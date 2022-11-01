@@ -119,7 +119,7 @@
                     <!--  Color bar column  -->
                     <ColumnDefinition Width="{Binding Path=ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource thicknessToGridLengthConverter}}" />
                     <!--  Checkbox column  -->
-                    <ColumnDefinition Width="36" />
+                    <ColumnDefinition Width="{Binding UIScaler.TaskCheckBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
                     <!--  Main content column, also the hidden buttons column  -->
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>

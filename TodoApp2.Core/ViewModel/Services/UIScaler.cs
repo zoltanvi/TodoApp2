@@ -53,6 +53,7 @@ namespace TodoApp2
         public double ColorPickerItemSize => OriginalColorPickerItemSize * ScaleValue;
         public double SettingsComboboxWidth => OriginalSettingsComboboxWidth * ScaleValue;
         public double ColorPickerDropDownWidth => 44 + 16 + (s_ColorPickerColumns * ColorPickerItemSize);
+        public double TaskCheckBoxWidth => 36 * ScaleValue;
 
         public event EventHandler Zoomed;
 

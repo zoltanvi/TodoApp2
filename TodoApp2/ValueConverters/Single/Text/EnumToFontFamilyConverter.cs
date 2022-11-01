@@ -24,7 +24,6 @@ namespace TodoApp2
             { FontFamily.CascadiaMono, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoRegular")},
             { FontFamily.CascadiaMonoSemiLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoSemiLight")},
             { FontFamily.CascadiaMonoLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoLight")},
-            { FontFamily.CascadiaMonoExtraLight, (MediaFontFamily)Application.Current.TryFindResource("CascadiaMonoExtraLight")},
 
             { FontFamily.Inter, (MediaFontFamily)Application.Current.TryFindResource("Inter")},
             { FontFamily.InterLight, (MediaFontFamily)Application.Current.TryFindResource("InterLight")},

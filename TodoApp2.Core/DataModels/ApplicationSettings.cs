@@ -39,7 +39,7 @@ namespace TodoApp2.Core
         public bool IsCreationDateVisible { get; set; }
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; } = Thickness.Medium;
-        public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
+        public FontFamily FontFamily { get; set; } = FontFamily.Inter;
         public string AccentColor { get; set; } = "#0291cd";
         public int WindowCornerRadius { get; set; }
         public int NoRadius { get; } = 0;
@@ -54,6 +54,7 @@ namespace TodoApp2.Core
         public string NoteContent { get; set; }
         public bool NotePageWordWrap { get; set; }
         public bool IsCompactMode { get; set; }
+        public bool InsertOrderReversed { get; set; }
         public bool IsColorBarRounded { get; set; } = true;
 
         #region Testing
@@ -118,6 +119,7 @@ namespace TodoApp2.Core
                 { nameof(TextFormattingMode), PropertyValueHandlers.Bool },
                 { nameof(ClearTypeHint), PropertyValueHandlers.Bool },
                 { nameof(IsCompactMode), PropertyValueHandlers.Bool },
+                { nameof(InsertOrderReversed), PropertyValueHandlers.Bool },
                 { nameof(IsColorBarRounded), PropertyValueHandlers.Bool },
             };
 

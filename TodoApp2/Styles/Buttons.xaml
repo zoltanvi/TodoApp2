@@ -488,7 +488,9 @@
                             Opacity="0" />
 
                         <Grid.LayoutTransform>
-                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            <ScaleTransform 
+                                ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" 
+                                ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
                         </Grid.LayoutTransform>
                     </Grid>
 

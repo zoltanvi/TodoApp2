@@ -14,6 +14,7 @@ namespace TodoApp2.Core
     {
         private int m_LastRemovedId = int.MinValue;
         private readonly CategoryListService m_CategoryListService;
+        private readonly ApplicationViewModel m_ApplicationViewModel;
         private readonly IDatabase m_Database;
         private string CurrentCategory => m_CategoryListService.CurrentCategory;
 
@@ -22,10 +23,11 @@ namespace TodoApp2.Core
         /// </summary>
         public ObservableCollection<TaskListItemViewModel> TaskPageItems { get; }
 
-        public TaskListService(IDatabase database, CategoryListService categoryListService)
+        public TaskListService(IDatabase database, CategoryListService categoryListService, ApplicationViewModel applicationViewModel)
         {
             m_Database = database;
             m_CategoryListService = categoryListService;
+            m_ApplicationViewModel = applicationViewModel;
 
             // Query the items with the current category
             List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(CurrentCategory);
@@ -58,13 +60,21 @@ namespace TodoApp2.Core
 
         public TaskListItemViewModel AddNewTask(string taskContent)
         {
-            var pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
-            var currentCategoryId = m_CategoryListService.GetCurrentCategory.Id;
+            int pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
+            int currentCategoryId = m_CategoryListService.GetCurrentCategory.Id;
 
-            var task = m_Database.CreateTask(taskContent, currentCategoryId, pinnedItemsCount);
+            TaskListItemViewModel task = m_Database.CreateTask(taskContent, currentCategoryId, pinnedItemsCount);
 
-            // Add the task into the list
-            TaskPageItems.Insert(pinnedItemsCount, task);
+            if (m_ApplicationViewModel.ApplicationSettings.InsertOrderReversed)
+            {
+                // Insert the task at the end of the list
+                TaskPageItems.Add(task);
+            }
+            else
+            {
+                // Insert the task at the beginning of the list
+                TaskPageItems.Insert(pinnedItemsCount, task);
+            }
 
             return task;
         }

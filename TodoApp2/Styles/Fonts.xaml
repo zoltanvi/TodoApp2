@@ -75,6 +75,7 @@
     <system:String x:Key="SegoeIconBackgroundVisible">&#xF16D;</system:String>
 
     <system:String x:Key="SegoeIconCompactMode">&#xE71D;</system:String>
+    <system:String x:Key="SegoeIconTaskOrder">&#xF168;</system:String>
 
     <system:String x:Key="SegoeIconBold">&#xE8DD;</system:String>
     <system:String x:Key="SegoeIconItalic">&#xE8DB;</system:String>
