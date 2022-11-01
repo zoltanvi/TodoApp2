@@ -16,7 +16,6 @@
         CascadiaMono,
         CascadiaMonoSemiLight,
         CascadiaMonoLight,
-        CascadiaMonoExtraLight,
 
     }
 }
