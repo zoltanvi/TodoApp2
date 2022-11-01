@@ -27,6 +27,7 @@ namespace TodoApp2.Core
         public bool IsReminderOn { get; set; }
         public bool ColorPickerVisible { get; set; }
         public bool IsEditMode { get; set; }
+        public bool IsDisplayMode => !IsEditMode;
         public bool IsEmptyContent { get; set; }
         public ICommand SetColorCommand { get; }
         public ICommand SetColorParameterizedCommand { get; }

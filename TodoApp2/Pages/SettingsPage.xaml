@@ -59,7 +59,7 @@
             </Grid.RowDefinitions>
 
             <!--  Settings title  -->
-            <Grid Grid.Row="0" Margin="0,5,5,5">
+            <Grid Grid.Row="0" Margin="0 5 5 5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
@@ -68,7 +68,7 @@
 
                 <TextBlock
                     Grid.Column="0"
-                    Margin="15,0,0,0"
+                    Margin="15 0 0 0"
                     Style="{DynamicResource SideMenuTitleTextBlockStyle}"
                     Text="Settings" />
 
@@ -76,8 +76,8 @@
                     Grid.Column="2"
                     Command="{Binding BackToPrevPageCommand}"
                     Content="{DynamicResource SegoeIconBack}"
-                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}" />
-                <!--  Style="{DynamicResource SettingsButtonStyle}"  -->
+                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                    ToolTip="Back" />
 
             </Grid>
 
@@ -85,7 +85,7 @@
 
                 <Border Background="Transparent">
 
-                    <StackPanel Margin="15,20,20,20" Orientation="Vertical">
+                    <StackPanel Margin="15 20 20 20" Orientation="Vertical">
 
                         <!--  Window settings  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
@@ -168,7 +168,7 @@
                         <!--  =====================================================  -->
 
                         <!--  Task settings  -->
-                        <DockPanel Margin="0,15,0,10" Style="{StaticResource SettingsDockPanelStyle}">
+                        <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
                             <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task settings" />
                         </DockPanel>
 
@@ -274,7 +274,7 @@
                         <!--  =====================================================  -->
 
                         <!--  Quick actions  -->
-                        <DockPanel Margin="0,15,0,10" Style="{StaticResource SettingsDockPanelStyle}">
+                        <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
                             <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task quick actions" />
                             <!--<ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />-->
                         </DockPanel>
@@ -352,7 +352,7 @@
 
 
                         <!--  VERSION  -->
-                        <DockPanel Margin="0,10,0,0">
+                        <DockPanel Margin="0 10 0 0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -363,7 +363,7 @@
                                     Background="{DynamicResource VersionLabelBgBrush}"
                                     CornerRadius="2">
                                     <TextBlock
-                                        Margin="10,0,10,0"
+                                        Margin="10 0 10 0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"

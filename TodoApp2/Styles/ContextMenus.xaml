@@ -129,9 +129,9 @@
                         Background="{DynamicResource ContextMenuBackgroundBrush}"
                         BorderBrush="{DynamicResource ContextMenuBorderBrush}"
                         BorderThickness="1"
-                        ClipToBounds="True">
+                        ClipToBounds="False">
                         <StackPanel
-                            Margin="0,0"
+                            Margin="2"
                             ClipToBounds="True"
                             IsItemsHost="True"
                             Orientation="Vertical" />
@@ -148,7 +148,7 @@
 
     <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
         <Setter Property="Height" Value="1" />
-        <Setter Property="Margin" Value="0,2" />
+        <Setter Property="Margin" Value="0 2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Separator}">
@@ -240,14 +240,14 @@
                 </Grid.ColumnDefinitions>
                 <ContentPresenter
                     Name="Icon"
-                    Margin="6,0,6,0"
+                    Margin="6 0 6 0"
                     VerticalAlignment="Center"
                     ContentSource="Icon" />
                 <Border
                     Name="Check"
                     Width="13"
                     Height="13"
-                    Margin="6,0,6,0"
+                    Margin="6 0 6 0"
                     Background="{StaticResource NormalBrush}"
                     BorderBrush="{StaticResource NormalBorderBrush}"
                     BorderThickness="1"
@@ -270,7 +270,7 @@
                 <TextBlock
                     x:Name="InputGestureText"
                     Grid.Column="2"
-                    Margin="5,2,0,2"
+                    Margin="5 2 0 2"
                     DockPanel.Dock="Right"
                     Text="{TemplateBinding InputGestureText}" />
             </Grid>
@@ -308,7 +308,7 @@
                 </Grid.ColumnDefinitions>
                 <ContentPresenter
                     Name="Icon"
-                    Margin="6,0,6,0"
+                    Margin="6 0 6 0"
                     VerticalAlignment="Center"
                     ContentSource="Icon" />
                 <ContentPresenter
@@ -319,7 +319,7 @@
                 <TextBlock
                     x:Name="InputGestureText"
                     Grid.Column="2"
-                    Margin="5,2,2,2"
+                    Margin="5 2 2 2"
                     DockPanel.Dock="Right"
                     Text="{TemplateBinding InputGestureText}" />
                 <Path
@@ -360,7 +360,7 @@
             </Trigger>
             <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="True">
                 <Setter TargetName="SubmenuBorder" Property="CornerRadius" Value="0" />
-                <Setter TargetName="SubmenuBorder" Property="Padding" Value="0,3,0,3" />
+                <Setter TargetName="SubmenuBorder" Property="Padding" Value="0 3 0 3" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />

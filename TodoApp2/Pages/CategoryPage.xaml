@@ -1,17 +1,18 @@
-﻿<local:BasePage x:Class="TodoApp2.CategoryPage"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
-                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                xmlns:local="clr-namespace:TodoApp2"
-                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                Title="Page1"
-                d:DesignHeight="450"
-                d:DesignWidth="400"
-                x:TypeArguments="core:CategoryPageViewModel"
-                mc:Ignorable="d">
+﻿<local:BasePage
+    x:Class="TodoApp2.CategoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Page1"
+    d:DesignHeight="450"
+    d:DesignWidth="400"
+    x:TypeArguments="core:CategoryPageViewModel"
+    mc:Ignorable="d">
 
-    <Grid Margin="0 5 0 0">
+    <Grid Margin="0,5,0,0">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
@@ -29,7 +30,7 @@
             </Grid.ColumnDefinitions>
 
 
-            <Grid Grid.Row="0" Margin="0 0 5 25">
+            <Grid Grid.Row="0" Margin="0,0,5,25">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />
@@ -127,44 +128,52 @@
                 </Grid>-->
 
                 <!--  Categories title  -->
-                <TextBlock Grid.Column="0"
-                           Margin="15 0 0 0"
-                           Style="{DynamicResource SideMenuTitleTextBlockStyle}"
-                           Text="Categories" />
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="15,0,0,0"
+                    Style="{DynamicResource SideMenuTitleTextBlockStyle}"
+                    Text="Categories" />
 
                 <!--  Note button  -->
-                <Button Grid.Column="1"
-                        AutomationProperties.AutomationId="NoteButton"
-                        Command="{Binding OpenNotePageCommand}"
-                        Content="{DynamicResource SegoeIconNote}"
-                        Style="{DynamicResource ButtonIconHoverSideMenuStyle}" />
-                
+                <Button
+                    Grid.Column="1"
+                    AutomationProperties.AutomationId="NoteButton"
+                    Command="{Binding OpenNotePageCommand}"
+                    Content="{DynamicResource SegoeIconNote}"
+                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                    ToolTip="Note (plain text)" />
+
                 <!--  Settings button  -->
-                <Button Grid.Column="2"
-                        AutomationProperties.AutomationId="SettingsButton"
-                        Command="{Binding OpenSettingsPageCommand}"
-                        Content="{DynamicResource SegoeIconSettings}"
-                        Style="{DynamicResource ButtonIconHoverSideMenuStyle}" />
+                <Button
+                    Grid.Column="2"
+                    AutomationProperties.AutomationId="SettingsButton"
+                    Command="{Binding OpenSettingsPageCommand}"
+                    Content="{DynamicResource SegoeIconSettings}"
+                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                    ToolTip="Settings" />
             </Grid>
 
             <!--  Category list  -->
-            <local:CategoryListControl Grid.Row="1"
-                                       Grid.Column="0"
-                                       Grid.ColumnSpan="2" />
+            <local:CategoryListControl
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2" />
         </Grid>
 
         <!--  ADD NEW CATEGORY  -->
-        <Border Grid.Row="1"
-                Background="{DynamicResource BottomBarBgBrush}"
-                BorderBrush="{DynamicResource BottomBarBorderBrush}"
-                BorderThickness="0 1 0 0">
-            <TextBox Padding="8.5"
-                     VerticalAlignment="Bottom"
-                     AutomationProperties.AutomationId="AddNewCategoryTextBox"
-                     Style="{StaticResource AddNewTaskTextBoxStyle}"
-                     TextWrapping="NoWrap"
-                     Tag="Add new category"
-                     Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}">
+        <Border
+            Grid.Row="1"
+            Background="{DynamicResource BottomBarBgBrush}"
+            BorderBrush="{DynamicResource BottomBarBorderBrush}"
+            BorderThickness="0,1,0,0">
+            <TextBox
+                Padding="8.5"
+                VerticalAlignment="Bottom"
+                AutomationProperties.AutomationId="AddNewCategoryTextBox"
+                Style="{StaticResource AddNewTaskTextBoxStyle}"
+                Tag="Add new category"
+                Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="NoWrap">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Return" Command="{Binding AddCategoryCommand}" />
                 </TextBox.InputBindings>

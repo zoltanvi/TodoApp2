@@ -87,7 +87,7 @@
         <!--  Color bar overlaying the border  -->
         <Border
             Width="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource thicknessToDoubleConverter}}"
-            Margin="4,2"
+            Margin="4 2"
             HorizontalAlignment="Left"
             Panel.ZIndex="1000"
             AutomationProperties.AutomationId="TaskListItemColorBar"
@@ -95,7 +95,7 @@
             CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}" />
 
         <Border
-            Margin="4,2"
+            Margin="4 2"
             BorderBrush="{DynamicResource TaskBorderBrush}"
             BorderThickness="1"
             CornerRadius="2"
@@ -103,7 +103,7 @@
 
         <Border
             x:Name="TaskListItemBackground"
-            Margin="4,2"
+            Margin="4 2"
             BorderBrush="Transparent"
             BorderThickness="1"
             CornerRadius="2">
@@ -145,7 +145,7 @@
                 <!--  Pin icon  -->
                 <Border
                     Grid.Column="2"
-                    Margin="0,0,8,0"
+                    Margin="0 0 8 0"
                     HorizontalAlignment="Right"
                     Background="Transparent"
                     Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityConverter}}">
@@ -167,7 +167,7 @@
                 </Border>
 
                 <!--  Main content  -->
-                <Grid Grid.Column="2" Margin="0,2,10,2">
+                <Grid Grid.Column="2" Margin="0 2 10 2">
                     <Grid.RowDefinitions>
                         <!--  Task description row  -->
                         <RowDefinition Height="*" />
@@ -183,13 +183,12 @@
                     -->
                     <local:TextEditorBox
                         Grid.Row="0"
-                        local:FocusSetter.Value="{Binding IsEditMode}"
                         DocumentContent="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Focusable="{Binding IsEditMode}"
                         IsEmptyOrWhiteSpace="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         IsHitTestVisible="{Binding IsEditMode}"
                         Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                         PreviewKeyDown="TextBox_PreviewKeyDown"
+                        local:FocusSetter.Value="{Binding IsEditMode}"
                         Style="{DynamicResource FormattableRichTextBoxStyle}">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="LostFocus">
@@ -211,7 +210,7 @@
 
                     <StackPanel
                         Grid.Row="1"
-                        Margin="6,0,0,0"
+                        Margin="6 0 0 0"
                         Orientation="Horizontal">
 
                         <Label
@@ -226,7 +225,7 @@
                         <!--  Creation date  -->
                         <TextBlock
                             Grid.Row="1"
-                            Margin="0,0,16,0"
+                            Margin="0 0 16 0"
                             FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                             FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
                             Foreground="{DynamicResource TaskDateBrush}"
@@ -272,8 +271,21 @@
                     AutomationProperties.AutomationId="TaskListItemHiddenPanel"
                     Background="Transparent"
                     IsEnabled="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
-                    Opacity="0"
-                    Visibility="{Binding IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                    Opacity="0">
+                    <!--  Visibility="{Binding IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}"  -->
+
+                    <Border.Visibility>
+                        <MultiBinding>
+                            <MultiBinding.Converter>
+                                <local:BoolToVisibilityMultiValueConverter />
+                            </MultiBinding.Converter>
+                            <Binding Path="ApplicationViewModel.ApplicationSettings.IsAnyQuickActionEnabled" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            <Binding
+                                Mode="OneWay"
+                                Path="IsDisplayMode"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </MultiBinding>
+                    </Border.Visibility>
 
                     <Border.Triggers>
                         <EventTrigger RoutedEvent="Border.MouseEnter">
@@ -305,7 +317,7 @@
 
                     <!--  HOVER PANEL  -->
                     <Border
-                        Padding="10,0,10,0"
+                        Padding="10 0 10 0"
                         HorizontalAlignment="Right"
                         Background="{DynamicResource TaskListItemHoverPanelBrush}"
                         CornerRadius="0 2 2 0">

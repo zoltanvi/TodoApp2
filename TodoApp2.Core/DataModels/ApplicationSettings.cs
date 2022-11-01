@@ -27,6 +27,7 @@ namespace TodoApp2.Core
         private IUIScaler m_UiScaler;
 
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
+        public bool IsAnyQuickActionEnabled { get; set; }
 
         public int WindowLeftPos { get; set; }
         public int WindowTopPos { get; set; }
@@ -124,6 +125,28 @@ namespace TodoApp2.Core
             };
 
             m_UiScaler.Zoomed += OnZoomed;
+
+            PropertyChanged += ApplicationSettings_PropertyChanged;
+        }
+
+        private void ApplicationSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(IsQuickActionsEnabled):
+                case nameof(IsQuickActionsColorEnabled):
+                case nameof(IsQuickActionsPinEnabled):
+                case nameof(IsQuickActionsReminderEnabled):
+                case nameof(IsQuickActionsTrashEnabled):
+                {
+                    IsAnyQuickActionEnabled = IsQuickActionsEnabled && 
+                        (IsQuickActionsColorEnabled ||
+                        IsQuickActionsPinEnabled ||
+                        IsQuickActionsReminderEnabled ||
+                        IsQuickActionsTrashEnabled);
+                    break;
+                }
+            }
         }
 
         private void OnZoomed(object sender, EventArgs e)
