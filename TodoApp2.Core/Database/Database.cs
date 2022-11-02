@@ -64,26 +64,26 @@ namespace TodoApp2.Core
         /// </summary>
         /// <param name="categoryName">The category of the tasks.</param>
         /// <returns></returns>
-        public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(string categoryName)
+        public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(CategoryListItemViewModel category)
         {
-            List<TaskListItemViewModel> returnValue = await Task.Run(() => GetActiveTaskItems(categoryName));
+            List<TaskListItemViewModel> returnValue = await Task.Run(() => GetActiveTaskItems(category));
             return returnValue;
         }
 
         /// <summary>
         /// Gets the task items from the provided category which are not trashed
         /// </summary>
-        /// <param name="categoryName"></param>
+        /// <param name="category"></param>
         /// <returns></returns>
-        public List<TaskListItemViewModel> GetActiveTaskItems(string categoryName)
+        public List<TaskListItemViewModel> GetActiveTaskItems(CategoryListItemViewModel category)
         {
-            if (string.IsNullOrEmpty(categoryName))
+            if (string.IsNullOrEmpty(category?.Name))
             {
                 return new List<TaskListItemViewModel>();
             }
 
             // Returns the task list from the database ordered by ListOrder column
-            List<TaskListItemViewModel> tasksFromCategory = m_DataAccess.GetTasksFromCategory(categoryName);
+            List<TaskListItemViewModel> tasksFromCategory = m_DataAccess.GetTasksFromCategory(category.Id);
 
             // Return only the items from the provided category which are not trashed
             return tasksFromCategory.Where(task => task.Trashed == false).ToList();
@@ -134,7 +134,7 @@ namespace TodoApp2.Core
         /// Gets the category items which are not trashed
         /// </summary>
         /// <returns></returns>
-        public List<CategoryListItemViewModel> GetActiveCategories()
+        public List<CategoryListItemViewModel> GetValidCategories()
         {
             // Get all categories
             List<CategoryListItemViewModel> allCategories = m_DataAccess.GetCategories();

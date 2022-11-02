@@ -31,7 +31,7 @@
 
             <MenuItem Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Edit" />
             <MenuItem Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Set reminder" />
-            <MenuItem Header="Move to" ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+            <MenuItem Header="Move to" ItemsSource="{Binding CategoryListService.InactiveCategories, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding Name}" />
@@ -41,7 +41,7 @@
                                 <MultiBinding Converter="{local:TaskContextMenuCommandParameterConverter}">
                                     <MultiBinding.Bindings>
                                         <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType={x:Type local:TaskListItemControl}}" />
-                                        <Binding Path="Name" />
+                                        <Binding Path="." />
                                     </MultiBinding.Bindings>
                                 </MultiBinding>
                             </Setter.Value>
@@ -145,7 +145,7 @@
                 <!--  Pin icon  -->
                 <Border
                     Grid.Column="2"
-                    Margin="0 0 8 0"
+                    Margin="0"
                     HorizontalAlignment="Right"
                     Background="Transparent"
                     Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityConverter}}">
@@ -180,15 +180,18 @@
                         ========================================================
                         IMPORTANT: FocusSetter Attached property must be
                         after Visibility property (if defined) in order to work!
+                        
+                        Focusable property is needed to exit edit mode on enter keypress.
                     -->
                     <local:TextEditorBox
                         Grid.Row="0"
                         DocumentContent="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Focusable="{Binding IsEditMode}"
+                        local:FocusSetter.Value="{Binding IsEditMode}"
                         IsEmptyOrWhiteSpace="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         IsHitTestVisible="{Binding IsEditMode}"
                         Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                         PreviewKeyDown="TextBox_PreviewKeyDown"
-                        local:FocusSetter.Value="{Binding IsEditMode}"
                         Style="{DynamicResource FormattableRichTextBoxStyle}">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="LostFocus">
@@ -330,14 +333,26 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <!--  Calendar button  -->
-                            <Button
-                                Grid.Column="0"
-                                AutomationProperties.AutomationId="TaskListItemCalendarButton"
-                                Command="{Binding OpenReminderCommand}"
-                                Content="{DynamicResource SegoeIconDateTime}"
-                                Style="{DynamicResource ButtonQuickActionStyle}"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                            <!--  Calendar empty button  -->
+                            <Grid Grid.Column="0" Visibility="{Binding IsReminderOn, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                                <Button
+                                    AutomationProperties.AutomationId="TaskListItemCalendarEmptyButton"
+                                    Command="{Binding OpenReminderCommand}"
+                                    Content="{DynamicResource SegoeIconCalendar}"
+                                    Style="{DynamicResource ButtonQuickActionStyle}"
+                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                            </Grid>
+
+                            <!--  Calendar active button  -->
+                            <Grid Grid.Column="0" Visibility="{Binding IsReminderOn, Converter={StaticResource boolToVisibilityConverter}}">
+                                <Button
+                                    AutomationProperties.AutomationId="TaskListItemCalendarActiveButton"
+                                    Command="{Binding OpenReminderCommand}"
+                                    Content="{DynamicResource SegoeIconDateTime}"
+                                    Style="{DynamicResource ButtonQuickActionStyle}"
+                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                            </Grid>
+
 
                             <!--  Color picker  -->
                             <ComboBox

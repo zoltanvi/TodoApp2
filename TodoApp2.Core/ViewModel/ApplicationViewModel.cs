@@ -87,7 +87,7 @@ namespace TodoApp2.Core
             Mediator.Register(OnOnlineModeChangeRequested, ViewModelMessages.OnlineModeChangeRequested);
             Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
 
-            // Load the application settings to update the CurrentCategory before querying the tasks
+            // Load the application settings to update the ActiveCategoryId before querying the tasks
             LoadApplicationSettingsOnce();
 
             ApplicationSettings.PropertyChanged += OnApplicationSettingsPropertyChanged;
@@ -204,12 +204,12 @@ namespace TodoApp2.Core
             List<SettingsModel> settings = m_Database.GetSettings();
             ApplicationSettings.SetSettings(settings);
 
-            // If the application is closed while no category was selected,
+            // If the application were closed with the note page open,
             // set the first valid category as selected.
-            // This can happen if the settings page were open during closing
-            if (string.IsNullOrEmpty(ApplicationSettings.CurrentCategory))
+            if (ApplicationSettings.ActiveCategoryId == -1)
             {
-                ApplicationSettings.CurrentCategory = m_Database.GetActiveCategories()?.FirstOrDefault()?.Name;
+                // There is always at least one valid category. Set the first one to active
+                ApplicationSettings.ActiveCategoryId = m_Database.GetValidCategories().FirstOrDefault().Id;
             }
         }
 

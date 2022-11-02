@@ -979,7 +979,7 @@ namespace TodoApp2.Core
             const string windowTopPos = "WindowTopPos";
             const string windowWidth = "WindowWidth";
             const string windowHeight = "WindowHeight";
-            const string currentCategory = "CurrentCategory";
+            const string activeCategoryId = "ActiveCategoryId";
 
             List<string> keys = new List<string> { windowLeftPos, windowTopPos, windowWidth, windowHeight };
 
@@ -989,7 +989,7 @@ namespace TodoApp2.Core
                 new SettingsModel {Id = 1, Key = windowTopPos, Value = "100"},
                 new SettingsModel {Id = 2, Key = windowWidth, Value = "380"},
                 new SettingsModel {Id = 3, Key = windowHeight, Value = "500"},
-                new SettingsModel {Id = 4, Key = currentCategory, Value = "Today"}
+                new SettingsModel {Id = 4, Key = activeCategoryId, Value = "0"}
             };
 
             var settings = GetSettings();

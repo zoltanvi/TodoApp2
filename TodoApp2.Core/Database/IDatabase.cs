@@ -13,10 +13,10 @@ namespace TodoApp2.Core
         bool AddCategoryIfNotExists(CategoryListItemViewModel categoryToAdd);
         void AddSetting(SettingsModel setting);
         void Dispose();
-        List<CategoryListItemViewModel> GetActiveCategories();
+        List<CategoryListItemViewModel> GetValidCategories();
         List<TaskListItemViewModel> GetActiveTaskItems();
-        List<TaskListItemViewModel> GetActiveTaskItems(string categoryName);
-        Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(string categoryName);
+        List<TaskListItemViewModel> GetActiveTaskItems(CategoryListItemViewModel category);
+        Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(CategoryListItemViewModel category);
         CategoryListItemViewModel GetCategory(int categoryId);
         CategoryListItemViewModel GetCategory(string categoryName);
         List<SettingsModel> GetSettings();

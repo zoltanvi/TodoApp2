@@ -13,12 +13,12 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskPageViewModel : BaseViewModel
     {
-        private readonly IDatabase m_Database;
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
         private string m_RenameCategoryContentBefore;
 
-        private string CurrentCategory => m_CategoryListService.CurrentCategory;
+        private CategoryListItemViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
+
         private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
 
         /// <summary>
@@ -106,9 +106,8 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskPageViewModel(IDatabase database, TaskListService taskListService, CategoryListService categoryListService)
+        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService)
         {
-            m_Database = database;
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
 
@@ -148,8 +147,8 @@ namespace TodoApp2.Core
             {
                 commandObject.CommandArgument = tuple.Item2;
             }
-
-            return DoTrashTask(commandObject);
+            CommandObject result = DoTrashTask(commandObject);
+            return result;
         }
 
         private CommandObject DoTrashTask(CommandObject commandObject)
@@ -212,7 +211,7 @@ namespace TodoApp2.Core
             if (commandObject.CommandResult is TaskListItemViewModel task)
             {
                 List<TaskListItemViewModel> taskList =
-                    Task.Run(() => m_TaskListService.GetActiveTaskItemsAsync(CurrentCategory)).Result;
+                    Task.Run(() => m_TaskListService.GetActiveTaskItemsAsync(ActiveCategory)).Result;
 
                 int pinnedItemCount = taskList.Count(i => i.Pinned);
                 int position = task.Pinned ? 0 : pinnedItemCount;
@@ -304,15 +303,13 @@ namespace TodoApp2.Core
             if (obj is List<object> parameters && parameters.Count == 2)
             {
                 if (parameters[0] is TaskListItemViewModel task &&
-                    parameters[1] is string categoryToMoveTo)
+                    parameters[1] is CategoryListItemViewModel categoryToMoveTo)
                 {
-                    CategoryListItemViewModel taskCategory = m_CategoryListService.GetCategory(task.CategoryId);
-
                     // If the category is the same as the task is in, there is nothing to do
-                    if (taskCategory.Name != categoryToMoveTo)
+                    if (task.CategoryId != categoryToMoveTo.Id)
                     {
-                        CategoryListItemViewModel newCategory = m_CategoryListService.GetCategory(categoryToMoveTo);
-                        task.CategoryId = newCategory.Id;
+                        //CategoryListItemViewModel newCategory = m_CategoryListService.GetCategory(categoryToMoveTo);
+                        task.CategoryId = categoryToMoveTo.Id;
 
                         // Insert into the first correct position.
                         int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task, categoryToMoveTo);
@@ -331,7 +328,7 @@ namespace TodoApp2.Core
         private void EditCategory()
         {
             IsCategoryInEditMode = true;
-            RenameCategoryContent = m_CategoryListService.CurrentCategory;
+            RenameCategoryContent = m_CategoryListService.ActiveCategoryName;
             m_RenameCategoryContentBefore = RenameCategoryContent;
         }
 
@@ -342,9 +339,7 @@ namespace TodoApp2.Core
         {
             if (m_RenameCategoryContentBefore != RenameCategoryContent)
             {
-                CategoryListItemViewModel currentCategory = m_CategoryListService.GetCurrentCategory;
-                currentCategory.Name = RenameCategoryContent;
-                m_Database.UpdateCategory(currentCategory);
+                m_CategoryListService.ActiveCategoryName = RenameCategoryContent;
             }
 
             IsCategoryInEditMode = false;
@@ -370,7 +365,7 @@ namespace TodoApp2.Core
             if (obj is TaskListItemViewModel task)
             {
                 // 1. Get the tasks in the category
-                var taskList = await m_TaskListService.GetActiveTaskItemsAsync(CurrentCategory);
+                var taskList = await m_TaskListService.GetActiveTaskItemsAsync(ActiveCategory);
 
                 // 2. Count all pinned items. The currently pinned item is in this list.
                 int pinnedItemCount = taskList.Count(i => i.Pinned);

@@ -16,7 +16,8 @@ namespace TodoApp2.Core
         private readonly CategoryListService m_CategoryListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
         private readonly IDatabase m_Database;
-        private string CurrentCategory => m_CategoryListService.CurrentCategory;
+
+        private CategoryListItemViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
 
         /// <summary>
         /// The task list items
@@ -30,7 +31,7 @@ namespace TodoApp2.Core
             m_ApplicationViewModel = applicationViewModel;
 
             // Query the items with the current category
-            List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(CurrentCategory);
+            List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(ActiveCategory);
 
             // Fill the actual list with the queried items
             TaskPageItems = new ObservableCollection<TaskListItemViewModel>(items);
@@ -54,16 +55,16 @@ namespace TodoApp2.Core
         private void OnOnlineModeChanged(object obj)
         {
             TaskPageItems.Clear();
-            List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(CurrentCategory);
+            List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(ActiveCategory);
             TaskPageItems.AddRange(items);
         }
 
         public TaskListItemViewModel AddNewTask(string taskContent)
         {
             int pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
-            int currentCategoryId = m_CategoryListService.GetCurrentCategory.Id;
+            int activeCategoryId = m_CategoryListService.ActiveCategory.Id;
 
-            TaskListItemViewModel task = m_Database.CreateTask(taskContent, currentCategoryId, pinnedItemsCount);
+            TaskListItemViewModel task = m_Database.CreateTask(taskContent, activeCategoryId, pinnedItemsCount);
 
             if (m_ApplicationViewModel.ApplicationSettings.InsertOrderReversed)
             {
@@ -135,9 +136,9 @@ namespace TodoApp2.Core
         }
 
         /// <inheritdoc cref="Core.Database.GetActiveTaskItemsAsync"/>
-        public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(string categoryName)
+        public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(CategoryListItemViewModel category)
         {
-            return await m_Database.GetActiveTaskItemsAsync(categoryName);
+            return await m_Database.GetActiveTaskItemsAsync(category);
         }
 
         private void OnClientDatabaseTaskChanged(object sender, TaskChangedEventArgs e)
@@ -153,7 +154,7 @@ namespace TodoApp2.Core
             TaskPageItems.Clear();
 
             // Query the items with the current category
-            List<TaskListItemViewModel> filteredItems = await GetActiveTaskItemsAsync(CurrentCategory);
+            List<TaskListItemViewModel> filteredItems = await GetActiveTaskItemsAsync(ActiveCategory);
 
             // Clear the list to prevent showing items from multiple categories.
             // This can happen if the user changes category again while the query runs
@@ -183,11 +184,11 @@ namespace TodoApp2.Core
         /// <param name="task">The task to reorder.</param>
         /// <param name="categoryName">The category where the task should be moved.</param>
         /// <returns> the correct reorder index where the task can be moved.</returns>
-        public int GetCorrectReorderIndex(int newIndex, TaskListItemViewModel task, string categoryName)
+        public int GetCorrectReorderIndex(int newIndex, TaskListItemViewModel task, CategoryListItemViewModel category)
         {
             if (task != null)
             {
-                List<TaskListItemViewModel> categoryTasks = m_Database.GetActiveTaskItems(categoryName);
+                List<TaskListItemViewModel> categoryTasks = m_Database.GetActiveTaskItems(category);
                 newIndex = GetReorderIndex(newIndex, task, categoryTasks);
             }
 

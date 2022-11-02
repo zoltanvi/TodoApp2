@@ -44,6 +44,10 @@ namespace TodoApp2.Core
                 undoItem.CommandObject.Handled = false;
                 m_RedoStack.Push(undoItem);
                 undoItem.UndoAction?.Invoke(undoItem.CommandObject);
+                if (!string.IsNullOrEmpty(undoItem.CommandObject.UndoMessage))
+                {
+                    IoC.MessageService.ShowInfo($"Undo: {undoItem.CommandObject.UndoMessage}");
+                }
             }
         }
 
@@ -55,6 +59,10 @@ namespace TodoApp2.Core
                 undoItem.CommandObject.Handled = false;
                 m_UndoStack.Push(undoItem);
                 undoItem.RedoAction?.Invoke(undoItem.CommandObject);
+                if (!string.IsNullOrEmpty(undoItem.CommandObject.UndoMessage))
+                {
+                    IoC.MessageService.ShowUndo(undoItem.CommandObject.UndoMessage);
+                }
             }
         }
 

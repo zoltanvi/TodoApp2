@@ -8,11 +8,15 @@
     <local:MessageTypeToBrushConverter
         x:Key="messageTypeToForegroundConverter"
         InfoBrushName="MessageInfoBrush"
-        WarningBrushName="MessageWarningBrush" />
+        WarningBrushName="MessageWarningBrush"
+        ErrorBrushName="MessageErrorBrush"
+        />
     <local:MessageTypeToBrushConverter
         x:Key="messageTypeToBackgroundConverter"
         InfoBrushName="MessageInfoBgBrush"
-        WarningBrushName="MessageWarningBgBrush" />
+        WarningBrushName="MessageWarningBgBrush"
+        ErrorBrushName="MessageErrorBgBrush"
+        />
 
     <local:DynamicSolidColorBrushConverter
         x:Key="toggleButtonDynamicBrushConverter"

@@ -18,8 +18,8 @@ namespace TodoApp2.Core
         public MessageService()
         {
             m_MaxInterval = new TimeSpan(int.MaxValue);
-            m_DefaultDuration = TimeSpan.FromSeconds(4);
-            m_UndoDuration = TimeSpan.FromSeconds(1);
+            m_DefaultDuration = TimeSpan.FromSeconds(1.5);
+            m_UndoDuration = TimeSpan.FromSeconds(1.5);
             m_Timer = new DispatcherTimer { Interval = m_MaxInterval };
             m_Timer.Tick += TimerOnTick;
         }

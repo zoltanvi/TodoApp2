@@ -32,10 +32,10 @@ namespace TodoApp2.Core
 
         private ObservableCollection<CategoryListItemViewModel> Items => m_CategoryListService.Items;
 
-        private string CurrentCategory
+        private CategoryListItemViewModel ActiveCategory
         {
-            get => m_CategoryListService.CurrentCategory;
-            set => m_CategoryListService.CurrentCategory = value;
+            get => m_CategoryListService.ActiveCategory;
+            set => m_CategoryListService.ActiveCategory = value;
         }
 
         public CategoryPageViewModel()
@@ -62,7 +62,7 @@ namespace TodoApp2.Core
             // Subscribe to the collection changed event for synchronizing with database
             m_CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;
 
-            // Load the application settings to update the CurrentCategory
+            // Load the application settings to update the ActiveCategory
             m_Application.LoadApplicationSettingsOnce();
 
             // Subscribe to the theme changed event to repaint the list items when it happens
@@ -146,17 +146,17 @@ namespace TodoApp2.Core
             if (obj is CategoryListItemViewModel category)
             {
                 // At least one category is required
-                if (m_Database.GetActiveCategories().Count > 1)
+                if (m_Database.GetValidCategories().Count > 1)
                 {
                     m_Database.TrashCategory(category);
 
                     Items.Remove(category);
 
                     // Only if the current category was the deleted one, select a new category
-                    if (category.Name == CurrentCategory)
+                    if (category == ActiveCategory)
                     {
                         CategoryListItemViewModel firstItem = Items.FirstOrDefault();
-                        SetCurrentCategory(firstItem?.Name);
+                        SetActiveCategory(firstItem);
                     }
                 }
                 else
@@ -171,7 +171,7 @@ namespace TodoApp2.Core
             if (obj is CategoryListItemViewModel category)
             {
                 IoC.UndoManager.ClearHistory();
-                SetCurrentCategory(category.Name);
+                SetActiveCategory(category);
             }
         }
 
@@ -179,15 +179,14 @@ namespace TodoApp2.Core
         /// Sets the current category to the specified one.
         /// Ensures that always only one IsSelected property is set to true.
         /// </summary>
-        /// <param name="categoryName"></param>
-        private void SetCurrentCategory(string categoryName)
+        /// <param name="category"></param>
+        private void SetActiveCategory(CategoryListItemViewModel category)
         {
-            if (!string.IsNullOrEmpty(categoryName))
+            if (!string.IsNullOrEmpty(category?.Name))
             {
-                if (CurrentCategory != categoryName)
+                if (ActiveCategory != category)
                 {
-                    // Set the CurrentCategory property
-                    CurrentCategory = categoryName;
+                    ActiveCategory = category;
 
                     // Notify clients about the category change
                     Mediator.NotifyClients(ViewModelMessages.CategoryChanged);
@@ -222,7 +221,7 @@ namespace TodoApp2.Core
             }
 
             m_OverlayPageService.CloseSideMenu();
-            m_CategoryListService.CurrentCategory = string.Empty;
+            m_CategoryListService.ActiveCategory = null;
         }
 
         /// <summary>

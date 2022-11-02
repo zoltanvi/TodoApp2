@@ -17,6 +17,7 @@
     <Color x:Key="CalendarDisabledDays">#4E4E4E</Color>
     <Color x:Key="MessageInfo">#000000</Color>
     <Color x:Key="MessageWarning">#000000</Color>
+    <Color x:Key="MessageError">#000000</Color>
 
     <Color x:Key="PageBg">#3B4252</Color>
     <Color x:Key="SideMenuBg">#3B4252</Color>
@@ -38,6 +39,7 @@
     <Color x:Key="ContextMenuBg">#2F3031</Color>
     <Color x:Key="MessageInfoBg">#5BB2FA</Color>
     <Color x:Key="MessageWarningBg">#EBCB8B</Color>
+    <Color x:Key="MessageErrorBg">#EF5350</Color>
 
     <Color x:Key="HoverCategoryBg">#4c566a</Color>
     <Color x:Key="HoverTitleBarButtonBg">#4C566A</Color>
@@ -76,8 +78,9 @@
     <SolidColorBrush x:Key="CalendarDisabledDaysBrush" Color="{DynamicResource CalendarDisabledDays}" />
     <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
     <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
-    
-    <!--Background-->
+    <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
+
+<!--Background-->
     <SolidColorBrush x:Key="PageBgBrush" Color="{DynamicResource PageBg}" />
     <SolidColorBrush x:Key="SideMenuBgBrush" Color="{DynamicResource SideMenuBg}" />
     <SolidColorBrush x:Key="TitleBarBgBrush" Color="{DynamicResource TitleBarBg}" />
@@ -102,6 +105,7 @@
     <SolidColorBrush x:Key="ContextMenuSelectedBackgroundBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.1" />
     <SolidColorBrush x:Key="MessageInfoBgBrush" Color="{DynamicResource MessageInfoBg}" />
     <SolidColorBrush x:Key="MessageWarningBgBrush" Color="{DynamicResource MessageWarningBg}" />
+    <SolidColorBrush x:Key="MessageErrorBgBrush" Color="{DynamicResource MessageErrorBg}" />
 
     <!--Hover-->
     <SolidColorBrush x:Key="HoverCategoryBgBrush" Color="{DynamicResource HoverCategoryBg}" />

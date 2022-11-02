@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -122,6 +123,7 @@ namespace TodoApp2
             LostFocus += OnLostFocus;
             TextChanged += OnTextChanged;
             KeyDown += OnKeyDown;
+            PreviewKeyUp += OnPrevKeyUp;
             SelectionChanged += OnSelectionChanged;
 
             DataObject.AddPastingHandler(this, OnPaste);
@@ -246,11 +248,7 @@ namespace TodoApp2
 
         private void OnSelectionChanged(object sender, RoutedEventArgs e)
         {
-            UpdateSelectionBold();
-            UpdateSelectionItalic();
-            UpdateSelectionUnderlined();
-
-            UpdateSelectionColor();
+            UpdateToolbar();
 
             //var tmp = Selection.GetPropertyValue(TextElement.FontFamilyProperty);
             //tmp = Selection.GetPropertyValue(TextElement.FontSizeProperty);
@@ -264,6 +262,14 @@ namespace TodoApp2
             if (e.Key == Key.H && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             {
                 ResetFormatting();
+            }
+        }
+
+        private void OnPrevKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift))
+            {
+                UpdateToolbar();
             }
         }
 
@@ -294,6 +300,15 @@ namespace TodoApp2
             {
                 textEditorBox.DocumentContent = newContent;
             }
+        }
+
+        private void UpdateToolbar()
+        {
+            UpdateSelectionBold();
+            UpdateSelectionItalic();
+            UpdateSelectionUnderlined();
+
+            UpdateSelectionColor();
         }
 
         private bool IsRichTextBoxEmpty(RichTextBox rtb)

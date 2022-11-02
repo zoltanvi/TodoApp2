@@ -27,13 +27,17 @@ namespace TodoApp2.Core
         private IUIScaler m_UiScaler;
 
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
-        public bool IsAnyQuickActionEnabled { get; set; }
+
+        public bool IsAnyQuickActionEnabled => IsQuickActionsEnabled && (IsQuickActionsColorEnabled ||
+                                                                         IsQuickActionsPinEnabled ||
+                                                                         IsQuickActionsReminderEnabled ||
+                                                                         IsQuickActionsTrashEnabled);
 
         public int WindowLeftPos { get; set; }
         public int WindowTopPos { get; set; }
         public int WindowWidth { get; set; }
         public int WindowHeight { get; set; }
-        public string CurrentCategory { get; set; }
+        public int ActiveCategoryId { get; set; }
         public bool CategoryTitleVisible { get; set; } = true;
         public Theme ActiveTheme { get; set; }
         public bool IsAlwaysOnTop { get; set; }
@@ -94,7 +98,7 @@ namespace TodoApp2.Core
                 { nameof(WindowTopPos), PropertyValueHandlers.Integer },
                 { nameof(WindowWidth), PropertyValueHandlers.Integer },
                 { nameof(WindowHeight), PropertyValueHandlers.Integer },
-                { nameof(CurrentCategory), PropertyValueHandlers.String },
+                { nameof(ActiveCategoryId), PropertyValueHandlers.Integer },
                 { nameof(CategoryTitleVisible), PropertyValueHandlers.Bool },
                 { nameof(ActiveTheme), PropertyValueHandlers.Theme },
                 { nameof(IsAlwaysOnTop), PropertyValueHandlers.Bool },
@@ -125,28 +129,6 @@ namespace TodoApp2.Core
             };
 
             m_UiScaler.Zoomed += OnZoomed;
-
-            PropertyChanged += ApplicationSettings_PropertyChanged;
-        }
-
-        private void ApplicationSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(IsQuickActionsEnabled):
-                case nameof(IsQuickActionsColorEnabled):
-                case nameof(IsQuickActionsPinEnabled):
-                case nameof(IsQuickActionsReminderEnabled):
-                case nameof(IsQuickActionsTrashEnabled):
-                {
-                    IsAnyQuickActionEnabled = IsQuickActionsEnabled && 
-                        (IsQuickActionsColorEnabled ||
-                        IsQuickActionsPinEnabled ||
-                        IsQuickActionsReminderEnabled ||
-                        IsQuickActionsTrashEnabled);
-                    break;
-                }
-            }
         }
 
         private void OnZoomed(object sender, EventArgs e)

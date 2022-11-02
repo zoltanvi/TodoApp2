@@ -10,9 +10,16 @@ namespace TodoApp2.Core
         {
             Items = new List<string>
             {
+                "#0291cd",
+                "#ef5350",
+                "#ba68c8",
+                "#7e57c2",
+                "#009688",
+                "#fdd835",
+
+
                 "#ef9a9a",
                 "#e57373",
-                "#ef5350",
                 "#f44336",
                 "#e53935",
                 "#d32f2f",
@@ -26,7 +33,6 @@ namespace TodoApp2.Core
                 "#880e4f",
 
                 "#ce93d8",
-                "#ba68c8",
                 "#ab47bc",
                 "#9c27b0",
                 "#8e24aa",
@@ -35,7 +41,6 @@ namespace TodoApp2.Core
                 "#4a148c",
 
                 "#9575cd",
-                "#7e57c2",
                 "#673ab7",
                 "#5e35b1",
                 "#512da8",
@@ -81,7 +86,6 @@ namespace TodoApp2.Core
                 "#80cbc4",
                 "#4db6ac",
                 "#26a69a",
-                "#009688",
                 "#00897b",
                 "#00796b",
                 "#00695c",
@@ -119,7 +123,6 @@ namespace TodoApp2.Core
                 "#fff176",
                 "#ffee58",
                 "#ffeb3b",
-                "#fdd835",
                 "#fbc02d",
                 "#f9a825",
                 "#f57f17",
