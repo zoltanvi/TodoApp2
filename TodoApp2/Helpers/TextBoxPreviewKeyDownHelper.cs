@@ -18,7 +18,7 @@ namespace TodoApp2
                 // Check if we have pressed enter
                 if (e.Key == Key.Enter && !Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
                 {
-                    // Since the focus not necessary changes, it needs a manual update
+                    // Since the focus not necessarily changes, it needs a manual update
                     richTextBox.UpdateContent();
 
                     //Keyboard.ClearFocus();

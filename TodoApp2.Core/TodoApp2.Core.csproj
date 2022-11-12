@@ -133,7 +133,7 @@
     <Compile Include="ViewModel\Pages\NotificationPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\ReminderEditorPageViewModel.cs" />
     <Compile Include="ViewModel\Services\CategoryListService.cs" />
-    <Compile Include="ListProviders\ColorListService.cs" />
+    <Compile Include="ListProviders\ColorListProvider.cs" />
     <Compile Include="ViewModel\Pages\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Items\TaskListItemViewModel.cs" />
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />

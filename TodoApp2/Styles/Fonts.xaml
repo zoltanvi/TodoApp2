@@ -82,6 +82,8 @@
     <system:String x:Key="SegoeIconUnderlined">&#xE8DC;</system:String>
     <system:String x:Key="SegoeIconFontSizeDecrease">&#xE8E7;</system:String>
     <system:String x:Key="SegoeIconFontSizeIncrease">&#xE8E8;</system:String>
+
+
     <system:String x:Key="SegoeIconDeleteFormatting">&#xED60;</system:String>
 
 

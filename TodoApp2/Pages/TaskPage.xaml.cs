@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using TodoApp2.Core;
@@ -11,6 +12,8 @@ namespace TodoApp2
     public partial class TaskPage : BasePage<TaskPageViewModel>
     {
         private readonly TaskListService m_TaskListService;
+        private Action m_AddTaskItemAction;
+
 
         public TaskPage(TaskPageViewModel viewModel, TaskListService taskListService) : base(viewModel)
         {
@@ -22,6 +25,8 @@ namespace TodoApp2
             {
                 mainWindow.Closing += MainWindowOnClosing;
             }
+
+            m_AddTaskItemAction = () => ViewModel.AddTaskItemCommand?.Execute(null);
         }
 
         /// <summary>
@@ -43,8 +48,7 @@ namespace TodoApp2
         private void AddNewTaskTextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             // Add task on enter, handle modifier keys
-            TextBoxPreviewKeyDownHelper.TextBox_PreviewKeyDown(sender, e,
-                () => { ViewModel.AddTaskItemCommand?.Execute(null); });
+            TextBoxPreviewKeyDownHelper.TextBox_PreviewKeyDown(sender, e, m_AddTaskItemAction);
         }
     }
 }

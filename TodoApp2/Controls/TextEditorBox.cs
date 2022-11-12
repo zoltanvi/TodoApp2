@@ -112,6 +112,11 @@ namespace TodoApp2
         }
 
         public ICommand ResetFormattingCommand { get; set; }
+        public ICommand SetBigFontSizeCommand { get; set; }
+        public ICommand SetSmallFontSizeCommand { get; set; }
+        public ICommand SetMediumFontSizeCommand { get; set; }
+        public ICommand IncreaseFontSizeCommand { get; set; }
+        public ICommand DecreaseFontSizeCommand { get; set; }
 
         public TextEditorBox()
         {
@@ -130,6 +135,46 @@ namespace TodoApp2
             CommandManager.AddPreviewExecutedHandler(this, OnExecuted);
 
             ResetFormattingCommand = new RelayCommand(ResetFormatting);
+
+            SetBigFontSizeCommand = new RelayCommand(SetBigFontSize);
+            SetMediumFontSizeCommand = new RelayCommand(SetMediumFontSize);
+            SetSmallFontSizeCommand = new RelayCommand(SetSmallFontSize);
+            
+            IncreaseFontSizeCommand = new RelayCommand(IncreaseFontSize);
+            DecreaseFontSizeCommand = new RelayCommand(DecreaseFontSize);
+        }
+
+        private void DecreaseFontSize()
+        {
+            object fontSize = Selection.GetPropertyValue(TextElement.FontSizeProperty);
+            if(fontSize is double size)
+            {
+                Selection.ApplyPropertyValue(TextElement.FontSizeProperty, size - 2);
+            }
+        }
+
+        private void IncreaseFontSize()
+        {
+            object fontSize = Selection.GetPropertyValue(TextElement.FontSizeProperty);
+            if (fontSize is double size)
+            {
+                Selection.ApplyPropertyValue(TextElement.FontSizeProperty, size + 2);
+            }
+        }
+
+        private void SetBigFontSize()
+        {
+            Selection.ApplyPropertyValue(TextElement.FontSizeProperty, IoC.UIScaler.FontSize.Huge);
+        }
+
+        private void SetSmallFontSize()
+        {
+            Selection.ApplyPropertyValue(TextElement.FontSizeProperty, IoC.UIScaler.FontSize.Smaller);
+        }
+
+        private void SetMediumFontSize()
+        {
+            Selection.ApplyPropertyValue(TextElement.FontSizeProperty, IoC.UIScaler.FontSize.Medium);
         }
 
         public void UpdateContent()

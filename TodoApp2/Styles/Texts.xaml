@@ -159,14 +159,30 @@
                                         ToolTip="Underline" />
 
                                     <Button
-                                        Command="EditingCommands.IncreaseFontSize"
-                                        CommandTarget="{Binding ElementName=PART_ContentHost}"
+                                        Command="{Binding SetSmallFontSizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Content="{DynamicResource SegoeIconFontSize}"
+                                        Style="{DynamicResource TextEditorButtonStyle}"
+                                        FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        ToolTip="Small font" />
+                                    <Button
+                                        Command="{Binding SetMediumFontSizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Content="{DynamicResource SegoeIconFontSize}"
+                                        Style="{DynamicResource TextEditorButtonStyle}"
+                                        ToolTip="Medium font" />
+                                    <Button
+                                        Command="{Binding SetBigFontSizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Content="{DynamicResource SegoeIconFontSize}"
+                                        FontSize="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        Style="{DynamicResource TextEditorButtonStyle}"
+                                        ToolTip="Big font" />
+
+                                    <Button
+                                        Command="{Binding IncreaseFontSizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                         Content="{DynamicResource SegoeIconFontSizeIncrease}"
                                         Style="{DynamicResource TextEditorButtonStyle}"
                                         ToolTip="Increase size" />
                                     <Button
-                                        Command="EditingCommands.DecreaseFontSize"
-                                        CommandTarget="{Binding ElementName=PART_ContentHost}"
+                                        Command="{Binding DecreaseFontSizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                         Content="{DynamicResource SegoeIconFontSizeDecrease}"
                                         Style="{DynamicResource TextEditorButtonStyle}"
                                         ToolTip="Decrease size" />
@@ -204,7 +220,7 @@
                             x:Name="border"
                             Grid.Row="1"
                             Grid.Column="1"
-                            Margin="0,0,10,0"
+                            Margin="0 0 10 0"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -227,8 +243,8 @@
                         <Border
                             Grid.Row="1"
                             Grid.ColumnSpan="2"
-                            Width="15"
-                            Height="15"
+                            Width="{Binding UIScaler.TextEditorToggleWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                            Height="{Binding UIScaler.TextEditorToggleWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                             HorizontalAlignment="right"
                             VerticalAlignment="Top"
                             Visibility="{Binding IsFocused, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}">
@@ -245,7 +261,7 @@
                             x:Name="PART_placeholder"
                             Grid.Row="1"
                             Grid.Column="1"
-                            Margin="2,0,10,0"
+                            Margin="2 0 10 0"
                             Padding="{TemplateBinding Padding}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -313,7 +329,7 @@
 
                         <TextBlock
                             x:Name="PART_placeholder"
-                            Margin="2,0,0,0"
+                            Margin="2 0 0 0"
                             Padding="{TemplateBinding Padding}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -466,7 +482,7 @@
 
                         <TextBlock
                             x:Name="placeholder"
-                            Margin="2,0,0,0"
+                            Margin="2 0 0 0"
                             Padding="{TemplateBinding Padding}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -521,7 +537,7 @@
         <Setter Property="FontWeight" Value="UltraLight" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Padding" Value="0,4,0,0" />
+        <Setter Property="Padding" Value="0 4 0 0" />
     </Style>
 
     <Style
@@ -532,7 +548,7 @@
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
-        <Setter Property="Margin" Value="14,0,0,0" />
+        <Setter Property="Margin" Value="14 0 0 0" />
     </Style>
 
     <Style
@@ -543,7 +559,7 @@
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
-        <Setter Property="Margin" Value="14,0,0,0" />
+        <Setter Property="Margin" Value="14 0 0 0" />
     </Style>
 
     <Style
@@ -554,7 +570,7 @@
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
-        <Setter Property="Margin" Value="0,0,8,6" />
+        <Setter Property="Margin" Value="0 0 8 6" />
     </Style>
 
     <Style
@@ -581,7 +597,7 @@
         x:Key="SettingsIconLabelStyle"
         BasedOn="{StaticResource IconLabelStyle}"
         TargetType="Label">
-        <Setter Property="Margin" Value="0,0,10,0" />
+        <Setter Property="Margin" Value="0 0 10 0" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>

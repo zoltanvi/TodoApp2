@@ -68,8 +68,10 @@ namespace TodoApp2.Core
 
             if (m_ApplicationViewModel.ApplicationSettings.InsertOrderReversed)
             {
+                int unfinishedTaskCount = TaskPageItems.Count(i => !i.IsDone);
+
                 // Insert the task at the end of the list
-                TaskPageItems.Add(task);
+                TaskPageItems.Insert(unfinishedTaskCount, task);
             }
             else
             {
