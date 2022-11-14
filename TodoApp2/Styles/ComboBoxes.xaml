@@ -23,12 +23,12 @@
                 Margin="2"
                 Background="{DynamicResource ComboBoxBgBrush}"
                 BorderBrush="{DynamicResource ComboBoxBorderBrush}"
-                BorderThickness="0,0,0,0"
+                BorderThickness="0 0 0 0"
                 CornerRadius="0" />
             <Path
                 x:Name="Arrow"
                 Grid.Column="1"
-                Margin="6,0,0,0"
+                Margin="6 0 0 0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
@@ -81,7 +81,7 @@
                             Template="{StaticResource ComboBoxToggleButton}" />
                         <ContentPresenter
                             Name="ContentSite"
-                            Margin="10,5,23,3"
+                            Margin="10 5 23 3"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding SelectionBoxItem}"
@@ -90,7 +90,7 @@
                             IsHitTestVisible="False" />
                         <TextBox
                             x:Name="PART_EditableTextBox"
-                            Margin="10,3,23,3"
+                            Margin="10 3 23 3"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Background="#FFC15C5C"
@@ -118,7 +118,7 @@
                                     Background="{DynamicResource ComboBoxBgBrush}"
                                     BorderBrush="{DynamicResource ComboBoxBorderBrush}"
                                     BorderThickness="1" />
-                                <ScrollViewer Margin="0,4" SnapsToDevicePixels="True">
+                                <ScrollViewer Margin="0 4" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                             </Grid>
@@ -163,7 +163,7 @@
                         Name="Border"
                         Padding="2"
                         SnapsToDevicePixels="true">
-                        <ContentPresenter Margin="8,2,0,2" />
+                        <ContentPresenter Margin="8 2 0 2" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsHighlighted" Value="true">
@@ -196,7 +196,7 @@
             <Path
                 x:Name="Arrow"
                 Grid.Column="1"
-                Margin="0,0,0,0"
+                Margin="0 0 0 0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Data="M 0,0 L 0,2 L 4,6 L 8,2 L 8,0 L 4,0 z"
@@ -207,7 +207,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Arrow" Property="Fill" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource stringRGBToBrushConverter}}" />
+                <Setter TargetName="Arrow" Property="Fill" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true" />
             <Trigger Property="IsEnabled" Value="False">

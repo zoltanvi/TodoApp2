@@ -129,6 +129,9 @@ namespace TodoApp2
             Mediator.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
             Mediator.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
 
+            // Subscribe to the theme changed event to trigger app border update
+            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+
             // Set initial main and side menu pages
             m_ApplicationViewModel.CurrentPage = ApplicationPage.Task;
             m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
@@ -333,6 +336,13 @@ namespace TodoApp2
         private void OnThemeChangeRequested(object obj)
         {
             ChangeToActiveTheme();
+        }
+
+        private void OnThemeChanged(object obj)
+        {
+            string oldAppBorderColor = ApplicationSettings.AppBorderColor;
+            ApplicationSettings.AppBorderColor = null;
+            ApplicationSettings.AppBorderColor = oldAppBorderColor;
         }
 
         private void ChangeToActiveTheme()

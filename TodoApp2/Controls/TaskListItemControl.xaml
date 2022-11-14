@@ -154,12 +154,12 @@
                             Padding="2"
                             Content="{DynamicResource SegoeIconPinFilled}"
                             FontFamily="{StaticResource SegoeMDL2Assets}"
-                            Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
                         <Label
                             Padding="2"
                             Content="{DynamicResource SegoeIconPin}"
                             FontFamily="{StaticResource SegoeMDL2Assets}"
-                            Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
                         <Grid.LayoutTransform>
                             <ScaleTransform ScaleX="-1" />
                         </Grid.LayoutTransform>

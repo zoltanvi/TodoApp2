@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:TodoApp2"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     Title="SettingsPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -143,26 +144,52 @@
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Content="{DynamicResource SegoeIconPalette}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Accent color" />
-                            <ComboBox
-                                Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+
+                            <Border
                                 HorizontalAlignment="Right"
-                                FontFamily="{StaticResource Ubuntu}"
-                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
-                                ItemsSource="{Binding AccentColorProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Border
-                                                Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
-                                                BorderBrush="Black"
-                                                BorderThickness="1">
-                                                <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" />
-                                            </Border>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                BorderBrush="{DynamicResource BottomBarBorderBrush}"
+                                BorderThickness="2"
+                                Padding="20 0">
+
+                                <!--  Color picker  -->
+                                <ComboBox
+                                    ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
+                                    ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                    ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                    Style="{DynamicResource ColorPickerTableStyle}" />
+                            </Border>
+
+                        </DockPanel>
+
+                        <!--  App border color  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Content="{DynamicResource SegoeIconPalette}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="App border color" />
+
+
+                            <Border
+                                HorizontalAlignment="Right"
+                                BorderBrush="{DynamicResource BottomBarBorderBrush}"
+                                BorderThickness="2"
+                                Padding="20 0">
+
+                                <!--  Color picker  -->
+                                <ComboBox
+                                    ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
+                                    ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                    ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                    Style="{DynamicResource ColorPickerTableStyle}">
+
+                                    <!--<Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="SelectionChanged">
+                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeAppBorderColorCommand}" />
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>-->
+                                </ComboBox>
+                            </Border>
+
                         </DockPanel>
 
                         <!--  =====================================================  -->

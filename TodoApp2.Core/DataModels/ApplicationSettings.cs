@@ -44,8 +44,9 @@ namespace TodoApp2.Core
         public bool IsCreationDateVisible { get; set; }
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; } = Thickness.Medium;
-        public FontFamily FontFamily { get; set; } = FontFamily.Inter;
-        public string AccentColor { get; set; } = "#0291cd";
+        public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
+        public string AccentColor { get; set; } = "Transparent";
+        public string AppBorderColor { get; set; } = "Transparent";
         public int WindowCornerRadius { get; set; }
         public int NoRadius { get; } = 0;
         public bool IsItemBackgroundVisible { get; set; } = true;
@@ -114,6 +115,7 @@ namespace TodoApp2.Core
                 { nameof(TaskFontSize), PropertyValueHandlers.FontSize },
                 { nameof(FontFamily), PropertyValueHandlers.FontFamily },
                 { nameof(AccentColor), PropertyValueHandlers.String },
+                { nameof(AppBorderColor), PropertyValueHandlers.String },
                 { nameof(RoundedWindowCorners), PropertyValueHandlers.Bool },
                 { nameof(WindowCornerRadius), PropertyValueHandlers.Integer },
                 { nameof(IsTitleBarDateVisible), PropertyValueHandlers.Bool },
