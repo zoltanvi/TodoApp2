@@ -73,6 +73,7 @@
                             Mode=TwoWay, 
                             UpdateSourceTrigger=PropertyChanged}"   
                          PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"
+                        TextChanged="NoteContentTextBox_TextChanged"
                                 />
 
                 </local:CustomScrollViewer>

@@ -160,5 +160,9 @@ namespace TodoApp2
             return sb.ToString();
         }
 
+        private void NoteContentTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ViewModel.NoteContentChanged();
+        }
     }
 }
