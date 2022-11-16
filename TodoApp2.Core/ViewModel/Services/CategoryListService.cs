@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace TodoApp2.Core
@@ -57,6 +59,13 @@ namespace TodoApp2.Core
 
             List<CategoryListItemViewModel> categories = m_Database.GetValidCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
+            Items.CollectionChanged += OnItemsChanged;
+        }
+
+        private void OnItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            // Trigger update to refresh move to category items context menu
+            OnPropertyChanged(nameof(InactiveCategories));
         }
 
         private void OnDatabaseCategoryChanged(object sender, CategoryChangedEventArgs e)
@@ -80,6 +89,11 @@ namespace TodoApp2.Core
             List<CategoryListItemViewModel> categories = m_Database.GetValidCategories();
             Items.AddRange(categories);
             OnPropertyChanged(nameof(ActiveCategory));
+        }
+
+        protected override void OnDispose()
+        {
+            Items.CollectionChanged -= OnItemsChanged;
         }
     }
 }
