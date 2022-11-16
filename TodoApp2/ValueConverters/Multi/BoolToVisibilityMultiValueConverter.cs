@@ -10,10 +10,10 @@ namespace TodoApp2
         {
             if(values.Length < 2)
             {
-                return Visibility.Hidden;
+                return Visibility.Collapsed;
             }
 
-            return ((bool)values[0]) && ((bool)values[1]) ? Visibility.Visible : Visibility.Hidden;
+            return ((bool)values[0]) && ((bool)values[1]) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
