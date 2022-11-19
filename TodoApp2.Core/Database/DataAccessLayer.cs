@@ -962,15 +962,69 @@ namespace TodoApp2.Core
 
         private void AddDefaultCategoryIfNotExists()
         {
+            // This should only happen when the application database is just created
             if (GetCategories().Count == 0)
             {
-                // This should only happen when the application database is just created
                 AddCategory(new CategoryListItemViewModel
                 {
+                    Id = 0,
                     Name = "Today",
                     ListOrder = DefaultListOrder
                 });
+
+                AddCategory(new CategoryListItemViewModel
+                {
+                    Id = 1,
+                    Name = "Shortcuts",
+                    ListOrder = DefaultListOrder + 1
+                });
+
+                CreateShortcutTasks();
             }
+        }
+
+        private void CreateShortcutTasks()
+        {
+            string globalShortcuts = "<FlowDocument PagePadding=\"5,0,5,0\" AllowDrop=\"True\" NumberSubstitution.CultureSource=\"User\" " +
+                "xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" " +
+                "xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"><Paragraph><Run FontWeight=\"Bold\" FontSize=\"22\" " +
+                "xml:lang=\"hu-hu\"><Run.TextDecorations><TextDecoration Location=\"Underline\" /></Run.TextDecorations>" +
+                "Global shortcuts</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Shift + J</Run>" +
+                "<Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\tPrevious theme</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
+                "xml:lang=\"hu-hu\">Ctrl + Shift + L</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\tNext theme</Run>" +
+                "<LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Z</Run><Run xml:lang=\"hu-hu\" " +
+                "xml:space=\"preserve\">\t\tUndo (Add / Delete task)</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
+                "xml:lang=\"hu-hu\">Ctrl + Y</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tRedo (Add / Delete task)" +
+                "</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Scroll ↑</Run><Run xml:lang=\"hu-hu\" " +
+                "xml:space=\"preserve\">\tZoom in</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Scroll ↓" +
+                "</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\tZoom in</Run></Paragraph></FlowDocument>";
+
+            string textEditorShortcuts = "<FlowDocument PagePadding=\"5,0,5,0\" AllowDrop=\"True\" NumberSubstitution.CultureSource=\"User\" " +
+                "xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">" +
+                "<Paragraph><Run FontWeight=\"Bold\" FontSize=\"22\" xml:lang=\"hu-hu\"><Run.TextDecorations><TextDecoration " +
+                "Location=\"Underline\" /></Run.TextDecorations>Text editor shortcuts</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
+                "xml:lang=\"hu-hu\">Ctrl + B</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\t</Run><Run FontWeight=\"Bold\" " +
+                "xml:lang=\"hu-hu\">Bold</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + U</Run>" +
+                "<Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\t</Run><Run xml:lang=\"hu-hu\"><Run.TextDecorations><TextDecoration " +
+                "Location=\"Underline\" /></Run.TextDecorations>Underlined</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
+                "xml:lang=\"hu-hu\">Ctrl + I</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tI</Run><Run FontStyle=\"Italic\" " +
+                "xml:lang=\"hu-hu\">talic</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Space</Run><Run " +
+                "xml:lang=\"hu-hu\" xml:space=\"preserve\">\tRemove formatting</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
+                "xml:lang=\"hu-hu\">Ctrl + L</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tAlign left</Run><LineBreak />" +
+                "<Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + E</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tAlign center" +
+                "</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + R</Run><Run xml:lang=\"hu-hu\" " +
+                "xml:space=\"preserve\">\t\tAlign right</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + J</Run>" +
+                "<Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tJustify</Run></Paragraph><Paragraph><Run Foreground=\"#FFEC407A\" " +
+                "xml:lang=\"hu-hu\">Ctrl + [</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tDecrease font size</Run><LineBreak />" +
+                "<Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + ]</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\t" +
+                "Increase font size</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + =</Run><Run xml:lang=\"hu-hu\" " +
+                "xml:space=\"preserve\">\t\tSubscript ( e.g. x</Run><Run xml:lang=\"hu-hu\" Typography.Variants=\"Subscript\">4</Run>" +
+                "<Run xml:lang=\"hu-hu\" xml:space=\"preserve\"> )</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">" +
+                "Ctrl + Shift + =</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\"> \tSuperscript ( e.g. x</Run><Run xml:lang=\"hu-hu\" " +
+                "Typography.Variants=\"Superscript\" xml:space=\"preserve\">4 </Run><Run xml:lang=\"hu-hu\">)</Run></Paragraph></FlowDocument>";
+
+            CreateTask(textEditorShortcuts, 1);
+            CreateTask(globalShortcuts, 1);
         }
 
         private void AddDefaultSettingsIfNotExists()
