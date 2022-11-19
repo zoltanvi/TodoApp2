@@ -208,6 +208,7 @@
     <Compile Include="ValueConverters\Single\FromBool\BoolToDoubleConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToResourceConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToBorderThicknessConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToScrollBarVisibilityConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToTextWrappingConverter.cs" />
     <Compile Include="ValueConverters\Single\CamelCaseConverter.cs" />
     <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />

@@ -46,6 +46,7 @@
         NegativeResourceName="SegoeIconMaximizeWindow2"
         PositiveResourceName="SegoeIconRestoreWindow" />
     <local:BoolToTextWrappingConverter x:Key="boolToTextWrappingConverter" />
+    <local:BoolToScrollBarVisibilityConverter x:Key="boolToScrollBarVisibilityConverter" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityNegatedConverter" Negated="True" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" Negated="False" />
     <local:BoolToCornerRadiusConverter x:Key="boolToCornerRadiusConverter" />

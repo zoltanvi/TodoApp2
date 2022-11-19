@@ -337,19 +337,16 @@
                         <!--  =====================================================  -->
 
                         <!--  Note page settings  -->
-                        <!--
+
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}" Margin="0 15 0 10">
                             <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Note page settings" />
                         </DockPanel>
 
-                        -->
-                        <!--    -->
-                        <!--
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconWordWrap}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Word wrap" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
-                        </DockPanel>-->
+                        </DockPanel>
 
                         <!--  =====================================================  -->
 
