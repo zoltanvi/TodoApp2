@@ -61,21 +61,22 @@ namespace TodoApp2.Core
 
         public TaskListItemViewModel AddNewTask(string taskContent)
         {
+            TaskListItemViewModel task;
             int pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
             int activeCategoryId = m_CategoryListService.ActiveCategory.Id;
-
-            TaskListItemViewModel task = m_Database.CreateTask(taskContent, activeCategoryId, pinnedItemsCount);
 
             if (m_ApplicationViewModel.ApplicationSettings.InsertOrderReversed)
             {
                 int unfinishedTaskCount = TaskPageItems.Count(i => !i.IsDone);
 
                 // Insert the task at the end of the list
+                task = m_Database.CreateTask(taskContent, activeCategoryId, unfinishedTaskCount);
                 TaskPageItems.Insert(unfinishedTaskCount, task);
             }
             else
             {
                 // Insert the task at the beginning of the list
+                task = m_Database.CreateTask(taskContent, activeCategoryId, pinnedItemsCount);
                 TaskPageItems.Insert(pinnedItemsCount, task);
             }
 
