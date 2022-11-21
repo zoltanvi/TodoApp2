@@ -55,7 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Images\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -450,16 +450,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\OldIcon.ico" />
+    <SplashScreen Include="Images\splash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <SplashScreen Include="Images\SplashImg.png" />
+    <Resource Include="Images\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
