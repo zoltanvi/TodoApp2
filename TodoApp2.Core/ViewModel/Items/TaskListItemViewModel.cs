@@ -7,7 +7,7 @@ namespace TodoApp2.Core
     /// <summary>
     /// A view model for each task list item on the task page
     /// </summary>
-    [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}] [content {Content}]")]
+    [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}]")]
     public class TaskListItemViewModel : BaseViewModel, IReorderable
     {
         private string m_ContentRollback = string.Empty;
@@ -105,6 +105,16 @@ namespace TodoApp2.Core
                 // Combobox will trigger the SetColor command so this value will be persisted!
                 Color = colorString;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is TaskListItemViewModel other && other.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

@@ -195,6 +195,7 @@
     <Compile Include="Helpers\ApplicationPageHelper.cs" />
     <Compile Include="Styles\Themes\ColorSchemes\IColorScheme.cs" />
     <Compile Include="Styles\Themes\ColorSchemes\VSBlueColorScheme.cs" />
+    <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\BoolToVisibilityMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />

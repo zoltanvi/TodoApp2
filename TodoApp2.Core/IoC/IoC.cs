@@ -77,10 +77,10 @@ namespace TodoApp2.Core
             // This dependency must be set here. Workaround to avoid circular dependencies
             applicationViewModel.OverlayPageService = overlayPageService;
 
-            var taskScheduler = new TaskScheduler();
-            Kernel.Bind<TaskScheduler>().ToConstant(taskScheduler);
+            var taskScheduler2 = new TaskScheduler2();
+            Kernel.Bind<TaskScheduler2>().ToConstant(taskScheduler2);
 
-            var reminderNotificationService = new ReminderNotificationService(database, taskScheduler, overlayPageService);
+            var reminderNotificationService = new ReminderNotificationService(database, taskScheduler2, overlayPageService);
             Kernel.Bind<ReminderNotificationService>().ToConstant(reminderNotificationService);
             // This dependency must be set here. Workaround to avoid circular dependencies
             overlayPageService.ReminderNotificationService = reminderNotificationService;

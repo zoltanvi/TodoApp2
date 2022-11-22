@@ -63,5 +63,6 @@
     <local:ThicknessToDoubleConverter x:Key="thicknessToDoubleConverter" />
     <local:ThicknessToGridLengthConverter x:Key="thicknessToGridLengthConverter" />
 
+    <local:CategoryIdToCategoryNameConverter x:Key="categoryIdToCategoryNameConverter" />
 
 </ResourceDictionary>
