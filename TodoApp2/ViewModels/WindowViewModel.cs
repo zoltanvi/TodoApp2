@@ -321,8 +321,14 @@ namespace TodoApp2
         {
             ApplicationSettings.WindowLeftPos = (int)GetWindowLeft(m_Window);
             ApplicationSettings.WindowTopPos = (int)GetWindowTop(m_Window);
-            ApplicationSettings.WindowWidth = (int)m_Window.Width;
-            ApplicationSettings.WindowHeight = (int)m_Window.Height;
+
+            // Don't save window size when the window is minimized,
+            // because the window size is invalid in this case.
+            if (m_Window.WindowState != WindowState.Minimized)
+            {
+                ApplicationSettings.WindowWidth = (int)m_Window.Width;
+                ApplicationSettings.WindowHeight = (int)m_Window.Height;
+            }
 
             m_ApplicationViewModel.SaveApplicationSettings();
             m_Closing = true;
