@@ -20,6 +20,8 @@ namespace TodoApp2
 
         private readonly StringRGBToBrushConverter m_ColorConverter;
         private bool m_IsExecuting;
+        
+        private static string s_SelectedColor = string.Empty;
 
         /// <summary>
         /// The Document of the <see cref="TextEditorBox"/> serialized into an xml format.
@@ -34,10 +36,11 @@ namespace TodoApp2
         public static readonly DependencyProperty IsSelectionUnderlinedProperty = DependencyProperty.Register(nameof(IsSelectionUnderlined), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
 
         public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(TextEditorBox), new PropertyMetadata());
-        public static readonly DependencyProperty AppliedColorProperty = DependencyProperty.Register(nameof(AppliedColor), typeof(string), typeof(TextEditorBox), new PropertyMetadata(OnAppliedColorChanged));
+        public static readonly DependencyProperty AppliedColor1Property = DependencyProperty.Register(nameof(AppliedColor1), typeof(string), typeof(TextEditorBox), new PropertyMetadata(OnAppliedColor1Changed));
+        public static readonly DependencyProperty AppliedColor2Property = DependencyProperty.Register(nameof(AppliedColor2), typeof(string), typeof(TextEditorBox), new PropertyMetadata(OnAppliedColor2Changed));
 
         public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(TextEditorBox), new PropertyMetadata());
-        
+
         public bool IsChecked
         {
             get { return (bool)GetValue(IsCheckedProperty); }
@@ -105,10 +108,16 @@ namespace TodoApp2
             set => SetValue(SelectedColorProperty, value);
         }
 
-        public string AppliedColor
+        public string AppliedColor2
         {
-            get => (string)GetValue(AppliedColorProperty);
-            set => SetValue(AppliedColorProperty, value);
+            get => (string)GetValue(AppliedColor2Property);
+            set => SetValue(AppliedColor2Property, value);
+        }
+
+        public string AppliedColor1
+        {
+            get => (string)GetValue(AppliedColor1Property);
+            set => SetValue(AppliedColor1Property, value);
         }
 
         public ICommand ResetFormattingCommand { get; set; }
@@ -139,7 +148,7 @@ namespace TodoApp2
             SetBigFontSizeCommand = new RelayCommand(SetBigFontSize);
             SetMediumFontSizeCommand = new RelayCommand(SetMediumFontSize);
             SetSmallFontSizeCommand = new RelayCommand(SetSmallFontSize);
-            
+
             IncreaseFontSizeCommand = new RelayCommand(IncreaseFontSize);
             DecreaseFontSizeCommand = new RelayCommand(DecreaseFontSize);
         }
@@ -147,7 +156,7 @@ namespace TodoApp2
         private void DecreaseFontSize()
         {
             object fontSize = Selection.GetPropertyValue(TextElement.FontSizeProperty);
-            if(fontSize is double size)
+            if (fontSize is double size)
             {
                 Selection.ApplyPropertyValue(TextElement.FontSizeProperty, size - 2);
             }
@@ -191,15 +200,24 @@ namespace TodoApp2
 
         private void ResetFormatting()
         {
+            SelectAll();
             Selection.ClearAllProperties();
             UpdateContent();
         }
 
-        private static void OnAppliedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAppliedColor2Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is TextEditorBox textEditorBox && e.NewValue is string newColor)
             {
                 textEditorBox.ApplyColor(newColor);
+            }
+        }
+
+        private static void OnAppliedColor1Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is TextEditorBox textEditorBox && e.NewValue is string newColor)
+            {
+                textEditorBox.ChangeDisplayColor(newColor);
             }
         }
 
@@ -215,6 +233,13 @@ namespace TodoApp2
                 SolidColorBrush defaultColor = (SolidColorBrush)Application.Current.TryFindResource("ForegroundBrush");
                 Selection.ApplyPropertyValue(TextElement.ForegroundProperty, defaultColor);
             }
+        }
+
+        private void ChangeDisplayColor(string newColor)
+        {
+            //Selection.Select(s_SelectionStart, s_SelectionEnd);
+            s_SelectedColor = newColor;
+            ApplyColor(s_SelectedColor);
         }
 
         private void OnExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -303,12 +328,30 @@ namespace TodoApp2
         {
             // TODO: Implement Shift + TAB
 
-            // Delete text formatting on Ctrl + H
-            if (e.Key == Key.H && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            switch (e.Key)
             {
-                ResetFormatting();
+                // Delete text formatting on Ctrl + H
+                case Key.H:
+                {
+                    if (IsCtrlDown)
+                    {
+                        ResetFormatting();
+                    }
+                    break;
+                }
+
+                case Key.G:
+                {
+                    if (IsCtrlDown)
+                    {
+                        ApplyColor(s_SelectedColor);
+                    }
+                    break;
+                }
             }
         }
+
+        private bool IsCtrlDown => (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl));
 
         private void OnPrevKeyUp(object sender, KeyEventArgs e)
         {

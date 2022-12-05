@@ -1,0 +1,179 @@
+﻿<UserControl
+    x:Class="TodoApp2.RichTextEditorControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    x:Name="RichTextEditorUC"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                x:Name="ToolBarBorder"
+                Grid.Row="0"
+                Background="Transparent"
+                Grid.Column="1">
+                <DockPanel>
+                    <WrapPanel
+                        Background="#00ffffff"
+                        DockPanel.Dock="Top"
+                        ToolBarTray.IsLocked="True"
+                        Visibility="{Binding IsChecked, ElementName=IsEditorOpenToggle, Converter={StaticResource boolToVisibilityConverter}}">
+
+                        <ToggleButton
+                            Command="{Binding SetBoldCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconBold}"
+                            IsChecked="{Binding IsSelectionBold, ElementName=PART_TextEditor}"
+                            Style="{DynamicResource TextEditorToggleButtonStyle}"
+                            ToolTip="Bold (Ctrl + B)" />
+                        <ToggleButton
+                            Command="{Binding SetItalicCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconItalic}"
+                            IsChecked="{Binding IsSelectionItalic, ElementName=PART_TextEditor}"
+                            Style="{DynamicResource TextEditorToggleButtonStyle}"
+                            ToolTip="Italic (Ctrl + I)" />
+                        <ToggleButton
+                            Command="{Binding SetUnderlinedCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconUnderlined}"
+                            IsChecked="{Binding IsSelectionUnderlined, ElementName=PART_TextEditor}"
+                            Style="{DynamicResource TextEditorToggleButtonStyle}"
+                            ToolTip="Underline (Ctrl + U)" />
+
+                        <Button
+                            Command="{Binding SetSmallFontSizeCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconFontSize}"
+                            Style="{DynamicResource TextEditorButtonStyle}"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                            ToolTip="Small font" />
+                        <Button
+                            Command="{Binding SetMediumFontSizeCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconFontSize}"
+                            Style="{DynamicResource TextEditorButtonStyle}"
+                            ToolTip="Medium font" />
+                        <Button
+                            Command="{Binding SetBigFontSizeCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconFontSize}"
+                            Style="{DynamicResource TextEditorButtonStyle}"
+                            FontSize="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}"
+                            ToolTip="Big font" />
+
+                        <Button
+                            Command="{Binding IncreaseFontSizeCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconFontSizeIncrease}"
+                            Style="{DynamicResource TextEditorButtonStyle}"
+                            ToolTip="Increase size (Ctrl + [OemCloseBrackets])" />
+                        <Button
+                            Command="{Binding DecreaseFontSizeCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconFontSizeDecrease}"
+                            Style="{DynamicResource TextEditorButtonStyle}"
+                            ToolTip="Decrease size (Ctrl + [OemOpenBrackets])" />
+
+                        <Button
+                            Command="{Binding ResetFormattingCommand, ElementName=PART_TextEditor}"
+                            Content="{DynamicResource SegoeIconDeleteFormatting}"
+                            Style="{DynamicResource TextEditorButtonStyle}"
+                            ToolTip="Reset all formatting (Ctrl + H)" />
+
+                        <local:ColorPickerComboBox
+                            AppliedColor="{Binding TextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Focusable="False"
+                            ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
+                            ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                            ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                            Style="{DynamicResource TaskColorPickerButtonStyle}"
+                            ToolTip="Change color (Ctrl + G)" />
+
+                    </WrapPanel>
+                </DockPanel>
+            </Border>
+
+            <!--  Main content  -->
+            <Border
+                x:Name="border"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0 0 10 0"
+                Background="Transparent"
+                SnapsToDevicePixels="True">
+
+                <local:FormattableTextEditorBox
+                    x:Name="PART_TextEditor"
+                    RenderOptions.ClearTypeHint="Enabled"
+                    DocumentContent="{Binding DocumentContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Background="Transparent"
+                    Foreground="{DynamicResource ForegroundBrush}"
+                    Style="{DynamicResource BaseRichTextBoxStyle}"
+                    local:FocusSetter.Value="{Binding IsEditMode}"
+                    TextColor="{Binding TextColor}">
+                    <Behaviors:Interaction.Triggers>
+                        <Behaviors:EventTrigger EventName="LostFocus">
+                            <Behaviors:InvokeCommandAction Command="{Binding EndEditModeCommand}" />
+                        </Behaviors:EventTrigger>
+                    </Behaviors:Interaction.Triggers>
+                </local:FormattableTextEditorBox>
+            </Border>
+
+            <!--  Editor toggle button  -->
+            <Border
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Width="{Binding UIScaler.TextEditorToggleWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                HorizontalAlignment="right"
+                Visibility="{Binding IsFocused, ElementName=PART_TextEditor, Converter={StaticResource boolToVisibilityConverter}}">
+                <ToggleButton
+                    x:Name="IsEditorOpenToggle"
+                    Margin="2"
+                    Foreground="{DynamicResource ForegroundBrush}"
+                    IsChecked="{Binding IsToolbarOpen}"
+                    Style="{DynamicResource TextEditorArrowToggleButtonStyle}" />
+            </Border>
+
+            <!--  Watermark text  -->
+            <!--<TextBlock
+                x:Name="PART_placeholder"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="2 0 10 0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource PlaceholderBrush}"
+                IsHitTestVisible="False"
+                Text="asdasd22">
+                <TextBlock.Style>
+                    <Style BasedOn="{StaticResource BaseTextBlockClearTypeStyle}" TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Value="true">
+                                <DataTrigger.Binding>
+                                    <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </DataTrigger.Binding>
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Value="false">
+                                <DataTrigger.Binding>
+                                    <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </DataTrigger.Binding>
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>-->
+
+        </Grid>
+    </Grid>
+</UserControl>

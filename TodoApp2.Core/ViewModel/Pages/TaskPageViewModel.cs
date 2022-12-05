@@ -20,6 +20,8 @@ namespace TodoApp2.Core
         private CategoryListItemViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
 
         private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
+        
+        public RichTextEditorViewModel TextEditorViewModel { get; }
 
         /// <summary>
         /// The content for the textbox to rename the current category
@@ -29,7 +31,11 @@ namespace TodoApp2.Core
         /// <summary>
         /// The content / description text for the current task being written
         /// </summary>
-        public string AddTaskTextBoxContent { get; set; }
+        public string AddTaskTextBoxContent 
+        {
+            get => TextEditorViewModel.DocumentContent;
+            set => TextEditorViewModel.DocumentContent = value;
+        }
 
         /// <summary>
         /// Is the Add new task TextBox empty or only contains whitespace?

@@ -15,7 +15,13 @@ namespace TodoApp2.Core
 
         public int Id { get; set; }
         public int CategoryId { get; set; }
-        public string Content { get; set; }
+
+        public string Content
+        {
+            get => TextEditorViewModel.DocumentContent;
+            set => TextEditorViewModel.DocumentContent = value;
+        }
+
         public bool Pinned { get; set; }
         public long ListOrder { get; set; }
         public bool IsDone { get; set; }
@@ -26,9 +32,8 @@ namespace TodoApp2.Core
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }
         public bool ColorPickerVisible { get; set; }
-        public bool IsEditMode { get; set; }
-        public bool IsDisplayMode => !IsEditMode;
         public bool IsEmptyContent { get; set; }
+        public RichTextEditorViewModel TextEditorViewModel { get; }
         public ICommand SetColorCommand { get; }
         public ICommand SetColorParameterizedCommand { get; }
         public ICommand OpenReminderCommand { get; }
@@ -42,6 +47,7 @@ namespace TodoApp2.Core
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
             UpdateItemContentCommand = new RelayCommand(UpdateContent);
+            TextEditorViewModel = new RichTextEditorViewModel();
         }
 
         public void CopyProperties(TaskListItemViewModel task)
@@ -58,7 +64,7 @@ namespace TodoApp2.Core
             ReminderDate = task.ReminderDate;
             IsReminderOn = task.IsReminderOn;
             ColorPickerVisible = task.ColorPickerVisible;
-            IsEditMode = task.IsEditMode;
+            TextEditorViewModel.IsEditMode = task.TextEditorViewModel.IsEditMode;
         }
 
         public void UpdateContent()
@@ -75,7 +81,7 @@ namespace TodoApp2.Core
                 Database.UpdateTask(this);
             }
 
-            IsEditMode = false;
+            TextEditorViewModel.IsEditMode = false;
         }
 
         private void EditItem()
@@ -84,7 +90,7 @@ namespace TodoApp2.Core
             m_ContentRollback = Content;
 
             // Enable editing
-            IsEditMode = true;
+            TextEditorViewModel.IsEditMode = true;
         }
 
         private void OpenReminder()

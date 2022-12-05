@@ -142,21 +142,21 @@
                                         Content="{DynamicResource SegoeIconBold}"
                                         IsChecked="{Binding IsSelectionBold, RelativeSource={RelativeSource TemplatedParent}}"
                                         Style="{DynamicResource TextEditorToggleButtonStyle}"
-                                        ToolTip="Bold" />
+                                        ToolTip="Bold (Ctrl + B)" />
                                     <ToggleButton
                                         Command="EditingCommands.ToggleItalic"
                                         CommandTarget="{Binding ElementName=PART_ContentHost}"
                                         Content="{DynamicResource SegoeIconItalic}"
                                         IsChecked="{Binding IsSelectionItalic, RelativeSource={RelativeSource TemplatedParent}}"
                                         Style="{DynamicResource TextEditorToggleButtonStyle}"
-                                        ToolTip="Italic" />
+                                        ToolTip="Italic (Ctrl + I)" />
                                     <ToggleButton
                                         Command="EditingCommands.ToggleUnderline"
                                         CommandTarget="{Binding ElementName=PART_ContentHost}"
                                         Content="{DynamicResource SegoeIconUnderlined}"
                                         IsChecked="{Binding IsSelectionUnderlined, RelativeSource={RelativeSource TemplatedParent}}"
                                         Style="{DynamicResource TextEditorToggleButtonStyle}"
-                                        ToolTip="Underline" />
+                                        ToolTip="Underline (Ctrl + U)" />
 
                                     <Button
                                         Command="{Binding SetSmallFontSizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
@@ -180,23 +180,23 @@
                                         Command="{Binding IncreaseFontSizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                         Content="{DynamicResource SegoeIconFontSizeIncrease}"
                                         Style="{DynamicResource TextEditorButtonStyle}"
-                                        ToolTip="Increase size" />
+                                        ToolTip="Increase size (Ctrl + ])" />
                                     <Button
                                         Command="{Binding DecreaseFontSizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                         Content="{DynamicResource SegoeIconFontSizeDecrease}"
                                         Style="{DynamicResource TextEditorButtonStyle}"
-                                        ToolTip="Decrease size" />
+                                        ToolTip="Decrease size (Ctrl + [)" />
 
-                                    <!--  Style="{DynamicResource ColorPickerTableStyle}"  -->
-                                    <!--  SelectedItem="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  -->
                                     <local:ColorPickerComboBox
-                                        AppliedColor="{Binding AppliedColor, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        AppliedColor="{Binding AppliedColor2, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayColor="{Binding AppliedColor1, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         Focusable="False"
                                         IsSynchronizedWithCurrentItem="True"
                                         ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
                                         ItemTemplate="{StaticResource ColorPickerItemTemplate}"
                                         ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                        Style="{DynamicResource ColorPickerButtonStyle}">
+                                        Style="{DynamicResource ColorPickerButtonStyle}"
+                                        ToolTip="Change color (Ctrl + G)">
                                         <!--<Behaviors:Interaction.Triggers>
                                             <Behaviors:EventTrigger EventName="SelectionChanged">
                                                 <Behaviors:InvokeCommandAction Command="{Binding ApplyColorCommand, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -209,7 +209,7 @@
                                         CommandTarget="{Binding ElementName=PART_ContentHost}"
                                         Content="{DynamicResource SegoeIconDeleteFormatting}"
                                         Style="{DynamicResource TextEditorButtonStyle}"
-                                        ToolTip="Reset formatting" />
+                                        ToolTip="Reset all formatting (Ctrl + H)" />
                                 </ToolBar>
                             </DockPanel>
                         </Border>

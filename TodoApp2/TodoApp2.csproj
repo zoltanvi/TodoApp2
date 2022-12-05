@@ -133,9 +133,13 @@
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\FocusSetter.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
+    <Compile Include="Controls\BasicTextEditorBox.cs" />
     <Compile Include="Controls\ClickSelectTextBox.cs" />
     <Compile Include="Controls\ColorPickerComboBox.cs" />
     <Compile Include="Controls\CustomScrollViewer.cs" />
+    <Compile Include="Controls\RichTextEditorControl.xaml.cs">
+      <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TextEditorBox.cs" />
     <Compile Include="Controls\CategoryListControl.xaml.cs">
       <DependentUpon>CategoryListControl.xaml</DependentUpon>
@@ -158,6 +162,7 @@
     <Compile Include="Controls\TaskListItemControl.xaml.cs">
       <DependentUpon>TaskListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FormattableTextEditorBox.cs" />
     <Compile Include="Formatters\TextFormatter.cs" />
     <Compile Include="Helpers\CustomDropHandler.cs" />
     <Compile Include="Helpers\DragDropMediator.cs" />
@@ -246,6 +251,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PageHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RichTextEditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
