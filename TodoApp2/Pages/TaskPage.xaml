@@ -102,23 +102,6 @@
                         DataContext="{Binding TextEditorViewModel}" />
                 </DockPanel>
 
-                <!--<DockPanel>
-                    <local:TextEditorBox
-                        MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
-                        Padding="10"
-                        VerticalAlignment="Bottom"
-                        AcceptsTab="True"
-                        AutomationProperties.AutomationId="AddNewTaskTextBox"
-                        DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        IsEmptyOrWhiteSpace="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
-                        ScrollViewer.CanContentScroll="False"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Style="{DynamicResource FormattableRichTextBoxStyle}"
-                        Tag="Add new task" />
-                </DockPanel>-->
-
             </Border>
         </Grid>
     </Border>

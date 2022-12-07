@@ -215,14 +215,20 @@
                     Padding="10 0"
                     Grid.Column="1"
                     MaxHeight="100"
-                    CornerRadius="2"
+                    CornerRadius="4"
                     SnapsToDevicePixels="True"
                     Background="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBackgroundConverter}}">
-                    <DockPanel>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
                         <TextBlock
+                            Grid.Column="0"
                             DockPanel.Dock="Left"
                             TextWrapping="Wrap"
-                            FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
+                            FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"
                             FontFamily="Segoe UI"
                             FontWeight="Bold"
                             Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
@@ -231,13 +237,14 @@
                             Foreground="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToForegroundConverter}}" />
 
                         <Button
+                            Grid.Column="1"
                             DockPanel.Dock="Right"
-                            Visibility="{Binding MessageService.UndoButtonVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             Margin="30 2 0 2"
+                            Visibility="{Binding MessageService.UndoButtonVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             Command="{Binding UndoCommand}"
                             Content="Undo"
                             Style="{DynamicResource ReminderBottomButtonStyle}" />
-                    </DockPanel>
+                    </Grid>
 
                 </Border>
             </Grid>

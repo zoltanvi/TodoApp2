@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 using TodoApp2.Core;
 
@@ -23,6 +18,8 @@ namespace TodoApp2
         public static readonly DependencyProperty IsSelectionUnderlinedProperty = DependencyProperty.Register(nameof(IsSelectionUnderlined), typeof(bool), typeof(FormattableTextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(FormattableTextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty TextColorProperty = DependencyProperty.Register(nameof(TextColor), typeof(string), typeof(FormattableTextEditorBox), new PropertyMetadata(OnTextColorChanged));
+
+        public static readonly DependencyProperty EnterActionProperty = DependencyProperty.Register(nameof(EnterAction), typeof(Action), typeof(FormattableTextEditorBox), new PropertyMetadata());
 
         public bool IsSelectionBold
         {
@@ -52,6 +49,12 @@ namespace TodoApp2
         {
             get => (string)GetValue(TextColorProperty);
             set => SetValue(TextColorProperty, value);
+        }
+
+        public Action EnterAction
+        {
+            get { return (Action)GetValue(EnterActionProperty); }
+            set { SetValue(EnterActionProperty, value); }
         }
 
         public ICommand SetBoldCommand { get; set; }
@@ -94,6 +97,22 @@ namespace TodoApp2
             IncreaseFontSizeCommand = new RelayCommand(IncreaseFontSize);
             DecreaseFontSizeCommand = new RelayCommand(DecreaseFontSize);
             ResetFormattingCommand = new RelayCommand(ResetAllFormatting);
+
+            PreviewKeyDown += FormattableTextEditorBox_PreviewKeyDown;
+        }
+
+        private void FormattableTextEditorBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Check if enter has been pressed without shift modifiers
+            if (e.Key == Key.Enter && !Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                UpdateContent();
+
+                EnterAction?.Invoke();
+
+                // Mark the key as handled
+                e.Handled = true;
+            }
         }
 
         private void ResetAllFormatting()
@@ -106,7 +125,7 @@ namespace TodoApp2
         private void DecreaseFontSize()
         {
             object fontSize = Selection.GetPropertyValue(TextElement.FontSizeProperty);
-            if (fontSize is double size)
+            if (fontSize is double size && size > 2)
             {
                 Selection.ApplyPropertyValue(TextElement.FontSizeProperty, size - 2);
             }

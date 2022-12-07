@@ -15,6 +15,7 @@ namespace TodoApp2.Core
         void Dispose();
         List<CategoryListItemViewModel> GetValidCategories();
         List<TaskListItemViewModel> GetActiveTaskItems();
+        List<TaskListItemViewModel> GetActiveTaskItemsWithReminder();
         List<TaskListItemViewModel> GetActiveTaskItems(CategoryListItemViewModel category);
         Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(CategoryListItemViewModel category);
         CategoryListItemViewModel GetCategory(int categoryId);

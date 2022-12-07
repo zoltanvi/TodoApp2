@@ -83,10 +83,9 @@ namespace TodoApp2.Core
             }
 
             // Returns the task list from the database ordered by ListOrder column
-            List<TaskListItemViewModel> tasksFromCategory = m_DataAccess.GetTasksFromCategory(category.Id);
+            List<TaskListItemViewModel> tasksFromCategory = m_DataAccess.GetActiveTasksFromCategory(category.Id);
 
-            // Return only the items from the provided category which are not trashed
-            return tasksFromCategory.Where(task => task.Trashed == false).ToList();
+            return tasksFromCategory;
         }
 
         /// <summary>
@@ -97,7 +96,17 @@ namespace TodoApp2.Core
         {
             List<TaskListItemViewModel> activeTasks = m_DataAccess.GetActiveTasks();
 
-            return activeTasks.ToList();
+            return activeTasks;
+        }
+
+        /// <summary>
+        /// Gets all task items which are not trashed and has a reminder
+        /// </summary>
+        /// <returns></returns>
+        public List<TaskListItemViewModel> GetActiveTaskItemsWithReminder()
+        {
+            List<TaskListItemViewModel> tasksWithReminder = m_DataAccess.GetActiveTasksWithReminder();
+            return tasksWithReminder;
         }
 
         /// <summary>
@@ -462,6 +471,7 @@ namespace TodoApp2.Core
             //    m_SessionManager.Upload();
             //}
         }
+
 
     }
 }

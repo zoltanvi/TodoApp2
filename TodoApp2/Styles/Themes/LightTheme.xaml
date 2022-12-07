@@ -38,9 +38,9 @@
     <Color x:Key="PopUpBg">#EEEEEE</Color>
     <Color x:Key="OverlayBg">#FFFFFF</Color>
     <Color x:Key="ContextMenuBg">#FFFFFF</Color>
-    <Color x:Key="MessageInfoBg">#5BB2FA</Color>
-    <Color x:Key="MessageWarningBg">#d0b132</Color>
-    <Color x:Key="MessageErrorBg">#EF5350</Color>
+    <Color x:Key="MessageInfoBg">#cce3ff</Color>
+    <Color x:Key="MessageWarningBg">#ffe8c3</Color>
+    <Color x:Key="MessageErrorBg">#ffd0cb</Color>
 
     <Color x:Key="HoverCategoryBg">#EDEDED</Color>
     <Color x:Key="HoverTitleBarButtonBg">#D7D7D7</Color>

@@ -38,11 +38,6 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
-        /// Is the Add new task TextBox empty or only contains whitespace?
-        /// </summary>
-        public bool IsAddTaskTextBoxEmpty { get; set; }
-
-        /// <summary>
         /// True if the category name is in edit mode
         /// </summary>
         public bool IsCategoryInEditMode { get; set; }
@@ -117,6 +112,10 @@ namespace TodoApp2.Core
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
 
+            TextEditorViewModel = new RichTextEditorViewModel(false, false, true);
+            TextEditorViewModel.WatermarkText = "Add new task";
+            TextEditorViewModel.EnterAction = CreateTaskItem;
+
             AddTaskItemCommand = new UndoableCommand(DoAddTask, RedoAddTask, UndoAddTask);
             DeleteTaskItemCommand = new UndoableCommand(DoTrashTask, RedoTrashTask, UndoTrashTask);
 
@@ -136,6 +135,8 @@ namespace TodoApp2.Core
 
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
         }
+
+        private void CreateTaskItem() => AddTaskItemCommand.Execute(null);
 
         private void UndoTrashTask(CommandObject commandObject)
         {
@@ -186,7 +187,7 @@ namespace TodoApp2.Core
 
         private CommandObject DoAddTask(CommandObject arg)
         {
-            if (IsAddTaskTextBoxEmpty)
+            if (TextEditorViewModel.IsContentEmpty)
             {
                 return CommandObject.NotHandled;
             }

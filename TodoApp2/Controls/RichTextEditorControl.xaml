@@ -6,14 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TodoApp2"
     xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-    x:Name="RichTextEditorUC"
     mc:Ignorable="d"
     d:DesignHeight="450"
+    x:Name="RichTextEditorUC"
     d:DesignWidth="800">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition />
+                <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -29,10 +29,10 @@
                 Grid.Column="1">
                 <DockPanel>
                     <WrapPanel
+                        Visibility="{Binding IsChecked, ElementName=IsEditorOpenToggle, Converter={StaticResource boolToVisibilityConverter}}"
                         Background="#00ffffff"
                         DockPanel.Dock="Top"
-                        ToolBarTray.IsLocked="True"
-                        Visibility="{Binding IsChecked, ElementName=IsEditorOpenToggle, Converter={StaticResource boolToVisibilityConverter}}">
+                        ToolBarTray.IsLocked="True">
 
                         <ToggleButton
                             Command="{Binding SetBoldCommand, ElementName=PART_TextEditor}"
@@ -110,18 +110,32 @@
                 Background="Transparent"
                 SnapsToDevicePixels="True">
 
+                <!--
+                    IMPORTANT: FocusSetter Attached property must be
+                    after Visibility property (if defined) in order to work!
+                    
+                    Focusable property is needed to exit edit mode on enter keypress.
+                -->
                 <local:FormattableTextEditorBox
                     x:Name="PART_TextEditor"
                     RenderOptions.ClearTypeHint="Enabled"
                     DocumentContent="{Binding DocumentContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Background="Transparent"
                     Foreground="{DynamicResource ForegroundBrush}"
                     Style="{DynamicResource BaseRichTextBoxStyle}"
-                    local:FocusSetter.Value="{Binding IsEditMode}"
-                    TextColor="{Binding TextColor}">
+                    Opacity="{Binding TextOpacity}"
+                    Background="Transparent"
+                    EnterAction="{Binding EnterAction}"
+                    Focusable="{Binding Focusable}"
+                    local:FocusSetter.Value="{Binding NeedFocus}"
+                    IsEmpty="{Binding IsContentEmpty, Mode=OneWayToSource}"
+                    TextColor="{Binding TextColor}"
+                    AcceptsTab="{Binding AcceptsTab}"
+                    ScrollViewer.CanContentScroll="False"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="LostFocus">
-                            <Behaviors:InvokeCommandAction Command="{Binding EndEditModeCommand}" />
+                            <Behaviors:InvokeCommandAction Command="{Binding LostFocusCommand}" />
                         </Behaviors:EventTrigger>
                     </Behaviors:Interaction.Triggers>
                 </local:FormattableTextEditorBox>
@@ -143,7 +157,7 @@
             </Border>
 
             <!--  Watermark text  -->
-            <!--<TextBlock
+            <TextBlock
                 x:Name="PART_placeholder"
                 Grid.Row="1"
                 Grid.Column="1"
@@ -152,27 +166,10 @@
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource PlaceholderBrush}"
                 IsHitTestVisible="False"
-                Text="asdasd22">
-                <TextBlock.Style>
-                    <Style BasedOn="{StaticResource BaseTextBlockClearTypeStyle}" TargetType="{x:Type TextBlock}">
-                        <Setter Property="Visibility" Value="Visible" />
-                        <Style.Triggers>
-                            <DataTrigger Value="true">
-                                <DataTrigger.Binding>
-                                    <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}" />
-                                </DataTrigger.Binding>
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                            <DataTrigger Value="false">
-                                <DataTrigger.Binding>
-                                    <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}" />
-                                </DataTrigger.Binding>
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>-->
+                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                FontSize="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeToDoubleConverter}}"
+                Visibility="{Binding IsContentEmpty, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}, UpdateSourceTrigger=Default}"
+                Text="{Binding WatermarkText}" />
 
         </Grid>
     </Grid>

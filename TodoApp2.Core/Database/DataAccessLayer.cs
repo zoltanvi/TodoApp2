@@ -602,6 +602,34 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Gets every Task which has a reminder
+        /// </summary>
+        /// <returns></returns>
+        public List<TaskListItemViewModel> GetActiveTasksWithReminder()
+        {
+            List<TaskListItemViewModel> items = new List<TaskListItemViewModel>();
+
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            {
+                command.CommandText = $"SELECT * FROM {Table.Task} " +
+                                      $" WHERE {Column.Trashed} = 0 " +
+                                      $" AND {Column.IsReminderOn} = 1 " +
+                                      $" ORDER BY {Column.ListOrder} ;";
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TaskListItemViewModel readTask = ReadTask(reader);
+                        items.Add(readTask);
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        /// <summary>
         /// Gets every task from the given category
         /// </summary>
         /// <returns></returns>

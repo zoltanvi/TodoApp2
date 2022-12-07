@@ -31,8 +31,8 @@
     <local:BoolToBorderThicknessConverter x:Key="boolToBorderThicknessConverter" />
     <local:BoolToDoubleConverter
         x:Key="boolToTaskOpacityConverter"
-        NegativeValue="1"
-        PositiveValue="0.25" />
+        NegativeValue="1.0"
+        PositiveValue="0.8" />
     <local:BoolToDoubleConverter
         x:Key="boolToCompactModeConverter"
         NegativeValue="40"

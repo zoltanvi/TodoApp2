@@ -16,9 +16,6 @@ namespace TodoApp2
         public static readonly DependencyProperty DocumentContentProperty = 
             DependencyProperty.Register(nameof(DocumentContent), typeof(string), typeof(BasicTextEditorBox), new PropertyMetadata(OnContentChanged));
 
-        public static readonly DependencyProperty IsEmptyOrWhiteSpaceProperty = 
-            DependencyProperty.Register(nameof(IsEmptyOrWhiteSpace), typeof(bool), typeof(BasicTextEditorBox), new PropertyMetadata());
-
         public static readonly DependencyProperty IsEmptyProperty = 
             DependencyProperty.Register(nameof(IsEmpty), typeof(bool), typeof(BasicTextEditorBox), new PropertyMetadata());
 
@@ -51,16 +48,7 @@ namespace TodoApp2
         }
 
         /// <summary>
-        /// Indicates whether the content of the RichTextBox is empty (or whitespace) or not.
-        /// </summary>
-        public bool IsEmptyOrWhiteSpace
-        {
-            get => (bool)GetValue(IsEmptyOrWhiteSpaceProperty);
-            set => SetValue(IsEmptyOrWhiteSpaceProperty, value);
-        }
-
-        /// <summary>
-        /// Indicates whether the content of the RichTextBox is empty or not.
+        /// Indicates whether the content of the RichTextBox is empty / whitespace or not.
         /// </summary>
         public bool IsEmpty
         {
@@ -71,7 +59,6 @@ namespace TodoApp2
         public BasicTextEditorBox()
         {
             IsEmpty = true;
-            IsEmptyOrWhiteSpace = true;
             LostFocus += OnLostFocus;
             TextChanged += OnTextChanged;
 
@@ -80,12 +67,6 @@ namespace TodoApp2
 
         public void UpdateContent()
         {
-            // Update the IsEmptyOrWhiteSpace property.
-            // It is not necessary to be updated in every TextChange event
-            TextRange textRange = new TextRange(Document.ContentStart, Document.ContentEnd);
-            IsEmptyOrWhiteSpace = string.IsNullOrWhiteSpace(textRange.Text);
-
-            // Update the content
             string result = XamlWriter.Save(Document);
             DocumentContent = result;
         }
@@ -124,9 +105,12 @@ namespace TodoApp2
                 return true;
             }
 
-            TextPointer startPointer = rtb.Document.ContentStart.GetNextInsertionPosition(LogicalDirection.Forward);
-            TextPointer endPointer = rtb.Document.ContentEnd.GetNextInsertionPosition(LogicalDirection.Backward);
-            return endPointer != null && startPointer?.CompareTo(endPointer) == 0;
+            TextRange textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+            return string.IsNullOrWhiteSpace(textRange.Text);
+
+            //TextPointer startPointer = rtb.Document.ContentStart.GetNextInsertionPosition(LogicalDirection.Forward);
+            //TextPointer endPointer = rtb.Document.ContentEnd.GetNextInsertionPosition(LogicalDirection.Backward);
+            //return endPointer != null && startPointer?.CompareTo(endPointer) == 0;
         }
     }
 }

@@ -20,12 +20,12 @@ namespace TodoApp2
     /// </summary>
     public partial class RichTextEditorControl : UserControl
     {
-        public static readonly DependencyProperty EditModeProperty = DependencyProperty.Register(nameof(EditMode), typeof(bool), typeof(RichTextEditorControl), new PropertyMetadata());
+        public static readonly DependencyProperty TextOpacityProperty = DependencyProperty.Register(nameof(TextOpacity), typeof(double), typeof(RichTextEditorControl), new PropertyMetadata());
 
-        public bool EditMode
+        public double TextOpacity
         {
-            get => (bool)GetValue(EditModeProperty);
-            set => SetValue(EditModeProperty, value);
+            get { return (double)GetValue(TextOpacityProperty); }
+            set { SetValue(TextOpacityProperty, value); }
         }
 
         public RichTextEditorControl()
