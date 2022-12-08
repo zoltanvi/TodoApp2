@@ -10,8 +10,6 @@ namespace TodoApp2
         public static readonly DependencyProperty DisplayColorProperty = DependencyProperty.Register(nameof(DisplayColor), typeof(string), typeof(ColorPickerComboBox), new PropertyMetadata());
         public static readonly DependencyProperty AppliedColorProperty = DependencyProperty.Register(nameof(AppliedColor), typeof(string), typeof(ColorPickerComboBox), new PropertyMetadata());
 
-        public ICommand ApplyDisplayColorCommand { get; set; }
-
         public string DisplayColor
         {
             get => (string)GetValue(DisplayColorProperty);
@@ -24,6 +22,8 @@ namespace TodoApp2
             set => SetValue(AppliedColorProperty, value);
         }
 
+        public ICommand ApplyDisplayColorCommand { get; set; }
+
         public ColorPickerComboBox()
         {
             ApplyDisplayColorCommand = new RelayCommand(ApplyDisplayColor);
@@ -32,13 +32,22 @@ namespace TodoApp2
 
         private void ApplyDisplayColor()
         {
-            AppliedColor = null;
+            if (AppliedColor == DisplayColor)
+            {
+                AppliedColor = string.Empty;
+            }
+            
             AppliedColor = DisplayColor;
         }
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DisplayColor = SelectedItem as string;
+            if (e.AddedItems.Count == 1)
+            {
+                DisplayColor = (string)e.AddedItems[0];
+                
+                ApplyDisplayColor();
+            }
         }
     }
 }

@@ -26,10 +26,9 @@ namespace TodoApp2.Core
 
             Mediator.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
 
-            List<TaskListItemViewModel> taskList = m_Database.GetActiveTaskItems();
-            List<TaskListItemViewModel> filteredItems = new List<TaskListItemViewModel>(taskList.Where(task => task.IsReminderOn));
+            List<TaskListItemViewModel> taskList = m_Database.GetActiveTaskItemsWithReminder();
 
-            foreach (TaskListItemViewModel task in filteredItems)
+            foreach (TaskListItemViewModel task in taskList)
             {
                 DateTime reminderDate = new DateTime(task.ReminderDate);
 

@@ -459,6 +459,8 @@
     </Style>
 
     <Style x:Key="ColorPickerButtonStyle" TargetType="local:ColorPickerComboBox">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ColorPickerComboBox}">
@@ -473,7 +475,7 @@
                                 Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="3"
-                                Background="{Binding DisplayColor, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
+                                Background="{Binding DisplayCol, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
                                 Command="{Binding ApplyDisplayColorCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                 Style="{DynamicResource InternalColorPickerButtonStyle}" />
                         </Grid>
@@ -486,6 +488,46 @@
                             ItemTemplate="{StaticResource ColorPickerItemTemplate}"
                             ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             Style="{DynamicResource ColorPickerOnlyDropDownStyle}" />
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="TaskColorPickerButtonStyle"
+        TargetType="local:ColorPickerComboBox"
+        BasedOn="{StaticResource ColorPickerButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ColorPickerComboBox}">
+                    <!--  Set background to transparent explicitly to prevent focus lost on missclick  -->
+                    <Grid Background="#00ffffff">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Button
+                                Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Margin="3"
+                                Background="{Binding DisplayColor, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
+                                Command="{Binding ApplyDisplayColorCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                Style="{DynamicResource InternalTextColorPickerButtonStyle}" />
+                        </Grid>
+
+                        <ComboBox
+                            Grid.Column="1"
+                            Focusable="False"
+                            Cursor="Hand"
+                            ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
+                            ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                            ItemsSource="{TemplateBinding ItemsSource}"
+                            Style="{DynamicResource ColorPickerOnlyDropDownStyle}" />
+                        <!--  ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"  -->
 
                     </Grid>
                 </ControlTemplate>

@@ -11,14 +11,30 @@ namespace TodoApp2.Core
     public class TaskListItemViewModel : BaseViewModel, IReorderable
     {
         private string m_ContentRollback = string.Empty;
+        private bool m_IsDone;
+
         private IDatabase Database => IoC.Database;
+
+        public string Content
+        {
+            get => TextEditorViewModel.DocumentContent;
+            set => TextEditorViewModel.DocumentContent = value;
+        }
+
+        public bool IsDone
+        {
+            get => m_IsDone;
+            set
+            {
+                m_IsDone = value;
+                TextEditorViewModel.TextOpacity = IsDone ? 0.25 : 1.0;
+            }
+        }
 
         public int Id { get; set; }
         public int CategoryId { get; set; }
-        public string Content { get; set; }
         public bool Pinned { get; set; }
         public long ListOrder { get; set; }
-        public bool IsDone { get; set; }
         public long CreationDate { get; set; }
         public long ModificationDate { get; set; }
         public string Color { get; set; }
@@ -26,14 +42,11 @@ namespace TodoApp2.Core
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }
         public bool ColorPickerVisible { get; set; }
-        public bool IsEditMode { get; set; }
-        public bool IsDisplayMode => !IsEditMode;
-        public bool IsEmptyContent { get; set; }
+        public RichTextEditorViewModel TextEditorViewModel { get; }
         public ICommand SetColorCommand { get; }
         public ICommand SetColorParameterizedCommand { get; }
         public ICommand OpenReminderCommand { get; }
         public ICommand EditItemCommand { get; }
-        public ICommand UpdateItemContentCommand { get; }
 
         public TaskListItemViewModel()
         {
@@ -41,7 +54,8 @@ namespace TodoApp2.Core
             SetColorParameterizedCommand = new RelayParameterizedCommand(SetColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
-            UpdateItemContentCommand = new RelayCommand(UpdateContent);
+            TextEditorViewModel = new RichTextEditorViewModel(true, true, false);
+            TextEditorViewModel.EnterAction = UpdateContent;
         }
 
         public void CopyProperties(TaskListItemViewModel task)
@@ -58,24 +72,25 @@ namespace TodoApp2.Core
             ReminderDate = task.ReminderDate;
             IsReminderOn = task.IsReminderOn;
             ColorPickerVisible = task.ColorPickerVisible;
-            IsEditMode = task.IsEditMode;
+            TextEditorViewModel.IsEditMode = task.TextEditorViewModel.IsEditMode;
         }
 
         public void UpdateContent()
         {
-            if (IsEmptyContent)
+            if (TextEditorViewModel.IsContentEmpty)
             {
                 // Empty content is rejected, roll back the previous content.
                 Content = m_ContentRollback;
             }
-            else
+            // If nothing changed, do not update 
+            else if (Content != m_ContentRollback)
             {
                 //Modifications are accepted, update task
                 ModificationDate = DateTime.Now.Ticks;
                 Database.UpdateTask(this);
             }
 
-            IsEditMode = false;
+            TextEditorViewModel.IsEditMode = false;
         }
 
         private void EditItem()
@@ -84,7 +99,7 @@ namespace TodoApp2.Core
             m_ContentRollback = Content;
 
             // Enable editing
-            IsEditMode = true;
+            TextEditorViewModel.IsEditMode = true;
         }
 
         private void OpenReminder()

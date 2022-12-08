@@ -11,12 +11,13 @@
     MinHeight="{Binding ApplicationViewModel.ApplicationSettings.IsCompactMode, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCompactModeConverter}}"
     d:DesignHeight="60"
     d:DesignWidth="350"
-    dd:DragDrop.IsDragSource="{Binding IsEditMode}"
+    dd:DragDrop.IsDragSource="{Binding TextEditorViewModel.IsEditMode}"
     AutomationProperties.AutomationId="TaskListItemUC"
     mc:Ignorable="d">
 
     <UserControl.ContextMenu>
-        <ContextMenu Tag="{Binding Tag, ElementName=TaskListItemUC}">
+
+        <ContextMenu>
             <MenuItem
                 Command="{Binding Path=PlacementTarget.Tag.PinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                 CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
@@ -135,6 +136,7 @@
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    IsEnabled="{Binding TextEditorViewModel.IsDisplayMode}"
                     AutomationProperties.AutomationId="TaskListItemCheckBox"
                     Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                     CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
@@ -175,37 +177,15 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--
-                        Task description
-                        ========================================================
-                        IMPORTANT: FocusSetter Attached property must be
-                        after Visibility property (if defined) in order to work!
-                        
-                        Focusable property is needed to exit edit mode on enter keypress.
-                    -->
-                    <local:TextEditorBox
-                        Grid.Row="0"
-                        DocumentContent="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Focusable="{Binding IsEditMode}"
-                        local:FocusSetter.Value="{Binding IsEditMode}"
-                        IsEmptyOrWhiteSpace="{Binding IsEmptyContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        IsHitTestVisible="{Binding IsEditMode}"
-                        Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                        PreviewKeyDown="TextBox_PreviewKeyDown"
-                        Style="{DynamicResource FormattableRichTextBoxStyle}">
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="LostFocus">
-                                <Behaviors:InvokeCommandAction Command="{Binding UpdateItemContentCommand}" />
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
 
-                    </local:TextEditorBox>
+                    <!--  Task description  -->
+                    <local:RichTextEditorControl Grid.Row="0" DataContext="{Binding TextEditorViewModel}" />
 
                     <!--  Catch double click to change to edit mode  -->
                     <Border
                         Grid.Row="0"
                         Background="Transparent"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                        Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
                         <Border.InputBindings>
                             <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
                         </Border.InputBindings>
@@ -275,7 +255,6 @@
                     Background="Transparent"
                     IsEnabled="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
                     Opacity="0">
-                    <!--  Visibility="{Binding IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}"  -->
 
                     <Border.Visibility>
                         <MultiBinding>
@@ -285,7 +264,7 @@
                             <Binding Path="ApplicationViewModel.ApplicationSettings.IsAnyQuickActionEnabled" Source="{x:Static local:ViewModelLocator.Instance}" />
                             <Binding
                                 Mode="OneWay"
-                                Path="IsDisplayMode"
+                                Path="TextEditorViewModel.IsDisplayMode"
                                 UpdateSourceTrigger="PropertyChanged" />
                         </MultiBinding>
                     </Border.Visibility>
@@ -350,9 +329,9 @@
                                     Command="{Binding OpenReminderCommand}"
                                     Content="{DynamicResource SegoeIconDateTime}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
+                                    ToolTip="{Binding ReminderDate, Converter={StaticResource longToFormattedLongDateConverter}}"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
-
 
                             <!--  Color picker  -->
                             <ComboBox

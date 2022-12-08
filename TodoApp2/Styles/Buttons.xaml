@@ -82,7 +82,7 @@
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
-        <Setter Property="Margin" Value="2 0" />
+        <Setter Property="Margin" Value="0 0" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="Opacity" Value="0.6" />
         <Style.Triggers>
@@ -359,7 +359,7 @@
                         SnapsToDevicePixels="true">
                         <Grid>
 
-                            <Viewbox>
+                            <Viewbox VerticalAlignment="Top">
                                 <Label
                                     x:Name="ArrowTop"
                                     Margin="0"
@@ -368,7 +368,7 @@
                                     Style="{DynamicResource IconLabelStyle}" />
                             </Viewbox>
 
-                            <Viewbox>
+                            <Viewbox VerticalAlignment="Top">
                                 <Label
                                     x:Name="ArrowDown"
                                     Margin="0"
@@ -526,7 +526,7 @@
 
     <Style x:Key="TextEditorToggleButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Margin" Value="2 0" />
+        <Setter Property="Margin" Value="0 0" />
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
 
         <Setter Property="Opacity" Value="0.6" />
@@ -576,6 +576,7 @@
         x:Key="InternalColorPickerButtonStyle"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -604,6 +605,65 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding Path=Background, RelativeSource={RelativeSource Self}}" Value="Transparent">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="White" />
+                            <Setter TargetName="DiagonalLine" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ItemBorder" Property="BorderThickness" Value="0.5" />
+                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Black" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style
+        x:Key="InternalTextColorPickerButtonStyle"
+        BasedOn="{StaticResource ButtonBaseStyle}"
+        TargetType="{x:Type Button}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border
+                            Cursor="Hand"
+                            x:Name="ItemBorder"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </Border>
+                        <!--<Label
+                            Margin="0"
+                            Padding="0"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource ForegroundBrush}">
+                            A
+                        </Label>-->
+                        <Path
+                            Name="DiagonalLine"
+                            Stroke="Red"
+                            StrokeThickness="1"
+                            Visibility="Collapsed">
+                            <Path.Data>
+                                <LineGeometry StartPoint="15,0" EndPoint="0,15" />
+                            </Path.Data>
+                            <Path.LayoutTransform>
+                                <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            </Path.LayoutTransform>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=Background, RelativeSource={RelativeSource Self}}" Value="Transparent">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="White" />
+                            <Setter TargetName="DiagonalLine" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ItemBorder" Property="BorderThickness" Value="0.5" />
+                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Black" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Background, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
                             <Setter TargetName="ItemBorder" Property="Background" Value="White" />
                             <Setter TargetName="DiagonalLine" Property="Visibility" Value="Visible" />
                             <Setter TargetName="ItemBorder" Property="BorderThickness" Value="0.5" />

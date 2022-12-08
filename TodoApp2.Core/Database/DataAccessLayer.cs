@@ -372,6 +372,30 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Returns the number of categories in the database
+        /// </summary>
+        /// <returns></returns>
+        private int GetCategoryCount()
+        {
+            int count = 0;
+
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            {
+                command.CommandText = $"SELECT COUNT(*) FROM {Column.Category} ";
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        count = reader.GetInt32(0);
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        /// <summary>
         /// Gets the category record with the provided name from the Category table
         /// </summary>
         /// <param name="name"></param>
@@ -586,6 +610,34 @@ namespace TodoApp2.Core
             {
                 command.CommandText = $"SELECT * FROM {Table.Task} " +
                                       $" WHERE {Column.Trashed} = 0 " +
+                                      $" ORDER BY {Column.ListOrder} ;";
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TaskListItemViewModel readTask = ReadTask(reader);
+                        items.Add(readTask);
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Gets every Task which has a reminder
+        /// </summary>
+        /// <returns></returns>
+        public List<TaskListItemViewModel> GetActiveTasksWithReminder()
+        {
+            List<TaskListItemViewModel> items = new List<TaskListItemViewModel>();
+
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            {
+                command.CommandText = $"SELECT * FROM {Table.Task} " +
+                                      $" WHERE {Column.Trashed} = 0 " +
+                                      $" AND {Column.IsReminderOn} = 1 " +
                                       $" ORDER BY {Column.ListOrder} ;";
 
                 using (SQLiteDataReader reader = command.ExecuteReader())
@@ -963,7 +1015,7 @@ namespace TodoApp2.Core
         private void AddDefaultCategoryIfNotExists()
         {
             // This should only happen when the application database is just created
-            if (GetCategories().Count == 0)
+            if (GetCategoryCount() == 0)
             {
                 AddCategory(new CategoryListItemViewModel
                 {
@@ -975,7 +1027,7 @@ namespace TodoApp2.Core
                 AddCategory(new CategoryListItemViewModel
                 {
                     Id = 1,
-                    Name = "Shortcuts",
+                    Name = "Help",
                     ListOrder = DefaultListOrder + 1
                 });
 

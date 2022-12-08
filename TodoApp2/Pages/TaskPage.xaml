@@ -24,7 +24,7 @@
             <!--  Current category display text  -->
             <TextBlock
                 Grid.Row="0"
-                Margin="15,10,0,10"
+                Margin="15 10 0 10"
                 Style="{DynamicResource PageTitleTextBlockStyle}"
                 Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}">
                 <!--  Visibility="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"  -->
@@ -46,7 +46,7 @@
             <!--  Current category edit mode  -->
             <local:ClickSelectTextBox
                 Grid.Row="0"
-                Margin="13,10,0,10"
+                Margin="13 10 0 10"
                 Style="{DynamicResource PageTitleTextBoxStyle}"
                 Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
@@ -95,20 +95,11 @@
                 Style="{DynamicResource BottomPanelStyle}">
 
                 <DockPanel>
-                    <local:TextEditorBox
+                    <local:RichTextEditorControl
                         MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                         Padding="10"
                         VerticalAlignment="Bottom"
-                        AcceptsTab="True"
-                        AutomationProperties.AutomationId="AddNewTaskTextBox"
-                        DocumentContent="{Binding AddTaskTextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        IsEmptyOrWhiteSpace="{Binding IsAddTaskTextBoxEmpty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        PreviewKeyDown="AddNewTaskTextBox_OnPreviewKeyDown"
-                        ScrollViewer.CanContentScroll="False"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Style="{DynamicResource FormattableRichTextBoxStyle}"
-                        Tag="Add new task" />
+                        DataContext="{Binding TextEditorViewModel}" />
                 </DockPanel>
 
             </Border>

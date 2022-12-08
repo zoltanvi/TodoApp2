@@ -21,7 +21,10 @@ namespace TodoApp2
         {
             if (value is string colorString)
             {
-                if (string.IsNullOrEmpty(colorString)) return null;
+                if (string.IsNullOrEmpty(colorString))
+                {
+                    colorString = s_TransparentColor;
+                }
 
                 // Remove the leading # character
                 colorString = colorString.TrimStart('#');

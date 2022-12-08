@@ -38,9 +38,9 @@
     <Color x:Key="PopUpBg">#3B4F81</Color>
     <Color x:Key="OverlayBg">#CCD5F0</Color>
     <Color x:Key="ContextMenuBg">#3b4f81</Color>
-    <Color x:Key="MessageInfoBg">#5BB2FA</Color>
-    <Color x:Key="MessageWarningBg">#d0b132</Color>
-    <Color x:Key="MessageErrorBg">#EF5350</Color>
+    <Color x:Key="MessageInfoBg">#cce3ff</Color>
+    <Color x:Key="MessageWarningBg">#ffe8c3</Color>
+    <Color x:Key="MessageErrorBg">#ffd0cb</Color>
 
     <Color x:Key="HoverCategoryBg">#56638F</Color>
     <Color x:Key="HoverTitleBarButtonBg">#C0C8DC</Color>
@@ -101,7 +101,9 @@
     <SolidColorBrush x:Key="ComboBoxDropDownBgBrush" Color="{DynamicResource ComboBoxDropDownBg}" />
     <SolidColorBrush x:Key="CalendarButtonBgBrush" Color="{DynamicResource CalendarButtonBg}" />
     <SolidColorBrush
-        x:Key="CalendarTodayBgBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.2" />
+        x:Key="CalendarTodayBgBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.2" />
     <SolidColorBrush x:Key="PopUpBgBrush" Color="{DynamicResource PopUpBg}" />
     <SolidColorBrush
         x:Key="OverlayBgBrush"

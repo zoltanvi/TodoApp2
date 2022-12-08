@@ -10,7 +10,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource CommonBorderBrush}" />
-        <Setter Property="BorderThickness" Value="1,1,1,1" />
+        <Setter Property="BorderThickness" Value="1 1 1 1" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
@@ -20,7 +20,7 @@
             <Setter.Value>
                 <DataTemplate>
                     <ContentControl
-                        Margin="0,0,3,0"
+                        Margin="0 0 3 0"
                         Content="{Binding}"
                         Focusable="False"
                         Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
@@ -134,7 +134,7 @@
                                                             <RepeatButton
                                                                 x:Name="PART_DecreaseButton"
                                                                 Grid.Row="1"
-                                                                BorderThickness="1,1,0,0"
+                                                                BorderThickness="1 1 0 0"
                                                                 IsTabStop="{TemplateBinding IsTabStop}"
                                                                 Style="{DynamicResource RepeatButtonStyle}">
                                                                 <RepeatButton.ContentTemplate>
@@ -216,7 +216,7 @@
                                                                     x:Name="Arrow"
                                                                     Width="9"
                                                                     Height="5"
-                                                                    Margin="0,1,0,0"
+                                                                    Margin="0 1 0 0"
                                                                     Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z"
                                                                     Fill="{DynamicResource ForegroundBrush}" />
                                                                 <Grid.LayoutTransform>
@@ -372,7 +372,7 @@
         <Setter Property="Background" Value="{DynamicResource ComboBoxButtonBgBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        <Setter Property="BorderThickness" Value="1,0,0,0" />
+        <Setter Property="BorderThickness" Value="1 0 0 0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1" />
@@ -481,7 +481,7 @@
 
                         <ContentControl
                             x:Name="Content"
-                            Margin="5,1,5,1"
+                            Margin="5 1 5 1"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding Content}"
@@ -746,7 +746,7 @@
                             RadiusY="0" />
                         <ContentPresenter
                             x:Name="NormalText"
-                            Margin="14,0,14,1"
+                            Margin="14 0 14 1"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <TextElement.Foreground>
@@ -849,7 +849,7 @@
 
     <!--  Calendar Item style  -->
     <Style x:Key="ReminderCalendarItemStyle" TargetType="{x:Type CalendarItem}">
-        <Setter Property="Margin" Value="0,3,0,3" />
+        <Setter Property="Margin" Value="0 3 0 3" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CalendarItem}">
@@ -857,7 +857,7 @@
                         <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
                             <!--  Old font: Verdana  -->
                             <TextBlock
-                                Margin="0,6,0,6"
+                                Margin="0 6 0 6"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontFamily="{StaticResource Ubuntu}"
@@ -893,7 +893,7 @@
                                                         x:Name="path"
                                                         Width="6"
                                                         Height="10"
-                                                        Margin="10,0,0,0"
+                                                        Margin="10 0 0 0"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
                                                         Data="M288.75,232.25 L288.75,240.625 L283,236.625 z"
@@ -935,7 +935,7 @@
                                                         x:Name="path"
                                                         Width="6"
                                                         Height="10"
-                                                        Margin="0,0,10,0"
+                                                        Margin="0 0 10 0"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
                                                         Data="M282.875,231.875 L282.875,240.375 L288.625,236 z"
@@ -970,7 +970,7 @@
                                             <Grid Cursor="Hand">
                                                 <ContentPresenter
                                                     x:Name="buttonContent"
-                                                    Margin="1,10,1,9"
+                                                    Margin="1 10 1 9"
                                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                     Content="{TemplateBinding Content}"
@@ -1042,7 +1042,7 @@
                                         x:Name="PART_MonthView"
                                         Grid.Row="1"
                                         Grid.ColumnSpan="3"
-                                        Margin="6,-1,6,6"
+                                        Margin="6 -1 6 6"
                                         HorizontalAlignment="Center"
                                         Visibility="Visible">
                                         <Grid.ColumnDefinitions>
@@ -1068,7 +1068,7 @@
                                         x:Name="PART_YearView"
                                         Grid.Row="1"
                                         Grid.ColumnSpan="3"
-                                        Margin="6,-3,7,6"
+                                        Margin="6 -3 7 6"
                                         HorizontalAlignment="Center"
                                         Visibility="Hidden">
                                         <Grid.ColumnDefinitions>
