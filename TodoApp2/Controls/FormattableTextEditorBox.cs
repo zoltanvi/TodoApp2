@@ -252,7 +252,7 @@ namespace TodoApp2
                     }
                     break;
                 }
-
+                // Apply text color on Ctrl + G
                 case Key.G:
                 {
                     if (IsCtrlDown)
@@ -272,8 +272,6 @@ namespace TodoApp2
 
             UpdateSelectionColor();
         }
-
-
 
         private void ResetFormatting()
         {
@@ -308,6 +306,5 @@ namespace TodoApp2
                 textEditor.ApplyColor(textColor);
             }
         }
-
     }
 }

@@ -164,8 +164,12 @@
     </Compile>
     <Compile Include="Controls\FormattableTextEditorBox.cs" />
     <Compile Include="Formatters\TextFormatter.cs" />
+    <Compile Include="Helpers\BindingFix\PushBindingCollection.cs" />
+    <Compile Include="Helpers\BindingFix\PushBindingManager.cs" />
     <Compile Include="Helpers\CustomDropHandler.cs" />
     <Compile Include="Helpers\DragDropMediator.cs" />
+    <Compile Include="Helpers\BindingFix\FreezableBinding.cs" />
+    <Compile Include="Helpers\BindingFix\PushBinding.cs" />
     <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\TextBoxPreviewKeyDownHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />

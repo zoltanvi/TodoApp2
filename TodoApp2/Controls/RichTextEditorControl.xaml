@@ -127,17 +127,25 @@
                     EnterAction="{Binding EnterAction}"
                     Focusable="{Binding Focusable}"
                     local:FocusSetter.Value="{Binding NeedFocus}"
-                    IsEmpty="{Binding IsContentEmpty, Mode=OneWayToSource}"
                     TextColor="{Binding TextColor}"
                     AcceptsTab="{Binding AcceptsTab}"
                     ScrollViewer.CanContentScroll="False"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="LostFocus">
                             <Behaviors:InvokeCommandAction Command="{Binding LostFocusCommand}" />
                         </Behaviors:EventTrigger>
                     </Behaviors:Interaction.Triggers>
+
+                    <local:PushBindingManager.PushBindings>
+                        <local:PushBinding
+                            TargetProperty="IsEmpty"
+                            Path="IsContentEmpty"
+                            Mode="OneWayToSource" />
+                    </local:PushBindingManager.PushBindings>
+
                 </local:FormattableTextEditorBox>
             </Border>
 
@@ -168,7 +176,7 @@
                 IsHitTestVisible="False"
                 FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                 FontSize="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeToDoubleConverter}}"
-                Visibility="{Binding IsContentEmpty, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}, UpdateSourceTrigger=Default}"
+                Visibility="{Binding IsEmpty, ElementName=PART_TextEditor, Converter={StaticResource boolToVisibilityConverter}}"
                 Text="{Binding WatermarkText}" />
 
         </Grid>

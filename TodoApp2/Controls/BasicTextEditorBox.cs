@@ -13,12 +13,10 @@ namespace TodoApp2
         private static readonly string s_EmptyContent = XamlWriter.Save(new FlowDocument());
         private static readonly IEnumerable<Block> s_EmptyBlocks = new FlowDocument().Blocks;
 
-        public static readonly DependencyProperty DocumentContentProperty = 
-            DependencyProperty.Register(nameof(DocumentContent), typeof(string), typeof(BasicTextEditorBox), new PropertyMetadata(OnContentChanged));
-
-        public static readonly DependencyProperty IsEmptyProperty = 
-            DependencyProperty.Register(nameof(IsEmpty), typeof(bool), typeof(BasicTextEditorBox), new PropertyMetadata());
-
+        internal static readonly DependencyPropertyKey IsEmptyPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEmpty), typeof(bool), typeof(BasicTextEditorBox), new PropertyMetadata());
+        
+        public static readonly DependencyProperty DocumentContentProperty = DependencyProperty.Register(nameof(DocumentContent), typeof(string), typeof(BasicTextEditorBox), new PropertyMetadata(OnContentChanged));
+      
         /// <summary>
         /// The Document of the <see cref="BasicTextEditorBox"/> serialized into an xml format.
         /// </summary>
@@ -50,15 +48,14 @@ namespace TodoApp2
         /// <summary>
         /// Indicates whether the content of the RichTextBox is empty / whitespace or not.
         /// </summary>
-        public bool IsEmpty
-        {
-            get => (bool)GetValue(IsEmptyProperty);
-            set => SetValue(IsEmptyProperty, value);
-        }
+        public bool IsEmpty => (bool)GetValue(IsEmptyPropertyKey.DependencyProperty);
+
+        private void SetIsEmpty(bool value) => SetValue(IsEmptyPropertyKey, value);
 
         public BasicTextEditorBox()
         {
-            IsEmpty = true;
+            SetIsEmpty(true);
+
             LostFocus += OnLostFocus;
             TextChanged += OnTextChanged;
 
@@ -86,7 +83,8 @@ namespace TodoApp2
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            IsEmpty = IsRichTextBoxEmpty(this);
+            bool isEmpty = IsRichTextBoxEmpty(this);
+            SetIsEmpty(isEmpty);
         }
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e)
