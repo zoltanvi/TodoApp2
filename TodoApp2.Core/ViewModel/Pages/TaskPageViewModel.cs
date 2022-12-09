@@ -83,6 +83,11 @@ namespace TodoApp2.Core
         public ICommand ResetColorsCommand { get; }
 
         /// <summary>
+        /// Resets each task items border color in the current category
+        /// </summary>
+        public ICommand ResetBorderColorsCommand { get; }
+
+        /// <summary>
         /// Marks the task item as done
         /// </summary>
         public ICommand TaskIsDoneModifiedCommand { get; }
@@ -124,6 +129,8 @@ namespace TodoApp2.Core
             UnpinTaskItemCommand = new RelayParameterizedCommand(Unpin);
             DeleteAllCommand = new RelayCommand(TrashAll);
             ResetColorsCommand = new RelayCommand(ResetColors);
+            ResetBorderColorsCommand = new RelayCommand(ResetBorderColors);
+
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
             MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
 
@@ -296,6 +303,16 @@ namespace TodoApp2.Core
             foreach (TaskListItemViewModel item in Items)
             {
                 item.Color = "Transparent";
+            }
+
+            m_TaskListService.PersistTaskList();
+        }
+
+        private void ResetBorderColors()
+        {
+            foreach (TaskListItemViewModel item in Items)
+            {
+                item.BorderColor = "Transparent";
             }
 
             m_TaskListService.PersistTaskList();

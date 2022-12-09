@@ -50,9 +50,11 @@ namespace TodoApp2.Core
         public int WindowCornerRadius { get; set; }
         public int NoRadius { get; } = 0;
         public bool IsItemBackgroundVisible { get; set; } = true;
+        public bool IsItemBorderVisible { get; set; } = true;
         public bool IsQuickActionsEnabled { get; set; } = true;
         public bool IsQuickActionsReminderEnabled { get; set; } = true;
         public bool IsQuickActionsColorEnabled { get; set; } = true;
+        public bool IsQuickActionsBorderColorEnabled { get; set; } = true;
         public bool IsQuickActionsPinEnabled { get; set; } = true;
         public bool IsQuickActionsTrashEnabled { get; set; } = true;
         public FontSize TaskFontSize { get; set; } = FontSize.Medium;
@@ -108,9 +110,11 @@ namespace TodoApp2.Core
                 { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsReminderEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsColorEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsBorderColorEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsPinEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsTrashEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsItemBackgroundVisible), PropertyValueHandlers.Bool },
+                { nameof(IsItemBorderVisible), PropertyValueHandlers.Bool },
                 { nameof(ColorBarThickness), PropertyValueHandlers.Thickness },
                 { nameof(TaskFontSize), PropertyValueHandlers.FontSize },
                 { nameof(FontFamily), PropertyValueHandlers.FontFamily },

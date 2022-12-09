@@ -6,6 +6,7 @@
     <local:StringRGBToBrushConverter x:Key="stringRGBToBrushConverter" />
     <local:SolidColorBrushToStringConverter x:Key="solidColorBrushToStringConverter" />
     <local:AppBorderBrushConverter x:Key="appBorderBrushConverter" />
+    <local:TaskBorderBrushConverter x:Key="taskBorderBrushConverter" />
     <local:AccentColorBrushConverter x:Key="accentColorBrushConverter" />
 
     <local:MessageTypeToBrushConverter

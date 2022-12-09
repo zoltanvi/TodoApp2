@@ -38,20 +38,25 @@ namespace TodoApp2.Core
         public long CreationDate { get; set; }
         public long ModificationDate { get; set; }
         public string Color { get; set; }
+        public string BorderColor { get; set; }
         public bool Trashed { get; set; }
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }
         public bool ColorPickerVisible { get; set; }
         public RichTextEditorViewModel TextEditorViewModel { get; }
         public ICommand SetColorCommand { get; }
+        public ICommand SetBorderColorCommand { get; }
         public ICommand SetColorParameterizedCommand { get; }
+        public ICommand SetBorderColorParameterizedCommand { get; }
         public ICommand OpenReminderCommand { get; }
         public ICommand EditItemCommand { get; }
 
         public TaskListItemViewModel()
         {
             SetColorCommand = new RelayCommand(SetColor);
+            SetBorderColorCommand = new RelayCommand(SetColor);
             SetColorParameterizedCommand = new RelayParameterizedCommand(SetColorParameterized);
+            SetBorderColorParameterizedCommand = new RelayParameterizedCommand(SetBorderColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
             TextEditorViewModel = new RichTextEditorViewModel(true, true, false);
@@ -68,6 +73,7 @@ namespace TodoApp2.Core
             CreationDate = task.CreationDate;
             ModificationDate = task.ModificationDate;
             Color = task.Color;
+            BorderColor = task.BorderColor;
             Trashed = task.Trashed;
             ReminderDate = task.ReminderDate;
             IsReminderOn = task.IsReminderOn;
@@ -109,7 +115,7 @@ namespace TodoApp2.Core
 
         private void SetColor()
         {
-            // Combobox changes the Color property directly, we just need to persist it
+            // Combobox changes the Color and BorderColor properties directly, we just need to persist it
             Database.UpdateTask(this);
         }
 
@@ -119,6 +125,15 @@ namespace TodoApp2.Core
             {
                 // Combobox will trigger the SetColor command so this value will be persisted!
                 Color = colorString;
+            }
+        }
+
+        private void SetBorderColorParameterized(object obj)
+        {
+            if (obj is string colorString)
+            {
+                // Combobox will trigger the SetColor command so this value will be persisted!
+                BorderColor = colorString;
             }
         }
 

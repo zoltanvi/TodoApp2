@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace TodoApp2.Core
         {
             public const string Task = "Task";
             public const string Settings = "Settings";
+            public const string Category = "Category";
         }
 
         private static class Column
@@ -35,8 +37,10 @@ namespace TodoApp2.Core
             public const string CreationDate = "CreationDate";
             public const string ModificationDate = "ModificationDate";
             public const string Color = "Color";
+            public const string BorderColor = "BorderColor";
             public const string Trashed = "Trashed";
             public const string CategoryId = "CategoryId";
+            public const string DatabaseVersion = "user_version";
         }
 
         private static class Parameter
@@ -55,6 +59,7 @@ namespace TodoApp2.Core
             public const string CreationDate = "@" + Column.CreationDate;
             public const string ModificationDate = "@" + Column.ModificationDate;
             public const string Color = "@" + Column.Color;
+            public const string BorderColor = "@" + Column.BorderColor;
             public const string Trashed = "@" + Column.Trashed;
         }
 
@@ -73,6 +78,8 @@ namespace TodoApp2.Core
 
         private readonly SQLiteConnection m_Connection;
 
+        private const int DatabaseVersion = 2;
+        private int m_ReadDatabaseVersion;
         public DataAccessLayer(bool online = false)
         {
             string dbPath = online ? OnlineDatabasePath : OfflineDatabasePath;
@@ -82,21 +89,21 @@ namespace TodoApp2.Core
 
         public void InitializeDatabase()
         {
-            string prepareCommand = "PRAGMA foreign_keys = ON; ";
-
             string createSettingsTable =
                 $"CREATE TABLE IF NOT EXISTS {Table.Settings} ( " +
                 $" {Column.Id} INTEGER PRIMARY KEY, " +
                 $" {Column.Key} TEXT, " +
                 $" {Column.Value} TEXT " +
                 $"); ";
+
             string createCategoryTable =
-                $"CREATE TABLE IF NOT EXISTS {Column.Category} ( " +
+                $"CREATE TABLE IF NOT EXISTS {Table.Category} ( " +
                 $" {Column.Id} INTEGER PRIMARY KEY, " +
                 $" {Column.Name} TEXT, " +
                 $" {Column.ListOrder} TEXT DEFAULT ('{DefaultListOrder}'), " +
                 $" {Column.Trashed} INTEGER " +
                 $"); ";
+
             string createTaskTable =
                 $"CREATE TABLE IF NOT EXISTS {Table.Task} ( " +
                 $" {Column.Id} INTEGER PRIMARY KEY, " +
@@ -107,39 +114,101 @@ namespace TodoApp2.Core
                 $" {Column.IsDone} INTEGER DEFAULT (0), " +
                 $" {Column.CreationDate} INTEGER, " +
                 $" {Column.ModificationDate} INTEGER, " +
-                $" {Column.Color} TEXT, " +
+                $" {Column.Color} TEXT DEFAULT \"Transparent\", " +
+                $" {Column.BorderColor} TEXT DEFAULT \"Transparent\", " +
                 $" {Column.Trashed} INTEGER DEFAULT (0), " +
                 $" {Column.ReminderDate} INTEGER DEFAULT (0), " +
                 $" {Column.IsReminderOn} INTEGER DEFAULT (0), " +
                 $" FOREIGN KEY ({Column.CategoryId}) REFERENCES {Column.Category} ({Column.Id}) ON UPDATE CASCADE ON DELETE CASCADE " +
                 $"); ";
 
-            // Prepare database
-            using (SQLiteCommand dbCommand = new SQLiteCommand(prepareCommand, m_Connection))
+            ReadDbVersion();
+
+            // Turn foreign keys on
+            ExecuteCommand("PRAGMA foreign_keys = ON; ");
+
+            // Create the tables if the DB is empty
+            if (!IsTaskTableExists())
+            {
+                // Update db version
+                m_ReadDatabaseVersion = DatabaseVersion;
+                ExecuteCommand($"PRAGMA user_version = {DatabaseVersion}; ");
+
+                ExecuteCommand(createSettingsTable);
+                ExecuteCommand(createCategoryTable);
+                ExecuteCommand(createTaskTable);
+            
+                AddDefaultCategoryIfNotExists();
+                AddDefaultSettingsIfNotExists();
+            }
+
+            UpgradeToCurrentVersion();
+        }
+
+        private bool IsTaskTableExists()
+        {
+            bool exists = false;
+            string command = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{Table.Task}' ";
+
+            // Get user version
+            using (SQLiteCommand dbCommand = new SQLiteCommand(command, m_Connection))
+            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    // If the query returns the table's name, it exists.
+                     exists = reader.SafeGetString(Column.Name) != string.Empty;
+                    break;
+                }
+            }
+
+            return exists;
+        }
+
+        private void UpgradeToCurrentVersion()
+        {
+            if (m_ReadDatabaseVersion > DatabaseVersion)
+            {
+                // Crash the app. The database cannot be used
+                throw new Exception("The database file is created by a newer version of the program and could not be read.");
+            }
+            
+            switch (m_ReadDatabaseVersion)
+            {
+                case 0:
+                {
+                    // Missing BorderColor column from Task
+                    ExecuteCommand($"ALTER TABLE {Table.Task} ADD COLUMN {Column.BorderColor} TEXT DEFAULT \"Transparent\" ");
+                    break;
+                }
+            }
+
+            // Update db version
+            ExecuteCommand($"PRAGMA user_version = {DatabaseVersion}; ");
+        }
+
+        private void ReadDbVersion()
+        {
+            string getVersionCommand = $"PRAGMA user_version; ";
+
+            // Get user version
+            using (SQLiteCommand dbCommand = new SQLiteCommand(getVersionCommand, m_Connection))
+            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    m_ReadDatabaseVersion = reader.SafeGetInt(Column.DatabaseVersion);
+                    break;
+                }
+            }
+        }
+
+        private void ExecuteCommand(string command)
+        {
+            using (SQLiteCommand dbCommand = new SQLiteCommand(command, m_Connection))
             using (SQLiteDataReader reader = dbCommand.ExecuteReader())
             {
             }
-
-            // Create SETTINGS table
-            using (SQLiteCommand dbCommand = new SQLiteCommand(createSettingsTable, m_Connection))
-            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
-            {
-            }
-
-            // Create CATEGORY table
-            using (SQLiteCommand dbCommand = new SQLiteCommand(createCategoryTable, m_Connection))
-            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
-            {
-            }
-
-            // Create TASK table
-            using (SQLiteCommand dbCommand = new SQLiteCommand(createTaskTable, m_Connection))
-            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
-            {
-            }
-
-            AddDefaultCategoryIfNotExists();
-            AddDefaultSettingsIfNotExists();
         }
 
         #region Settings
@@ -816,6 +885,7 @@ namespace TodoApp2.Core
                 CreationDate = DateTime.Now.Ticks,
                 ModificationDate = DateTime.Now.Ticks,
                 Color = "Transparent",
+                BorderColor = "Transparent",
                 // The task is inserted at the top of the list by default
                 ListOrder = GetTaskFirstListOrder() - ListOrderInterval
             };
@@ -844,6 +914,7 @@ namespace TodoApp2.Core
                                       $"  {Column.CreationDate} = {Parameter.CreationDate}, " +
                                       $"  {Column.ModificationDate} = {Parameter.ModificationDate}, " +
                                       $"  {Column.Color} = {Parameter.Color}, " +
+                                      $"  {Column.BorderColor} = {Parameter.BorderColor}, " +
                                       $"  {Column.Trashed} = {Parameter.Trashed}, " +
                                       $"  {Column.ReminderDate} = {Parameter.ReminderDate}, " +
                                       $"  {Column.IsReminderOn} = {Parameter.IsReminderOn} " +
@@ -881,6 +952,7 @@ namespace TodoApp2.Core
                                               $"  {Column.CreationDate} = {Parameter.CreationDate}, " +
                                               $"  {Column.ModificationDate} = {Parameter.ModificationDate}, " +
                                               $"  {Column.Color} = {Parameter.Color}, " +
+                                              $"  {Column.BorderColor} = {Parameter.BorderColor}, " +
                                               $"  {Column.Trashed} = {Parameter.Trashed}, " +
                                               $"  {Column.ReminderDate} = {Parameter.ReminderDate}, " +
                                               $"  {Column.IsReminderOn} = {Parameter.IsReminderOn} " +
@@ -946,10 +1018,12 @@ namespace TodoApp2.Core
                                       $" ({Column.Id}, {Column.CategoryId}, {Column.Content}, " +
                                       $" {Column.ListOrder}, {Column.Pinned}, {Column.IsDone}, " +
                                       $" {Column.CreationDate}, {Column.ModificationDate}, {Column.Color}, " +
+                                      $" {Column.BorderColor}, " +
                                       $" {Column.Trashed}, {Column.ReminderDate}, {Column.IsReminderOn}) " +
                                       $" VALUES ({Parameter.Id}, {Parameter.CategoryId}, {Parameter.Content}, " +
                                       $" {Parameter.ListOrder}, {Parameter.Pinned}, {Parameter.IsDone}, " +
                                       $" {Parameter.CreationDate}, {Parameter.ModificationDate}, {Parameter.Color}, " +
+                                      $" {Parameter.BorderColor}, " +
                                       $" {Parameter.Trashed}, {Parameter.ReminderDate}, {Parameter.IsReminderOn});";
 
                 command.Parameters.AddRange(CreateTaskParameterList(taskListItem));
@@ -978,6 +1052,7 @@ namespace TodoApp2.Core
                 CreationDate = reader.SafeGetLong(Column.CreationDate),
                 ModificationDate = reader.SafeGetLong(Column.ModificationDate),
                 Color = reader.SafeGetString(Column.Color),
+                BorderColor = reader.SafeGetString(Column.BorderColor),
                 Trashed = reader.SafeGetBoolFromInt(Column.Trashed),
                 ReminderDate = reader.SafeGetLong(Column.ReminderDate),
                 IsReminderOn = reader.SafeGetBoolFromInt(Column.IsReminderOn)
@@ -1004,6 +1079,7 @@ namespace TodoApp2.Core
                 new SQLiteParameter(Parameter.CreationDate, task.CreationDate),
                 new SQLiteParameter(Parameter.ModificationDate, task.ModificationDate),
                 new SQLiteParameter(Parameter.Color, task.Color),
+                new SQLiteParameter(Parameter.BorderColor, task.BorderColor),
                 new SQLiteParameter(Parameter.Trashed, task.Trashed),
                 new SQLiteParameter(Parameter.ReminderDate, task.ReminderDate),
                 new SQLiteParameter(Parameter.IsReminderOn, task.IsReminderOn)
