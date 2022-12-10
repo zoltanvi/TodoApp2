@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
+using TodoApp2.Core.Constants;
 
 namespace TodoApp2
 {
@@ -21,7 +22,9 @@ namespace TodoApp2
                 // Brush is always got from resources because this way it can dynamically change during runtime
                 if (!isBackgroundVisible) return s_Transparent;
 
-                return isDone ? Application.Current.TryFindResource("HatchBrush") : Application.Current.TryFindResource("TaskBgBrush");
+                return isDone 
+                    ? Application.Current.TryFindResource(GlobalConstants.BrushName.HatchBrush) 
+                    : Application.Current.TryFindResource(GlobalConstants.BrushName.TaskBgBrush);
             }
 
             return false;

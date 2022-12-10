@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {
@@ -31,7 +32,7 @@ namespace TodoApp2.Core
         public string DocumentContent { get; set; }
         public bool IsToolbarOpen { get; set; }
         public bool IsDisplayMode => !IsEditMode;
-        public string TextColor { get; set; } = "Transparent";
+        public string TextColor { get; set; } = GlobalConstants.ColorName.Transparent;
         public double TextOpacity { get; set; } = 1.0;
         public Action EnterAction { get; set; }
         public ICommand LostFocusCommand { get; }

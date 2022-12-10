@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {
@@ -10,7 +11,7 @@ namespace TodoApp2.Core
         {
             Items = new List<string>
             {
-                "Transparent",
+                GlobalConstants.ColorName.Transparent,
                 "#ffffff",
                 "#d1d4dc",
                 "#9598a1",
@@ -114,7 +115,7 @@ namespace TodoApp2.Core
 
 
 
-                //"Transparent",
+                //GlobalConstants.ColorName.Transparent,
                 //"#FFEEEEEE",
                 //"#FFB9BDC5",
                 //"#FF656C73",

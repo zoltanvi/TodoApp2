@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {
@@ -45,8 +46,8 @@ namespace TodoApp2.Core
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; } = Thickness.Medium;
         public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
-        public string AccentColor { get; set; } = "Transparent";
-        public string AppBorderColor { get; set; } = "Transparent";
+        public string AccentColor { get; set; } = GlobalConstants.ColorName.Transparent;
+        public string AppBorderColor { get; set; } = GlobalConstants.ColorName.Transparent;
         public int WindowCornerRadius { get; set; }
         public int NoRadius { get; } = 0;
         public bool IsItemBackgroundVisible { get; set; } = true;

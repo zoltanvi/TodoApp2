@@ -96,27 +96,13 @@
                         Style="{DynamicResource NotificationReminderDateStyle}" />
                 </Grid>
 
-                <!--<ScrollViewer Grid.Row="2"
-                              Margin="16 10 0 16"
-                              Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">-->
-
-                <local:TextEditorBox
+                <local:RichTextEditorControl
                     Grid.Row="2"
+                    DataContext="{Binding NotificationTask.TextEditorViewModel, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                     Margin="16 10 0 16"
                     Padding="10"
                     VerticalAlignment="Bottom"
-                    MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
-                    ScrollViewer.CanContentScroll="False"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.VerticalScrollBarVisibility="Auto"
-                    Style="{DynamicResource TaskListItemDescriptionRichTextBoxStyle}"
-                    DocumentContent="{Binding NotificationTask.Content, Mode=TwoWay, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-
-
-                <!--<TextBlock Margin="0 0 18 0"
-                               Text="{Binding NotificationTask.Content, Mode=TwoWay, NotifyOnTargetUpdated=True}"
-                               Style="{DynamicResource TaskListItemDescriptionTextBlockStyle}" />-->
-                <!--</ScrollViewer>-->
+                    MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
             </Grid>
         </Border>
     </Grid>

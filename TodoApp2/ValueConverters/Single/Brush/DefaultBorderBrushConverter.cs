@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
+using TodoApp2.Core.Constants;
 
 namespace TodoApp2
 {
@@ -15,7 +16,7 @@ namespace TodoApp2
         {
             if (value is string brushName)
             {
-                if (brushName == "Transparent")
+                if (brushName == GlobalConstants.ColorName.Transparent)
                 {
                     return (SolidColorBrush)Application.Current.TryFindResource(DefaultResourceName);
                 }

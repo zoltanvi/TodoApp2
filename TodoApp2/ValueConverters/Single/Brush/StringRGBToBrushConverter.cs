@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Media;
+using TodoApp2.Core.Constants;
 
 namespace TodoApp2
 {
@@ -9,7 +10,6 @@ namespace TodoApp2
     /// </summary>
     public class StringRGBToBrushConverter : BaseValueConverter
     {
-        private const string s_TransparentColor = "Transparent";
         private readonly BrushConverter m_BrushConverter;
 
         public StringRGBToBrushConverter()
@@ -23,14 +23,14 @@ namespace TodoApp2
             {
                 if (string.IsNullOrEmpty(colorString))
                 {
-                    colorString = s_TransparentColor;
+                    colorString = GlobalConstants.ColorName.Transparent;
                 }
 
                 // Remove the leading # character
                 colorString = colorString.TrimStart('#');
 
                 // Prefixes the input string with a # character, except if it is "Transparent"
-                string inputColor = (colorString == s_TransparentColor ? string.Empty : "#") + colorString;
+                string inputColor = (colorString == GlobalConstants.ColorName.Transparent ? string.Empty : "#") + colorString;
                 return (SolidColorBrush)(m_BrushConverter.ConvertFrom(inputColor));
             }
 

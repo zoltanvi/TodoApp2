@@ -140,7 +140,6 @@
     <Compile Include="Controls\RichTextEditorControl.xaml.cs">
       <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TextEditorBox.cs" />
     <Compile Include="Controls\CategoryListControl.xaml.cs">
       <DependentUpon>CategoryListControl.xaml</DependentUpon>
     </Compile>
@@ -163,6 +162,9 @@
       <DependentUpon>TaskListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FormattableTextEditorBox.cs" />
+    <Compile Include="Controls\TimePickerControl.xaml.cs">
+      <DependentUpon>TimePickerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Formatters\TextFormatter.cs" />
     <Compile Include="Helpers\BindingFix\PushBindingCollection.cs" />
     <Compile Include="Helpers\BindingFix\PushBindingManager.cs" />
@@ -171,7 +173,6 @@
     <Compile Include="Helpers\BindingFix\FreezableBinding.cs" />
     <Compile Include="Helpers\BindingFix\PushBinding.cs" />
     <Compile Include="Helpers\SizeObserver.cs" />
-    <Compile Include="Helpers\TextBoxPreviewKeyDownHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Styles\Themes\ColorSchemes\BaseColorScheme.cs" />
     <Compile Include="Styles\Themes\ColorSchemes\YellowColorScheme.cs" />
@@ -273,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TaskListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimePickerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

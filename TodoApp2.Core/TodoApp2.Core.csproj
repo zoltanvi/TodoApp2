@@ -76,6 +76,7 @@
     <Compile Include="Commands\Undo\UndoableCommand.cs" />
     <Compile Include="Commands\Undo\UndoItem.cs" />
     <Compile Include="Commands\Undo\UndoManager.cs" />
+    <Compile Include="Constants\GlobalConstants.cs" />
     <Compile Include="Database\CategoryChangedEventArgs.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\DataAccessLayer.cs" />

@@ -5,6 +5,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using TodoApp2.Core;
+using TodoApp2.Core.Constants;
+using MediaFontFamily = System.Windows.Media.FontFamily;
 
 namespace TodoApp2
 {
@@ -70,6 +72,8 @@ namespace TodoApp2
 
         public ICommand ResetFormattingCommand { get; set; }
 
+        public ICommand MonospaceCommand { get; set; }
+
         private bool IsCtrlDown => (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl));
 
         public FormattableTextEditorBox()
@@ -85,18 +89,19 @@ namespace TodoApp2
             SetItalicCommand = new RelayCommand(() => EditingCommands.ToggleItalic.Execute(null, this));
             SetUnderlinedCommand = new RelayCommand(() => EditingCommands.ToggleUnderline.Execute(null, this));
 
-            SetSmallFontSizeCommand = new RelayCommand(() => 
+            SetSmallFontSizeCommand = new RelayCommand(() =>
             Selection.ApplyPropertyValue(TextElement.FontSizeProperty, IoC.UIScaler.FontSize.Smaller));
-            
-            SetMediumFontSizeCommand = new RelayCommand(() => 
+
+            SetMediumFontSizeCommand = new RelayCommand(() =>
             Selection.ApplyPropertyValue(TextElement.FontSizeProperty, IoC.UIScaler.FontSize.Medium));
 
-            SetBigFontSizeCommand = new RelayCommand(() => 
+            SetBigFontSizeCommand = new RelayCommand(() =>
             Selection.ApplyPropertyValue(TextElement.FontSizeProperty, IoC.UIScaler.FontSize.Huge));
 
             IncreaseFontSizeCommand = new RelayCommand(IncreaseFontSize);
             DecreaseFontSizeCommand = new RelayCommand(DecreaseFontSize);
             ResetFormattingCommand = new RelayCommand(ResetAllFormatting);
+            MonospaceCommand = new RelayCommand(ChangeToMonospace);
 
             PreviewKeyDown += FormattableTextEditorBox_PreviewKeyDown;
         }
@@ -112,6 +117,15 @@ namespace TodoApp2
 
                 // Mark the key as handled
                 e.Handled = true;
+            }
+        }
+
+        private void ChangeToMonospace()
+        {
+            MediaFontFamily cascadiaMono = (MediaFontFamily)Application.Current.TryFindResource(GlobalConstants.FontFamily.CascadiaMonoRegular);
+            if (cascadiaMono != null)
+            {
+                Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, cascadiaMono);
             }
         }
 
@@ -162,7 +176,7 @@ namespace TodoApp2
                 {
                     UpdateSelectionUnderlined();
                 }
-                else if(e.Command == EditingCommands.IncreaseFontSize)
+                else if (e.Command == EditingCommands.IncreaseFontSize)
                 {
                     IncreaseFontSize();
                     e.Handled = true;
@@ -212,9 +226,8 @@ namespace TodoApp2
 
         private void UpdateSelectionColor()
         {
-            string oldValue = SelectedColor;
             object foreground = Selection.GetPropertyValue(TextElement.ForegroundProperty);
-            string color = "Transparent";
+            string color = GlobalConstants.ColorName.Transparent;
 
             if (foreground != DependencyProperty.UnsetValue)
             {
@@ -301,7 +314,7 @@ namespace TodoApp2
 
         private static void OnTextColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is FormattableTextEditorBox textEditor && e.NewValue is string textColor)
+            if (d is FormattableTextEditorBox textEditor && e.NewValue is string textColor)
             {
                 textEditor.ApplyColor(textColor);
             }

@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {
@@ -302,7 +303,7 @@ namespace TodoApp2.Core
         {
             foreach (TaskListItemViewModel item in Items)
             {
-                item.Color = "Transparent";
+                item.Color = GlobalConstants.ColorName.Transparent;
             }
 
             m_TaskListService.PersistTaskList();
@@ -312,7 +313,7 @@ namespace TodoApp2.Core
         {
             foreach (TaskListItemViewModel item in Items)
             {
-                item.BorderColor = "Transparent";
+                item.BorderColor = GlobalConstants.ColorName.Transparent;
             }
 
             m_TaskListService.PersistTaskList();

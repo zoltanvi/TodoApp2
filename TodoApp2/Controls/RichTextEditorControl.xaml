@@ -83,6 +83,15 @@
                             ToolTip="Decrease size (Ctrl + [OemOpenBrackets])" />
 
                         <Button
+                            Command="{Binding MonospaceCommand, ElementName=PART_TextEditor}"
+                            Content="M"
+                            Style="{DynamicResource TextEditorButtonStyle}"
+                            FontFamily="Ubuntu"
+                            FontWeight="Bold"
+                            Padding="5 5 5 0"
+                            ToolTip="Monospace font" />
+
+                        <Button
                             Command="{Binding ResetFormattingCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconDeleteFormatting}"
                             Style="{DynamicResource TextEditorButtonStyle}"

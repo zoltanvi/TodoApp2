@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {
@@ -884,8 +885,8 @@ namespace TodoApp2.Core
                 Content = taskContent,
                 CreationDate = DateTime.Now.Ticks,
                 ModificationDate = DateTime.Now.Ticks,
-                Color = "Transparent",
-                BorderColor = "Transparent",
+                Color = GlobalConstants.ColorName.Transparent,
+                BorderColor = GlobalConstants.ColorName.Transparent,
                 // The task is inserted at the top of the list by default
                 ListOrder = GetTaskFirstListOrder() - ListOrderInterval
             };
