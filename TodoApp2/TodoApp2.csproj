@@ -172,6 +172,7 @@
     <Compile Include="Helpers\DragDropMediator.cs" />
     <Compile Include="Helpers\BindingFix\FreezableBinding.cs" />
     <Compile Include="Helpers\BindingFix\PushBinding.cs" />
+    <Compile Include="Helpers\FlowDocumentHelper.cs" />
     <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Styles\Themes\ColorSchemes\BaseColorScheme.cs" />
