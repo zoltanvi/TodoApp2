@@ -21,7 +21,7 @@ namespace TodoApp2.Core
         private CategoryListItemViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
 
         private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
-        
+
         public RichTextEditorViewModel TextEditorViewModel { get; }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The content / description text for the current task being written
         /// </summary>
-        public string AddTaskTextBoxContent 
+        public string AddTaskTextBoxContent
         {
             get => TextEditorViewModel.DocumentContent;
             set => TextEditorViewModel.DocumentContent = value;
@@ -362,11 +362,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void FinishCategoryEdit()
         {
-            if (m_RenameCategoryContentBefore != RenameCategoryContent)
-            {
-                m_CategoryListService.ActiveCategoryName = RenameCategoryContent;
-            }
-
+            m_CategoryListService.ActiveCategoryName = RenameCategoryContent;
             IsCategoryInEditMode = false;
         }
 

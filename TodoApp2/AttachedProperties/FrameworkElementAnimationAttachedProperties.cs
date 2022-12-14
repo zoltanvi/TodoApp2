@@ -118,7 +118,7 @@ namespace TodoApp2
         {
             if (value)
                 // Animate in
-                await element.SlideAndFadeInFromLeftAsync(firstLoad ? 0 : DefaultAnimationDuration);
+                await element.SlideAndFadeInFromLeftAsync(firstLoad ? 0 : 0.06f);
             else
                 // Animate out
                 await element.SlideAndFadeOutToLeftAsync(firstLoad ? 0 : DefaultAnimationDuration);

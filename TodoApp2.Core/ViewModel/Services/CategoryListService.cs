@@ -31,8 +31,11 @@ namespace TodoApp2.Core
 
             set
             {
-                ActiveCategory.Name = value;
-                m_Database.UpdateCategory(ActiveCategory);
+                if (!string.IsNullOrWhiteSpace(value) && ActiveCategory.Name != value)
+                {
+                    ActiveCategory.Name = value;
+                    m_Database.UpdateCategory(ActiveCategory);
+                }
             }
         }
 

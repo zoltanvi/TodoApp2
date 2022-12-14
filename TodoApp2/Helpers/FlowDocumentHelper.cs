@@ -17,33 +17,40 @@ namespace TodoApp2.Helpers
         public static string SerializeDocument(FlowDocument document)
         {
             int index = 0;
-            string result = XamlWriter.Save(document);
             List<string> documentItems = GetDocumentItems(document);
-            
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(result);
-            
-            foreach (XmlElement xmlElement in xmlDoc.DocumentElement.ChildNodes)
-            {
-                if (xmlElement != null)
-                {
-                    foreach (XmlNode xmlNode in xmlElement)
-                    {
-                        if (IsValidNode(xmlNode))
-                        {
-                            string item = documentItems[index++];
+            string result = string.Empty;
+            string fixedResult = EmptySerializedDocument;
 
-                            // Fix the serialization bug that comes from XamlWriter.Save()
-                            if (xmlNode.InnerText != item)
+            if (documentItems.Count > 0)
+            {
+                result = XamlWriter.Save(document);
+
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(result);
+
+                foreach (XmlElement xmlElement in xmlDoc.DocumentElement.ChildNodes)
+                {
+                    if (xmlElement != null)
+                    {
+                        foreach (XmlNode xmlNode in xmlElement)
+                        {
+                            if (IsValidNode(xmlNode))
                             {
-                                xmlNode.InnerText = item;
+                                string item = documentItems[index++];
+
+                                // Fix the serialization bug that comes from XamlWriter.Save()
+                                if (xmlNode.InnerText != item)
+                                {
+                                    xmlNode.InnerText = item;
+                                }
                             }
                         }
                     }
                 }
+
+                fixedResult = xmlDoc.OuterXml;
             }
 
-            string fixedResult = xmlDoc.OuterXml;
             return fixedResult;
         }
 
