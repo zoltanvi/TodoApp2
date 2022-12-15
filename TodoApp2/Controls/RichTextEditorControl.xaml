@@ -167,7 +167,7 @@
                 Visibility="{Binding IsFocused, ElementName=PART_TextEditor, Converter={StaticResource boolToVisibilityConverter}}">
                 <ToggleButton
                     x:Name="IsEditorOpenToggle"
-                    Margin="2"
+                    Margin="0 2 0 0"
                     Foreground="{DynamicResource ForegroundBrush}"
                     IsChecked="{Binding IsToolbarOpen}"
                     Style="{DynamicResource TextEditorArrowToggleButtonStyle}" />

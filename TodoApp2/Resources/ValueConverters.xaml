@@ -61,8 +61,6 @@
     <local:LongToFormattedLongDateConverter x:Key="longToFormattedLongDateConverter" />
     <local:LongToTimestampConverter x:Key="longToTimestampConverter" />
     <local:SingleCornerRadiusConverter x:Key="singleCornerRadiusConverter" />
-    <local:ThicknessToDoubleConverter x:Key="thicknessToDoubleConverter" />
-    <local:ThicknessToGridLengthConverter x:Key="thicknessToGridLengthConverter" />
 
     <local:CategoryIdToCategoryNameConverter x:Key="categoryIdToCategoryNameConverter" />
 

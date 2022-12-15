@@ -8,7 +8,7 @@ namespace TodoApp2
     {
         public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if(values.Length < 2)
+            if (values.Length < 2)
             {
                 return Visibility.Collapsed;
             }

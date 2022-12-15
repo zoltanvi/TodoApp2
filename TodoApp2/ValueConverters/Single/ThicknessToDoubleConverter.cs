@@ -26,6 +26,12 @@ namespace TodoApp2
                 case Thickness.Thick:
                     thickness = 8;
                     break;
+                case Thickness.ExtraThick:
+                    thickness = 15;
+                    break;
+                case Thickness.ExtremelyThick:
+                    thickness = 20;
+                    break;
             }
 
             return thickness;

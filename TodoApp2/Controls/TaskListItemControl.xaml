@@ -108,18 +108,28 @@
 
         <!--  Color bar overlaying the border  -->
         <Border
-            Width="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource thicknessToDoubleConverter}}"
             Margin="4 2"
             HorizontalAlignment="Left"
             Panel.ZIndex="1000"
             AutomationProperties.AutomationId="TaskListItemColorBar"
             Background="{Binding Color, Converter={StaticResource stringRGBToBrushConverter}}"
-            CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}" />
+            CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">
+            <Border.Width>
+                <MultiBinding>
+                    <MultiBinding.Converter>
+                        <local:ColorBarBorderWidthMultiValueConverter />
+                    </MultiBinding.Converter>
+                    <Binding Path="ApplicationViewModel.ApplicationSettings.ColorBarThickness" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding Path="UIScaler.ScaleValue" Source="{x:Static local:ViewModelLocator.Instance}" />
+                </MultiBinding>
+            </Border.Width>
+
+        </Border>
 
         <Border
             Margin="4 2"
             BorderBrush="{Binding BorderColor, Converter={StaticResource taskBorderBrushConverter}}"
-            BorderThickness="1"
+            BorderThickness="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}"
             CornerRadius="2"
             Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
@@ -139,7 +149,18 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <!--  Color bar column  -->
-                    <ColumnDefinition Width="{Binding Path=ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource thicknessToGridLengthConverter}}" />
+                    <ColumnDefinition >
+                        <ColumnDefinition.Width>
+                            <MultiBinding>
+                                <MultiBinding.Converter>
+                                    <local:ColorBarGridWidthMultiValueConverter />
+                                </MultiBinding.Converter>
+                                <Binding Path="ApplicationViewModel.ApplicationSettings.ColorBarThickness" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                <Binding Path="UIScaler.ScaleValue" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            </MultiBinding>
+                        </ColumnDefinition.Width>
+                    </ColumnDefinition>
+
                     <!--  Checkbox column  -->
                     <ColumnDefinition Width="{Binding UIScaler.TaskCheckBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
                     <!--  Main content column, also the hidden buttons column  -->
@@ -184,7 +205,8 @@
                             FontFamily="{StaticResource SegoeMDL2Assets}"
                             Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
                         <Grid.LayoutTransform>
-                            <ScaleTransform ScaleX="-1" />
+                            <!--  -1 to mirror it  -->
+                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
                         </Grid.LayoutTransform>
                     </Grid>
                 </Border>

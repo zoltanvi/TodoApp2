@@ -86,8 +86,8 @@ namespace TodoApp2
         private void Zoom(bool zoomIn)
         {
             double zoomOffset = 0;
-            const double maxScalingPercent = 400;
-            const double minScalingPercent = 50;
+            const double maxScalingPercent = 500;
+            const double minScalingPercent = 30;
 
             if (zoomIn && m_ScalingPercent < maxScalingPercent)
             {

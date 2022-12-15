@@ -209,6 +209,8 @@
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\BoolToVisibilityMultiValueConverter.cs" />
+    <Compile Include="ValueConverters\Multi\ColorBarBorderWidthMultiValueConverter.cs" />
+    <Compile Include="ValueConverters\Multi\ColorBarGridWidthMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\AccentColorBrushConverter.cs" />
@@ -233,7 +235,6 @@
     <Compile Include="ValueConverters\Single\Brush\StringToColorConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\TextToLineNumbersConverter.cs" />
     <Compile Include="ValueConverters\Single\ThicknessToDoubleConverter.cs" />
-    <Compile Include="ValueConverters\Single\ThicknessToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\Single\LongToFormattedLongDateConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\Single\LongToTimestampConverter.cs" />

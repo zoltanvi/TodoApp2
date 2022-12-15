@@ -346,7 +346,6 @@
         <Setter Property="Focusable" Value="false" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
@@ -357,7 +356,7 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="0"
                         SnapsToDevicePixels="true">
-                        <Grid>
+                        <Grid Margin="0">
 
                             <Viewbox VerticalAlignment="Top">
                                 <Label
@@ -365,7 +364,9 @@
                                     Margin="0"
                                     Padding="0"
                                     Content="{StaticResource SegoeIconChevronUp}"
-                                    Style="{DynamicResource IconLabelStyle}" />
+                                    Style="{DynamicResource IconLabelStyle}"
+                                    Background="{DynamicResource PageBgBrush}"
+                                    BorderThickness="0" />
                             </Viewbox>
 
                             <Viewbox VerticalAlignment="Top">
@@ -374,7 +375,9 @@
                                     Margin="0"
                                     Padding="0"
                                     Content="{StaticResource SegoeIconChevronDown}"
-                                    Style="{DynamicResource IconLabelStyle}" />
+                                    Style="{DynamicResource IconLabelStyle}"
+                                    Background="{DynamicResource PageBgBrush}"
+                                    BorderThickness="0" />
                             </Viewbox>
 
                             <ContentPresenter

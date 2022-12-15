@@ -8,6 +8,10 @@
 
         Medium,
 
-        Thick
+        Thick,
+
+        ExtraThick,
+
+        ExtremelyThick
     }
 }
