@@ -175,6 +175,7 @@
     <Compile Include="Helpers\FlowDocumentHelper.cs" />
     <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
+    <Compile Include="Services\AsyncActionService.cs" />
     <Compile Include="Styles\Themes\ColorSchemes\BaseColorScheme.cs" />
     <Compile Include="Styles\Themes\ColorSchemes\YellowColorScheme.cs" />
     <Compile Include="Pages\BasePage.cs" />

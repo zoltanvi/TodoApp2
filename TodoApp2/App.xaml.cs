@@ -23,6 +23,10 @@ namespace TodoApp2
             // Let the base application do what it needs
             base.OnStartup(e);
 
+            // Load async service
+            IAsyncActionService asyncActionService = AsyncActionService.Instance;
+            IoC.AsyncActionService = asyncActionService;
+
             // Setup IoC
             IoC.Setup();
 

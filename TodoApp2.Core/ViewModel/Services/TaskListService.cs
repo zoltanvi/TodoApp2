@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Threading;
 
 namespace TodoApp2.Core
 {
@@ -164,7 +167,14 @@ namespace TodoApp2.Core
             TaskPageItems.Clear();
 
             // Fill the actual list with the queried items
-            TaskPageItems.AddRange(filteredItems);
+            foreach (TaskListItemViewModel item in filteredItems)
+            {
+                // TODO: Stop the process on category change
+                //Action AddItem = new Action(() => TaskPageItems.Add(item));
+                //IoC.AsyncActionService.InvokeAsync(AddItem);
+
+                TaskPageItems.Add(item);
+            }
         }
 
         /// <summary>

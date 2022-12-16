@@ -8,7 +8,7 @@ namespace TodoApp2.Core
     /// A base view model that fires Property Changed events as needed
     /// </summary>
     [AddINotifyPropertyChangedInterface]
-    public class BaseViewModel : IBaseViewModel, INotifyPropertyChanged, IDisposable
+    public abstract class BaseViewModel : IBaseViewModel, INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
