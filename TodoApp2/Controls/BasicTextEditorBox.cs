@@ -98,17 +98,9 @@ namespace TodoApp2
 
         private bool IsRichTextBoxEmpty(RichTextBox rtb)
         {
-            if (rtb.Document.Blocks.Count == 0)
-            {
-                return true;
-            }
+            List<string> res = FlowDocumentHelper.GetDocumentItems(Document);
 
-            TextRange textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
-            return string.IsNullOrWhiteSpace(textRange.Text);
-
-            //TextPointer startPointer = rtb.Document.ContentStart.GetNextInsertionPosition(LogicalDirection.Forward);
-            //TextPointer endPointer = rtb.Document.ContentEnd.GetNextInsertionPosition(LogicalDirection.Backward);
-            //return endPointer != null && startPointer?.CompareTo(endPointer) == 0;
+            return res.Count == 0 || res.All(item => string.IsNullOrWhiteSpace(item));
         }
     }
 }

@@ -149,7 +149,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <!--  Color bar column  -->
-                    <ColumnDefinition >
+                    <ColumnDefinition>
                         <ColumnDefinition.Width>
                             <MultiBinding>
                                 <MultiBinding.Converter>
@@ -167,12 +167,6 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!--  Color bar inside the border  -->
-                <!--<Border
-                    Grid.Column="0"
-                    AutomationProperties.AutomationId="TaskListItemColorBar"
-                    Background="{Binding Color, Converter={StaticResource stringRGBToBrushConverter}}"
-                    CornerRadius="2 0 0 2" />-->
 
                 <CheckBox
                     Grid.Column="1"
@@ -191,8 +185,17 @@
                     Grid.Column="2"
                     Margin="0"
                     HorizontalAlignment="Right"
-                    Background="Transparent"
-                    Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityConverter}}">
+                    Background="Transparent">
+                    <Border.Visibility>
+                        <MultiBinding>
+                            <MultiBinding.Converter>
+                                <local:BoolToVisibilityMultiValueConverter />
+                            </MultiBinding.Converter>
+                            <Binding Path="Pinned" />
+                            <Binding Path="TextEditorViewModel.IsDisplayMode" />
+                        </MultiBinding>
+                    </Border.Visibility>
+
                     <Grid>
                         <Label
                             Padding="2"
@@ -219,7 +222,6 @@
                         <!--  Timestamp row  -->
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
 
                     <!--  Task description  -->
                     <local:RichTextEditorControl Grid.Row="0" DataContext="{Binding TextEditorViewModel}" />

@@ -18,12 +18,11 @@ namespace TodoApp2.Helpers
         {
             int index = 0;
             List<string> documentItems = GetDocumentItems(document);
-            string result = string.Empty;
             string fixedResult = EmptySerializedDocument;
 
             if (documentItems.Count > 0)
             {
-                result = XamlWriter.Save(document);
+                string result = XamlWriter.Save(document);
 
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(result);
