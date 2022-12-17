@@ -14,6 +14,7 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskPageViewModel : BaseViewModel
     {
+        private readonly ApplicationViewModel m_ApplicationViewModel;
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
         private string m_RenameCategoryContentBefore;
@@ -113,8 +114,9 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskPageViewModel(TaskListService taskListService, CategoryListService categoryListService)
+        public TaskPageViewModel(ApplicationViewModel applicationViewModel, TaskListService taskListService, CategoryListService categoryListService)
         {
+            m_ApplicationViewModel = applicationViewModel;
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
 
@@ -401,25 +403,31 @@ namespace TodoApp2.Core
 
         private void MoveTaskToEnd(TaskListItemViewModel task)
         {
-            int newIndex = Items.Count - 1;
-
-            for (int i = Items.Count - 1; i >= 0; i--)
+            if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
             {
-                newIndex = i;
-                if (Items[i].Equals(task) || Items[i].IsDone == false)
-                {
-                    break;
-                }
-            }
+                int newIndex = Items.Count - 1;
 
-            m_TaskListService.ReorderTask(task, newIndex, true);
+                for (int i = Items.Count - 1; i >= 0; i--)
+                {
+                    newIndex = i;
+                    if (Items[i].Equals(task) || Items[i].IsDone == false)
+                    {
+                        break;
+                    }
+                }
+
+                m_TaskListService.ReorderTask(task, newIndex, true);
+            }
         }
 
         private void MoveTaskToTop(TaskListItemViewModel task)
         {
-            // Get the valid index. E.g: A normal item cannot be above the pinned ones.
-            int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task);
-            m_TaskListService.ReorderTask(task, newIndex, true);
+            if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+            {
+                // Get the valid index. E.g: A normal item cannot be above the pinned ones.
+                int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task);
+                m_TaskListService.ReorderTask(task, newIndex, true);
+            }
         }
 
         /// <summary>

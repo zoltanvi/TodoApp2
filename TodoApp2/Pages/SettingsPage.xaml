@@ -110,15 +110,8 @@
                         <!--  Title bar date  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Content="{DynamicResource SegoeIconCalendar}" Style="{DynamicResource SettingsIconLabelStyle}" />
-                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Title bar date visible" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Window title bar date visible" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
-                        </DockPanel>
-
-                        <!--  Category title visible  -->
-                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <Label Content="{DynamicResource SegoeIconTitle}" Style="{DynamicResource SettingsIconLabelStyle}" />
-                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Category title visible" />
-                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
                         <!--  Theme  -->
@@ -194,9 +187,17 @@
 
                         <!--  =====================================================  -->
 
-                        <!--  Task settings  -->
+
+                        <!--  Task page settings  -->
                         <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
-                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task settings" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task page settings" />
+                        </DockPanel>
+
+                        <!--  Category title visible  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Content="{DynamicResource SegoeIconTitle}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Category title visible" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
                         <!--  Insert new task to the end  -->
@@ -204,6 +205,21 @@
                             <Label Content="{DynamicResource SegoeIconTaskOrder}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Insert new task to the end" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.InsertOrderReversed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+
+                        <!--  Move completed task to the end  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Content="{DynamicResource SegoeIconCheckList}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Move completed task to the end" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+
+
+                        <!--  =====================================================  -->
+
+                        <!--  Task settings  -->
+                        <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
+                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task settings" />
                         </DockPanel>
 
                         <!--  Compact mode  -->
@@ -215,7 +231,7 @@
 
                         <!--  Item border  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <Label Content="{DynamicResource SegoeIconBackgroundVisible}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <Label Content="{DynamicResource SegoeIconBorderVisible}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Task border visible" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
@@ -243,7 +259,11 @@
 
                         <!--  Color bar rounded  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <Label Content="{DynamicResource SegoeIconRoundedCorners}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <Label Content="{DynamicResource SegoeIconRoundedCorners}" Style="{DynamicResource SettingsIconLabelStyle}" >
+                                <Label.LayoutTransform>
+                                    <RotateTransform CenterX="0" CenterY="0" Angle="90" />
+                                </Label.LayoutTransform>
+                            </Label>
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Rounded color bar" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>

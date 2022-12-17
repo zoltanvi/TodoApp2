@@ -53,7 +53,7 @@ namespace TodoApp2
                     {
                         applicationPage = ApplicationPage.Task;
 
-                        TaskPageViewModel taskPageViewModel = new TaskPageViewModel(m_TaskListService, m_CategoryListService);
+                        TaskPageViewModel taskPageViewModel = new TaskPageViewModel(m_ApplicationViewModel, m_TaskListService, m_CategoryListService);
 
                         viewModel = taskPageViewModel;
                         page = new TaskPage(taskPageViewModel, m_TaskListService);

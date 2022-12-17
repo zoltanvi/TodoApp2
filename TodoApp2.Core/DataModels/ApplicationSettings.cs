@@ -64,6 +64,7 @@ namespace TodoApp2.Core
         public bool NotePageWordWrap { get; set; }
         public bool IsCompactMode { get; set; }
         public bool InsertOrderReversed { get; set; }
+        public bool MoveTaskOnCompletion { get; set; } = true;
         public bool IsColorBarRounded { get; set; } = true;
 
         #region Testing
@@ -132,6 +133,7 @@ namespace TodoApp2.Core
                 { nameof(ClearTypeHint), PropertyValueHandlers.Bool },
                 { nameof(IsCompactMode), PropertyValueHandlers.Bool },
                 { nameof(InsertOrderReversed), PropertyValueHandlers.Bool },
+                { nameof(MoveTaskOnCompletion), PropertyValueHandlers.Bool },
                 { nameof(IsColorBarRounded), PropertyValueHandlers.Bool },
             };
 

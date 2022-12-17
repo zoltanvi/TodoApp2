@@ -327,8 +327,9 @@
         x:Key="SettingsDescriptionBoldStyle"
         BasedOn="{StaticResource SettingsDescriptionStyle}"
         TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="TextDecorations" Value="Underline" />
     </Style>
 
     <Style
