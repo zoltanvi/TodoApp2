@@ -30,8 +30,6 @@ namespace TodoApp2.Core
 
         public static UndoManager UndoManager => Get<UndoManager>();
 
-        public static TextDeserializer TextDeserializer => Get<TextDeserializer>();
-
         /// <summary>
         /// Gets a service from the IoC, of the specified type
         /// </summary>
@@ -49,9 +47,6 @@ namespace TodoApp2.Core
         /// </summary>
         public static void Setup()
         {
-            var textDeserializer = new TextDeserializer();
-            Kernel.Bind<TextDeserializer>().ToConstant(textDeserializer);
-
             var uiScaler = new UIScaler();
             Kernel.Bind<UIScaler>().ToConstant(uiScaler);
 
