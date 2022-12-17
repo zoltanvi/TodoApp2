@@ -8,7 +8,7 @@ namespace TodoApp2.Core
     public static class IoC
     {
         public static IAsyncActionService AsyncActionService { get; set; }
-        
+
         /// <summary>
         /// The kernel for our IoC container
         /// </summary>

@@ -27,7 +27,7 @@ namespace TodoApp2
                 int newIndex = dropInfo.UnfilteredInsertIndex;
                 IList sourceList = dropInfo.DragInfo.SourceCollection.TryGetList();
 
-                if(sourceList == null)
+                if (sourceList == null)
                 {
                     // Fixes the crash where the text is currently edited but somehow the drag & drop is active.
                     return;

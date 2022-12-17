@@ -84,7 +84,7 @@ namespace TodoApp2.Core
         public bool DeleteTask(TaskListItemViewModel task)
         {
             bool success = false;
-            
+
             if (m_TaskDictionaryReversed.ContainsKey(task))
             {
                 DateTime key = m_TaskDictionaryReversed[task];

@@ -36,7 +36,7 @@ namespace TodoApp2
             {
                 AppliedColor = string.Empty;
             }
-            
+
             AppliedColor = DisplayColor;
         }
 
@@ -45,7 +45,7 @@ namespace TodoApp2
             if (e.AddedItems.Count == 1)
             {
                 DisplayColor = (string)e.AddedItems[0];
-                
+
                 ApplyDisplayColor();
             }
         }

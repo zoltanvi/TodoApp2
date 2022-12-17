@@ -42,8 +42,8 @@ namespace TodoApp2
             if (value is SolidColorBrush brush)
             {
                 return brush.ToString();
-            } 
-            else if(value is Color color)
+            }
+            else if (value is Color color)
             {
                 return color.ToString();
             }

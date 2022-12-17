@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
@@ -134,7 +133,7 @@ namespace TodoApp2.Core
                 ExecuteCommand(createSettingsTable);
                 ExecuteCommand(createCategoryTable);
                 ExecuteCommand(createTaskTable);
-            
+
                 AddDefaultCategoryIfNotExists();
                 AddDefaultSettingsIfNotExists();
             }
@@ -154,7 +153,7 @@ namespace TodoApp2.Core
                 while (reader.Read())
                 {
                     // If the query returns the table's name, it exists.
-                     exists = reader.SafeGetString(Column.Name) != string.Empty;
+                    exists = reader.SafeGetString(Column.Name) != string.Empty;
                     break;
                 }
             }
@@ -169,7 +168,7 @@ namespace TodoApp2.Core
                 // Crash the app. The database cannot be used
                 throw new Exception("The database file is created by a newer version of the program and could not be read.");
             }
-            
+
             switch (m_ReadDatabaseVersion)
             {
                 case 0:

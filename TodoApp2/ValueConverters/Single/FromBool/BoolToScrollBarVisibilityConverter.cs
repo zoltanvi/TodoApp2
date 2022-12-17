@@ -6,7 +6,7 @@ namespace TodoApp2
     {
         // Wrap
         protected override ScrollBarVisibility PositiveValue => ScrollBarVisibility.Disabled;
-        
+
         // No wrap
         protected override ScrollBarVisibility NegativeValue => ScrollBarVisibility.Hidden;
     }

@@ -46,7 +46,7 @@ namespace TodoApp2.Core
             {
                 m_ActiveCategory = value;
                 m_ApplicationViewModel.ApplicationSettings.ActiveCategoryId = value?.Id ?? -1;
-            } 
+            }
         }
 
         public CategoryListService(ApplicationViewModel applicationViewModel, IDatabase database)

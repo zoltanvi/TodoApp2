@@ -15,7 +15,7 @@ namespace TodoApp2
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is MessageType messageType)
+            if (value is MessageType messageType)
             {
                 switch (messageType)
                 {

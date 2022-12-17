@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Threading;
-using Microsoft.SqlServer.Server;
 using TodoApp2.Core;
 
 namespace TodoApp2
@@ -20,7 +19,7 @@ namespace TodoApp2
         public void InvokeAsync(Action action)
         {
             DispatcherOperation currentOperation = Application.Current.Dispatcher.BeginInvoke(action, DispatcherPriority.Background);
-            
+
             m_Operations.Add(currentOperation);
         }
 

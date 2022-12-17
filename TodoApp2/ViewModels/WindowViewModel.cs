@@ -92,9 +92,6 @@ namespace TodoApp2
 
             m_ThemeManager = new ThemeManager();
 
-            //ThemeEditor themeEditor = new ThemeEditor(m_ThemeManager);
-            //themeEditor.Show();
-
             m_Window.Deactivated += OnWindowDeactivated;
 
             // Listen out for all properties that are affected by a resize

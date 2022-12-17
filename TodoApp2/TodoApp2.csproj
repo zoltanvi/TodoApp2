@@ -176,8 +176,6 @@
     <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Services\AsyncActionService.cs" />
-    <Compile Include="Styles\Themes\ColorSchemes\BaseColorScheme.cs" />
-    <Compile Include="Styles\Themes\ColorSchemes\YellowColorScheme.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\GenericBasePage.cs" />
     <Compile Include="Pages\NotePage.xaml.cs">
@@ -201,12 +199,7 @@
     <Compile Include="Pages\TaskPage.xaml.cs">
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editors\ThemeEditor.xaml.cs">
-      <DependentUpon>ThemeEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\ApplicationPageHelper.cs" />
-    <Compile Include="Styles\Themes\ColorSchemes\IColorScheme.cs" />
-    <Compile Include="Styles\Themes\ColorSchemes\VSBlueColorScheme.cs" />
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\BoolToVisibilityMultiValueConverter.cs" />
@@ -243,7 +236,6 @@
     <Compile Include="ValueConverters\Single\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\BackgroundBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringRGBToBrushConverter.cs" />
-    <Compile Include="ViewModels\ThemeEditorViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\FlashWindow.cs" />
@@ -395,10 +387,6 @@
     <Page Include="Styles\Texts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Editors\ThemeEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
