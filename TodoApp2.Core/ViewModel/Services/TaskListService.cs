@@ -19,6 +19,7 @@ namespace TodoApp2.Core
         private readonly CategoryListService m_CategoryListService;
         private readonly ApplicationViewModel m_ApplicationViewModel;
         private readonly IDatabase m_Database;
+        private bool m_CategoryChangeInProgress;
 
         private CategoryListItemViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
 
@@ -156,6 +157,8 @@ namespace TodoApp2.Core
 
         private async Task OnCategoryChanged()
         {
+            m_CategoryChangeInProgress = true;
+
             // Clear the list first to prevent inconsistent data on UI while the items are loading
             TaskPageItems.Clear();
 
@@ -166,15 +169,19 @@ namespace TodoApp2.Core
             // This can happen if the user changes category again while the query runs
             TaskPageItems.Clear();
 
+            // Abort the previous task list loading
+            IoC.AsyncActionService.AbortRunningActions();
+
             // Fill the actual list with the queried items
             foreach (TaskListItemViewModel item in filteredItems)
             {
-                // TODO: Stop the process on category change
                 //Action AddItem = new Action(() => TaskPageItems.Add(item));
                 //IoC.AsyncActionService.InvokeAsync(AddItem);
 
                 TaskPageItems.Add(item);
             }
+
+            m_CategoryChangeInProgress = false;
         }
 
         /// <summary>
@@ -240,6 +247,11 @@ namespace TodoApp2.Core
         /// <param name="e"></param>
         private void OnTaskPageItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (m_CategoryChangeInProgress)
+            {
+                return;
+            }
+
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
