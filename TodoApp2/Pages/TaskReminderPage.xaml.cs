@@ -7,11 +7,6 @@ namespace TodoApp2
     /// </summary>
     public partial class TaskReminderPage : BasePage<TaskReminderPageViewModel>
     {
-        public TaskReminderPage()
-        {
-            InitializeComponent();
-        }
-
         public TaskReminderPage(TaskReminderPageViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();

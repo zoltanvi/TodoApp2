@@ -7,11 +7,6 @@ namespace TodoApp2
     /// </summary>
     public partial class ReminderEditorPage : BasePage<ReminderEditorPageViewModel>
     {
-        public ReminderEditorPage()
-        {
-            InitializeComponent();
-        }
-
         public ReminderEditorPage(ReminderEditorPageViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();

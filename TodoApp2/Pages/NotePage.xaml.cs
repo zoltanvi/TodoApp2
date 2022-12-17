@@ -11,11 +11,6 @@ namespace TodoApp2
     /// </summary>
     public partial class NotePage : BasePage<NotePageViewModel>
     {
-        public NotePage()
-        {
-            InitializeComponent();
-        }
-
         public NotePage(NotePageViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();

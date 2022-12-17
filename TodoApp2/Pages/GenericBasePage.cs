@@ -39,22 +39,13 @@ namespace TodoApp2
         }
 
         /// <summary>
-        /// Default constructor
-        /// </summary>
-        public BasePage()
-        {
-            // Create a default view model
-            ViewModel = IoC.Get<TViewModel>();
-        }
-
-        /// <summary>
         /// Constructor with specific view model
         /// </summary>
         /// <param name="specificViewModel">The specific view model to use, if any</param>
-        public BasePage(TViewModel specificViewModel = null)
+        public BasePage(TViewModel specificViewModel)
         {
             // Set specific view model
-            ViewModel = specificViewModel ?? IoC.Get<TViewModel>();
+            ViewModel = specificViewModel;
         }
     }
 }

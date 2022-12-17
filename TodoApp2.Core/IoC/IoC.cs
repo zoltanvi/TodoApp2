@@ -1,85 +1,46 @@
-﻿using Ninject;
-
-namespace TodoApp2.Core
+﻿namespace TodoApp2.Core
 {
     /// <summary>
-    /// The IoC container for our application
+    /// The IoC container for the application
     /// </summary>
     public static class IoC
     {
         public static IAsyncActionService AsyncActionService { get; set; }
-
-        /// <summary>
-        /// The kernel for our IoC container
-        /// </summary>
-        private static IKernel Kernel { get; } = new StandardKernel();
-
-        public static ApplicationViewModel ApplicationViewModel => Get<ApplicationViewModel>();
-
-        public static IDatabase Database => Get<IDatabase>();
-
-        public static OverlayPageService OverlayPageService => Get<OverlayPageService>();
-
-        public static CategoryListService CategoryListService => Get<CategoryListService>();
-
-        public static TaskListService TaskListService => Get<TaskListService>();
-
-        public static MessageService MessageService => Get<MessageService>();
-
-        public static UIScaler UIScaler => Get<UIScaler>();
-
-        public static UndoManager UndoManager => Get<UndoManager>();
-
-        /// <summary>
-        /// Gets a service from the IoC, of the specified type
-        /// </summary>
-        /// <typeparam name="T">The type to get</typeparam>
-        /// <returns></returns>
-        public static T Get<T>()
-        {
-            return Kernel.Get<T>();
-        }
+        public static ApplicationViewModel ApplicationViewModel { get; private set; }
+        public static IDatabase Database { get; private set; }
+        public static OverlayPageService OverlayPageService { get; private set; }
+        public static CategoryListService CategoryListService { get; private set; }
+        public static TaskListService TaskListService { get; private set; }
+        public static MessageService MessageService { get; private set; }
+        public static UIScaler UIScaler { get; private set; }
+        public static UndoManager UndoManager { get; private set; }
 
         /// <summary>
         /// Sets up the IoC container, binds all information required and is ready for use
-        /// NOTE: Must be called as soon as your application starts up to ensure all
-        ///       services can be found
+        /// NOTE: Must be called as soon as your application starts up to ensure all services can be found
         /// </summary>
         public static void Setup()
         {
-            var uiScaler = new UIScaler();
-            Kernel.Bind<UIScaler>().ToConstant(uiScaler);
-
-            var undoManager = new UndoManager();
-            Kernel.Bind<UndoManager>().ToConstant(undoManager);
-
-            var messageService = new MessageService();
-            Kernel.Bind<MessageService>().ToConstant(messageService);
-
-            var database = new Database(messageService);
-            Kernel.Bind<IDatabase>().ToConstant(database);
-
-            var applicationViewModel = new ApplicationViewModel(database, uiScaler);
-            Kernel.Bind<ApplicationViewModel>().ToConstant(applicationViewModel);
-
-            var overlayPageService = new OverlayPageService(applicationViewModel, database);
-            Kernel.Bind<OverlayPageService>().ToConstant(overlayPageService);
+            UIScaler = new UIScaler();
+            UndoManager = new UndoManager();
+            MessageService = new MessageService();
+            Database = new Database(MessageService);
+            ApplicationViewModel = new ApplicationViewModel(Database, UIScaler);
+            OverlayPageService = new OverlayPageService(ApplicationViewModel, Database);
+            
             // This dependency must be set here. Workaround to avoid circular dependencies
-            applicationViewModel.OverlayPageService = overlayPageService;
+            ApplicationViewModel.OverlayPageService = OverlayPageService;
 
-            var taskScheduler2 = new TaskScheduler2();
-            Kernel.Bind<TaskScheduler2>().ToConstant(taskScheduler2);
-
-            var reminderNotificationService = new ReminderNotificationService(database, taskScheduler2, overlayPageService);
-            Kernel.Bind<ReminderNotificationService>().ToConstant(reminderNotificationService);
+            TaskScheduler2 taskScheduler2 = new TaskScheduler2();
+            
+            ReminderNotificationService reminderNotificationService = 
+                new ReminderNotificationService(Database, taskScheduler2, OverlayPageService);
+            
             // This dependency must be set here. Workaround to avoid circular dependencies
-            overlayPageService.ReminderNotificationService = reminderNotificationService;
+            OverlayPageService.ReminderNotificationService = reminderNotificationService;
 
-            var categoryListService = new CategoryListService(applicationViewModel, database);
-            Kernel.Bind<CategoryListService>().ToConstant(categoryListService);
-
-            var taskListService = new TaskListService(database, categoryListService, applicationViewModel);
-            Kernel.Bind<TaskListService>().ToConstant(taskListService);
+            CategoryListService = new CategoryListService(ApplicationViewModel, Database);
+            TaskListService = new TaskListService(Database, CategoryListService, ApplicationViewModel);
         }
     }
 }
