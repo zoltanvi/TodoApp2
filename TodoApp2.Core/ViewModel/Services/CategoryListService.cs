@@ -57,8 +57,6 @@ namespace TodoApp2.Core
 
             m_Database.CategoryChanged += OnDatabaseCategoryChanged;
 
-            Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
-
             List<CategoryListItemViewModel> categories = m_Database.GetValidCategories();
             Items = new ObservableCollection<CategoryListItemViewModel>(categories);
             Items.CollectionChanged += OnItemsChanged;

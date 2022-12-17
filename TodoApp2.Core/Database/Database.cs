@@ -11,51 +11,26 @@ namespace TodoApp2.Core
     public class Database : IDisposable, IDatabase
     {
         private DataAccessLayer m_DataAccess;
-        private readonly SessionManager m_SessionManager;
         private readonly MessageService m_MessageService;
 
         public event EventHandler<TaskChangedEventArgs> TaskChanged;
         public event EventHandler<CategoryChangedEventArgs> CategoryChanged;
 
-        public Database(SessionManager sessionManager, MessageService messageService)
+        public Database(MessageService messageService)
         {
-            m_SessionManager = sessionManager;
             m_MessageService = messageService;
 
-            //Reinitialize(sessionManager.OnlineMode);
-            Reinitialize();
+            Initialize();
         }
 
-        public async Task Reinitialize(bool online = false)
+        public async Task Initialize()
         {
-            Mediator.NotifyClients(ViewModelMessages.OnlineModeChangeRequested);
             m_DataAccess?.Dispose();
 
-            //if (online)
-            //{
-            //    if (!await m_SessionManager.AuthenticateUserAsync())
-            //    {
-            //        online = false;
-            //        m_MessageService.ShowError("User could not be authenticated.\n" +
-            //                                   "Please check the network connection!\n" +
-            //                                   "Switched to offline mode.", TimeSpan.FromSeconds(10));
-            //    }
-            //}
-
-            //if (online)
-            //{
-            //    m_SessionManager.Download();
-            //}
-            //else
-            //{
-            //    m_SessionManager.Upload();
-            //}
-
-            m_DataAccess = new DataAccessLayer(online);
+            m_DataAccess = new DataAccessLayer();
 
             // Initialize the database
             m_DataAccess.InitializeDatabase();
-            Mediator.NotifyClients(ViewModelMessages.OnlineModeChanged);
         }
 
         /// <summary>
@@ -465,13 +440,6 @@ namespace TodoApp2.Core
         public void Dispose()
         {
             m_DataAccess?.Dispose();
-
-            //if (m_SessionManager.OnlineMode)
-            //{
-            //    m_SessionManager.Upload();
-            //}
         }
-
-
     }
 }

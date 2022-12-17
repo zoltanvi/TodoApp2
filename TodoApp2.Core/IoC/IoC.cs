@@ -24,8 +24,6 @@ namespace TodoApp2.Core
 
         public static TaskListService TaskListService => Get<TaskListService>();
 
-        public static SessionManager SessionManager => Get<SessionManager>();
-
         public static MessageService MessageService => Get<MessageService>();
 
         public static UIScaler UIScaler => Get<UIScaler>();
@@ -63,15 +61,10 @@ namespace TodoApp2.Core
             var messageService = new MessageService();
             Kernel.Bind<MessageService>().ToConstant(messageService);
 
-            // TODO: Disabled feature
-            //var sessionManager = new SessionManager(messageService);
-            //Kernel.Bind<SessionManager>().ToConstant(sessionManager);
-            SessionManager sessionManager = null;
-
-            var database = new Database(sessionManager, messageService);
+            var database = new Database(messageService);
             Kernel.Bind<IDatabase>().ToConstant(database);
 
-            var applicationViewModel = new ApplicationViewModel(database, sessionManager, uiScaler);
+            var applicationViewModel = new ApplicationViewModel(database, uiScaler);
             Kernel.Bind<ApplicationViewModel>().ToConstant(applicationViewModel);
 
             var overlayPageService = new OverlayPageService(applicationViewModel, database);

@@ -15,7 +15,6 @@ namespace TodoApp2.Core
         private IUIScaler m_UiScaler;
 
         private readonly IDatabase m_Database;
-        private readonly SessionManager m_SessionManager;
 
         public IOverlayPageService OverlayPageService { get; set; }
 
@@ -75,17 +74,13 @@ namespace TodoApp2.Core
         /// </summary>
         public bool SaveIconVisible { get; set; }
 
-        public ApplicationViewModel(IDatabase database, SessionManager sessionManager, IUIScaler uiScaler)
+        public ApplicationViewModel(IDatabase database, IUIScaler uiScaler)
         {
             m_Database = database;
-            m_SessionManager = sessionManager;
             m_UiScaler = uiScaler;
 
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
             ApplicationSettings = new ApplicationSettings(m_UiScaler);
-
-            Mediator.Register(OnOnlineModeChangeRequested, ViewModelMessages.OnlineModeChangeRequested);
-            Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
 
             // Load the application settings to update the ActiveCategoryId before querying the tasks
             LoadApplicationSettingsOnce();

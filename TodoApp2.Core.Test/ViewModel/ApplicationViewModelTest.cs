@@ -16,7 +16,7 @@ namespace TodoApp2.Core.Test.ViewModel
             IDatabase databaseMock = Substitute.For<IDatabase>();
             databaseMock.GetSettings().Returns(new List<SettingsModel>());
 
-            m_ApplicationViewModel = new ApplicationViewModel(databaseMock, null, Substitute.For<IUIScaler>());
+            m_ApplicationViewModel = new ApplicationViewModel(databaseMock, Substitute.For<IUIScaler>());
             m_BaseViewModelMock = Substitute.For<IBaseViewModel>();
         }
 

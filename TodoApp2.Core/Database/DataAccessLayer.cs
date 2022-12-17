@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
@@ -71,20 +71,16 @@ namespace TodoApp2.Core
         public const long DefaultListOrder = long.MaxValue / 2;
         public const long ListOrderInterval = 1_000_000_000_000;
 
-        public const string OfflineDatabaseName = "TodoApp2Database.db";
-        public const string OnlineDatabaseName = "TodoApp2Database-online.db";
-
-        public static string OfflineDatabasePath { get; } = Path.Combine(AppDataFolder, OfflineDatabaseName);
-        public static string OnlineDatabasePath { get; } = Path.Combine(AppDataFolder, OnlineDatabaseName);
+        public const string DatabaseName = "TodoApp2Database.db";
+        public static string DatabasePath { get; } = Path.Combine(AppDataFolder, DatabaseName);
 
         private readonly SQLiteConnection m_Connection;
 
         private const int DatabaseVersion = 2;
         private int m_ReadDatabaseVersion;
-        public DataAccessLayer(bool online = false)
+        public DataAccessLayer()
         {
-            string dbPath = online ? OnlineDatabasePath : OfflineDatabasePath;
-            m_Connection = new SQLiteConnection($"Data Source={dbPath};");
+            m_Connection = new SQLiteConnection($"Data Source={DatabasePath};");
             m_Connection.Open();
         }
 
@@ -1164,7 +1160,6 @@ namespace TodoApp2.Core
             const string windowHeight = "WindowHeight";
             const string activeCategoryId = "ActiveCategoryId";
 
-            List<string> keys = new List<string> { windowLeftPos, windowTopPos, windowWidth, windowHeight };
 
             List<SettingsModel> defaultSettings = new List<SettingsModel>
             {
@@ -1175,12 +1170,32 @@ namespace TodoApp2.Core
                 new SettingsModel {Id = 4, Key = activeCategoryId, Value = "0"}
             };
 
-            var settings = GetSettings();
+            List<SettingsModel> settings = GetSettings();
+
             // If none of the default settings are in the database, insert them
-            if (!settings.Select(s => s.Key).Any(k => keys.Any(x => x == k)))
+            if (!ContainsDefaultSettings(settings, defaultSettings))
             {
                 AddSettings(defaultSettings);
             }
+        }
+
+        /// <summary>
+        /// Checks whether none of the default settings are in the list.
+        /// </summary>
+        /// <param name="settingsList"></param>
+        /// <param name="defaultSettings"></param>
+        /// <returns></returns>
+        private bool ContainsDefaultSettings(IEnumerable<SettingsModel> settingsList, List<SettingsModel> defaultSettings)
+        {
+            foreach (SettingsModel setting in settingsList)
+            {
+                if (defaultSettings.Any(defaultSetting => defaultSetting.Key == setting.Key))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

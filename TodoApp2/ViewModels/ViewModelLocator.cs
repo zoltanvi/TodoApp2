@@ -13,7 +13,6 @@ namespace TodoApp2
         public static OverlayPageService OverlayPageService => IoC.OverlayPageService;
         public static CategoryListService CategoryListService => IoC.CategoryListService;
         public static TaskListService TaskListService => IoC.TaskListService;
-        public static SessionManager SessionManager => IoC.SessionManager;
         public static MessageService MessageService => IoC.MessageService;
         public static UIScaler UIScaler => IoC.UIScaler;
 

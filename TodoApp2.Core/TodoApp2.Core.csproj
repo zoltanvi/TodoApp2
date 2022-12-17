@@ -119,7 +119,6 @@
     <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
     <Compile Include="ViewModel\Services\IUIScaler.cs" />
     <Compile Include="ViewModel\Services\MessageService.cs" />
-    <Compile Include="ViewModel\Services\SessionManager.cs" />
     <Compile Include="ViewModel\Services\IOverlayPageService.cs" />
     <Compile Include="ViewModel\Services\TaskListService.cs" />
     <Compile Include="ViewModel\Pages\TaskReminderPageViewModel.cs" />
@@ -145,9 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="credentials.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

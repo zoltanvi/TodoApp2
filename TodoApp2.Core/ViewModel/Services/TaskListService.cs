@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using System.Windows.Threading;
 
 namespace TodoApp2.Core
 {
@@ -47,20 +45,6 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
-            Mediator.Register(OnOnlineModeChangeRequested, ViewModelMessages.OnlineModeChangeRequested);
-            Mediator.Register(OnOnlineModeChanged, ViewModelMessages.OnlineModeChanged);
-        }
-
-        private void OnOnlineModeChangeRequested(object obj)
-        {
-            PersistTaskList();
-        }
-
-        private void OnOnlineModeChanged(object obj)
-        {
-            TaskPageItems.Clear();
-            List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(ActiveCategory);
-            TaskPageItems.AddRange(items);
         }
 
         public TaskListItemViewModel AddNewTask(string taskContent)
