@@ -8,5 +8,84 @@
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800">
-    <Grid />
+
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+
+            <Button
+                x:Name="HourUp"
+                Grid.Row="0"
+                Grid.Column="0"
+                Content="{StaticResource SegoeIconChevronUp}"
+                Style="{StaticResource TimePickerButtonStyle}"
+                Command="{Binding HourUpCommand}" />
+
+            <Button
+                x:Name="HourDown"
+                Grid.Row="2"
+                Grid.Column="0"
+                Content="{StaticResource SegoeIconChevronDown}"
+                Style="{StaticResource TimePickerButtonStyle}"
+                Command="{Binding HourDownCommand}" />
+
+            <Button
+                x:Name="MinuteUp"
+                Grid.Row="0"
+                Grid.Column="2"
+                Content="{StaticResource SegoeIconChevronUp}"
+                Style="{StaticResource TimePickerButtonStyle}"
+                Command="{Binding MinuteUpCommand}" />
+
+            <Button
+                x:Name="MinuteDown"
+                Grid.Row="2"
+                Grid.Column="2"
+                Content="{StaticResource SegoeIconChevronDown}"
+                Style="{StaticResource TimePickerButtonStyle}"
+                Command="{Binding MinuteDownCommand}" />
+
+            <Label
+                Content=":"
+                Grid.Row="1"
+                Grid.Column="1"
+                Style="{StaticResource TimePickerLabelStyle}" />
+
+            <local:TimePickerTextBox
+                x:Name="HourText"
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource TimePickerTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="Hour" Converter="{StaticResource timePickerHourConverter}" />
+                </TextBox.Text>
+
+            </local:TimePickerTextBox>
+
+            <local:TimePickerTextBox
+                x:Name="MinuteText"
+                Grid.Row="1"
+                Grid.Column="2"
+                Style="{StaticResource TimePickerTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="Minute" Converter="{StaticResource timePickerMinuteConverter}" />
+                </TextBox.Text>
+
+            </local:TimePickerTextBox>
+
+
+        </Grid>
+
+    </Border>
+
 </UserControl>

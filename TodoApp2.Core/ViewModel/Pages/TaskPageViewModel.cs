@@ -16,7 +16,6 @@ namespace TodoApp2.Core
         private readonly ApplicationViewModel m_ApplicationViewModel;
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
-        private string m_RenameCategoryContentBefore;
 
         private CategoryListItemViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
 
@@ -355,7 +354,6 @@ namespace TodoApp2.Core
         {
             IsCategoryInEditMode = true;
             RenameCategoryContent = m_CategoryListService.ActiveCategoryName;
-            m_RenameCategoryContentBefore = RenameCategoryContent;
         }
 
         /// <summary>

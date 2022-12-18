@@ -162,6 +162,7 @@
     <Compile Include="Controls\TimePickerControl.xaml.cs">
       <DependentUpon>TimePickerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TimePickerTextBox.cs" />
     <Compile Include="Helpers\BindingFix\PushBindingCollection.cs" />
     <Compile Include="Helpers\BindingFix\PushBindingManager.cs" />
     <Compile Include="Helpers\CustomDropHandler.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="ValueConverters\Single\FromBool\BoolToScrollBarVisibilityConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToTextWrappingConverter.cs" />
     <Compile Include="ValueConverters\Single\CamelCaseConverter.cs" />
+    <Compile Include="ValueConverters\Single\IntTo2DigitTextConverter.cs" />
     <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\EnumToFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\Multi\EqualityConverter.cs" />

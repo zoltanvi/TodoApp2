@@ -114,21 +114,22 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="0 0 10 0"
-                        Style="{DynamicResource DateTextBoxStyle}"
+                        Style="{DynamicResource BaseInputTextBoxStyle}"
                         Background="#00000000"
                         BorderBrush="{Binding IsSelectedDateStringValid, Converter={StaticResource reminderBoolToBrushConverter}, Mode=TwoWay}"
                         FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"
                         Foreground="{DynamicResource ForegroundBrush}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
                         Text="{Binding SelectedDateString, Mode=TwoWay}" />
 
                     <!--  TimePicker  -->
-                    <xctk:TimePicker
-                        Name="CustomTimePicker"
+                    <local:TimePickerControl
                         Grid.Row="1"
                         Grid.Column="1"
-                        Style="{DynamicResource TimePickerStyle}"
-                        TimeInterval="00:15:00"
-                        Value="{Binding SelectedTime, Mode=TwoWay}" />
+                        HorizontalAlignment="Center"
+                        DataContext="{Binding TimePickerViewModel}" />
+
                 </Grid>
 
                 <!--  CALENDAR  -->

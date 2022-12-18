@@ -55,12 +55,6 @@
         <Setter Property="Background" Value="#00000000" />
     </Style>
 
-
-    <Style x:Key="DateTextBoxStyle" TargetType="TextBox">
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="{DynamicResource CommonBorderBrush}" />
-    </Style>
-
     <Style x:Key="NotePageTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
         <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeToDoubleConverter}}" />
@@ -307,6 +301,7 @@
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0 0 8 6" />
     </Style>

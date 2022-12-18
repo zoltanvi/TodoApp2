@@ -63,5 +63,14 @@
     <local:SingleCornerRadiusConverter x:Key="singleCornerRadiusConverter" />
 
     <local:CategoryIdToCategoryNameConverter x:Key="categoryIdToCategoryNameConverter" />
+    <local:IntTo2DigitTextConverter
+        x:Key="timePickerHourConverter"
+        MinValue="0"
+        MaxValue="23" />
+    <local:IntTo2DigitTextConverter
+        x:Key="timePickerMinuteConverter"
+        MinValue="0"
+        MaxValue="59" />
+
 
 </ResourceDictionary>

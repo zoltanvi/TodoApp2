@@ -13,6 +13,8 @@ namespace TodoApp2.Core
         private readonly ReminderNotificationService m_NotificationService;
         private readonly OverlayPageService m_OverlayPageService;
 
+        public TimePickerViewModel TimePickerViewModel { get; set; }
+
         /// <summary>
         /// The task to show the notification for.
         /// </summary>
@@ -20,7 +22,6 @@ namespace TodoApp2.Core
         public DateTime SelectedDate { get; set; }
         public string SelectedDateString { get; set; }
         public bool IsSelectedDateStringValid { get; set; }
-        public DateTime SelectedTime { get; set; }
         public bool IsReminderOn
         {
             get => ReminderTask.IsReminderOn;
@@ -61,6 +62,8 @@ namespace TodoApp2.Core
             CloseReminderCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeReminder);
             m_OverlayPageService.SetBackgroundClickedAction(ClosePage);
+
+            TimePickerViewModel = new TimePickerViewModel();
 
             ReminderTask = m_Database.GetTask(reminderTask.Id);
 
@@ -112,7 +115,7 @@ namespace TodoApp2.Core
 
         private void UpdateTaskReminder()
         {
-            DateTime reminderDate = SelectedDate.Date + new TimeSpan(SelectedTime.Hour, SelectedTime.Minute, 0);
+            DateTime reminderDate = SelectedDate.Date + new TimeSpan(TimePickerViewModel.Hour, TimePickerViewModel.Minute, 0);
             ReminderTask.ReminderDate = reminderDate.Ticks;
 
             m_Database.UpdateTask(ReminderTask);
@@ -124,14 +127,16 @@ namespace TodoApp2.Core
             {
                 DateTime date = new DateTime(ReminderTask.ReminderDate);
                 SelectedDate = date.Date;
-                SelectedTime = new DateTime() + date.TimeOfDay;
+                TimePickerViewModel.Hour = date.Hour;
+                TimePickerViewModel.Minute = date.Minute;
                 SelectedDateString = SelectedDate.ConvertToString();
             }
             else
             {
                 SelectedDateString = DateTime.Now.ConvertToString();
                 SelectedDate = DateTime.Now;
-                SelectedTime = DateTime.Now + new TimeSpan(0, 5, 0);
+                TimePickerViewModel.Hour = DateTime.Now.Hour;
+                TimePickerViewModel.Minute = DateTime.Now.Minute + 5;
             }
         }
 

@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -90,5 +91,6 @@
                 </TextBox.InputBindings>
             </TextBox>
         </Border>
+
     </Grid>
 </local:BasePage>

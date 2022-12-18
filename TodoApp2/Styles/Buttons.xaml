@@ -156,33 +156,6 @@
         <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
     </Style>
 
-
-    <Style
-        x:Key="ButtonLoginStyle"
-        BasedOn="{StaticResource ButtonHoverStyle}"
-        TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="22" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border
-                        Padding="{TemplateBinding Padding}"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="4">
-                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoverButtonBgBrush}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
     <!--  SIDE MENU STYLES =============================================================================================  -->
 
 
@@ -681,6 +654,64 @@
 
     <!--  ====================================================================  -->
 
+    <Style
+        x:Key="TimePickerButtonStyle"
+        BasedOn="{StaticResource ButtonIconHoverStyle}"
+        TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            FontStyle="{TemplateBinding FontStyle}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="{TemplateBinding Content}"
+                            TextOptions.TextFormattingMode="Display"
+                            TextOptions.TextHintingMode="Fixed"
+                            TextOptions.TextRenderingMode="ClearType" />
+                        <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="TimePickerTextBoxStyle"
+        TargetType="TextBox"
+        BasedOn="{StaticResource BaseInputTextBoxStyle}">
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="MaxLength" Value="2" />
+
+    </Style>
+
+    <Style
+        x:Key="TimePickerLabelStyle"
+        BasedOn="{StaticResource BaseLabelClearTypeStyle}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="5 0" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
 
 
 </ResourceDictionary>

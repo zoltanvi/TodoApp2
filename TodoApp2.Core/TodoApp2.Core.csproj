@@ -112,6 +112,7 @@
     <Compile Include="Services\IAsyncActionService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />
     <Compile Include="ViewModel\Controls\RichTextEditorViewModel.cs" />
+    <Compile Include="ViewModel\Controls\TimePickerViewModel.cs" />
     <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
     <Compile Include="ViewModel\Services\IUIScaler.cs" />
     <Compile Include="ViewModel\Services\MessageService.cs" />
