@@ -34,10 +34,17 @@
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--  Outer border with the drop shadow margin  -->
 
-                        <Border
-                            Padding="{Binding IsMaximizedOrDocked, Converter={StaticResource boolToBorderThicknessConverter}}"
-                            Background="#01000000"
-                            CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}">
+                        <Border Padding="{Binding IsMaximizedOrDocked, Converter={StaticResource boolToBorderThicknessConverter}}" Background="#01000000">
+                            <Border.CornerRadius>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:RoundedCornersMultiConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="ApplicationViewModel.ApplicationSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                    <Binding Path="IsRoundedCornersAllowed" />
+                                </MultiBinding>
+                            </Border.CornerRadius>
+
                             <Border.Clip>
                                 <RectangleGeometry
                                     RadiusX="{Binding CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}"
@@ -46,10 +53,19 @@
                             </Border.Clip>
 
                             <Border
-                                CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}"
                                 local:SizeObserver.Observe="True"
                                 local:SizeObserver.ObservedWidth="{Binding MyWidth, Mode=OneWayToSource}"
                                 local:SizeObserver.ObservedHeight="{Binding MyHeight, Mode=OneWayToSource}">
+                                <Border.CornerRadius>
+                                    <MultiBinding>
+                                        <MultiBinding.Converter>
+                                            <local:RoundedCornersMultiConverter />
+                                        </MultiBinding.Converter>
+                                        <Binding Path="ApplicationViewModel.ApplicationSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                        <Binding Path="IsRoundedCornersAllowed" />
+                                    </MultiBinding>
+                                </Border.CornerRadius>
+
                                 <Border.Clip>
                                     <RectangleGeometry
                                         RadiusX="{Binding CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}"
@@ -65,11 +81,31 @@
                                     <Border
                                         Panel.ZIndex="2"
                                         BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource appBorderBrushConverter}}"
-                                        BorderThickness="1"
-                                        CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}" />
+                                        BorderThickness="1">
+
+                                        <Border.CornerRadius>
+                                            <MultiBinding>
+                                                <MultiBinding.Converter>
+                                                    <local:RoundedCornersMultiConverter />
+                                                </MultiBinding.Converter>
+                                                <Binding Path="ApplicationViewModel.ApplicationSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                                <Binding Path="IsRoundedCornersAllowed" />
+                                            </MultiBinding>
+                                        </Border.CornerRadius>
+
+                                    </Border>
 
                                     <!--  Window border and drop shadow  -->
-                                    <Border Background="{DynamicResource PageBgBrush}" CornerRadius="{Binding ApplicationViewModel.ApplicationSettings.WindowCornerRadius, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource singleCornerRadiusConverter}}">
+                                    <Border Background="{DynamicResource PageBgBrush}">
+                                        <Border.CornerRadius>
+                                            <MultiBinding>
+                                                <MultiBinding.Converter>
+                                                    <local:RoundedCornersMultiConverter />
+                                                </MultiBinding.Converter>
+                                                <Binding Path="ApplicationViewModel.ApplicationSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                                <Binding Path="IsRoundedCornersAllowed" />
+                                            </MultiBinding>
+                                        </Border.CornerRadius>
 
                                         <Grid>
                                             <Grid.RowDefinitions>

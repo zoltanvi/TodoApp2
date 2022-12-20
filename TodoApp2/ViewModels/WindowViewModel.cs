@@ -72,6 +72,13 @@ namespace TodoApp2
         public bool IsDocked { get; set; }
         public bool IsMaximized { get; set; }
         public bool IsMaximizedOrDocked { get; set; }
+
+        /// <summary>
+        /// <see cref="ApplicationSettings.RoundedWindowCorners"/> and this property both must be true 
+        /// for the rounded corners to work.
+        /// </summary>
+        public bool IsRoundedCornersAllowed { get; set; }
+
         public string CurrentTime { get; set; }
 
         #region Workaround
@@ -239,17 +246,14 @@ namespace TodoApp2
         {
             IsDocked = e.IsDocked;
             IsMaximizedOrDocked = IsMaximized || IsDocked;
-            UpdateWindowCornerRadius();
+            UpdateRoundedCornersAllowed();
             WindowResized();
         }
-        
-        private void UpdateWindowCornerRadius()
+
+        private void UpdateRoundedCornersAllowed()
         {
             bool isDocked = IsDocked || m_DockPosition != WindowDockPosition.Undocked;
-            bool roundedCornersAllowed = !(isDocked || IsMaximized);
-            bool isRoundedCornersOn = ApplicationSettings.RoundedWindowCorners;
-
-            ApplicationSettings.WindowCornerRadius = roundedCornersAllowed && isRoundedCornersOn ? 8 : 0;
+            IsRoundedCornersAllowed = !(isDocked || IsMaximized);
         }
 
         private void OnWindowDeactivated(object sender, EventArgs e)
@@ -312,6 +316,8 @@ namespace TodoApp2
                 m_Window.Width = ApplicationSettings.WindowWidth;
                 m_Window.Height = ApplicationSettings.WindowHeight;
             }
+
+            UpdateRoundedCornersAllowed();
         }
 
         private void OnWindowClosing(object sender, CancelEventArgs e)
@@ -386,7 +392,7 @@ namespace TodoApp2
         {
             IsMaximized = m_Window.WindowState == WindowState.Maximized;
             IsMaximizedOrDocked = IsMaximized || IsDocked;
-            UpdateWindowCornerRadius();
+            UpdateRoundedCornersAllowed();
 
             // Fire off events for all properties that are affected by a resize
             OnPropertyChanged(nameof(ResizeBorderThickness));

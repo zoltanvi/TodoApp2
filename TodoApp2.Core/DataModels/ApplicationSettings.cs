@@ -24,7 +24,6 @@ namespace TodoApp2.Core
     /// </remarks>
     public class ApplicationSettings : BaseViewModel
     {
-        private bool m_RoundedWindowCorners;
         private IUIScaler m_UiScaler;
 
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
@@ -48,8 +47,7 @@ namespace TodoApp2.Core
         public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
         public string AccentColor { get; set; } = GlobalConstants.ColorName.Transparent;
         public string AppBorderColor { get; set; } = GlobalConstants.ColorName.Transparent;
-        public int WindowCornerRadius { get; set; }
-        public int NoRadius { get; } = 0;
+        public bool RoundedWindowCorners { get; set; }
         public bool IsItemBackgroundVisible { get; set; } = true;
         public bool IsItemBorderVisible { get; set; } = true;
         public bool IsQuickActionsEnabled { get; set; } = true;
@@ -79,17 +77,6 @@ namespace TodoApp2.Core
         {
             get => IoC.UIScaler.ScaleValue;
             set => IoC.UIScaler.SetScaling(value);
-        }
-
-        public bool RoundedWindowCorners
-        {
-            get => m_RoundedWindowCorners;
-            set
-            {
-                m_RoundedWindowCorners = value;
-                WindowCornerRadius = value ? 8 : NoRadius;
-                OnPropertyChanged(nameof(WindowCornerRadius));
-            }
         }
 
         public ApplicationSettings(IUIScaler uiScaler)
@@ -123,7 +110,6 @@ namespace TodoApp2.Core
                 { nameof(AccentColor), PropertyValueHandlers.String },
                 { nameof(AppBorderColor), PropertyValueHandlers.String },
                 { nameof(RoundedWindowCorners), PropertyValueHandlers.Bool },
-                { nameof(WindowCornerRadius), PropertyValueHandlers.Integer },
                 { nameof(IsTitleBarDateVisible), PropertyValueHandlers.Bool },
                 { nameof(Scaling), PropertyValueHandlers.Double },
                 { nameof(NoteContent), PropertyValueHandlers.String },
