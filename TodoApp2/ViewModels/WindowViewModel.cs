@@ -242,7 +242,7 @@ namespace TodoApp2
             UpdateWindowCornerRadius();
             WindowResized();
         }
-
+        
         private void UpdateWindowCornerRadius()
         {
             bool isDocked = IsDocked || m_DockPosition != WindowDockPosition.Undocked;

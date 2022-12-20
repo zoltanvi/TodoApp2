@@ -148,6 +148,10 @@
                         </Behaviors:EventTrigger>
                     </Behaviors:Interaction.Triggers>
 
+                    <Behaviors:Interaction.Behaviors>
+                        <local:PutCaretAtTheEndRTBBehavior />
+                    </Behaviors:Interaction.Behaviors>
+
                     <local:PushBindingManager.PushBindings>
                         <local:PushBinding
                             TargetProperty="IsEmpty"

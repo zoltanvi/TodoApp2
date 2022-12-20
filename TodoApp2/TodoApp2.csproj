@@ -115,6 +115,7 @@
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\FocusSetter.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
+    <Compile Include="AttachedProperties\PutCaretAtTheEndRTBBehavior.cs" />
     <Compile Include="Controls\BasicTextEditorBox.cs" />
     <Compile Include="Controls\ClickSelectTextBox.cs" />
     <Compile Include="Controls\ColorPickerComboBox.cs" />
