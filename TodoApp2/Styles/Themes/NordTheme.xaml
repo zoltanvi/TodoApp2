@@ -6,7 +6,7 @@
     <Color x:Key="Transparent">#00000000</Color>
     <Color x:Key="ThemeOpposite">#FFFFFF</Color>
 
-    <Color x:Key="Foreground">#ECEFF4</Color>
+    <Color x:Key="Foreground">#FFFFFF</Color>
     <Color x:Key="TitleBar">#ECEFF4</Color>
     <Color x:Key="Caret">#D8DEE9</Color>
     <Color x:Key="EditorButton">#D8DEE9</Color>

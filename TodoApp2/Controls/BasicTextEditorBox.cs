@@ -12,6 +12,8 @@ namespace TodoApp2
         internal static readonly DependencyPropertyKey IsEmptyPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEmpty), typeof(bool), typeof(BasicTextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty DocumentContentProperty = DependencyProperty.Register(nameof(DocumentContent), typeof(string), typeof(BasicTextEditorBox), new PropertyMetadata(OnContentChanged));
 
+        private bool m_SetContentInProgress = false;
+
         /// <summary>
         /// The Document of the <see cref="BasicTextEditorBox"/> serialized into an xml format.
         /// </summary>
@@ -23,17 +25,19 @@ namespace TodoApp2
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     SetValue(DocumentContentProperty, FlowDocumentHelper.EmptySerializedDocument);
-                    Document.Blocks.Clear();
-                    Document.Blocks.AddRange(FlowDocumentHelper.EmptyFlowDocumentBlocks);
                 }
-                else
+                else if(!m_SetContentInProgress)
                 {
+                    m_SetContentInProgress = true;
+                    
                     if (FlowDocumentHelper.DeserializeDocument(value) is FlowDocument flowDocument)
                     {
+                        SetValue(DocumentContentProperty, value);
                         Document.Blocks.Clear();
                         Document.Blocks.AddRange(flowDocument.Blocks.ToList());
-                        SetValue(DocumentContentProperty, value);
                     }
+
+                    m_SetContentInProgress = false;
                 }
             }
         }
@@ -75,20 +79,20 @@ namespace TodoApp2
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            bool isEmpty = IsRichTextBoxEmpty(this);
+            bool isEmpty = IsRichTextBoxEmpty();
             SetIsEmpty(isEmpty);
         }
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e)
         {
             // Prevent pasting an image because it cannot be persisted.
-            if (e.FormatToApply == "Bitmap")
+            if (e.FormatToApply == DataFormats.Bitmap)
             {
                 e.CancelCommand();
-            }
+            } 
         }
 
-        private bool IsRichTextBoxEmpty(RichTextBox rtb)
+        private bool IsRichTextBoxEmpty()
         {
             List<string> res = FlowDocumentHelper.GetDocumentItems(Document);
 

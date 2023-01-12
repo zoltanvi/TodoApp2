@@ -133,10 +133,11 @@ namespace TodoApp2.Core
             }
             else
             {
-                SelectedDateString = DateTime.Now.ConvertToString();
-                SelectedDate = DateTime.Now;
-                TimePickerViewModel.Hour = DateTime.Now.Hour;
-                TimePickerViewModel.Minute = DateTime.Now.Minute + 5;
+                DateTime fiveMinutesFromCurrentTime = DateTime.Now.AddMinutes(5);
+                SelectedDateString = fiveMinutesFromCurrentTime.ConvertToString();
+                SelectedDate = fiveMinutesFromCurrentTime;
+                TimePickerViewModel.Hour = fiveMinutesFromCurrentTime.Hour;
+                TimePickerViewModel.Minute = fiveMinutesFromCurrentTime.Minute;
             }
         }
 
