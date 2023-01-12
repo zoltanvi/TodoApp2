@@ -90,6 +90,14 @@ namespace TodoApp2
             {
                 e.CancelCommand();
             } 
+            else if (e.FormatToApply == DataFormats.Xaml)
+            {
+                string unformattedText = e.DataObject.GetData(DataFormats.UnicodeText) as string;
+                
+                DataObject simpleText = new DataObject(DataFormats.UnicodeText, unformattedText);
+
+                e.DataObject = simpleText;
+            }
         }
 
         private bool IsRichTextBoxEmpty()
