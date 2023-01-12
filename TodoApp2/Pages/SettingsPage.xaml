@@ -50,6 +50,15 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
+        <ObjectDataProvider
+            x:Key="TaskSpacingDataProvider"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="core:TaskSpacing" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
     </local:BasePage.Resources>
 
     <Border>
@@ -225,8 +234,14 @@
                         <!--  Compact mode  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Content="{DynamicResource SegoeIconCompactMode}" Style="{DynamicResource SettingsIconLabelStyle}" />
-                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Compact mode" />
-                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsCompactMode, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Spacing" />
+                            <ComboBox
+                                Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                HorizontalAlignment="Right"
+                                FontFamily="{StaticResource Ubuntu}"
+                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                ItemsSource="{Binding Source={StaticResource TaskSpacingDataProvider}}"
+                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
                         </DockPanel>
 
                         <!--  Item border  -->
@@ -259,7 +274,7 @@
 
                         <!--  Color bar rounded  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <Label Content="{DynamicResource SegoeIconRoundedCorners}" Style="{DynamicResource SettingsIconLabelStyle}" >
+                            <Label Content="{DynamicResource SegoeIconRoundedCorners}" Style="{DynamicResource SettingsIconLabelStyle}">
                                 <Label.LayoutTransform>
                                     <RotateTransform CenterX="0" CenterY="0" Angle="90" />
                                 </Label.LayoutTransform>

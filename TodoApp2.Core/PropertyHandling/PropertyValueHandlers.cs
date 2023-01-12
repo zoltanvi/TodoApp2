@@ -11,5 +11,6 @@
         public static IPropertyValueHandler Thickness { get; } = new EnumPropertyValueHandler<Thickness>();
         public static IPropertyValueHandler FontSize { get; } = new EnumPropertyValueHandler<FontSize>();
         public static IPropertyValueHandler FontFamily { get; } = new EnumPropertyValueHandler<FontFamily>();
+        public static IPropertyValueHandler TaskSpacing { get; } = new EnumPropertyValueHandler<TaskSpacing>();
     }
 }

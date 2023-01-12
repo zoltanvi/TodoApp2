@@ -60,7 +60,7 @@ namespace TodoApp2.Core
         public bool IsTitleBarDateVisible { get; set; } = false;
         public string NoteContent { get; set; }
         public bool NotePageWordWrap { get; set; }
-        public bool IsCompactMode { get; set; }
+        public TaskSpacing TaskSpacing { get; set; }
         public bool InsertOrderReversed { get; set; }
         public bool MoveTaskOnCompletion { get; set; } = true;
         public bool IsColorBarRounded { get; set; } = true;
@@ -117,7 +117,7 @@ namespace TodoApp2.Core
                 { nameof(TextRenderingMode), PropertyValueHandlers.String },
                 { nameof(TextFormattingMode), PropertyValueHandlers.Bool },
                 { nameof(ClearTypeHint), PropertyValueHandlers.Bool },
-                { nameof(IsCompactMode), PropertyValueHandlers.Bool },
+                { nameof(TaskSpacing), PropertyValueHandlers.TaskSpacing },
                 { nameof(InsertOrderReversed), PropertyValueHandlers.Bool },
                 { nameof(MoveTaskOnCompletion), PropertyValueHandlers.Bool },
                 { nameof(IsColorBarRounded), PropertyValueHandlers.Bool },

@@ -34,10 +34,6 @@
         x:Key="boolToTaskOpacityConverter"
         NegativeValue="1.0"
         PositiveValue="0.8" />
-    <local:BoolToDoubleConverter
-        x:Key="boolToCompactModeConverter"
-        NegativeValue="40"
-        PositiveValue="10" />
     <local:BoolToResourceConverter
         x:Key="reminderBoolToBrushConverter"
         NegativeResourceName="TextBoxErrorBorderBrush"
@@ -72,5 +68,6 @@
         MinValue="0"
         MaxValue="59" />
 
+    <local:TaskSpacingToDoubleConverter x:Key="taskSpacingToDoubleConverter" />
 
 </ResourceDictionary>
