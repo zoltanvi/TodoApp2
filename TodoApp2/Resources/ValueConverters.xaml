@@ -69,5 +69,6 @@
         MaxValue="59" />
 
     <local:TaskSpacingToDoubleConverter x:Key="taskSpacingToDoubleConverter" />
+    <local:TaskSpacingToMarginConverter x:Key="taskSpacingToMarginConverter" />
 
 </ResourceDictionary>

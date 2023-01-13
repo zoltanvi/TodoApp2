@@ -8,7 +8,6 @@
     xmlns:local="clr-namespace:TodoApp2"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="TaskListItemUC"
-    MinHeight="{Binding ApplicationViewModel.ApplicationSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskSpacingToDoubleConverter}}"
     d:DesignHeight="60"
     d:DesignWidth="350"
     dd:DragDrop.IsDragSource="{Binding TextEditorViewModel.IsEditMode}"
@@ -214,81 +213,78 @@
                     </Grid>
                 </Border>
 
+
                 <!--  Main content  -->
-                <Grid Grid.Column="2" Margin="0 2 10 2">
-                    <Grid.RowDefinitions>
-                        <!--  Task description row  -->
-                        <RowDefinition Height="*" />
-                        <!--  Timestamp row  -->
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                <Border Grid.Column="2" Margin="{Binding ApplicationViewModel.ApplicationSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskSpacingToMarginConverter}}">
+                    <Grid Margin="0 2 10 2">
+                        <Grid.RowDefinitions>
+                            <!--  Task description row  -->
+                            <RowDefinition Height="*" />
+                            <!--  Timestamp row  -->
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                    <!--  Task description  -->
-                    <local:RichTextEditorControl Grid.Row="0" DataContext="{Binding TextEditorViewModel}" />
+                        <!--  Task description  -->
+                        <local:RichTextEditorControl Grid.Row="0" DataContext="{Binding TextEditorViewModel}" />
 
-                    <!--  Catch double click to change to edit mode  -->
-                    <Border
-                        Grid.Row="0"
-                        Background="Transparent"
-                        Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
-                        <Border.InputBindings>
-                            <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
-                        </Border.InputBindings>
-                    </Border>
+                        <!--  Catch double click to change to edit mode  -->
+                        <Border
+                            Grid.Row="0"
+                            Background="Transparent"
+                            Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                            <Border.InputBindings>
+                                <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
+                            </Border.InputBindings>
+                        </Border>
 
-                    <StackPanel
-                        Grid.Row="1"
-                        Margin="6 0 0 0"
-                        Orientation="Horizontal">
-
-                        <Label
-                            Padding="0"
-                            Content="Created: "
-                            FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
-                            Foreground="{DynamicResource TaskDateBrush}"
-                            Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-
-                        <!--  Creation date  -->
-                        <TextBlock
+                        <StackPanel
                             Grid.Row="1"
-                            Margin="0 0 16 0"
-                            FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
-                            Foreground="{DynamicResource TaskDateBrush}"
-                            Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                            Text="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
-                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                            Margin="6 0 0 0"
+                            Orientation="Horizontal">
 
-                        <Label
-                            Padding="0"
-                            Content="Modified: "
-                            FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
-                            Foreground="{DynamicResource TaskDateBrush}"
-                            Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                            <Label
+                                Padding="0"
+                                Content="Created: "
+                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Foreground="{DynamicResource TaskDateBrush}"
+                                Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
-                        <!--  Modification date  -->
-                        <TextBlock
-                            Grid.Row="1"
-                            FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
-                            Foreground="{DynamicResource TaskDateBrush}"
-                            Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                            Text="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
-                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-                    </StackPanel>
+                            <!--  Creation date  -->
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="0 0 16 0"
+                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Foreground="{DynamicResource TaskDateBrush}"
+                                Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
+                                Text="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
-                    <!--
-                        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>
-                        TextOptions.TextFormattingMode="Display"
-                        TextOptions.TextRenderingMode="ClearType"
-                        TextOptions.TextHintingMode="Fixed"
-                    -->
+                            <Label
+                                Padding="0"
+                                Content="Modified: "
+                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Foreground="{DynamicResource TaskDateBrush}"
+                                Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
-                </Grid>
+                            <!--  Modification date  -->
+                            <TextBlock
+                                Grid.Row="1"
+                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Foreground="{DynamicResource TaskDateBrush}"
+                                Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
+                                Text="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+
 
                 <!--  Hidden buttons  -->
                 <Border

@@ -208,6 +208,7 @@
     <Compile Include="ValueConverters\Single\IntTo2DigitTextConverter.cs" />
     <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToDoubleConverter.cs" />
+    <Compile Include="ValueConverters\Single\TaskSpacingToMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\EnumToFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\Multi\EqualityConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\FontSizeToDoubleConverter.cs" />

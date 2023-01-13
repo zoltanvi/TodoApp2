@@ -8,26 +8,26 @@ namespace TodoApp2
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double height = 10;
+            double height = 2;
 
             if (value is TaskSpacing taskSpacing)
             {
                 switch (taskSpacing)
                 {
                     case TaskSpacing.Compact:
-                        height = 10;
+                        height = 2;
                         break;
 
                     case TaskSpacing.Normal:
-                        height = 40;
+                        height = 6;
                         break;
 
                     case TaskSpacing.Comfortable:
-                        height = 60;
+                        height = 10;
                         break;
 
                     case TaskSpacing.Spacious:
-                        height = 80;
+                        height = 20;
                         break;
                 }
             }
