@@ -20,7 +20,7 @@ namespace TodoApp2.Core
         {
             m_Application = applicationViewModel;
             m_Database = database;
-            m_Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 1) };
+            m_Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 5) };
             m_Timer.Tick += TimerOnTick;
         }
 

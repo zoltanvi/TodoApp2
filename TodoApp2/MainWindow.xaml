@@ -146,8 +146,8 @@
                                                         Grid.Column="1"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Visibility="Collapsed"
-                                                        local:AnimateFadeInAndOutProperty.Value="{Binding ApplicationViewModel.SaveIconVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                                                        Opacity="0"
+                                                        local:SaveIconAnimator.Animate="{Binding ApplicationViewModel.SaveIconVisible, Source={x:Static local:ViewModelLocator.Instance}}"
                                                         Style="{DynamicResource IconLabelStyle}"
                                                         FontSize="16"
                                                         Foreground="{DynamicResource TitleBarBrush}" />

@@ -107,6 +107,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Animation2\SaveIconAnimator.cs" />
+    <Compile Include="Animation\AnimateBaseProperty.cs" />
     <Compile Include="Animation\PageAnimation.cs" />
     <Compile Include="Animation\FrameworkElementAnimations.cs" />
     <Compile Include="Animation\PageAnimations.cs" />
@@ -454,6 +456,7 @@
   <ItemGroup>
     <Resource Include="Images\icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

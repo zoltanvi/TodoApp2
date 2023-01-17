@@ -11,8 +11,6 @@ namespace TodoApp2
     public abstract class BaseAttachedProperty<TParent, TProperty>
         where TParent : BaseAttachedProperty<TParent, TProperty>, new()
     {
-        #region Public Events
-
         /// <summary>
         /// Fired when the value changes
         /// </summary>
@@ -23,18 +21,10 @@ namespace TodoApp2
         /// </summary>
         public event Action<DependencyObject, object> ValueUpdated = (sender, value) => { };
 
-        #endregion Public Events
-
-        #region Public Properties
-
         /// <summary>
         /// A singleton instance of our parent class
         /// </summary>
         public static TParent Instance { get; } = new TParent();
-
-        #endregion Public Properties
-
-        #region Attached Property Definitions
 
         /// <summary>
         /// The attached property for this class
@@ -94,10 +84,6 @@ namespace TodoApp2
         /// <param name="value">The value to set the property to</param>
         public static void SetValue(DependencyObject d, TProperty value) => d.SetValue(ValueProperty, value);
 
-        #endregion Attached Property Definitions
-
-        #region Event Methods
-
         /// <summary>
         /// The method that is called when any attached property of this type is changed
         /// </summary>
@@ -111,7 +97,5 @@ namespace TodoApp2
         /// <param name="sender">The UI element that this property was changed for</param>
         /// <param name="e">The arguments for this event</param>
         public virtual void OnValueUpdated(DependencyObject sender, object value) { }
-
-        #endregion Event Methods
     }
 }
