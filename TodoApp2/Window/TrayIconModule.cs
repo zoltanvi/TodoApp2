@@ -29,7 +29,8 @@ namespace TodoApp2
             m_NotifyIcon = new NotifyIcon
             {
                 Icon = new System.Drawing.Icon("Images\\Tray.ico"),
-                Visible = false
+                Visible = false,
+                Text = "TodoApp2"
             };
 
             m_NotifyIcon.MouseClick += OnNotifyIconMouseClick;
