@@ -85,7 +85,7 @@
     <system:String x:Key="SegoeIconFontSizeDecrease">&#xE8E7;</system:String>
     <system:String x:Key="SegoeIconFontSizeIncrease">&#xE8E8;</system:String>
 
-
+    <system:String x:Key="SegoeIconMinimizeToTray">&#xE18C;</system:String>
     <system:String x:Key="SegoeIconDeleteFormatting">&#xED60;</system:String>
 
 

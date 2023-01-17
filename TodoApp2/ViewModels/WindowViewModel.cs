@@ -4,7 +4,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TodoApp2.Core;
+using System.Windows.Forms;
 using Thickness = System.Windows.Thickness;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace TodoApp2
 {
@@ -18,6 +20,7 @@ namespace TodoApp2
 
         private readonly Window m_Window;
         private readonly WindowResizer m_Resizer;
+        private readonly TrayIconModule m_TrayIconModule;
         private readonly ThemeManager m_ThemeManager;
 
         private readonly ApplicationViewModel m_ApplicationViewModel;
@@ -81,6 +84,12 @@ namespace TodoApp2
 
         public string CurrentTime { get; set; }
 
+        public bool IsTrayIconEnabled
+        {
+            get => m_TrayIconModule.IsEnabled;
+            set => m_TrayIconModule.IsEnabled = value;
+        }
+
         #region Workaround
         // WORKAROUND properties for MultiBinding bug
         // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
@@ -96,6 +105,7 @@ namespace TodoApp2
             m_Window = window;
             m_ApplicationViewModel = applicationViewModel;
             m_Database = database;
+            m_ApplicationViewModel.ApplicationSettings.PropertyChanged += OnAppSettingsPropertyChanged;
 
             m_ThemeManager = new ThemeManager();
 
@@ -116,15 +126,17 @@ namespace TodoApp2
             // Create commands
             MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
-            CloseCommand = new RelayCommand(() => m_Window.Close());
+            CloseCommand = new RelayCommand(CloseWindow);
             UndoCommand = new RelayCommand(() => { IoC.UndoManager.Undo(); });
             RedoCommand = new RelayCommand(() => { IoC.UndoManager.Redo(); });
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
-
             m_Resizer.WindowDockChanged += OnWindowDockChanged;
             m_Resizer.IsDockedChanged += OnIsDockedChanged;
+
+            m_TrayIconModule = new TrayIconModule(m_Window);
+            m_TrayIconModule.IsEnabled = ApplicationSettings.IsTrayIconEnabled;
 
             // At application start, the saved theme is loaded back
             LoadBackTheme();
@@ -204,6 +216,27 @@ namespace TodoApp2
         private void ZoomIn()
         {
             ViewModelLocator.UIScaler.ZoomIn();
+        }
+
+        private void CloseWindow()
+        {
+            if (m_TrayIconModule.IsEnabled)
+            {
+                m_TrayIconModule.MinimizeToTray();
+            }
+            else
+            {
+                m_TrayIconModule.Dispose();
+                m_Window.Close();
+            }
+        }
+
+        private void OnAppSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ApplicationSettings.IsTrayIconEnabled))
+            {
+                m_TrayIconModule.IsEnabled = ApplicationSettings.IsTrayIconEnabled;
+            }
         }
 
         private void OnWindowFlashRequested(object obj)

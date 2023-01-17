@@ -64,6 +64,7 @@ namespace TodoApp2.Core
         public bool InsertOrderReversed { get; set; }
         public bool MoveTaskOnCompletion { get; set; } = true;
         public bool IsColorBarRounded { get; set; } = true;
+        public bool IsTrayIconEnabled { get; set; }
 
         #region Testing
 
@@ -121,6 +122,7 @@ namespace TodoApp2.Core
                 { nameof(InsertOrderReversed), PropertyValueHandlers.Bool },
                 { nameof(MoveTaskOnCompletion), PropertyValueHandlers.Bool },
                 { nameof(IsColorBarRounded), PropertyValueHandlers.Bool },
+                { nameof(IsTrayIconEnabled), PropertyValueHandlers.Bool },
             };
 
             m_UiScaler.Zoomed += OnZoomed;
