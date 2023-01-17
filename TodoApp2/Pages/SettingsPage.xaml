@@ -123,7 +123,7 @@
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
-                        <!--  Minimize to tray on exit -->
+                        <!--  Exit button minimizes to tray  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Content="{DynamicResource SegoeIconMinimizeToTray}" Style="{DynamicResource SettingsIconLabelStyle}">
                                 <Label.LayoutTransform>
@@ -131,7 +131,7 @@
                                 </Label.LayoutTransform>
                             </Label>
 
-                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Minimize to tray on exit" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Exit button minimizes to tray" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTrayIconEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
