@@ -4,7 +4,6 @@ using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using TodoApp2.Core;
 
 namespace TodoApp2
@@ -28,11 +27,7 @@ namespace TodoApp2
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
-
             SubscribeToExceptionHandling();
-
-            // Let the base application do what it needs
-            base.OnStartup(e);
 
             _instanceMutex = new Mutex(true, PipeName, out _isFirstInstance);
 
@@ -42,6 +37,12 @@ namespace TodoApp2
                 Current.Shutdown();
                 return;
             }
+
+            SplashScreen splashScreen = new SplashScreen("Images/splash.png");
+            splashScreen.Show(false, true);
+
+            // Let the base application do what it needs
+            base.OnStartup(e);
 
             // Start the named pipe server to listen for messages from other instances
             Task.Run(() => ListenForMessages());
@@ -56,6 +57,7 @@ namespace TodoApp2
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
+            splashScreen.Close(TimeSpan.Zero);
         }
 
         private static void SendMessageToRunningInstance(string message)

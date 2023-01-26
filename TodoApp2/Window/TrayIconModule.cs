@@ -11,6 +11,7 @@ namespace TodoApp2
         private bool m_IsEnabled;
         private bool m_IsVisible;
         private ContextMenu m_ContextMenu;
+        private WindowState m_PreviousWindowState;
 
         public bool IsEnabled
         {
@@ -25,6 +26,7 @@ namespace TodoApp2
         public TrayIconModule(Window window)
         {
             m_Window = window;
+            m_PreviousWindowState = m_Window.WindowState;
 
             m_NotifyIcon = new NotifyIcon
             {
@@ -42,7 +44,7 @@ namespace TodoApp2
         {
             if (IsEnabled && e.Button == MouseButtons.Left)
             {
-                if (m_IsVisible)
+                if (m_IsVisible && m_Window.WindowState != WindowState.Minimized)
                 {
                     MinimizeToTray();
                 }
@@ -57,6 +59,7 @@ namespace TodoApp2
         {
             if (IsEnabled)
             {
+                m_PreviousWindowState = m_Window.WindowState;
                 m_Window.Hide();
                 m_IsVisible = false;
             }
@@ -70,7 +73,7 @@ namespace TodoApp2
                 m_IsVisible = true;
             }
 
-            m_Window.WindowState = WindowState.Normal;
+            m_Window.WindowState = m_PreviousWindowState;
         }
 
         private void CreateContextMenu()

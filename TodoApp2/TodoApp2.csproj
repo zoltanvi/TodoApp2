@@ -454,7 +454,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Images\splash.png" />
+    <Resource Include="Images\splash.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon.ico" />
