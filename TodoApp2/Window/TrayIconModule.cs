@@ -62,6 +62,17 @@ namespace TodoApp2
             }
         }
 
+        public void ShowWindow()
+        {
+            if (!m_IsVisible)
+            {
+                m_Window.Show();
+                m_IsVisible = true;
+            }
+
+            m_Window.WindowState = WindowState.Normal;
+        }
+
         private void CreateContextMenu()
         {
             m_ContextMenu = new ContextMenu();
@@ -86,17 +97,6 @@ namespace TodoApp2
         {
             Dispose();
             m_Window.Close();
-        }
-
-        private void ShowWindow()
-        {
-            if (!m_IsVisible)
-            {
-                m_Window.Show();
-                m_IsVisible = true;
-            }
-
-            m_Window.WindowState = WindowState.Normal;
         }
 
         public void Dispose()

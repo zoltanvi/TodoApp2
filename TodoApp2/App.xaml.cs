@@ -1,6 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.IO.Pipes;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using TodoApp2.Core;
 
 namespace TodoApp2
@@ -10,6 +14,12 @@ namespace TodoApp2
     /// </summary>
     public partial class App : Application
     {
+        private const string PipeName = "TodoApp2Pipe";
+        private const string ShowRunningAppWindowMessage = "ShowRunningApp";
+
+        private static bool _isFirstInstance;
+        private static Mutex _instanceMutex;
+
         private string m_CrashReportPath;
 
         /// <summary>
@@ -18,10 +28,23 @@ namespace TodoApp2
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
+
             SubscribeToExceptionHandling();
 
             // Let the base application do what it needs
             base.OnStartup(e);
+
+            _instanceMutex = new Mutex(true, PipeName, out _isFirstInstance);
+
+            if (!_isFirstInstance)
+            {
+                SendMessageToRunningInstance(ShowRunningAppWindowMessage);
+                Current.Shutdown();
+                return;
+            }
+
+            // Start the named pipe server to listen for messages from other instances
+            Task.Run(() => ListenForMessages());
 
             // Load async service
             IAsyncActionService asyncActionService = AsyncActionService.Instance;
@@ -33,6 +56,44 @@ namespace TodoApp2
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
+        }
+
+        private static void SendMessageToRunningInstance(string message)
+        {
+            using (var client = new NamedPipeClientStream(PipeName))
+            {
+                client.Connect();
+                using (var writer = new StreamWriter(client))
+                {
+                    writer.WriteLine(message);
+                    writer.Flush();
+                }
+            }
+        }
+
+        private static void ListenForMessages()
+        {
+            while (true)
+            {
+                using (var server = new NamedPipeServerStream(PipeName))
+                {
+                    server.WaitForConnection();
+                    using (var reader = new StreamReader(server))
+                    {
+                        string message = reader.ReadLine();
+                        if (message == ShowRunningAppWindowMessage)
+                        {
+                            Current.Dispatcher.Invoke(() =>
+                            {
+                                if (Current.MainWindow.DataContext is WindowViewModel windowViewModel)
+                                {
+                                    windowViewModel.ShowWindowRequested();
+                                }
+                            });
+                        }
+                    }
+                }
+            }
         }
 
         private void SubscribeToExceptionHandling()

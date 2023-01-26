@@ -4,9 +4,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TodoApp2.Core;
-using System.Windows.Forms;
-using Thickness = System.Windows.Thickness;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using Thickness = System.Windows.Thickness;
 
 namespace TodoApp2
 {
@@ -206,6 +205,15 @@ namespace TodoApp2
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Used when 2 app instances communicate with each other, 
+        /// to show the main window.
+        /// </summary>
+        public void ShowWindowRequested()
+        {
+            m_TrayIconModule.ShowWindow();
         }
 
         private void ZoomOut()
