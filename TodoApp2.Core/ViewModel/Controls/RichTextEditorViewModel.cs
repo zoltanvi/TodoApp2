@@ -8,6 +8,7 @@ namespace TodoApp2.Core
     {
         private bool m_IsEditMode;
         private bool m_EnterActionOnLostFocus;
+        private bool m_ToolbarCloseOnLostFocus;
 
         public bool Focusable { get; set; }
         public bool NeedFocus { get; set; }
@@ -37,9 +38,10 @@ namespace TodoApp2.Core
         public Action EnterAction { get; set; }
         public ICommand LostFocusCommand { get; }
 
-        public RichTextEditorViewModel(bool focusOnEditMode, bool enterActionOnLostFocus, bool acceptsTab)
+        public RichTextEditorViewModel(bool focusOnEditMode, bool enterActionOnLostFocus, bool toolbarCloseOnLostFocus, bool acceptsTab)
         {
             m_EnterActionOnLostFocus = enterActionOnLostFocus;
+            m_ToolbarCloseOnLostFocus = toolbarCloseOnLostFocus;
             Focusable = true;
             FocusOnEditMode = focusOnEditMode;
             LostFocusCommand = new RelayCommand(OnLostFocus);
@@ -48,7 +50,10 @@ namespace TodoApp2.Core
 
         private void OnLostFocus()
         {
-            IsToolbarOpen = false;
+            if (m_ToolbarCloseOnLostFocus)
+            {
+                IsToolbarOpen = false;
+            }
 
             if (m_EnterActionOnLostFocus)
             {

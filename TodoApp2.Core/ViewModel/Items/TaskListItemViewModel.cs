@@ -59,7 +59,7 @@ namespace TodoApp2.Core
             SetBorderColorParameterizedCommand = new RelayParameterizedCommand(SetBorderColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
-            TextEditorViewModel = new RichTextEditorViewModel(true, true, false);
+            TextEditorViewModel = new RichTextEditorViewModel(true, false, false, false);
             TextEditorViewModel.EnterAction = UpdateContent;
         }
 
@@ -97,6 +97,8 @@ namespace TodoApp2.Core
             }
 
             TextEditorViewModel.IsEditMode = false;
+            TextEditorViewModel.IsToolbarOpen = false;
+            IoC.OneEditorOpenService.DisplayMode(this);
         }
 
         private void EditItem()
@@ -106,6 +108,7 @@ namespace TodoApp2.Core
 
             // Enable editing
             TextEditorViewModel.IsEditMode = true;
+            IoC.OneEditorOpenService.EditMode(this);
         }
 
         private void OpenReminder()

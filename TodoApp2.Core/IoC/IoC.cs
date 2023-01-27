@@ -11,6 +11,7 @@
         public static OverlayPageService OverlayPageService { get; private set; }
         public static CategoryListService CategoryListService { get; private set; }
         public static TaskListService TaskListService { get; private set; }
+        public static OneEditorOpenService OneEditorOpenService { get; private set; }
         public static MessageService MessageService { get; private set; }
         public static UIScaler UIScaler { get; private set; }
         public static UndoManager UndoManager { get; private set; }
@@ -41,6 +42,8 @@
 
             CategoryListService = new CategoryListService(ApplicationViewModel, Database);
             TaskListService = new TaskListService(Database, CategoryListService, ApplicationViewModel);
+
+            OneEditorOpenService = new OneEditorOpenService();
         }
     }
 }

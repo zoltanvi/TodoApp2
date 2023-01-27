@@ -118,6 +118,7 @@
     <Compile Include="ViewModel\Services\IUIScaler.cs" />
     <Compile Include="ViewModel\Services\MessageService.cs" />
     <Compile Include="ViewModel\Services\IOverlayPageService.cs" />
+    <Compile Include="ViewModel\Services\OneEditorOpenService.cs" />
     <Compile Include="ViewModel\Services\TaskListService.cs" />
     <Compile Include="ViewModel\Pages\TaskReminderPageViewModel.cs" />
     <Compile Include="ViewModel\Services\OverlayPageService.cs" />

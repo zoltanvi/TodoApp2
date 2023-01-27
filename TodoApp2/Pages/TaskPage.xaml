@@ -86,8 +86,10 @@
                 </Border.InputBindings>
             </Border>
 
+            <!--  Task list  -->
             <local:TaskListControl x:Name="MyTaskListControl" Grid.Row="1" />
 
+            <!--  Bottom panel  -->
             <Border
                 x:Name="BottomBorderPanel"
                 Grid.Row="2"
@@ -99,7 +101,16 @@
                         MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                         Padding="10"
                         VerticalAlignment="Bottom"
-                        DataContext="{Binding TextEditorViewModel}" />
+                        DataContext="{Binding TextEditorViewModel}">
+
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="GotFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding DataContext.TextBoxFocusedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}}" />
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+
+                    </local:RichTextEditorControl>
+
                 </DockPanel>
 
             </Border>

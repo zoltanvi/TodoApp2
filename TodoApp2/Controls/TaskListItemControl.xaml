@@ -213,6 +213,14 @@
                     </Grid>
                 </Border>
 
+                <!--  Editor indicator  -->
+                <Border
+                    Grid.Column="2"
+                    Width="2"
+                    Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                    HorizontalAlignment="Right"
+                    Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />
+
 
                 <!--  Main content  -->
                 <Border Grid.Column="2" Margin="{Binding ApplicationViewModel.ApplicationSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskSpacingToMarginConverter}}">

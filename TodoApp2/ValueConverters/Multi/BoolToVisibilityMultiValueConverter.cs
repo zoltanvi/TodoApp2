@@ -16,4 +16,17 @@ namespace TodoApp2
             return ((bool)values[0]) && ((bool)values[1]) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
+
+    internal class BoolToVisibilityMultiValueConverter2 : BaseMultiValueConverter<BoolToVisibilityMultiValueConverter2>
+    {
+        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length < 2)
+            {
+                return Visibility.Collapsed;
+            }
+
+            return ((bool)values[0]) || ((bool)values[1]) ? Visibility.Visible : Visibility.Collapsed;
+        }
+    }
 }

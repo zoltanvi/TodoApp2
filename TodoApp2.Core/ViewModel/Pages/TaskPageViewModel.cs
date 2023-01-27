@@ -107,6 +107,10 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand FinishCategoryEditCommand { get; }
 
+        /// <summary>
+        /// Executes when the Add new task textbox gains focus
+        /// </summary>
+        public ICommand TextBoxFocusedCommand { get; }
 
         public TaskPageViewModel()
         {
@@ -118,7 +122,7 @@ namespace TodoApp2.Core
             m_TaskListService = taskListService;
             m_CategoryListService = categoryListService;
 
-            TextEditorViewModel = new RichTextEditorViewModel(false, false, true);
+            TextEditorViewModel = new RichTextEditorViewModel(false, false, true, true);
             TextEditorViewModel.WatermarkText = "Add new task";
             TextEditorViewModel.EnterAction = CreateTaskItem;
 
@@ -138,10 +142,17 @@ namespace TodoApp2.Core
             EditCategoryCommand = new RelayCommand(EditCategory);
             FinishCategoryEditCommand = new RelayCommand(FinishCategoryEdit);
 
+            TextBoxFocusedCommand = new RelayCommand(OnTextBoxFocused);
+
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
 
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+        }
+
+        private void OnTextBoxFocused()
+        {
+            IoC.OneEditorOpenService.EditMode(null);
         }
 
         private void CreateTaskItem() => AddTaskItemCommand.Execute(null);

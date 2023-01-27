@@ -167,8 +167,18 @@
                 Grid.RowSpan="2"
                 Grid.Column="2"
                 Width="{Binding UIScaler.TextEditorToggleWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                HorizontalAlignment="right"
-                Visibility="{Binding IsFocused, ElementName=PART_TextEditor, Converter={StaticResource boolToVisibilityConverter}}">
+                HorizontalAlignment="right">
+
+                <Border.Visibility>
+                    <MultiBinding>
+                        <MultiBinding.Converter>
+                            <local:BoolToVisibilityMultiValueConverter2 />
+                        </MultiBinding.Converter>
+                        <Binding Path="IsEditMode" />
+                        <Binding Path="IsFocused" ElementName="PART_TextEditor" />
+                    </MultiBinding>
+                </Border.Visibility>
+
                 <ToggleButton
                     x:Name="IsEditorOpenToggle"
                     Margin="0 2 0 0"
