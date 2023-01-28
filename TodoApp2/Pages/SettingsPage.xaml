@@ -229,7 +229,7 @@
                         </DockPanel>
 
                         <!--  Move completed task to the end  -->
-                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}" ToolTip="The task list is reordered if this is turned on!">
                             <Label Content="{DynamicResource SegoeIconCheckList}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Move completed task to the end" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />

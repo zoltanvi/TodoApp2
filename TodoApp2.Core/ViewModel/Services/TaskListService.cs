@@ -44,6 +44,8 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+
+            m_ApplicationViewModel.ApplicationSettings.PropertyChanged += OnAppSettingsChanged;
         }
 
         public TaskListItemViewModel AddNewTask(string taskContent)
@@ -54,11 +56,11 @@ namespace TodoApp2.Core
 
             if (m_ApplicationViewModel.ApplicationSettings.InsertOrderReversed)
             {
-                int unfinishedTaskCount = TaskPageItems.Count(i => !i.IsDone);
+                int endInsertIndex = TaskPageItems.Count - CountDoneItemsFromBackwards();
 
                 // Insert the task at the end of the list
-                task = m_Database.CreateTask(taskContent, activeCategoryId, unfinishedTaskCount);
-                TaskPageItems.Insert(unfinishedTaskCount, task);
+                task = m_Database.CreateTask(taskContent, activeCategoryId, endInsertIndex);
+                TaskPageItems.Insert(endInsertIndex, task);
             }
             else
             {
@@ -125,46 +127,10 @@ namespace TodoApp2.Core
             m_Database.UpdateTaskList(TaskPageItems);
         }
 
-        /// <inheritdoc cref="Core.Database.GetActiveTaskItemsAsync"/>
+        /// <inheritdoc cref="Database.GetActiveTaskItemsAsync"/>
         public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(CategoryListItemViewModel category)
         {
             return await m_Database.GetActiveTaskItemsAsync(category);
-        }
-
-        private void OnClientDatabaseTaskChanged(object sender, TaskChangedEventArgs e)
-        {
-            TaskListItemViewModel modifiedItem = TaskPageItems.FirstOrDefault(item => item.Id == e.Task.Id);
-
-            modifiedItem?.CopyProperties(e.Task);
-        }
-
-        private async Task OnCategoryChanged()
-        {
-            m_CategoryChangeInProgress = true;
-
-            // Clear the list first to prevent inconsistent data on UI while the items are loading
-            TaskPageItems.Clear();
-
-            // Query the items with the current category
-            List<TaskListItemViewModel> filteredItems = await GetActiveTaskItemsAsync(ActiveCategory);
-
-            // Clear the list to prevent showing items from multiple categories.
-            // This can happen if the user changes category again while the query runs
-            TaskPageItems.Clear();
-
-            // Abort the previous task list loading
-            IoC.AsyncActionService.AbortRunningActions();
-
-            // Fill the actual list with the queried items
-            foreach (TaskListItemViewModel item in filteredItems)
-            {
-                //Action AddItem = new Action(() => TaskPageItems.Add(item));
-                //IoC.AsyncActionService.InvokeAsync(AddItem);
-
-                TaskPageItems.Add(item);
-            }
-
-            m_CategoryChangeInProgress = false;
         }
 
         /// <summary>
@@ -198,12 +164,81 @@ namespace TodoApp2.Core
             return newIndex;
         }
 
+        private void OnAppSettingsChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ApplicationSettings.MoveTaskOnCompletion)
+                && m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+            {
+                FixTaskPageItemsOrder(TaskPageItems);
+            }
+        }
+
+        private void FixTaskPageItemsOrder(IEnumerable<TaskListItemViewModel> originalTaskList)
+        {
+            // Sort and reorder tasks
+            List<TaskListItemViewModel> originalList = originalTaskList.ToList();
+            TaskPageItems.Clear();
+
+            IEnumerable<TaskListItemViewModel> pinnedItems = originalList.Where(t => t.Pinned && !t.IsDone);
+            IEnumerable<TaskListItemViewModel> unfinishedItems = originalList.Where(t => !t.Pinned && !t.IsDone);
+            IEnumerable<TaskListItemViewModel> finishedItems = originalList.Where(t => !t.Pinned && t.IsDone);
+
+            TaskPageItems.AddRange(pinnedItems);
+            TaskPageItems.AddRange(unfinishedItems);
+            TaskPageItems.AddRange(finishedItems);
+
+            m_Database.ResetListOrders(TaskPageItems);
+            PersistTaskList();
+        }
+
+        private void OnClientDatabaseTaskChanged(object sender, TaskChangedEventArgs e)
+        {
+            TaskListItemViewModel modifiedItem = TaskPageItems.FirstOrDefault(item => item.Id == e.Task.Id);
+
+            modifiedItem?.CopyProperties(e.Task);
+        }
+
+        private async Task OnCategoryChanged()
+        {
+            m_CategoryChangeInProgress = true;
+
+            // Clear the list first to prevent inconsistent data on UI while the items are loading
+            TaskPageItems.Clear();
+
+            // Query the items with the current category
+            List<TaskListItemViewModel> filteredItems = await GetActiveTaskItemsAsync(ActiveCategory);
+
+            // Clear the list to prevent showing items from multiple categories.
+            // This can happen if the user changes category again while the query runs
+            TaskPageItems.Clear();
+
+            // Abort the previous task list loading
+            IoC.AsyncActionService.AbortRunningActions();
+
+            // Fill the actual list with the queried items
+            if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+            {
+                FixTaskPageItemsOrder(filteredItems);
+            }
+            else
+            {
+                TaskPageItems.AddRange(filteredItems);
+
+                //Action AddItem = new Action(() => TaskPageItems.Add(item));
+                //IoC.AsyncActionService.InvokeAsync(AddItem);
+            }
+
+
+
+            m_CategoryChangeInProgress = false;
+        }
+
         private int GetReorderIndex(int newIndex, TaskListItemViewModel task,
             IEnumerable<TaskListItemViewModel> taskList)
         {
             if (task != null)
             {
-                var pinnedItemsCount = taskList.Count(i => i.Pinned);
+                CountTasks(taskList, out int listCount, out int pinnedItemsCount, out int doneItemsCount);
 
                 // If the task is pinned,
                 // it must be on top of the list or directly before or after another pinned item
@@ -215,6 +250,21 @@ namespace TodoApp2.Core
                 else if (!task.Pinned && newIndex < pinnedItemsCount)
                 {
                     newIndex = pinnedItemsCount;
+                }
+
+                if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+                {
+                    // If the task is done,
+                    // it must be on the bottom of the list or directly before or after another done item
+                    if (task.IsDone && newIndex < listCount - doneItemsCount)
+                    {
+                        newIndex = listCount - doneItemsCount;
+                    }
+                    // If the task is not done, it must be before the finished tasks.
+                    else if (!task.IsDone && newIndex > listCount - doneItemsCount - 1)
+                    {
+                        newIndex = listCount - doneItemsCount - 1;
+                    }
                 }
             }
 
@@ -230,7 +280,7 @@ namespace TodoApp2.Core
         /// <param name="e"></param>
         private void OnTaskPageItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (m_CategoryChangeInProgress)
+            if (m_CategoryChangeInProgress && !m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
             {
                 return;
             }
@@ -275,6 +325,51 @@ namespace TodoApp2.Core
                     break;
                 }
             }
+        }
+
+        private void CountTasks(
+            IEnumerable<TaskListItemViewModel> taskList,
+            out int listCount,
+            out int pinnedItemsCount,
+            out int doneItemsCount)
+        {
+            listCount = 0;
+            pinnedItemsCount = 0;
+            doneItemsCount = 0;
+
+            foreach (TaskListItemViewModel task in taskList)
+            {
+                listCount++;
+
+                if (task.IsDone)
+                {
+                    doneItemsCount++;
+                }
+
+                if (task.Pinned)
+                {
+                    pinnedItemsCount++;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Counts the done tasks in the list which are at the end of the list.
+        /// </summary>
+        private int CountDoneItemsFromBackwards()
+        {
+            int count = 0;
+            for (int i = TaskPageItems.Count - 1; i >= 0; i--)
+            {
+                if (!TaskPageItems[i].IsDone)
+                {
+                    break;
+                }
+
+                count++;
+            }
+
+            return count;
         }
     }
 }

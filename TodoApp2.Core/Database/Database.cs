@@ -288,7 +288,7 @@ namespace TodoApp2.Core
         /// <param name="taskList"></param>
         public void UpdateTaskListOrder(IEnumerable<IReorderable> taskList)
         {
-            var updateSource = taskList.Cast<TaskListItemViewModel>();
+            IEnumerable<TaskListItemViewModel> updateSource = taskList.Cast<TaskListItemViewModel>();
             // Persist every order change in the list into the database
             m_DataAccess.UpdateTaskListOrders(updateSource);
         }
@@ -349,6 +349,22 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Re-initializes the ListOrder property of each item in the list according to it's order in the list
+        /// </summary>
+        /// <param name="itemList"></param>
+        public void ResetListOrders(IEnumerable<IReorderable> itemList)
+        {
+            long current = DataAccessLayer.DefaultListOrder;
+
+            // Update the ListOrder property of the IReorderable items
+            foreach (var item in itemList)
+            {
+                item.ListOrder = current;
+                current += DataAccessLayer.ListOrderInterval;
+            }
+        }
+
+        /// <summary>
         /// Reorders the given item in it's containing collection.
         /// </summary>
         /// <remarks>
@@ -398,22 +414,6 @@ namespace TodoApp2.Core
                     ResetListOrders(orderedItems);
                     updateStrategy(orderedItems);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Re-initializes the ListOrder property of each item in the list according to it's order in the list
-        /// </summary>
-        /// <param name="itemList"></param>
-        private void ResetListOrders(IEnumerable<IReorderable> itemList)
-        {
-            long current = DataAccessLayer.DefaultListOrder;
-
-            // Update the ListOrder property of the IReorderable items
-            foreach (var item in itemList)
-            {
-                item.ListOrder = current;
-                current += DataAccessLayer.ListOrderInterval;
             }
         }
 

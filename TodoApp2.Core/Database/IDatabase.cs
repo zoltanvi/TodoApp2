@@ -22,6 +22,7 @@ namespace TodoApp2.Core
         CategoryListItemViewModel GetCategory(string categoryName);
         List<SettingsModel> GetSettings();
         TaskListItemViewModel GetTask(int id);
+        void ResetListOrders(IEnumerable<IReorderable> itemList);
         void ReorderCategory(CategoryListItemViewModel category, int newPosition);
         void ReorderTask(TaskListItemViewModel task, int newPosition);
         void TrashCategory(CategoryListItemViewModel category);
