@@ -338,7 +338,6 @@
                                     Padding="0"
                                     Content="{StaticResource SegoeIconChevronUp}"
                                     Style="{DynamicResource IconLabelStyle}"
-                                    Background="{DynamicResource PageBgBrush}"
                                     BorderThickness="0" />
                             </Viewbox>
 
@@ -349,7 +348,6 @@
                                     Padding="0"
                                     Content="{StaticResource SegoeIconChevronDown}"
                                     Style="{DynamicResource IconLabelStyle}"
-                                    Background="{DynamicResource PageBgBrush}"
                                     BorderThickness="0" />
                             </Viewbox>
 
