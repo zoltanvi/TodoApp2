@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,8 +18,8 @@ namespace TodoApp2
         private const string PipeName = "TodoApp2Pipe";
         private const string ShowRunningAppWindowMessage = "ShowRunningApp";
 
-        private static bool _isFirstInstance;
-        private static Mutex _instanceMutex;
+        private static bool m_IsFirstInstance;
+        private static Mutex m_InstanceMutex;
 
         private string m_CrashReportPath;
 
@@ -29,17 +31,19 @@ namespace TodoApp2
         {
             SubscribeToExceptionHandling();
 
-            _instanceMutex = new Mutex(true, PipeName, out _isFirstInstance);
+            m_InstanceMutex = new Mutex(true, PipeName, out m_IsFirstInstance);
 
-            if (!_isFirstInstance)
+            if (!m_IsFirstInstance)
             {
                 SendMessageToRunningInstance(ShowRunningAppWindowMessage);
                 Current.Shutdown();
                 return;
             }
 
-            SplashScreen splashScreen = new SplashScreen("Images/splash.png");
-            splashScreen.Show(false, true);
+            // Setup Database. It is essential for the application
+            IoC.SetupDatabase();
+
+            SplashScreen splashScreen = ShowSplashScreenForTheme();
 
             // Let the base application do what it needs
             base.OnStartup(e);
@@ -51,13 +55,28 @@ namespace TodoApp2
             IAsyncActionService asyncActionService = AsyncActionService.Instance;
             IoC.AsyncActionService = asyncActionService;
 
-            // Setup IoC
+            // Setup IoC. It can take some time
             IoC.Setup();
 
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
+
+            // The main window is open, so close the splash screen 
             splashScreen.Close(TimeSpan.Zero);
+        }
+
+        private SplashScreen ShowSplashScreenForTheme()
+        {
+            List<SettingsModel> settings = IoC.Database.GetSettings();
+            SettingsModel activeThemeSetting = settings.FirstOrDefault(s => s.Key == nameof(ApplicationSettings.ActiveTheme));
+
+            string activeThemeName = activeThemeSetting?.Value ?? nameof(Theme.ExtraDark);
+
+            SplashScreen splashScreen = new SplashScreen($"Images/Splash/{activeThemeName}.png");
+            splashScreen.Show(false, true);
+            
+            return splashScreen;
         }
 
         private static void SendMessageToRunningInstance(string message)

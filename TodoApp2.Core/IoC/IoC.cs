@@ -17,15 +17,21 @@
         public static UndoManager UndoManager { get; private set; }
 
         /// <summary>
-        /// Sets up the IoC container, binds all information required and is ready for use
-        /// NOTE: Must be called as soon as your application starts up to ensure all services can be found
+        /// Sets up the database
+        /// </summary>
+        public static void SetupDatabase()
+        {
+            MessageService = new MessageService();
+            Database = new Database(MessageService);
+        }
+
+        /// <summary>
+        /// Sets up the necessary services, binds all information required
         /// </summary>
         public static void Setup()
         {
             UIScaler = new UIScaler();
             UndoManager = new UndoManager();
-            MessageService = new MessageService();
-            Database = new Database(MessageService);
             ApplicationViewModel = new ApplicationViewModel(Database, UIScaler);
             OverlayPageService = new OverlayPageService(ApplicationViewModel, Database);
             

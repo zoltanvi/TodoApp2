@@ -83,14 +83,6 @@ namespace TodoApp2.Core
 
         public CategoryListItemViewModel GetCategory(string categoryName) => m_Database.GetCategory(categoryName);
 
-        private void OnOnlineModeChanged(object obj)
-        {
-            Items.Clear();
-            List<CategoryListItemViewModel> categories = m_Database.GetValidCategories();
-            Items.AddRange(categories);
-            OnPropertyChanged(nameof(ActiveCategory));
-        }
-
         protected override void OnDispose()
         {
             Items.CollectionChanged -= OnItemsChanged;

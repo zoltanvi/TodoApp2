@@ -454,9 +454,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\splash.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -466,6 +463,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Splash\BlueTint.png" />
+    <Resource Include="Images\Splash\DarkBlue.png" />
+    <Resource Include="Images\Splash\ExtraDark.png" />
+    <Resource Include="Images\Splash\Light.png" />
+    <Resource Include="Images\Splash\Nord.png" />
+    <Resource Include="Images\Splash\VSBlue.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

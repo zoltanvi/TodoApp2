@@ -88,16 +88,6 @@ namespace TodoApp2.Core
             ApplicationSettings.PropertyChanged += OnApplicationSettingsPropertyChanged;
         }
 
-        private void OnOnlineModeChangeRequested(object obj)
-        {
-            SaveApplicationSettings();
-        }
-
-        private void OnOnlineModeChanged(object obj)
-        {
-            LoadApplicationSettings();
-        }
-
         /// <summary>
         /// Navigates the main page to the specified page.
         /// </summary>
