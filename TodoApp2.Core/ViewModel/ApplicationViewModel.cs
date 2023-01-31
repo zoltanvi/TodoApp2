@@ -196,6 +196,9 @@ namespace TodoApp2.Core
                 // There is always at least one valid category. Set the first one to active
                 ApplicationSettings.ActiveCategoryId = m_Database.GetValidCategories().FirstOrDefault().Id;
             }
+
+            // Must be set to always check the registry on startup
+            IoC.AutoRunService.RunAtStartup = ApplicationSettings.RunAtStartup;
         }
 
         public void SaveApplicationSettings()

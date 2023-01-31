@@ -50,8 +50,8 @@ namespace TodoApp2.Core
         private void SetRegistryKey()
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey(REGISTRY_PATH, true);
-
-            if (rk.GetValue(APP_NAME) == null)
+            string registryValue = rk.GetValue(APP_NAME) as string;
+            if (registryValue == null || registryValue != ExePath)
             {
                 rk.SetValue(APP_NAME, ExePath);
             }
