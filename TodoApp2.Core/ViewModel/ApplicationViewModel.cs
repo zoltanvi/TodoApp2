@@ -213,6 +213,10 @@ namespace TodoApp2.Core
             {
                 Mediator.NotifyClients(ViewModelMessages.ThemeChangeRequested);
             }
+            else if(e.PropertyName == nameof(ApplicationSettings.RunAtStartup))
+            {
+                IoC.AutoRunService.RunAtStartup = ApplicationSettings.RunAtStartup;
+            }
         }
     }
 }

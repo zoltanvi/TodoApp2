@@ -457,9 +457,7 @@
     <Resource Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\Tray.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Resource Include="Images\Tray.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />

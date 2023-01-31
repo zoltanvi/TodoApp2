@@ -40,8 +40,8 @@ namespace TodoApp2
                 return;
             }
 
-            // Setup Database. It is essential for the application
-            IoC.SetupDatabase();
+            // Setup the essential services and modules for the application
+            IoC.PreSetup();
 
             SplashScreen splashScreen = ShowSplashScreenForTheme();
 

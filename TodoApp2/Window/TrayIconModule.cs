@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Resources;
 
 namespace TodoApp2
 {
@@ -28,9 +29,13 @@ namespace TodoApp2
             m_Window = window;
             m_PreviousWindowState = m_Window.WindowState;
 
+            string path = "pack://application:,,,/TodoApp2;component/Images/Tray.ico";
+            Uri iconUri = new Uri(path);
+            StreamResourceInfo imageInfo = System.Windows.Application.GetResourceStream(iconUri);
+
             m_NotifyIcon = new NotifyIcon
             {
-                Icon = new System.Drawing.Icon("Images\\Tray.ico"),
+                Icon = new System.Drawing.Icon(imageInfo.Stream),
                 Visible = false,
                 Text = "TodoApp2"
             };

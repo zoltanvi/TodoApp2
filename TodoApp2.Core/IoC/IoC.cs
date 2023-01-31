@@ -15,12 +15,14 @@
         public static MessageService MessageService { get; private set; }
         public static UIScaler UIScaler { get; private set; }
         public static UndoManager UndoManager { get; private set; }
+        public static AutoRunService AutoRunService { get; private set; }
 
         /// <summary>
-        /// Sets up the database
+        /// Sets up the essential services and modules
         /// </summary>
-        public static void SetupDatabase()
+        public static void PreSetup()
         {
+            AutoRunService = new AutoRunService();
             MessageService = new MessageService();
             Database = new Database(MessageService);
         }

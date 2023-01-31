@@ -65,6 +65,7 @@ namespace TodoApp2.Core
         public bool MoveTaskOnCompletion { get; set; } = true;
         public bool IsColorBarRounded { get; set; } = true;
         public bool IsTrayIconEnabled { get; set; }
+        public bool RunAtStartup { get; set; }
 
         #region Testing
 
@@ -123,6 +124,7 @@ namespace TodoApp2.Core
                 { nameof(MoveTaskOnCompletion), PropertyValueHandlers.Bool },
                 { nameof(IsColorBarRounded), PropertyValueHandlers.Bool },
                 { nameof(IsTrayIconEnabled), PropertyValueHandlers.Bool },
+                { nameof(RunAtStartup), PropertyValueHandlers.Bool },
             };
 
             m_UiScaler.Zoomed += OnZoomed;

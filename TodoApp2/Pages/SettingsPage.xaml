@@ -2,12 +2,12 @@
     x:Class="TodoApp2.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TodoApp2"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     Title="SettingsPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -97,9 +97,11 @@
 
                     <StackPanel Margin="15 20 20 20" Orientation="Vertical">
 
+                        <!--  ===========================================================  -->
+
                         <!--  Window settings  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Window settings" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Window and app settings" />
                         </DockPanel>
 
                         <!--  Always on top  -->
@@ -107,6 +109,13 @@
                             <Label Content="{DynamicResource SegoeIconAlwaysOnTop}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Always on top" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                        </DockPanel>
+
+                        <!--  Auto start app with Windows  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Content="{DynamicResource SegoeIconRepeat}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Auto start app with Windows" />
+                            <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RunAtStartup, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
                         <!--  Rounded window corners  -->
@@ -127,7 +136,7 @@
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Content="{DynamicResource SegoeIconMinimizeToTray}" Style="{DynamicResource SettingsIconLabelStyle}">
                                 <Label.LayoutTransform>
-                                    <RotateTransform CenterX="0" CenterY="0" Angle="180" />
+                                    <RotateTransform Angle="180" CenterX="0" CenterY="0" />
                                 </Label.LayoutTransform>
                             </Label>
 
@@ -160,10 +169,10 @@
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Accent color" />
 
                             <Border
+                                Padding="20 0"
                                 HorizontalAlignment="Right"
                                 BorderBrush="{DynamicResource BottomBarBorderBrush}"
-                                BorderThickness="2"
-                                Padding="20 0">
+                                BorderThickness="2">
 
                                 <!--  Color picker  -->
                                 <ComboBox
@@ -183,10 +192,10 @@
 
 
                             <Border
+                                Padding="20 0"
                                 HorizontalAlignment="Right"
                                 BorderBrush="{DynamicResource BottomBarBorderBrush}"
-                                BorderThickness="2"
-                                Padding="20 0">
+                                BorderThickness="2">
 
                                 <!--  Color picker  -->
                                 <ComboBox
@@ -206,8 +215,8 @@
 
                         </DockPanel>
 
-                        <!--  =====================================================  -->
 
+                        <!--  ===========================================================  -->
 
                         <!--  Task page settings  -->
                         <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
@@ -236,7 +245,8 @@
                         </DockPanel>
 
 
-                        <!--  =====================================================  -->
+                        <!--  ===========================================================  -->
+
 
                         <!--  Task settings  -->
                         <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
@@ -288,7 +298,7 @@
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                             <Label Content="{DynamicResource SegoeIconRoundedCorners}" Style="{DynamicResource SettingsIconLabelStyle}">
                                 <Label.LayoutTransform>
-                                    <RotateTransform CenterX="0" CenterY="0" Angle="90" />
+                                    <RotateTransform Angle="90" CenterX="0" CenterY="0" />
                                 </Label.LayoutTransform>
                             </Label>
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Rounded color bar" />
@@ -352,7 +362,7 @@
                             </ComboBox>
                         </DockPanel>
 
-                        <!--  =====================================================  -->
+                        <!--  ===========================================================  -->
 
                         <!--  Quick actions  -->
                         <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
@@ -395,21 +405,25 @@
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
-                        <!--  =====================================================  -->
+
+                        <!--  ===========================================================  -->
+
 
                         <!--  Note page settings  -->
 
-                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}" Margin="0 15 0 10">
+                        <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
                             <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Note page settings" />
                         </DockPanel>
 
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <Label Style="{DynamicResource SettingsIconLabelStyle}" Content="{DynamicResource SegoeIconWordWrap}" />
+                            <Label Content="{DynamicResource SegoeIconWordWrap}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Word wrap" />
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
-                        <!--  =====================================================  -->
+
+                        <!--  ===========================================================  -->
+
 
                         <!--  Text rendering settings  -->
                         <!--
