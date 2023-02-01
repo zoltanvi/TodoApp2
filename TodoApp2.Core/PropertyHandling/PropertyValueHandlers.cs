@@ -9,7 +9,6 @@
         public static IPropertyValueHandler String { get; } = new StringPropertyValueHandler();
         public static IPropertyValueHandler Theme { get; } = new EnumPropertyValueHandler<Theme>();
         public static IPropertyValueHandler Thickness { get; } = new EnumPropertyValueHandler<Thickness>();
-        public static IPropertyValueHandler FontSize { get; } = new EnumPropertyValueHandler<FontSize>();
         public static IPropertyValueHandler FontFamily { get; } = new EnumPropertyValueHandler<FontFamily>();
         public static IPropertyValueHandler TaskSpacing { get; } = new EnumPropertyValueHandler<TaskSpacing>();
     }

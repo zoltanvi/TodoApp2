@@ -124,6 +124,9 @@
     <Compile Include="Controls\ClickSelectTextBox.cs" />
     <Compile Include="Controls\ColorPickerComboBox.cs" />
     <Compile Include="Controls\CustomScrollViewer.cs" />
+    <Compile Include="Controls\FontSizeSliderControl.xaml.cs">
+      <DependentUpon>FontSizeSliderControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RichTextEditorControl.xaml.cs">
       <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
     </Compile>
@@ -215,7 +218,7 @@
     <Compile Include="ValueConverters\Single\TaskSpacingToMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\EnumToFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\Multi\EqualityConverter.cs" />
-    <Compile Include="ValueConverters\Single\Text\FontSizeToDoubleConverter.cs" />
+    <Compile Include="ValueConverters\Single\Text\FontSizeScaler.cs" />
     <Compile Include="ValueConverters\Single\Brush\SolidColorBrushToStringConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringToColorConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\TextToLineNumbersConverter.cs" />
@@ -237,6 +240,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CategoryListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FontSizeSliderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

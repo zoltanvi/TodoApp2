@@ -1,0 +1,85 @@
+﻿<UserControl
+    x:Class="TodoApp2.FontSizeSliderControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Column="0" Grid.Row="1">
+            <Label
+                Content="{DynamicResource SegoeIconFontSize}"
+                Style="{DynamicResource SettingsIconLabelStyle}"
+                VerticalAlignment="Center" />
+            <TextBlock
+                Grid.Column="0"
+                Grid.Row="1"
+                Text="Font size"
+                Style="{DynamicResource SettingsDescriptionStyle}" />
+        </DockPanel>
+
+        <Label
+            Margin="0 0 0 -10"
+            Grid.Column="2"
+            Grid.Row="0"
+            Content="Sample text"
+            FontSize="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+            Foreground="{DynamicResource ForegroundBrush}"
+            HorizontalAlignment="Center" />
+
+        <Grid Grid.Column="2" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Grid.Column="0"
+                Content="A"
+                Style="{DynamicResource SettingsALabelStyle}"
+                Margin="0 0 4 0"
+                Padding="0"
+                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                VerticalAlignment="Center" />
+
+            <Slider
+                Grid.Column="1"
+                Orientation="Horizontal"
+                Minimum="12"
+                Maximum="26"
+                TickPlacement="None"
+                VerticalAlignment="Center"
+                IsSnapToTickEnabled="True"
+                TickFrequency="1"
+                AutoToolTipPlacement="BottomRight"
+                Value="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
+            <Label
+                Grid.Column="2"
+                Content="A"
+                Style="{DynamicResource SettingsALabelStyle}"
+                Margin="4 0 0 0"
+                Padding="0"
+                FontSize="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}"
+                VerticalAlignment="Center" />
+
+        </Grid>
+
+    </Grid>
+</UserControl>

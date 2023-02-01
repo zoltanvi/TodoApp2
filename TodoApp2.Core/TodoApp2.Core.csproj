@@ -82,7 +82,6 @@
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationSettings.cs" />
     <Compile Include="DataModels\FontFamily.cs" />
-    <Compile Include="DataModels\FontSize.cs" />
     <Compile Include="DataModels\MessageType.cs" />
     <Compile Include="DataModels\TaskSpacing.cs" />
     <Compile Include="DataModels\Thickness.cs" />

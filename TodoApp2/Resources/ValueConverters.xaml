@@ -49,7 +49,7 @@
     <local:BoolToCornerRadiusConverter x:Key="boolToCornerRadiusConverter" />
 
     <local:EnumToFontFamilyConverter x:Key="enumToFontFamilyConverter" />
-    <local:FontSizeToDoubleConverter x:Key="fontSizeToDoubleConverter" />
+    <local:FontSizeScaler x:Key="fontSizeScaler" />
     <local:TextToLineNumbersConverter x:Key="textToLineNumbersConverter" />
 
     <local:ApplicationPageValueConverter x:Key="applicationPageValueConverter" />

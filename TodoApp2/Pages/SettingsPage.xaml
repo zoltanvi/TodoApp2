@@ -326,21 +326,7 @@
 
                         <!--  Task font size  -->
                         <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <Label Content="{DynamicResource SegoeIconFontSize}" Style="{DynamicResource SettingsIconLabelStyle}" />
-                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Font size" />
-                            <ComboBox
-                                Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                HorizontalAlignment="Right"
-                                FontFamily="{StaticResource Ubuntu}"
-                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
-                                ItemsSource="{Binding Source={StaticResource FontSizeDataProvider}}"
-                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                            <local:FontSizeSliderControl />
                         </DockPanel>
 
                         <!--  Task font family  -->

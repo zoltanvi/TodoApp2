@@ -198,7 +198,7 @@
                 Foreground="{DynamicResource PlaceholderBrush}"
                 IsHitTestVisible="False"
                 FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                FontSize="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeToDoubleConverter}}"
+                FontSize="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
                 Visibility="{Binding IsEmpty, ElementName=PART_TextEditor, Converter={StaticResource boolToVisibilityConverter}}"
                 Text="{Binding WatermarkText}" />
 

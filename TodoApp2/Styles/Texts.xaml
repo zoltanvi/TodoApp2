@@ -47,7 +47,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeToDoubleConverter}}" />
+        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}" />
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
@@ -57,7 +57,7 @@
 
     <Style x:Key="NotePageTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
-        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeToDoubleConverter}}" />
+        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
@@ -76,7 +76,7 @@
 
     <Style x:Key="BaseRichTextBoxStyle" TargetType="RichTextBox">
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
-        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeToDoubleConverter}}" />
+        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
@@ -334,6 +334,13 @@
         <Setter Property="Margin" Value="0 0 10 0" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+    </Style>
+
+    <Style
+        x:Key="SettingsALabelStyle"
+        BasedOn="{StaticResource SettingsIconLabelStyle}"
+        TargetType="Label">
+        <Setter Property="FontFamily" Value="Segoe UI" />
     </Style>
 
 </ResourceDictionary>

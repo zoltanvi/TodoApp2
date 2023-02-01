@@ -56,7 +56,7 @@ namespace TodoApp2.Core
         public bool IsQuickActionsBorderColorEnabled { get; set; } = true;
         public bool IsQuickActionsPinEnabled { get; set; } = true;
         public bool IsQuickActionsTrashEnabled { get; set; } = true;
-        public FontSize TaskFontSize { get; set; } = FontSize.Medium;
+        public double TaskFontSizeDouble { get; set; } = 16;
         public bool IsTitleBarDateVisible { get; set; } = false;
         public string NoteContent { get; set; }
         public bool NotePageWordWrap { get; set; }
@@ -107,7 +107,7 @@ namespace TodoApp2.Core
                 { nameof(IsItemBackgroundVisible), PropertyValueHandlers.Bool },
                 { nameof(IsItemBorderVisible), PropertyValueHandlers.Bool },
                 { nameof(ColorBarThickness), PropertyValueHandlers.Thickness },
-                { nameof(TaskFontSize), PropertyValueHandlers.FontSize },
+                { nameof(TaskFontSizeDouble), PropertyValueHandlers.Double },
                 { nameof(FontFamily), PropertyValueHandlers.FontFamily },
                 { nameof(AccentColor), PropertyValueHandlers.String },
                 { nameof(AppBorderColor), PropertyValueHandlers.String },
@@ -132,8 +132,8 @@ namespace TodoApp2.Core
 
         private void OnZoomed(object sender, EventArgs e)
         {
-            // This is needed to trigger the task font size update
-            OnPropertyChanged(nameof(TaskFontSize));
+            // This is needed to trigger the task font size update (fontSizeScaler)
+            OnPropertyChanged(nameof(TaskFontSizeDouble));
         }
 
         /// <summary>
