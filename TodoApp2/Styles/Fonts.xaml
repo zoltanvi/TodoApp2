@@ -67,6 +67,7 @@
     <system:String x:Key="SegoeIconSave">&#xE74E;</system:String>
     <system:String x:Key="SegoeIconCheckList">&#xE133;</system:String>
     <system:String x:Key="SegoeIconRepeat">&#xE8EE;</system:String>
+    <system:String x:Key="SegoeIconScaling">&#xE71E;</system:String>
 
     <system:String x:Key="SegoeIconChevronUp">&#xE70E;</system:String>
     <system:String x:Key="SegoeIconChevronDown">&#xE70D;</system:String>

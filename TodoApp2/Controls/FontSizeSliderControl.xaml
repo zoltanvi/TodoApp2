@@ -33,12 +33,14 @@
                 Style="{DynamicResource SettingsDescriptionStyle}" />
         </DockPanel>
 
+        <!--  SAMPLE TEXT  -->
         <Label
             Margin="0 0 0 -10"
             Grid.Column="2"
             Grid.Row="0"
             Content="Sample text"
             FontSize="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+            FontFamily="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
             Foreground="{DynamicResource ForegroundBrush}"
             HorizontalAlignment="Center" />
 
@@ -68,6 +70,7 @@
                 IsSnapToTickEnabled="True"
                 TickFrequency="1"
                 AutoToolTipPlacement="BottomRight"
+                Style="{DynamicResource CustomSliderStyle}"
                 Value="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
             <Label

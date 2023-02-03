@@ -37,7 +37,6 @@ namespace TodoApp2
         private const double OriginalColorPickerWidth = 32;
         private const double OriginalColorPickerOnlyDropDownWidth = 10;
         private const double OriginalColorPickerItemSize = 16;
-        private const double OriginalSettingsComboboxWidth = 110;
         private const double OriginalTextEditorToggleWidth = 15;
         private double m_ScalingPercent = s_OriginalScalingPercent;
         private const int s_ColorPickerColumns = 10;
@@ -52,10 +51,12 @@ namespace TodoApp2
         public double ColorPickerWidth => OriginalColorPickerWidth * ScaleValue;
         public double ColorPickerOnlyDropDownWidth => OriginalColorPickerOnlyDropDownWidth * ScaleValue;
         public double ColorPickerItemSize => OriginalColorPickerItemSize * ScaleValue;
-        public double SettingsComboboxWidth => OriginalSettingsComboboxWidth * ScaleValue;
         public double TextEditorToggleWidth => OriginalTextEditorToggleWidth * ScaleValue;
         public double ColorPickerDropDownWidth => 44 + 16 + (s_ColorPickerColumns * ColorPickerItemSize);
         public double TaskCheckBoxWidth => 36 * ScaleValue;
+        public double SliderHeight => 18 * ScaleValue;
+        public double SliderThumbHeight => 18 * ScaleValue;
+        public double SliderThumbWidth => 15 * ScaleValue;
 
         public event EventHandler Zoomed;
 
@@ -74,7 +75,7 @@ namespace TodoApp2
             value = Math.Round(value, 3);
             bool zoomed = value != StaticScaleValue;
             StaticScaleValue = value;
-            m_ScalingPercent = StaticScaleValue * 100;
+            m_ScalingPercent = StaticScaleValue * s_OriginalScalingPercent;
             OnPropertyChanged(string.Empty);
 
             if (zoomed)

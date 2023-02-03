@@ -188,6 +188,14 @@ namespace TodoApp2
                 else if (key == Key.Y)
                 {
                     IoC.UndoManager.Redo();
+                } 
+                else if (key == Key.Subtract)
+                {
+                    UIScaler.ZoomOut();
+                } 
+                else if (key == Key.Add)
+                {
+                    UIScaler.ZoomIn();
                 }
 
                 if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))

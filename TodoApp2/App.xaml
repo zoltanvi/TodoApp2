@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="Styles/ScrollBars.xaml" />
                 <ResourceDictionary Source="Styles/ListBoxes.xaml" />
                 <ResourceDictionary Source="Styles/CustomControls.xaml" />
+                <ResourceDictionary Source="Styles/Sliders.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

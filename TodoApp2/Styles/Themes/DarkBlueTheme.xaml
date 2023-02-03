@@ -53,7 +53,7 @@
 
     <Color x:Key="CommonBorder">#181a1f</Color>
     <Color x:Key="AppBorder">#5bb2fa</Color>
-    <Color x:Key="ComboBoxBorder">#181a1f</Color>
+    <Color x:Key="CommonControlBorder">#181a1f</Color>
     <Color x:Key="PopUpBorder">#181a1f</Color>
     <Color x:Key="BottomBarBorder">#181a1f</Color>
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
@@ -150,7 +150,7 @@
 
     <!--  Border  -->
     <SolidColorBrush x:Key="AppBorderBrush" Color="{DynamicResource AppBorder}" />
-    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{DynamicResource ComboBoxBorder}" />
+    <SolidColorBrush x:Key="CommonControlBorderBrush" Color="{DynamicResource CommonControlBorder}" />
     <SolidColorBrush x:Key="PopUpBorderBrush" Color="{DynamicResource PopUpBorder}" />
     <SolidColorBrush x:Key="BottomBarBorderBrush" Color="{DynamicResource BottomBarBorder}" />
     <SolidColorBrush x:Key="CommonBorderBrush" Color="{DynamicResource CommonBorder}" />

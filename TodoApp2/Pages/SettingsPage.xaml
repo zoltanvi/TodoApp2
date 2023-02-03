@@ -149,9 +149,7 @@
                             <Label Content="{DynamicResource SegoeIconTheme}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Theme" />
                             <ComboBox
-                                Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 HorizontalAlignment="Right"
-                                FontFamily="{StaticResource Ubuntu}"
                                 FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
                                 ItemsSource="{Binding Source={StaticResource ThemeDataProvider}}"
                                 SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
@@ -171,7 +169,7 @@
                             <Border
                                 Padding="20 0"
                                 HorizontalAlignment="Right"
-                                BorderBrush="{DynamicResource BottomBarBorderBrush}"
+                                BorderBrush="{DynamicResource CommonControlBorderBrush}"
                                 BorderThickness="2">
 
                                 <!--  Color picker  -->
@@ -194,7 +192,7 @@
                             <Border
                                 Padding="20 0"
                                 HorizontalAlignment="Right"
-                                BorderBrush="{DynamicResource BottomBarBorderBrush}"
+                                BorderBrush="{DynamicResource CommonControlBorderBrush}"
                                 BorderThickness="2">
 
                                 <!--  Color picker  -->
@@ -248,9 +246,40 @@
                         <!--  ===========================================================  -->
 
 
-                        <!--  Task settings  -->
+                        <!--  Task font settings  -->
                         <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
-                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task settings" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task font settings" />
+                        </DockPanel>
+
+                        <!--  Task font size  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <local:FontSizeSliderControl />
+                        </DockPanel>
+
+                        <!--  Task font family  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Content="{DynamicResource SegoeIconFontFamily}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Font family" />
+                            <ComboBox
+                                HorizontalAlignment="Right"
+                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
+                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DockPanel>
+
+
+                        <!--  ===========================================================  -->
+
+
+                        <!--  Task item settings  -->
+                        <DockPanel Margin="0 15 0 10" Style="{StaticResource SettingsDockPanelStyle}">
+                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Task item settings" />
                         </DockPanel>
 
                         <!--  Compact mode  -->
@@ -258,9 +287,7 @@
                             <Label Content="{DynamicResource SegoeIconCompactMode}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Spacing" />
                             <ComboBox
-                                Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 HorizontalAlignment="Right"
-                                FontFamily="{StaticResource Ubuntu}"
                                 FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
                                 ItemsSource="{Binding Source={StaticResource TaskSpacingDataProvider}}"
                                 SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
@@ -310,9 +337,7 @@
                             <Label Content="{DynamicResource SegoeIconColorBar}" Style="{DynamicResource SettingsIconLabelStyle}" />
                             <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Color bar thickness" />
                             <ComboBox
-                                Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 HorizontalAlignment="Right"
-                                FontFamily="{StaticResource Ubuntu}"
                                 FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
                                 ItemsSource="{Binding Source={StaticResource ThicknessDataProvider}}"
                                 SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
@@ -324,29 +349,6 @@
                             </ComboBox>
                         </DockPanel>
 
-                        <!--  Task font size  -->
-                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <local:FontSizeSliderControl />
-                        </DockPanel>
-
-                        <!--  Task font family  -->
-                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <Label Content="{DynamicResource SegoeIconFontFamily}" Style="{DynamicResource SettingsIconLabelStyle}" />
-                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Font family" />
-                            <ComboBox
-                                Width="{Binding UIScaler.SettingsComboboxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                HorizontalAlignment="Right"
-                                FontFamily="{StaticResource Ubuntu}"
-                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
-                                ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
-                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </DockPanel>
 
                         <!--  ===========================================================  -->
 

@@ -11,9 +11,13 @@ namespace TodoApp2
         double ColorPickerWidth { get; }
         UIScaler.FontSizes FontSize { get; }
         double ScaleValue { get; }
-        double SettingsComboboxWidth { get; }
         double SideMenuWidth { get; }
         double TextBoxMaxHeight { get; }
+        double TextEditorToggleWidth { get; }
+        double TaskCheckBoxWidth { get; }
+        double SliderHeight { get; }
+        double SliderThumbHeight { get; }
+        double SliderThumbWidth { get; }
 
         event EventHandler Zoomed;
 
