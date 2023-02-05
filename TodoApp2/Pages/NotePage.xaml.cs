@@ -1,7 +1,12 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
 using System.Windows.Input;
+using TodoApp2.Adorners;
 using TodoApp2.Core;
 
 namespace TodoApp2
@@ -14,6 +19,25 @@ namespace TodoApp2
         public NotePage(NotePageViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
+
+            NoteContentTextBox.Loaded += NoteContentTextBox_Loaded;
+            NoteContentTextBox.SizeChanged += OnNoteContentTextBoxSizeChanged;
+        }
+
+        private void NoteContentTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            NoteContentTextBox.Loaded -= NoteContentTextBox_Loaded;
+            AdornerLayer layer = AdornerLayer.GetAdornerLayer(NoteContentTextBox);
+            layer.Add(new TextBoxCurrentLineAdorner(NoteContentTextBox));
+            UpdateNumberOfLines(NoteContentTextBox);
+        }
+
+        private void OnNoteContentTextBoxSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.WidthChanged)
+            {
+                UpdateNumberOfLines(NoteContentTextBox);
+            }
         }
 
         private void ScrollBar_Scroll(object sender, ScrollEventArgs e)
@@ -158,6 +182,50 @@ namespace TodoApp2
         private void NoteContentTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             ViewModel.NoteContentChanged();
+            UpdateNumberOfLines(NoteContentTextBox);
+        }
+
+        private void UpdateNumberOfLines(TextBox textBox)
+        {
+            List<int> numberPositions = new List<int>();
+            int lastCharLineIndex = 0;
+
+            if (textBox.Text.Length != 0)
+            {
+                lastCharLineIndex = textBox.GetLineIndexFromCharacterIndex(textBox.Text.Length - 1);
+            }
+
+            // Check if the texbox is initialized
+            if (lastCharLineIndex == -1)
+            {
+                return;
+            }
+
+            int prevCharLine = lastCharLineIndex;
+            char current;
+            for (int i = textBox.Text.Length - 1; i >= 0; i--)
+            {
+                current = textBox.Text[i];
+                
+                if (current == '\n')
+                {
+                    if (i == textBox.Text.Length - 1)
+                    {
+                        numberPositions.Insert(0, prevCharLine + 1);
+                    }
+                    else
+                    {
+                        numberPositions.Insert(0, prevCharLine);
+                    }
+                }
+
+                prevCharLine = textBox.GetLineIndexFromCharacterIndex(i);
+            }
+            
+            // Default first line
+            numberPositions.Insert(0, 0);
+
+            ViewModel.LineEndIndexes = new ObservableCollection<int>(numberPositions);
         }
     }
 }

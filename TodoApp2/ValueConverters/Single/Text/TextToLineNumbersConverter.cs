@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
 
@@ -9,22 +10,27 @@ namespace TodoApp2
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(1);
-            int count = 1;
-            if (value is string text)
+            if (value is ObservableCollection<int> numberPositions)
             {
-                for (int i = 0; i < text.Length; i++)
+                int number = 1;
+                int arrayIndex = 0;
+                int lastIndex = numberPositions[numberPositions.Count - 1];
+                
+                for (int i = 0; i <= lastIndex; i++)
                 {
-                    if (text[i] == '\n')
+                    if (i == numberPositions[arrayIndex])
+                    {
+                        arrayIndex++;
+                        sb.AppendLine($"{number++}");
+                    }
+                    else
                     {
                         sb.AppendLine();
-                        sb.Append(++count);
                     }
                 }
             }
 
             return sb.ToString();
         }
-
     }
 }

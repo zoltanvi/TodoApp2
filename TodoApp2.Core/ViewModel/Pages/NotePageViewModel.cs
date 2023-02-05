@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Threading;
 
 namespace TodoApp2.Core
@@ -11,6 +12,8 @@ namespace TodoApp2.Core
         private DispatcherTimer m_Timer;
         private bool m_Saved;
         private bool m_Initialized = false;
+
+        public ObservableCollection<int> LineEndIndexes { get; set; }
 
         public NotePageViewModel()
         {

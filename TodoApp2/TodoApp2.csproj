@@ -112,6 +112,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Adorners\TextBoxCurrentLineAdorner.cs" />
     <Compile Include="Animation2\SaveIconAnimator.cs" />
     <Compile Include="Animation\AnimateBaseProperty.cs" />
     <Compile Include="Animation\PageAnimation.cs" />
