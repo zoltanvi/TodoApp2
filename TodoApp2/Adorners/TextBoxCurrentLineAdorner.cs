@@ -1,24 +1,47 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using TodoApp2.Core;
+using TodoApp2.Core.Constants;
+using TodoApp2.Helpers;
 
 namespace TodoApp2.Adorners
 {
     public class TextBoxCurrentLineAdorner : Adorner
     {
-        private Brush m_HighlightBrush = new SolidColorBrush(Color.FromArgb(64, 213, 213, 213));
+        private Brush m_HighlightBrush;
         private TextBox m_TextBox;
         private Rect m_CachedRect;
 
-        public TextBoxCurrentLineAdorner(TextBox textBox) : base(textBox)
+        public TextBoxCurrentLineAdorner(TextBox textBox, UIElement adornedElement) : base(adornedElement)
         {
+            m_HighlightBrush = (SolidColorBrush)Application.Current.TryFindResource(
+                GlobalConstants.BrushName.NoteLineAdornerBgBrush);
             m_TextBox = textBox;
             m_TextBox.SelectionChanged += OnTextBoxSelectionChanged;
             m_TextBox.SizeChanged += OnTextBoxSizeChanged;
             IsHitTestVisible = false;
             m_CachedRect = Rect.Empty;
+
+            // Subscribe to the theme changed event to repaint the list items when it happens
+            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+
+            IoC.UIScaler.Zoomed += OnUiScalerZoomed;
+        }
+
+        private void OnUiScalerZoomed(object sender, EventArgs e)
+        {
+            InvalidateVisual();
+        }
+
+        private void OnThemeChanged(object obj)
+        {
+            m_HighlightBrush = (SolidColorBrush)Application.Current.TryFindResource(
+                GlobalConstants.BrushName.NoteLineAdornerBgBrush);
+            InvalidateVisual();
         }
 
         private void OnTextBoxSizeChanged(object sender, SizeChangedEventArgs e)
@@ -38,19 +61,8 @@ namespace TodoApp2.Adorners
             int caretIndex = m_TextBox.CaretIndex;
             int textLength = m_TextBox.Text.Length;
             string text = m_TextBox.Text;
-            string character = "a";
 
-            Typeface typeFace = new Typeface(m_TextBox.FontFamily, m_TextBox.FontStyle, m_TextBox.FontWeight, m_TextBox.FontStretch);
-            FormattedText formattedText = new FormattedText(
-                character,
-                CultureInfo.CurrentCulture,
-                FlowDirection.LeftToRight,
-                typeFace,
-                m_TextBox.FontSize,
-                Brushes.Black,
-                VisualTreeHelper.GetDpi(this).PixelsPerDip);
-
-            double characterHeight = formattedText.Height;
+            double characterHeight = TextBoxHelper.GetTextHeight(m_TextBox, "a");
 
             int lineNumberStart = m_TextBox.GetLineIndexFromCharacterIndex(caretIndex);
             int lineNumberEnd = lineNumberStart;

@@ -21,6 +21,7 @@ namespace TodoApp2
                     if (i == numberPositions[arrayIndex])
                     {
                         arrayIndex++;
+                        
                         sb.AppendLine($"{number++}");
                     }
                     else

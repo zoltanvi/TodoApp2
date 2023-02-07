@@ -22,6 +22,7 @@
 
         <local:CustomScrollViewer
             Grid.Row="0"
+            x:Name="VerticalScrollViewer"
             VerticalScrollBarVisibility="Auto"
             HorizontalScrollBarVisibility="Disabled"
             Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
@@ -37,6 +38,7 @@
                     <!--  Line numbers ==============================================  -->
 
                     <TextBox
+                        Name="LineNumbersTextBox"
                         Style="{StaticResource NotePageTextBoxStyle}"
                         Foreground="{DynamicResource LineNumberBrush}"
                         Cursor="Arrow"
@@ -57,19 +59,28 @@
                     ScrollChanged="HorizontalScrollViewer_ScrollChanged"
                     Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
 
-                    <!--  Note content ==============================================  -->
-                    <AdornerDecorator Grid.Column="1">
+                    <Grid Grid.Column="1">
+
+                        <!--  Border behind the textbox, where the highligh is  -->
+                        <AdornerDecorator>
+                            <Border
+                                Padding="5 5"
+                                Background="#00FFFFFF"
+                                Name="NoteContentTextBoxBackground" />
+                        </AdornerDecorator>
+
+                        <!--  Note content ==============================================  -->
                         <TextBox
-                            Grid.Column="1"
+                            Name="NoteContentTextBox"
                             Padding="5 5"
                             VerticalAlignment="Stretch"
-                            Name="NoteContentTextBox"
                             Style="{StaticResource NotePageTextBoxStyle}"
                             TextWrapping="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource boolToTextWrappingConverter}}"
                             Text="{Binding ApplicationViewModel.ApplicationSettings.NoteContent, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"
                             TextChanged="NoteContentTextBox_TextChanged" />
-                    </AdornerDecorator>
+                    </Grid>
+
                 </local:CustomScrollViewer>
 
             </Grid>

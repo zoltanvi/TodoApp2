@@ -38,6 +38,7 @@
     <Color x:Key="PopUpBg">#2E3440</Color>
     <Color x:Key="OverlayBg">#19191E</Color>
     <Color x:Key="ContextMenuBg">#2F3031</Color>
+    <Color x:Key="NoteLineAdornerBg">#1e222d</Color>
     <Color x:Key="MessageInfoBg">#cce3ff</Color>
     <Color x:Key="MessageWarningBg">#ffe8c3</Color>
     <Color x:Key="MessageErrorBg">#ffd0cb</Color>
@@ -122,6 +123,7 @@
         x:Key="ContextMenuSelectedBackgroundBrush"
         Color="{DynamicResource ThemeOpposite}"
         Opacity="0.1" />
+    <SolidColorBrush x:Key="NoteLineAdornerBgBrush" Color="{DynamicResource NoteLineAdornerBg}" />
     <SolidColorBrush x:Key="MessageInfoBgBrush" Color="{DynamicResource MessageInfoBg}" />
     <SolidColorBrush x:Key="MessageWarningBgBrush" Color="{DynamicResource MessageWarningBg}" />
     <SolidColorBrush x:Key="MessageErrorBgBrush" Color="{DynamicResource MessageErrorBg}" />

@@ -168,6 +168,7 @@
     <Compile Include="Helpers\BindingFix\PushBinding.cs" />
     <Compile Include="Helpers\FlowDocumentHelper.cs" />
     <Compile Include="Helpers\SizeObserver.cs" />
+    <Compile Include="Helpers\TextBoxHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Services\AsyncActionService.cs" />
     <Compile Include="Pages\BasePage.cs" />

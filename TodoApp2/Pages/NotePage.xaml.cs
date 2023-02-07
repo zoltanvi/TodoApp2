@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
@@ -8,6 +9,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using TodoApp2.Adorners;
 using TodoApp2.Core;
+using TodoApp2.Helpers;
 
 namespace TodoApp2
 {
@@ -21,18 +23,24 @@ namespace TodoApp2
             InitializeComponent();
 
             NoteContentTextBox.Loaded += NoteContentTextBox_Loaded;
-            NoteContentTextBox.SizeChanged += OnNoteContentTextBoxSizeChanged;
+            NoteContentTextBox.SizeChanged += NoteContentTextBox_SizeChanged;
+            IoC.UIScaler.Zoomed += OnUiScalerZoomed;
+        }
+
+        private void OnUiScalerZoomed(object sender, EventArgs e)
+        {
+            UpdateNumberOfLines(NoteContentTextBox);
         }
 
         private void NoteContentTextBox_Loaded(object sender, RoutedEventArgs e)
         {
             NoteContentTextBox.Loaded -= NoteContentTextBox_Loaded;
-            AdornerLayer layer = AdornerLayer.GetAdornerLayer(NoteContentTextBox);
-            layer.Add(new TextBoxCurrentLineAdorner(NoteContentTextBox));
+            AdornerLayer layer = AdornerLayer.GetAdornerLayer(NoteContentTextBoxBackground);
+            layer.Add(new TextBoxCurrentLineAdorner(NoteContentTextBox, NoteContentTextBoxBackground));
             UpdateNumberOfLines(NoteContentTextBox);
         }
 
-        private void OnNoteContentTextBoxSizeChanged(object sender, SizeChangedEventArgs e)
+        private void NoteContentTextBox_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.WidthChanged)
             {
@@ -200,6 +208,8 @@ namespace TodoApp2
             {
                 return;
             }
+
+            // Todo: optimize performance
 
             int prevCharLine = lastCharLineIndex;
             char current;
