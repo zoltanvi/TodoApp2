@@ -254,10 +254,6 @@ namespace TodoApp2.Core
         {
             if (obj is TaskListItemViewModel task)
             {
-                // If this task is done, move it after the last not done item
-                // If this is not done (undone action), move it to the top of the list
-                // Because this generates a NotifyCollectionChangedAction.Move action,
-                // all task modifications will be persisted
                 if (task.IsDone)
                 {
                     // A done item cannot be pinned.
@@ -268,6 +264,8 @@ namespace TodoApp2.Core
                 {
                     MoveTaskToTop(task);
                 }
+
+                m_TaskListService.UpdateTask(task);
             }
         }
 
