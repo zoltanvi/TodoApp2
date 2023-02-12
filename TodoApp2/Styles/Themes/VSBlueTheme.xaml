@@ -12,7 +12,7 @@
     <Color x:Key="EditorButton">#FFFFFF</Color>
     <Color x:Key="Placeholder">#CCD5F0</Color>
     <Color x:Key="CheckBox">#7e7e7e</Color>
-    <Color x:Key="LineNumber">#313131</Color>
+    <Color x:Key="LineNumber">#90bff9</Color>
     <Color x:Key="TaskDate">#5BB2FA</Color>
     <Color x:Key="CalendarDayColumn">#5BB2FA</Color>
     <Color x:Key="CalendarDisabledDays">#CCD5F0</Color>

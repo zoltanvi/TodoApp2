@@ -12,92 +12,37 @@
     x:TypeArguments="core:NotePageViewModel"
     mc:Ignorable="d">
 
-    <Grid Margin="0">
+    <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+        <avalonEdit:TextEditor
+            xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+            Name="textEditor"
+            WordWrap="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged}"
+            FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.NoteFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+            FontSize="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+            TextChanged="textEditor_TextChanged"
+            Background="Transparent"
+            Foreground="{DynamicResource ForegroundBrush}"
+            LineNumbersForeground="{DynamicResource LineNumberBrush}"
+            ShowLineNumbers="True">
+            <avalonEdit:TextEditor.Style>
+                <Style TargetType="avalonEdit:TextEditor">
+                    <Style.Resources>
+                        <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
+                    </Style.Resources>
+                </Style>
+            </avalonEdit:TextEditor.Style>
 
+        </avalonEdit:TextEditor>
 
-        <local:CustomScrollViewer
-            Grid.Row="0"
-            x:Name="VerticalScrollViewer"
-            VerticalScrollBarVisibility="Auto"
-            HorizontalScrollBarVisibility="Disabled"
-            Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
-            <Grid>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Border Grid.Column="0" Background="{DynamicResource TitleBarBgBrush}">
-
-                    <!--  Line numbers ==============================================  -->
-
-                    <TextBox
-                        Name="LineNumbersTextBox"
-                        Style="{StaticResource NotePageTextBoxStyle}"
-                        Foreground="{DynamicResource LineNumberBrush}"
-                        Cursor="Arrow"
-                        IsReadOnly="True"
-                        Focusable="False"
-                        Margin="0 5"
-                        Opacity="0.5"
-                        VerticalAlignment="Stretch"
-                        HorizontalContentAlignment="Right"
-                        Text="{Binding LineEndIndexes, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource textToLineNumbersConverter}}" />
-                </Border>
-
-                <local:CustomScrollViewer
-                    Grid.Column="1"
-                    x:Name="HorizontalScrollViewer"
-                    VerticalScrollBarVisibility="Disabled"
-                    HorizontalScrollBarVisibility="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource boolToScrollBarVisibilityConverter}}"
-                    ScrollChanged="HorizontalScrollViewer_ScrollChanged"
-                    Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
-
-                    <Grid Grid.Column="1">
-
-                        <!--  Border behind the textbox, where the highligh is  -->
-                        <AdornerDecorator>
-                            <Border
-                                Padding="5 5"
-                                Background="#00FFFFFF"
-                                Name="NoteContentTextBoxBackground" />
-                        </AdornerDecorator>
-
-                        <!--  Note content ==============================================  -->
-                        <TextBox
-                            Name="NoteContentTextBox"
-                            Padding="5 5"
-                            VerticalAlignment="Stretch"
-                            Style="{StaticResource NotePageTextBoxStyle}"
-                            TextWrapping="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource boolToTextWrappingConverter}}"
-                            Text="{Binding ApplicationViewModel.ApplicationSettings.NoteContent, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            PreviewKeyDown="NoteContentTextBox_PreviewKeyDown"
-                            TextChanged="NoteContentTextBox_TextChanged" />
-                    </Grid>
-
-                </local:CustomScrollViewer>
-
-            </Grid>
-        </local:CustomScrollViewer>
-
-        <!--  Horizontal scrollbar ==============================================  -->
-
-        <ScrollBar
-            Grid.Row="1"
-            x:Name="HorizontalScrollBarControl"
-            Orientation="Horizontal"
-            Style="{DynamicResource DarkScrollBarStyle}"
-            Minimum="0"
-            Maximum="{Binding ScrollableWidth, ElementName=HorizontalScrollViewer}"
-            Scroll="ScrollBar_Scroll"
-            Background="{DynamicResource TitleBarBgBrush}"
-            ViewportSize="{Binding ViewportWidth, ElementName=HorizontalScrollViewer}" />
+        <Border
+            Background="{DynamicResource PageBgBrush}"
+            BorderBrush="black"
+            Visibility="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Width="{Binding UIScaler.NotePageBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+            Height="{Binding UIScaler.NotePageBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
 
     </Grid>
 </local:BasePage>

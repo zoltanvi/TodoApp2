@@ -409,6 +409,23 @@
                             <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                         </DockPanel>
 
+                        <!--  Note page font family  -->
+                        <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                            <Label Content="{DynamicResource SegoeIconFontFamily}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                            <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Font family" />
+                            <ComboBox
+                                HorizontalAlignment="Right"
+                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
+                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.NoteFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DockPanel>
+
 
                         <!--  ===========================================================  -->
 

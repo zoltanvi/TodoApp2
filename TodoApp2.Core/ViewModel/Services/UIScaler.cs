@@ -57,6 +57,8 @@ namespace TodoApp2
         public double SliderHeight => 18 * ScaleValue;
         public double SliderThumbHeight => 18 * ScaleValue;
         public double SliderThumbWidth => 15 * ScaleValue;
+        public double ScrollbarWidth => 16 * ScaleValue;
+        public double NotePageBoxWidth => 17 * ScaleValue;
 
         public event EventHandler Zoomed;
 
