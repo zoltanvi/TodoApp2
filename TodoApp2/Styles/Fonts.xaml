@@ -3,38 +3,60 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <FontFamily x:Key="SCE-PS3">pack://application;,,,/Fonts/#SCE-PS3 Rodin LATIN Regular</FontFamily>
-    <FontFamily x:Key="Ubuntu">pack://application;,,,/Fonts/#Ubuntu Regular</FontFamily>
-    <FontFamily x:Key="UbuntuLight">pack://application;,,,/Fonts/#Ubuntu Light</FontFamily>
-    <FontFamily x:Key="UbuntuBold">pack://application;,,,/Fonts/#Ubuntu Bold</FontFamily>
     <FontFamily x:Key="SegoeMDL2Assets">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
 
-    <FontFamily x:Key="SegoeUIVariable">pack://application;,,,/Fonts/#Segoe-UI-Variable-Static-Text</FontFamily>
-    <FontFamily x:Key="SegoeUIVariableLight">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Light</FontFamily>
-    <FontFamily x:Key="SegoeUIVariableBold">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Bold</FontFamily>
-    <FontFamily x:Key="SegoeUIVariableSemilight">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Semilight</FontFamily>
-    <FontFamily x:Key="SegoeUIVariableSemibold">pack://application;,,,/Fonts/#Segoe UI Variable Static Text Semibold</FontFamily>
+    <!--  Calibri,  -->
 
-    <FontFamily x:Key="SourceCodeProRegular">pack://application;,,,/Fonts/#Source Code Pro Regular</FontFamily>
-    <FontFamily x:Key="SourceCodeProBold">pack://application;,,,/Fonts/#Source Code Pro Bold</FontFamily>
+    <FontFamily x:Key="CascadiaMonoLight">pack://application;,,,/Fonts/CascadiaMono/#Cascadia Mono Light</FontFamily>
+    <FontFamily x:Key="CascadiaMonoRegular">pack://application;,,,/Fonts/CascadiaMono/#Cascadia Mono Regular</FontFamily>
+    <FontFamily x:Key="CascadiaMonoBold">pack://application;,,,/Fonts/CascadiaMono/#Cascadia Mono Bold</FontFamily>
 
-    <FontFamily x:Key="CascadiaMonoRegular">pack://application;,,,/Fonts/#Cascadia Mono Regular</FontFamily>
-    <FontFamily x:Key="CascadiaMonoBold">pack://application;,,,/Fonts/#Cascadia Mono Bold</FontFamily>
-    <FontFamily x:Key="CascadiaMonoSemiLight">pack://application;,,,/Fonts/#Cascadia Mono SemiLight</FontFamily>
-    <FontFamily x:Key="CascadiaMonoSemiBold">pack://application;,,,/Fonts/#Cascadia Mono SemiBold</FontFamily>
-    <FontFamily x:Key="CascadiaMonoLight">pack://application;,,,/Fonts/#Cascadia Mono Light</FontFamily>
-    <FontFamily x:Key="CascadiaMonoExtraLight">pack://application;,,,/Fonts/#Cascadia Mono ExtraLight</FontFamily>
+    <!--  Consolas,  -->
 
-    <FontFamily x:Key="InterBlack">pack://application;,,,/Fonts/Inter/#Inter Black</FontFamily>
+    <FontFamily x:Key="CormorantLight">pack://application;,,,/Fonts/Cormorant/#Cormorant Light</FontFamily>
+    <FontFamily x:Key="CormorantRegular">pack://application;,,,/Fonts/Cormorant/#Cormorant Regular</FontFamily>
+    <FontFamily x:Key="CormorantBold">pack://application;,,,/Fonts/Cormorant/#Cormorant Bold</FontFamily>
+
+    <!--  CourierNew,  -->
+
+    <FontFamily x:Key="FiraSansLight">pack://application;,,,/Fonts/FiraSans/#Fira Sans ExtraLight</FontFamily>
+    <FontFamily x:Key="FiraSansRegular">pack://application;,,,/Fonts/FiraSans/#Fira Sans Regular</FontFamily>
+    <FontFamily x:Key="FiraSansBold">pack://application;,,,/Fonts/FiraSans/#Fira Sans Bold</FontFamily>
+
+    <FontFamily x:Key="InterLight">pack://application;,,,/Fonts/Inter/#Inter ExtraLight</FontFamily>
+    <FontFamily x:Key="InterRegular">pack://application;,,,/Fonts/Inter/#Inter Regular</FontFamily>
     <FontFamily x:Key="InterBold">pack://application;,,,/Fonts/Inter/#Inter Bold</FontFamily>
-    <FontFamily x:Key="InterExtraBold">pack://application;,,,/Fonts/Inter/#Inter ExtraBold</FontFamily>
-    <FontFamily x:Key="InterExtraLight">pack://application;,,,/Fonts/Inter/#Inter ExtraLight</FontFamily>
-    <FontFamily x:Key="InterLight">pack://application;,,,/Fonts/Inter/#Inter Light</FontFamily>
-    <FontFamily x:Key="InterMedium">pack://application;,,,/Fonts/Inter/#Inter Medium</FontFamily>
-    <FontFamily x:Key="Inter">pack://application;,,,/Fonts/Inter/#Inter Regular</FontFamily>
-    <FontFamily x:Key="InterSemiBold">pack://application;,,,/Fonts/Inter/#Inter SemiBold</FontFamily>
-    <FontFamily x:Key="InterThin">pack://application;,,,/Fonts/Inter/#Inter Thin</FontFamily>
 
+    <FontFamily x:Key="MontserratAlternatesLight">pack://application;,,,/Fonts/MontserratAlternates/#Montserrat Alternates ExtraLight</FontFamily>
+    <FontFamily x:Key="MontserratAlternatesRegular">pack://application;,,,/Fonts/MontserratAlternates/#Montserrat Alternates Regular</FontFamily>
+    <FontFamily x:Key="MontserratAlternatesBold">pack://application;,,,/Fonts/MontserratAlternates/#Montserrat Alternates Bold</FontFamily>
+
+    <FontFamily x:Key="MontserratLight">pack://application;,,,/Fonts/Montserrat/#Montserrat ExtraLight</FontFamily>
+    <FontFamily x:Key="MontserratRegular">pack://application;,,,/Fonts/Montserrat/#Montserrat Regular</FontFamily>
+    <FontFamily x:Key="MontserratBold">pack://application;,,,/Fonts/Montserrat/#Montserrat Bold</FontFamily>
+
+    <FontFamily x:Key="NotoSansLight">pack://application;,,,/Fonts/NotoSans/#Noto Sans Light</FontFamily>
+    <FontFamily x:Key="NotoSansRegular">pack://application;,,,/Fonts/NotoSans/#Noto Sans Regular</FontFamily>
+    <FontFamily x:Key="NotoSansBold">pack://application;,,,/Fonts/NotoSans/#Noto Sans Bold</FontFamily>
+
+    <FontFamily x:Key="SCE_PS3">pack://application;,,,/Fonts/#SCE-PS3 Rodin LATIN Regular</FontFamily>
+
+    <!--  SegoeUI,  -->
+
+    <FontFamily x:Key="SourceCodeProRegular">pack://application;,,,/Fonts/SourceCodePro/#Source Code Pro Regular</FontFamily>
+    <FontFamily x:Key="SourceCodeProBold">pack://application;,,,/Fonts/SourceCodePro/#Source Code Pro Bold</FontFamily>
+
+    <!--  Tahoma,  -->
+    <!--  TimesNewRoman,  -->
+
+    <FontFamily x:Key="UbuntuLight">pack://application;,,,/Fonts/Ubuntu/#Ubuntu Light</FontFamily>
+    <FontFamily x:Key="UbuntuRegular">pack://application;,,,/Fonts/Ubuntu/#Ubuntu Regular</FontFamily>
+    <FontFamily x:Key="UbuntuBold">pack://application;,,,/Fonts/Ubuntu/#Ubuntu Bold</FontFamily>
+
+    <!--  Verdana,  -->
+
+
+    <!--  ================================================================================================  -->
     <!--  Button icon characters  -->
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
     <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>

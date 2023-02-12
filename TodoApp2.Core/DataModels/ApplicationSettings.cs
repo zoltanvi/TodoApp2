@@ -45,7 +45,7 @@ namespace TodoApp2.Core
         public bool IsModificationDateVisible { get; set; }
         public Thickness ColorBarThickness { get; set; } = Thickness.Medium;
         public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
-        public FontFamily NoteFontFamily { get; set; } = FontFamily.SourceCodePro;
+        public FontFamily NoteFontFamily { get; set; } = FontFamily.Consolas;
         public string AccentColor { get; set; } = GlobalConstants.ColorName.Transparent;
         public string AppBorderColor { get; set; } = GlobalConstants.ColorName.Transparent;
         public bool RoundedWindowCorners { get; set; }

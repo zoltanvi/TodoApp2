@@ -419,33 +419,34 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Fonts\SCE-PS3-RD-R-LATIN.TTF" />
-    <Resource Include="Fonts\Ubuntu-Bold.ttf" />
-    <Resource Include="Fonts\Ubuntu-Regular.ttf" />
+    <Resource Include="Fonts\Ubuntu\Ubuntu-Bold.ttf" />
+    <Resource Include="Fonts\Ubuntu\Ubuntu-Regular.ttf" />
     <Resource Include="Fonts\SegMDL2.ttf" />
-    <Resource Include="Fonts\Ubuntu-Light.ttf" />
-    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Bold.ttf" />
-    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Light.ttf" />
-    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Semibold.ttf" />
-    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Semilight.ttf" />
-    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
-    <Resource Include="Fonts\SourceCodePro-Regular.ttf" />
-    <Resource Include="Fonts\CascadiaMono.ttf" />
-    <Resource Include="Fonts\CascadiaMono-ExtraLight.ttf" />
-    <Resource Include="Fonts\CascadiaMono-Light.ttf" />
-    <Resource Include="Fonts\CascadiaMono-SemiLight.ttf" />
-    <Resource Include="Fonts\CascadiaMono-Bold.ttf" />
-    <Resource Include="Fonts\CascadiaMono-SemiBold.ttf" />
-    <Resource Include="Fonts\SourceCodePro-Bold.ttf" />
-    <Resource Include="Fonts\Inter\Inter-Black.ttf" />
+    <Resource Include="Fonts\Ubuntu\Ubuntu-Light.ttf" />
+    <Resource Include="Fonts\SourceCodePro\SourceCodePro-Regular.ttf" />
+    <Resource Include="Fonts\CascadiaMono\CascadiaMono-Regular.ttf" />
+    <Resource Include="Fonts\CascadiaMono\CascadiaMono-Light.ttf" />
+    <Resource Include="Fonts\CascadiaMono\CascadiaMono-Bold.ttf" />
+    <Resource Include="Fonts\SourceCodePro\SourceCodePro-Bold.ttf" />
     <Resource Include="Fonts\Inter\Inter-Bold.ttf" />
-    <Resource Include="Fonts\Inter\Inter-ExtraBold.ttf" />
     <Resource Include="Fonts\Inter\Inter-ExtraLight.ttf" />
-    <Resource Include="Fonts\Inter\Inter-Light.ttf" />
-    <Resource Include="Fonts\Inter\Inter-Medium.ttf" />
     <Resource Include="Fonts\Inter\Inter-Regular.ttf" />
-    <Resource Include="Fonts\Inter\Inter-SemiBold.ttf" />
-    <Resource Include="Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
     <None Include="app.manifest" />
+    <Resource Include="Fonts\Cormorant\Cormorant-Bold.ttf" />
+    <Resource Include="Fonts\Cormorant\Cormorant-Light.ttf" />
+    <Resource Include="Fonts\Cormorant\Cormorant-Regular.ttf" />
+    <Resource Include="Fonts\FiraSans\FiraSans-Bold.ttf" />
+    <Resource Include="Fonts\FiraSans\FiraSans-ExtraLight.ttf" />
+    <Resource Include="Fonts\FiraSans\FiraSans-Regular.ttf" />
+    <Resource Include="Fonts\MontserratAlternates\MontserratAlternates-Bold.ttf" />
+    <Resource Include="Fonts\MontserratAlternates\MontserratAlternates-ExtraLight.ttf" />
+    <Resource Include="Fonts\MontserratAlternates\MontserratAlternates-Regular.ttf" />
+    <Resource Include="Fonts\Montserrat\Montserrat-Bold.ttf" />
+    <Resource Include="Fonts\Montserrat\Montserrat-ExtraLight.ttf" />
+    <Resource Include="Fonts\Montserrat\Montserrat-Regular.ttf" />
+    <Resource Include="Fonts\NotoSans\NotoSans-Bold.ttf" />
+    <Resource Include="Fonts\NotoSans\NotoSans-Light.ttf" />
+    <Resource Include="Fonts\NotoSans\NotoSans-Regular.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -490,6 +491,7 @@
     <Resource Include="Images\Splash\Nord.png" />
     <Resource Include="Images\Splash\VSBlue.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -122,10 +122,10 @@ namespace TodoApp2
 
         private void ChangeToMonospace()
         {
-            MediaFontFamily cascadiaMono = (MediaFontFamily)Application.Current.TryFindResource(GlobalConstants.FontFamily.CascadiaMonoRegular);
-            if (cascadiaMono != null)
+            MediaFontFamily consolas = new MediaFontFamily(GlobalConstants.FontFamily.Consolas);
+            if (consolas != null)
             {
-                Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, cascadiaMono);
+                Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, consolas);
             }
         }
 

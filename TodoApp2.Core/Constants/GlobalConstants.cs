@@ -17,18 +17,13 @@
 
         public struct FontFamily
         {
-            public const string SegoeUI = "Segoe UI";
-            public const string Ubuntu = "Ubuntu";
-
+            public const string Calibri = "Calibri";
             public const string Consolas = "Consolas";
+            public const string CourierNew = "Courier New";
+            public const string SegoeUI = "Segoe UI";
+            public const string Tahoma = "Tahoma";
+            public const string TimesNewRoman = "Times New Roman";
             public const string Verdana = "Verdana";
-            public const string SourceCodeProRegular = "SourceCodeProRegular";
-            public const string CascadiaMonoRegular = "CascadiaMonoRegular";
-            public const string CascadiaMonoSemiLight = "CascadiaMonoSemiLight";
-            public const string CascadiaMonoLight = "CascadiaMonoLight";
-            public const string Inter = "Inter";
-            public const string InterLight = "InterLight";
-            public const string InterBold = "InterBold";
         }
     }
 }
