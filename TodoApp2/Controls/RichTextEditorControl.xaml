@@ -86,7 +86,7 @@
                             Command="{Binding MonospaceCommand, ElementName=PART_TextEditor}"
                             Content="M"
                             Style="{DynamicResource TextEditorButtonStyle}"
-                            FontFamily="Ubuntu"
+                            FontFamily="{DynamicResource UIFont}"
                             FontWeight="Bold"
                             Padding="5 5 5 0"
                             ToolTip="Monospace font" />

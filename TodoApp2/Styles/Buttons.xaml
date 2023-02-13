@@ -58,7 +58,7 @@
         x:Key="ButtonIconStyle"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
+        <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
     </Style>
 
@@ -298,7 +298,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
     </Style>
 
     <!--  Settings button  -->
@@ -504,7 +504,7 @@
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
 
         <Setter Property="Opacity" Value="0.6" />
-        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
+        <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="Background" Value="Transparent" />
@@ -656,7 +656,7 @@
         x:Key="TimePickerButtonStyle"
         BasedOn="{StaticResource ButtonIconHoverStyle}"
         TargetType="Button">
-        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
+        <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">

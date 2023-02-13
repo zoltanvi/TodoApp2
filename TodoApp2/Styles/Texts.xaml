@@ -23,56 +23,16 @@
     <system:Double x:Key="FontSizeGiant">40</system:Double>
 
     <Style x:Key="BaseTextBlockClearTypeStyle" TargetType="TextBlock">
-        <!--<Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
-        <Setter Property="TextOptions.TextHintingMode" Value="Fixed"/>
-        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>-->
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
     </Style>
 
     <Style x:Key="BaseTextBoxClearTypeStyle" TargetType="TextBox">
-        <!--<Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
-        <Setter Property="TextOptions.TextHintingMode" Value="Fixed"/>
-        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>-->
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
     </Style>
 
     <Style x:Key="BaseLabelClearTypeStyle" TargetType="Label">
-        <!--<Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
-        <Setter Property="TextOptions.TextHintingMode" Value="Fixed"/>
-        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>-->
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
     </Style>
-
-    <Style
-        x:Key="TaskListItemDescriptionTextBlockStyle"
-        BasedOn="{StaticResource BaseTextBlockClearTypeStyle}"
-        TargetType="TextBlock">
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="TextWrapping" Value="Wrap" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}" />
-        <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-        <!--<Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>-->
-        <Setter Property="Background" Value="#00000000" />
-    </Style>
-
-    <Style x:Key="NotePageTextBoxStyle" TargetType="TextBox">
-        <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
-        <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="Background" Value="#00000000" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="CaretBrush" Value="{DynamicResource CaretBrush}" />
-        <Setter Property="AutoWordSelection" Value="False" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="AcceptsReturn" Value="True" />
-        <Setter Property="AcceptsTab" Value="True" />
-        <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBgBrush}" />
-        <!--<Setter Property="TextWrapping" Value="Wrap" />-->
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <!--<Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>-->
-
-    </Style>
-
 
     <Style x:Key="BaseRichTextBoxStyle" TargetType="RichTextBox">
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
@@ -85,7 +45,6 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="AcceptsReturn" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <!--<Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>-->
 
         <Style.Resources>
             <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
@@ -103,7 +62,7 @@
         x:Key="CategoryTextBlockStyle"
         BasedOn="{StaticResource BaseTextBlockClearTypeStyle}"
         TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
@@ -113,16 +72,14 @@
         x:Key="PageTitleTextBlockStyle"
         BasedOn="{StaticResource BaseTextBlockClearTypeStyle}"
         TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource InterBold}" />
-        <!--<Setter Property="FontFamily" Value="{StaticResource SegoeUIVariableSemibold}" />-->
+        <Setter Property="FontFamily" Value="{DynamicResource UIBoldFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
     <Style x:Key="PageTitleTextBoxStyle" TargetType="TextBox">
-        <Setter Property="FontFamily" Value="{StaticResource InterBold}" />
-        <!--<Setter Property="FontFamily" Value="{StaticResource SegoeUIVariableSemibold}" />-->
+        <Setter Property="FontFamily" Value="{DynamicResource UIBoldFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Background" Value="Transparent" />
@@ -163,7 +120,7 @@
         x:Key="IconLabelStyle"
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
-        <Setter Property="FontFamily" Value="{StaticResource SegoeMDL2Assets}" />
+        <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight" />
@@ -177,7 +134,7 @@
     </Style>
 
     <Style x:Key="BaseInputTextBoxStyle" TargetType="TextBox">
-        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
@@ -314,7 +271,7 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}" />
-        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>
 
@@ -340,7 +297,7 @@
         x:Key="SettingsALabelStyle"
         BasedOn="{StaticResource SettingsIconLabelStyle}"
         TargetType="Label">
-        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
     </Style>
 
 </ResourceDictionary>

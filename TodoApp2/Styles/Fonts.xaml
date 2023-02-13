@@ -3,7 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <FontFamily x:Key="SegoeMDL2Assets">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
+    <!--  Default Fonts =================================================================================  -->
+
+    <FontFamily x:Key="UIFont">Segoe UI</FontFamily>
+    <FontFamily x:Key="UIBoldFont">Segoe UI Bold</FontFamily>
+    <FontFamily x:Key="UIMonospaceFont">Consolas</FontFamily>
+    <FontFamily x:Key="IconFont">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
+
+    <!--  ================================================================================================  -->
 
     <!--  Calibri,  -->
 
@@ -54,7 +61,6 @@
     <FontFamily x:Key="UbuntuBold">pack://application;,,,/Fonts/Ubuntu/#Ubuntu Bold</FontFamily>
 
     <!--  Verdana,  -->
-
 
     <!--  ================================================================================================  -->
     <!--  Button icon characters  -->

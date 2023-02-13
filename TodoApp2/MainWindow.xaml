@@ -265,7 +265,7 @@
                             DockPanel.Dock="Left"
                             TextWrapping="Wrap"
                             FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"
-                            FontFamily="Segoe UI"
+                            FontFamily="{DynamicResource UIFont}"
                             FontWeight="Bold"
                             Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
                             HorizontalAlignment="Center"
