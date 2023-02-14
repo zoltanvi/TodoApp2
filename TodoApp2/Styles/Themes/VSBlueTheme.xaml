@@ -95,7 +95,7 @@
     <SolidColorBrush x:Key="SelectionBgBrush" Color="{DynamicResource SelectionBg}" />
     <SolidColorBrush x:Key="ScrollBarBgBrush" Color="{DynamicResource ScrollBarBg}" />
     <SolidColorBrush x:Key="ScrollBarPressedBgBrush" Color="{DynamicResource ScrollBarPressedBg}" />
-    <SolidColorBrush x:Key="SelectedCategoryBgBrush" Color="{DynamicResource SelectedCategoryBg}" />
+    <SolidColorBrush x:Key="SelectedCategoryBgBrush" Color="{DynamicResource Selec0tedCategoryBg}" />
     <SolidColorBrush x:Key="ContextMenuBgBrush" Color="{DynamicResource ContextMenuBg}" />
     <SolidColorBrush x:Key="ComboBoxBgBrush" Color="{DynamicResource ComboBoxBg}" />
     <SolidColorBrush x:Key="ComboBoxButtonBgBrush" Color="{DynamicResource ComboBoxButtonBg}" />
@@ -109,7 +109,7 @@
     <SolidColorBrush
         x:Key="OverlayBgBrush"
         Color="{DynamicResource OverlayBg}"
-        Opacity="0.8" />
+        Opacity="0.5" />
     <SolidColorBrush
         x:Key="ReminderItemBgBrush"
         Color="{DynamicResource ThemeOpposite}"

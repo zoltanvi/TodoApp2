@@ -109,7 +109,7 @@
     <SolidColorBrush
         x:Key="OverlayBgBrush"
         Color="{DynamicResource OverlayBg}"
-        Opacity="0.8" />
+        Opacity="0.5" />
     <SolidColorBrush
         x:Key="ReminderItemBgBrush"
         Color="{DynamicResource ThemeOpposite}"
