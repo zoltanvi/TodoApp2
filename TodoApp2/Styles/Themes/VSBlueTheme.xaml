@@ -7,7 +7,7 @@
     <Color x:Key="ThemeOpposite">#000000</Color>
 
     <Color x:Key="Foreground">#FFFFFF</Color>
-    <Color x:Key="TitleBar">#000000</Color>
+    <Color x:Key="TitleBar">#FFFFFF</Color>
     <Color x:Key="Caret">#FFFFFF</Color>
     <Color x:Key="EditorButton">#FFFFFF</Color>
     <Color x:Key="Placeholder">#CCD5F0</Color>
@@ -21,8 +21,8 @@
     <Color x:Key="MessageError">#000000</Color>
 
     <Color x:Key="PageBg">#3B4F81</Color>
-    <Color x:Key="SideMenuBg">#5D6B99</Color>
-    <Color x:Key="TitleBarBg">#CCD5F0</Color>
+    <Color x:Key="SideMenuBg">#303F62</Color>
+    <Color x:Key="TitleBarBg">#233256</Color>
     <Color x:Key="BottomBarBg">#3B4F81</Color>
     <Color x:Key="TaskBg">#4F5D8C</Color>
     <Color x:Key="TaskTransparentBg">#004F5D8C</Color>
@@ -43,10 +43,10 @@
     <Color x:Key="MessageWarningBg">#ffe8c3</Color>
     <Color x:Key="MessageErrorBg">#ffd0cb</Color>
 
-    <Color x:Key="HoverCategoryBg">#56638F</Color>
-    <Color x:Key="HoverTitleBarButtonBg">#C0C8DC</Color>
+    <Color x:Key="HoverCategoryBg">#425684</Color>
+    <Color x:Key="HoverTitleBarButtonBg">#3F4E72</Color>
     <Color x:Key="HoverCloseButtonBg">#F55B4D</Color>
-    <Color x:Key="HoverButtonBg">#56638F</Color>
+    <Color x:Key="HoverButtonBg">#425684</Color>
     <Color x:Key="HoverEditorButtonBg">#D6D6D6</Color>
     <Color x:Key="CheckedEditorButtonBg">#C2C2C2</Color>
     <Color x:Key="HoverContextMenuBg">#EDEDED</Color>
