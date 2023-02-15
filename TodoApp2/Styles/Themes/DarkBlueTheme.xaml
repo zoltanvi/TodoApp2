@@ -3,10 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:TodoApp2">
 
+    <!--
+        ForegroundBrush cannot reference the Color with {DynamicResource Foreground},
+        because of a WPF bug, the RichTextBox copy-paste won't work properly.
+    -->
+
     <Color x:Key="Transparent">#00000000</Color>
     <Color x:Key="ThemeOpposite">#FFFFFF</Color>
 
     <Color x:Key="Foreground">#E4E9F8</Color>
+    <SolidColorBrush x:Key="ForegroundBrush" Color="#E4E9F8" />
     <Color x:Key="TitleBar">#E4E4E4</Color>
     <Color x:Key="Caret">#FFFFFF</Color>
     <Color x:Key="EditorButton">#AFBADE</Color>
@@ -68,7 +74,6 @@
     <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
 
     <!--  Foreground  -->
-    <SolidColorBrush x:Key="ForegroundBrush" Color="{DynamicResource Foreground}" />
     <SolidColorBrush x:Key="TitleBarBrush" Color="{DynamicResource TitleBar}" />
     <SolidColorBrush x:Key="CaretBrush" Color="{DynamicResource Caret}" />
     <SolidColorBrush x:Key="EditorButtonBrush" Color="{DynamicResource EditorButton}" />
