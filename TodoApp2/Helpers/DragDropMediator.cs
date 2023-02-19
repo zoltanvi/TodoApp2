@@ -18,7 +18,7 @@ namespace TodoApp2
         {
             int beforeAlteredIndex = e.NewIndex;
             int afterAlteredIndex = m_TaskListService.GetCorrectReorderIndex(
-                e.NewIndex, e.Item as TaskListItemViewModel);
+                e.NewIndex, e.Item as TaskViewModel);
 
             if (beforeAlteredIndex != afterAlteredIndex)
             {

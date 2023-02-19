@@ -17,10 +17,11 @@ namespace TodoApp2
         private class ApplicationPageManager : BaseValueConverter
         {
             private readonly TaskListService m_TaskListService;
-            private readonly ApplicationViewModel m_ApplicationViewModel;
+            private readonly AppViewModel m_ApplicationViewModel;
             private readonly IDatabase m_Database;
             private readonly OverlayPageService m_OverlayPageService;
             private readonly CategoryListService m_CategoryListService;
+            private readonly NoteListService m_NoteListService;
             private readonly MessageService m_MessageService;
 
             private static ApplicationPageManager s_Instance;
@@ -35,6 +36,7 @@ namespace TodoApp2
                 m_Database = IoC.Database;
                 m_OverlayPageService = IoC.OverlayPageService;
                 m_CategoryListService = IoC.CategoryListService;
+                m_NoteListService = IoC.NoteListService;
                 m_MessageService = IoC.MessageService;
 
                 m_ViewModelDictionary = new Dictionary<ApplicationPage, BaseViewModel>();
@@ -87,12 +89,30 @@ namespace TodoApp2
 
                         break;
                     }
+                    case ApplicationPage.NoteList:
+                    {
+                        applicationPage = ApplicationPage.NoteList;
+
+                        NoteListPageViewModel notePageViewModel = new NoteListPageViewModel(
+                            m_ApplicationViewModel,
+                            m_Database,
+                            m_OverlayPageService,
+                            m_NoteListService,
+                            m_MessageService);
+
+                        viewModel = notePageViewModel;
+                        page = new NoteListPage(notePageViewModel);
+
+                        break;
+                    }
+
                     case ApplicationPage.Note:
                     {
                         applicationPage = ApplicationPage.Note;
 
                         NotePageViewModel notePageViewModel = new NotePageViewModel(
                             m_ApplicationViewModel,
+                            m_NoteListService,
                             m_Database);
 
                         viewModel = notePageViewModel;

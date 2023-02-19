@@ -10,7 +10,7 @@ namespace TodoApp2
         {
             if (value is int categoryId)
             {
-                CategoryListItemViewModel category = IoC.CategoryListService.GetCategory(categoryId);
+                CategoryViewModel category = IoC.CategoryListService.GetCategory(categoryId);
                 return category.Name;
             }
 

@@ -22,7 +22,7 @@ namespace TodoApp2
         private readonly TrayIconModule m_TrayIconModule;
         private readonly ThemeManager m_ThemeManager;
 
-        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly AppViewModel m_ApplicationViewModel;
         private readonly IDatabase m_Database;
         private readonly DragDropMediator m_DragDropMediator;
         private readonly DispatcherTimer m_Timer;
@@ -99,7 +99,7 @@ namespace TodoApp2
         public Rect OuterClipRect => new Rect(0, 0, MyWidth + OuterMargin, MyHeight + OuterMargin);
         #endregion Workaround
 
-        public WindowViewModel(Window window, ApplicationViewModel applicationViewModel, IDatabase database)
+        public WindowViewModel(Window window, AppViewModel applicationViewModel, IDatabase database)
         {
             m_Window = window;
             m_ApplicationViewModel = applicationViewModel;

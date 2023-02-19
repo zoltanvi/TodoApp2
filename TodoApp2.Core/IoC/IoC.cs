@@ -6,11 +6,12 @@
     public static class IoC
     {
         public static IAsyncActionService AsyncActionService { get; set; }
-        public static ApplicationViewModel ApplicationViewModel { get; private set; }
+        public static AppViewModel ApplicationViewModel { get; private set; }
         public static IDatabase Database { get; private set; }
         public static OverlayPageService OverlayPageService { get; private set; }
         public static CategoryListService CategoryListService { get; private set; }
         public static TaskListService TaskListService { get; private set; }
+        public static NoteListService NoteListService { get; private set; }
         public static OneEditorOpenService OneEditorOpenService { get; private set; }
         public static MessageService MessageService { get; private set; }
         public static UIScaler UIScaler { get; private set; }
@@ -24,7 +25,7 @@
         {
             AutoRunService = new AutoRunService();
             MessageService = new MessageService();
-            Database = new Database(MessageService);
+            Database = new Database();
         }
 
         /// <summary>
@@ -34,7 +35,7 @@
         {
             UIScaler = new UIScaler();
             UndoManager = new UndoManager();
-            ApplicationViewModel = new ApplicationViewModel(Database, UIScaler);
+            ApplicationViewModel = new AppViewModel(Database, UIScaler);
             OverlayPageService = new OverlayPageService(ApplicationViewModel, Database);
             
             // This dependency must be set here. Workaround to avoid circular dependencies
@@ -49,6 +50,7 @@
             OverlayPageService.ReminderNotificationService = reminderNotificationService;
 
             CategoryListService = new CategoryListService(ApplicationViewModel, Database);
+            NoteListService = new NoteListService(ApplicationViewModel, Database);
             TaskListService = new TaskListService(Database, CategoryListService, ApplicationViewModel);
 
             OneEditorOpenService = new OneEditorOpenService();

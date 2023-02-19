@@ -46,5 +46,10 @@
         /// The note page
         /// </summary>
         Note,
+
+        /// <summary>
+        /// The note list page (side menu)
+        /// </summary>
+        NoteList,
     }
 }

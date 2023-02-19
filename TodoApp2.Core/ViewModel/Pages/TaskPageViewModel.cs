@@ -13,13 +13,13 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskPageViewModel : BaseViewModel
     {
-        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly AppViewModel m_ApplicationViewModel;
         private readonly TaskListService m_TaskListService;
         private readonly CategoryListService m_CategoryListService;
 
-        private CategoryListItemViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
+        private CategoryViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
 
-        private ObservableCollection<TaskListItemViewModel> Items => m_TaskListService.TaskPageItems;
+        private ObservableCollection<TaskViewModel> Items => m_TaskListService.TaskPageItems;
 
         public RichTextEditorViewModel TextEditorViewModel { get; }
 
@@ -116,7 +116,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskPageViewModel(ApplicationViewModel applicationViewModel, TaskListService taskListService, CategoryListService categoryListService)
+        public TaskPageViewModel(AppViewModel applicationViewModel, TaskListService taskListService, CategoryListService categoryListService)
         {
             m_ApplicationViewModel = applicationViewModel;
             m_TaskListService = taskListService;
@@ -159,7 +159,7 @@ namespace TodoApp2.Core
 
         private void UndoTrashTask(CommandObject commandObject)
         {
-            if (commandObject?.CommandResult is Tuple<int, TaskListItemViewModel> tuple)
+            if (commandObject?.CommandResult is Tuple<int, TaskViewModel> tuple)
             {
                 tuple.Item2.Trashed = false;
 
@@ -169,7 +169,7 @@ namespace TodoApp2.Core
 
         private CommandObject RedoTrashTask(CommandObject commandObject)
         {
-            if (commandObject?.CommandResult is Tuple<int, TaskListItemViewModel> tuple)
+            if (commandObject?.CommandResult is Tuple<int, TaskViewModel> tuple)
             {
                 commandObject.CommandArgument = tuple.Item2;
             }
@@ -181,7 +181,7 @@ namespace TodoApp2.Core
         {
             CommandObject result = CommandObject.NotHandled;
 
-            if (commandObject?.CommandArgument is TaskListItemViewModel task)
+            if (commandObject?.CommandArgument is TaskViewModel task)
             {
                 int oldPosition = m_TaskListService.TaskPageItems.IndexOf(task);
 
@@ -197,7 +197,7 @@ namespace TodoApp2.Core
                 // Remove from the list
                 m_TaskListService.RemoveTaskFromMemory(task);
 
-                result = new CommandObject(true, new Tuple<int, TaskListItemViewModel>(oldPosition, task), null,
+                result = new CommandObject(true, new Tuple<int, TaskViewModel>(oldPosition, task), null,
                     "Task deleted.");
             }
 
@@ -212,7 +212,7 @@ namespace TodoApp2.Core
             }
 
             // Add task to list and persist it
-            TaskListItemViewModel task = m_TaskListService.AddNewTask(AddTaskTextBoxContent);
+            TaskViewModel task = m_TaskListService.AddNewTask(AddTaskTextBoxContent);
 
             // Reset the input TextBox text
             AddTaskTextBoxContent = string.Empty;
@@ -222,7 +222,7 @@ namespace TodoApp2.Core
 
         private void UndoAddTask(CommandObject commandObject)
         {
-            if (commandObject != null && commandObject.CommandResult is TaskListItemViewModel task)
+            if (commandObject != null && commandObject.CommandResult is TaskViewModel task)
             {
                 task.Trashed = true;
                 task.ListOrder = long.MinValue;
@@ -234,9 +234,9 @@ namespace TodoApp2.Core
         private CommandObject RedoAddTask(CommandObject commandObject)
         {
             var result = CommandObject.NotHandled;
-            if (commandObject.CommandResult is TaskListItemViewModel task)
+            if (commandObject.CommandResult is TaskViewModel task)
             {
-                List<TaskListItemViewModel> taskList =
+                List<TaskViewModel> taskList =
                     Task.Run(() => m_TaskListService.GetActiveTaskItemsAsync(ActiveCategory)).Result;
 
                 int pinnedItemCount = taskList.Count(i => i.Pinned);
@@ -252,7 +252,7 @@ namespace TodoApp2.Core
 
         private void ModifyTaskIsDone(object obj)
         {
-            if (obj is TaskListItemViewModel task)
+            if (obj is TaskViewModel task)
             {
                 if (task.IsDone)
                 {
@@ -287,11 +287,11 @@ namespace TodoApp2.Core
         /// Only persists the items 
         /// </summary>
         /// <param name="taskList"></param>
-        private void TrashTasks(IEnumerable<TaskListItemViewModel> taskList)
+        private void TrashTasks(IEnumerable<TaskViewModel> taskList)
         {
-            var items = new List<TaskListItemViewModel>(taskList);
+            var items = new List<TaskViewModel>(taskList);
 
-            foreach (TaskListItemViewModel item in items)
+            foreach (TaskViewModel item in items)
             {
                 // Set Trashed property to true so it won't be listed in the active list
                 item.Trashed = true;
@@ -302,7 +302,7 @@ namespace TodoApp2.Core
 
             m_TaskListService.PersistTaskList();
 
-            foreach (TaskListItemViewModel item in items)
+            foreach (TaskViewModel item in items)
             {
                 m_TaskListService.RemoveTaskFromMemory(item);
             }
@@ -310,7 +310,7 @@ namespace TodoApp2.Core
 
         private void ResetColors()
         {
-            foreach (TaskListItemViewModel item in Items)
+            foreach (TaskViewModel item in Items)
             {
                 item.Color = GlobalConstants.ColorName.Transparent;
             }
@@ -320,7 +320,7 @@ namespace TodoApp2.Core
 
         private void ResetBorderColors()
         {
-            foreach (TaskListItemViewModel item in Items)
+            foreach (TaskViewModel item in Items)
             {
                 item.BorderColor = GlobalConstants.ColorName.Transparent;
             }
@@ -336,8 +336,8 @@ namespace TodoApp2.Core
         {
             if (obj is List<object> parameters && parameters.Count == 2)
             {
-                if (parameters[0] is TaskListItemViewModel task &&
-                    parameters[1] is CategoryListItemViewModel categoryToMoveTo)
+                if (parameters[0] is TaskViewModel task &&
+                    parameters[1] is CategoryViewModel categoryToMoveTo)
                 {
                     // If the category is the same as the task is in, there is nothing to do
                     if (task.CategoryId != categoryToMoveTo.Id)
@@ -376,7 +376,7 @@ namespace TodoApp2.Core
 
         private void Pin(object obj)
         {
-            if (obj is TaskListItemViewModel task)
+            if (obj is TaskViewModel task)
             {
                 // 1. Set task to pinned
                 task.Pinned = true;
@@ -391,7 +391,7 @@ namespace TodoApp2.Core
 
         private async void Unpin(object obj)
         {
-            if (obj is TaskListItemViewModel task)
+            if (obj is TaskViewModel task)
             {
                 // 1. Get the tasks in the category
                 var taskList = await m_TaskListService.GetActiveTaskItemsAsync(ActiveCategory);
@@ -407,7 +407,7 @@ namespace TodoApp2.Core
             }
         }
 
-        private void MoveTaskToEnd(TaskListItemViewModel task)
+        private void MoveTaskToEnd(TaskViewModel task)
         {
             if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
             {
@@ -426,7 +426,7 @@ namespace TodoApp2.Core
             }
         }
 
-        private void MoveTaskToTop(TaskListItemViewModel task)
+        private void MoveTaskToTop(TaskViewModel task)
         {
             if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
             {
@@ -443,7 +443,7 @@ namespace TodoApp2.Core
         private void OnThemeChanged(object obj)
         {
             // Save the current items
-            List<TaskListItemViewModel> itemsBackup = new List<TaskListItemViewModel>(Items);
+            List<TaskViewModel> itemsBackup = new List<TaskViewModel>(Items);
 
             // Clear the items and add back the cleared items to refresh the list (repaint)
             Items.Clear();

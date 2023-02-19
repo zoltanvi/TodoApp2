@@ -8,145 +8,61 @@ namespace TodoApp2.Core
     /// <summary>
     /// Represents the application client database
     /// </summary>
-    public class Database : IDisposable, IDatabase
+    public class Database : IDatabase, IDisposable
     {
         private DataAccessLayer m_DataAccess;
-        private readonly MessageService m_MessageService;
+        private Reorderer m_Reorderer;
 
         public event EventHandler<TaskChangedEventArgs> TaskChanged;
         public event EventHandler<CategoryChangedEventArgs> CategoryChanged;
 
-        public Database(MessageService messageService)
+        public Database()
         {
-            m_MessageService = messageService;
-
-            Initialize();
-        }
-
-        public async Task Initialize()
-        {
-            m_DataAccess?.Dispose();
-
+            m_Reorderer = new Reorderer();
             m_DataAccess = new DataAccessLayer();
 
             // Initialize the database
             m_DataAccess.InitializeDatabase();
         }
 
-        /// <summary>
-        /// Returns the active task items from the provided category.
-        /// A task is active if it is not trashed.
-        /// </summary>
-        /// <param name="categoryName">The category of the tasks.</param>
-        /// <returns></returns>
-        public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(CategoryListItemViewModel category)
+        public async Task<List<TaskViewModel>> GetActiveTasksAsync(CategoryViewModel category)
         {
-            List<TaskListItemViewModel> returnValue = await Task.Run(() => GetActiveTaskItems(category));
+            List<TaskViewModel> returnValue = await Task.Run(() => GetActiveTasks(category));
             return returnValue;
         }
 
-        /// <summary>
-        /// Gets the task items from the provided category which are not trashed
-        /// </summary>
-        /// <param name="category"></param>
-        /// <returns></returns>
-        public List<TaskListItemViewModel> GetActiveTaskItems(CategoryListItemViewModel category)
+        public List<TaskViewModel> GetActiveTasks(CategoryViewModel category)
         {
             if (string.IsNullOrEmpty(category?.Name))
             {
-                return new List<TaskListItemViewModel>();
+                return new List<TaskViewModel>();
             }
 
             // Returns the task list from the database ordered by ListOrder column
-            List<TaskListItemViewModel> tasksFromCategory = m_DataAccess.GetActiveTasksFromCategory(category.Id);
+            List<TaskViewModel> tasksFromCategory = m_DataAccess.TaskDataAccess.GetActiveTasks(category.Id);
 
             return tasksFromCategory;
         }
 
-        /// <summary>
-        /// Gets all task items which are not trashed
-        /// </summary>
-        /// <returns></returns>
-        public List<TaskListItemViewModel> GetActiveTaskItems()
-        {
-            List<TaskListItemViewModel> activeTasks = m_DataAccess.GetActiveTasks();
+        public List<TaskViewModel> GetActiveTasksWithReminder() => m_DataAccess.TaskDataAccess.GetActiveTasksWithReminder();
 
-            return activeTasks;
-        }
+        public TaskViewModel GetTask(int id) => m_DataAccess.TaskDataAccess.GetTask(id);
 
-        /// <summary>
-        /// Gets all task items which are not trashed and has a reminder
-        /// </summary>
-        /// <returns></returns>
-        public List<TaskListItemViewModel> GetActiveTaskItemsWithReminder()
-        {
-            List<TaskListItemViewModel> tasksWithReminder = m_DataAccess.GetActiveTasksWithReminder();
-            return tasksWithReminder;
-        }
+        public CategoryViewModel GetCategory(string categoryName) => m_DataAccess.CategoryDataAccess.GetCategory(categoryName);
 
-        /// <summary>
-        /// Gets the task with the provided ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public TaskListItemViewModel GetTask(int id)
-        {
-            return m_DataAccess.GetTask(id);
-        }
+        public CategoryViewModel GetCategory(int categoryId) => m_DataAccess.CategoryDataAccess.GetCategory(categoryId);
 
-        /// <summary>
-        /// Gets the category item with the provided name
-        /// </summary>
-        /// <param name="categoryName"></param>
-        /// <returns></returns>
-        public CategoryListItemViewModel GetCategory(string categoryName)
-        {
-            return m_DataAccess.GetCategory(categoryName);
-        }
+        public List<CategoryViewModel> GetValidCategories() => m_DataAccess.CategoryDataAccess.GetActiveCategories();
 
-        /// <summary>
-        /// Gets the category item with the provided ID
-        /// </summary>
-        /// <param name="categoryId"></param>
-        /// <returns></returns>
-        public CategoryListItemViewModel GetCategory(int categoryId)
-        {
-            return m_DataAccess.GetCategory(categoryId);
-        }
+        public List<Setting> GetSettings() => m_DataAccess.SettingsDataAccess.GetSettings();
 
-        /// <summary>
-        /// Gets the category items which are not trashed
-        /// </summary>
-        /// <returns></returns>
-        public List<CategoryListItemViewModel> GetValidCategories()
-        {
-            // Get all categories
-            List<CategoryListItemViewModel> allCategories = m_DataAccess.GetCategories();
-
-            // Return only the categories that are not trashed
-            return allCategories.Where(category => category.Trashed == false).ToList();
-        }
-
-        /// <summary>
-        /// Gets every settings entry from the database
-        /// </summary>
-        /// <returns></returns>
-        public List<SettingsModel> GetSettings()
-        {
-            return m_DataAccess.GetSettings();
-        }
-
-        /// <summary>
-        /// Inserts a setting into the database
-        /// </summary>
-        /// <param name="setting"></param>
-        public void AddSetting(SettingsModel setting)
+        public void AddSetting(Setting setting)
         {
             // Generate an ID for the item
-            setting.Id = m_DataAccess.GetSettingsNextId();
+            setting.Id = m_DataAccess.SettingsDataAccess.GetNextId();
 
             // Persist record into database
-            m_DataAccess.AddSetting(setting);
+            m_DataAccess.SettingsDataAccess.AddSetting(setting);
         }
 
         /// <summary>
@@ -154,78 +70,63 @@ namespace TodoApp2.Core
         /// adds the entry if it not exists.
         /// </summary>
         /// <param name="settings"></param>
-        public void UpdateSettings(List<SettingsModel> settings)
+        public void UpdateSettings(List<Setting> settings)
         {
-            List<SettingsModel> existingSettings = m_DataAccess.GetSettings();
+            List<Setting> existingSettings = m_DataAccess.SettingsDataAccess.GetSettings();
 
-            Dictionary<string, SettingsModel> existingSettingsDictionary =
+            Dictionary<string, Setting> existingSettingsDictionary =
                 existingSettings.ToDictionary(settingsModel => settingsModel.Key);
 
-            IEnumerable<SettingsModel> settingsToUpdate = settings.Where(s => existingSettingsDictionary.ContainsKey(s.Key));
-            IEnumerable<SettingsModel> settingsToAdd = settings.Where(s => !existingSettingsDictionary.ContainsKey(s.Key));
+            IEnumerable<Setting> settingsToUpdate = settings.Where(s => existingSettingsDictionary.ContainsKey(s.Key));
+            IEnumerable<Setting> settingsToAdd = settings.Where(s => !existingSettingsDictionary.ContainsKey(s.Key));
 
             if (settingsToAdd.Any())
             {
-                int nextId = m_DataAccess.GetSettingsNextId();
+                int nextId = m_DataAccess.SettingsDataAccess.GetNextId();
 
                 foreach (var settingsModel in settingsToAdd)
                 {
                     settingsModel.Id = nextId++;
                 }
 
-                m_DataAccess.AddSettings(settingsToAdd);
+                m_DataAccess.SettingsDataAccess.AddSettings(settingsToAdd);
             }
 
-            m_DataAccess.UpdateSettings(settingsToUpdate);
+            m_DataAccess.SettingsDataAccess.UpdateSettings(settingsToUpdate);
         }
 
-        /// <summary>
-        /// Creates a new task and persists it into the database
-        /// </summary>
-        /// <param name="taskContent">The displayed task content</param>
-        /// <param name="categoryId">The ID of the task category</param>
-        /// <param name="position">The position of the task in the list</param>
-        /// <returns>The created task</returns>
-        public TaskListItemViewModel CreateTask(string taskContent, int categoryId, int position)
+        public TaskViewModel CreateTask(string taskContent, int categoryId, int position)
         {
-            var createdTask = m_DataAccess.CreateTask(taskContent, categoryId);
+            TaskViewModel createdTask = m_DataAccess.TaskDataAccess.CreateTask(taskContent, categoryId);
 
             ReorderTask(createdTask, position);
 
             return createdTask;
         }
 
-        /// <summary>
-        /// Updates a task in the database
-        /// </summary>
-        /// <param name="task"></param>
-        public void UpdateTask(TaskListItemViewModel task)
+        public void UpdateTask(TaskViewModel task)
         {
-            m_DataAccess.UpdateTask(task);
+            m_DataAccess.TaskDataAccess.UpdateTask(task);
+            
             TaskChanged?.Invoke(this, new TaskChangedEventArgs(task));
         }
 
-        /// <summary>
-        /// Inserts a category into the database if it not exists
-        /// </summary>
-        /// <param name="categoryToAdd"></param>
-        /// <returns>Returns true, if the category is added, false otherwise</returns>
-        public bool AddCategoryIfNotExists(CategoryListItemViewModel categoryToAdd)
+        public bool AddCategoryIfNotExists(CategoryViewModel categoryToAdd)
         {
-            List<CategoryListItemViewModel> categoryList = m_DataAccess.GetCategories();
+            List<CategoryViewModel> categoryList = m_DataAccess.CategoryDataAccess.GetCategories();
 
             // If the category exists in the database, do nothing
             if (categoryList.All(category => category.Name != categoryToAdd.Name))
             {
                 // Generate an ID for the item
-                categoryToAdd.Id = m_DataAccess.GetCategoryNextId();
+                categoryToAdd.Id = m_DataAccess.CategoryDataAccess.GetNextId();
 
                 // Generate a ListOrder for the item
-                long lastListOrder = m_DataAccess.GetCategoryLastListOrder();
-                categoryToAdd.ListOrder = GetNextListOrder(lastListOrder);
+                long lastListOrder = m_DataAccess.CategoryDataAccess.GetLastListOrder();
+                categoryToAdd.ListOrder = m_Reorderer.GetNextListOrder(lastListOrder);
 
                 // Persist category into database
-                m_DataAccess.AddCategory(categoryToAdd);
+                m_DataAccess.CategoryDataAccess.AddCategory(categoryToAdd);
                 return true;
             }
 
@@ -237,21 +138,21 @@ namespace TodoApp2.Core
         /// </summary>
         /// <param name="task"></param>
         /// <param name="newPosition"></param>
-        public void ReorderTask(TaskListItemViewModel task, int newPosition)
+        public void ReorderTask(TaskViewModel task, int newPosition)
         {
             // Get all non-trashed task items from the task's category
-            List<TaskListItemViewModel> activeTasksFromCategory =
-                m_DataAccess.GetActiveTasksFromCategory(task.CategoryId);
+            List<TaskViewModel> activeTasks = 
+                m_DataAccess.TaskDataAccess.GetActiveTasks(task.CategoryId);
 
             // Filter out the reordered task
             List<IReorderable> filteredOrderedTasks =
-                activeTasksFromCategory.Where(t => t.Id != task.Id).Cast<IReorderable>().ToList();
+                activeTasks.Where(t => t.Id != task.Id).Cast<IReorderable>().ToList();
 
             IReorderable itemToReorder = task as IReorderable;
 
-            ReorderItem(filteredOrderedTasks, itemToReorder, newPosition, UpdateTaskListOrder);
+            m_Reorderer.ReorderItem(filteredOrderedTasks, itemToReorder, newPosition, UpdateTaskListOrder);
 
-            m_DataAccess.UpdateTask(task);
+            m_DataAccess.TaskDataAccess.UpdateTask(task);
 
             TaskChanged?.Invoke(this, new TaskChangedEventArgs(task));
         }
@@ -261,180 +162,109 @@ namespace TodoApp2.Core
         /// </summary>
         /// <param name="category"></param>
         /// <param name="newPosition"></param>
-        public void ReorderCategory(CategoryListItemViewModel category, int newPosition)
+        public void ReorderCategory(CategoryViewModel category, int newPosition)
         {
+            List<CategoryViewModel> activeCategories = 
+                m_DataAccess.CategoryDataAccess.GetActiveCategories();
+
             // Get all categories except the reordered one that are not trashed
-            var orderedCategories = m_DataAccess.GetCategories().Where(c => c.Id != category.Id && !c.Trashed)
-                .Cast<IReorderable>().ToList();
-            var itemToReorder = category as IReorderable;
-            ReorderItem(orderedCategories, itemToReorder, newPosition, UpdateCategoryListOrder);
-            m_DataAccess.UpdateCategory(category);
+            List<IReorderable> orderedCategories = 
+                activeCategories.Where(c => c.Id != category.Id).Cast<IReorderable>().ToList();
+
+            IReorderable itemToReorder = category as IReorderable;
+            
+            m_Reorderer.ReorderItem(
+                orderedCategories, 
+                itemToReorder, 
+                newPosition, 
+                UpdateCategoryListOrder);
+
+            m_DataAccess.CategoryDataAccess.UpdateCategory(category);
+
+            // Category changed event?
         }
 
-        /// <summary>
-        /// Updates every Category item order in the database
-        /// </summary>
-        /// <param name="categoryList"></param>
         public void UpdateCategoryListOrder(IEnumerable<IReorderable> categoryList)
         {
-            var updateSource = categoryList.Cast<CategoryListItemViewModel>();
-            // Persist every order change in the list into the database
-            m_DataAccess.UpdateCategoryListOrders(updateSource);
+            IEnumerable<CategoryViewModel> updateSource = categoryList.Cast<CategoryViewModel>();
+            
+            // Persist every ORDER change in the list into the database
+            m_DataAccess.CategoryDataAccess.UpdateCategoryListOrders(updateSource);
         }
 
-        /// <summary>
-        /// Updates every Task item order in the database
-        /// </summary>
-        /// <param name="taskList"></param>
-        public void UpdateTaskListOrder(IEnumerable<IReorderable> taskList)
-        {
-            IEnumerable<TaskListItemViewModel> updateSource = taskList.Cast<TaskListItemViewModel>();
-            // Persist every order change in the list into the database
-            m_DataAccess.UpdateTaskListOrders(updateSource);
-        }
+        public void UpdateTaskListOrder(IEnumerable<IReorderable> taskList) => 
+            m_DataAccess.TaskDataAccess.UpdateTaskListOrders(taskList.Cast<TaskViewModel>());
 
-        /// <summary>
-        /// Updates every Task item in the database
-        /// </summary>
-        /// <param name="taskList"></param>
-        public void UpdateTaskList(IEnumerable<IReorderable> taskList)
-        {
-            var updateSource = taskList.Cast<TaskListItemViewModel>();
-            // Persist every change in the list into the database
-            m_DataAccess.UpdateTaskList(updateSource);
-        }
+        public void UpdateTasks(IEnumerable<IReorderable> taskList) => 
+            m_DataAccess.TaskDataAccess.UpdateTaskList(taskList.Cast<TaskViewModel>());
 
-        /// <summary>
-        /// Trashes the category
-        /// </summary>
-        /// <param name="category"></param>
-        public void TrashCategory(CategoryListItemViewModel category)
+        public void TrashCategory(CategoryViewModel category)
         {
-            // Set Trashed property to true so it won't be listed in the active list
             category.Trashed = true;
-
-            // Indicate that it is an invalid order
             category.ListOrder = long.MinValue;
 
-            // Persist the change into the database
-            m_DataAccess.UpdateCategory(category);
+            m_DataAccess.CategoryDataAccess.UpdateCategory(category);
         }
 
-        /// <summary>
-        /// Sets the Trashed property of the category to false
-        /// </summary>
-        /// <param name="category"></param>
-        public void UntrashCategory(CategoryListItemViewModel category)
+        public void UntrashCategory(CategoryViewModel category)
         {
-            // Set Trashed property to true so it won't be listed in the active list
             category.Trashed = false;
 
             // Set the order to the end of the list
-            long lastListOrder = m_DataAccess.GetCategoryLastListOrder();
-            category.ListOrder = GetNextListOrder(lastListOrder);
+            long lastListOrder = m_DataAccess.CategoryDataAccess.GetLastListOrder();
+            category.ListOrder = m_Reorderer.GetNextListOrder(lastListOrder);
 
-            // Persist the change into the database
-            m_DataAccess.UpdateCategory(category);
+            m_DataAccess.CategoryDataAccess.UpdateCategory(category);
         }
 
-        /// <summary>
-        /// Updates a category in the database
-        /// </summary>
-        /// <param name="category"></param>
-        public void UpdateCategory(CategoryListItemViewModel category)
+        public void UpdateCategory(CategoryViewModel category)
         {
-            CategoryListItemViewModel originalCategory = m_DataAccess.GetCategory(category.Id);
-            m_DataAccess.UpdateCategory(category);
+            CategoryViewModel originalCategory = m_DataAccess.CategoryDataAccess.GetCategory(category.Id);
+
+            m_DataAccess.CategoryDataAccess.UpdateCategory(category);
+            
             CategoryChanged?.Invoke(this, new CategoryChangedEventArgs(originalCategory, category));
         }
 
-        /// <summary>
-        /// Re-initializes the ListOrder property of each item in the list according to it's order in the list
-        /// </summary>
-        /// <param name="itemList"></param>
-        public void ResetListOrders(IEnumerable<IReorderable> itemList)
+        public NoteViewModel CreateNote(string noteTitle)
         {
-            long current = DataAccessLayer.DefaultListOrder;
-
-            // Update the ListOrder property of the IReorderable items
-            foreach (var item in itemList)
-            {
-                item.ListOrder = current;
-                current += DataAccessLayer.ListOrderInterval;
-            }
+            NoteViewModel createdNote = m_DataAccess.NoteDataAccess.CreateNote(noteTitle);
+            return createdNote;
         }
 
-        /// <summary>
-        /// Reorders the given item in it's containing collection.
-        /// </summary>
-        /// <remarks>
-        /// The order for every element in the collection may will be overwritten!
-        /// The algorithm only modifies a single item until there is room between two item order.
-        /// When there is no more room between two item order, every item in the collection gets a
-        /// new number as it's order.
-        /// </remarks>
-        /// <param name="orderedItems">The collection without the item to reorder.</param>
-        /// <param name="itemToReorder">The item to reorder.</param>
-        /// <param name="newPosition">The item's new position in the collection.</param>
-        /// <param name="updateStrategy">The action that is called when each element
-        /// in the collection got a new order number. This action should persist the changes.</param>
-        private void ReorderItem(List<IReorderable> orderedItems, IReorderable itemToReorder,
-            int newPosition, Action<IEnumerable<IReorderable>> updateStrategy)
+        public void UpdateNote(NoteViewModel note)
         {
-            // If there is no other item besides the itemToReorder, set the default ListOrder
-            if (orderedItems.Count == 0)
-            {
-                itemToReorder.ListOrder = DataAccessLayer.DefaultListOrder;
-                return;
-            }
-
-            // If the item moved to the top of the list, calculate the previous order for it
-            if (newPosition == 0)
-            {
-                itemToReorder.ListOrder = GetPreviousListOrder(orderedItems[0].ListOrder);
-            }
-            // If the item moved to the end of the list, calculate the next order for it
-            else if (orderedItems.Count == newPosition)
-            {
-                itemToReorder.ListOrder = GetNextListOrder(orderedItems[orderedItems.Count - 1].ListOrder);
-            }
-            // Else the ListOrder should be in the middle between the previous and next order interval
-            else
-            {
-                long previousListOrder = orderedItems[newPosition - 1].ListOrder;
-                long nextListOrder = orderedItems[newPosition].ListOrder;
-                long newListOrder = previousListOrder + ((nextListOrder - previousListOrder) / 2);
-
-                itemToReorder.ListOrder = newListOrder;
-
-                // If there is no room between 2 existing order, reorder the whole list
-                if (newListOrder == previousListOrder || newListOrder == nextListOrder)
-                {
-                    orderedItems.Insert(newPosition, itemToReorder);
-                    ResetListOrders(orderedItems);
-                    updateStrategy(orderedItems);
-                }
-            }
+            m_DataAccess.NoteDataAccess.UpdateNote(note);
         }
 
-        /// <summary>
-        /// Gets the next available ListOrder relative to the provided one
-        /// </summary>
-        /// <param name="currentListOrder"></param>
-        /// <returns></returns>
-        private long GetNextListOrder(long currentListOrder)
-        {
-            return currentListOrder + DataAccessLayer.ListOrderInterval;
-        }
+        public List<NoteViewModel> GetValidNotes() => m_DataAccess.NoteDataAccess.GetActiveNotes();
 
         /// <summary>
-        /// Gets the previous available ListOrder relative to the provided one
+        /// Modifies the note order in the list to the provided <see cref="newPosition"/>.
         /// </summary>
-        /// <param name="currentListOrder"></param>
-        /// <returns></returns>
-        private long GetPreviousListOrder(long currentListOrder)
+        /// <param name="note"></param>
+        /// <param name="newPosition"></param>
+        public void ReorderNote(NoteViewModel note, int newPosition)
         {
-            return currentListOrder - DataAccessLayer.ListOrderInterval;
+            // TODO: make it generic!
+            List<NoteViewModel> activeNotes =
+                m_DataAccess.NoteDataAccess.GetActiveNotes();
+
+            // Get all categories except the reordered one that are not trashed
+            List<IReorderable> orderedNotes =
+                activeNotes.Where(c => c.Id != note.Id).Cast<IReorderable>().ToList();
+
+            IReorderable itemToReorder = note as IReorderable;
+
+            m_Reorderer.ReorderItem(
+                orderedNotes,
+                itemToReorder,
+                newPosition,
+                UpdateCategoryListOrder);
+
+            m_DataAccess.NoteDataAccess.UpdateNote(note);
+
+            // Category changed event?
         }
 
         public void Dispose()

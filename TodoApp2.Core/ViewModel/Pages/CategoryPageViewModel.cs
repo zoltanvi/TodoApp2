@@ -9,11 +9,10 @@ namespace TodoApp2.Core
     public class CategoryPageViewModel : BaseViewModel
     {
         private readonly IDatabase m_Database;
-        private readonly ApplicationViewModel m_Application;
+        private readonly AppViewModel m_Application;
         private readonly OverlayPageService m_OverlayPageService;
         private readonly CategoryListService m_CategoryListService;
         private readonly MessageService m_MessageService;
-
 
         private int m_LastRemovedId = int.MinValue;
 
@@ -21,18 +20,15 @@ namespace TodoApp2.Core
         /// The name of the current category being added
         /// </summary>
         public string PendingAddNewCategoryText { get; set; }
-
         public ICommand AddCategoryCommand { get; }
         public ICommand DeleteCategoryCommand { get; }
         public ICommand ChangeCategoryCommand { get; }
         public ICommand OpenSettingsPageCommand { get; }
-        public ICommand OpenNotePageCommand { get; }
-        public ICommand LogInCommand { get; }
-        public ICommand LogOutCommand { get; }
+        public ICommand OpenNoteListPageCommand { get; }
 
-        private ObservableCollection<CategoryListItemViewModel> Items => m_CategoryListService.Items;
+        private ObservableCollection<CategoryViewModel> Items => m_CategoryListService.Items;
 
-        private CategoryListItemViewModel ActiveCategory
+        private CategoryViewModel ActiveCategory
         {
             get => m_CategoryListService.ActiveCategory;
             set => m_CategoryListService.ActiveCategory = value;
@@ -42,8 +38,12 @@ namespace TodoApp2.Core
         {
         }
 
-        public CategoryPageViewModel(ApplicationViewModel applicationViewModel, IDatabase database,
-            OverlayPageService overlayPageService, CategoryListService categoryListService, MessageService messageService)
+        public CategoryPageViewModel(
+            AppViewModel applicationViewModel,
+            IDatabase database,
+            OverlayPageService overlayPageService,
+            CategoryListService categoryListService,
+            MessageService messageService)
         {
             m_Application = applicationViewModel;
             m_Database = database;
@@ -55,9 +55,7 @@ namespace TodoApp2.Core
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
             ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
             OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
-            OpenNotePageCommand = new RelayCommand(OpenNotePage);
-            //LogInCommand = new RelayCommand(IoC.SessionManager.LogIn);
-            //LogOutCommand = new RelayCommand(IoC.SessionManager.LogOut);
+            OpenNoteListPageCommand = new RelayCommand(OpenNoteListPage);
 
             // Subscribe to the collection changed event for synchronizing with database
             m_CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;
@@ -77,7 +75,7 @@ namespace TodoApp2.Core
                 {
                     if (e.NewItems.Count > 0)
                     {
-                        var newItem = (CategoryListItemViewModel)e.NewItems[0];
+                        var newItem = (CategoryViewModel)e.NewItems[0];
 
                         // If the newly added item is the same as the last deleted one,
                         // then this was a drag and drop reorder
@@ -94,7 +92,7 @@ namespace TodoApp2.Core
                 {
                     if (e.OldItems.Count > 0)
                     {
-                        var last = (CategoryListItemViewModel)e.OldItems[0];
+                        var last = (CategoryViewModel)e.OldItems[0];
 
                         m_LastRemovedId = last.Id;
                     }
@@ -115,13 +113,13 @@ namespace TodoApp2.Core
             }
 
             // Create the new category instance
-            CategoryListItemViewModel categoryToAdd = new CategoryListItemViewModel
+            CategoryViewModel categoryToAdd = new CategoryViewModel
             {
                 Name = PendingAddNewCategoryText
             };
 
             // Untrash category if it existed before
-            CategoryListItemViewModel existingCategory = m_Database.GetCategory(PendingAddNewCategoryText);
+            CategoryViewModel existingCategory = m_Database.GetCategory(PendingAddNewCategoryText);
 
             if (existingCategory != null && existingCategory.Trashed)
             {
@@ -143,7 +141,7 @@ namespace TodoApp2.Core
 
         private void TrashCategory(object obj)
         {
-            if (obj is CategoryListItemViewModel category)
+            if (obj is CategoryViewModel category)
             {
                 // At least one category is required
                 if (m_Database.GetValidCategories().Count > 1)
@@ -155,7 +153,7 @@ namespace TodoApp2.Core
                     // Only if the current category was the deleted one, select a new category
                     if (category == ActiveCategory)
                     {
-                        CategoryListItemViewModel firstItem = Items.FirstOrDefault();
+                        CategoryViewModel firstItem = Items.FirstOrDefault();
                         SetActiveCategory(firstItem);
                     }
                 }
@@ -168,7 +166,7 @@ namespace TodoApp2.Core
 
         private void ChangeCategory(object obj)
         {
-            if (obj is CategoryListItemViewModel category)
+            if (obj is CategoryViewModel category)
             {
                 IoC.UndoManager.ClearHistory();
                 SetActiveCategory(category);
@@ -180,7 +178,7 @@ namespace TodoApp2.Core
         /// Ensures that always only one IsSelected property is set to true.
         /// </summary>
         /// <param name="category"></param>
-        private void SetActiveCategory(CategoryListItemViewModel category)
+        private void SetActiveCategory(CategoryViewModel category)
         {
             if (!string.IsNullOrEmpty(category?.Name))
             {
@@ -190,6 +188,7 @@ namespace TodoApp2.Core
 
                     // Notify clients about the category change
                     Mediator.NotifyClients(ViewModelMessages.CategoryChanged);
+                    IoC.NoteListService.ActiveNote = null;
                 }
 
                 m_OverlayPageService.CloseSideMenu();
@@ -213,15 +212,9 @@ namespace TodoApp2.Core
         /// <summary>
         /// Opens the note page
         /// </summary>
-        private void OpenNotePage()
+        private void OpenNoteListPage()
         {
-            if (m_Application.CurrentPage != ApplicationPage.Note)
-            {
-                m_Application.CurrentPage = ApplicationPage.Note;
-            }
-
-            m_OverlayPageService.CloseSideMenu();
-            m_CategoryListService.ActiveCategory = null;
+            m_Application.SideMenuPage = ApplicationPage.NoteList;
         }
 
         /// <summary>
@@ -231,7 +224,7 @@ namespace TodoApp2.Core
         private void OnThemeChanged(object obj)
         {
             //Save the current items
-            List<CategoryListItemViewModel> itemsBackup = new List<CategoryListItemViewModel>(Items);
+            List<CategoryViewModel> itemsBackup = new List<CategoryViewModel>(Items);
 
             //Clear the items and add back the cleared items to refresh the list(repaint)
             Items.Clear();

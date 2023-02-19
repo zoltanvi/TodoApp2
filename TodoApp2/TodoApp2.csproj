@@ -134,13 +134,19 @@
     <Compile Include="Controls\FontSizeSliderControl.xaml.cs">
       <DependentUpon>FontSizeSliderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListItem\NoteListItemControl.xaml.cs">
+      <DependentUpon>NoteListItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\List\NoteListControl.xaml.cs">
+      <DependentUpon>NoteListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RichTextEditorControl.xaml.cs">
       <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CategoryListControl.xaml.cs">
+    <Compile Include="Controls\List\CategoryListControl.xaml.cs">
       <DependentUpon>CategoryListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CategoryListItemControl.xaml.cs">
+    <Compile Include="Controls\ListItem\CategoryListItemControl.xaml.cs">
       <DependentUpon>CategoryListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\OverlayBackgroundControl.xaml.cs">
@@ -152,10 +158,10 @@
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TaskListControl.xaml.cs">
+    <Compile Include="Controls\List\TaskListControl.xaml.cs">
       <DependentUpon>TaskListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TaskListItemControl.xaml.cs">
+    <Compile Include="Controls\ListItem\TaskListItemControl.xaml.cs">
       <DependentUpon>TaskListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FormattableTextEditorBox.cs" />
@@ -173,6 +179,9 @@
     <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\TextBoxHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
+    <Compile Include="Pages\NoteListPage.xaml.cs">
+      <DependentUpon>NoteListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\AsyncActionService.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\GenericBasePage.cs" />
@@ -243,11 +252,19 @@
     <Compile Include="Window\FlashWindow.cs" />
     <Compile Include="Window\TrayIconModule.cs" />
     <Compile Include="Window\WindowResizer.cs" />
-    <Page Include="Controls\CategoryListControl.xaml">
+    <Page Include="Controls\List\NoteListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\List\CategoryListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CategoryListItemControl.xaml">
+    <Page Include="Controls\ListItem\NoteListItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ListItem\CategoryListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,11 +288,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TaskListControl.xaml">
+    <Page Include="Controls\List\TaskListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TaskListItemControl.xaml">
+    <Page Include="Controls\ListItem\TaskListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,6 +312,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\NoteListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\NotePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

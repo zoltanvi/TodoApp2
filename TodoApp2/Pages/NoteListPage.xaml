@@ -1,5 +1,5 @@
 ﻿<local:BasePage
-    x:Class="TodoApp2.CategoryPage"
+    x:Class="TodoApp2.NoteListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
@@ -9,7 +9,7 @@
     Title="Page1"
     d:DesignHeight="450"
     d:DesignWidth="400"
-    x:TypeArguments="core:CategoryPageViewModel"
+    x:TypeArguments="core:NoteListPageViewModel"
     mc:Ignorable="d">
 
     <Grid Margin="0 5 0 0">
@@ -39,21 +39,21 @@
                 </Grid.ColumnDefinitions>
 
 
-                <!--  Task categories title  -->
+                <!--  Notes title  -->
                 <TextBlock
                     Grid.Column="0"
                     Margin="15 0 0 0"
                     Style="{DynamicResource SideMenuTitleTextBlockStyle}"
-                    Text="Task categories" />
+                    Text="Notes" />
 
-                <!--  Note button  -->
+                <!--  Categories button  -->
                 <Button
                     Grid.Column="1"
-                    AutomationProperties.AutomationId="NoteButton"
-                    Command="{Binding OpenNoteListPageCommand}"
-                    Content="{DynamicResource SegoeIconNote}"
+                    AutomationProperties.AutomationId="CategoryButton"
+                    Command="{Binding OpenCategoryPageCommand}"
+                    Content="{DynamicResource SegoeIconCategories}"
                     Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
-                    ToolTip="Go to Notes" />
+                    ToolTip="Go to Task categories" />
 
                 <!--  Settings button  -->
                 <Button
@@ -65,14 +65,14 @@
                     ToolTip="Settings" />
             </Grid>
 
-            <!--  Category list  -->
-            <local:CategoryListControl
+            <!--  Note list  -->
+            <local:NoteListControl
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2" />
         </Grid>
 
-        <!--  ADD NEW CATEGORY  -->
+        <!--  ADD NEW NOTE  -->
         <Border
             Grid.Row="1"
             Background="{DynamicResource BottomBarBgBrush}"
@@ -81,13 +81,13 @@
             <TextBox
                 Padding="8.5"
                 VerticalAlignment="Bottom"
-                AutomationProperties.AutomationId="AddNewCategoryTextBox"
+                AutomationProperties.AutomationId="AddNewNoteTextBox"
                 Style="{StaticResource AddNewTaskTextBoxStyle}"
-                Tag="Add new category"
-                Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}"
+                Tag="Add new note"
+                Text="{Binding PendingAddNewNoteText, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="NoWrap">
                 <TextBox.InputBindings>
-                    <KeyBinding Key="Return" Command="{Binding AddCategoryCommand}" />
+                    <KeyBinding Key="Return" Command="{Binding AddNoteCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
         </Border>

@@ -11,27 +11,27 @@ namespace TodoApp2.Core
 
         private DispatcherTimer m_PollingTimer;
         private OrderedDictionary m_TaskDictionary;
-        private Dictionary<TaskListItemViewModel, DateTime> m_TaskDictionaryReversed;
+        private Dictionary<TaskViewModel, DateTime> m_TaskDictionaryReversed;
         private int m_NextId = 0;
         private int NextId => m_NextId++;
 
         /// <summary>
         /// The Action which is executed when the timer reaches the scheduled times.
         /// The action has one parameter.
-        /// This parameter is the <see cref="TaskListItemViewModel"/>, the subject of the reminder.
+        /// This parameter is the <see cref="TaskViewModel"/>, the subject of the reminder.
         /// </summary>
-        public Action<TaskListItemViewModel> ScheduledAction { get; set; }
+        public Action<TaskViewModel> ScheduledAction { get; set; }
 
         public TaskScheduler2()
         {
             m_TaskDictionary = new OrderedDictionary();
-            m_TaskDictionaryReversed = new Dictionary<TaskListItemViewModel, DateTime>();
+            m_TaskDictionaryReversed = new Dictionary<TaskViewModel, DateTime>();
 
             m_PollingTimer = new DispatcherTimer { Interval = s_PollingInterval };
             m_PollingTimer.Tick += OnPollingTimerTick;
         }
 
-        public bool AddTask(TaskListItemViewModel task, DateTime dateTime)
+        public bool AddTask(TaskViewModel task, DateTime dateTime)
         {
             bool success = false;
 
@@ -62,7 +62,7 @@ namespace TodoApp2.Core
             return success;
         }
 
-        internal bool ModifyTask(TaskListItemViewModel task, DateTime reminderDate)
+        internal bool ModifyTask(TaskViewModel task, DateTime reminderDate)
         {
             bool success = false;
 
@@ -81,7 +81,7 @@ namespace TodoApp2.Core
         }
 
 
-        public bool DeleteTask(TaskListItemViewModel task)
+        public bool DeleteTask(TaskViewModel task)
         {
             bool success = false;
 

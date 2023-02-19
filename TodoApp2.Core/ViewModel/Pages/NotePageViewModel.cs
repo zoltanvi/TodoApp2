@@ -6,7 +6,8 @@ namespace TodoApp2.Core
 {
     public class NotePageViewModel : BaseViewModel
     {
-        private ApplicationViewModel m_Application;
+        private AppViewModel m_Application;
+        private NoteListService m_NoteListService;
         private IDatabase m_Database;
         private DispatcherTimer m_Timer;
         private bool m_Saved;
@@ -16,9 +17,13 @@ namespace TodoApp2.Core
         {
         }
 
-        public NotePageViewModel(ApplicationViewModel applicationViewModel, IDatabase database)
+        public NotePageViewModel(
+            AppViewModel appViewModel, 
+            NoteListService noteListService, 
+            IDatabase database)
         {
-            m_Application = applicationViewModel;
+            m_Application = appViewModel;
+            m_NoteListService = noteListService;
             m_Database = database;
             m_Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 5) };
             m_Timer.Tick += TimerOnTick;
@@ -37,10 +42,8 @@ namespace TodoApp2.Core
             m_Saved = true;
             m_Timer.Stop();
 
-            string propertyName = nameof(ApplicationSettings.NoteContent);
-
-            SettingsModel noteContent = m_Application.ApplicationSettings.GetSetting(propertyName);
-            m_Database.UpdateSettings(new List<SettingsModel>() { noteContent });
+            m_NoteListService.SaveNoteContent();
+            
             m_Application.SaveIconVisible = !m_Application.SaveIconVisible;
         }
 

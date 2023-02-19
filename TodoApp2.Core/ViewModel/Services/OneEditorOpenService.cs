@@ -2,9 +2,9 @@
 {
     public class OneEditorOpenService : BaseViewModel
     {
-        private TaskListItemViewModel m_EditorOpenTask;
+        private TaskViewModel m_EditorOpenTask;
 
-        internal void DisplayMode(TaskListItemViewModel taskListItemViewModel)
+        internal void DisplayMode(TaskViewModel taskListItemViewModel)
         {
             if (m_EditorOpenTask == taskListItemViewModel)
             {
@@ -12,7 +12,7 @@
             }
         }
 
-        internal void EditMode(TaskListItemViewModel taskListItemViewModel)
+        internal void EditMode(TaskViewModel taskListItemViewModel)
         {
             // Save changes and close editor for old task
             if (m_EditorOpenTask != null && m_EditorOpenTask != taskListItemViewModel)

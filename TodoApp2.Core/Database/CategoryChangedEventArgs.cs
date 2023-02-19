@@ -4,10 +4,10 @@ namespace TodoApp2.Core
 {
     public class CategoryChangedEventArgs : EventArgs
     {
-        public CategoryListItemViewModel OriginalCategory { get; }
-        public CategoryListItemViewModel ChangedCategory { get; }
+        public CategoryViewModel OriginalCategory { get; }
+        public CategoryViewModel ChangedCategory { get; }
 
-        public CategoryChangedEventArgs(CategoryListItemViewModel original, CategoryListItemViewModel changed)
+        public CategoryChangedEventArgs(CategoryViewModel original, CategoryViewModel changed)
         {
             OriginalCategory = original;
             ChangedCategory = changed;

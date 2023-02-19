@@ -7,16 +7,16 @@ namespace TodoApp2.Core.Test.ViewModel
     [TestFixture]
     public class ApplicationViewModelTest
     {
-        private ApplicationViewModel m_ApplicationViewModel;
+        private AppViewModel m_ApplicationViewModel;
         private IBaseViewModel m_BaseViewModelMock;
 
         [SetUp]
         public void Setup()
         {
             IDatabase databaseMock = Substitute.For<IDatabase>();
-            databaseMock.GetSettings().Returns(new List<SettingsModel>());
+            databaseMock.GetSettings().Returns(new List<Setting>());
 
-            m_ApplicationViewModel = new ApplicationViewModel(databaseMock, Substitute.For<IUIScaler>());
+            m_ApplicationViewModel = new AppViewModel(databaseMock, Substitute.For<IUIScaler>());
             m_BaseViewModelMock = Substitute.For<IBaseViewModel>();
         }
 
@@ -81,7 +81,7 @@ namespace TodoApp2.Core.Test.ViewModel
             // Listen for property change event from now on
             m_ApplicationViewModel.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == nameof(ApplicationViewModel.OverlayPage))
+                if (e.PropertyName == nameof(AppViewModel.OverlayPage))
                 {
                     isPropertyChanged = true;
                 }

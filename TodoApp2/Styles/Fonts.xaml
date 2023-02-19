@@ -67,6 +67,8 @@
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
     <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>
     <system:String x:Key="SegoeIconNote">&#xE70B;</system:String>
+    <system:String x:Key="SegoeIconCategories">&#xE71D;</system:String>
+
     <system:String x:Key="SegoeIconMinimizeWindow">&#xE921;</system:String>
 
     <system:String x:Key="SegoeIconMaximizeWindow">&#xE922;</system:String>

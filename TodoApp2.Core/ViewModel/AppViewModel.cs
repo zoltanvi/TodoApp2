@@ -9,7 +9,7 @@ namespace TodoApp2.Core
     /// <summary>
     /// The application state as a view model
     /// </summary>
-    public class ApplicationViewModel : BaseViewModel
+    public class AppViewModel : BaseViewModel
     {
         private bool m_AppSettingsLoadedFirstTime;
         private IUIScaler m_UiScaler;
@@ -74,7 +74,7 @@ namespace TodoApp2.Core
         /// </summary>
         public bool SaveIconVisible { get; set; }
 
-        public ApplicationViewModel(IDatabase database, IUIScaler uiScaler)
+        public AppViewModel(IDatabase database, IUIScaler uiScaler)
         {
             m_Database = database;
             m_UiScaler = uiScaler;
@@ -186,7 +186,7 @@ namespace TodoApp2.Core
 
         public void LoadApplicationSettings()
         {
-            List<SettingsModel> settings = m_Database.GetSettings();
+            List<Setting> settings = m_Database.GetSettings();
             ApplicationSettings.SetSettings(settings);
 
             // If the application were closed with the note page open,
@@ -197,13 +197,18 @@ namespace TodoApp2.Core
                 ApplicationSettings.ActiveCategoryId = m_Database.GetValidCategories().FirstOrDefault().Id;
             }
 
+            if (ApplicationSettings.ActiveNoteId == -1)
+            {
+                ApplicationSettings.ActiveNoteId = m_Database.GetValidNotes().FirstOrDefault().Id;
+            }
+
             // Must be set to always check the registry on startup
             IoC.AutoRunService.RunAtStartup = ApplicationSettings.RunAtStartup;
         }
 
         public void SaveApplicationSettings()
         {
-            List<SettingsModel> settings = ApplicationSettings.GetSettings();
+            List<Setting> settings = ApplicationSettings.GetSettings();
             m_Database.UpdateSettings(settings);
         }
 

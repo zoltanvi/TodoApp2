@@ -18,7 +18,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The task to show the notification for.
         /// </summary>
-        public TaskListItemViewModel ReminderTask { get; }
+        public TaskViewModel ReminderTask { get; }
         public DateTime SelectedDate { get; set; }
         public string SelectedDateString { get; set; }
         public bool IsSelectedDateStringValid { get; set; }
@@ -45,7 +45,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public ReminderEditorPageViewModel(TaskListItemViewModel reminderTask, OverlayPageService overlayPageService,
+        public ReminderEditorPageViewModel(TaskViewModel reminderTask, OverlayPageService overlayPageService,
             IDatabase database, ReminderNotificationService notificationService)
         {
             if (reminderTask == null)

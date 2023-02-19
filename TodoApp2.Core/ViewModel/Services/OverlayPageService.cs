@@ -6,7 +6,7 @@ namespace TodoApp2.Core
 {
     public class OverlayPageService : BaseViewModel, IOverlayPageService
     {
-        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly AppViewModel m_ApplicationViewModel;
         private readonly IDatabase m_Database;
 
         public ReminderNotificationService ReminderNotificationService { get; set; }
@@ -21,7 +21,7 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand BackgroundClickedCommand { get; private set; }
 
-        public OverlayPageService(ApplicationViewModel applicationViewModel, IDatabase database)
+        public OverlayPageService(AppViewModel applicationViewModel, IDatabase database)
         {
             m_ApplicationViewModel = applicationViewModel;
             m_Database = database;
@@ -53,7 +53,7 @@ namespace TodoApp2.Core
             m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
         }
 
-        public void OpenPage(ApplicationPage page, TaskListItemViewModel task = null)
+        public void OpenPage(ApplicationPage page, TaskViewModel task = null)
         {
             BaseViewModel viewModel = null;
             bool validPage = page == ApplicationPage.TaskReminder ||

@@ -7,11 +7,11 @@ namespace TodoApp2.Core
     {
         private const bool s_PlaySound = true;
         private bool m_CanShowNotification = true;
-        private readonly Queue<TaskListItemViewModel> m_NotificationQueue;
+        private readonly Queue<TaskViewModel> m_NotificationQueue;
         private readonly IDatabase m_Database;
         private readonly TaskScheduler2 m_TaskScheduler;
         private readonly OverlayPageService m_OverlayPageService;
-        private Dictionary<TaskListItemViewModel, DateTime> m_ScheduledTasks;
+        private Dictionary<TaskViewModel, DateTime> m_ScheduledTasks;
 
         public ReminderNotificationService(IDatabase database, TaskScheduler2 taskScheduler, OverlayPageService overlayPageService)
         {
@@ -19,15 +19,15 @@ namespace TodoApp2.Core
             m_TaskScheduler = taskScheduler;
             m_OverlayPageService = overlayPageService;
 
-            m_ScheduledTasks = new Dictionary<TaskListItemViewModel, DateTime>();
-            m_NotificationQueue = new Queue<TaskListItemViewModel>();
+            m_ScheduledTasks = new Dictionary<TaskViewModel, DateTime>();
+            m_NotificationQueue = new Queue<TaskViewModel>();
             m_TaskScheduler.ScheduledAction = ShowNotification;
 
             Mediator.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
 
-            List<TaskListItemViewModel> taskList = m_Database.GetActiveTaskItemsWithReminder();
+            List<TaskViewModel> taskList = m_Database.GetActiveTasksWithReminder();
 
-            foreach (TaskListItemViewModel task in taskList)
+            foreach (TaskViewModel task in taskList)
             {
                 DateTime reminderDate = new DateTime(task.ReminderDate);
 
@@ -43,7 +43,7 @@ namespace TodoApp2.Core
             }
         }
 
-        public void SetReminder(TaskListItemViewModel task)
+        public void SetReminder(TaskViewModel task)
         {
             DateTime reminderDate = new DateTime(task.ReminderDate);
 
@@ -68,7 +68,7 @@ namespace TodoApp2.Core
             }
         }
 
-        public void DeleteReminder(TaskListItemViewModel task)
+        public void DeleteReminder(TaskViewModel task)
         {
             if (m_TaskScheduler.DeleteTask(task))
             {
@@ -76,11 +76,11 @@ namespace TodoApp2.Core
             }
         }
 
-        private void ShowNotification(TaskListItemViewModel task)
+        private void ShowNotification(TaskViewModel task)
         {
             m_ScheduledTasks.Remove(task);
 
-            TaskListItemViewModel dbTask = m_Database.GetTask(task.Id);
+            TaskViewModel dbTask = m_Database.GetTask(task.Id);
             if (dbTask.IsReminderOn)
             {
                 m_NotificationQueue.Enqueue(dbTask);
@@ -106,7 +106,7 @@ namespace TodoApp2.Core
 
                 if (m_NotificationQueue.Count > 0)
                 {
-                    TaskListItemViewModel notificationTask = m_NotificationQueue.Dequeue();
+                    TaskViewModel notificationTask = m_NotificationQueue.Dequeue();
                     notificationTask = m_Database.GetTask(notificationTask.Id);
 
                     if (notificationTask.Trashed)
