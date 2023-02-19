@@ -22,7 +22,7 @@ namespace TodoApp2
         private readonly TrayIconModule m_TrayIconModule;
         private readonly ThemeManager m_ThemeManager;
 
-        private readonly AppViewModel m_ApplicationViewModel;
+        private readonly AppViewModel m_AppViewModel;
         private readonly IDatabase m_Database;
         private readonly DragDropMediator m_DragDropMediator;
         private readonly DispatcherTimer m_Timer;
@@ -33,7 +33,7 @@ namespace TodoApp2
         /// </summary>
         private WindowDockPosition m_DockPosition = WindowDockPosition.Undocked;
 
-        public ApplicationSettings ApplicationSettings => m_ApplicationViewModel.ApplicationSettings;
+        public ApplicationSettings ApplicationSettings => m_AppViewModel.ApplicationSettings;
         public UIScaler UIScaler => ViewModelLocator.UIScaler;
 
         public ICommand MinimizeCommand { get; }
@@ -102,9 +102,9 @@ namespace TodoApp2
         public WindowViewModel(Window window, AppViewModel applicationViewModel, IDatabase database)
         {
             m_Window = window;
-            m_ApplicationViewModel = applicationViewModel;
+            m_AppViewModel = applicationViewModel;
             m_Database = database;
-            m_ApplicationViewModel.ApplicationSettings.PropertyChanged += OnAppSettingsPropertyChanged;
+            m_AppViewModel.ApplicationSettings.PropertyChanged += OnAppSettingsPropertyChanged;
 
             m_ThemeManager = new ThemeManager();
 
@@ -147,9 +147,20 @@ namespace TodoApp2
             // Subscribe to the theme changed event to trigger app border update
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
 
-            // Set initial main and side menu pages
-            m_ApplicationViewModel.CurrentPage = ApplicationPage.Task;
-            m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
+            // TODO: Store in the appsettings only the valid side menu pages. 
+            // This fixes the side menu page problem
+            if (m_AppViewModel.SideMenuPage != ApplicationPage.Category ||
+                m_AppViewModel.SideMenuPage != ApplicationPage.NoteList)
+            {
+                m_AppViewModel.SideMenuPage = m_AppViewModel.ApplicationSettings.ActiveCategoryId != -1
+                    ? ApplicationPage.Category
+                    : ApplicationPage.NoteList;
+            }
+
+            m_AppViewModel.CurrentPage = 
+                m_AppViewModel.SideMenuPage == ApplicationPage.Category 
+                ? ApplicationPage.Task 
+                : ApplicationPage.Note;
 
             m_DragDropMediator = new DragDropMediator();
 
@@ -339,7 +350,7 @@ namespace TodoApp2
         {
             // When the window finished loading,
             // load the settings from the database
-            m_ApplicationViewModel.LoadApplicationSettingsOnce();
+            m_AppViewModel.LoadApplicationSettingsOnce();
 
             var left = ApplicationSettings.WindowLeftPos;
             var top = ApplicationSettings.WindowTopPos;
@@ -382,7 +393,7 @@ namespace TodoApp2
                 ApplicationSettings.WindowHeight = (int)m_Window.Height;
             }
 
-            m_ApplicationViewModel.SaveApplicationSettings();
+            m_AppViewModel.SaveApplicationSettings();
             m_Closing = true;
         }
 

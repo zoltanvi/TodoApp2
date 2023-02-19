@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Threading;
 
 namespace TodoApp2.Core
@@ -17,6 +16,8 @@ namespace TodoApp2.Core
         {
         }
 
+        public bool IsNoteExists { get; private set; }
+
         public NotePageViewModel(
             AppViewModel appViewModel, 
             NoteListService noteListService, 
@@ -27,6 +28,15 @@ namespace TodoApp2.Core
             m_Database = database;
             m_Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 5) };
             m_Timer.Tick += TimerOnTick;
+
+            IsNoteExists = m_NoteListService.ActiveNote != null;
+
+            Mediator.Register(OnNoteChanged, ViewModelMessages.NoteChanged);
+        }
+
+        private void OnNoteChanged(object obj)
+        {
+            IsNoteExists = m_NoteListService.ActiveNote != null;
         }
 
         private void TimerOnTick(object sender, EventArgs e)

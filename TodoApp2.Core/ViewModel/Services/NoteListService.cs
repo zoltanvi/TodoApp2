@@ -19,6 +19,7 @@ namespace TodoApp2.Core
             {
                 m_ActiveNote = value;
                 m_AppViewModel.ApplicationSettings.ActiveNoteId = value?.Id ?? -1;
+                Mediator.NotifyClients(ViewModelMessages.NoteChanged);
             }
         }
 
@@ -29,6 +30,8 @@ namespace TodoApp2.Core
 
             List<NoteViewModel> notes = m_Database.GetValidNotes();
             Items = new ObservableCollection<NoteViewModel>(notes);
+
+            m_ActiveNote = m_Database.GetNote(m_AppViewModel.ApplicationSettings.ActiveNoteId);
         }
 
         public void SaveNoteContent()

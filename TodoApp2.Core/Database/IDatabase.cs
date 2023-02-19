@@ -35,5 +35,6 @@ namespace TodoApp2.Core
         void UpdateNote(NoteViewModel note);
         List<NoteViewModel> GetValidNotes();
         void ReorderNote(NoteViewModel newItem, int newStartingIndex);
+        NoteViewModel GetNote(int noteId);
     }
 }

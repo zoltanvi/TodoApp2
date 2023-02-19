@@ -231,13 +231,15 @@ namespace TodoApp2.Core
             NoteViewModel createdNote = m_DataAccess.NoteDataAccess.CreateNote(noteTitle);
             return createdNote;
         }
+        public List<NoteViewModel> GetValidNotes() => m_DataAccess.NoteDataAccess.GetActiveNotes();
+
+        public NoteViewModel GetNote(int noteId) => m_DataAccess.NoteDataAccess.GetNote(noteId);
 
         public void UpdateNote(NoteViewModel note)
         {
             m_DataAccess.NoteDataAccess.UpdateNote(note);
         }
 
-        public List<NoteViewModel> GetValidNotes() => m_DataAccess.NoteDataAccess.GetActiveNotes();
 
         /// <summary>
         /// Modifies the note order in the list to the provided <see cref="newPosition"/>.

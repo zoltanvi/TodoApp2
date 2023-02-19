@@ -49,8 +49,6 @@ namespace TodoApp2.Core
 
                 BackgroundClickedCommand?.Execute(null);
             }
-
-            m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
         }
 
         public void OpenPage(ApplicationPage page, TaskViewModel task = null)

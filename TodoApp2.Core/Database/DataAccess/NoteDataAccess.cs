@@ -51,6 +51,31 @@ namespace TodoApp2.Core
         }
 
         // Read
+
+        public NoteViewModel GetNote(int noteId)
+        {
+            NoteViewModel item = null;
+
+            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            {
+                command.CommandText =
+                    $"SELECT * FROM {Table.Note} " +
+                    $"WHERE {Column.Id} = {Parameter.Id}";
+
+                command.Parameters.Add(new SQLiteParameter(Parameter.Id, noteId));
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        item = ReadNote(reader);
+                    }
+                }
+            }
+
+            return item;
+        }
+
         public List<NoteViewModel> GetActiveNotes()
         {
             string query =

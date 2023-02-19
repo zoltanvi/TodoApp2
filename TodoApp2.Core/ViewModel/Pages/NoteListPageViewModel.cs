@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows.Input;
 
 namespace TodoApp2.Core
@@ -39,9 +40,9 @@ namespace TodoApp2.Core
         }
 
         public NoteListPageViewModel(
-            AppViewModel applicationViewModel, 
+            AppViewModel applicationViewModel,
             IDatabase database,
-            OverlayPageService overlayPageService, 
+            OverlayPageService overlayPageService,
             NoteListService noteListService,
             MessageService messageService)
         {
@@ -129,6 +130,11 @@ namespace TodoApp2.Core
                 Items.Remove(note);
 
                 m_Database.UpdateNote(note);
+
+                if (ActiveNote.Id == note.Id)
+                {
+                    ActiveNote = m_Database.GetValidNotes().FirstOrDefault();
+                }
             }
         }
 
@@ -154,7 +160,6 @@ namespace TodoApp2.Core
                     ActiveNote = note;
 
                     // Notify clients about the category change
-                    Mediator.NotifyClients(ViewModelMessages.NoteChanged);
                     IoC.CategoryListService.ActiveCategory = null;
                 }
 

@@ -18,7 +18,7 @@ namespace TodoApp2
         {
             InitializeComponent();
 
-            textEditor.Text = IoC.NoteListService.ActiveNote.Content;
+            textEditor.Text = IoC.NoteListService.ActiveNote?.Content ?? string.Empty;
             textEditor.Options.HighlightCurrentLine = true;
             textEditor.TextArea.SelectionCornerRadius = 2;
 
@@ -29,7 +29,7 @@ namespace TodoApp2
 
         private void OnNoteChanged(object obj)
         {
-            textEditor.Text = IoC.NoteListService.ActiveNote.Content;
+            textEditor.Text = IoC.NoteListService.ActiveNote?.Content ?? string.Empty;
         }
 
         private void OnTextEditorPreviewKeyDown(object sender, KeyEventArgs e)
@@ -42,7 +42,10 @@ namespace TodoApp2
 
         private void textEditor_TextChanged(object sender, EventArgs e)
         {
-            IoC.NoteListService.ActiveNote.Content = textEditor.Text;
+            if (IoC.NoteListService.ActiveNote != null)
+            {
+                IoC.NoteListService.ActiveNote.Content = textEditor.Text;
+            }
         }
     }
 }

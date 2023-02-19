@@ -13,7 +13,6 @@ namespace TodoApp2.Core
     {
         private bool m_AppSettingsLoadedFirstTime;
         private IUIScaler m_UiScaler;
-
         private readonly IDatabase m_Database;
 
         public IOverlayPageService OverlayPageService { get; set; }
@@ -21,7 +20,11 @@ namespace TodoApp2.Core
         /// <summary>
         /// The sliding side menu content page
         /// </summary>
-        public ApplicationPage SideMenuPage { get; set; }
+        public ApplicationPage SideMenuPage
+        {
+            get => ApplicationSettings.SideMenuPage;
+            set => ApplicationSettings.SideMenuPage = value;
+        }
 
         /// <summary>
         /// True if the side menu should be shown
@@ -189,19 +192,6 @@ namespace TodoApp2.Core
             List<Setting> settings = m_Database.GetSettings();
             ApplicationSettings.SetSettings(settings);
 
-            // If the application were closed with the note page open,
-            // set the first valid category as selected.
-            if (ApplicationSettings.ActiveCategoryId == -1)
-            {
-                // There is always at least one valid category. Set the first one to active
-                ApplicationSettings.ActiveCategoryId = m_Database.GetValidCategories().FirstOrDefault().Id;
-            }
-
-            if (ApplicationSettings.ActiveNoteId == -1)
-            {
-                ApplicationSettings.ActiveNoteId = m_Database.GetValidNotes().FirstOrDefault().Id;
-            }
-
             // Must be set to always check the registry on startup
             IoC.AutoRunService.RunAtStartup = ApplicationSettings.RunAtStartup;
         }
@@ -221,7 +211,7 @@ namespace TodoApp2.Core
             {
                 Mediator.NotifyClients(ViewModelMessages.ThemeChangeRequested);
             }
-            else if(e.PropertyName == nameof(ApplicationSettings.RunAtStartup))
+            else if (e.PropertyName == nameof(ApplicationSettings.RunAtStartup))
             {
                 IoC.AutoRunService.RunAtStartup = ApplicationSettings.RunAtStartup;
             }

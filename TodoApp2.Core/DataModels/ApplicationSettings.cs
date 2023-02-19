@@ -67,6 +67,7 @@ namespace TodoApp2.Core
         public bool IsColorBarRounded { get; set; } = true;
         public bool IsTrayIconEnabled { get; set; }
         public bool RunAtStartup { get; set; }
+        public ApplicationPage SideMenuPage { get; set; }
 
         #region Testing
 
@@ -127,6 +128,7 @@ namespace TodoApp2.Core
                 { nameof(IsColorBarRounded), PropertyValueHandlers.Bool },
                 { nameof(IsTrayIconEnabled), PropertyValueHandlers.Bool },
                 { nameof(RunAtStartup), PropertyValueHandlers.Bool },
+                { nameof(SideMenuPage), PropertyValueHandlers.ApplicationPage },
             };
 
             m_UiScaler.Zoomed += OnZoomed;
