@@ -59,7 +59,7 @@ namespace TodoApp2.Core
                 TaskDataAccess.CreateTaskTable();
                 NoteDataAccess.CreateNoteTable();
 
-                if (CategoryDataAccess.AddDefaultCategoryIfNotExists())
+                if (!CategoryDataAccess.AddDefaultCategoryIfNotExists())
                 {
                     CreateShortcutTasks();
                 }
@@ -112,42 +112,48 @@ namespace TodoApp2.Core
         private void CreateShortcutTasks()
         {
             string globalShortcuts = "<FlowDocument PagePadding=\"5,0,5,0\" AllowDrop=\"True\" NumberSubstitution.CultureSource=\"User\" " +
-                "xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" " +
-                "xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"><Paragraph><Run FontWeight=\"Bold\" FontSize=\"22\" " +
-                "xml:lang=\"hu-hu\"><Run.TextDecorations><TextDecoration Location=\"Underline\" /></Run.TextDecorations>" +
-                "Global shortcuts</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Shift + J</Run>" +
-                "<Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\tPrevious theme</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
-                "xml:lang=\"hu-hu\">Ctrl + Shift + L</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\tNext theme</Run>" +
-                "<LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Z</Run><Run xml:lang=\"hu-hu\" " +
-                "xml:space=\"preserve\">\t\tUndo (Add / Delete task)</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
-                "xml:lang=\"hu-hu\">Ctrl + Y</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tRedo (Add / Delete task)" +
-                "</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Scroll ↑</Run><Run xml:lang=\"hu-hu\" " +
-                "xml:space=\"preserve\">\tZoom in</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Scroll ↓" +
-                "</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\tZoom in</Run></Paragraph></FlowDocument>";
-
-            string textEditorShortcuts = "<FlowDocument PagePadding=\"5,0,5,0\" AllowDrop=\"True\" NumberSubstitution.CultureSource=\"User\" " +
                 "xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">" +
-                "<Paragraph><Run FontWeight=\"Bold\" FontSize=\"22\" xml:lang=\"hu-hu\"><Run.TextDecorations><TextDecoration " +
-                "Location=\"Underline\" /></Run.TextDecorations>Text editor shortcuts</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
-                "xml:lang=\"hu-hu\">Ctrl + B</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\t</Run><Run FontWeight=\"Bold\" " +
-                "xml:lang=\"hu-hu\">Bold</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + U</Run>" +
-                "<Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\t</Run><Run xml:lang=\"hu-hu\"><Run.TextDecorations><TextDecoration " +
-                "Location=\"Underline\" /></Run.TextDecorations>Underlined</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
-                "xml:lang=\"hu-hu\">Ctrl + I</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tI</Run><Run FontStyle=\"Italic\" " +
-                "xml:lang=\"hu-hu\">talic</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + Space</Run><Run " +
-                "xml:lang=\"hu-hu\" xml:space=\"preserve\">\tRemove formatting</Run><LineBreak /><Run Foreground=\"#FFEC407A\" " +
-                "xml:lang=\"hu-hu\">Ctrl + L</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tAlign left</Run><LineBreak />" +
-                "<Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + E</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tAlign center" +
-                "</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + R</Run><Run xml:lang=\"hu-hu\" " +
-                "xml:space=\"preserve\">\t\tAlign right</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + J</Run>" +
-                "<Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tJustify</Run></Paragraph><Paragraph><Run Foreground=\"#FFEC407A\" " +
-                "xml:lang=\"hu-hu\">Ctrl + [</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\tDecrease font size</Run><LineBreak />" +
-                "<Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + ]</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\">\t\t" +
-                "Increase font size</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">Ctrl + =</Run><Run xml:lang=\"hu-hu\" " +
-                "xml:space=\"preserve\">\t\tSubscript ( e.g. x</Run><Run xml:lang=\"hu-hu\" Typography.Variants=\"Subscript\">4</Run>" +
-                "<Run xml:lang=\"hu-hu\" xml:space=\"preserve\"> )</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:lang=\"hu-hu\">" +
-                "Ctrl + Shift + =</Run><Run xml:lang=\"hu-hu\" xml:space=\"preserve\"> \tSuperscript ( e.g. x</Run><Run xml:lang=\"hu-hu\" " +
-                "Typography.Variants=\"Superscript\" xml:space=\"preserve\">4 </Run><Run xml:lang=\"hu-hu\">)</Run></Paragraph></FlowDocument>";
+                "<Paragraph><Run FontStyle=\"Italic\" FontWeight=\"Bold\" FontSize=\"22\" Foreground=\"#FF42BDA8\" >" +
+                "Text editor shortcuts</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + B</Run>" +
+                "<Run xml:space=\"preserve\">\t\t</Run><Run FontWeight=\"Bold\" >Bold</Run>" +
+                "<LineBreak /><Run Foreground=\"#FF42BDA8\" xml:space=\"preserve\">Ctrl + U\t</Run>" +
+                "<Run xml:space=\"preserve\">\t</Run><Run ><Run.TextDecorations>" +
+                "<TextDecoration Location=\"Underline\" /></Run.TextDecorations>Underlined</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" " +
+                " xml:space=\"preserve\">Ctrl + I\t</Run><Run xml:space=\"preserve\">\tI</Run>" +
+                "<Run FontStyle=\"Italic\" >talic</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" " +
+                "xml:space=\"preserve\" /><LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + Space</Run>" +
+                "<Run xml:space=\"preserve\">\tRemove format (selection)</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" " +
+                ">Ctrl + H</Run><Run xml:space=\"preserve\">\t\tRemove format (all)</Run><LineBreak />" +
+                "<Run Foreground=\"#FF42BDA8\" xml:space=\"preserve\" /><LineBreak /><Run Foreground=\"#FF42BDA8\"" +
+                " xml:space=\"preserve\">Ctrl + L\t</Run><Run xml:space=\"preserve\">\tAlign left</Run>" +
+                "<LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + E</Run><Run xml:space=\"preserve\">" +
+                "\t\tAlign center</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + R</Run><Run " +
+                "xml:space=\"preserve\">\t\tAlign right</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + J</Run>" +
+                "<Run xml:space=\"preserve\">\t\tJustify</Run></Paragraph><Paragraph><Run Foreground=\"#FF42BDA8\" " +
+                " xml:space=\"preserve\" /><LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + [</Run>" +
+                "<Run xml:space=\"preserve\">\t\tDecrease font size</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" " +
+                ">Ctrl + ]</Run><Run xml:space=\"preserve\">\t\tIncrease font size</Run><LineBreak />" +
+                "<Run Foreground=\"#FF42BDA8\" xml:space=\"preserve\" /><LineBreak /><Run Foreground=\"#FF42BDA8\" " +
+                " xml:space=\"preserve\">Ctrl + =\t</Run><Run xml:space=\"preserve\">" +
+                "\tSubscript ( e.g. x</Run><Run Typography.Variants=\"Subscript\">4</Run><Run " +
+                "xml:space=\"preserve\"> )</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + Shift + =</Run>" +
+                "<Run xml:space=\"preserve\"> \tSuperscript ( e.g. x</Run><Run " +
+                "Typography.Variants=\"Superscript\" xml:space=\"preserve\">4 </Run><Run >)</Run></Paragraph>" +
+                "</FlowDocument>";
+
+            string textEditorShortcuts = "<FlowDocument PagePadding=\"5,0,5,0\" AllowDrop=\"True\" NumberSubstitution.CultureSource=\"User\"" +
+                " xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">" +
+                "<Paragraph><Run FontStyle=\"Italic\" FontWeight=\"Bold\" FontSize=\"22\" Foreground=\"#FF42BDA8\" >Global shortcuts</Run>" +
+                "<LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + Shift + J</Run><Run xml:space=\"preserve\">\tPrevious theme</Run>" +
+                "<LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + Shift + L</Run><Run xml:space=\"preserve\">\tNext theme</Run><LineBreak />" +
+                "<LineBreak /><Run Foreground=\"#FF42BDA8\" xml:space=\"preserve\">Ctrl + Z\t</Run><Run xml:space=\"preserve\">" +
+                "\tUndo (Add / Delete task)</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" xml:space=\"preserve\">Ctrl + Y\t</Run>" +
+                "<Run xml:space=\"preserve\">\tRedo (Add / Delete task)</Run><LineBreak /><Run Foreground=\"#FFEC407A\" xml:space=\"preserve\" />" +
+                "<LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + Scroll ↑</Run><Run xml:space=\"preserve\">\tZoom in</Run><LineBreak />" +
+                "<Run Foreground=\"#FF42BDA8\" xml:space=\"preserve\">Ctrl + '+'\t</Run><Run xml:space=\"preserve\">\tZoom in</Run><LineBreak />" +
+                "<Run Foreground=\"#FFEC407A\" xml:space=\"preserve\" /><LineBreak /><Run Foreground=\"#FF42BDA8\" >Ctrl + Scroll ↓</Run>" +
+                "<Run xml:space=\"preserve\">\tZoom out</Run><LineBreak /><Run Foreground=\"#FF42BDA8\" xml:space=\"preserve\">Ctrl + '-'\t</Run>" +
+                "<Run xml:space=\"preserve\">\tZoom out</Run></Paragraph></FlowDocument>";
 
             TaskDataAccess.CreateTask(textEditorShortcuts, 1);
             TaskDataAccess.CreateTask(globalShortcuts, 1);
