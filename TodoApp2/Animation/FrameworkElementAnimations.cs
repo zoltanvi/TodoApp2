@@ -26,7 +26,7 @@ namespace TodoApp2
             await DoAnimation(element, storyboard =>
             {
                 storyboard.AddSlideInFromLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
-                storyboard.AddFadeIn(seconds);
+                //storyboard.AddFadeIn(seconds);
 
             }, seconds, keepMargin);
         }
@@ -36,7 +36,7 @@ namespace TodoApp2
             await DoAnimation(element, storyboard =>
             {
                 storyboard.AddSlideOutToLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
-                storyboard.AddFadeOut(seconds);
+                //storyboard.AddFadeOut(seconds);
 
             }, seconds, keepMargin);
         }

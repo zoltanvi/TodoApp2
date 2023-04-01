@@ -107,7 +107,7 @@ namespace TodoApp2.Core
         public void UpdateTask(TaskViewModel task)
         {
             m_DataAccess.TaskDataAccess.UpdateTask(task);
-            
+
             TaskChanged?.Invoke(this, new TaskChangedEventArgs(task));
         }
 
@@ -141,7 +141,7 @@ namespace TodoApp2.Core
         public void ReorderTask(TaskViewModel task, int newPosition)
         {
             // Get all non-trashed task items from the task's category
-            List<TaskViewModel> activeTasks = 
+            List<TaskViewModel> activeTasks =
                 m_DataAccess.TaskDataAccess.GetActiveTasks(task.CategoryId);
 
             // Filter out the reordered task
@@ -164,19 +164,19 @@ namespace TodoApp2.Core
         /// <param name="newPosition"></param>
         public void ReorderCategory(CategoryViewModel category, int newPosition)
         {
-            List<CategoryViewModel> activeCategories = 
+            List<CategoryViewModel> activeCategories =
                 m_DataAccess.CategoryDataAccess.GetActiveCategories();
 
             // Get all categories except the reordered one that are not trashed
-            List<IReorderable> orderedCategories = 
+            List<IReorderable> orderedCategories =
                 activeCategories.Where(c => c.Id != category.Id).Cast<IReorderable>().ToList();
 
             IReorderable itemToReorder = category as IReorderable;
-            
+
             m_Reorderer.ReorderItem(
-                orderedCategories, 
-                itemToReorder, 
-                newPosition, 
+                orderedCategories,
+                itemToReorder,
+                newPosition,
                 UpdateCategoryListOrder);
 
             m_DataAccess.CategoryDataAccess.UpdateCategory(category);
@@ -187,15 +187,15 @@ namespace TodoApp2.Core
         public void UpdateCategoryListOrder(IEnumerable<IReorderable> categoryList)
         {
             IEnumerable<CategoryViewModel> updateSource = categoryList.Cast<CategoryViewModel>();
-            
+
             // Persist every ORDER change in the list into the database
             m_DataAccess.CategoryDataAccess.UpdateCategoryListOrders(updateSource);
         }
 
-        public void UpdateTaskListOrder(IEnumerable<IReorderable> taskList) => 
+        public void UpdateTaskListOrder(IEnumerable<IReorderable> taskList) =>
             m_DataAccess.TaskDataAccess.UpdateTaskListOrders(taskList.Cast<TaskViewModel>());
 
-        public void UpdateTasks(IEnumerable<IReorderable> taskList) => 
+        public void UpdateTasks(IEnumerable<IReorderable> taskList) =>
             m_DataAccess.TaskDataAccess.UpdateTaskList(taskList.Cast<TaskViewModel>());
 
         public void TrashCategory(CategoryViewModel category)
@@ -222,7 +222,7 @@ namespace TodoApp2.Core
             CategoryViewModel originalCategory = m_DataAccess.CategoryDataAccess.GetCategory(category.Id);
 
             m_DataAccess.CategoryDataAccess.UpdateCategory(category);
-            
+
             CategoryChanged?.Invoke(this, new CategoryChangedEventArgs(originalCategory, category));
         }
 
@@ -237,7 +237,10 @@ namespace TodoApp2.Core
 
         public void UpdateNote(NoteViewModel note)
         {
-            m_DataAccess.NoteDataAccess.UpdateNote(note);
+            if (note != null)
+            {
+                m_DataAccess.NoteDataAccess.UpdateNote(note);
+            }
         }
 
 

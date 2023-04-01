@@ -222,14 +222,38 @@
                 local:NoFrameHistory.Value="True"
                 AutomationProperties.AutomationId="CurrentPage"
                 Content="{Binding}"
-                DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+                DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}">
+                <!--  Margin="{Binding ElementName=SideMenu, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource leftMarginConverter}}"  -->
+
+                <Frame.Margin>
+                    <MultiBinding>
+                        <MultiBinding.Converter>
+                            <local:LeftMarginConverter />
+                        </MultiBinding.Converter>
+                        <Binding
+                            ElementName="SideMenu"
+                            Path="ActualWidth"
+                            UpdateSourceTrigger="PropertyChanged" />
+                        <Binding
+                            ElementName="SideMenu"
+                            Path="Margin"
+                            UpdateSourceTrigger="PropertyChanged" />
+                    </MultiBinding>
+                </Frame.Margin>
+
+            </Frame>
 
             <!--  Overlay background  -->
             <local:OverlayBackgroundControl AutomationProperties.AutomationId="OverlayBackgroundControl" />
 
             <!--  Navigator menu panel  -->
-            <Border>
-                <local:SideMenuControl local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}" AutomationProperties.AutomationId="SideMenuControl">
+            <Grid>
+                <local:SideMenuControl
+                    x:Name="SideMenu"
+                    HorizontalAlignment="Left"
+                    Width="{Binding UIScaler.SideMenuWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                    local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                    AutomationProperties.AutomationId="SideMenuControl">
                     <!--  Side menu page  -->
                     <Frame
                         local:NoFrameHistory.Value="True"
@@ -237,7 +261,7 @@
                         Content="{Binding}"
                         DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
                 </local:SideMenuControl>
-            </Border>
+            </Grid>
 
             <!--  Message line  -->
             <Grid VerticalAlignment="Top" local:AnimateSlideInFromTopProperty.Value="{Binding MessageService.MessageLineVisible, Source={x:Static local:ViewModelLocator.Instance}}">

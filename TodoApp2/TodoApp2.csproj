@@ -230,6 +230,7 @@
     <Compile Include="ValueConverters\Single\FromBool\BoolToTextWrappingConverter.cs" />
     <Compile Include="ValueConverters\Single\CamelCaseConverter.cs" />
     <Compile Include="ValueConverters\Single\IntTo2DigitTextConverter.cs" />
+    <Compile Include="ValueConverters\Multi\LeftMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToDoubleConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToMarginConverter.cs" />
