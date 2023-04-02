@@ -125,6 +125,7 @@
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\FocusSetter.cs" />
+    <Compile Include="AttachedProperties\MarginUpdater.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\PutCaretAtTheEndRTBBehavior.cs" />
     <Compile Include="Controls\BasicTextEditorBox.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="ValueConverters\Single\Brush\MessageTypeToBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringToDynamicBrushConverterBase.cs" />
     <Compile Include="ValueConverters\Single\Brush\TaskBorderBrushConverter.cs" />
+    <Compile Include="ValueConverters\Single\DoubleToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BaseBoolValueConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToCornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToDoubleConverter.cs" />

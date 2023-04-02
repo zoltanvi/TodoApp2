@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -21,21 +22,21 @@ namespace TodoApp2
             }, seconds, keepMargin);
         }
 
-        public static async Task SlideAndFadeInFromLeftAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
+        public static async Task SlideInFromLeftSideMenuAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
             await DoAnimation(element, storyboard =>
             {
-                storyboard.AddSlideInFromLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
+                storyboard.AddSlideInFromLeft(seconds, IoC.UIScaler.SideMenuWidth, keepMargin: keepMargin);
                 //storyboard.AddFadeIn(seconds);
 
             }, seconds, keepMargin);
         }
 
-        public static async Task SlideAndFadeOutToLeftAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
+        public static async Task SlideOutToLeftSideMenuAsync(this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
         {
             await DoAnimation(element, storyboard =>
             {
-                storyboard.AddSlideOutToLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
+                storyboard.AddSlideOutToLeft(seconds, IoC.UIScaler.SideMenuWidth, keepMargin: keepMargin);
                 //storyboard.AddFadeOut(seconds);
 
             }, seconds, keepMargin);
@@ -197,6 +198,9 @@ namespace TodoApp2
 
             // Wait for it to finish
             await Task.Delay((int)(seconds * 1000));
+            
+            // Remove storyboard
+            sb.Remove(element);
         }
     }
 }

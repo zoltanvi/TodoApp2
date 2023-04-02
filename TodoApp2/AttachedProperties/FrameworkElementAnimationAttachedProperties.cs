@@ -10,16 +10,16 @@ namespace TodoApp2
     /// Animates a framework element sliding it in from the left on show
     /// and sliding out to the left on hide
     /// </summary>
-    public class AnimateSlideInFromLeftProperty : AnimateBaseProperty<AnimateSlideInFromLeftProperty>
+    public class AnimateSlideInFromLeftSideMenuProperty : AnimateBaseProperty<AnimateSlideInFromLeftSideMenuProperty>
     {
         protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
         {
             if (value)
                 // Animate in
-                await element.SlideAndFadeInFromLeftAsync(firstLoad ? 0 : 0.06f);
+                await element.SlideInFromLeftSideMenuAsync(firstLoad ? 0 : 0.06f, false);
             else
                 // Animate out
-                await element.SlideAndFadeOutToLeftAsync(firstLoad ? 0 : DefaultAnimationDuration);
+                await element.SlideOutToLeftSideMenuAsync(firstLoad ? 0 : DefaultAnimationDuration, false);
         }
     }
 

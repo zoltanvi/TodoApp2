@@ -70,5 +70,5 @@
 
     <local:TaskSpacingToDoubleConverter x:Key="taskSpacingToDoubleConverter" />
     <local:TaskSpacingToMarginConverter x:Key="taskSpacingToMarginConverter" />
-
+    <local:DoubleToGridLengthConverter x:Key="doubleToGridLengthConverter" />
 </ResourceDictionary>

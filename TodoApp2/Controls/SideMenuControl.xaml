@@ -19,8 +19,7 @@
                 BorderThickness="0 0 1 0"
                 BorderBrush="{DynamicResource CommonBorderBrush}"
                 ClipToBounds="True"
-                Width="{Binding UIScaler.SideMenuWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                HorizontalAlignment="Left">
+                HorizontalAlignment="Stretch">
 
                 <ContentPresenter />
 
