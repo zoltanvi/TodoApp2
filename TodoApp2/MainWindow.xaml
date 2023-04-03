@@ -226,7 +226,7 @@
             </Grid.ColumnDefinitions>
 
             <!--  Navigator menu panel  -->
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0" >
                 <local:SideMenuControl x:Name="SideMenu" AutomationProperties.AutomationId="SideMenuControl">
 
                     <!--  Side menu page  -->
