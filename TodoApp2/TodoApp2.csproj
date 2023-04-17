@@ -234,6 +234,7 @@
     <Compile Include="ValueConverters\Single\IntTo2DigitTextConverter.cs" />
     <Compile Include="ValueConverters\Multi\LeftMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />
+    <Compile Include="ValueConverters\Single\TaskCheckboxMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToDoubleConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\EnumToFontFamilyConverter.cs" />
@@ -521,6 +522,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Splash\LightGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sounds\click.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\click_reverse.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

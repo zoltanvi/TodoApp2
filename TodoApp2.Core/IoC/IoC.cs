@@ -17,6 +17,7 @@
         public static UIScaler UIScaler { get; private set; }
         public static UndoManager UndoManager { get; private set; }
         public static AutoRunService AutoRunService { get; private set; }
+        public static MediaPlayerService MediaPlayerService { get; private set; }
 
         /// <summary>
         /// Sets up the essential services and modules
@@ -33,6 +34,7 @@
         /// </summary>
         public static void Setup()
         {
+            MediaPlayerService = new MediaPlayerService();
             UIScaler = new UIScaler();
             UndoManager = new UndoManager();
             ApplicationViewModel = new AppViewModel(Database, UIScaler);

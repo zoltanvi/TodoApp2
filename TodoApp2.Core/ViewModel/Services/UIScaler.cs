@@ -53,7 +53,7 @@ namespace TodoApp2
         public double ColorPickerItemSize => OriginalColorPickerItemSize * ScaleValue;
         public double TextEditorToggleWidth => OriginalTextEditorToggleWidth * ScaleValue;
         public double ColorPickerDropDownWidth => 44 + 16 + (s_ColorPickerColumns * ColorPickerItemSize);
-        public double TaskCheckBoxWidth => 36 * ScaleValue;
+        public double TaskCheckBoxWidth => 8 * ScaleValue;
         public double SliderHeight => 18 * ScaleValue;
         public double SliderThumbHeight => 18 * ScaleValue;
         public double SliderThumbWidth => 15 * ScaleValue;

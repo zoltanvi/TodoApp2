@@ -13,7 +13,7 @@
     x:TypeArguments="core:TaskPageViewModel"
     mc:Ignorable="d">
 
-    <Border Background="{DynamicResource ApplicationBackgroundBrush}">
+    <Border Background="{DynamicResource ApplicationBackgroundBrush}" >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

@@ -30,8 +30,8 @@
     <Color x:Key="SideMenuBg">#1e222d</Color>
     <Color x:Key="TitleBarBg">#131722</Color>
     <Color x:Key="BottomBarBg">#131722</Color>
-    <Color x:Key="TaskBg">#181c27</Color>
-    <Color x:Key="TaskTransparentBg">#00181c27</Color>
+    <Color x:Key="TaskBg">#202533</Color>
+    <Color x:Key="TaskTransparentBg">#00202533</Color>
     <Color x:Key="TaskDoneBg">#537F7F7F</Color>
     <Color x:Key="SelectionBg">#26a69a</Color>
     <Color x:Key="ScrollBarBg">#363a45</Color>

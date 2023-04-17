@@ -88,9 +88,14 @@ namespace TodoApp2.Core
         public ICommand ResetBorderColorsCommand { get; }
 
         /// <summary>
-        /// Marks the task item as done
+        /// Saves the task item. The IsDone is modified by the checkbox itself.
         /// </summary>
         public ICommand TaskIsDoneModifiedCommand { get; }
+
+        /// <summary>
+        /// Toggles the IsDone property on the task and saves it.
+        /// </summary>
+        public ICommand ToggleTaskIsDoneCommand { get; }
 
         /// <summary>
         /// Moves the task item into another category
@@ -137,6 +142,7 @@ namespace TodoApp2.Core
             ResetBorderColorsCommand = new RelayCommand(ResetBorderColors);
 
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
+            ToggleTaskIsDoneCommand = new RelayParameterizedCommand(ToggleTaskIsDone);
             MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
 
             EditCategoryCommand = new RelayCommand(EditCategory);
@@ -259,16 +265,30 @@ namespace TodoApp2.Core
                     // A done item cannot be pinned.
                     task.Pinned = false;
                     MoveTaskToEnd(task);
+                    IoC.MediaPlayerService.PlayClick();
                 }
                 else
                 {
                     MoveTaskToTop(task);
+                    IoC.MediaPlayerService.PlayClickReverse();
                 }
+
 
                 m_TaskListService.UpdateTask(task);
             }
         }
 
+        private void ToggleTaskIsDone(object obj)
+        {
+            if (obj is TaskViewModel task)
+            {
+                // Toggle IsDone
+                task.IsDone = !task.IsDone;
+
+                // Modify order and persist task
+                ModifyTaskIsDone(task);
+            }
+        }
 
         /// <inheritdoc cref="DeleteAllCommand"/>
         private void TrashAll()

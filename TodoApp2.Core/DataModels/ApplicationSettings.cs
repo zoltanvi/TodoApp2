@@ -53,6 +53,7 @@ namespace TodoApp2.Core
         public bool IsItemBackgroundVisible { get; set; } = true;
         public bool IsItemBorderVisible { get; set; } = true;
         public bool IsQuickActionsEnabled { get; set; } = true;
+        public bool IsQuickActionsCheckboxEnabled { get; set; } = true;
         public bool IsQuickActionsReminderEnabled { get; set; } = true;
         public bool IsQuickActionsColorEnabled { get; set; } = true;
         public bool IsQuickActionsBorderColorEnabled { get; set; } = true;
@@ -66,6 +67,8 @@ namespace TodoApp2.Core
         public bool MoveTaskOnCompletion { get; set; } = true;
         public bool IsColorBarRounded { get; set; } = true;
         public bool IsTrayIconEnabled { get; set; }
+        public bool FocusLostSavesTask { get; set; } = false;
+        public bool PlaySoundOnTaskIsDoneChange { get; set; } = true;
         public bool RunAtStartup { get; set; }
         public ApplicationPage SideMenuPage { get; set; }
 
@@ -102,6 +105,7 @@ namespace TodoApp2.Core
                 { nameof(IsCreationDateVisible), PropertyValueHandlers.Bool },
                 { nameof(IsModificationDateVisible), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsCheckboxEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsReminderEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsColorEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsBorderColorEnabled), PropertyValueHandlers.Bool },
@@ -127,8 +131,10 @@ namespace TodoApp2.Core
                 { nameof(MoveTaskOnCompletion), PropertyValueHandlers.Bool },
                 { nameof(IsColorBarRounded), PropertyValueHandlers.Bool },
                 { nameof(IsTrayIconEnabled), PropertyValueHandlers.Bool },
+                { nameof(FocusLostSavesTask), PropertyValueHandlers.Bool },
                 { nameof(RunAtStartup), PropertyValueHandlers.Bool },
                 { nameof(SideMenuPage), PropertyValueHandlers.ApplicationPage },
+                { nameof(PlaySoundOnTaskIsDoneChange), PropertyValueHandlers.Bool },
             };
 
             m_UiScaler.Zoomed += OnZoomed;

@@ -16,10 +16,10 @@ namespace TodoApp2
         {
             if (value)
                 // Animate in
-                await element.SlideInFromLeftSideMenuAsync(firstLoad ? 0 : 0.06f, false);
+                await element.SlideInFromLeftSideMenuAsync(firstLoad ? 0 : 0.15f, false);
             else
                 // Animate out
-                await element.SlideOutToLeftSideMenuAsync(firstLoad ? 0 : DefaultAnimationDuration, false);
+                await element.SlideOutToLeftSideMenuAsync(firstLoad ? 0 : 0.15f, false);
         }
     }
 

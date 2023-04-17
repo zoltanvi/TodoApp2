@@ -44,6 +44,7 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="PropertyChanged, Version=3.4.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.3.4.1\lib\net40\PropertyChanged.dll</HintPath>
     </Reference>
@@ -118,6 +119,7 @@
     <Compile Include="PropertyHandling\EnumPropertyValueHandler.cs" />
     <Compile Include="Services\AutoRunService.cs" />
     <Compile Include="Services\IAsyncActionService.cs" />
+    <Compile Include="Services\MediaPlayerService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />
     <Compile Include="ViewModel\Controls\RichTextEditorViewModel.cs" />
     <Compile Include="ViewModel\Controls\TimePickerViewModel.cs" />

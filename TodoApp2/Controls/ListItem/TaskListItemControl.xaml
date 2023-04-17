@@ -18,6 +18,18 @@
 
         <ContextMenu>
             <MenuItem
+                Command="{Binding Path=PlacementTarget.Tag.ToggleTaskIsDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Header="Mark as completed"
+                Visibility="{Binding Path=PlacementTarget.DataContext.IsDone, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={StaticResource boolToVisibilityNegatedConverter}}" />
+            <MenuItem
+                Command="{Binding Path=PlacementTarget.Tag.ToggleTaskIsDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Header="Mark as not completed"
+                Visibility="{Binding Path=PlacementTarget.DataContext.IsDone, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Separator />
+            <MenuItem
                 Command="{Binding Path=PlacementTarget.Tag.PinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                 CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                 Header="Pin item"
@@ -137,7 +149,8 @@
             Margin="4 2"
             BorderBrush="Transparent"
             BorderThickness="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}"
-            CornerRadius="2">
+            CornerRadius="2"
+            >
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
@@ -161,12 +174,13 @@
                     </ColumnDefinition>
 
                     <!--  Checkbox column  -->
-                    <ColumnDefinition Width="{Binding UIScaler.TaskCheckBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
+                    <ColumnDefinition Width="auto" />
                     <!--  Main content column, also the hidden buttons column  -->
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
 
+                <!--  Task Checkbox  -->
                 <CheckBox
                     Grid.Column="1"
                     HorizontalAlignment="Center"
@@ -177,7 +191,9 @@
                     CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                     Foreground="{Binding ElementName=TaskListItemBackground, Path=Background}"
                     IsChecked="{Binding IsDone}"
-                    Style="{DynamicResource TaskCheckBoxStyle}" />
+                    Style="{DynamicResource TaskCheckBoxStyle}"
+                    Margin="{Binding UIScaler.TaskCheckBoxWidth, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskCheckboxMarginConverter}}"
+                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsCheckboxEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                 <!--  Pin icon  -->
                 <Border

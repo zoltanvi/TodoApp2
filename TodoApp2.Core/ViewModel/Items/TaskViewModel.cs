@@ -53,13 +53,14 @@ namespace TodoApp2.Core
 
         public TaskViewModel()
         {
+            bool focusLostSavesTask = IoC.ApplicationViewModel.ApplicationSettings.FocusLostSavesTask;
             SetColorCommand = new RelayCommand(SetColor);
             SetBorderColorCommand = new RelayCommand(SetColor);
             SetColorParameterizedCommand = new RelayParameterizedCommand(SetColorParameterized);
             SetBorderColorParameterizedCommand = new RelayParameterizedCommand(SetBorderColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
-            TextEditorViewModel = new RichTextEditorViewModel(true, false, false, false);
+            TextEditorViewModel = new RichTextEditorViewModel(true, focusLostSavesTask, false, false);
             TextEditorViewModel.EnterAction = UpdateContent;
         }
 
