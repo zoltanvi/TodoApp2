@@ -3,10 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:TodoApp2">
 
+    <!--
+        ForegroundBrush cannot reference the Color with {DynamicResource Foreground},
+        because of a WPF bug, the RichTextBox copy-paste won't work properly.
+    -->
+
     <Color x:Key="Transparent">#00000000</Color>
     <Color x:Key="ThemeOpposite">#FFFFFF</Color>
 
     <Color x:Key="Foreground">#E4E9F8</Color>
+    <SolidColorBrush x:Key="ForegroundBrush" Color="#E4E9F8" />
     <Color x:Key="TitleBar">#E4E4E4</Color>
     <Color x:Key="Caret">#FFFFFF</Color>
     <Color x:Key="EditorButton">#AFBADE</Color>
@@ -52,13 +58,13 @@
     <Color x:Key="HoverContextMenuBg">#5E5E5E</Color>
     <Color x:Key="CheckedComboBoxButtonBg">#464E5E</Color>
 
-    <Color x:Key="CommonBorder">#181a1f</Color>
-    <Color x:Key="AppBorder">#343C49</Color>
+    <Color x:Key="CommonBorder">#4E5461</Color>
+    <Color x:Key="AppBorder">#3F4959</Color>
     <Color x:Key="CommonControlBorder">#181a1f</Color>
     <Color x:Key="PopUpBorder">#181a1f</Color>
-    <Color x:Key="BottomBarBorder">#181a1f</Color>
+    <Color x:Key="BottomBarBorder">#4E5461</Color>
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
-    <Color x:Key="TaskBorder">#181a1f</Color>
+    <Color x:Key="TaskBorder">#353A42</Color>
     <Color x:Key="CheckBoxBorder">#687D96</Color>
     <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
     <Color x:Key="ContextMenuBorder">#000000</Color>
@@ -68,7 +74,6 @@
     <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
 
     <!--  Foreground  -->
-    <SolidColorBrush x:Key="ForegroundBrush" Color="{DynamicResource Foreground}" />
     <SolidColorBrush x:Key="TitleBarBrush" Color="{DynamicResource TitleBar}" />
     <SolidColorBrush x:Key="CaretBrush" Color="{DynamicResource Caret}" />
     <SolidColorBrush x:Key="EditorButtonBrush" Color="{DynamicResource EditorButton}" />

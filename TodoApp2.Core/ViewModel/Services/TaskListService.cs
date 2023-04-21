@@ -14,28 +14,29 @@ namespace TodoApp2.Core
     {
         private int m_LastRemovedId = int.MinValue;
         private readonly CategoryListService m_CategoryListService;
-        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly AppViewModel m_ApplicationViewModel;
         private readonly IDatabase m_Database;
+        private Reorderer m_Reorderer;
         private bool m_CategoryChangeInProgress;
 
-        private CategoryListItemViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
+        private CategoryViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
 
         /// <summary>
         /// The task list items
         /// </summary>
-        public ObservableCollection<TaskListItemViewModel> TaskPageItems { get; }
+        public ObservableCollection<TaskViewModel> TaskPageItems { get; }
 
-        public TaskListService(IDatabase database, CategoryListService categoryListService, ApplicationViewModel applicationViewModel)
+        public TaskListService(IDatabase database, CategoryListService categoryListService, AppViewModel applicationViewModel)
         {
             m_Database = database;
             m_CategoryListService = categoryListService;
             m_ApplicationViewModel = applicationViewModel;
-
+            m_Reorderer = new Reorderer();
             // Query the items with the current category
-            List<TaskListItemViewModel> items = m_Database.GetActiveTaskItems(ActiveCategory);
+            List<TaskViewModel> items = m_Database.GetActiveTasks(ActiveCategory);
 
             // Fill the actual list with the queried items
-            TaskPageItems = new ObservableCollection<TaskListItemViewModel>(items);
+            TaskPageItems = new ObservableCollection<TaskViewModel>(items);
 
             // Subscribe to the collection changed event for synchronizing with database
             TaskPageItems.CollectionChanged += OnTaskPageItemsChanged;
@@ -48,9 +49,9 @@ namespace TodoApp2.Core
             m_ApplicationViewModel.ApplicationSettings.PropertyChanged += OnAppSettingsChanged;
         }
 
-        public TaskListItemViewModel AddNewTask(string taskContent)
+        public TaskViewModel AddNewTask(string taskContent)
         {
-            TaskListItemViewModel task;
+            TaskViewModel task;
             int pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
             int activeCategoryId = m_CategoryListService.ActiveCategory.Id;
 
@@ -72,7 +73,7 @@ namespace TodoApp2.Core
             return task;
         }
 
-        public TaskListItemViewModel UntrashExistingTask(TaskListItemViewModel task, int oldPosition)
+        public TaskViewModel UntrashExistingTask(TaskViewModel task, int oldPosition)
         {
             task.Trashed = false;
 
@@ -84,9 +85,9 @@ namespace TodoApp2.Core
             return task;
         }
 
-        public void UpdateTask(TaskListItemViewModel task)
+        public void UpdateTask(TaskViewModel task)
         {
-            TaskListItemViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
+            TaskViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
             taskToUpdate?.CopyProperties(task);
             m_Database.UpdateTask(task);
         }
@@ -97,11 +98,11 @@ namespace TodoApp2.Core
         /// If false, the new position is only saved in the database.
         /// Do not call it with true during handling the collection changed event.
         /// </param>
-        public void ReorderTask(TaskListItemViewModel task, int newPosition, bool changeInCollection = false)
+        public void ReorderTask(TaskViewModel task, int newPosition, bool changeInCollection = false)
         {
             newPosition = newPosition == -1 ? 0 : newPosition;
 
-            TaskListItemViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
+            TaskViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
 
             if (taskToUpdate != null)
             {
@@ -117,20 +118,20 @@ namespace TodoApp2.Core
             }
         }
 
-        public void RemoveTaskFromMemory(TaskListItemViewModel task)
+        public void RemoveTaskFromMemory(TaskViewModel task)
         {
             TaskPageItems.Remove(task);
         }
 
         public void PersistTaskList()
         {
-            m_Database.UpdateTaskList(TaskPageItems);
+            m_Database.UpdateTasks(TaskPageItems);
         }
 
-        /// <inheritdoc cref="Database.GetActiveTaskItemsAsync"/>
-        public async Task<List<TaskListItemViewModel>> GetActiveTaskItemsAsync(CategoryListItemViewModel category)
+        /// <inheritdoc cref="Database.GetActiveTasksAsync"/>
+        public async Task<List<TaskViewModel>> GetActiveTaskItemsAsync(CategoryViewModel category)
         {
-            return await m_Database.GetActiveTaskItemsAsync(category);
+            return await m_Database.GetActiveTasksAsync(category);
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace TodoApp2.Core
         /// <param name="newIndex">The index where the task should be moved.</param>
         /// <param name="task">The task to reorder.</param>
         /// <returns> the correct reorder index where the task can be moved.</returns>
-        public int GetCorrectReorderIndex(int newIndex, TaskListItemViewModel task)
+        public int GetCorrectReorderIndex(int newIndex, TaskViewModel task)
         {
             return GetReorderIndex(newIndex, task, TaskPageItems);
         }
@@ -153,11 +154,11 @@ namespace TodoApp2.Core
         /// <param name="task">The task to reorder.</param>
         /// <param name="categoryName">The category where the task should be moved.</param>
         /// <returns> the correct reorder index where the task can be moved.</returns>
-        public int GetCorrectReorderIndex(int newIndex, TaskListItemViewModel task, CategoryListItemViewModel category)
+        public int GetCorrectReorderIndex(int newIndex, TaskViewModel task, CategoryViewModel category)
         {
             if (task != null)
             {
-                List<TaskListItemViewModel> categoryTasks = m_Database.GetActiveTaskItems(category);
+                List<TaskViewModel> categoryTasks = m_Database.GetActiveTasks(category);
                 newIndex = GetReorderIndex(newIndex, task, categoryTasks);
             }
 
@@ -173,27 +174,27 @@ namespace TodoApp2.Core
             }
         }
 
-        private void FixTaskPageItemsOrder(IEnumerable<TaskListItemViewModel> originalTaskList)
+        private void FixTaskPageItemsOrder(IEnumerable<TaskViewModel> originalTaskList)
         {
             // Sort and reorder tasks
-            List<TaskListItemViewModel> originalList = originalTaskList.ToList();
+            List<TaskViewModel> originalList = originalTaskList.ToList();
             TaskPageItems.Clear();
 
-            IEnumerable<TaskListItemViewModel> pinnedItems = originalList.Where(t => t.Pinned && !t.IsDone);
-            IEnumerable<TaskListItemViewModel> unfinishedItems = originalList.Where(t => !t.Pinned && !t.IsDone);
-            IEnumerable<TaskListItemViewModel> finishedItems = originalList.Where(t => !t.Pinned && t.IsDone);
+            IEnumerable<TaskViewModel> pinnedItems = originalList.Where(t => t.Pinned && !t.IsDone);
+            IEnumerable<TaskViewModel> unfinishedItems = originalList.Where(t => !t.Pinned && !t.IsDone);
+            IEnumerable<TaskViewModel> finishedItems = originalList.Where(t => !t.Pinned && t.IsDone);
 
             TaskPageItems.AddRange(pinnedItems);
             TaskPageItems.AddRange(unfinishedItems);
             TaskPageItems.AddRange(finishedItems);
 
-            m_Database.ResetListOrders(TaskPageItems);
+            m_Reorderer.ResetListOrders(TaskPageItems);
             PersistTaskList();
         }
 
         private void OnClientDatabaseTaskChanged(object sender, TaskChangedEventArgs e)
         {
-            TaskListItemViewModel modifiedItem = TaskPageItems.FirstOrDefault(item => item.Id == e.Task.Id);
+            TaskViewModel modifiedItem = TaskPageItems.FirstOrDefault(item => item.Id == e.Task.Id);
 
             modifiedItem?.CopyProperties(e.Task);
         }
@@ -206,7 +207,7 @@ namespace TodoApp2.Core
             TaskPageItems.Clear();
 
             // Query the items with the current category
-            List<TaskListItemViewModel> filteredItems = await GetActiveTaskItemsAsync(ActiveCategory);
+            List<TaskViewModel> filteredItems = await GetActiveTaskItemsAsync(ActiveCategory);
 
             // Clear the list to prevent showing items from multiple categories.
             // This can happen if the user changes category again while the query runs
@@ -228,13 +229,11 @@ namespace TodoApp2.Core
                 //IoC.AsyncActionService.InvokeAsync(AddItem);
             }
 
-
-
             m_CategoryChangeInProgress = false;
         }
 
-        private int GetReorderIndex(int newIndex, TaskListItemViewModel task,
-            IEnumerable<TaskListItemViewModel> taskList)
+        private int GetReorderIndex(int newIndex, TaskViewModel task,
+            IEnumerable<TaskViewModel> taskList)
         {
             if (task != null)
             {
@@ -291,7 +290,7 @@ namespace TodoApp2.Core
                 {
                     if (e.NewItems.Count > 0)
                     {
-                        TaskListItemViewModel newItem = (TaskListItemViewModel)e.NewItems[0];
+                        TaskViewModel newItem = (TaskViewModel)e.NewItems[0];
 
                         // If the newly added item is the same as the last deleted one,
                         // then this was a drag and drop reorder
@@ -308,7 +307,7 @@ namespace TodoApp2.Core
                 {
                     if (e.OldItems.Count > 0)
                     {
-                        TaskListItemViewModel last = (TaskListItemViewModel)e.OldItems[0];
+                        TaskViewModel last = (TaskViewModel)e.OldItems[0];
 
                         m_LastRemovedId = last.Id;
                     }
@@ -318,7 +317,7 @@ namespace TodoApp2.Core
                 {
                     if (e.NewItems.Count > 0)
                     {
-                        TaskListItemViewModel newItem = (TaskListItemViewModel)e.NewItems[0];
+                        TaskViewModel newItem = (TaskViewModel)e.NewItems[0];
 
                         ReorderTask(newItem, e.NewStartingIndex);
                     }
@@ -328,7 +327,7 @@ namespace TodoApp2.Core
         }
 
         private void CountTasks(
-            IEnumerable<TaskListItemViewModel> taskList,
+            IEnumerable<TaskViewModel> taskList,
             out int listCount,
             out int pinnedItemsCount,
             out int doneItemsCount)
@@ -337,7 +336,7 @@ namespace TodoApp2.Core
             pinnedItemsCount = 0;
             doneItemsCount = 0;
 
-            foreach (TaskListItemViewModel task in taskList)
+            foreach (TaskViewModel task in taskList)
             {
                 listCount++;
 

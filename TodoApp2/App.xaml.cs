@@ -68,8 +68,8 @@ namespace TodoApp2
 
         private SplashScreen ShowSplashScreenForTheme()
         {
-            List<SettingsModel> settings = IoC.Database.GetSettings();
-            SettingsModel activeThemeSetting = settings.FirstOrDefault(s => s.Key == nameof(ApplicationSettings.ActiveTheme));
+            List<Setting> settings = IoC.Database.GetSettings();
+            Setting activeThemeSetting = settings.FirstOrDefault(s => s.Key == nameof(ApplicationSettings.ActiveTheme));
 
             string activeThemeName = activeThemeSetting?.Value ?? nameof(Theme.ExtraDark);
 

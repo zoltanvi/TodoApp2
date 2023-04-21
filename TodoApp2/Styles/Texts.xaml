@@ -24,14 +24,17 @@
 
     <Style x:Key="BaseTextBlockClearTypeStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>
 
     <Style x:Key="BaseTextBoxClearTypeStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>
 
     <Style x:Key="BaseLabelClearTypeStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>
 
     <Style x:Key="BaseRichTextBoxStyle" TargetType="RichTextBox">
@@ -114,6 +117,7 @@
         BasedOn="{StaticResource PageTitleTextBlockStyle}"
         TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
     </Style>
 
     <Style

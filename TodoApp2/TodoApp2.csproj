@@ -125,6 +125,7 @@
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\FocusSetter.cs" />
+    <Compile Include="AttachedProperties\MarginUpdater.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\PutCaretAtTheEndRTBBehavior.cs" />
     <Compile Include="Controls\BasicTextEditorBox.cs" />
@@ -134,13 +135,19 @@
     <Compile Include="Controls\FontSizeSliderControl.xaml.cs">
       <DependentUpon>FontSizeSliderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListItem\NoteListItemControl.xaml.cs">
+      <DependentUpon>NoteListItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\List\NoteListControl.xaml.cs">
+      <DependentUpon>NoteListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RichTextEditorControl.xaml.cs">
       <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CategoryListControl.xaml.cs">
+    <Compile Include="Controls\List\CategoryListControl.xaml.cs">
       <DependentUpon>CategoryListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CategoryListItemControl.xaml.cs">
+    <Compile Include="Controls\ListItem\CategoryListItemControl.xaml.cs">
       <DependentUpon>CategoryListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\OverlayBackgroundControl.xaml.cs">
@@ -152,10 +159,10 @@
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TaskListControl.xaml.cs">
+    <Compile Include="Controls\List\TaskListControl.xaml.cs">
       <DependentUpon>TaskListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TaskListItemControl.xaml.cs">
+    <Compile Include="Controls\ListItem\TaskListItemControl.xaml.cs">
       <DependentUpon>TaskListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FormattableTextEditorBox.cs" />
@@ -173,6 +180,9 @@
     <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\TextBoxHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
+    <Compile Include="Pages\NoteListPage.xaml.cs">
+      <DependentUpon>NoteListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\AsyncActionService.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\GenericBasePage.cs" />
@@ -206,12 +216,14 @@
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Multi\RoundedCornersMultiConverter.cs" />
     <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToThicknessConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\AccentColorBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\AppBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\DefaultBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\MessageTypeToBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringToDynamicBrushConverterBase.cs" />
     <Compile Include="ValueConverters\Single\Brush\TaskBorderBrushConverter.cs" />
+    <Compile Include="ValueConverters\Single\DoubleToGridLengthConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BaseBoolValueConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToCornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToDoubleConverter.cs" />
@@ -221,7 +233,9 @@
     <Compile Include="ValueConverters\Single\FromBool\BoolToTextWrappingConverter.cs" />
     <Compile Include="ValueConverters\Single\CamelCaseConverter.cs" />
     <Compile Include="ValueConverters\Single\IntTo2DigitTextConverter.cs" />
+    <Compile Include="ValueConverters\Multi\LeftMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />
+    <Compile Include="ValueConverters\Single\TaskCheckboxMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToDoubleConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\EnumToFontFamilyConverter.cs" />
@@ -243,11 +257,19 @@
     <Compile Include="Window\FlashWindow.cs" />
     <Compile Include="Window\TrayIconModule.cs" />
     <Compile Include="Window\WindowResizer.cs" />
-    <Page Include="Controls\CategoryListControl.xaml">
+    <Page Include="Controls\List\NoteListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\List\CategoryListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CategoryListItemControl.xaml">
+    <Page Include="Controls\ListItem\NoteListItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ListItem\CategoryListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,11 +293,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TaskListControl.xaml">
+    <Page Include="Controls\List\TaskListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TaskListItemControl.xaml">
+    <Page Include="Controls\ListItem\TaskListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,6 +317,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\NoteListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\NotePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -360,6 +386,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Themes\BlueTintTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\LightGreenTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -491,7 +521,17 @@
     <Resource Include="Images\Splash\Nord.png" />
     <Resource Include="Images\Splash\VSBlue.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Splash\LightGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sounds\click.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\click_reverse.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

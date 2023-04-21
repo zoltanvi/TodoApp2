@@ -1,16 +1,11 @@
 ﻿namespace TodoApp2.Core
 {
-    public class SettingsModel
+    public class Setting
     {
         public int Id { get; set; }
 
         public string Key { get; set; }
 
         public string Value { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Key} = {Value}";
-        }
     }
 }

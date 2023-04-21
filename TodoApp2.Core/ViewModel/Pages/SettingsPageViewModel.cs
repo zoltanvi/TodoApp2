@@ -4,7 +4,7 @@ namespace TodoApp2.Core
 {
     public class SettingsPageViewModel : BaseViewModel
     {
-        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly AppViewModel m_ApplicationViewModel;
 
         public ICommand BackToPrevPageCommand { get; }
 
@@ -12,7 +12,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public SettingsPageViewModel(ApplicationViewModel applicationViewModel)
+        public SettingsPageViewModel(AppViewModel applicationViewModel)
         {
             m_ApplicationViewModel = applicationViewModel;
             BackToPrevPageCommand = new RelayCommand(BackToPrevPage);

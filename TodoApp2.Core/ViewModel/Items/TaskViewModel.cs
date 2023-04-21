@@ -8,7 +8,7 @@ namespace TodoApp2.Core
     /// A view model for each task list item on the task page
     /// </summary>
     [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}]")]
-    public class TaskListItemViewModel : BaseViewModel, IReorderable
+    public class TaskViewModel : BaseViewModel, IReorderable
     {
         private string m_ContentRollback = string.Empty;
         private bool m_IsDone;
@@ -51,19 +51,20 @@ namespace TodoApp2.Core
         public ICommand OpenReminderCommand { get; }
         public ICommand EditItemCommand { get; }
 
-        public TaskListItemViewModel()
+        public TaskViewModel()
         {
+            bool focusLostSavesTask = IoC.ApplicationViewModel.ApplicationSettings.FocusLostSavesTask;
             SetColorCommand = new RelayCommand(SetColor);
             SetBorderColorCommand = new RelayCommand(SetColor);
             SetColorParameterizedCommand = new RelayParameterizedCommand(SetColorParameterized);
             SetBorderColorParameterizedCommand = new RelayParameterizedCommand(SetBorderColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
-            TextEditorViewModel = new RichTextEditorViewModel(true, false, false, false);
+            TextEditorViewModel = new RichTextEditorViewModel(true, focusLostSavesTask, false, false);
             TextEditorViewModel.EnterAction = UpdateContent;
         }
 
-        public void CopyProperties(TaskListItemViewModel task)
+        public void CopyProperties(TaskViewModel task)
         {
             Id = task.Id;
             CategoryId = task.CategoryId;
@@ -142,7 +143,7 @@ namespace TodoApp2.Core
 
         public override bool Equals(object obj)
         {
-            return obj is TaskListItemViewModel other && other.Id == Id;
+            return obj is TaskViewModel other && other.Id == Id;
         }
 
         public override int GetHashCode()

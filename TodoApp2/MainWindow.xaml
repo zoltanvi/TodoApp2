@@ -214,22 +214,21 @@
             ResizeBorderThickness="{Binding ResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
 
-    <Border>
-        <Grid>
+    <Grid>
+        <Grid x:Name="SizeGrid" />
 
-            <!--  Current page  -->
-            <Frame
-                local:NoFrameHistory.Value="True"
-                AutomationProperties.AutomationId="CurrentPage"
-                Content="{Binding}"
-                DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+        <Grid local:AnimateSlideInFromLeftSideMenuProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}" local:MarginUpdater.Value="{Binding UIScaler.SideMenuWidth, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged}">
 
-            <!--  Overlay background  -->
-            <local:OverlayBackgroundControl AutomationProperties.AutomationId="OverlayBackgroundControl" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding UIScaler.SideMenuWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="{Binding ElementName=SizeGrid, Path=ActualWidth}" />
+            </Grid.ColumnDefinitions>
 
             <!--  Navigator menu panel  -->
-            <Border>
-                <local:SideMenuControl local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}" AutomationProperties.AutomationId="SideMenuControl">
+            <Grid Grid.Column="0" >
+                <local:SideMenuControl x:Name="SideMenu" AutomationProperties.AutomationId="SideMenuControl">
+
                     <!--  Side menu page  -->
                     <Frame
                         local:NoFrameHistory.Value="True"
@@ -237,10 +236,27 @@
                         Content="{Binding}"
                         DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
                 </local:SideMenuControl>
-            </Border>
+            </Grid>
 
+            <!--  Current page  -->
+            <Frame
+                Grid.Column="2"
+                local:NoFrameHistory.Value="True"
+                AutomationProperties.AutomationId="CurrentPage"
+                Content="{Binding}"
+                DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+
+            <!--  Overlay background  -->
+            <local:OverlayBackgroundControl Grid.Column="2" AutomationProperties.AutomationId="OverlayBackgroundControl" />
+
+        </Grid>
+
+        <Grid>
             <!--  Message line  -->
-            <Grid VerticalAlignment="Top" local:AnimateSlideInFromTopProperty.Value="{Binding MessageService.MessageLineVisible, Source={x:Static local:ViewModelLocator.Instance}}">
+            <Grid
+                Grid.ColumnSpan="3"
+                VerticalAlignment="Top"
+                local:AnimateSlideInFromTopProperty.Value="{Binding MessageService.MessageLineVisible, Source={x:Static local:ViewModelLocator.Instance}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -284,7 +300,7 @@
 
                 </Border>
             </Grid>
-
         </Grid>
-    </Border>
+
+    </Grid>
 </Window>

@@ -39,21 +39,22 @@
                 </Grid.ColumnDefinitions>
 
 
-                <!--  Categories title  -->
+                <!--  Task categories title  -->
                 <TextBlock
+                    Margin="20 5 0 0"
                     Grid.Column="0"
-                    Margin="15 0 0 0"
+                    HorizontalAlignment="Left"
                     Style="{DynamicResource SideMenuTitleTextBlockStyle}"
-                    Text="Categories" />
+                    Text="CATEGORIES" />
 
                 <!--  Note button  -->
                 <Button
                     Grid.Column="1"
                     AutomationProperties.AutomationId="NoteButton"
-                    Command="{Binding OpenNotePageCommand}"
+                    Command="{Binding OpenNoteListPageCommand}"
                     Content="{DynamicResource SegoeIconNote}"
                     Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
-                    ToolTip="Note (plain text)" />
+                    ToolTip="Go to Notes" />
 
                 <!--  Settings button  -->
                 <Button

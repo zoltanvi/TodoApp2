@@ -1,0 +1,78 @@
+﻿<UserControl
+    x:Class="TodoApp2.NoteListItemControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="NoteListItemUC"
+    d:DesignHeight="60"
+    d:DesignWidth="350"
+    AutomationProperties.AutomationId="NoteListItemUC"
+    mc:Ignorable="d">
+
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem
+                Command="{Binding Path=PlacementTarget.Tag.DeleteNoteCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                Header="Delete" />
+
+        </ContextMenu>
+
+    </UserControl.ContextMenu>
+
+    <Button
+        Padding="15 2 30 2"
+        Command="{Binding Path=Tag.OpenNoteCommand, ElementName=NoteListItemUC}"
+        CommandParameter="{Binding DataContext, ElementName=NoteListItemUC}"
+        ToolTip="{Binding Name}">
+
+        <Button.Style>
+            <Style BasedOn="{StaticResource ButtonHoverStyle}" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border
+                                Margin="4 2"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Value="True">
+                        <DataTrigger.Binding>
+                            <MultiBinding>
+                                <MultiBinding.Converter>
+                                    <local:EqualityConverter />
+                                </MultiBinding.Converter>
+                                <Binding Path="Id" />
+                                <Binding Path="NoteListService.ActiveNote.Id" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            </MultiBinding>
+                        </DataTrigger.Binding>
+                        <Setter Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
+                    </DataTrigger>
+                    <!--  The mouse over trigger is the second defined one so it can highlight an already selected item also  -->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Button.Style>
+
+        <TextBlock
+            Grid.Column="0"
+            AutomationProperties.AutomationId="NoteListItemText"
+            FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
+            Style="{DynamicResource CategoryTextBlockStyle}"
+            Text="{Binding Title}" />
+    </Button>
+
+</UserControl>

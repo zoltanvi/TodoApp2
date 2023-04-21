@@ -10,7 +10,7 @@ namespace TodoApp2.Core
 
         void ClosePage();
         void CloseSideMenu();
-        void OpenPage(ApplicationPage page, TaskListItemViewModel task = null);
+        void OpenPage(ApplicationPage page, TaskViewModel task = null);
         void SetBackgroundClickedAction(Action action);
     }
 }

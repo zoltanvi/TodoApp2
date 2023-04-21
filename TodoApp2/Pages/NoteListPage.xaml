@@ -1,0 +1,96 @@
+﻿<local:BasePage
+    x:Class="TodoApp2.NoteListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Page1"
+    d:DesignHeight="450"
+    d:DesignWidth="400"
+    x:TypeArguments="core:NoteListPageViewModel"
+    mc:Ignorable="d">
+
+    <Grid Margin="0 5 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+
+            <Grid Grid.Row="0" Margin="0 0 5 25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+
+                <!--  Notes title  -->
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="20 5 0 0"
+                    Style="{DynamicResource SideMenuTitleTextBlockStyle}"
+                    Text="NOTES" />
+
+                <!--  Categories button  -->
+                <Button
+                    Grid.Column="1"
+                    AutomationProperties.AutomationId="CategoryButton"
+                    Command="{Binding OpenCategoryPageCommand}"
+                    Content="{DynamicResource SegoeIconCategories}"
+                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                    ToolTip="Go to Task categories" />
+
+                <!--  Settings button  -->
+                <Button
+                    Grid.Column="2"
+                    AutomationProperties.AutomationId="SettingsButton"
+                    Command="{Binding OpenSettingsPageCommand}"
+                    Content="{DynamicResource SegoeIconSettings}"
+                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                    ToolTip="Settings" />
+            </Grid>
+
+            <!--  Note list  -->
+            <local:NoteListControl
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2" />
+        </Grid>
+
+        <!--  ADD NEW NOTE  -->
+        <Border
+            Grid.Row="1"
+            Background="{DynamicResource BottomBarBgBrush}"
+            BorderBrush="{DynamicResource BottomBarBorderBrush}"
+            BorderThickness="0 1 0 0">
+            <TextBox
+                Padding="8.5"
+                VerticalAlignment="Bottom"
+                AutomationProperties.AutomationId="AddNewNoteTextBox"
+                Style="{StaticResource AddNewTaskTextBoxStyle}"
+                Tag="Add new note"
+                Text="{Binding PendingAddNewNoteText, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="NoWrap">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding AddNoteCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+        </Border>
+
+    </Grid>
+</local:BasePage>

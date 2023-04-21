@@ -14,35 +14,46 @@
 
     <Grid>
 
-        <avalonEdit:TextEditor
-            xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-            Name="textEditor"
-            WordWrap="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged}"
-            FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.NoteFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-            FontSize="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
-            TextChanged="textEditor_TextChanged"
-            Background="Transparent"
-            Foreground="{DynamicResource ForegroundBrush}"
-            LineNumbersForeground="{DynamicResource LineNumberBrush}"
-            ShowLineNumbers="True">
-            <avalonEdit:TextEditor.Style>
-                <Style TargetType="avalonEdit:TextEditor">
-                    <Style.Resources>
-                        <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
-                    </Style.Resources>
-                </Style>
-            </avalonEdit:TextEditor.Style>
+        <Grid Visibility="{Binding IsNoteExists, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+            <Label
+                Style="{StaticResource BaseLabelClearTypeStyle}"
+                FontSize="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="Select a note to edit" />
+        </Grid>
 
-        </avalonEdit:TextEditor>
+        <Grid Visibility="{Binding IsNoteExists, Converter={StaticResource boolToVisibilityConverter}}">
+            <avalonEdit:TextEditor
+                xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                Name="textEditor"
+                WordWrap="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged}"
+                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.NoteFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                FontSize="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+                TextChanged="textEditor_TextChanged"
+                Background="Transparent"
+                Foreground="{DynamicResource ForegroundBrush}"
+                LineNumbersForeground="{DynamicResource LineNumberBrush}"
+                ShowLineNumbers="True">
+                <avalonEdit:TextEditor.Style>
+                    <Style TargetType="avalonEdit:TextEditor">
+                        <Style.Resources>
+                            <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
+                        </Style.Resources>
+                    </Style>
+                </avalonEdit:TextEditor.Style>
 
-        <Border
-            Background="{DynamicResource PageBgBrush}"
-            BorderBrush="black"
-            Visibility="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Width="{Binding UIScaler.NotePageBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-            Height="{Binding UIScaler.NotePageBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
+            </avalonEdit:TextEditor>
+
+            <Border
+                Background="{DynamicResource PageBgBrush}"
+                BorderBrush="black"
+                Visibility="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Width="{Binding UIScaler.NotePageBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                Height="{Binding UIScaler.NotePageBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
+        </Grid>
 
     </Grid>
 </local:BasePage>

@@ -10,7 +10,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The task to show the notification for.
         /// </summary>
-        public TaskListItemViewModel NotificationTask { get; }
+        public TaskViewModel NotificationTask { get; }
 
         /// <summary>
         /// Closes the notification page
@@ -21,7 +21,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public NotificationPageViewModel(TaskListItemViewModel notificationTask, OverlayPageService overlayPageService)
+        public NotificationPageViewModel(TaskViewModel notificationTask, OverlayPageService overlayPageService)
         {
             NotificationTask = notificationTask;
             m_OverlayPageService = overlayPageService;

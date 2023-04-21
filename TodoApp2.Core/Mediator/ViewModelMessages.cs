@@ -29,5 +29,10 @@
         /// The Application theme changed
         /// </summary>
         ThemeChanged,
+
+        /// <summary>
+        /// The selected note changed
+        /// </summary>
+        NoteChanged,
     }
 }

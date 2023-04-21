@@ -4,9 +4,9 @@ namespace TodoApp2.Core
 {
     public class TaskChangedEventArgs : EventArgs
     {
-        public TaskListItemViewModel Task { get; }
+        public TaskViewModel Task { get; }
 
-        public TaskChangedEventArgs(TaskListItemViewModel task)
+        public TaskChangedEventArgs(TaskViewModel task)
         {
             Task = task;
         }

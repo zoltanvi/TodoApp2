@@ -7,6 +7,7 @@
         DarkBlue,
         Nord,
         VSBlue,
+        LightGreen,
         Light,
     }
 }

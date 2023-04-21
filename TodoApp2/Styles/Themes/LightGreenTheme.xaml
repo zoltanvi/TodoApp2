@@ -1,0 +1,193 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TodoApp2">
+
+    <!--
+        ForegroundBrush cannot reference the Color with {DynamicResource Foreground},
+        because of a WPF bug, the RichTextBox copy-paste won't work properly.
+    -->
+
+    <Color x:Key="Transparent">#00000000</Color>
+    <Color x:Key="ThemeOpposite">#000000</Color>
+
+    <Color x:Key="Foreground">#000000</Color>
+    <SolidColorBrush x:Key="ForegroundBrush" Color="#000000" />
+    <Color x:Key="TitleBar">#000000</Color>
+    <Color x:Key="Caret">#000000</Color>
+    <Color x:Key="EditorButton">#000000</Color>
+    <Color x:Key="Placeholder">#516E21</Color>
+    <Color x:Key="CheckBox">#4A4A4A</Color>
+    <Color x:Key="LineNumber">#979797</Color>
+    <Color x:Key="TaskDate">#FFFFFF</Color>
+    <Color x:Key="CalendarDayColumn">#5CB6FF</Color>
+    <Color x:Key="CalendarDisabledDays">#4E4E4E</Color>
+    <Color x:Key="MessageInfo">#000000</Color>
+    <Color x:Key="MessageWarning">#000000</Color>
+    <Color x:Key="MessageError">#000000</Color>
+
+    <Color x:Key="PageBg">#eff7e1</Color>
+    <Color x:Key="SideMenuBg">#D0ECA0</Color>
+    <Color x:Key="TitleBarBg">#afd76b</Color>
+    <Color x:Key="BottomBarBg">#afd76b</Color>
+    <Color x:Key="TaskBg">#e3ead6</Color>
+    <Color x:Key="TaskTransparentBg">#00e3ead6</Color>
+    <Color x:Key="TaskDoneBg">#80E0E0E0</Color>
+    <Color x:Key="SelectionBg">#3A9CFF</Color>
+    <Color x:Key="ScrollBarBg">#99C155</Color>
+    <Color x:Key="ScrollBarPressedBg">#8BB14B</Color>
+    <Color x:Key="SelectedCategoryBg">#7BCA58</Color>
+    <Color x:Key="ComboBoxBg">#DDF3B7</Color>
+    <Color x:Key="ComboBoxButtonBg">#B4D37E</Color>
+    <Color x:Key="ComboBoxDropDownBg">#DDF3B7</Color>
+    <Color x:Key="CalendarButtonBg">#8BB14B</Color>
+    <Color x:Key="PopUpBg">#C0E482</Color>
+    <Color x:Key="OverlayBg">#FFFFFF</Color>
+    <Color x:Key="ContextMenuBg">#FFFFFF</Color>
+    <Color x:Key="NoteLineAdornerBg">#e8e8ff</Color>
+    <Color x:Key="MessageInfoBg">#cce3ff</Color>
+    <Color x:Key="MessageWarningBg">#ffe8c3</Color>
+    <Color x:Key="MessageErrorBg">#ffd0cb</Color>
+
+    <Color x:Key="HoverCategoryBg">#9CC15C</Color>
+    <Color x:Key="HoverTitleBarButtonBg">#9CC15C</Color>
+    <Color x:Key="HoverCloseButtonBg">#F76E62</Color>
+    <Color x:Key="HoverButtonBg">#9CC15C</Color>
+    <Color x:Key="HoverEditorButtonBg">#9CC15C</Color>
+    <Color x:Key="CheckedEditorButtonBg">#C2C2C2</Color>
+    <Color x:Key="HoverContextMenuBg">#EDEDED</Color>
+    <Color x:Key="CheckedComboBoxButtonBg">#9CC15C</Color>
+
+    <Color x:Key="CommonBorder">#5B7A26</Color>
+    <Color x:Key="AppBorder">#647F37</Color>
+    <Color x:Key="CommonControlBorder">#5B7A26</Color>
+    <Color x:Key="PopUpBorder">#5B7A26</Color>
+    <Color x:Key="BottomBarBorder">#5B7A26</Color>
+    <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
+    <Color x:Key="TaskBorder">#805B7A26</Color>
+    <Color x:Key="CheckBoxBorder">#363636</Color>
+    <Color x:Key="ToggleButtonBorder">#2E2E2E</Color>
+    <Color x:Key="ContextMenuBorder">#000000</Color>
+
+    <!--  ===================  -->
+
+    <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
+
+    <!--  Foreground  -->
+    <SolidColorBrush x:Key="TitleBarBrush" Color="{DynamicResource TitleBar}" />
+    <SolidColorBrush x:Key="CaretBrush" Color="{DynamicResource Caret}" />
+    <SolidColorBrush x:Key="EditorButtonBrush" Color="{DynamicResource EditorButton}" />
+    <SolidColorBrush x:Key="PlaceholderBrush" Color="{DynamicResource Placeholder}" />
+    <SolidColorBrush x:Key="CheckBoxBrush" Color="{DynamicResource CheckBox}" />
+    <SolidColorBrush x:Key="LineNumberBrush" Color="{DynamicResource LineNumber}" />
+    <SolidColorBrush
+        x:Key="TaskDateBrush"
+        Color="{DynamicResource Foreground}"
+        Opacity="0.65" />
+    <SolidColorBrush x:Key="CalendarDayColumnBrush" Color="{DynamicResource CalendarDayColumn}" />
+    <SolidColorBrush x:Key="CalendarDisabledDaysBrush" Color="{DynamicResource CalendarDisabledDays}" />
+    <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
+    <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
+    <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
+
+    <!--  Background  -->
+    <SolidColorBrush x:Key="PageBgBrush" Color="{DynamicResource PageBg}" />
+    <SolidColorBrush x:Key="SideMenuBgBrush" Color="{DynamicResource SideMenuBg}" />
+    <SolidColorBrush x:Key="TitleBarBgBrush" Color="{DynamicResource TitleBarBg}" />
+    <SolidColorBrush x:Key="BottomBarBgBrush" Color="{DynamicResource BottomBarBg}" />
+    <SolidColorBrush x:Key="TaskBgBrush" Color="{DynamicResource TaskBg}" />
+    <SolidColorBrush x:Key="TaskDoneBgBrush" Color="{DynamicResource TaskDoneBg}" />
+    <SolidColorBrush x:Key="SelectionBgBrush" Color="{DynamicResource SelectionBg}" />
+    <SolidColorBrush x:Key="ScrollBarBgBrush" Color="{DynamicResource ScrollBarBg}" />
+    <SolidColorBrush x:Key="ScrollBarPressedBgBrush" Color="{DynamicResource ScrollBarPressedBg}" />
+    <SolidColorBrush x:Key="SelectedCategoryBgBrush" Color="{DynamicResource SelectedCategoryBg}" />
+    <SolidColorBrush x:Key="ContextMenuBgBrush" Color="{DynamicResource ContextMenuBg}" />
+    <SolidColorBrush x:Key="ComboBoxBgBrush" Color="{DynamicResource ComboBoxBg}" />
+    <SolidColorBrush x:Key="ComboBoxButtonBgBrush" Color="{DynamicResource ComboBoxButtonBg}" />
+    <SolidColorBrush x:Key="ComboBoxDropDownBgBrush" Color="{DynamicResource ComboBoxDropDownBg}" />
+    <SolidColorBrush x:Key="CalendarButtonBgBrush" Color="{DynamicResource CalendarButtonBg}" />
+    <SolidColorBrush
+        x:Key="CalendarTodayBgBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.2" />
+    <SolidColorBrush x:Key="PopUpBgBrush" Color="{DynamicResource PopUpBg}" />
+    <SolidColorBrush
+        x:Key="OverlayBgBrush"
+        Color="{DynamicResource OverlayBg}"
+        Opacity="0.5" />
+    <SolidColorBrush
+        x:Key="ReminderItemBgBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.1" />
+    <SolidColorBrush
+        x:Key="VersionLabelBgBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.2" />
+    <SolidColorBrush x:Key="ContextMenuBackgroundBrush" Color="{DynamicResource ContextMenuBg}" />
+    <SolidColorBrush
+        x:Key="ContextMenuSelectedBackgroundBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.1" />
+    <SolidColorBrush x:Key="NoteLineAdornerBgBrush" Color="{DynamicResource NoteLineAdornerBg}" />
+    <SolidColorBrush x:Key="MessageInfoBgBrush" Color="{DynamicResource MessageInfoBg}" />
+    <SolidColorBrush x:Key="MessageWarningBgBrush" Color="{DynamicResource MessageWarningBg}" />
+    <SolidColorBrush x:Key="MessageErrorBgBrush" Color="{DynamicResource MessageErrorBg}" />
+
+    <!--  Hover  -->
+    <SolidColorBrush x:Key="HoverCategoryBgBrush" Color="{DynamicResource HoverCategoryBg}" />
+    <SolidColorBrush x:Key="HoverTitleBarButtonBgBrush" Color="{DynamicResource HoverTitleBarButtonBg}" />
+    <SolidColorBrush x:Key="HoverCloseButtonBgBrush" Color="{DynamicResource HoverCloseButtonBg}" />
+    <SolidColorBrush x:Key="HoverButtonBgBrush" Color="{DynamicResource HoverButtonBg}" />
+    <SolidColorBrush x:Key="HoverEditorButtonBgBrush" Color="{DynamicResource HoverEditorButtonBg}" />
+    <SolidColorBrush x:Key="CheckedEditorButtonBgBrush" Color="{DynamicResource CheckedEditorButtonBg}" />
+    <SolidColorBrush x:Key="HoverContextMenuBgBrush" Color="{DynamicResource HoverContextMenuBg}" />
+    <SolidColorBrush x:Key="HoverBaseButtonBgBrush" Color="{DynamicResource HoverComboBoxDropDownBg}" />
+    <SolidColorBrush
+        x:Key="HoverCalendarItemBgBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.1" />
+    <SolidColorBrush x:Key="CheckedComboBoxButtonBgBrush" Color="{DynamicResource CheckedComboBoxButtonBg}" />
+    <SolidColorBrush
+        x:Key="HoverComboBoxDropDownItemBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.1" />
+
+    <!--  Border  -->
+    <SolidColorBrush x:Key="AppBorderBrush" Color="{DynamicResource AppBorder}" />
+    <SolidColorBrush x:Key="CommonControlBorderBrush" Color="{DynamicResource CommonControlBorder}" />
+    <SolidColorBrush x:Key="PopUpBorderBrush" Color="{DynamicResource PopUpBorder}" />
+    <SolidColorBrush x:Key="BottomBarBorderBrush" Color="{DynamicResource BottomBarBorder}" />
+    <SolidColorBrush x:Key="CommonBorderBrush" Color="{DynamicResource CommonBorder}" />
+    <SolidColorBrush x:Key="TextBoxErrorBorderBrush" Color="{DynamicResource TextBoxErrorBorder}" />
+    <SolidColorBrush x:Key="TaskBorderBrush" Color="{DynamicResource TaskBorder}" />
+    <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{DynamicResource CheckBoxBorder}" />
+    <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="{DynamicResource ToggleButtonBorder}" />
+    <SolidColorBrush x:Key="ContextMenuBorderBrush" Color="{DynamicResource ContextMenuBorder}" />
+
+
+    <!--  BRUSHES (cannot be in a separate xaml because the theme switch would not work)  -->
+
+    <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Offset="0" Color="{DynamicResource TaskTransparentBg}" />
+        <GradientStop Offset="0.1" Color="{DynamicResource TaskBg}" />
+        <GradientStop Offset="1" Color="{DynamicResource TaskBg}" />
+    </LinearGradientBrush>
+
+    <VisualBrush
+        x:Key="HatchBrush"
+        TileMode="Tile"
+        Viewbox="0,0,8,8"
+        ViewboxUnits="Absolute"
+        Viewport="0,0,8,8"
+        ViewportUnits="Absolute">
+        <VisualBrush.Visual>
+            <Path
+                Data="M 0 8 L 8 0"
+                RenderOptions.EdgeMode="Aliased"
+                Stroke="{DynamicResource TaskDoneBgBrush}"
+                StrokeEndLineCap="Square" />
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+
+</ResourceDictionary>

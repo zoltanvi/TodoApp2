@@ -22,59 +22,62 @@
             </Grid.RowDefinitions>
 
             <!--  Current category display text  -->
-            <TextBlock
-                Grid.Row="0"
-                Margin="15 10 0 10"
-                Style="{DynamicResource PageTitleTextBlockStyle}"
-                Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}">
-                <!--  Visibility="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"  -->
-                <TextBlock.Visibility>
-                    <MultiBinding>
-                        <MultiBinding.Converter>
-                            <local:BoolToVisibilityMultiValueConverter />
-                        </MultiBinding.Converter>
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
-                        <Binding
-                            Mode="OneWay"
-                            Path="IsCategoryInDisplayMode"
-                            UpdateSourceTrigger="PropertyChanged" />
-                    </MultiBinding>
-                </TextBlock.Visibility>
+            <Grid Grid.Row="0" Margin="5 10 0 10">
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}"
+                    Style="{DynamicResource PageTitleTextBlockStyle}"
+                    Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}">
+                    <TextBlock.Visibility>
+                        <MultiBinding>
+                            <MultiBinding.Converter>
+                                <local:BoolToVisibilityMultiValueConverter />
+                            </MultiBinding.Converter>
+                            <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            <Binding
+                                Mode="OneWay"
+                                Path="IsCategoryInDisplayMode"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </MultiBinding>
+                    </TextBlock.Visibility>
+                </TextBlock>
 
-            </TextBlock>
+                <!--  Current category edit mode  -->
+                <Border Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}">
+                    <local:ClickSelectTextBox
+                        Grid.Row="0"
+                        Margin="-2 0 0 0"
+                        Style="{DynamicResource PageTitleTextBoxStyle}"
+                        BorderThickness="0 0 0 1"
+                        BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                        Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
-            <!--  Current category edit mode  -->
-            <local:ClickSelectTextBox
-                Grid.Row="0"
-                Margin="13 10 0 10"
-                Style="{DynamicResource PageTitleTextBoxStyle}"
-                Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Visibility>
+                            <MultiBinding>
+                                <MultiBinding.Converter>
+                                    <local:BoolToVisibilityMultiValueConverter />
+                                </MultiBinding.Converter>
+                                <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                <Binding
+                                    Mode="OneWay"
+                                    Path="IsCategoryInEditMode"
+                                    UpdateSourceTrigger="PropertyChanged" />
+                            </MultiBinding>
+                        </TextBox.Visibility>
 
-                <TextBox.Visibility>
-                    <MultiBinding>
-                        <MultiBinding.Converter>
-                            <local:BoolToVisibilityMultiValueConverter />
-                        </MultiBinding.Converter>
-                        <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
-                        <Binding
-                            Mode="OneWay"
-                            Path="IsCategoryInEditMode"
-                            UpdateSourceTrigger="PropertyChanged" />
-                    </MultiBinding>
-                </TextBox.Visibility>
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="LostFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding FinishCategoryEditCommand}" />
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
 
-                <Behaviors:Interaction.Triggers>
-                    <Behaviors:EventTrigger EventName="LostFocus">
-                        <Behaviors:InvokeCommandAction Command="{Binding FinishCategoryEditCommand}" />
-                    </Behaviors:EventTrigger>
-                </Behaviors:Interaction.Triggers>
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Return" Command="{Binding FinishCategoryEditCommand}" />
+                        </TextBox.InputBindings>
+                    </local:ClickSelectTextBox>
+                </Border>
+            </Grid>
 
-                <TextBox.InputBindings>
-                    <KeyBinding Key="Return" Command="{Binding FinishCategoryEditCommand}" />
-                </TextBox.InputBindings>
-
-
-            </local:ClickSelectTextBox>
 
             <!--  border to catch double click event  -->
             <Border

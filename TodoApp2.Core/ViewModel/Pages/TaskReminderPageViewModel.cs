@@ -11,7 +11,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The task to show the notification for.
         /// </summary>
-        public TaskListItemViewModel ReminderTask { get; }
+        public TaskViewModel ReminderTask { get; }
 
         public long ReminderDateTime => ReminderTask?.ReminderDate ?? 0;
 
@@ -31,7 +31,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskReminderPageViewModel(TaskListItemViewModel reminderTask, OverlayPageService overlayPageService, IDatabase database)
+        public TaskReminderPageViewModel(TaskViewModel reminderTask, OverlayPageService overlayPageService, IDatabase database)
         {
             if (reminderTask == null)
             {

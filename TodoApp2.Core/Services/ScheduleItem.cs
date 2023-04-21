@@ -9,10 +9,10 @@ namespace TodoApp2.Core
         public static readonly ScheduleItem Invalid = new ScheduleItem(-1, null, DateTime.MinValue);
 
         public int ID { get; private set; }
-        public TaskListItemViewModel Task { get; }
+        public TaskViewModel Task { get; }
         public DateTime DateTime { get; set; }
 
-        public ScheduleItem(int id, TaskListItemViewModel task, DateTime dateTime)
+        public ScheduleItem(int id, TaskViewModel task, DateTime dateTime)
         {
             ID = id;
             Task = task;

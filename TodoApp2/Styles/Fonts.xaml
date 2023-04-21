@@ -67,6 +67,8 @@
     <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
     <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>
     <system:String x:Key="SegoeIconNote">&#xE70B;</system:String>
+    <system:String x:Key="SegoeIconCategories">&#xE71D;</system:String>
+
     <system:String x:Key="SegoeIconMinimizeWindow">&#xE921;</system:String>
 
     <system:String x:Key="SegoeIconMaximizeWindow">&#xE922;</system:String>
@@ -96,6 +98,11 @@
     <system:String x:Key="SegoeIconCheckList">&#xE133;</system:String>
     <system:String x:Key="SegoeIconRepeat">&#xE8EE;</system:String>
     <system:String x:Key="SegoeIconScaling">&#xE71E;</system:String>
+    <system:String x:Key="SegoeIconCheckbox">&#xE930;</system:String>
+    <system:String x:Key="SegoeIconEditMode">&#xE104;</system:String>
+    <system:String x:Key="SegoeIconBell">&#xEA8F;</system:String>
+    <system:String x:Key="SegoeIconMargin">&#xE1C0;</system:String>
+
 
     <system:String x:Key="SegoeIconChevronUp">&#xE70E;</system:String>
     <system:String x:Key="SegoeIconChevronDown">&#xE70D;</system:String>

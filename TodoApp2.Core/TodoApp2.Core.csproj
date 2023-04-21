@@ -44,6 +44,7 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="PropertyChanged, Version=3.4.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.3.4.1\lib\net40\PropertyChanged.dll</HintPath>
     </Reference>
@@ -75,9 +76,16 @@
     <Compile Include="Commands\Undo\UndoManager.cs" />
     <Compile Include="Constants\GlobalConstants.cs" />
     <Compile Include="Database\CategoryChangedEventArgs.cs" />
+    <Compile Include="Database\DataAccess\BaseDataAccess.cs" />
+    <Compile Include="Database\DataAccess\CategoryDataAccess.cs" />
+    <Compile Include="Database\DataAccess\CompatibilityDataAccess.cs" />
+    <Compile Include="Database\DataAccess\NoteDataAccess.cs" />
+    <Compile Include="Database\DataAccess\SettingsDataAccess.cs" />
+    <Compile Include="Database\DataAccess\TaskDataAccess.cs" />
     <Compile Include="Database\Database.cs" />
-    <Compile Include="Database\DataAccessLayer.cs" />
+    <Compile Include="Database\DataAccess\DataAccessLayer.cs" />
     <Compile Include="Database\IDatabase.cs" />
+    <Compile Include="Database\ListOrder\Reorderer.cs" />
     <Compile Include="Database\TaskChangedEventArgs.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationSettings.cs" />
@@ -99,7 +107,7 @@
     <Compile Include="PropertyHandling\StringPropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\IntegerPropertyValueHandler.cs" />
     <Compile Include="PropertyHandling\IPropertyValueHandler.cs" />
-    <Compile Include="DataModels\SettingsModel.cs" />
+    <Compile Include="DataModels\Setting.cs" />
     <Compile Include="Helpers\CollectionExtender.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="Helpers\SQLiteExtender.cs" />
@@ -111,33 +119,37 @@
     <Compile Include="PropertyHandling\EnumPropertyValueHandler.cs" />
     <Compile Include="Services\AutoRunService.cs" />
     <Compile Include="Services\IAsyncActionService.cs" />
+    <Compile Include="Services\MediaPlayerService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />
     <Compile Include="ViewModel\Controls\RichTextEditorViewModel.cs" />
     <Compile Include="ViewModel\Controls\TimePickerViewModel.cs" />
+    <Compile Include="ViewModel\Items\NoteViewModel.cs" />
+    <Compile Include="ViewModel\Pages\NoteListPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
     <Compile Include="ViewModel\Services\IUIScaler.cs" />
     <Compile Include="ViewModel\Services\MessageService.cs" />
     <Compile Include="ViewModel\Services\IOverlayPageService.cs" />
+    <Compile Include="ViewModel\Services\NoteListService.cs" />
     <Compile Include="ViewModel\Services\OneEditorOpenService.cs" />
     <Compile Include="ViewModel\Services\TaskListService.cs" />
     <Compile Include="ViewModel\Pages\TaskReminderPageViewModel.cs" />
     <Compile Include="ViewModel\Services\OverlayPageService.cs" />
     <Compile Include="Services\ReminderNotificationService.cs" />
     <Compile Include="Services\ScheduleItem.cs" />
-    <Compile Include="ViewModel\ApplicationViewModel.cs" />
+    <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\IBaseViewModel.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModel\Pages\CategoryPageViewModel.cs" />
-    <Compile Include="ViewModel\Items\CategoryListItemViewModel.cs" />
-    <Compile Include="Interfaces\IReorderable.cs" />
+    <Compile Include="ViewModel\Items\CategoryViewModel.cs" />
+    <Compile Include="Database\ListOrder\IReorderable.cs" />
     <Compile Include="ViewModel\Pages\NotificationPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\ReminderEditorPageViewModel.cs" />
     <Compile Include="ViewModel\Services\CategoryListService.cs" />
     <Compile Include="ListProviders\ColorListProvider.cs" />
     <Compile Include="ViewModel\Pages\SettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Items\TaskListItemViewModel.cs" />
+    <Compile Include="ViewModel\Items\TaskViewModel.cs" />
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
     <Compile Include="ViewModel\Services\UIScaler.cs" />
   </ItemGroup>

@@ -52,7 +52,8 @@ namespace TodoApp2
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
                 From = new Thickness(keepMargin ? offset : 0, 0, -offset, 0),
                 To = new Thickness(0),
-                DecelerationRatio = decelerationRatio
+                DecelerationRatio = decelerationRatio,
+                EasingFunction = new QuadraticEase()
             };
 
             Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameMargin));
@@ -66,7 +67,8 @@ namespace TodoApp2
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
                 From = new Thickness(-offset, 0, keepMargin ? offset : 0, 0),
                 To = new Thickness(0),
-                DecelerationRatio = decelerationRatio
+                DecelerationRatio = decelerationRatio,
+                EasingFunction = new QuadraticEase()
             };
 
             Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameMargin));

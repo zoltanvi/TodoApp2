@@ -1,10 +1,5 @@
-﻿using ICSharpCode.AvalonEdit.Editing;
-using System;
-using System.Linq;
-using System.Windows.Controls;
+﻿using System;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using TodoApp2.Core;
 
 namespace TodoApp2
@@ -18,16 +13,47 @@ namespace TodoApp2
         {
             InitializeComponent();
 
-            textEditor.Text = IoC.ApplicationViewModel.ApplicationSettings.NoteContent;
+            textEditor.Text = IoC.NoteListService.ActiveNote?.Content ?? string.Empty;
             textEditor.Options.HighlightCurrentLine = true;
             textEditor.TextArea.SelectionCornerRadius = 2;
+            textEditor.Options.EnableHyperlinks = false;
+            textEditor.Options.CutCopyWholeLine = true;
+            textEditor.Options.AllowScrollBelowDocument = true;
 
             textEditor.PreviewKeyDown += OnTextEditorPreviewKeyDown;
+
+            Mediator.Register(OnNoteChanged, ViewModelMessages.NoteChanged);
         }
+
+        private void OnNoteChanged(object obj)
+        {
+            textEditor.Text = IoC.NoteListService.ActiveNote?.Content ?? string.Empty;
+        }
+
+        private bool IsTab(Key key) => key == Key.Tab;
+        private bool IsSKey(Key key) => key == Key.S;
+        private bool IsUpOrDown(Key key) => key == Key.Up || key == Key.Down;
+        private bool IsLeftOrRight(Key key) => key == Key.Left || key == Key.Right;
+        private bool IsCtrlPressed => Keyboard.Modifiers.HasFlag(ModifierKeys.Control);
+        private bool IsAltPressed => Keyboard.Modifiers.HasFlag(ModifierKeys.Alt);
 
         private void OnTextEditorPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.S && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+            Key key = e.Key;
+
+            if (IsUpOrDown(key) && IsCtrlPressed)
+            {
+                e.Handled = true;
+            }
+            else if (IsLeftOrRight(key) && IsCtrlPressed && IsAltPressed)
+            {
+                e.Handled = true;
+            }
+            else if (IsTab(key) && IsCtrlPressed)
+            {
+                e.Handled = true;
+            }
+            else if (IsSKey(key) && IsCtrlPressed)
             {
                 ViewModel.SaveNoteContent();
             }
@@ -35,7 +61,11 @@ namespace TodoApp2
 
         private void textEditor_TextChanged(object sender, EventArgs e)
         {
-            IoC.ApplicationViewModel.ApplicationSettings.NoteContent = textEditor.Text;
+            if (IoC.NoteListService.ActiveNote != null)
+            {
+                IoC.NoteListService.ActiveNote.Content = textEditor.Text;
+                ViewModel.NoteContentChanged();
+            }
         }
     }
 }

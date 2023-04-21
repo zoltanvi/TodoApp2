@@ -38,6 +38,7 @@ namespace TodoApp2.Core
         public int WindowWidth { get; set; }
         public int WindowHeight { get; set; }
         public int ActiveCategoryId { get; set; }
+        public int ActiveNoteId { get; set; }
         public bool CategoryTitleVisible { get; set; } = true;
         public Theme ActiveTheme { get; set; }
         public bool IsAlwaysOnTop { get; set; }
@@ -52,6 +53,7 @@ namespace TodoApp2.Core
         public bool IsItemBackgroundVisible { get; set; } = true;
         public bool IsItemBorderVisible { get; set; } = true;
         public bool IsQuickActionsEnabled { get; set; } = true;
+        public bool IsQuickActionsCheckboxEnabled { get; set; } = true;
         public bool IsQuickActionsReminderEnabled { get; set; } = true;
         public bool IsQuickActionsColorEnabled { get; set; } = true;
         public bool IsQuickActionsBorderColorEnabled { get; set; } = true;
@@ -59,14 +61,17 @@ namespace TodoApp2.Core
         public bool IsQuickActionsTrashEnabled { get; set; } = true;
         public double TaskFontSizeDouble { get; set; } = 16;
         public bool IsTitleBarDateVisible { get; set; } = false;
-        public string NoteContent { get; set; }
         public bool NotePageWordWrap { get; set; }
         public TaskSpacing TaskSpacing { get; set; }
         public bool InsertOrderReversed { get; set; }
         public bool MoveTaskOnCompletion { get; set; } = true;
         public bool IsColorBarRounded { get; set; } = true;
         public bool IsTrayIconEnabled { get; set; }
+        public bool FocusLostSavesTask { get; set; } = false;
+        public bool PlaySoundOnTaskIsDoneChange { get; set; } = true;
         public bool RunAtStartup { get; set; }
+        public bool TaskListHasMargin { get; set; }
+        public ApplicationPage SideMenuPage { get; set; }
 
         #region Testing
 
@@ -94,12 +99,14 @@ namespace TodoApp2.Core
                 { nameof(WindowWidth), PropertyValueHandlers.Integer },
                 { nameof(WindowHeight), PropertyValueHandlers.Integer },
                 { nameof(ActiveCategoryId), PropertyValueHandlers.Integer },
+                { nameof(ActiveNoteId), PropertyValueHandlers.Integer },
                 { nameof(CategoryTitleVisible), PropertyValueHandlers.Bool },
                 { nameof(ActiveTheme), PropertyValueHandlers.Theme },
                 { nameof(IsAlwaysOnTop), PropertyValueHandlers.Bool },
                 { nameof(IsCreationDateVisible), PropertyValueHandlers.Bool },
                 { nameof(IsModificationDateVisible), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsCheckboxEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsReminderEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsColorEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsBorderColorEnabled), PropertyValueHandlers.Bool },
@@ -116,7 +123,6 @@ namespace TodoApp2.Core
                 { nameof(RoundedWindowCorners), PropertyValueHandlers.Bool },
                 { nameof(IsTitleBarDateVisible), PropertyValueHandlers.Bool },
                 { nameof(Scaling), PropertyValueHandlers.Double },
-                { nameof(NoteContent), PropertyValueHandlers.String },
                 { nameof(NotePageWordWrap), PropertyValueHandlers.Bool },
                 { nameof(TextRenderingMode), PropertyValueHandlers.String },
                 { nameof(TextFormattingMode), PropertyValueHandlers.Bool },
@@ -126,7 +132,11 @@ namespace TodoApp2.Core
                 { nameof(MoveTaskOnCompletion), PropertyValueHandlers.Bool },
                 { nameof(IsColorBarRounded), PropertyValueHandlers.Bool },
                 { nameof(IsTrayIconEnabled), PropertyValueHandlers.Bool },
+                { nameof(FocusLostSavesTask), PropertyValueHandlers.Bool },
                 { nameof(RunAtStartup), PropertyValueHandlers.Bool },
+                { nameof(SideMenuPage), PropertyValueHandlers.ApplicationPage },
+                { nameof(PlaySoundOnTaskIsDoneChange), PropertyValueHandlers.Bool },
+                { nameof(TaskListHasMargin), PropertyValueHandlers.Bool },
             };
 
             m_UiScaler.Zoomed += OnZoomed;
@@ -142,9 +152,9 @@ namespace TodoApp2.Core
         /// Loads every Settings entry from the provided list.
         /// </summary>
         /// <param name="settings">The settings list to load.</param>
-        public void SetSettings(List<SettingsModel> settings)
+        public void SetSettings(List<Setting> settings)
         {
-            foreach (SettingsModel entry in settings)
+            foreach (Setting entry in settings)
             {
                 string propertyName = entry.Key;
                 string propertyValue = entry.Value;
@@ -162,16 +172,16 @@ namespace TodoApp2.Core
         /// Returns the settings list created from the properties.
         /// </summary>
         /// <returns></returns>
-        public List<SettingsModel> GetSettings()
+        public List<Setting> GetSettings()
         {
-            List<SettingsModel> settings = new List<SettingsModel>();
+            List<Setting> settings = new List<Setting>();
 
             foreach (var propertyDescriptor in PropertyDescriptors)
             {
                 var propertyName = propertyDescriptor.Key;
                 var propertyLoader = propertyDescriptor.Value;
 
-                settings.Add(new SettingsModel
+                settings.Add(new Setting
                 {
                     Key = propertyName,
                     Value = propertyLoader.GetProperty(this, propertyName)
@@ -185,12 +195,12 @@ namespace TodoApp2.Core
         /// Returns a single setting if valid, null otherwise
         /// </summary>
         /// <returns></returns>
-        public SettingsModel GetSetting(string propertyName)
+        public Setting GetSetting(string propertyName)
         {
             if (IsPropertyNameValid(propertyName))
             {
                 IPropertyValueHandler propertyLoader = PropertyDescriptors[propertyName];
-                return new SettingsModel
+                return new Setting
                 {
                     Key = propertyName,
                     Value = propertyLoader.GetProperty(this, propertyName)

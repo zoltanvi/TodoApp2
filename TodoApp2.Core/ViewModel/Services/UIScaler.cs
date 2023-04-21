@@ -14,6 +14,7 @@ namespace TodoApp2
             private const double OriginalRegular = 18;
             private const double OriginalRegularIcon = 20;
             private const double OriginalLarge = 22;
+            private const double OriginalLarger = 24;
             private const double OriginalHuge = 28;
             private const double OriginalLargeIcon = 30;
             private const double OriginalGiant = 40;
@@ -24,6 +25,7 @@ namespace TodoApp2
             public double Medium => OriginalMedium * StaticScaleValue;
             public double Regular => OriginalRegular * StaticScaleValue;
             public double Large => OriginalLarge * StaticScaleValue;
+            public double Larger => OriginalLarger * StaticScaleValue;
             public double Huge => OriginalHuge * StaticScaleValue;
             public double Giant => OriginalGiant * StaticScaleValue;
             public double RegularIcon => OriginalRegularIcon * StaticScaleValue;
@@ -53,7 +55,7 @@ namespace TodoApp2
         public double ColorPickerItemSize => OriginalColorPickerItemSize * ScaleValue;
         public double TextEditorToggleWidth => OriginalTextEditorToggleWidth * ScaleValue;
         public double ColorPickerDropDownWidth => 44 + 16 + (s_ColorPickerColumns * ColorPickerItemSize);
-        public double TaskCheckBoxWidth => 36 * ScaleValue;
+        public double TaskCheckBoxWidth => 8 * ScaleValue;
         public double SliderHeight => 18 * ScaleValue;
         public double SliderThumbHeight => 18 * ScaleValue;
         public double SliderThumbWidth => 15 * ScaleValue;

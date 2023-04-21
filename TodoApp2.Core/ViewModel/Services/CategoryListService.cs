@@ -11,16 +11,16 @@ namespace TodoApp2.Core
     /// </summary>
     public class CategoryListService : BaseViewModel
     {
-        private readonly ApplicationViewModel m_ApplicationViewModel;
+        private readonly AppViewModel m_ApplicationViewModel;
         private readonly IDatabase m_Database;
-        private CategoryListItemViewModel m_ActiveCategory;
+        private CategoryViewModel m_ActiveCategory;
 
         /// <summary>
         /// The category list items
         /// </summary>
-        public ObservableCollection<CategoryListItemViewModel> Items { get; set; }
+        public ObservableCollection<CategoryViewModel> Items { get; set; }
 
-        public IEnumerable<CategoryListItemViewModel> InactiveCategories => Items.Where(c => c.Id != ActiveCategory?.Id);
+        public IEnumerable<CategoryViewModel> InactiveCategories => Items.Where(c => c.Id != ActiveCategory?.Id);
 
         /// <summary>
         /// The name of the currently selected category
@@ -39,7 +39,7 @@ namespace TodoApp2.Core
             }
         }
 
-        public CategoryListItemViewModel ActiveCategory
+        public CategoryViewModel ActiveCategory
         {
             get => m_ActiveCategory;
             set
@@ -49,7 +49,7 @@ namespace TodoApp2.Core
             }
         }
 
-        public CategoryListService(ApplicationViewModel applicationViewModel, IDatabase database)
+        public CategoryListService(AppViewModel applicationViewModel, IDatabase database)
         {
             m_ApplicationViewModel = applicationViewModel;
             m_Database = database;
@@ -57,8 +57,8 @@ namespace TodoApp2.Core
 
             m_Database.CategoryChanged += OnDatabaseCategoryChanged;
 
-            List<CategoryListItemViewModel> categories = m_Database.GetValidCategories();
-            Items = new ObservableCollection<CategoryListItemViewModel>(categories);
+            List<CategoryViewModel> categories = m_Database.GetValidCategories();
+            Items = new ObservableCollection<CategoryViewModel>(categories);
             Items.CollectionChanged += OnItemsChanged;
         }
 
@@ -74,14 +74,12 @@ namespace TodoApp2.Core
             ActiveCategory = e.ChangedCategory;
 
             // Update the category in the items list
-            CategoryListItemViewModel modifiedItem = Items.FirstOrDefault(item => item.Id == e.ChangedCategory.Id);
+            CategoryViewModel modifiedItem = Items.FirstOrDefault(item => item.Id == e.ChangedCategory.Id);
             modifiedItem.Name = e.ChangedCategory.Name;
             m_ApplicationViewModel.SaveApplicationSettings();
         }
 
-        public CategoryListItemViewModel GetCategory(int id) => m_Database.GetCategory(id);
-
-        public CategoryListItemViewModel GetCategory(string categoryName) => m_Database.GetCategory(categoryName);
+        public CategoryViewModel GetCategory(int id) => m_Database.GetCategory(id);
 
         protected override void OnDispose()
         {
