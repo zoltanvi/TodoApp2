@@ -401,6 +401,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Themes\MaterialBlueTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Themes\VSBlueTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -525,6 +529,7 @@
     <Resource Include="Images\Splash\LightGreen.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Splash\MaterialBlue.png" />
     <Content Include="Sounds\click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

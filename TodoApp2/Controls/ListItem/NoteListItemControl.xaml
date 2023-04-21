@@ -71,8 +71,29 @@
             Grid.Column="0"
             AutomationProperties.AutomationId="NoteListItemText"
             FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
-            Style="{DynamicResource CategoryTextBlockStyle}"
-            Text="{Binding Title}" />
+            Text="{Binding Title}">
+
+            <TextBlock.Style>
+                <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:EqualityConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="Id" />
+                                    <Binding Path="NoteListService.ActiveNote.Id" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Foreground" Value="{DynamicResource SelectedCategoryBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+
     </Button>
 
 </UserControl>

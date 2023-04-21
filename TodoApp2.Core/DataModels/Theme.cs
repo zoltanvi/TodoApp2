@@ -4,6 +4,7 @@
     {
         ExtraDark,
         BlueTint,
+        MaterialBlue,
         DarkBlue,
         Nord,
         VSBlue,

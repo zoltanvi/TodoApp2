@@ -37,6 +37,15 @@
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>
 
+    <Style TargetType="ToolTip">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CommonBorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ContextMenuBgBrush}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
+    </Style>
+
+
     <Style x:Key="BaseRichTextBoxStyle" TargetType="RichTextBox">
         <Setter Property="FontFamily" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
         <Setter Property="FontSize" Value="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}" />

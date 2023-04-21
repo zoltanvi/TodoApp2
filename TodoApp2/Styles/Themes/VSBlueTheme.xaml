@@ -89,6 +89,7 @@
     <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
     <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
     <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
+    <SolidColorBrush x:Key="SelectedCategoryBrush" Color="{DynamicResource Foreground}" />
 
     <!--  Background  -->
     <SolidColorBrush x:Key="PageBgBrush" Color="{DynamicResource PageBg}" />

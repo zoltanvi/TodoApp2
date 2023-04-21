@@ -58,6 +58,7 @@
                             </MultiBinding>
                         </DataTrigger.Binding>
                         <Setter Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
+                        <Setter Property="Foreground" Value="Red" />
                     </DataTrigger>
                     <!--  The mouse over trigger is the second defined one so it can highlight an already selected item also  -->
                     <Trigger Property="IsMouseOver" Value="True">
@@ -71,8 +72,27 @@
             Grid.Column="0"
             AutomationProperties.AutomationId="CategoryListItemText"
             FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
-            Style="{DynamicResource CategoryTextBlockStyle}"
-            Text="{Binding Name}" />
+            Text="{Binding Name}">
+
+            <TextBlock.Style>
+                <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:EqualityConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="Id" />
+                                    <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Foreground" Value="{DynamicResource SelectedCategoryBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Button>
 
 </UserControl>
