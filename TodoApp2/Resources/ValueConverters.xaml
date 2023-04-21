@@ -48,6 +48,19 @@
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" Negated="False" />
     <local:BoolToCornerRadiusConverter x:Key="boolToCornerRadiusConverter" />
 
+    <local:BoolToThicknessConverter
+        x:Key="taskListItemMarginConverter"
+        Left="15"
+        Right="15" />
+    <local:BoolToThicknessConverter
+        x:Key="taskPageTitleMarginConverter"
+        Left="15"
+        Right="15"
+        NegativeLeft="5"
+        NegativeRight="5" />
+
+
+
     <local:EnumToFontFamilyConverter x:Key="enumToFontFamilyConverter" />
     <local:FontSizeScaler x:Key="fontSizeScaler" />
     <local:TextToLineNumbersConverter x:Key="textToLineNumbersConverter" />

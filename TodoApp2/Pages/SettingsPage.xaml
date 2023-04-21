@@ -276,6 +276,13 @@
                                 <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                             </DockPanel>
 
+                            <!--  Margin for task list  -->
+                            <DockPanel Style="{StaticResource SettingsDockPanelStyle}" >
+                                <Label Content="{DynamicResource SegoeIconMargin}" Style="{DynamicResource SettingsIconLabelStyle}" />
+                                <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Margin for task list" />
+                                <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
+                            </DockPanel>
+
                         </StackPanel>
 
                         <Border BorderThickness="0 0 0 1" BorderBrush="{DynamicResource CommonBorderBrush}" />

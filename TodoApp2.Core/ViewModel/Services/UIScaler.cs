@@ -14,6 +14,7 @@ namespace TodoApp2
             private const double OriginalRegular = 18;
             private const double OriginalRegularIcon = 20;
             private const double OriginalLarge = 22;
+            private const double OriginalLarger = 24;
             private const double OriginalHuge = 28;
             private const double OriginalLargeIcon = 30;
             private const double OriginalGiant = 40;
@@ -24,6 +25,7 @@ namespace TodoApp2
             public double Medium => OriginalMedium * StaticScaleValue;
             public double Regular => OriginalRegular * StaticScaleValue;
             public double Large => OriginalLarge * StaticScaleValue;
+            public double Larger => OriginalLarger * StaticScaleValue;
             public double Huge => OriginalHuge * StaticScaleValue;
             public double Giant => OriginalGiant * StaticScaleValue;
             public double RegularIcon => OriginalRegularIcon * StaticScaleValue;

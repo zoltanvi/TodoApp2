@@ -42,9 +42,9 @@
                 <!--  Notes title  -->
                 <TextBlock
                     Grid.Column="0"
-                    Margin="15 0 0 0"
+                    Margin="20 5 0 0"
                     Style="{DynamicResource SideMenuTitleTextBlockStyle}"
-                    Text="Notes" />
+                    Text="NOTES" />
 
                 <!--  Categories button  -->
                 <Button

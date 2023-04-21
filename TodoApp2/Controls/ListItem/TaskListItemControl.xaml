@@ -115,11 +115,11 @@
         </ContextMenu>
     </UserControl.ContextMenu>
 
-    <Grid Background="Transparent">
+    <Grid Background="Transparent" Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
 
         <!--  Color bar overlaying the border  -->
         <Border
-            Margin="4 2"
+            Margin="5 2"
             HorizontalAlignment="Left"
             Panel.ZIndex="1000"
             AutomationProperties.AutomationId="TaskListItemColorBar"
@@ -149,8 +149,7 @@
             Margin="4 2"
             BorderBrush="Transparent"
             BorderThickness="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}"
-            CornerRadius="2"
-            >
+            CornerRadius="2">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />

@@ -70,6 +70,7 @@ namespace TodoApp2.Core
         public bool FocusLostSavesTask { get; set; } = false;
         public bool PlaySoundOnTaskIsDoneChange { get; set; } = true;
         public bool RunAtStartup { get; set; }
+        public bool TaskListHasMargin { get; set; }
         public ApplicationPage SideMenuPage { get; set; }
 
         #region Testing
@@ -135,6 +136,7 @@ namespace TodoApp2.Core
                 { nameof(RunAtStartup), PropertyValueHandlers.Bool },
                 { nameof(SideMenuPage), PropertyValueHandlers.ApplicationPage },
                 { nameof(PlaySoundOnTaskIsDoneChange), PropertyValueHandlers.Bool },
+                { nameof(TaskListHasMargin), PropertyValueHandlers.Bool },
             };
 
             m_UiScaler.Zoomed += OnZoomed;

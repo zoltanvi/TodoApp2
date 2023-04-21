@@ -58,13 +58,13 @@
     <Color x:Key="HoverContextMenuBg">#5E5E5E</Color>
     <Color x:Key="CheckedComboBoxButtonBg">#464E5E</Color>
 
-    <Color x:Key="CommonBorder">#181a1f</Color>
-    <Color x:Key="AppBorder">#343C49</Color>
+    <Color x:Key="CommonBorder">#4E5461</Color>
+    <Color x:Key="AppBorder">#3F4959</Color>
     <Color x:Key="CommonControlBorder">#181a1f</Color>
     <Color x:Key="PopUpBorder">#181a1f</Color>
-    <Color x:Key="BottomBarBorder">#181a1f</Color>
+    <Color x:Key="BottomBarBorder">#4E5461</Color>
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
-    <Color x:Key="TaskBorder">#181a1f</Color>
+    <Color x:Key="TaskBorder">#353A42</Color>
     <Color x:Key="CheckBoxBorder">#687D96</Color>
     <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
     <Color x:Key="ContextMenuBorder">#000000</Color>

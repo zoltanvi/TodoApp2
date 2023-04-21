@@ -41,10 +41,11 @@
 
                 <!--  Task categories title  -->
                 <TextBlock
+                    Margin="20 5 0 0"
                     Grid.Column="0"
-                    Margin="15 0 0 0"
+                    HorizontalAlignment="Left"
                     Style="{DynamicResource SideMenuTitleTextBlockStyle}"
-                    Text="Task categories" />
+                    Text="CATEGORIES" />
 
                 <!--  Note button  -->
                 <Button
