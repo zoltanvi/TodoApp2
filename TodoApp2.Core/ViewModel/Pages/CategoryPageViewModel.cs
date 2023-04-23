@@ -191,8 +191,6 @@ namespace TodoApp2.Core
                     IoC.NoteListService.ActiveNote = null;
                 }
 
-                m_OverlayPageService.CloseSideMenu();
-
                 // Change to task page if it wasn't active
                 if (m_Application.CurrentPage != ApplicationPage.Task)
                 {
@@ -206,7 +204,11 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_Application.SideMenuPage = ApplicationPage.Settings;
+            m_Application.CurrentPage = ApplicationPage.Settings;
+            
+            // None of them are selected if we are on the settings page
+            IoC.CategoryListService.ActiveCategory = null;
+            IoC.NoteListService.ActiveNote = null;
         }
 
         /// <summary>

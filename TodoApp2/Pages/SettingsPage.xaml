@@ -69,25 +69,12 @@
             </Grid.RowDefinitions>
 
             <!--  Settings title  -->
-            <Grid Grid.Row="0" Margin="0 5 5 5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0">
 
                 <TextBlock
-                    Grid.Column="0"
-                    Margin="15 0 0 0"
-                    Style="{DynamicResource SideMenuTitleTextBlockStyle}"
+                    Margin="15 10 0 10"
+                    Style="{DynamicResource PageTitleTextBlockStyle}"
                     Text="Settings" />
-
-                <Button
-                    Grid.Column="2"
-                    Command="{Binding BackToPrevPageCommand}"
-                    Content="{DynamicResource SegoeIconBack}"
-                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
-                    ToolTip="Back" />
 
             </Grid>
 
@@ -277,7 +264,7 @@
                             </DockPanel>
 
                             <!--  Margin for task list  -->
-                            <DockPanel Style="{StaticResource SettingsDockPanelStyle}" >
+                            <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                                 <Label Content="{DynamicResource SegoeIconMargin}" Style="{DynamicResource SettingsIconLabelStyle}" />
                                 <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Margin for task list" />
                                 <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />

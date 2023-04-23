@@ -72,6 +72,7 @@ namespace TodoApp2.Core
         public bool RunAtStartup { get; set; }
         public bool TaskListHasMargin { get; set; }
         public ApplicationPage SideMenuPage { get; set; }
+        public double SideMenuWidth { get; set; } // 0 = closed by default
 
         #region Testing
 
@@ -137,6 +138,7 @@ namespace TodoApp2.Core
                 { nameof(SideMenuPage), PropertyValueHandlers.ApplicationPage },
                 { nameof(PlaySoundOnTaskIsDoneChange), PropertyValueHandlers.Bool },
                 { nameof(TaskListHasMargin), PropertyValueHandlers.Bool },
+                { nameof(SideMenuWidth), PropertyValueHandlers.Double },
             };
 
             m_UiScaler.Zoomed += OnZoomed;

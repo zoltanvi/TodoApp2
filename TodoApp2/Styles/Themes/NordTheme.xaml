@@ -147,6 +147,10 @@
         Color="{DynamicResource ThemeOpposite}"
         Opacity="0.2" />
     <SolidColorBrush
+        x:Key="HoverCategoryDeleteBg"
+        Opacity="0.2"
+        Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush
         x:Key="HoverCalendarItemBgBrush"
         Color="{DynamicResource ThemeOpposite}"
         Opacity="0.1" />

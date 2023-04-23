@@ -255,6 +255,7 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\FlashWindow.cs" />
+    <Compile Include="Window\GridResizer.cs" />
     <Compile Include="Window\TrayIconModule.cs" />
     <Compile Include="Window\WindowResizer.cs" />
     <Page Include="Controls\List\NoteListControl.xaml">
@@ -390,6 +391,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Themes\LightGreenTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\MaterialLightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -530,6 +535,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Splash\MaterialBlue.png" />
+    <Resource Include="Images\Splash\MaterialLight.png" />
     <Content Include="Sounds\click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

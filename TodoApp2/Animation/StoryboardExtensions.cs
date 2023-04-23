@@ -27,6 +27,7 @@ namespace TodoApp2
                 DecelerationRatio = decelerationRatio
             };
 
+            Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
             Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameOpacity));
             storyBoard.Children.Add(animation);
         }
@@ -41,6 +42,7 @@ namespace TodoApp2
                 DecelerationRatio = decelerationRatio
             };
 
+            Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
             Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameOpacity));
             storyBoard.Children.Add(animation);
         }
@@ -56,6 +58,7 @@ namespace TodoApp2
                 EasingFunction = new QuadraticEase()
             };
 
+            Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
             Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameMargin));
             storyboard.Children.Add(animation);
         }
@@ -71,6 +74,7 @@ namespace TodoApp2
                 EasingFunction = new QuadraticEase()
             };
 
+            Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
             Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameMargin));
             storyboard.Children.Add(animation);
         }
@@ -120,6 +124,7 @@ namespace TodoApp2
                 EasingFunction = easingFunction
             };
 
+            Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
             Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameMargin));
             storyboard.Children.Add(animation);
         }
@@ -140,6 +145,8 @@ namespace TodoApp2
                 To = toScaleY,
             };
 
+            Timeline.SetDesiredFrameRate(shrinkXAnimation, 60); // 60 FPS
+            Timeline.SetDesiredFrameRate(shrinkYAnimation, 60); // 60 FPS
             Storyboard.SetTargetProperty(shrinkXAnimation, new PropertyPath("RenderTransform.ScaleX"));
             Storyboard.SetTargetProperty(shrinkYAnimation, new PropertyPath("RenderTransform.ScaleY"));
 

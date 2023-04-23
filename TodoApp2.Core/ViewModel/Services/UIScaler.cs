@@ -33,7 +33,8 @@ namespace TodoApp2
         }
 
         private const double s_OriginalScalingPercent = 100;
-        private const double OriginalSideMenuWidth = 350;
+        private const double OriginalSideMenuWidth = 220;
+        private const double OriginalSideMenuMinimumWidth = 180;
         private const double OriginalTextBoxMaxHeight = 400;
         private const double OriginalColorPickerHeight = 22;
         private const double OriginalColorPickerWidth = 32;
@@ -48,6 +49,7 @@ namespace TodoApp2
 
         public FontSizes FontSize { get; } = new FontSizes();
         public double SideMenuWidth => OriginalSideMenuWidth * ScaleValue;
+        public double SideMenuMinimumWidth => OriginalSideMenuMinimumWidth; // Not decided yet
         public double TextBoxMaxHeight => OriginalTextBoxMaxHeight * ScaleValue;
         public double ColorPickerHeight => OriginalColorPickerHeight * ScaleValue;
         public double ColorPickerWidth => OriginalColorPickerWidth * ScaleValue;

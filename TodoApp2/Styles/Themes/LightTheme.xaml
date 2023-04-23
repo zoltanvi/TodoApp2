@@ -147,6 +147,10 @@
         x:Key="HoverCalendarItemBgBrush"
         Color="{DynamicResource ThemeOpposite}"
         Opacity="0.1" />
+    <SolidColorBrush
+        x:Key="HoverCategoryDeleteBg"
+        Opacity="0.2"
+        Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="CheckedComboBoxButtonBgBrush" Color="{DynamicResource CheckedComboBoxButtonBg}" />
     <SolidColorBrush
         x:Key="HoverComboBoxDropDownItemBrush"

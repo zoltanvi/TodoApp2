@@ -9,6 +9,7 @@
         Nord,
         VSBlue,
         LightGreen,
+        MaterialLight,
         Light,
     }
 }

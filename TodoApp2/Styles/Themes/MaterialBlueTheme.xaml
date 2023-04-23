@@ -25,7 +25,7 @@
     <Color x:Key="MessageInfo">#000000</Color>
     <Color x:Key="MessageWarning">#000000</Color>
     <Color x:Key="MessageError">#000000</Color>
-    <Color x:Key="SelectedCategory">#090B11</Color>
+    <Color x:Key="SelectedCategory">#FFFFFF</Color>
 
     <Color x:Key="PageBg">#192030</Color>
     <Color x:Key="SideMenuBg">#192030</Color>
@@ -37,7 +37,7 @@
     <Color x:Key="SelectionBg">#3A9CFF</Color>
     <Color x:Key="ScrollBarBg">#243257</Color>
     <Color x:Key="ScrollBarPressedBg">#1F2C4C</Color>
-    <Color x:Key="SelectedCategoryBg">#4ac5ff</Color>
+    <Color x:Key="SelectedCategoryBg">#3f4e72</Color>
     <Color x:Key="ComboBoxBg">#272A3D</Color>
     <Color x:Key="ComboBoxButtonBg">#313A4B</Color>
     <Color x:Key="ComboBoxDropDownBg">#313A4B</Color>
@@ -50,7 +50,7 @@
     <Color x:Key="MessageWarningBg">#ffe8c3</Color>
     <Color x:Key="MessageErrorBg">#ffd0cb</Color>
 
-    <Color x:Key="HoverCategoryBg">#3F4E72</Color>
+    <Color x:Key="HoverCategoryBg">#2F3A56</Color>
     <Color x:Key="HoverTitleBarButtonBg">#3F4E72</Color>
     <Color x:Key="HoverCloseButtonBg">#F55B4D</Color>
     <Color x:Key="HoverButtonBg">#3F4E72</Color>
@@ -150,6 +150,10 @@
         x:Key="HoverCalendarItemBgBrush"
         Color="{DynamicResource ThemeOpposite}"
         Opacity="0.4" />
+    <SolidColorBrush
+        x:Key="HoverCategoryDeleteBg"
+        Opacity="0.2"
+        Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="CheckedComboBoxButtonBgBrush" Color="{DynamicResource CheckedComboBoxButtonBg}" />
     <SolidColorBrush
         x:Key="HoverComboBoxDropDownItemBrush"
