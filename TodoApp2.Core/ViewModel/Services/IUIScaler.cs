@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TodoApp2
+namespace TodoApp2.Core
 {
     public interface IUIScaler
     {

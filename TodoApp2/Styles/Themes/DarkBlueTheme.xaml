@@ -25,6 +25,7 @@
     <Color x:Key="MessageInfo">#000000</Color>
     <Color x:Key="MessageWarning">#000000</Color>
     <Color x:Key="MessageError">#000000</Color>
+    <Color x:Key="SelectedCategory">#E4E9F8</Color>
 
     <Color x:Key="PageBg">#21252b</Color>
     <Color x:Key="SideMenuBg">#282c34</Color>
@@ -89,7 +90,7 @@
     <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
     <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
     <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
-    <SolidColorBrush x:Key="SelectedCategoryBrush" Color="{DynamicResource Foreground}" />
+    <SolidColorBrush x:Key="SelectedCategoryBrush" Color="{DynamicResource SelectedCategory}" />
 
     <!--  Background  -->
     <SolidColorBrush x:Key="PageBgBrush" Color="{DynamicResource PageBg}" />

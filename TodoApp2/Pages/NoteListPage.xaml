@@ -48,7 +48,7 @@
                     ToolTip="Go to CATEGORIES"
                     Content="NOTES"
                     Cursor="Hand"
-                    FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"
+                    FontSize="{Binding UIScaler.FontSize.Regular}"
                     HorizontalAlignment="Left"
                     Margin="25 0 0 0"
                     FontFamily="{DynamicResource UIBoldFont}" />

@@ -61,7 +61,7 @@
                                         CommandParameter="{Binding DataContext, ElementName=NoteListItemUC}"
                                         Style="{StaticResource ButtonIconHoverStyle}"
                                         Content="{StaticResource SegoeIconDeleteX}"
-                                        FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        FontSize="{Binding UIScaler.FontSize.Small}"
                                         ToolTip="Delete" />
 
                                 </Grid>
@@ -105,7 +105,7 @@
         <TextBlock
             Grid.Column="0"
             AutomationProperties.AutomationId="NoteListItemText"
-            FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
+            FontSize="{Binding UIScaler.FontSize.Medium}"
             Text="{Binding Title}">
 
             <TextBlock.Style>

@@ -247,29 +247,43 @@
 
             <GridSplitter
                 x:Name="Resizer"
-                Background="Transparent"
+                Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                 Grid.Column="1"
+                Opacity="0"
                 Width="6"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Stretch">
-
-                <!--<GridSplitter.Style>
+                VerticalAlignment="Stretch"
+                Cursor="SizeWE">
+                <GridSplitter.Style>
                     <Style TargetType="GridSplitter">
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor">
-                                    <Setter.Value>
-                                        <Cursor>
-                                            <Cursor.BitmapImage>
-                                                <Image Source="Images/horizontal-resize.png" />
-                                            </Cursor.BitmapImage>
-                                        </Cursor>
-                                    </Setter.Value>
-                                </Setter>
+
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="0.7"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="0"
+                                                Duration="0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
+
                         </Style.Triggers>
                     </Style>
-                </GridSplitter.Style>-->
+                </GridSplitter.Style>
 
             </GridSplitter>
 
@@ -307,7 +321,7 @@
                             Grid.Column="0"
                             DockPanel.Dock="Left"
                             TextWrapping="Wrap"
-                            FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"
+                            FontSize="{Binding UIScaler.FontSize.Regular}"
                             FontFamily="{DynamicResource UIFont}"
                             FontWeight="Bold"
                             Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"

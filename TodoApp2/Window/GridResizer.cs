@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -14,7 +13,7 @@ namespace TodoApp2
         private GridSplitter _Resizer;
         private Window _Window;
         private bool _IsDragging;
-        
+
         private AppViewModel AppViewModel => IoC.ApplicationViewModel;
         private double MaxColumnWidth => (_Grid.ActualWidth / 3) * 2;
         private double MinColumnWidth => IoC.UIScaler.SideMenuMinimumWidth;

@@ -12,6 +12,8 @@ namespace TodoApp2.Core
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public UIScaler UIScaler { get; } = UIScaler.Instance;
+
         /// <summary>
         /// Call this to fire a <see cref="PropertyChanged"/> event
         /// </summary>

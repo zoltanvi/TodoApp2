@@ -35,7 +35,7 @@
         public static void Setup()
         {
             MediaPlayerService = new MediaPlayerService();
-            UIScaler = new UIScaler();
+            UIScaler = UIScaler.Instance;
             UndoManager = new UndoManager();
             ApplicationViewModel = new AppViewModel(Database, UIScaler);
             OverlayPageService = new OverlayPageService(ApplicationViewModel, Database);

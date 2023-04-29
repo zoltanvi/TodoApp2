@@ -423,9 +423,9 @@ namespace TodoApp2
 
         private void ChangeToActiveTheme()
         {
-            if (ApplicationSettings.ActiveTheme != m_ThemeManager.CurrentTheme)
+            if (ApplicationSettings.ActiveTheme != ThemeManager.CurrentTheme)
             {
-                m_ThemeManager.ChangeToTheme(m_ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
+                m_ThemeManager.ChangeToTheme(ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
             }
         }
 

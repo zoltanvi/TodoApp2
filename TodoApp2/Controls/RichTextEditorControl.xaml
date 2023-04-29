@@ -57,7 +57,7 @@
                             Command="{Binding SetSmallFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
-                            FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                            FontSize="{Binding UIScaler.FontSize.Small}"
                             ToolTip="Small font" />
                         <Button
                             Command="{Binding SetMediumFontSizeCommand, ElementName=PART_TextEditor}"
@@ -68,7 +68,7 @@
                             Command="{Binding SetBigFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
-                            FontSize="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}"
+                            FontSize="{Binding UIScaler.FontSize.Large}"
                             ToolTip="Big font" />
 
                         <Button
@@ -166,7 +166,7 @@
             <Border
                 Grid.RowSpan="2"
                 Grid.Column="2"
-                Width="{Binding UIScaler.TextEditorToggleWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                Width="{Binding UIScaler.TextEditorToggleWidth}"
                 HorizontalAlignment="right">
 
                 <Border.Visibility>

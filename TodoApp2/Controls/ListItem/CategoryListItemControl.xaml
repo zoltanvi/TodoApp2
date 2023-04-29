@@ -60,7 +60,7 @@
                                         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
                                         Style="{StaticResource ButtonIconHoverCategoryDeleteStyle}"
                                         Content="{StaticResource SegoeIconDeleteX}"
-                                        FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        FontSize="{Binding UIScaler.FontSize.Small}"
                                         ToolTip="Delete" />
 
                                 </Grid>
@@ -110,7 +110,7 @@
             <TextBlock
                 DockPanel.Dock="Left"
                 AutomationProperties.AutomationId="CategoryListItemText"
-                FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
+                FontSize="{Binding UIScaler.FontSize.Medium}"
                 Text="{Binding Name}">
 
                 <TextBlock.Style>

@@ -138,8 +138,14 @@
     <Compile Include="Controls\ListItem\NoteListItemControl.xaml.cs">
       <DependentUpon>NoteListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListItem\ThemeListItemControl.xaml.cs">
+      <DependentUpon>ThemeListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\List\NoteListControl.xaml.cs">
       <DependentUpon>NoteListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\List\ThemeListControl.xaml.cs">
+      <DependentUpon>ThemeListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\RichTextEditorControl.xaml.cs">
       <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
@@ -208,6 +214,7 @@
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApplicationPageHelper.cs" />
+    <Compile Include="Services\ThemeListService.cs" />
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\BoolToVisibilityMultiValueConverter.cs" />
@@ -258,6 +265,10 @@
     <Compile Include="Window\GridResizer.cs" />
     <Compile Include="Window\TrayIconModule.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Controls\ListItem\ThemeListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\List\NoteListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -275,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FontSizeSliderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\List\ThemeListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

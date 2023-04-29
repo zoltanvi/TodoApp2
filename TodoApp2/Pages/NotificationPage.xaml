@@ -102,7 +102,7 @@
                     Margin="16 10 0 16"
                     Padding="10"
                     VerticalAlignment="Bottom"
-                    MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+                    MaxHeight="{Binding UIScaler.TextBoxMaxHeight}" />
             </Grid>
         </Border>
     </Grid>
