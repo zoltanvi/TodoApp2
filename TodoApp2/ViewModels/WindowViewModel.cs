@@ -149,20 +149,8 @@ namespace TodoApp2
             // Subscribe to the theme changed event to trigger app border update
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
 
-            // TODO: Store in the appsettings only the valid side menu pages. 
-            // This fixes the side menu page problem
-            if (m_AppViewModel.SideMenuPage != ApplicationPage.Category ||
-                m_AppViewModel.SideMenuPage != ApplicationPage.NoteList)
-            {
-                m_AppViewModel.SideMenuPage = m_AppViewModel.ApplicationSettings.ActiveCategoryId != -1
-                    ? ApplicationPage.Category
-                    : ApplicationPage.NoteList;
-            }
-
-            m_AppViewModel.CurrentPage =
-                m_AppViewModel.SideMenuPage == ApplicationPage.Category
-                ? ApplicationPage.Task
-                : ApplicationPage.Note;
+            m_AppViewModel.UpdateMainPage();
+            m_AppViewModel.UpdateSideMenuPage();
 
             m_DragDropMediator = new DragDropMediator();
 

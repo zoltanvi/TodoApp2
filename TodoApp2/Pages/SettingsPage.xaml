@@ -69,12 +69,26 @@
             </Grid.RowDefinitions>
 
             <!--  Settings title  -->
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Margin="15 10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
                 <TextBlock
-                    Margin="15 10 0 10"
+                    Grid.Column="0"
                     Style="{DynamicResource PageTitleTextBlockStyle}"
                     Text="Settings" />
+
+                <!--  BACK button  -->
+                <Button
+                    Grid.Column="1"
+                    AutomationProperties.AutomationId="SettingsButton"
+                    Command="{Binding GoBackCommand}"
+                    Content="{DynamicResource SegoeIconArrowLeft}"
+                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                    ToolTip="Close settings" />
 
             </Grid>
 

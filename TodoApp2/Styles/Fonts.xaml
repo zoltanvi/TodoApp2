@@ -110,6 +110,8 @@
     <system:String x:Key="SegoeIconChevronLeft">&#xE76B;</system:String>
     <system:String x:Key="SegoeIconChevronRight">&#xE76C;</system:String>
 
+    <system:String x:Key="SegoeIconArrowLeft">&#xE0C4;</system:String>
+
     <system:String x:Key="SegoeIconColorBar">&#xEA4B;</system:String>
     <system:String x:Key="SegoeIconBorderVisible">&#xF16B;</system:String>
     <system:String x:Key="SegoeIconBackgroundVisible">&#xF16D;</system:String>

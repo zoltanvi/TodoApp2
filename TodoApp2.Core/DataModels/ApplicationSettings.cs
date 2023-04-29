@@ -71,6 +71,7 @@ namespace TodoApp2.Core
         public bool PlaySoundOnTaskIsDoneChange { get; set; } = true;
         public bool RunAtStartup { get; set; }
         public bool TaskListHasMargin { get; set; }
+        public ApplicationPage MainPage { get; set; }
         public ApplicationPage SideMenuPage { get; set; }
         public double SideMenuWidth { get; set; } // 0 = closed by default
 
@@ -135,6 +136,7 @@ namespace TodoApp2.Core
                 { nameof(IsTrayIconEnabled), PropertyValueHandlers.Bool },
                 { nameof(FocusLostSavesTask), PropertyValueHandlers.Bool },
                 { nameof(RunAtStartup), PropertyValueHandlers.Bool },
+                { nameof(MainPage), PropertyValueHandlers.ApplicationPage },
                 { nameof(SideMenuPage), PropertyValueHandlers.ApplicationPage },
                 { nameof(PlaySoundOnTaskIsDoneChange), PropertyValueHandlers.Bool },
                 { nameof(TaskListHasMargin), PropertyValueHandlers.Bool },

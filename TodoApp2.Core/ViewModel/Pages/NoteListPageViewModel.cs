@@ -165,9 +165,9 @@ namespace TodoApp2.Core
                 m_OverlayPageService.CloseSideMenu();
 
                 // Change to note page if it wasn't active
-                if (m_AppViewModel.CurrentPage != ApplicationPage.Note)
+                if (m_AppViewModel.MainPage != ApplicationPage.Note)
                 {
-                    m_AppViewModel.CurrentPage = ApplicationPage.Note;
+                    m_AppViewModel.MainPage = ApplicationPage.Note;
                 }
             }
         }
@@ -177,11 +177,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_AppViewModel.CurrentPage = ApplicationPage.Settings;
-            
-            // None of them are selected if we are on the settings page
-            IoC.CategoryListService.ActiveCategory = null;
-            IoC.NoteListService.ActiveNote = null;
+            m_AppViewModel.MainPage = ApplicationPage.Settings;
         }
 
         /// <summary>

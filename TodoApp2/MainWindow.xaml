@@ -241,9 +241,9 @@
                 Grid.Column="2"
                 Margin="-6 0 0 0"
                 local:NoFrameHistory.Value="True"
-                AutomationProperties.AutomationId="CurrentPage"
+                AutomationProperties.AutomationId="MainPageFrame"
                 Content="{Binding}"
-                DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+                DataContext="{Binding ApplicationViewModel.MainPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
 
             <GridSplitter
                 x:Name="Resizer"

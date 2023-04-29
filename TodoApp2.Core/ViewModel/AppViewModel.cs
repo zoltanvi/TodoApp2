@@ -34,7 +34,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; set; }
+        public ApplicationPage MainPage { get; set; }
 
         /// <summary>
         /// The view model to use for the current page when the Page changes
@@ -42,7 +42,7 @@ namespace TodoApp2.Core
         ///       it is simply used to set the view model of the current page
         ///       at the time it changes
         /// </summary>
-        public IBaseViewModel CurrentPageViewModel { get; set; }
+        public IBaseViewModel MainPageViewModel { get; set; }
 
         /// <summary>
         /// The overlay panel content page
@@ -86,24 +86,48 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Updates the Main Page based on what is stored in the application settings for active category or active note.
+        /// </summary>
+        public void UpdateMainPage()
+        {
+            // The ActiveCategoryId and the ActiveNoteId must be mutually exclusive,
+            // meaning that one or the other is set to -1 at all times, but never both at once.
+            MainPage = ApplicationSettings.ActiveCategoryId != -1
+                ? ApplicationPage.Task
+                : ApplicationPage.Note;
+        }
+
+        /// <summary>
+        /// Updates the SideMenu Page based on what is stored in the application settings for active category or active note.
+        /// </summary>
+        public void UpdateSideMenuPage()
+        {
+            // The ActiveCategoryId and the ActiveNoteId must be mutually exclusive,
+            // meaning that one or the other is set to -1 at all times, but never both at once.
+            SideMenuPage = ApplicationSettings.ActiveCategoryId != -1
+                ? ApplicationPage.Category
+                : ApplicationPage.NoteList;
+        }
+
+        /// <summary>
         /// Navigates the main page to the specified page.
         /// </summary>
         /// <param name="page">The page to go to</param>
         /// <param name="viewModel">The view model to set</param>
         public void GoToPage(ApplicationPage page, IBaseViewModel viewModel = null)
         {
-            CurrentPageViewModel = viewModel;
+            MainPageViewModel = viewModel;
 
             // See if page has changed
-            bool different = CurrentPage != page;
+            bool different = MainPage != page;
 
-            CurrentPage = page;
+            MainPage = page;
 
             // If the page hasn't changed, fire off notification
             // So pages still update if just the view model has changed
             if (!different)
             {
-                //OnPropertyChanged(nameof(CurrentPage));
+                //OnPropertyChanged(nameof(MainPage));
             }
         }
 
