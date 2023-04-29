@@ -24,10 +24,10 @@
     </UserControl.ContextMenu>
 
     <Button
-        Padding="15 2 30 2"
+        Padding="20 2 10 2"
         Command="{Binding Path=Tag.OpenNoteCommand, ElementName=NoteListItemUC}"
         CommandParameter="{Binding DataContext, ElementName=NoteListItemUC}"
-        ToolTip="{Binding Name}">
+        ToolTip="{Binding Title}">
 
         <Button.Style>
             <Style BasedOn="{StaticResource ButtonHoverStyle}" TargetType="Button">
@@ -41,12 +41,50 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="4">
-                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <ContentPresenter
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Grid.Column="0" />
+
+                                    <Button
+                                        x:Name="PART_DeleteButton"
+                                        Grid.Column="1"
+                                        Visibility="Hidden"
+                                        Command="{Binding Path=Tag.DeleteNoteCommand, ElementName=NoteListItemUC}"
+                                        CommandParameter="{Binding DataContext, ElementName=NoteListItemUC}"
+                                        Style="{StaticResource ButtonIconHoverStyle}"
+                                        Content="{StaticResource SegoeIconDeleteX}"
+                                        FontSize="{Binding UIScaler.FontSize.Small}"
+                                        ToolTip="Delete" />
+
+                                </Grid>
                             </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="PART_DeleteButton" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter TargetName="PART_DeleteButton" Property="Visibility" Value="Hidden" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
+                    <!--  The mouse over trigger is the second defined one so it can highlight an already selected item also  -->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
+                    </Trigger>
+
                     <DataTrigger Value="True">
                         <DataTrigger.Binding>
                             <MultiBinding>
@@ -59,10 +97,7 @@
                         </DataTrigger.Binding>
                         <Setter Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
                     </DataTrigger>
-                    <!--  The mouse over trigger is the second defined one so it can highlight an already selected item also  -->
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
-                    </Trigger>
+
                 </Style.Triggers>
             </Style>
         </Button.Style>
@@ -70,12 +105,16 @@
         <TextBlock
             Grid.Column="0"
             AutomationProperties.AutomationId="NoteListItemText"
-            FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
+            FontSize="{Binding UIScaler.FontSize.Medium}"
             Text="{Binding Title}">
 
             <TextBlock.Style>
                 <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
                     <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+                        </Trigger>
+
                         <DataTrigger Value="True">
                             <DataTrigger.Binding>
                                 <MultiBinding>
@@ -88,6 +127,7 @@
                             </DataTrigger.Binding>
                             <Setter Property="Foreground" Value="{DynamicResource SelectedCategoryBrush}" />
                         </DataTrigger>
+
                     </Style.Triggers>
                 </Style>
             </TextBlock.Style>

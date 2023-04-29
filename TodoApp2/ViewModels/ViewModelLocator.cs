@@ -14,6 +14,7 @@ namespace TodoApp2
         public static CategoryListService CategoryListService => IoC.CategoryListService;
         public static NoteListService NoteListService => IoC.NoteListService;
         public static TaskListService TaskListService => IoC.TaskListService;
+        public static ThemeListService ThemeListService { get; } = new ThemeListService();
         public static MessageService MessageService => IoC.MessageService;
         public static UIScaler UIScaler => IoC.UIScaler;
 

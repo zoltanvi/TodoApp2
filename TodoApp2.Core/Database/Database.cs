@@ -25,6 +25,11 @@ namespace TodoApp2.Core
             m_DataAccess.InitializeDatabase();
         }
 
+        public void AddDefaultRecords()
+        {
+            m_DataAccess.AddDefaultRecords();
+        }
+
         public async Task<List<TaskViewModel>> GetActiveTasksAsync(CategoryViewModel category)
         {
             List<TaskViewModel> returnValue = await Task.Run(() => GetActiveTasks(category));

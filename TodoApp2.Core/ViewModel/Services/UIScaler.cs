@@ -1,7 +1,7 @@
 ﻿using System;
 using TodoApp2.Core;
 
-namespace TodoApp2
+namespace TodoApp2.Core
 {
     public class UIScaler : BaseViewModel, IUIScaler
     {
@@ -32,29 +32,35 @@ namespace TodoApp2
             public double LargeIcon => OriginalLargeIcon * StaticScaleValue;
         }
 
-        private const double s_OriginalScalingPercent = 100;
-        private const double OriginalSideMenuWidth = 350;
+        private const double OriginalScalingPercent = 100;
+        private const double OriginalSideMenuWidth = 220;
+        private const double OriginalSideMenuMinimumWidth = 180;
         private const double OriginalTextBoxMaxHeight = 400;
         private const double OriginalColorPickerHeight = 22;
         private const double OriginalColorPickerWidth = 32;
         private const double OriginalColorPickerOnlyDropDownWidth = 10;
         private const double OriginalColorPickerItemSize = 16;
         private const double OriginalTextEditorToggleWidth = 15;
-        private double m_ScalingPercent = s_OriginalScalingPercent;
-        private const int s_ColorPickerColumns = 10;
+        private const double OriginalThemeItemWidth = 175;
+        private const double OriginalThemeItemHeight = 135;
+
+        private const int ColorPickerColumns = 10;
+
+        private double m_ScalingPercent = OriginalScalingPercent;
 
         public static double StaticScaleValue { get; private set; } = 1;
         public double ScaleValue => StaticScaleValue;
 
         public FontSizes FontSize { get; } = new FontSizes();
         public double SideMenuWidth => OriginalSideMenuWidth * ScaleValue;
+        public double SideMenuMinimumWidth => OriginalSideMenuMinimumWidth; // Not decided yet
         public double TextBoxMaxHeight => OriginalTextBoxMaxHeight * ScaleValue;
         public double ColorPickerHeight => OriginalColorPickerHeight * ScaleValue;
         public double ColorPickerWidth => OriginalColorPickerWidth * ScaleValue;
         public double ColorPickerOnlyDropDownWidth => OriginalColorPickerOnlyDropDownWidth * ScaleValue;
         public double ColorPickerItemSize => OriginalColorPickerItemSize * ScaleValue;
         public double TextEditorToggleWidth => OriginalTextEditorToggleWidth * ScaleValue;
-        public double ColorPickerDropDownWidth => 44 + 16 + (s_ColorPickerColumns * ColorPickerItemSize);
+        public double ColorPickerDropDownWidth => 44 + 16 + (ColorPickerColumns * ColorPickerItemSize);
         public double TaskCheckBoxWidth => 8 * ScaleValue;
         public double SliderHeight => 18 * ScaleValue;
         public double SliderThumbHeight => 18 * ScaleValue;
@@ -62,7 +68,14 @@ namespace TodoApp2
         public double ScrollbarWidth => 16 * ScaleValue;
         public double NotePageBoxWidth => 17 * ScaleValue;
 
+        public double ThemeItemWidth => OriginalThemeItemWidth * ScaleValue;
+        public double ThemeItemHeight => OriginalThemeItemHeight * ScaleValue;
+
+        public static UIScaler Instance { get; } = new UIScaler();
+
         public event EventHandler Zoomed;
+
+        private UIScaler() { }
 
         public void ZoomOut()
         {
@@ -79,7 +92,7 @@ namespace TodoApp2
             value = Math.Round(value, 3);
             bool zoomed = value != StaticScaleValue;
             StaticScaleValue = value;
-            m_ScalingPercent = StaticScaleValue * s_OriginalScalingPercent;
+            m_ScalingPercent = StaticScaleValue * OriginalScalingPercent;
             OnPropertyChanged(string.Empty);
 
             if (zoomed)
@@ -106,7 +119,7 @@ namespace TodoApp2
             }
 
             m_ScalingPercent += zoomOffset;
-            SetScaling(m_ScalingPercent / s_OriginalScalingPercent);
+            SetScaling(m_ScalingPercent / OriginalScalingPercent);
             IoC.MessageService.ShowInfo($"{m_ScalingPercent} %");
         }
     }

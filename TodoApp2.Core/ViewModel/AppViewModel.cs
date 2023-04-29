@@ -68,11 +68,6 @@ namespace TodoApp2.Core
         public ApplicationSettings ApplicationSettings { get; }
 
         /// <summary>
-        /// Command for toggle between opened and closed state for the side menu
-        /// </summary>
-        public ICommand ToggleSideMenuCommand { get; }
-
-        /// <summary>
         /// The value change triggers the animation
         /// </summary>
         public bool SaveIconVisible { get; set; }
@@ -82,7 +77,6 @@ namespace TodoApp2.Core
             m_Database = database;
             m_UiScaler = uiScaler;
 
-            ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
             ApplicationSettings = new ApplicationSettings(m_UiScaler);
 
             // Load the application settings to update the ActiveCategoryId before querying the tasks
@@ -154,27 +148,6 @@ namespace TodoApp2.Core
             {
                 viewModel.Dispose();
             }
-        }
-
-        private void ToggleSideMenu()
-        {
-            OpenCloseSideMenu(!SideMenuVisible);
-        }
-
-        /// <summary>
-        /// Opens or closes the side menu.
-        /// </summary>
-        /// <param name="shouldOpen">True if the side menu should be opened, false if should be closed.</param>
-        private void OpenCloseSideMenu(bool shouldOpen)
-        {
-            if (shouldOpen)
-            {
-                OverlayPageService.SetBackgroundClickedAction(ToggleSideMenu);
-            }
-
-            OverlayPageService.ClosePage();
-            SideMenuVisible = shouldOpen;
-            OverlayPageService.OverlayBackgroundVisible = shouldOpen;
         }
 
         public void LoadApplicationSettingsOnce()

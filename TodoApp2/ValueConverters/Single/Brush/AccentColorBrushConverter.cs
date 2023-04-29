@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows.Media;
 using TodoApp2.Core.Constants;
 
 namespace TodoApp2
@@ -21,6 +22,11 @@ namespace TodoApp2
             }
 
             return null;
+        }
+
+        public SolidColorBrush Convert(string value)
+        {
+            return (SolidColorBrush)Convert(value, typeof(SolidColorBrush), null, null);
         }
     }
 }

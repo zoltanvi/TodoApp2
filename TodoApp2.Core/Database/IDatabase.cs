@@ -9,6 +9,7 @@ namespace TodoApp2.Core
         event EventHandler<TaskChangedEventArgs> TaskChanged;
         event EventHandler<CategoryChangedEventArgs> CategoryChanged;
 
+        void AddDefaultRecords();
         bool AddCategoryIfNotExists(CategoryViewModel categoryToAdd);
         void AddSetting(Setting setting);
         void Dispose();

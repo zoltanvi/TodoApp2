@@ -126,7 +126,7 @@
         BasedOn="{StaticResource PageTitleTextBlockStyle}"
         TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
     </Style>
 
     <Style

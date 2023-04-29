@@ -59,15 +59,18 @@ namespace TodoApp2.Core
                 TaskDataAccess.CreateTaskTable();
                 NoteDataAccess.CreateNoteTable();
 
-                if (!CategoryDataAccess.AddDefaultCategoryIfNotExists())
-                {
-                    CreateShortcutTasks();
-                }
-
                 SettingsDataAccess.AddDefaultSettingsIfNotExists();
             }
 
             UpgradeToCurrentVersion();
+        }
+
+        public void AddDefaultRecords()
+        {
+            if (!CategoryDataAccess.AddDefaultCategoryIfNotExists())
+            {
+                CreateShortcutTasks();
+            }
         }
 
         private void UpgradeToCurrentVersion()

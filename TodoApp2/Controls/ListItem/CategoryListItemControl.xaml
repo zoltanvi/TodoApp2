@@ -24,7 +24,7 @@
     </UserControl.ContextMenu>
 
     <Button
-        Padding="15 2 30 2"
+        Padding="20 2 10 2"
         Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}"
         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
         ToolTip="{Binding Name}">
@@ -41,12 +41,48 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="4">
-                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <ContentPresenter
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Grid.Column="0" />
+
+                                    <Button
+                                        x:Name="PART_DeleteButton"
+                                        Grid.Column="1"
+                                        Visibility="Hidden"
+                                        Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"
+                                        CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
+                                        Style="{StaticResource ButtonIconHoverCategoryDeleteStyle}"
+                                        Content="{StaticResource SegoeIconDeleteX}"
+                                        FontSize="{Binding UIScaler.FontSize.Small}"
+                                        ToolTip="Delete" />
+
+                                </Grid>
                             </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="PART_DeleteButton" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter TargetName="PART_DeleteButton" Property="Visibility" Value="Hidden" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
+                    </Trigger>
+
                     <DataTrigger Value="True">
                         <DataTrigger.Binding>
                             <MultiBinding>
@@ -58,41 +94,56 @@
                             </MultiBinding>
                         </DataTrigger.Binding>
                         <Setter Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
-                        <Setter Property="Foreground" Value="Red" />
                     </DataTrigger>
-                    <!--  The mouse over trigger is the second defined one so it can highlight an already selected item also  -->
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
-                    </Trigger>
+
                 </Style.Triggers>
             </Style>
         </Button.Style>
 
-        <TextBlock
-            Grid.Column="0"
-            AutomationProperties.AutomationId="CategoryListItemText"
-            FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
-            Text="{Binding Name}">
 
-            <TextBlock.Style>
-                <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
-                    <Style.Triggers>
-                        <DataTrigger Value="True">
-                            <DataTrigger.Binding>
-                                <MultiBinding>
-                                    <MultiBinding.Converter>
-                                        <local:EqualityConverter />
-                                    </MultiBinding.Converter>
-                                    <Binding Path="Id" />
-                                    <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:ViewModelLocator.Instance}" />
-                                </MultiBinding>
-                            </DataTrigger.Binding>
-                            <Setter Property="Foreground" Value="{DynamicResource SelectedCategoryBrush}" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                DockPanel.Dock="Left"
+                AutomationProperties.AutomationId="CategoryListItemText"
+                FontSize="{Binding UIScaler.FontSize.Medium}"
+                Text="{Binding Name}">
+
+                <TextBlock.Style>
+                    <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
+                        <Style.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+                            </Trigger>
+
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding>
+                                        <MultiBinding.Converter>
+                                            <local:EqualityConverter />
+                                        </MultiBinding.Converter>
+                                        <Binding Path="Id" />
+                                        <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="Foreground" Value="{DynamicResource SelectedCategoryBrush}" />
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+
+
+        </Grid>
+
+
     </Button>
 
 </UserControl>

@@ -101,7 +101,7 @@
 
                 <DockPanel>
                     <local:RichTextEditorControl
-                        MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                        MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
                         Padding="10"
                         VerticalAlignment="Bottom"
                         DataContext="{Binding TextEditorViewModel}">

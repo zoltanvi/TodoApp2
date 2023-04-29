@@ -41,9 +41,10 @@ namespace TodoApp2
         public ICommand CloseCommand { get; }
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
+        public ICommand ToggleSideMenuCommand { get; }
 
-        public double WindowMinimumWidth { get; set; } = 210;
-        public double WindowMinimumHeight { get; set; } = 100;
+        public double WindowMinimumWidth { get; set; } = 220;
+        public double WindowMinimumHeight { get; set; } = 200;
         public double ContentPadding { get; set; } = 0;
 
         /// <summary>
@@ -128,6 +129,7 @@ namespace TodoApp2
             CloseCommand = new RelayCommand(CloseWindow);
             UndoCommand = new RelayCommand(() => { IoC.UndoManager.Undo(); });
             RedoCommand = new RelayCommand(() => { IoC.UndoManager.Redo(); });
+            ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
 
             // Fix window resize issue
             m_Resizer = new WindowResizer(m_Window);
@@ -157,9 +159,9 @@ namespace TodoApp2
                     : ApplicationPage.NoteList;
             }
 
-            m_AppViewModel.CurrentPage = 
-                m_AppViewModel.SideMenuPage == ApplicationPage.Category 
-                ? ApplicationPage.Task 
+            m_AppViewModel.CurrentPage =
+                m_AppViewModel.SideMenuPage == ApplicationPage.Category
+                ? ApplicationPage.Task
                 : ApplicationPage.Note;
 
             m_DragDropMediator = new DragDropMediator();
@@ -199,11 +201,11 @@ namespace TodoApp2
                 else if (key == Key.Y)
                 {
                     IoC.UndoManager.Redo();
-                } 
+                }
                 else if (key == Key.Subtract)
                 {
                     UIScaler.ZoomOut();
-                } 
+                }
                 else if (key == Key.Add)
                 {
                     UIScaler.ZoomIn();
@@ -233,6 +235,11 @@ namespace TodoApp2
         public void ShowWindowRequested()
         {
             m_TrayIconModule.ShowWindow();
+        }
+
+        private void ToggleSideMenu()
+        {
+            Mediator.NotifyClients(ViewModelMessages.SideMenuButtonClicked);
         }
 
         private void ZoomOut()
@@ -416,9 +423,9 @@ namespace TodoApp2
 
         private void ChangeToActiveTheme()
         {
-            if (ApplicationSettings.ActiveTheme != m_ThemeManager.CurrentTheme)
+            if (ApplicationSettings.ActiveTheme != ThemeManager.CurrentTheme)
             {
-                m_ThemeManager.ChangeToTheme(m_ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
+                m_ThemeManager.ChangeToTheme(ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
             }
         }
 

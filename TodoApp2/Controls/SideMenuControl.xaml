@@ -16,7 +16,7 @@
             <Border
                 x:Name="NavigatorContentBorder"
                 Background="{DynamicResource SideMenuBgBrush}"
-                BorderThickness="0 0 1 0"
+                BorderThickness="0 0 0 0"
                 BorderBrush="{DynamicResource CommonBorderBrush}"
                 ClipToBounds="True"
                 HorizontalAlignment="Stretch">

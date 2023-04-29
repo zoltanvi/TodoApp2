@@ -77,7 +77,7 @@
                             Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
                             BorderBrush="Black"
                             BorderThickness="1">
-                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest}" />
                         </Border>
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
@@ -97,7 +97,7 @@
                             Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
                             BorderBrush="Black"
                             BorderThickness="1">
-                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest}" />
                         </Border>
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
@@ -131,7 +131,7 @@
                         <local:ColorBarBorderWidthMultiValueConverter />
                     </MultiBinding.Converter>
                     <Binding Path="ApplicationViewModel.ApplicationSettings.ColorBarThickness" Source="{x:Static local:ViewModelLocator.Instance}" />
-                    <Binding Path="UIScaler.ScaleValue" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding Path="UIScaler.ScaleValue" />
                 </MultiBinding>
             </Border.Width>
 
@@ -140,7 +140,7 @@
         <Border
             Margin="4 2"
             BorderBrush="{Binding BorderColor, Converter={StaticResource taskBorderBrushConverter}}"
-            BorderThickness="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}"
+            BorderThickness="{Binding UIScaler.ScaleValue}"
             CornerRadius="2"
             Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
@@ -148,7 +148,7 @@
             x:Name="TaskListItemBackground"
             Margin="4 2"
             BorderBrush="Transparent"
-            BorderThickness="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}"
+            BorderThickness="{Binding UIScaler.ScaleValue}"
             CornerRadius="2">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
@@ -167,7 +167,7 @@
                                     <local:ColorBarGridWidthMultiValueConverter />
                                 </MultiBinding.Converter>
                                 <Binding Path="ApplicationViewModel.ApplicationSettings.ColorBarThickness" Source="{x:Static local:ViewModelLocator.Instance}" />
-                                <Binding Path="UIScaler.ScaleValue" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                <Binding Path="UIScaler.ScaleValue" />
                             </MultiBinding>
                         </ColumnDefinition.Width>
                     </ColumnDefinition>
@@ -191,7 +191,7 @@
                     Foreground="{Binding ElementName=TaskListItemBackground, Path=Background}"
                     IsChecked="{Binding IsDone}"
                     Style="{DynamicResource TaskCheckBoxStyle}"
-                    Margin="{Binding UIScaler.TaskCheckBoxWidth, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskCheckboxMarginConverter}}"
+                    Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsCheckboxEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                 <!--  Pin icon  -->
@@ -223,7 +223,7 @@
                             Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
                         <Grid.LayoutTransform>
                             <!--  -1 to mirror it  -->
-                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
                         </Grid.LayoutTransform>
                     </Grid>
                 </Border>
@@ -269,7 +269,7 @@
                                 Padding="0"
                                 Content="Created: "
                                 FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller}"
                                 Foreground="{DynamicResource TaskDateBrush}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
@@ -279,7 +279,7 @@
                                 Grid.Row="1"
                                 Margin="0 0 16 0"
                                 FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller}"
                                 Foreground="{DynamicResource TaskDateBrush}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Text="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
@@ -289,7 +289,7 @@
                                 Padding="0"
                                 Content="Modified: "
                                 FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller}"
                                 Foreground="{DynamicResource TaskDateBrush}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
@@ -298,7 +298,7 @@
                             <TextBlock
                                 Grid.Row="1"
                                 FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller}"
                                 Foreground="{DynamicResource TaskDateBrush}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Text="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"

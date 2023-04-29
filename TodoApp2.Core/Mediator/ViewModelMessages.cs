@@ -34,5 +34,11 @@
         /// The selected note changed
         /// </summary>
         NoteChanged,
+
+        /// <summary>
+        /// The navigator button (top left on the title bar) has been clicked
+        /// </summary>
+        SideMenuButtonClicked,
+
     }
 }

@@ -102,6 +102,7 @@
     <system:String x:Key="SegoeIconEditMode">&#xE104;</system:String>
     <system:String x:Key="SegoeIconBell">&#xEA8F;</system:String>
     <system:String x:Key="SegoeIconMargin">&#xE1C0;</system:String>
+    <system:String x:Key="SegoeIconDeleteX">&#xEDAE;</system:String>
 
 
     <system:String x:Key="SegoeIconChevronUp">&#xE70E;</system:String>

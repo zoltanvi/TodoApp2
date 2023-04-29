@@ -35,11 +35,14 @@
         public static void Setup()
         {
             MediaPlayerService = new MediaPlayerService();
-            UIScaler = new UIScaler();
+            UIScaler = UIScaler.Instance;
             UndoManager = new UndoManager();
             ApplicationViewModel = new AppViewModel(Database, UIScaler);
             OverlayPageService = new OverlayPageService(ApplicationViewModel, Database);
             
+            // Create default categories + help tasks
+            Database.AddDefaultRecords();
+
             // This dependency must be set here. Workaround to avoid circular dependencies
             ApplicationViewModel.OverlayPageService = OverlayPageService;
 
@@ -56,6 +59,7 @@
             TaskListService = new TaskListService(Database, CategoryListService, ApplicationViewModel);
 
             OneEditorOpenService = new OneEditorOpenService();
+
         }
     }
 }

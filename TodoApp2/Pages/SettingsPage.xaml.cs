@@ -1,4 +1,6 @@
-﻿using TodoApp2.Core;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -10,6 +12,14 @@ namespace TodoApp2
         public SettingsPage(SettingsPageViewModel viewModel) : base(viewModel)
         {
             InitializeComponent();
+        }
+
+        private void ListView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var mouseWheelEventArgs = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
+            mouseWheelEventArgs.RoutedEvent = ScrollViewer.MouseWheelEvent;
+            mouseWheelEventArgs.Source = sender;
+            OuterScrollViewer.RaiseEvent(mouseWheelEventArgs);
         }
     }
 }

@@ -159,7 +159,6 @@ namespace TodoApp2.Core
                 {
                     ActiveNote = note;
 
-                    // Notify clients about the category change
                     IoC.CategoryListService.ActiveCategory = null;
                 }
 
@@ -178,7 +177,11 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_AppViewModel.SideMenuPage = ApplicationPage.Settings;
+            m_AppViewModel.CurrentPage = ApplicationPage.Settings;
+            
+            // None of them are selected if we are on the settings page
+            IoC.CategoryListService.ActiveCategory = null;
+            IoC.NoteListService.ActiveNote = null;
         }
 
         /// <summary>

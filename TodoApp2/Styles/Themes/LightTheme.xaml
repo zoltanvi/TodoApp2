@@ -25,6 +25,7 @@
     <Color x:Key="MessageInfo">#000000</Color>
     <Color x:Key="MessageWarning">#000000</Color>
     <Color x:Key="MessageError">#000000</Color>
+    <Color x:Key="SelectedCategory">#000000</Color>
 
     <Color x:Key="PageBg">#FFFFFF</Color>
     <Color x:Key="SideMenuBg">#FFFFFF</Color>
@@ -89,7 +90,7 @@
     <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
     <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
     <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
-    <SolidColorBrush x:Key="SelectedCategoryBrush" Color="{DynamicResource Foreground}" />
+    <SolidColorBrush x:Key="SelectedCategoryBrush" Color="{DynamicResource SelectedCategory}" />
 
     <!--  Background  -->
     <SolidColorBrush x:Key="PageBgBrush" Color="{DynamicResource PageBg}" />
@@ -147,6 +148,10 @@
         x:Key="HoverCalendarItemBgBrush"
         Color="{DynamicResource ThemeOpposite}"
         Opacity="0.1" />
+    <SolidColorBrush
+        x:Key="HoverCategoryDeleteBg"
+        Opacity="0.2"
+        Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="CheckedComboBoxButtonBgBrush" Color="{DynamicResource CheckedComboBoxButtonBg}" />
     <SolidColorBrush
         x:Key="HoverComboBoxDropDownItemBrush"

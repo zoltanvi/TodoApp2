@@ -17,7 +17,7 @@
         <Grid Visibility="{Binding IsNoteExists, Converter={StaticResource boolToVisibilityNegatedConverter}}">
             <Label
                 Style="{StaticResource BaseLabelClearTypeStyle}"
-                FontSize="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}"
+                FontSize="{Binding UIScaler.FontSize.Huge}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Content="Select a note to edit" />
@@ -51,8 +51,8 @@
                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Width="{Binding UIScaler.NotePageBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                Height="{Binding UIScaler.NotePageBoxWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
+                Width="{Binding UIScaler.NotePageBoxWidth}"
+                Height="{Binding UIScaler.NotePageBoxWidth}" />
         </Grid>
 
     </Grid>

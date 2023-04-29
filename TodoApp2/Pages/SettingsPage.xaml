@@ -69,40 +69,23 @@
             </Grid.RowDefinitions>
 
             <!--  Settings title  -->
-            <Grid Grid.Row="0" Margin="0 5 5 5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0">
 
                 <TextBlock
-                    Grid.Column="0"
-                    Margin="15 0 0 0"
-                    Style="{DynamicResource SideMenuTitleTextBlockStyle}"
+                    Margin="15 10 0 10"
+                    Style="{DynamicResource PageTitleTextBlockStyle}"
                     Text="Settings" />
-
-                <Button
-                    Grid.Column="2"
-                    Command="{Binding BackToPrevPageCommand}"
-                    Content="{DynamicResource SegoeIconBack}"
-                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
-                    ToolTip="Back" />
 
             </Grid>
 
-            <ScrollViewer Grid.Row="1" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+            <ScrollViewer
+                x:Name="OuterScrollViewer"
+                Grid.Row="1"
+                Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
 
                 <Border Background="Transparent">
 
                     <StackPanel Margin="15 20 20 20" Orientation="Vertical">
-
-                        <!--  ===========================================================  -->
-
-                        <!--  Window settings  -->
-                        <!--<DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                            <TextBlock Style="{DynamicResource SettingsDescriptionBoldStyle}" Text="Window and app settings" />
-                        </DockPanel>-->
 
                         <ToggleButton
                             x:Name="windowSettingsBtn"
@@ -153,12 +136,13 @@
                             </DockPanel>
 
                             <!--  Theme  -->
+                            <!--
                             <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                                 <Label Content="{DynamicResource SegoeIconTheme}" Style="{DynamicResource SettingsIconLabelStyle}" />
                                 <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Theme" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
-                                    FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    FontSize="{Binding UIScaler.FontSize.Small}"
                                     ItemsSource="{Binding Source={StaticResource ThemeDataProvider}}"
                                     SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ActiveTheme, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                     <ComboBox.ItemTemplate>
@@ -167,7 +151,7 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                            </DockPanel>
+                            </DockPanel>-->
 
                             <!--  Accent color  -->
                             <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
@@ -226,6 +210,20 @@
 
                         <Border BorderThickness="0 0 0 1" BorderBrush="{DynamicResource CommonBorderBrush}" />
 
+                        <ToggleButton
+                            x:Name="themeSettingsBtn"
+                            Style="{DynamicResource ClickableTextToggleButtonStyle}"
+                            Content="Themes"
+                            IsChecked="False" />
+
+                        <StackPanel Orientation="Vertical" Visibility="{Binding ElementName=themeSettingsBtn, Path=IsChecked, Converter={StaticResource boolToVisibilityConverter}}">
+
+                            <local:ThemeListControl PreviewMouseWheel="ListView_PreviewMouseWheel" />
+
+                        </StackPanel>
+
+                        <Border BorderThickness="0 0 0 1" BorderBrush="{DynamicResource CommonBorderBrush}" />
+
                         <!--  ===========================================================  -->
 
                         <!--  Task page settings  -->
@@ -277,7 +275,7 @@
                             </DockPanel>
 
                             <!--  Margin for task list  -->
-                            <DockPanel Style="{StaticResource SettingsDockPanelStyle}" >
+                            <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                                 <Label Content="{DynamicResource SegoeIconMargin}" Style="{DynamicResource SettingsIconLabelStyle}" />
                                 <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Margin for task list" />
                                 <ToggleButton IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
@@ -314,7 +312,7 @@
                                 <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Font family" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
-                                    FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    FontSize="{Binding UIScaler.FontSize.Small}"
                                     ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
                                     SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                     <ComboBox.ItemTemplate>
@@ -351,7 +349,7 @@
                                 <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Spacing" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
-                                    FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    FontSize="{Binding UIScaler.FontSize.Small}"
                                     ItemsSource="{Binding Source={StaticResource TaskSpacingDataProvider}}"
                                     SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
                             </DockPanel>
@@ -401,7 +399,7 @@
                                 <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Color bar thickness" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
-                                    FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    FontSize="{Binding UIScaler.FontSize.Small}"
                                     ItemsSource="{Binding Source={StaticResource ThicknessDataProvider}}"
                                     SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                     <ComboBox.ItemTemplate>
@@ -511,7 +509,7 @@
                                 <TextBlock Style="{DynamicResource SettingsDescriptionStyle}" Text="Font family" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
-                                    FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    FontSize="{Binding UIScaler.FontSize.Small}"
                                     ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
                                     SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.NoteFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
                                     <ComboBox.ItemTemplate>
@@ -569,7 +567,7 @@
                                         Margin="10 0 10 0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        FontSize="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        FontSize="{Binding UIScaler.FontSize.Medium}"
                                         Foreground="{DynamicResource ForegroundBrush}"
                                         Text="{StaticResource CurrentVersion}" />
                                 </Border>

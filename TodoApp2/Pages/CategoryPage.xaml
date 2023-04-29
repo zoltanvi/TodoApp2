@@ -38,23 +38,19 @@
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
+                <!--  CATEGORIES  -->
 
-                <!--  Task categories title  -->
-                <TextBlock
-                    Margin="20 5 0 0"
-                    Grid.Column="0"
-                    HorizontalAlignment="Left"
-                    Style="{DynamicResource SideMenuTitleTextBlockStyle}"
-                    Text="CATEGORIES" />
-
-                <!--  Note button  -->
                 <Button
-                    Grid.Column="1"
-                    AutomationProperties.AutomationId="NoteButton"
+                    Grid.Column="0"
                     Command="{Binding OpenNoteListPageCommand}"
-                    Content="{DynamicResource SegoeIconNote}"
-                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
-                    ToolTip="Go to Notes" />
+                    Style="{DynamicResource ButtonBaseStyle}"
+                    ToolTip="Go to NOTES"
+                    Content="CATEGORIES"
+                    Cursor="Hand"
+                    FontSize="{Binding UIScaler.FontSize.Regular}"
+                    HorizontalAlignment="Left"
+                    Margin="25 0 0 0"
+                    FontFamily="{DynamicResource UIBoldFont}" />
 
                 <!--  Settings button  -->
                 <Button

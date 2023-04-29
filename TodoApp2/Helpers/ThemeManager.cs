@@ -7,14 +7,20 @@ using TodoApp2.Core;
 
 namespace TodoApp2
 {
-    internal class ThemeManager
+    public class ThemeManager
     {
         private const string s_AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/Themes/";
 
-        public Theme CurrentTheme { get; private set; }
+        public static Theme CurrentTheme { get; private set; }
+       
+        public Theme ActiveTheme => CurrentTheme;
+
         public ResourceDictionary CurrentThemeDictionary { get; private set; }
+        
         public List<Theme> ThemeList { get; }
+
         public event EventHandler ThemeChanged;
+
         public ThemeManager()
         {
             ThemeList = new List<Theme>();
@@ -62,7 +68,7 @@ namespace TodoApp2
             Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
         }
 
-        private string GetThemeUriPath(Theme theme)
+        internal static string GetThemeUriPath(Theme theme)
         {
             string fullPath = $"{s_AbsoluteThemePathPrefix}{theme}Theme.xaml";
 

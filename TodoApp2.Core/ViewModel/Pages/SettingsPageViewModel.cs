@@ -6,7 +6,7 @@ namespace TodoApp2.Core
     {
         private readonly AppViewModel m_ApplicationViewModel;
 
-        public ICommand BackToPrevPageCommand { get; }
+        public ICommand ChangeThemeCommand { get; }
 
         public SettingsPageViewModel()
         {
@@ -15,13 +15,15 @@ namespace TodoApp2.Core
         public SettingsPageViewModel(AppViewModel applicationViewModel)
         {
             m_ApplicationViewModel = applicationViewModel;
-            BackToPrevPageCommand = new RelayCommand(BackToPrevPage);
+            ChangeThemeCommand = new RelayParameterizedCommand(ChangeTheme);
         }
 
-        // TODO: Implement page handler for history if more than 2 page exist that is shown in the side panel
-        private void BackToPrevPage()
+        private void ChangeTheme(object obj)
         {
-            m_ApplicationViewModel.SideMenuPage = ApplicationPage.Category;
+            if (obj is ThemeViewModel themeViewModel)
+            {
+                m_ApplicationViewModel.ApplicationSettings.ActiveTheme = themeViewModel.Theme;
+            }
         }
     }
 }

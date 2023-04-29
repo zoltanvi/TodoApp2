@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {

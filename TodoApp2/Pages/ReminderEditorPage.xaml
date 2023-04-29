@@ -116,7 +116,7 @@
                         Style="{DynamicResource BaseInputTextBoxStyle}"
                         Background="#00000000"
                         BorderBrush="{Binding IsSelectedDateStringValid, Converter={StaticResource reminderBoolToBrushConverter}, Mode=TwoWay}"
-                        FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}"
+                        FontSize="{Binding UIScaler.FontSize.Regular}"
                         Foreground="{DynamicResource ForegroundBrush}"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
