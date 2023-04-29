@@ -87,7 +87,7 @@
                     AutomationProperties.AutomationId="SettingsButton"
                     Command="{Binding GoBackCommand}"
                     Content="{DynamicResource SegoeIconArrowLeft}"
-                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                    Style="{DynamicResource ButtonIconHoverRectangleStyle}"
                     ToolTip="Close settings" />
 
             </Grid>

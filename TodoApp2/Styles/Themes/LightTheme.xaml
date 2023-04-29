@@ -144,7 +144,7 @@
     <SolidColorBrush
         x:Key="HoverButtonBgBrush"
         Color="{DynamicResource ThemeOpposite}"
-        Opacity="0.2" />
+        Opacity="0.1" />
     <SolidColorBrush x:Key="HoverEditorButtonBgBrush" Color="{DynamicResource HoverEditorButtonBg}" />
     <SolidColorBrush x:Key="CheckedEditorButtonBgBrush" Color="{DynamicResource CheckedEditorButtonBg}" />
     <SolidColorBrush x:Key="HoverContextMenuBgBrush" Color="{DynamicResource HoverContextMenuBg}" />

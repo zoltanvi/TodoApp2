@@ -125,16 +125,13 @@
     </Style>
 
 
-    <!--  SIDE MENU STYLES =============================================================================================  -->
-
     <Style
-        x:Key="ButtonIconHoverSideMenuStyle"
+        x:Key="ButtonIconHoverRectangleStyle"
         BasedOn="{StaticResource ButtonIconHoverStyle}"
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource HoverButtonBgBrush}" />
-                <Setter Property="Opacity" Value="1" />
             </Trigger>
         </Style.Triggers>
         <Setter Property="Template">
@@ -155,6 +152,20 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+    </Style>
+
+
+    <!--  SIDE MENU STYLES =============================================================================================  -->
+
+    <Style
+        x:Key="ButtonIconHoverSideMenuStyle"
+        BasedOn="{StaticResource ButtonIconHoverRectangleStyle}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
         <Setter Property="Opacity" Value="0.4" />
     </Style>
 
