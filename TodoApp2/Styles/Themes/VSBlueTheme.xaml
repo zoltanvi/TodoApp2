@@ -9,7 +9,8 @@
     -->
 
     <Color x:Key="Transparent">#00000000</Color>
-    <Color x:Key="ThemeOpposite">#000000</Color>
+    <Color x:Key="ThemeOpposite">#FFFFFF</Color>
+    <Color x:Key="ThemePrimary">black</Color>
 
     <Color x:Key="Foreground">#FFFFFF</Color>
     <SolidColorBrush x:Key="ForegroundBrush" Color="#FFFFFF" />
@@ -51,9 +52,7 @@
     <Color x:Key="MessageErrorBg">#ffd0cb</Color>
 
     <Color x:Key="HoverCategoryBg">#425684</Color>
-    <Color x:Key="HoverTitleBarButtonBg">#3F4E72</Color>
     <Color x:Key="HoverCloseButtonBg">#F55B4D</Color>
-    <Color x:Key="HoverButtonBg">#425684</Color>
     <Color x:Key="HoverEditorButtonBg">#D6D6D6</Color>
     <Color x:Key="CheckedEditorButtonBg">#C2C2C2</Color>
     <Color x:Key="HoverContextMenuBg">#EDEDED</Color>
@@ -137,9 +136,15 @@
 
     <!--  Hover  -->
     <SolidColorBrush x:Key="HoverCategoryBgBrush" Color="{DynamicResource HoverCategoryBg}" />
-    <SolidColorBrush x:Key="HoverTitleBarButtonBgBrush" Color="{DynamicResource HoverTitleBarButtonBg}" />
+    <SolidColorBrush
+        x:Key="HoverTitleBarButtonBgBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.1" />
     <SolidColorBrush x:Key="HoverCloseButtonBgBrush" Color="{DynamicResource HoverCloseButtonBg}" />
-    <SolidColorBrush x:Key="HoverButtonBgBrush" Color="{DynamicResource HoverButtonBg}" />
+    <SolidColorBrush
+        x:Key="HoverButtonBgBrush"
+        Color="{DynamicResource ThemeOpposite}"
+        Opacity="0.2" />
     <SolidColorBrush x:Key="HoverEditorButtonBgBrush" Color="{DynamicResource HoverEditorButtonBg}" />
     <SolidColorBrush x:Key="CheckedEditorButtonBgBrush" Color="{DynamicResource CheckedEditorButtonBg}" />
     <SolidColorBrush x:Key="HoverContextMenuBgBrush" Color="{DynamicResource HoverContextMenuBg}" />

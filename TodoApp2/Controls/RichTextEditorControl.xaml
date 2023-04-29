@@ -26,7 +26,8 @@
                 x:Name="ToolBarBorder"
                 Grid.Row="0"
                 Background="Transparent"
-                Grid.Column="1">
+                Grid.Column="1"
+                IsEnabled="{Binding ElementName=RichTextEditorUC, Path=IsReadOnly, Converter={StaticResource boolNegatedConverter}}">
                 <DockPanel>
                     <WrapPanel
                         Visibility="{Binding IsChecked, ElementName=IsEditorOpenToggle, Converter={StaticResource boolToVisibilityConverter}}"
@@ -132,6 +133,7 @@
                     Foreground="{DynamicResource ForegroundBrush}"
                     Style="{DynamicResource BaseRichTextBoxStyle}"
                     Opacity="{Binding TextOpacity}"
+                    IsReadOnly="{Binding ElementName=RichTextEditorUC, Path=IsReadOnly}"
                     Background="Transparent"
                     EnterAction="{Binding EnterAction}"
                     Focusable="{Binding Focusable}"
@@ -167,7 +169,8 @@
                 Grid.RowSpan="2"
                 Grid.Column="2"
                 Width="{Binding UIScaler.TextEditorToggleWidth}"
-                HorizontalAlignment="right">
+                HorizontalAlignment="right"
+                IsEnabled="{Binding ElementName=RichTextEditorUC, Path=IsReadOnly, Converter={StaticResource boolNegatedConverter}}">
 
                 <Border.Visibility>
                     <MultiBinding>

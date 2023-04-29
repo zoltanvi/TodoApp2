@@ -252,6 +252,8 @@ namespace TodoApp2
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
+            if (IsReadOnly) return;
+
             // TODO: Implement Shift + TAB
 
             switch (e.Key)

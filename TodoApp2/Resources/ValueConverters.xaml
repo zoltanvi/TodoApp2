@@ -47,6 +47,7 @@
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityNegatedConverter" Negated="True" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" Negated="False" />
     <local:BoolToCornerRadiusConverter x:Key="boolToCornerRadiusConverter" />
+    <local:BoolNegatedConverter x:Key="boolNegatedConverter" />
 
     <local:BoolToThicknessConverter
         x:Key="taskListItemMarginConverter"
