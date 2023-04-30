@@ -44,7 +44,6 @@
     <Color x:Key="ComboBoxDropDownBg">#333333</Color>
     <Color x:Key="CalendarButtonBg">#2a2e39</Color>
     <Color x:Key="PopUpBg">#181c27</Color>
-    <Color x:Key="OverlayBg">#111111</Color>
     <Color x:Key="ContextMenuBg">#1e222d</Color>
     <Color x:Key="NoteLineAdornerBg">#2B303F</Color>
     <Color x:Key="MessageInfoBg">#cce3ff</Color>
@@ -53,8 +52,6 @@
 
     <Color x:Key="HoverCategoryBg">#2B303C</Color>
     <Color x:Key="HoverCloseButtonBg">#EF5350</Color>
-    <Color x:Key="HoverEditorButtonBg">#363B47</Color>
-    <Color x:Key="CheckedEditorButtonBg">#2a2e39</Color>
     <Color x:Key="HoverContextMenuBg">#2a2e39</Color>
     <Color x:Key="CheckedComboBoxButtonBg">#585858</Color>
 
@@ -106,16 +103,12 @@
     <SolidColorBrush x:Key="ComboBoxBgBrush" Color="{DynamicResource ComboBoxBg}" />
     <SolidColorBrush x:Key="ComboBoxButtonBgBrush" Color="{DynamicResource ComboBoxButtonBg}" />
     <SolidColorBrush x:Key="ComboBoxDropDownBgBrush" Color="{DynamicResource ComboBoxDropDownBg}" />
-    <SolidColorBrush x:Key="CalendarButtonBgBrush" Color="{DynamicResource CalendarButtonBg}" />
-    <SolidColorBrush
-        x:Key="CalendarTodayBgBrush"
-        Opacity="0.2"
-        Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="CalendarButtonBgBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.25" />
     <SolidColorBrush x:Key="PopUpBgBrush" Color="{DynamicResource PopUpBg}" />
     <SolidColorBrush
         x:Key="OverlayBgBrush"
-        Opacity="0.8"
-        Color="{DynamicResource OverlayBg}" />
+        Opacity="0.3"
+        Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush
         x:Key="ReminderItemBgBrush"
         Opacity="0.1"
@@ -145,15 +138,11 @@
         x:Key="HoverButtonBgBrush"
         Color="{DynamicResource ThemeOpposite}"
         Opacity="0.1" />
-    <SolidColorBrush x:Key="HoverEditorButtonBgBrush" Color="{DynamicResource HoverEditorButtonBg}" />
-    <SolidColorBrush x:Key="CheckedEditorButtonBgBrush" Color="{DynamicResource CheckedEditorButtonBg}" />
+    <SolidColorBrush x:Key="HoverEditorButtonBgBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.1" />
+    <SolidColorBrush x:Key="CheckedEditorButtonBgBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.3" />
     <SolidColorBrush x:Key="HoverContextMenuBgBrush" Color="{DynamicResource HoverContextMenuBg}" />
     <SolidColorBrush
         x:Key="HoverBaseButtonBgBrush"
-        Opacity="0.2"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="HoverCategoryDeleteBg"
         Opacity="0.2"
         Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush

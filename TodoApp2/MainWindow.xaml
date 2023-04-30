@@ -264,8 +264,8 @@
                                         <Storyboard>
                                             <DoubleAnimation
                                                 Storyboard.TargetProperty="Opacity"
-                                                To="0.7"
-                                                Duration="0:0:0.3" />
+                                                To="0.6"
+                                                Duration="0:0:0.15" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>

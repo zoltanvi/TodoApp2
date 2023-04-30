@@ -55,6 +55,7 @@
                 <Border
                     Grid.Row="0"
                     BorderBrush="{DynamicResource CommonBorderBrush}"
+                    Padding="6"
                     BorderThickness="0 0 0 1">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -140,7 +141,7 @@
                     Style="{DynamicResource CalendarStyle}" />
 
                 <Border Grid.Row="4" BorderBrush="{DynamicResource CommonBorderBrush}">
-                    <Grid>
+                    <Grid Margin="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />

@@ -58,7 +58,7 @@
                             Command="{Binding SetSmallFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            FontSize="{Binding UIScaler.FontSize.Smaller}"
                             ToolTip="Small font" />
                         <Button
                             Command="{Binding SetMediumFontSizeCommand, ElementName=PART_TextEditor}"
@@ -69,7 +69,7 @@
                             Command="{Binding SetBigFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
-                            FontSize="{Binding UIScaler.FontSize.Large}"
+                            FontSize="{Binding UIScaler.FontSize.Larger}"
                             ToolTip="Big font" />
 
                         <Button
