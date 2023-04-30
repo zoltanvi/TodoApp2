@@ -764,7 +764,7 @@
     <Style x:Key="ClickableTextToggleButtonStyle" TargetType="ToggleButton">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
@@ -772,7 +772,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Margin" Value="0 0 0 10" />
+        <Setter Property="Margin" Value="0 20 0 15" />
 
         <Setter Property="Template">
             <Setter.Value>

@@ -155,12 +155,22 @@
                                                     <!--  Title bar date  -->
                                                     <Grid Grid.Column="1" Grid.ColumnSpan="2">
 
-                                                        <Label
-                                                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                                            Content="{Binding CurrentTime}"
-                                                            Foreground="{DynamicResource TitleBarBrush}"
-                                                            VerticalAlignment="Center"
-                                                            HorizontalAlignment="Center" />
+                                                        <Viewbox>
+                                                            <Border
+                                                                Background="{DynamicResource SettingsItemBgBrush}"
+                                                                CornerRadius="3"
+                                                                Margin="0 2"
+                                                                Padding="5 0">
+                                                                <Label
+                                                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                                                                    Content="{Binding CurrentTime}"
+                                                                    Margin="0"
+                                                                    Padding="0"
+                                                                    Foreground="{DynamicResource TitleBarBrush}"
+                                                                    VerticalAlignment="Center"
+                                                                    HorizontalAlignment="Center" />
+                                                            </Border>
+                                                        </Viewbox>
                                                     </Grid>
 
                                                     <!--  Window buttons  -->
