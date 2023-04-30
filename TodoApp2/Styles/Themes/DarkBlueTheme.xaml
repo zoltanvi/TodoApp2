@@ -43,7 +43,6 @@
     <Color x:Key="ComboBoxButtonBg">#23272f</Color>
     <Color x:Key="ComboBoxDropDownBg">#23272f</Color>
     <Color x:Key="CalendarButtonBg">#3F4651</Color>
-    <Color x:Key="PopUpBg">#21252b</Color>
     <Color x:Key="ContextMenuBg">#2F3031</Color>
     <Color x:Key="NoteLineAdornerBg">#383C42</Color>
     <Color x:Key="MessageInfoBg">#cce3ff</Color>
@@ -58,7 +57,6 @@
     <Color x:Key="CommonBorder">#4E5461</Color>
     <Color x:Key="AppBorder">#3F4959</Color>
     <Color x:Key="CommonControlBorder">#181a1f</Color>
-    <Color x:Key="PopUpBorder">#181a1f</Color>
     <Color x:Key="BottomBarBorder">#4E5461</Color>
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
     <Color x:Key="TaskBorder">#353A42</Color>
@@ -104,11 +102,11 @@
     <SolidColorBrush x:Key="ComboBoxButtonBgBrush" Color="{DynamicResource ComboBoxButtonBg}" />
     <SolidColorBrush x:Key="ComboBoxDropDownBgBrush" Color="{DynamicResource ComboBoxDropDownBg}" />
     <SolidColorBrush x:Key="CalendarButtonBgBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.25" />
-    <SolidColorBrush x:Key="PopUpBgBrush" Color="{DynamicResource PopUpBg}" />
+    <SolidColorBrush x:Key="PopUpBgBrush" Color="{DynamicResource PageBg}" />
     <SolidColorBrush
         x:Key="OverlayBgBrush"
         Opacity="0.3"
-        Color="{DynamicResource ThemeOpposite}" />
+        Color="{DynamicResource ThemePrimary}" />
     <SolidColorBrush
         x:Key="ReminderItemBgBrush"
         Color="{DynamicResource ThemeOpposite}"
@@ -158,7 +156,8 @@
     <!--  Border  -->
     <SolidColorBrush x:Key="AppBorderBrush" Color="{DynamicResource AppBorder}" />
     <SolidColorBrush x:Key="CommonControlBorderBrush" Color="{DynamicResource CommonControlBorder}" />
-    <SolidColorBrush x:Key="PopUpBorderBrush" Color="{DynamicResource PopUpBorder}" />
+    <SolidColorBrush x:Key="PopUpBorderBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.2" />
+    <SolidColorBrush x:Key="ToolTipBorderBrush" Color="{DynamicResource ThemeOpposite}" Opacity="0.7" />
     <SolidColorBrush x:Key="BottomBarBorderBrush" Color="{DynamicResource BottomBarBorder}" />
     <SolidColorBrush x:Key="CommonBorderBrush" Color="{DynamicResource CommonBorder}" />
     <SolidColorBrush x:Key="TextBoxErrorBorderBrush" Color="{DynamicResource TextBoxErrorBorder}" />

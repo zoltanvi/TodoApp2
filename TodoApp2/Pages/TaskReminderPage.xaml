@@ -21,9 +21,16 @@
             Margin="20"
             Grid.Row="1"
             Background="{DynamicResource PopUpBgBrush}"
-            BorderBrush="{DynamicResource AppBorderBrush}"
+            BorderBrush="{DynamicResource PopUpBorderBrush}"
             BorderThickness="1"
             CornerRadius="5">
+            <Border.Effect>
+                <DropShadowEffect
+                    ShadowDepth="0"
+                    BlurRadius="100"
+                    Color="Black"
+                    Opacity="0.3" />
+            </Border.Effect>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -33,9 +40,9 @@
                 <!--  Titlebar  -->
                 <Border
                     Grid.Row="0"
-                    BorderBrush="{DynamicResource CommonBorderBrush}"
+                    BorderBrush="{DynamicResource PopUpBorderBrush}"
                     Padding="6"
-                    BorderThickness="0">
+                    BorderThickness="0 0 0 1">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -48,7 +55,7 @@
                         <Label
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
-                            Content="REMINDER"
+                            Content="Reminder"
                             HorizontalAlignment="Center"
                             Style="{DynamicResource NotificationTitleStyle}" />
 

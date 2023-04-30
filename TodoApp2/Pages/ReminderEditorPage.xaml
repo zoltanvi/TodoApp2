@@ -27,20 +27,21 @@
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Margin="20 70"
+            Margin="0 0"
             Background="{DynamicResource PopUpBgBrush}"
-            BorderBrush="{DynamicResource AppBorderBrush}"
-            BorderThickness="1"
-            CornerRadius="4"
+            BorderBrush="{DynamicResource PopUpBorderBrush}"
+            BorderThickness="1.6"
+            CornerRadius="6"
             local:SizeObserver.Observe="True"
             local:SizeObserver.ObservedWidth="{Binding MyWidth, Mode=OneWayToSource}"
             local:SizeObserver.ObservedHeight="{Binding MyHeight, Mode=OneWayToSource}">
-            <Border.Clip>
-                <RectangleGeometry
-                    RadiusX="{Binding CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}"
-                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
-                    Rect="{Binding ClipRect}" />
-            </Border.Clip>
+            <Border.Effect>
+                <DropShadowEffect
+                    ShadowDepth="0"
+                    BlurRadius="100"
+                    Color="Black"
+                    Opacity="0.3" />
+            </Border.Effect>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -54,7 +55,7 @@
                 <!--  Titlebar  -->
                 <Border
                     Grid.Row="0"
-                    BorderBrush="{DynamicResource CommonBorderBrush}"
+                    BorderBrush="{DynamicResource PopUpBorderBrush}"
                     Padding="6"
                     BorderThickness="0 0 0 1">
                     <Grid>
