@@ -184,36 +184,40 @@
     <ControlTemplate x:Key="ColorPickerToggleButton" TargetType="{x:Type ToggleButton}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Border
-                x:Name="Border"
+                Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Background="Transparent"
+                x:Name="Border"
+                Background="{DynamicResource Elevation_1}"
                 BorderBrush="{DynamicResource CommonControlBorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="0" />
-            <Path
-                x:Name="Arrow"
+                CornerRadius="4" />
+            <Label
                 Grid.Column="1"
-                Margin="0 0 0 0"
-                HorizontalAlignment="Left"
+                x:Name="Arrow"
+                Margin="4 0 4 0"
+                Padding="0"
+                Content="{StaticResource SegoeIconChevronDown}"
+                FontFamily="{StaticResource IconFont}"
+                FontSize="13"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Data="M 0,0 L 0,2 L 4,6 L 8,2 L 8,0 L 4,0 z"
-                Fill="{DynamicResource ForegroundBrush}" />
+                Foreground="{DynamicResource ForegroundBrush}" />
+
             <Grid.LayoutTransform>
                 <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
             </Grid.LayoutTransform>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Arrow" Property="Fill" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Elevation_3}" />
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true" />
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="#888888" />
-                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+                <Setter Property="Opacity" Value="0.4" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -236,17 +240,25 @@
                 <ControlTemplate TargetType="{x:Type ComboBox}">
                     <Grid>
                         <Grid Width="{TemplateBinding Width}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
                             <ToggleButton
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
                                 x:Name="ToggleButton"
                                 BorderThickness="0"
+                                Margin="0"
                                 ClickMode="Press"
                                 Focusable="false"
                                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                 Template="{StaticResource ColorPickerToggleButton}" />
                             <ContentPresenter
+                                Grid.Column="0"
                                 x:Name="ContentSite"
-                                Margin="0"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding SelectionBoxItem}"
                                 ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
@@ -282,6 +294,7 @@
                                 </Grid>
                             </Popup>
                         </Grid>
+
                     </Grid>
                     <ControlTemplate.Triggers>
                         <!--<Trigger Property="HasItems" Value="false">
@@ -392,38 +405,19 @@
         <Grid>
             <Border
                 x:Name="ItemBorder"
+                Background="{Binding}"
                 Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
                 Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                Background="{Binding}"
-                CornerRadius="2" />
-
-            <Path
-                Name="DiagonalLine"
-                Stroke="Red"
-                StrokeThickness="1"
-                Visibility="Collapsed">
-                <Path.Data>
-                    <LineGeometry StartPoint="15,0" EndPoint="0,15" />
-                </Path.Data>
-                <Path.LayoutTransform>
-                    <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
-                </Path.LayoutTransform>
-            </Path>
-
+                CornerRadius="4"
+                ToolTip="{Binding}" />
         </Grid>
 
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding}" Value="Transparent">
-                <Setter TargetName="ItemBorder" Property="Background" Value="White" />
-                <Setter TargetName="DiagonalLine" Property="Visibility" Value="Visible" />
-                <Setter TargetName="ItemBorder" Property="BorderThickness" Value="0.5" />
-                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Black" />
+                <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="">
-                <Setter TargetName="ItemBorder" Property="Background" Value="White" />
-                <Setter TargetName="DiagonalLine" Property="Visibility" Value="Visible" />
-                <Setter TargetName="ItemBorder" Property="BorderThickness" Value="0.5" />
-                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Black" />
+                <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
             </DataTrigger>
 
         </DataTemplate.Triggers>

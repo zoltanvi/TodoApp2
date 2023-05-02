@@ -133,6 +133,18 @@
     <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="{DynamicResource ToggleButtonBorder}" />
     <SolidColorBrush x:Key="ContextMenuBorderBrush" Color="{DynamicResource ContextMenuBorder}" />
 
+    <!--  ELEVATION  -->
+    <SolidColorBrush x:Key="Elevation_1" Opacity="0.05" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="Elevation_2" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="Elevation_3" Opacity="0.15" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="Elevation_4" Opacity="0.2" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="Elevation_5" Opacity="0.3" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="Elevation_6" Opacity="0.4" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="Elevation_7" Opacity="0.5" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="Elevation_8" Opacity="0.6" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="Elevation_9" Opacity="0.7" Color="{DynamicResource ThemeOpposite}" />
+
+
 
     <!--  BRUSHES (cannot be in a separate xaml because the theme switch would not work)  -->
 
@@ -148,5 +160,11 @@
         </VisualBrush.Visual>
     </VisualBrush>
 
+    <LinearGradientBrush x:Key="TransparentPatternBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#888888" Offset="0"/>
+        <GradientStop Color="#888888" Offset="0.5"/>
+        <GradientStop Color="#FFFFFFFF" Offset="0.5"/>
+        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+    </LinearGradientBrush>
 
 </ResourceDictionary>
