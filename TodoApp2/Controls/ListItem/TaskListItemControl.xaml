@@ -402,12 +402,12 @@
                             <!--  Color picker  -->
                             <ComboBox
                                 Grid.Column="1"
-                                ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
+                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
                                 ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                 SelectedItem="{Binding Color, Mode=TwoWay}"
                                 Margin="4 0 0 0"
-                                Style="{DynamicResource ColorPickerTableStyle}"
+                                Style="{DynamicResource TaskItemColorPickerStyle}"
                                 Background="{DynamicResource TaskBgBrush}"
                                 ToolTip="Set color bar color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
@@ -423,12 +423,12 @@
                             <!--  BorderColor picker  -->
                             <ComboBox
                                 Grid.Column="2"
-                                ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
+                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
                                 ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                 SelectedItem="{Binding BorderColor, Mode=TwoWay}"
                                 Margin="4 0 0 0"
-                                Style="{DynamicResource ColorPickerTableStyle}"
+                                Style="{DynamicResource TaskItemColorPickerStyle}"
                                 Background="{DynamicResource TaskBgBrush}"
                                 ToolTip="Set border color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">

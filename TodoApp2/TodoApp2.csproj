@@ -223,6 +223,8 @@
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Multi\RoundedCornersMultiConverter.cs" />
     <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\Single\Brush\TransparentPatternBrushConverter.cs" />
+    <Compile Include="ValueConverters\Single\DebugConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolNegatedConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToThicknessConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\AccentColorBrushConverter.cs" />

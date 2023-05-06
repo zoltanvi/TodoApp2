@@ -8,6 +8,8 @@
     <local:AppBorderBrushConverter x:Key="appBorderBrushConverter" />
     <local:TaskBorderBrushConverter x:Key="taskBorderBrushConverter" />
     <local:AccentColorBrushConverter x:Key="accentColorBrushConverter" />
+    <local:DebugConverter x:Key="debugConverter" />
+    <local:TransparentPatternBrushConverter x:Key="transparentPatternBrushConverter" />
 
     <local:MessageTypeToBrushConverter
         x:Key="messageTypeToForegroundConverter"

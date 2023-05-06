@@ -38,7 +38,6 @@ namespace TodoApp2.Core
         private const double OriginalTextBoxMaxHeight = 400;
         private const double OriginalColorPickerHeight = 31;
         private const double OriginalColorPickerWidth = 56;
-        private const double OriginalColorPickerOnlyDropDownWidth = 10;
         private const double OriginalColorPickerItemSize = 21;
         private const double OriginalTextEditorToggleWidth = 15;
         private const double OriginalThemeItemWidth = 175;
@@ -57,7 +56,7 @@ namespace TodoApp2.Core
         public double TextBoxMaxHeight => OriginalTextBoxMaxHeight * ScaleValue;
         public double ColorPickerHeight => OriginalColorPickerHeight * ScaleValue;
         public double ColorPickerWidth => OriginalColorPickerWidth * ScaleValue;
-        public double ColorPickerOnlyDropDownWidth => OriginalColorPickerOnlyDropDownWidth * ScaleValue;
+        public double ColorPickerHalfWidth => (OriginalColorPickerWidth * ScaleValue) / 2;
         public double ColorPickerItemSize => OriginalColorPickerItemSize * ScaleValue;
         public double TextEditorToggleWidth => OriginalTextEditorToggleWidth * ScaleValue;
         public double ColorPickerDropDownWidth => 44 + 16 + (ColorPickerColumns * ColorPickerItemSize);

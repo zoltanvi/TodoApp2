@@ -13,6 +13,7 @@
             public const string HatchBrush = "HatchBrush";
             public const string TaskBgBrush = "TaskBgBrush";
             public const string NoteLineAdornerBgBrush = "NoteLineAdornerBgBrush";
+            public const string TransparentPatternBrush = "TransparentPatternBrush";
         }
 
         public struct FontFamily

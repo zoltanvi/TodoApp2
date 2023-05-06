@@ -158,7 +158,7 @@
                                     <Border Grid.Column="2" Padding="20 0 0 0" HorizontalAlignment="Right">
 
                                         <!--  Color picker  -->
-                                        <ComboBox ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}" ItemTemplate="{StaticResource ColorPickerItemTemplate}" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}" SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ColorPickerTableStyle}" />
+                                        <ComboBox ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}" ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}" SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource TaskItemColorPickerStyle}" />
                                     </Border>
 
                                 </Grid>
@@ -179,7 +179,7 @@
                                     <Border Grid.Column="2" Padding="20 0 0 0" HorizontalAlignment="Right" >
 
                                         <!--  Color picker  -->
-                                        <ComboBox ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}" ItemTemplate="{StaticResource ColorPickerItemTemplate}" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}" SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ColorPickerTableStyle}">
+                                        <ComboBox ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}" ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}" SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource TaskItemColorPickerStyle}">
 
                                             <!--<Behaviors:Interaction.Triggers>
                                         <Behaviors:EventTrigger EventName="SelectionChanged">

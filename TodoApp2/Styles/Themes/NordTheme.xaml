@@ -113,8 +113,6 @@
     <SolidColorBrush x:Key="HoverTitleBarButtonBgBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="HoverCloseButtonBgBrush" Color="{DynamicResource HoverCloseButtonBg}" />
     <SolidColorBrush x:Key="HoverButtonBgBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush x:Key="HoverEditorButtonBgBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush x:Key="CheckedEditorButtonBgBrush" Opacity="0.3" Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="HoverContextMenuBgBrush" Color="{DynamicResource HoverContextMenuBg}" />
     <SolidColorBrush x:Key="HoverBaseButtonBgBrush" Opacity="0.2" Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="HoverCalendarItemBgBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />

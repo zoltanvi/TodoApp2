@@ -42,12 +42,14 @@
                             Style="{DynamicResource TextEditorToggleButtonStyle}"
                             ToolTip="Bold (Ctrl + B)" />
                         <ToggleButton
+                            Margin="4 0 0 0"
                             Command="{Binding SetItalicCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconItalic}"
                             IsChecked="{Binding IsSelectionItalic, ElementName=PART_TextEditor}"
                             Style="{DynamicResource TextEditorToggleButtonStyle}"
                             ToolTip="Italic (Ctrl + I)" />
                         <ToggleButton
+                            Margin="4 0 0 0"
                             Command="{Binding SetUnderlinedCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconUnderlined}"
                             IsChecked="{Binding IsSelectionUnderlined, ElementName=PART_TextEditor}"
@@ -55,17 +57,20 @@
                             ToolTip="Underline (Ctrl + U)" />
 
                         <Button
+                            Margin="4 0 0 0"
                             Command="{Binding SetSmallFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             FontSize="{Binding UIScaler.FontSize.Smaller}"
                             ToolTip="Small font" />
                         <Button
+                            Margin="4 0 0 0"
                             Command="{Binding SetMediumFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             ToolTip="Medium font" />
                         <Button
+                            Margin="4 0 0 0"
                             Command="{Binding SetBigFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
@@ -73,17 +78,20 @@
                             ToolTip="Big font" />
 
                         <Button
+                            Margin="4 0 0 0"
                             Command="{Binding IncreaseFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSizeIncrease}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             ToolTip="Increase size (Ctrl + [OemCloseBrackets])" />
                         <Button
+                            Margin="4 0 0 0"
                             Command="{Binding DecreaseFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSizeDecrease}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             ToolTip="Decrease size (Ctrl + [OemOpenBrackets])" />
 
                         <Button
+                            Margin="4 0 0 0"
                             Command="{Binding MonospaceCommand, ElementName=PART_TextEditor}"
                             Content="M"
                             Style="{DynamicResource TextEditorButtonStyle}"
@@ -93,18 +101,21 @@
                             ToolTip="Monospace font" />
 
                         <Button
+                            Margin="4 0 0 0"
                             Command="{Binding ResetFormattingCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconDeleteFormatting}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             ToolTip="Reset all formatting (Ctrl + H)" />
 
                         <local:ColorPickerComboBox
+                            Margin="4 0 0 0"
                             AppliedColor="{Binding TextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Focusable="False"
-                            ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
-                            ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                            ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
+                            ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
                             ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                            Style="{DynamicResource TaskColorPickerButtonStyle}"
+                            Style="{DynamicResource RichTextEditorColorPickerButtonStyle}"
+                            Background="Transparent"
                             ToolTip="Change color (Ctrl + G)" />
 
                     </WrapPanel>
