@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TodoApp2.Core
 {
@@ -177,7 +178,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_AppViewModel.MainPage = ApplicationPage.Settings;
+            m_AppViewModel.ToggleSettingsPage();
         }
 
         /// <summary>

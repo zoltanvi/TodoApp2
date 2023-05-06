@@ -153,6 +153,7 @@
     <Compile Include="ViewModel\Items\TaskViewModel.cs" />
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
     <Compile Include="ViewModel\Services\UIScaler.cs" />
+    <Compile Include="ViewModel\Events\ZoomedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

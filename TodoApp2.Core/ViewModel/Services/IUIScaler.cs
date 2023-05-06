@@ -19,7 +19,7 @@ namespace TodoApp2.Core
         double SliderThumbHeight { get; }
         double SliderThumbWidth { get; }
 
-        event EventHandler Zoomed;
+        event EventHandler<ZoomedEventArgs> Zoomed;
 
         void SetScaling(double value);
         void ZoomIn();

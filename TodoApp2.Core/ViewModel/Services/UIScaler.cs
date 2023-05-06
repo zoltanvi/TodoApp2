@@ -36,10 +36,10 @@ namespace TodoApp2.Core
         private const double OriginalSideMenuWidth = 220;
         private const double OriginalSideMenuMinimumWidth = 180;
         private const double OriginalTextBoxMaxHeight = 400;
-        private const double OriginalColorPickerHeight = 35;
-        private const double OriginalColorPickerWidth = 64;
+        private const double OriginalColorPickerHeight = 31;
+        private const double OriginalColorPickerWidth = 56;
         private const double OriginalColorPickerOnlyDropDownWidth = 10;
-        private const double OriginalColorPickerItemSize = 24;
+        private const double OriginalColorPickerItemSize = 21;
         private const double OriginalTextEditorToggleWidth = 15;
         private const double OriginalThemeItemWidth = 175;
         private const double OriginalThemeItemHeight = 135;
@@ -53,7 +53,7 @@ namespace TodoApp2.Core
 
         public FontSizes FontSize { get; } = new FontSizes();
         public double SideMenuWidth => OriginalSideMenuWidth * ScaleValue;
-        public double SideMenuMinimumWidth => OriginalSideMenuMinimumWidth; // Not decided yet
+        public double SideMenuMinimumWidth => OriginalSideMenuMinimumWidth * ScaleValue; // Not decided yet
         public double TextBoxMaxHeight => OriginalTextBoxMaxHeight * ScaleValue;
         public double ColorPickerHeight => OriginalColorPickerHeight * ScaleValue;
         public double ColorPickerWidth => OriginalColorPickerWidth * ScaleValue;
@@ -73,7 +73,7 @@ namespace TodoApp2.Core
 
         public static UIScaler Instance { get; } = new UIScaler();
 
-        public event EventHandler Zoomed;
+        public event EventHandler<ZoomedEventArgs> Zoomed;
 
         private UIScaler() { }
 
@@ -91,13 +91,14 @@ namespace TodoApp2.Core
         {
             value = Math.Round(value, 3);
             bool zoomed = value != StaticScaleValue;
+            var oldScaleValue = StaticScaleValue;
             StaticScaleValue = value;
             m_ScalingPercent = StaticScaleValue * OriginalScalingPercent;
             OnPropertyChanged(string.Empty);
 
             if (zoomed)
             {
-                Zoomed?.Invoke(this, EventArgs.Empty);
+                Zoomed?.Invoke(this, new ZoomedEventArgs(oldScaleValue, StaticScaleValue));
             }
         }
 

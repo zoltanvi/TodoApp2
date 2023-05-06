@@ -204,7 +204,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_Application.MainPage = ApplicationPage.Settings;
+            m_Application.ToggleSettingsPage();
         }
 
         /// <summary>

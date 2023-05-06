@@ -98,6 +98,21 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// Changes the Main Page to the settings page or changes it back if the settings page was opened.
+        /// </summary>
+        public void ToggleSettingsPage()
+        {
+            if (MainPage == ApplicationPage.Settings)
+            {
+                UpdateMainPage();
+            }
+            else
+            {
+                MainPage = ApplicationPage.Settings;
+            }
+        }
+
+        /// <summary>
         /// Updates the SideMenu Page based on what is stored in the application settings for active category or active note.
         /// </summary>
         public void UpdateSideMenuPage()

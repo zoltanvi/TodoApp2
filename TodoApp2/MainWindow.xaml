@@ -225,10 +225,20 @@
     </WindowChrome.WindowChrome>
 
     <Grid>
+        <Grid x:Name="LayoutReferenceGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border
+                x:Name="ReferenceBorder"
+                Background="#00000000"
+                Grid.Column="0" />
+        </Grid>
         <Grid x:Name="Grid">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition MaxWidth="{Binding ElementName=ReferenceBorder, Path=ActualWidth}" />
                 <ColumnDefinition Width="6" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>

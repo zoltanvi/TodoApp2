@@ -64,7 +64,7 @@
     <!--  ===================  -->
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
- 
+
     <!--  Foreground  -->
     <SolidColorBrush x:Key="TitleBarBrush" Color="{DynamicResource TitleBar}" />
     <SolidColorBrush x:Key="CaretBrush" Color="{DynamicResource Caret}" />
@@ -162,10 +162,10 @@
 
 
     <LinearGradientBrush x:Key="TransparentPatternBrush" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#888888" Offset="0"/>
-        <GradientStop Color="#888888" Offset="0.5"/>
-        <GradientStop Color="#FFFFFFFF" Offset="0.5"/>
-        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+        <GradientStop Offset="0" Color="#888888" />
+        <GradientStop Offset="0.5" Color="#888888" />
+        <GradientStop Offset="0.5" Color="#FFFFFFFF" />
+        <GradientStop Offset="1" Color="#FFFFFFFF" />
     </LinearGradientBrush>
 
 </ResourceDictionary>
