@@ -14,11 +14,8 @@
     <Color x:Key="TitleBar">#FFFFFF</Color>
     <Color x:Key="Caret">#FFFFFF</Color>
     <Color x:Key="EditorButton">#FFFFFF</Color>
-    <Color x:Key="Placeholder">#CCD5F0</Color>
-    <Color x:Key="CheckBox">#7e7e7e</Color>
     <Color x:Key="LineNumber">#90bff9</Color>
     <Color x:Key="TaskDate">#5BB2FA</Color>
-    <Color x:Key="CalendarDayColumn">#5BB2FA</Color>
     <Color x:Key="CalendarDisabledDays">#CCD5F0</Color>
     <Color x:Key="MessageInfo">#000000</Color>
     <Color x:Key="MessageWarning">#000000</Color>
@@ -32,7 +29,6 @@
     <Color x:Key="TaskBg">#22293B</Color>
     <Color x:Key="TaskTransparentBg">#0022293B</Color>
     <Color x:Key="TaskDoneBg">#C02B3A61</Color>
-    <Color x:Key="SelectionBg">#3A9CFF</Color>
     <Color x:Key="ScrollBarBg">#243257</Color>
     <Color x:Key="ScrollBarPressedBg">#1F2C4C</Color>
     <Color x:Key="SelectedCategoryBg">#3f4e72</Color>
@@ -70,12 +66,9 @@
     <SolidColorBrush x:Key="TitleBarBrush" Color="{DynamicResource TitleBar}" />
     <SolidColorBrush x:Key="CaretBrush" Color="{DynamicResource Caret}" />
     <SolidColorBrush x:Key="EditorButtonBrush" Color="{DynamicResource EditorButton}" />
-    <SolidColorBrush x:Key="PlaceholderBrush" Color="{DynamicResource Placeholder}" />
-    <SolidColorBrush x:Key="CheckBoxBrush" Color="{DynamicResource CheckBox}" />
+    <SolidColorBrush x:Key="PlaceholderBrush" Opacity="0.4" Color="{DynamicResource Foreground}" />
     <SolidColorBrush x:Key="LineNumberBrush" Color="{DynamicResource LineNumber}" />
     <SolidColorBrush x:Key="TaskDateBrush" Opacity="0.65" Color="{DynamicResource Foreground}" />
-    <SolidColorBrush x:Key="CalendarDayColumnBrush" Color="{DynamicResource CalendarDayColumn}" />
-    <SolidColorBrush x:Key="CalendarDisabledDaysBrush" Color="{DynamicResource CalendarDisabledDays}" />
     <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
     <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
     <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
@@ -89,7 +82,6 @@
     <SolidColorBrush x:Key="BottomBarBgBrush" Color="{DynamicResource BottomBarBg}" />
     <SolidColorBrush x:Key="TaskBgBrush" Color="{DynamicResource TaskBg}" />
     <SolidColorBrush x:Key="TaskDoneBgBrush" Color="{DynamicResource TaskDoneBg}" />
-    <SolidColorBrush x:Key="SelectionBgBrush" Color="{DynamicResource SelectionBg}" />
     <SolidColorBrush x:Key="ScrollBarBgBrush" Color="{DynamicResource ScrollBarBg}" />
     <SolidColorBrush x:Key="ScrollBarPressedBgBrush" Color="{DynamicResource ScrollBarPressedBg}" />
     <SolidColorBrush x:Key="SelectedCategoryBgBrush" Color="{DynamicResource SelectedCategoryBg}" />

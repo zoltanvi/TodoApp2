@@ -81,7 +81,7 @@
                 Padding="8.5"
                 VerticalAlignment="Bottom"
                 AutomationProperties.AutomationId="AddNewNoteTextBox"
-                Style="{StaticResource AddNewTaskTextBoxStyle}"
+                Style="{StaticResource SidePageAddNewTextBoxStyle}"
                 Tag="Add new note"
                 Text="{Binding PendingAddNewNoteText, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="NoWrap">

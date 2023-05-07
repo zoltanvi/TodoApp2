@@ -412,6 +412,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Themes\MintTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Themes\MaterialLightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -554,6 +558,7 @@
   <ItemGroup>
     <Resource Include="Images\Splash\MaterialBlue.png" />
     <Resource Include="Images\Splash\MaterialLight.png" />
+    <Resource Include="Images\Splash\Mint.png" />
     <Content Include="Sounds\click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

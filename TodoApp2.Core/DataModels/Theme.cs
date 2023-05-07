@@ -10,6 +10,7 @@
         VSBlue,
         LightGreen,
         MaterialLight,
+        Mint,
         Light,
     }
 }

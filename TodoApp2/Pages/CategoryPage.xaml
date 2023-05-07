@@ -73,13 +73,13 @@
         <Border
             Grid.Row="1"
             Background="{DynamicResource BottomBarBgBrush}"
-            BorderBrush="{DynamicResource BottomBarBorderBrush}"
+            BorderBrush="{DynamicResource Elevation_2}"
             BorderThickness="0 1 0 0">
             <TextBox
                 Padding="8.5"
                 VerticalAlignment="Bottom"
                 AutomationProperties.AutomationId="AddNewCategoryTextBox"
-                Style="{StaticResource AddNewTaskTextBoxStyle}"
+                Style="{StaticResource SidePageAddNewTextBoxStyle}"
                 Tag="Add new category"
                 Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="NoWrap">

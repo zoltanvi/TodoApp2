@@ -40,16 +40,17 @@
                             Content="{DynamicResource SegoeIconBold}"
                             IsChecked="{Binding IsSelectionBold, ElementName=PART_TextEditor}"
                             Style="{DynamicResource TextEditorToggleButtonStyle}"
+                            Margin="0 0 0 4"
                             ToolTip="Bold (Ctrl + B)" />
                         <ToggleButton
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding SetItalicCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconItalic}"
                             IsChecked="{Binding IsSelectionItalic, ElementName=PART_TextEditor}"
                             Style="{DynamicResource TextEditorToggleButtonStyle}"
                             ToolTip="Italic (Ctrl + I)" />
                         <ToggleButton
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding SetUnderlinedCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconUnderlined}"
                             IsChecked="{Binding IsSelectionUnderlined, ElementName=PART_TextEditor}"
@@ -57,20 +58,20 @@
                             ToolTip="Underline (Ctrl + U)" />
 
                         <Button
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding SetSmallFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             FontSize="{Binding UIScaler.FontSize.Smaller}"
                             ToolTip="Small font" />
                         <Button
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding SetMediumFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             ToolTip="Medium font" />
                         <Button
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding SetBigFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
@@ -78,20 +79,20 @@
                             ToolTip="Big font" />
 
                         <Button
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding IncreaseFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSizeIncrease}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             ToolTip="Increase size (Ctrl + [OemCloseBrackets])" />
                         <Button
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding DecreaseFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSizeDecrease}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             ToolTip="Decrease size (Ctrl + [OemOpenBrackets])" />
 
                         <Button
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding MonospaceCommand, ElementName=PART_TextEditor}"
                             Content="M"
                             Style="{DynamicResource TextEditorButtonStyle}"
@@ -101,14 +102,14 @@
                             ToolTip="Monospace font" />
 
                         <Button
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             Command="{Binding ResetFormattingCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconDeleteFormatting}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             ToolTip="Reset all formatting (Ctrl + H)" />
 
                         <local:ColorPickerComboBox
-                            Margin="4 0 0 0"
+                            Margin="4 0 0 4"
                             AppliedColor="{Binding TextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Focusable="False"
                             ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"

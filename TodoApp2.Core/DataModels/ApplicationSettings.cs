@@ -71,6 +71,7 @@ namespace TodoApp2.Core
         public bool PlaySoundOnTaskIsDoneChange { get; set; } = true;
         public bool RunAtStartup { get; set; }
         public bool TaskListHasMargin { get; set; }
+        public bool TaskItemDropShadow { get; set; } = false;
         public ApplicationPage MainPage { get; set; }
         public ApplicationPage SideMenuPage { get; set; }
         public double SideMenuWidth { get; set; } // 0 = closed by default
@@ -141,6 +142,7 @@ namespace TodoApp2.Core
                 { nameof(PlaySoundOnTaskIsDoneChange), PropertyValueHandlers.Bool },
                 { nameof(TaskListHasMargin), PropertyValueHandlers.Bool },
                 { nameof(SideMenuWidth), PropertyValueHandlers.Double },
+                { nameof(TaskItemDropShadow), PropertyValueHandlers.Bool },
             };
 
             m_UiScaler.Zoomed += OnZoomed;
