@@ -80,8 +80,8 @@
     <SolidColorBrush x:Key="BottomBarBgBrush" Color="{DynamicResource BottomBarBg}" />
     <SolidColorBrush x:Key="TaskBgBrush" Color="{DynamicResource TaskBg}" />
     <SolidColorBrush x:Key="TaskDoneBgBrush" Color="{DynamicResource TaskDoneBg}" />
-    <SolidColorBrush x:Key="ScrollBarBgBrush" Color="{DynamicResource ScrollBarBg}" />
-    <SolidColorBrush x:Key="ScrollBarPressedBgBrush" Color="{DynamicResource ScrollBarPressedBg}" />
+    <SolidColorBrush x:Key="ScrollBarBgBrush" Opacity="0.3" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="ScrollBarPressedBgBrush" Opacity="0.5" Color="{DynamicResource ThemeOpposite}"  />
     <SolidColorBrush x:Key="SelectedCategoryBgBrush" Opacity="0.15" Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="ContextMenuBgBrush" Color="{DynamicResource ContextMenuBg}" />
     <SolidColorBrush x:Key="ComboBoxBgBrush" Color="{DynamicResource ComboBoxBg}" />

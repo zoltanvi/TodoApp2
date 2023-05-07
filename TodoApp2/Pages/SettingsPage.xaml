@@ -176,7 +176,7 @@
                                     <TextBlock Grid.Column="1" Style="{DynamicResource SettingsDescriptionStyle}" Text="App border color" />
 
 
-                                    <Border Grid.Column="2" Padding="20 0 0 0" HorizontalAlignment="Right" >
+                                    <Border Grid.Column="2" Padding="20 0 0 0" HorizontalAlignment="Right">
 
                                         <!--  Color picker  -->
                                         <ComboBox ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}" ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}" SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource TaskItemColorPickerStyle}">
@@ -360,7 +360,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Content="{DynamicResource SegoeIconRestoreWindow}" Style="{DynamicResource SettingsIconLabelStyle}" >
+                                    <Label Grid.Column="0" Content="{DynamicResource SegoeIconRestoreWindow}" Style="{DynamicResource SettingsIconLabelStyle}">
                                         <Label.LayoutTransform>
                                             <RotateTransform Angle="90" CenterX="0" CenterY="0" />
                                         </Label.LayoutTransform>
@@ -369,7 +369,7 @@
                                     <ToggleButton Grid.Column="2" IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskItemDropShadow, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" Style="{DynamicResource ToggleSideMenuStyle}" />
                                 </Grid>
                             </Border>
-                            
+
                             <!--  Creation date  -->
                             <Border Style="{StaticResource SettingsItemStyle}">
                                 <Grid>
