@@ -40,8 +40,8 @@ namespace TodoApp2.Core
         private const double OriginalColorPickerWidth = 56;
         private const double OriginalColorPickerItemSize = 21;
         private const double OriginalTextEditorToggleWidth = 15;
-        private const double OriginalThemeItemWidth = 175;
-        private const double OriginalThemeItemHeight = 135;
+        private const double OriginalThemeItemWidth = 140;
+        private const double OriginalThemeItemHeight = 108;
 
         private const int ColorPickerColumns = 10;
 

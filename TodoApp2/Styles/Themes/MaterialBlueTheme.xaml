@@ -56,7 +56,6 @@
     <Color x:Key="TaskBorder">#2B3A61</Color>
     <Color x:Key="CheckBoxBorder">#CCD5F0</Color>
     <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
-    <Color x:Key="ContextMenuBorder">#000000</Color>
 
     <!--  ===================  -->
 
@@ -124,7 +123,6 @@
     <SolidColorBrush x:Key="TaskBorderBrush" Color="{DynamicResource TaskBorder}" />
     <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{DynamicResource CheckBoxBorder}" />
     <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="{DynamicResource ToggleButtonBorder}" />
-    <SolidColorBrush x:Key="ContextMenuBorderBrush" Color="{DynamicResource ContextMenuBorder}" />
 
     <!--  ELEVATION  -->
     <SolidColorBrush x:Key="Elevation_1" Opacity="0.05" Color="{DynamicResource ThemeOpposite}" />

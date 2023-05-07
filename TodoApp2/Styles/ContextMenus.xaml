@@ -14,58 +14,7 @@
         </GradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="HorizontalNormalBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#FFF" />
-                <GradientStop Offset="1.0" Color="#CCC" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="LightBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#FFF" />
-                <GradientStop Offset="1.0" Color="#EEE" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="HorizontalLightBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#FFF" />
-                <GradientStop Offset="1.0" Color="#EEE" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#FFF" />
-                <GradientStop Offset="1.0" Color="#AAA" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#BBB" />
-                <GradientStop Offset="0.1" Color="#EEE" />
-                <GradientStop Offset="0.9" Color="#EEE" />
-                <GradientStop Offset="1.0" Color="#FFF" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
     <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
-
-    <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
-
-    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
 
     <!--  Border Brushes  -->
 
@@ -78,45 +27,8 @@
         </GradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="HorizontalNormalBorderBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#CCC" />
-                <GradientStop Offset="1.0" Color="#444" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="DefaultedBorderBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#777" />
-                <GradientStop Offset="1.0" Color="#000" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="PressedBorderBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#444" />
-                <GradientStop Offset="1.0" Color="#888" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
-
-    <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
-
-    <SolidColorBrush x:Key="LightBorderBrush" Color="#AAA" />
-
     <!--  Miscellaneous Brushes  -->
     <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
-
-    <SolidColorBrush x:Key="LightColorBrush" Color="#DDD" />
-
-
 
     <Style TargetType="{x:Type ContextMenu}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -127,11 +39,12 @@
                     <Border
                         x:Name="Border"
                         Background="{DynamicResource ContextMenuBackgroundBrush}"
-                        BorderBrush="{DynamicResource ContextMenuBorderBrush}"
+                        BorderBrush="{DynamicResource Elevation_6}"
                         BorderThickness="1"
+                        CornerRadius="6"
                         ClipToBounds="False">
                         <StackPanel
-                            Margin="2"
+                            Margin="4"
                             ClipToBounds="True"
                             IsItemsHost="True"
                             Orientation="Vertical" />
@@ -148,89 +61,20 @@
 
     <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
         <Setter Property="Height" Value="1" />
-        <Setter Property="Margin" Value="0 2" />
+        <Setter Property="Margin" Value="0 4" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Separator}">
-                    <Border BorderBrush="{DynamicResource ContextMenuBorderBrush}" BorderThickness="1" />
+                    <Border BorderBrush="{DynamicResource Elevation_4}" BorderThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <!--  TopLevelHeader  -->
-    <!--
-    <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
-        <Border Name="Border" >
-            <Grid>
-                <ContentPresenter
-                    Margin="6,3,6,3"
-                    ContentSource="Header"
-                    RecognizesAccessKey="True" />
-                <Popup
-                    Name="Popup"
-                    Placement="Bottom"
-                    IsOpen="{TemplateBinding IsSubmenuOpen}"
-                    AllowsTransparency="True"
-                    Focusable="False"
-                    PopupAnimation="Fade">
-                    <Border
-                        Name="SubmenuBorder"
-                        SnapsToDevicePixels="True"
-                        Background="{StaticResource WindowBackgroundBrush}"
-                        BorderBrush="{StaticResource SolidBorderBrush}"
-                        BorderThickness="1" >
-                        <ScrollViewer CanContentScroll="True" >
-                            <StackPanel
-                                IsItemsHost="True"
-                                KeyboardNavigation.DirectionalNavigation="Cycle" />
-                        </ScrollViewer>
-                    </Border>
-                </Popup>
-            </Grid>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsSuspendingPopupAnimation" Value="true">
-                <Setter TargetName="Popup" Property="PopupAnimation" Value="None"/>
-            </Trigger>
-            <Trigger Property="IsHighlighted" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource NormalBrush}"/>
-                <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
-            </Trigger>
-            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="True">
-                <Setter TargetName="SubmenuBorder" Property="CornerRadius" Value="0,0,4,4"/>
-                <Setter TargetName="SubmenuBorder" Property="Padding" Value="0,0,0,3"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>-->
-
-
-    <!--  TopLevelItem  -->
-
-    <!--<ControlTemplate x:Key="{x:Static MenuItem.TopLevelItemTemplateKey}" TargetType="{x:Type MenuItem}">
-        <Border Name="Border" >
-            <Grid>
-                <ContentPresenter Margin="6,3,6,3" ContentSource="Header" RecognizesAccessKey="True" />
-            </Grid>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsHighlighted" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource NormalBrush}"/>
-                <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>-->
-
     <!--  SubmenuItem  -->
 
     <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
-        <Border Name="Border">
+        <Border Name="Border" CornerRadius="4">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
@@ -298,7 +142,7 @@
     <!--  SubmenuHeader  -->
 
     <ControlTemplate x:Key="{x:Static MenuItem.SubmenuHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
-        <Border Name="Border">
+        <Border Name="Border" CornerRadius="4">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="13" SharedSizeGroup="Icon" />
@@ -340,11 +184,15 @@
                     <Border
                         Name="SubmenuBorder"
                         Background="{DynamicResource ContextMenuBackgroundBrush}"
-                        BorderBrush="{DynamicResource ContextMenuBorderBrush}"
+                        BorderBrush="{DynamicResource Elevation_6}"
                         BorderThickness="1"
-                        SnapsToDevicePixels="True">
+                        SnapsToDevicePixels="True"
+                        CornerRadius="6">
                         <ScrollViewer CanContentScroll="True" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
-                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                            <StackPanel
+                                IsItemsHost="True"
+                                KeyboardNavigation.DirectionalNavigation="Cycle"
+                                Margin="4 0" />
                         </ScrollViewer>
                     </Border>
                 </Popup>
@@ -359,7 +207,6 @@
                 <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuSelectedBackgroundBrush}" />
             </Trigger>
             <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="True">
-                <Setter TargetName="SubmenuBorder" Property="CornerRadius" Value="0" />
                 <Setter TargetName="SubmenuBorder" Property="Padding" Value="0 3 0 3" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
