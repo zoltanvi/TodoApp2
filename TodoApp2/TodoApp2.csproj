@@ -412,6 +412,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Themes\YellowGoldTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Themes\MintTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -559,6 +563,7 @@
     <Resource Include="Images\Splash\MaterialBlue.png" />
     <Resource Include="Images\Splash\MaterialLight.png" />
     <Resource Include="Images\Splash\Mint.png" />
+    <Resource Include="Images\Splash\YellowGold.png" />
     <Content Include="Sounds\click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
