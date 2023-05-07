@@ -384,15 +384,7 @@
                         Background="{DynamicResource TaskListItemHoverPanelBrush}"
                         CornerRadius="0 2 2 0">
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
+                        <StackPanel Orientation="Horizontal">
                             <!--  Calendar empty button  -->
                             <Grid Grid.Column="0" Visibility="{Binding IsReminderOn, Converter={StaticResource boolToVisibilityNegatedConverter}}">
                                 <Button
@@ -493,7 +485,9 @@
                                 Margin="4 0 0 0"
                                 ToolTip="Trash task"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-                        </Grid>
+
+                        </StackPanel>
+
                     </Border>
                 </Border>
 
