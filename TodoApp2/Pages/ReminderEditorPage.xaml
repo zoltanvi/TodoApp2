@@ -22,7 +22,32 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <!--
+            WPF BUG workaround: drop shadow effect makes the content blurry
+            so the shadow needs to be in a separate border
+        -->
         <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="White"
+            BorderThickness="2"
+            CornerRadius="6"
+            Width="{Binding ElementName=contentBorder, Path=ActualWidth}"
+            Height="{Binding ElementName=contentBorder, Path=ActualHeight}">
+            <Border.Effect>
+                <DropShadowEffect
+                    ShadowDepth="0"
+                    BlurRadius="100"
+                    Color="Black"
+                    Opacity="0.3" />
+            </Border.Effect>
+        </Border>
+
+        <Border
+            x:Name="contentBorder"
             Grid.Row="1"
             Grid.Column="1"
             HorizontalAlignment="Center"
@@ -35,13 +60,7 @@
             local:SizeObserver.Observe="True"
             local:SizeObserver.ObservedWidth="{Binding MyWidth, Mode=OneWayToSource}"
             local:SizeObserver.ObservedHeight="{Binding MyHeight, Mode=OneWayToSource}">
-            <Border.Effect>
-                <DropShadowEffect
-                    ShadowDepth="0"
-                    BlurRadius="100"
-                    Color="Black"
-                    Opacity="0.3" />
-            </Border.Effect>
+
 
             <Grid>
                 <Grid.RowDefinitions>

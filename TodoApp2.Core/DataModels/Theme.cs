@@ -12,6 +12,9 @@
         MaterialLight,
         YellowGold,
         Mint,
+        LightBlue,
+        Violet,
+        LightGray,
         Light,
     }
 }

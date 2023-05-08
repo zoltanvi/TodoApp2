@@ -408,7 +408,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Themes\LightBlueTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\VioletTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Themes\LightGreenTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\LightGrayTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -564,6 +576,9 @@
     <Resource Include="Images\Splash\MaterialLight.png" />
     <Resource Include="Images\Splash\Mint.png" />
     <Resource Include="Images\Splash\YellowGold.png" />
+    <Resource Include="Images\Splash\LightGray.png" />
+    <Resource Include="Images\Splash\Violet.png" />
+    <Resource Include="Images\Splash\LightBlue.png" />
     <Content Include="Sounds\click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
