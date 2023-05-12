@@ -117,14 +117,14 @@
 
     <Grid Background="Transparent" Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
 
-        <!--  Color bar overlaying the border  -->
+        <!--  COLOR BAR  -->
+        <!--  CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">  -->
         <Border
             Margin="4 2"
             HorizontalAlignment="Left"
-            Panel.ZIndex="1000"
             AutomationProperties.AutomationId="TaskListItemColorBar"
             Background="{Binding Color, Converter={StaticResource stringRGBToBrushConverter}}"
-            CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">
+            CornerRadius="3 0 0 3">
             <Border.Width>
                 <MultiBinding>
                     <MultiBinding.Converter>
@@ -134,37 +134,22 @@
                     <Binding Path="UIScaler.ScaleValue" />
                 </MultiBinding>
             </Border.Width>
-
         </Border>
 
+        <!--  ITEM BORDER  -->
         <Border
             Margin="4 2"
             BorderBrush="{Binding BorderColor, Converter={StaticResource taskBorderBrushConverter}}"
-            BorderThickness="{Binding UIScaler.ScaleValue}"
+            BorderThickness="1"
             CornerRadius="2"
             Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
-        <!--<Border
-            Margin="4 2"
-            BorderBrush="Transparent"
-            BorderThickness="{Binding UIScaler.ScaleValue}"
-            CornerRadius="2">
-
-            <Border.Effect>
-                <DropShadowEffect
-                    ShadowDepth="1"
-                    BlurRadius="1"
-                    Color="{DynamicResource ThemeOpposite}"
-                    Opacity="0.2" />
-            </Border.Effect>
-
-        </Border>-->
 
         <Border
             x:Name="TaskListItemBackground"
             Margin="4 2"
             BorderBrush="Transparent"
-            BorderThickness="{Binding UIScaler.ScaleValue}"
+            BorderThickness="1"
             CornerRadius="2">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
@@ -194,6 +179,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
+                <!--  ITEM BACKGROUND  -->
+                <!--<Border
+                    Grid.ColumnSpan="3"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    CornerRadius="2"
+                    Background="{Binding BackgroundColor, Converter={StaticResource stringRGBToBrushConverter}}"
+                    Opacity="0.5" />-->
 
                 <!--  Task Checkbox  -->
                 <CheckBox
@@ -379,7 +372,7 @@
 
                     <!--  HOVER PANEL  -->
                     <Border
-                        Padding="10 0 10 0"
+                        Padding="20 0 10 0"
                         HorizontalAlignment="Right"
                         Background="{DynamicResource TaskListItemHoverPanelBrush}"
                         CornerRadius="0 2 2 0">
@@ -417,7 +410,7 @@
                                 Margin="4 0 0 0"
                                 Style="{DynamicResource TaskItemColorPickerStyle}"
                                 Background="{DynamicResource TaskBgBrush}"
-                                ToolTip="Set color bar color"
+                                ToolTip="Color bar"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
                                 <Behaviors:Interaction.Triggers>
@@ -493,5 +486,6 @@
 
             </Grid>
         </Border>
+
     </Grid>
 </UserControl>

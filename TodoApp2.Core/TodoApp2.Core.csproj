@@ -119,6 +119,7 @@
     <Compile Include="PropertyHandling\EnumPropertyValueHandler.cs" />
     <Compile Include="Services\AutoRunService.cs" />
     <Compile Include="Services\IAsyncActionService.cs" />
+    <Compile Include="Services\IResourceUpdater.cs" />
     <Compile Include="Services\MediaPlayerService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />
     <Compile Include="ViewModel\Controls\RichTextEditorViewModel.cs" />

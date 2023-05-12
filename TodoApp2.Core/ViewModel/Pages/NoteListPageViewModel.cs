@@ -163,6 +163,11 @@ namespace TodoApp2.Core
                     IoC.CategoryListService.ActiveCategory = null;
                 }
 
+                if (m_AppViewModel.ApplicationSettings.CloseSideMenuOnCategoryChange)
+                {
+                    Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
+                }
+
                 m_OverlayPageService.CloseSideMenu();
 
                 // Change to note page if it wasn't active
@@ -178,7 +183,9 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_AppViewModel.ToggleSettingsPage();
+            m_AppViewModel.OpenSettingsPage();
+
+            Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
         }
 
         /// <summary>

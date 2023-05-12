@@ -20,11 +20,11 @@
                 CornerRadius="4" />
             <Border
                 Grid.Column="0"
-                Margin="2"
-                Background="{DynamicResource ComboBoxBgBrush}"
+                Margin="3 2 2 2"
+                Background="Transparent"
                 BorderBrush="{DynamicResource CommonControlBorderBrush}"
                 BorderThickness="0 0 0 0"
-                CornerRadius="0" />
+                CornerRadius="4" />
             <Path
                 x:Name="Arrow"
                 Grid.Column="1"

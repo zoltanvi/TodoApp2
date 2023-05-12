@@ -33,8 +33,8 @@
     <Color x:Key="ScrollBarPressedBg">#1F2C4C</Color>
     <Color x:Key="SelectedCategoryBg">#4D5982</Color>
     <Color x:Key="ComboBoxBg">#3B4F81</Color>
-    <Color x:Key="ComboBoxButtonBg">#7B8ABD</Color>
-    <Color x:Key="ComboBoxDropDownBg">#6E7EB1</Color>
+    <Color x:Key="ComboBoxButtonBg">#3B4F81</Color>
+    <Color x:Key="ComboBoxDropDownBg">#3B4F81</Color>
     <Color x:Key="CalendarButtonBg">#5BB2FA</Color>
     <Color x:Key="ContextMenuBg">#3b4f81</Color>
     <Color x:Key="NoteLineAdornerBg">#343E56</Color>
@@ -45,8 +45,8 @@
     <Color x:Key="HoverCategoryBg">#425684</Color>
     <Color x:Key="HoverCloseButtonBg">#F55B4D</Color>
     <Color x:Key="HoverContextMenuBg">#EDEDED</Color>
-    <Color x:Key="CheckedComboBoxButtonBg">#E2E2E2</Color>
 
+    
     <Color x:Key="CommonBorder">#2B3A61</Color>
     <Color x:Key="AppBorder">#000000</Color>
     <Color x:Key="CommonControlBorder">#5B79C4</Color>
@@ -107,7 +107,7 @@
     <SolidColorBrush x:Key="HoverContextMenuBgBrush" Color="{DynamicResource HoverContextMenuBg}" />
     <SolidColorBrush x:Key="HoverBaseButtonBgBrush" Color="{DynamicResource HoverComboBoxDropDownBg}" />
     <SolidColorBrush x:Key="HoverCalendarItemBgBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush x:Key="CheckedComboBoxButtonBgBrush" Color="{DynamicResource CheckedComboBoxButtonBg}" />
+    <SolidColorBrush x:Key="CheckedComboBoxButtonBgBrush" Opacity="0.2" Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="HoverComboBoxDropDownItemBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
 
     <!--  Border  -->

@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <system:String x:Key="CurrentVersion">Version 1.9.3.3_DEV</system:String>
+    <system:Boolean x:Key="ThemeEditor">false</system:Boolean>
+    <system:Boolean x:Key="RoundedColorBar">false</system:Boolean>
 
 </ResourceDictionary> 

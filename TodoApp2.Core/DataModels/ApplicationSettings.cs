@@ -75,6 +75,7 @@ namespace TodoApp2.Core
         public ApplicationPage MainPage { get; set; }
         public ApplicationPage SideMenuPage { get; set; }
         public double SideMenuWidth { get; set; } // 0 = closed by default
+        public bool CloseSideMenuOnCategoryChange { get; set; } = true;
 
         #region Testing
 
@@ -143,6 +144,7 @@ namespace TodoApp2.Core
                 { nameof(TaskListHasMargin), PropertyValueHandlers.Bool },
                 { nameof(SideMenuWidth), PropertyValueHandlers.Double },
                 { nameof(TaskItemDropShadow), PropertyValueHandlers.Bool },
+                { nameof(CloseSideMenuOnCategoryChange), PropertyValueHandlers.Bool },
             };
 
             m_UiScaler.Zoomed += OnZoomed;

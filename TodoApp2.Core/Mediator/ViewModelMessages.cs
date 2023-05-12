@@ -40,5 +40,10 @@
         /// </summary>
         SideMenuButtonClicked,
 
+        /// <summary>
+        /// Closing of the side menu has been requested
+        /// </summary>
+        SideMenuCloseRequested,
+
     }
 }

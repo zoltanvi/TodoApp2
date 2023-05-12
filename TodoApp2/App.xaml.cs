@@ -55,6 +55,10 @@ namespace TodoApp2
             IAsyncActionService asyncActionService = AsyncActionService.Instance;
             IoC.AsyncActionService = asyncActionService;
 
+            // Load resource updater
+            IResourceUpdater resourceUpdater = ResourceUpdater.Instance;
+            IoC.ResourceUpdater = resourceUpdater;
+
             // Setup IoC. It can take some time
             IoC.Setup();
 

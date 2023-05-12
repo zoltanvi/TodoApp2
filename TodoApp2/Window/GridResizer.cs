@@ -18,9 +18,7 @@ namespace TodoApp2
         private Window _Window;
         private bool _IsDragging;
         private double _UnscaledMinColumnWidth = 180;
-        private double _UnscaledLeftColumnWidth = 0;
         
-        private double _LeftColumnWidth => _Grid.ColumnDefinitions[0].Width.Value;
         private double MinColumnWidth => _UnscaledMinColumnWidth * UIScaler.Instance.ScaleValue;
         private double GridHalfWidth => _Grid.ActualWidth / 2;
         private double MaxColumnWidth => GridHalfWidth < MinColumnWidth ? MinColumnWidth : GridHalfWidth;
@@ -78,13 +76,13 @@ namespace TodoApp2
             _Grid.MouseMove += Grid_MouseMove;
 
             LeftColumnWidth = LastSavedColumnWidth;
-            _UnscaledLeftColumnWidth = _LeftColumnWidth;
 
             _Window.SizeChanged += WindowSizeChanged;
             _Window.StateChanged += Window_StateChanged;
 
             UIScaler.Instance.Zoomed += Instance_Zoomed; ;
             Mediator.Register(OnSideMenuButtonClicked, ViewModelMessages.SideMenuButtonClicked);
+            Mediator.Register(OnSideMenuCloseRequested, ViewModelMessages.SideMenuCloseRequested);
         }
 
         private async void Window_StateChanged(object sender, EventArgs e)
@@ -105,7 +103,6 @@ namespace TodoApp2
                 }
 
                 LeftColumnWidth = newWidth;
-                _UnscaledLeftColumnWidth = _LeftColumnWidth;
                 LastSavedColumnWidth = newWidth;
             }
         }
@@ -126,8 +123,12 @@ namespace TodoApp2
             else
             {
                 LeftColumnWidth = 0;
-                _UnscaledLeftColumnWidth = _LeftColumnWidth;
             }
+        }
+
+        private void OnSideMenuCloseRequested(object obj)
+        {
+            LeftColumnWidth = 0;
         }
 
         private void RecalculateLeftColumnWidth()
@@ -143,7 +144,6 @@ namespace TodoApp2
             }
 
             LeftColumnWidth = LastSavedColumnWidth;
-            _UnscaledLeftColumnWidth = _LeftColumnWidth;
         }
 
         private void WindowSizeChanged(object sender, SizeChangedEventArgs e)
@@ -165,7 +165,6 @@ namespace TodoApp2
                     }
 
                     LeftColumnWidth = newWidth;
-                    _UnscaledLeftColumnWidth = _LeftColumnWidth;
                     LastSavedColumnWidth = newWidth;
                 }
             }
@@ -180,7 +179,6 @@ namespace TodoApp2
         {
             double newWidth = LeftColumnWidth + e.HorizontalChange;
             LeftColumnWidth = newWidth;
-            _UnscaledLeftColumnWidth = _LeftColumnWidth;
             _IsDragging = true;
         }
 
@@ -198,7 +196,6 @@ namespace TodoApp2
             {
                 double newWidth = e.GetPosition(_Grid).X;
                 LeftColumnWidth = newWidth;
-                _UnscaledLeftColumnWidth = _LeftColumnWidth;
             }
         }
     }

@@ -6,6 +6,7 @@
     public static class IoC
     {
         public static IAsyncActionService AsyncActionService { get; set; }
+        public static IResourceUpdater ResourceUpdater { get; set; }
         public static AppViewModel ApplicationViewModel { get; private set; }
         public static IDatabase Database { get; private set; }
         public static OverlayPageService OverlayPageService { get; private set; }

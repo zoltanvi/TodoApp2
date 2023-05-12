@@ -191,6 +191,11 @@ namespace TodoApp2.Core
                     IoC.NoteListService.ActiveNote = null;
                 }
 
+                if (m_Application.ApplicationSettings.CloseSideMenuOnCategoryChange)
+                {
+                    Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
+                }
+
                 // Change to task page if it wasn't active
                 if (m_Application.MainPage != ApplicationPage.Task)
                 {
@@ -204,7 +209,9 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_Application.ToggleSettingsPage();
+            m_Application.OpenSettingsPage();
+
+            Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
         }
 
         /// <summary>

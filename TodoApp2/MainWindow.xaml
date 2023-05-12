@@ -330,7 +330,7 @@
                     MaxHeight="100"
                     CornerRadius="4"
                     SnapsToDevicePixels="True"
-                    BorderThickness="1"
+                    BorderThickness="0"
                     BorderBrush="{DynamicResource Elevation_5}"
                     Background="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBackgroundConverter}}">
                     <Grid Margin="10">

@@ -98,18 +98,20 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
-        /// Changes the Main Page to the settings page or changes it back if the settings page was opened.
+        /// Changes the Main Page to the settings page.
         /// </summary>
-        public void ToggleSettingsPage()
+        public void OpenSettingsPage()
         {
-            if (MainPage == ApplicationPage.Settings)
-            {
-                UpdateMainPage();
-            }
-            else
-            {
-                MainPage = ApplicationPage.Settings;
-            }
+            MainPage = ApplicationPage.Settings;
+
+            //if (MainPage == ApplicationPage.Settings)
+            //{
+            //    UpdateMainPage();
+            //}
+            //else
+            //{
+            //    MainPage = ApplicationPage.Settings;
+            //}
         }
 
         /// <summary>
