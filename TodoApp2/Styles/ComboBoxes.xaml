@@ -283,13 +283,16 @@
                                         BorderThickness="1"
                                         CornerRadius="4" />
 
-                                    <WrapPanel
-                                        Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                        Margin="8"
-                                        IsItemsHost="True"
-                                        KeyboardNavigation.DirectionalNavigation="Contained"
-                                        Orientation="Horizontal" />
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
 
+                                        <WrapPanel
+                                            Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                            Margin="8"
+                                            IsItemsHost="True"
+                                            KeyboardNavigation.DirectionalNavigation="Contained"
+                                            Orientation="Horizontal" />
+
+                                    </ScrollViewer>
                                 </Grid>
                             </Popup>
                         </Grid>
@@ -324,7 +327,9 @@
                 Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
                 Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
                 CornerRadius="4"
+                Cursor="Hand"
                 ToolTip="{Binding}" />
+
         </Grid>
 
         <DataTemplate.Triggers>

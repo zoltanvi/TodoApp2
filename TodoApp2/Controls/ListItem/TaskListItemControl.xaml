@@ -82,6 +82,26 @@
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
+            <MenuItem Header="Change background color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Header" Value="{Binding}" />
+                        <Setter Property="Foreground" Value="{Binding Converter={StaticResource stringRGBToBrushConverter}}" />
+                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetBackgroundColorParameterizedCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                        <Setter Property="CommandParameter" Value="{Binding}" />
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+                <MenuItem.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest}" />
+                        </Border>
+                    </DataTemplate>
+                </MenuItem.ItemTemplate>
+            </MenuItem>
             <MenuItem Header="Change border color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
@@ -103,6 +123,7 @@
                 </MenuItem.ItemTemplate>
             </MenuItem>
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset colors in category" />
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBackgroundColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset background colors in category" />
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBorderColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset border colors in category" />
             <Separator />
             <MenuItem
@@ -121,6 +142,7 @@
         <!--  CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">  -->
         <Border
             Margin="4 2"
+            Panel.ZIndex="1000"
             HorizontalAlignment="Left"
             AutomationProperties.AutomationId="TaskListItemColorBar"
             Background="{Binding Color, Converter={StaticResource stringRGBToBrushConverter}}"
@@ -180,13 +202,13 @@
                 </Grid.ColumnDefinitions>
 
                 <!--  ITEM BACKGROUND  -->
-                <!--<Border
+                <Border
                     Grid.ColumnSpan="3"
                     BorderBrush="Transparent"
                     BorderThickness="0"
                     CornerRadius="2"
                     Background="{Binding BackgroundColor, Converter={StaticResource stringRGBToBrushConverter}}"
-                    Opacity="0.5" />-->
+                    Opacity="0.3" />
 
                 <!--  Task Checkbox  -->
                 <CheckBox
@@ -410,8 +432,28 @@
                                 Margin="4 0 0 0"
                                 Style="{DynamicResource TaskItemColorPickerStyle}"
                                 Background="{DynamicResource TaskBgBrush}"
-                                ToolTip="Color bar"
+                                ToolTip="Marker color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+
+                                <Behaviors:Interaction.Triggers>
+                                    <Behaviors:EventTrigger EventName="SelectionChanged">
+                                        <Behaviors:InvokeCommandAction Command="{Binding SetColorCommand}" />
+                                    </Behaviors:EventTrigger>
+                                </Behaviors:Interaction.Triggers>
+                            </ComboBox>
+
+                            <!--  Background color picker  -->
+                            <ComboBox
+                                Grid.Column="1"
+                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
+                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
+                                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                SelectedItem="{Binding BackgroundColor, Mode=TwoWay}"
+                                Margin="4 0 0 0"
+                                Style="{DynamicResource TaskItemColorPickerStyle}"
+                                Background="{DynamicResource TaskBgBrush}"
+                                ToolTip="Background color"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
                                 <Behaviors:Interaction.Triggers>
                                     <Behaviors:EventTrigger EventName="SelectionChanged">
@@ -431,7 +473,7 @@
                                 Margin="4 0 0 0"
                                 Style="{DynamicResource TaskItemColorPickerStyle}"
                                 Background="{DynamicResource TaskBgBrush}"
-                                ToolTip="Set border color"
+                                ToolTip="Border color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
                                 <Behaviors:Interaction.Triggers>

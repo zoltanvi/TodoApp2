@@ -48,6 +48,7 @@ namespace TodoApp2.Core
                 $" {Column.ModificationDate} INTEGER, " +
                 $" {Column.Color} TEXT DEFAULT \"Transparent\", " +
                 $" {Column.BorderColor} TEXT DEFAULT \"Transparent\", " +
+                $" {Column.BackgroundColor} TEXT DEFAULT \"Transparent\", " +
                 $" {Column.Trashed} INTEGER DEFAULT (0), " +
                 $" {Column.ReminderDate} INTEGER DEFAULT (0), " +
                 $" {Column.IsReminderOn} INTEGER DEFAULT (0), " +
@@ -68,6 +69,7 @@ namespace TodoApp2.Core
                 ModificationDate = DateTime.Now.Ticks,
                 Color = GlobalConstants.ColorName.Transparent,
                 BorderColor = GlobalConstants.ColorName.Transparent,
+                BackgroundColor = GlobalConstants.ColorName.Transparent,
                 // The task is inserted at the top of the list by default
                 ListOrder = GetListOrder(Table.Task, true) - ListOrderInterval
             };
@@ -152,6 +154,7 @@ namespace TodoApp2.Core
                                       $"  {Column.ModificationDate} = {Parameter.ModificationDate}, " +
                                       $"  {Column.Color} = {Parameter.Color}, " +
                                       $"  {Column.BorderColor} = {Parameter.BorderColor}, " +
+                                      $"  {Column.BackgroundColor} = {Parameter.BackgroundColor}, " +
                                       $"  {Column.Trashed} = {Parameter.Trashed}, " +
                                       $"  {Column.ReminderDate} = {Parameter.ReminderDate}, " +
                                       $"  {Column.IsReminderOn} = {Parameter.IsReminderOn} " +
@@ -220,12 +223,12 @@ namespace TodoApp2.Core
                                       $" ({Column.Id}, {Column.CategoryId}, {Column.Content}, " +
                                       $" {Column.ListOrder}, {Column.Pinned}, {Column.IsDone}, " +
                                       $" {Column.CreationDate}, {Column.ModificationDate}, {Column.Color}, " +
-                                      $" {Column.BorderColor}, " +
+                                      $" {Column.BorderColor}, {Column.BackgroundColor}, " +
                                       $" {Column.Trashed}, {Column.ReminderDate}, {Column.IsReminderOn}) " +
                                       $" VALUES ({Parameter.Id}, {Parameter.CategoryId}, {Parameter.Content}, " +
                                       $" {Parameter.ListOrder}, {Parameter.Pinned}, {Parameter.IsDone}, " +
                                       $" {Parameter.CreationDate}, {Parameter.ModificationDate}, {Parameter.Color}, " +
-                                      $" {Parameter.BorderColor}, " +
+                                      $" {Parameter.BorderColor}, {Parameter.BackgroundColor}, " +
                                       $" {Parameter.Trashed}, {Parameter.ReminderDate}, {Parameter.IsReminderOn});";
 
                 command.Parameters.AddRange(CreateTaskParameterList(taskListItem));
@@ -271,6 +274,7 @@ namespace TodoApp2.Core
                 ModificationDate = reader.SafeGetLong(Column.ModificationDate),
                 Color = reader.SafeGetString(Column.Color),
                 BorderColor = reader.SafeGetString(Column.BorderColor),
+                BackgroundColor = reader.SafeGetString(Column.BackgroundColor),
                 Trashed = reader.SafeGetBoolFromInt(Column.Trashed),
                 ReminderDate = reader.SafeGetLong(Column.ReminderDate),
                 IsReminderOn = reader.SafeGetBoolFromInt(Column.IsReminderOn)
@@ -293,6 +297,7 @@ namespace TodoApp2.Core
                 new SQLiteParameter(Parameter.ModificationDate, task.ModificationDate),
                 new SQLiteParameter(Parameter.Color, task.Color),
                 new SQLiteParameter(Parameter.BorderColor, task.BorderColor),
+                new SQLiteParameter(Parameter.BackgroundColor, task.BackgroundColor),
                 new SQLiteParameter(Parameter.Trashed, task.Trashed),
                 new SQLiteParameter(Parameter.ReminderDate, task.ReminderDate),
                 new SQLiteParameter(Parameter.IsReminderOn, task.IsReminderOn)

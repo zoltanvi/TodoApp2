@@ -56,7 +56,8 @@ namespace TodoApp2.Core
         public bool IsQuickActionsCheckboxEnabled { get; set; } = true;
         public bool IsQuickActionsReminderEnabled { get; set; } = true;
         public bool IsQuickActionsColorEnabled { get; set; } = true;
-        public bool IsQuickActionsBorderColorEnabled { get; set; } = true;
+        public bool IsQuickActionsBackgroundColorEnabled { get; set; } = true;
+        public bool IsQuickActionsBorderColorEnabled { get; set; } = false;
         public bool IsQuickActionsPinEnabled { get; set; } = true;
         public bool IsQuickActionsTrashEnabled { get; set; } = true;
         public double TaskFontSizeDouble { get; set; } = 16;
@@ -113,6 +114,7 @@ namespace TodoApp2.Core
                 { nameof(IsQuickActionsCheckboxEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsReminderEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsColorEnabled), PropertyValueHandlers.Bool },
+                { nameof(IsQuickActionsBackgroundColorEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsBorderColorEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsPinEnabled), PropertyValueHandlers.Bool },
                 { nameof(IsQuickActionsTrashEnabled), PropertyValueHandlers.Bool },

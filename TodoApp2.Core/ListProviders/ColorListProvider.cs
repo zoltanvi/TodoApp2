@@ -11,6 +11,15 @@ namespace TodoApp2.Core
         {
             Items = new List<string>
             {
+                GlobalConstants.ColorName.Transparent,
+                "#FFFFFF",
+                "#F5F5F5",
+                "#E0E0E0",
+                "#BDBDBD",
+                "#757575",
+                "#424242",
+                "#212121",
+                "#000000",
 
                 //"#FFEBEE",
                 "#FFCDD2",
@@ -198,17 +207,6 @@ namespace TodoApp2.Core
                 "#5D4037",
                 "#4E342E",
                 "#3E2723",
-
-                //"#FAFAFA",
-                "#F5F5F5",
-                "#EEEEEE",
-                "#E0E0E0",
-                "#BDBDBD",
-                "#9E9E9E",
-                "#757575",
-                "#616161",
-                "#424242",
-                "#212121",
 
                 //"#ECEFF1",
                 "#CFD8DC",

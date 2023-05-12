@@ -39,6 +39,7 @@ namespace TodoApp2.Core
         public long ModificationDate { get; set; }
         public string Color { get; set; }
         public string BorderColor { get; set; }
+        public string BackgroundColor { get; set; }
         public bool Trashed { get; set; }
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }
@@ -46,8 +47,10 @@ namespace TodoApp2.Core
         public RichTextEditorViewModel TextEditorViewModel { get; }
         public ICommand SetColorCommand { get; }
         public ICommand SetBorderColorCommand { get; }
+        public ICommand SetBackgroundColorCommand { get; }
         public ICommand SetColorParameterizedCommand { get; }
         public ICommand SetBorderColorParameterizedCommand { get; }
+        public ICommand SetBackgroundColorParameterizedCommand { get; }
         public ICommand OpenReminderCommand { get; }
         public ICommand EditItemCommand { get; }
 
@@ -56,8 +59,10 @@ namespace TodoApp2.Core
             bool focusLostSavesTask = IoC.ApplicationViewModel.ApplicationSettings.FocusLostSavesTask;
             SetColorCommand = new RelayCommand(SetColor);
             SetBorderColorCommand = new RelayCommand(SetColor);
+            SetBackgroundColorCommand = new RelayCommand(SetColor);
             SetColorParameterizedCommand = new RelayParameterizedCommand(SetColorParameterized);
             SetBorderColorParameterizedCommand = new RelayParameterizedCommand(SetBorderColorParameterized);
+            SetBackgroundColorParameterizedCommand = new RelayParameterizedCommand(SetBackgroundColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
             TextEditorViewModel = new RichTextEditorViewModel(true, focusLostSavesTask, false, false);
@@ -75,6 +80,7 @@ namespace TodoApp2.Core
             ModificationDate = task.ModificationDate;
             Color = task.Color;
             BorderColor = task.BorderColor;
+            BackgroundColor = task.BackgroundColor;
             Trashed = task.Trashed;
             ReminderDate = task.ReminderDate;
             IsReminderOn = task.IsReminderOn;
@@ -138,6 +144,15 @@ namespace TodoApp2.Core
             {
                 // Combobox will trigger the SetColor command so this value will be persisted!
                 BorderColor = colorString;
+            }
+        }
+
+        private void SetBackgroundColorParameterized(object obj)
+        {
+            if (obj is string colorString)
+            {
+                // Combobox will trigger the SetColor command so this value will be persisted!
+                BackgroundColor = colorString;
             }
         }
 

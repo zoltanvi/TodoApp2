@@ -88,6 +88,11 @@ namespace TodoApp2.Core
         public ICommand ResetBorderColorsCommand { get; }
 
         /// <summary>
+        /// Resets each task items background color in the current category
+        /// </summary>
+        public ICommand ResetBackgroundColorsCommand { get; }
+
+        /// <summary>
         /// Saves the task item. The IsDone is modified by the checkbox itself.
         /// </summary>
         public ICommand TaskIsDoneModifiedCommand { get; }
@@ -140,6 +145,7 @@ namespace TodoApp2.Core
             DeleteAllCommand = new RelayCommand(TrashAll);
             ResetColorsCommand = new RelayCommand(ResetColors);
             ResetBorderColorsCommand = new RelayCommand(ResetBorderColors);
+            ResetBackgroundColorsCommand = new RelayCommand(ResetBackgroundColors);
 
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
             ToggleTaskIsDoneCommand = new RelayParameterizedCommand(ToggleTaskIsDone);
@@ -343,6 +349,16 @@ namespace TodoApp2.Core
             foreach (TaskViewModel item in Items)
             {
                 item.BorderColor = GlobalConstants.ColorName.Transparent;
+            }
+
+            m_TaskListService.PersistTaskList();
+        }
+
+        private void ResetBackgroundColors()
+        {
+            foreach (TaskViewModel item in Items)
+            {
+                item.BackgroundColor = GlobalConstants.ColorName.Transparent;
             }
 
             m_TaskListService.PersistTaskList();

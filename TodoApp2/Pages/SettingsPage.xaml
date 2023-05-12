@@ -964,6 +964,29 @@
                                 </Grid>
                             </Border>
 
+                            <!--  Background color button  -->
+                            <Border Style="{StaticResource SettingsItemStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        Content="{DynamicResource SegoeIconPalette}"
+                                        Style="{DynamicResource SettingsIconLabelStyle}" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Style="{DynamicResource SettingsDescriptionStyle}"
+                                        Text="Background color picker" />
+                                    <ToggleButton
+                                        Grid.Column="2"
+                                        IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                        Style="{DynamicResource ToggleSideMenuStyle}" />
+                                </Grid>
+                            </Border>
+
                             <!--  BorderColor button  -->
                             <Border Style="{StaticResource SettingsItemStyle}">
                                 <Grid>

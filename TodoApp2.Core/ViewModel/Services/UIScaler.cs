@@ -43,7 +43,7 @@ namespace TodoApp2.Core
         private const double OriginalThemeItemWidth = 140;
         private const double OriginalThemeItemHeight = 108;
 
-        private const int ColorPickerColumns = 10;
+        private const int ColorPickerColumns = 9;
 
         private double m_ScalingPercent = OriginalScalingPercent;
 
