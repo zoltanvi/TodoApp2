@@ -192,6 +192,27 @@
     <Compile Include="Pages\NoteListPage.xaml.cs">
       <DependentUpon>NoteListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Settings\ThemeEditorSettingsPage.xaml.cs">
+      <DependentUpon>ThemeEditorSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\NotePageSettingsPage.xaml.cs">
+      <DependentUpon>NotePageSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TaskItemSettingsPage.xaml.cs">
+      <DependentUpon>TaskItemSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TaskPageSettingsPage.xaml.cs">
+      <DependentUpon>TaskPageSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TaskQuickActionsSettingsPage.xaml.cs">
+      <DependentUpon>TaskQuickActionsSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\ThemeSettingsPage.xaml.cs">
+      <DependentUpon>ThemeSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\WindowSettingsPage.xaml.cs">
+      <DependentUpon>WindowSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\AsyncActionService.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\GenericBasePage.cs" />
@@ -207,7 +228,7 @@
     <Compile Include="Pages\ReminderEditorPage.xaml.cs">
       <DependentUpon>ReminderEditorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SettingsPage.xaml.cs">
+    <Compile Include="Pages\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\CategoryPage.xaml.cs">
@@ -352,6 +373,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Settings\ThemeEditorSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\NotePageSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\TaskItemSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\TaskPageSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\TaskQuickActionsSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\ThemeSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\WindowSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\TaskReminderPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -360,7 +409,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\SettingsPage.xaml">
+    <Page Include="Pages\Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -128,6 +128,13 @@
     <Compile Include="ViewModel\Items\ThemeViewModel.cs" />
     <Compile Include="ViewModel\Pages\NoteListPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\ThemeEditorSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\NotePageSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\WindowSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\ThemeSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\TaskQuickActionsSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\TaskPageSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\TaskItemSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Services\IUIScaler.cs" />
     <Compile Include="ViewModel\Services\MessageService.cs" />
     <Compile Include="ViewModel\Services\IOverlayPageService.cs" />

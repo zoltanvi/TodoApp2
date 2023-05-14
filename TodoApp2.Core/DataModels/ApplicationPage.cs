@@ -51,5 +51,14 @@
         /// The note list page (side menu)
         /// </summary>
         NoteList,
+
+        // Sub-pages for the settings page
+        NotePageSettings,
+        TaskItemSettings,
+        TaskPageSettings,
+        TaskQuickActionsSettings,
+        ThemeSettings,
+        WindowSettings,
+        ThemeEditorSettings,
     }
 }

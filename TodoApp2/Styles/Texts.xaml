@@ -103,7 +103,7 @@
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
-    <Style x:Key="PageTitleTextBoxStyle" TargetType="TextBox">
+    <Style x:Key="PageTitleEditorTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{DynamicResource UIBoldFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
@@ -324,5 +324,16 @@
         TargetType="Label">
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
     </Style>
+
+    <Style x:Key="SettingsPageTitleStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Margin" Value="0 0 0 5" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
 
 </ResourceDictionary>

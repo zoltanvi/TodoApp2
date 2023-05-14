@@ -10,8 +10,9 @@ namespace TodoApp2
 
         public static IResourceUpdater Instance => m_Instance ?? (m_Instance = new ResourceUpdater());
 
-        private ResourceUpdater() { }
-
+        private ResourceUpdater()
+        {
+        }
 
         public void UpdateResource(string resourceName, object resourceValue)
         {
@@ -20,7 +21,8 @@ namespace TodoApp2
             // Workaround
             if (resourceName == "ForegroundBrush")
             {
-                Application.Current.Resources["Foreground"] = resourceValue;
+                const string foreground = "Foreground";
+                Application.Current.Resources[foreground] = resourceValue;
             }
 
             if (resourceName == "TaskBgBrush")
@@ -28,8 +30,11 @@ namespace TodoApp2
                 Color res = (Color)resourceValue;
                 var transparentColor = new Color() { A = 0, R = res.R, G = res.G, B = res.B };
 
-                Application.Current.Resources["TaskBg"] = resourceValue;
-                Application.Current.Resources["TaskTransparentBg"] = transparentColor;
+                const string taskBg = "TaskBg";
+                const string taskTransparentBg = "TaskTransparentBg";
+
+                Application.Current.Resources[taskBg] = resourceValue;
+                Application.Current.Resources[taskTransparentBg] = transparentColor;
             }
         }
 

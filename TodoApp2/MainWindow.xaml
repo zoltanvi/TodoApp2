@@ -35,6 +35,13 @@
                         <!--  Outer border with the drop shadow margin  -->
 
                         <Border Padding="{Binding IsMaximizedOrDocked, Converter={StaticResource boolToBorderThicknessConverter}}" Background="#01000000">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    ShadowDepth="0"
+                                    BlurRadius="12"
+                                    Color="Black"
+                                    Opacity="0.2" />
+                            </Border.Effect>
                             <Border.CornerRadius>
                                 <MultiBinding>
                                     <MultiBinding.Converter>
