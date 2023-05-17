@@ -21,6 +21,11 @@
         InfoBrushName="MessageInfoBgBrush"
         WarningBrushName="MessageWarningBgBrush"
         ErrorBrushName="MessageErrorBgBrush" />
+    <local:MessageTypeToBrushConverter
+        x:Key="messageTypeToBorderConverter"
+        InfoBrushName="MessageInfoBorderBrush"
+        WarningBrushName="MessageWarningBorderBrush"
+        ErrorBrushName="MessageErrorBorderBrush" />
 
     <local:DynamicSolidColorBrushConverter
         x:Key="toggleButtonDynamicBrushConverter"

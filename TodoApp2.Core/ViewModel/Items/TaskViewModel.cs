@@ -44,6 +44,7 @@ namespace TodoApp2.Core
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }
         public bool ColorPickerVisible { get; set; }
+        public bool IsQuickActionsEnabled { get; set; }
         public RichTextEditorViewModel TextEditorViewModel { get; }
         public ICommand SetColorCommand { get; }
         public ICommand SetBorderColorCommand { get; }
@@ -53,6 +54,8 @@ namespace TodoApp2.Core
         public ICommand SetBackgroundColorParameterizedCommand { get; }
         public ICommand OpenReminderCommand { get; }
         public ICommand EditItemCommand { get; }
+        public ICommand EnableQuickActionsCommand { get; }
+        public ICommand DisableQuickActionsCommand { get; }
 
         public TaskViewModel()
         {
@@ -67,6 +70,8 @@ namespace TodoApp2.Core
             EditItemCommand = new RelayCommand(EditItem);
             TextEditorViewModel = new RichTextEditorViewModel(true, focusLostSavesTask, false, false);
             TextEditorViewModel.EnterAction = UpdateContent;
+            EnableQuickActionsCommand = new RelayCommand(() => IsQuickActionsEnabled = true);
+            DisableQuickActionsCommand = new RelayCommand(() => IsQuickActionsEnabled = false);
         }
 
         public void CopyProperties(TaskViewModel task)

@@ -350,7 +350,6 @@
                     Background="Transparent"
                     IsEnabled="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
                     Opacity="0">
-
                     <Border.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
@@ -392,6 +391,16 @@
                         </EventTrigger>
                     </Border.Triggers>
 
+                    <Behaviors:Interaction.Triggers>
+                        <Behaviors:EventTrigger EventName="MouseEnter">
+                            <Behaviors:InvokeCommandAction Command="{Binding EnableQuickActionsCommand}" />
+                        </Behaviors:EventTrigger>
+
+                        <Behaviors:EventTrigger EventName="MouseLeave">
+                            <Behaviors:InvokeCommandAction Command="{Binding DisableQuickActionsCommand}" />
+                        </Behaviors:EventTrigger>
+                    </Behaviors:Interaction.Triggers>
+
                     <!--  HOVER PANEL  -->
                     <Border
                         Padding="20 0 10 0"
@@ -408,6 +417,7 @@
                                     Content="{DynamicResource SegoeIconCalendar}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
                                     ToolTip="Set Reminder"
+                                    IsEnabled="{Binding IsQuickActionsEnabled}"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
 
@@ -418,6 +428,7 @@
                                     Command="{Binding OpenReminderCommand}"
                                     Content="{DynamicResource SegoeIconDateTime}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
+                                    IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="{Binding ReminderDate, Converter={StaticResource longToFormattedLongDateConverter}}"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
@@ -432,6 +443,7 @@
                                 Margin="4 0 0 0"
                                 Style="{DynamicResource TaskItemColorPickerStyle}"
                                 Background="{DynamicResource TaskBgBrush}"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Marker color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
@@ -452,6 +464,7 @@
                                 Margin="4 0 0 0"
                                 Style="{DynamicResource TaskItemColorPickerStyle}"
                                 Background="{DynamicResource TaskBgBrush}"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Background color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
@@ -473,6 +486,7 @@
                                 Margin="4 0 0 0"
                                 Style="{DynamicResource TaskItemColorPickerStyle}"
                                 Background="{DynamicResource TaskBgBrush}"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Border color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
@@ -493,6 +507,7 @@
                                     Content="{DynamicResource SegoeIconPin}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
                                     Margin="4 0 0 0"
+                                    IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="Pin task"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
@@ -505,6 +520,7 @@
                                     Content="{DynamicResource SegoeIconUnpin}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
                                     Margin="4 0 0 0"
+                                    IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="Unpin task"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
@@ -518,6 +534,7 @@
                                 Cursor="Hand"
                                 Style="{DynamicResource ButtonQuickActionRedStyle}"
                                 Margin="4 0 0 0"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Trash task"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 

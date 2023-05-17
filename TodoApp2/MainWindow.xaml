@@ -321,6 +321,7 @@
 
         <Grid>
             <!--  Message line  -->
+
             <Grid
                 Grid.ColumnSpan="3"
                 VerticalAlignment="Top"
@@ -337,10 +338,18 @@
                     MaxHeight="100"
                     CornerRadius="4"
                     SnapsToDevicePixels="True"
-                    BorderThickness="0"
-                    BorderBrush="{DynamicResource Elevation_5}"
+                    BorderThickness="{Binding UIScaler.ScaleValue}"
+                    BorderBrush="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBorderConverter}}"
                     Background="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBackgroundConverter}}">
-                    <Grid Margin="10">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            ShadowDepth="0"
+                            BlurRadius="12"
+                            Color="Black"
+                            Opacity="0.5" />
+                    </Border.Effect>
+
+                    <Grid Margin="10 4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />

@@ -232,12 +232,12 @@ namespace TodoApp2
 
         private void ZoomOut()
         {
-            ViewModelLocator.UIScaler.ZoomOut();
+            IoC.UIScaler.ZoomOut();
         }
 
         private void ZoomIn()
         {
-            ViewModelLocator.UIScaler.ZoomIn();
+            IoC.UIScaler.ZoomIn();
         }
 
         private void CloseWindow()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace TodoApp2.Core
@@ -76,14 +77,17 @@ namespace TodoApp2.Core
             m_Timer.Start();
         }
 
-        private void TimerOnTick(object sender, EventArgs e)
+        private async void TimerOnTick(object sender, EventArgs e)
         {
             MessageLineVisible = false;
             UndoButtonVisible = false;
-            MessageType = MessageType.Invalid;
 
             m_Timer.Stop();
             m_Timer.Interval = m_MaxInterval;
+
+            //await Task.Delay(600);
+
+            MessageType = MessageType.Invalid;
         }
     }
 }

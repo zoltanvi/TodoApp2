@@ -461,7 +461,6 @@
                                         IsItemsHost="True"
                                         KeyboardNavigation.DirectionalNavigation="Contained"
                                         Orientation="Horizontal" />
-
                                 </Grid>
                             </Popup>
                         </Grid>

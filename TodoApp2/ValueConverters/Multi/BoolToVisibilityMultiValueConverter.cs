@@ -13,7 +13,14 @@ namespace TodoApp2
                 return Visibility.Collapsed;
             }
 
-            return ((bool)values[0]) && ((bool)values[1]) ? Visibility.Visible : Visibility.Collapsed;
+            if (values[0] is bool firstBool && values[1] is bool secondBool)
+            {
+                return (firstBool) && (secondBool) ? Visibility.Visible : Visibility.Collapsed;
+            }
+            else
+            {
+                throw new ArgumentException($"FirstValue: {values[0]?.GetType()}, SecondValue: {values[1]?.GetType()}.");
+            }
         }
     }
 

@@ -17,9 +17,9 @@
     <Color x:Key="LineNumber">#5b9cf6</Color>
     <Color x:Key="TaskDate">#FFFFFF</Color>
     <Color x:Key="CalendarDisabledDays">#4E4E4E</Color>
-    <Color x:Key="MessageInfo">#000000</Color>
-    <Color x:Key="MessageWarning">#000000</Color>
-    <Color x:Key="MessageError">#000000</Color>
+    <Color x:Key="MessageInfo">#5D9CF6</Color>
+    <Color x:Key="MessageWarning">#d89614</Color>
+    <Color x:Key="MessageError">#dc4446</Color>
     <Color x:Key="SelectedCategory">#FFFFFF</Color>
 
     <Color x:Key="PageBg">#181c27</Color>
@@ -38,9 +38,9 @@
     <Color x:Key="CalendarButtonBg">#2a2e39</Color>
     <Color x:Key="ContextMenuBg">#1e222d</Color>
     <Color x:Key="NoteLineAdornerBg">#2B303F</Color>
-    <Color x:Key="MessageInfoBg">#cce3ff</Color>
-    <Color x:Key="MessageWarningBg">#ffe8c3</Color>
-    <Color x:Key="MessageErrorBg">#ffd0cb</Color>
+    <Color x:Key="MessageInfoBg">#112545</Color>
+    <Color x:Key="MessageWarningBg">#2b2111</Color>
+    <Color x:Key="MessageErrorBg">#2c1618</Color>
 
     <Color x:Key="HoverCategoryBg">#2B303C</Color>
     <Color x:Key="HoverCloseButtonBg">#EF5350</Color>
@@ -56,6 +56,9 @@
     <Color x:Key="CheckBoxBorder">#7e7e7e</Color>
     <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
 
+    <Color x:Key="MessageInfoBorder">#1677ff</Color>
+    <Color x:Key="MessageWarningBorder">#594214</Color>
+    <Color x:Key="MessageErrorBorder">#5b2526</Color>
     <!--  ===================  -->
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
@@ -122,7 +125,10 @@
     <SolidColorBrush x:Key="TaskBorderBrush" Color="{DynamicResource TaskBorder}" />
     <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{DynamicResource CheckBoxBorder}" />
     <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="{DynamicResource ToggleButtonBorder}" />
-
+    <SolidColorBrush x:Key="MessageInfoBorderBrush" Color="{DynamicResource MessageInfoBorder}" />
+    <SolidColorBrush x:Key="MessageWarningBorderBrush" Color="{DynamicResource MessageWarningBorder}" />
+    <SolidColorBrush x:Key="MessageErrorBorderBrush" Color="{DynamicResource MessageErrorBorder}" />
+    
     <!--  ELEVATION  -->
     <SolidColorBrush x:Key="Elevation_1" Opacity="0.05" Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="Elevation_2" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
