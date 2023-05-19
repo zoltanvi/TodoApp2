@@ -272,6 +272,8 @@
                 Content="{Binding}"
                 DataContext="{Binding ApplicationViewModel.MainPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
 
+            <!--  RESIZER HANDLE  -->
+
             <GridSplitter
                 x:Name="Resizer"
                 Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"

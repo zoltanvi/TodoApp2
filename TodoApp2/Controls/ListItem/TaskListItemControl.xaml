@@ -163,7 +163,7 @@
             Margin="4 2"
             BorderBrush="{Binding BorderColor, Converter={StaticResource taskBorderBrushConverter}}"
             BorderThickness="1"
-            CornerRadius="2"
+            CornerRadius="3"
             Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
 
@@ -172,7 +172,7 @@
             Margin="4 2"
             BorderBrush="Transparent"
             BorderThickness="1"
-            CornerRadius="2">
+            CornerRadius="3">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
@@ -206,7 +206,7 @@
                     Grid.ColumnSpan="3"
                     BorderBrush="Transparent"
                     BorderThickness="0"
-                    CornerRadius="2"
+                    CornerRadius="3"
                     Background="{Binding BackgroundColor, Converter={StaticResource stringRGBToBrushConverter}}"
                     Opacity="0.3" />
 

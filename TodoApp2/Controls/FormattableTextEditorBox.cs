@@ -108,8 +108,11 @@ namespace TodoApp2
 
         private void FormattableTextEditorBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // Check if enter has been pressed without shift modifiers
-            if (e.Key == Key.Enter && !Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            bool enter = e.Key == Key.Enter;
+            bool escape = e.Key == Key.Escape;
+            bool shiftPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Shift);
+
+            if (escape || (enter && !shiftPressed))
             {
                 UpdateContent();
 
@@ -255,7 +258,7 @@ namespace TodoApp2
             if (IsReadOnly) return;
 
             // TODO: Implement Shift + TAB
-
+            
             switch (e.Key)
             {
                 // Delete text formatting on Ctrl + H
