@@ -57,27 +57,40 @@ namespace TodoApp2.Core
         public bool IsQuickActionsReminderEnabled { get; set; } = true;
         public bool IsQuickActionsColorEnabled { get; set; } = true;
         public bool IsQuickActionsBackgroundColorEnabled { get; set; } = true;
-        public bool IsQuickActionsBorderColorEnabled { get; set; } = false;
+        public bool IsQuickActionsBorderColorEnabled { get; set; }
         public bool IsQuickActionsPinEnabled { get; set; } = true;
         public bool IsQuickActionsTrashEnabled { get; set; } = true;
         public double TaskFontSizeDouble { get; set; } = 16;
-        public bool IsTitleBarDateVisible { get; set; } = false;
+        public bool IsTitleBarDateVisible { get; set; }
         public bool NotePageWordWrap { get; set; }
         public TaskSpacing TaskSpacing { get; set; }
         public bool InsertOrderReversed { get; set; }
         public bool MoveTaskOnCompletion { get; set; } = true;
         public bool IsColorBarRounded { get; set; } = true;
         public bool IsTrayIconEnabled { get; set; }
-        public bool FocusLostSavesTask { get; set; } = false;
+        public bool FocusLostSavesTask { get; set; }
         public bool PlaySoundOnTaskIsDoneChange { get; set; } = true;
         public bool RunAtStartup { get; set; }
         public bool TaskListHasMargin { get; set; }
-        public bool TaskItemDropShadow { get; set; } = false;
+        public bool TaskItemDropShadow { get; set; }
         public ApplicationPage MainPage { get; set; }
         public ApplicationPage SideMenuPage { get; set; }
         public double SideMenuWidth { get; set; } // 0 = closed by default
-        public bool IsSideMenuOpen { get; set; } = false;
+        public bool IsSideMenuOpen { get; set; }
         public bool CloseSideMenuOnCategoryChange { get; set; } = true;
+
+        public bool TextEditorQABold { get; set; } = true;
+        public bool TextEditorQAItalic { get; set; } = true;
+        public bool TextEditorQAUnderlined { get; set; } = true;
+        public bool TextEditorQASmall { get; set; }
+        public bool TextEditorQAMedium { get; set; }
+        public bool TextEditorQALarge { get; set; }
+        public bool TextEditorQAIncrease { get; set; } = true;
+        public bool TextEditorQADecrease { get; set; } = true;
+        public bool TextEditorQAMonospace { get; set; } = true;
+        public bool TextEditorQAReset { get; set; } = true;
+        public bool TextEditorQATextColor { get; set; } = true;
+
 
         #region Testing
 
@@ -149,6 +162,17 @@ namespace TodoApp2.Core
                 { nameof(IsSideMenuOpen), PropertyValueHandlers.Bool },
                 { nameof(TaskItemDropShadow), PropertyValueHandlers.Bool },
                 { nameof(CloseSideMenuOnCategoryChange), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQABold), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQAItalic), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQAUnderlined), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQASmall), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQAMedium), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQALarge), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQAIncrease), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQADecrease), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQAMonospace), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQAReset), PropertyValueHandlers.Bool },
+                { nameof(TextEditorQATextColor), PropertyValueHandlers.Bool },
             };
 
             m_UiScaler.Zoomed += OnZoomed;

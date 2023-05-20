@@ -49,6 +49,8 @@
                             IsChecked="{Binding IsSelectionBold, ElementName=PART_TextEditor}"
                             Style="{DynamicResource TextEditorToggleButtonStyle}"
                             Margin="0 0 0 4"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQABold, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Bold (Ctrl + B)" />
                         <ToggleButton
                             Margin="4 0 0 4"
@@ -56,6 +58,8 @@
                             Content="{DynamicResource SegoeIconItalic}"
                             IsChecked="{Binding IsSelectionItalic, ElementName=PART_TextEditor}"
                             Style="{DynamicResource TextEditorToggleButtonStyle}"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQAItalic, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Italic (Ctrl + I)" />
                         <ToggleButton
                             Margin="4 0 0 4"
@@ -63,6 +67,8 @@
                             Content="{DynamicResource SegoeIconUnderlined}"
                             IsChecked="{Binding IsSelectionUnderlined, ElementName=PART_TextEditor}"
                             Style="{DynamicResource TextEditorToggleButtonStyle}"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQAUnderlined, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Underline (Ctrl + U)" />
 
                         <Button
@@ -71,12 +77,16 @@
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             FontSize="{Binding UIScaler.FontSize.Smaller}"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQASmall, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Small font" />
                         <Button
                             Margin="4 0 0 4"
                             Command="{Binding SetMediumFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQAMedium, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Medium font" />
                         <Button
                             Margin="4 0 0 4"
@@ -84,6 +94,8 @@
                             Content="{DynamicResource SegoeIconFontSize}"
                             Style="{DynamicResource TextEditorButtonStyle}"
                             FontSize="{Binding UIScaler.FontSize.Larger}"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQALarge, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Large font" />
 
                         <Button
@@ -91,22 +103,25 @@
                             Command="{Binding IncreaseFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSizeIncrease}"
                             Style="{DynamicResource TextEditorButtonStyle}"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQAIncrease, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Increase size (Ctrl + [OemCloseBrackets])" />
                         <Button
                             Margin="4 0 0 4"
                             Command="{Binding DecreaseFontSizeCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconFontSizeDecrease}"
                             Style="{DynamicResource TextEditorButtonStyle}"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQADecrease, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Decrease size (Ctrl + [OemOpenBrackets])" />
 
                         <Button
                             Margin="4 0 0 4"
                             Command="{Binding MonospaceCommand, ElementName=PART_TextEditor}"
-                            Content="M"
+                            Content="{DynamicResource SegoeIconMonospace}"
                             Style="{DynamicResource TextEditorButtonStyle}"
-                            FontFamily="{DynamicResource UIFont}"
-                            FontWeight="Bold"
-                            Padding="5 5 5 0"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQAMonospace, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Monospace font" />
 
                         <Button
@@ -114,6 +129,8 @@
                             Command="{Binding ResetFormattingCommand, ElementName=PART_TextEditor}"
                             Content="{DynamicResource SegoeIconDeleteFormatting}"
                             Style="{DynamicResource TextEditorButtonStyle}"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQAReset, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Reset all formatting (Ctrl + H)" />
 
                         <local:ColorPickerComboBox
@@ -125,6 +142,8 @@
                             ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                             Style="{DynamicResource RichTextEditorColorPickerButtonStyle}"
                             Background="Transparent"
+                            IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
+                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.TextEditorQATextColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             ToolTip="Change color (Ctrl + G)" />
 
                     </WrapPanel>
