@@ -14,9 +14,10 @@ namespace TodoApp2.Core
         public ICommand OpenTaskPageSettingsCommand { get; }
         public ICommand OpenTaskItemSettingsCommand { get; }
         public ICommand OpenQuickActionSettingsCommand { get; }
+        public ICommand OpenTextEditorQuickActionSettingsCommand { get; }
         public ICommand OpenNoteSettingsCommand { get; }
         public ICommand OpenThemeEditorSettingsCommand { get; }
-
+        
         public SettingsPageViewModel()
         {
         }
@@ -31,6 +32,7 @@ namespace TodoApp2.Core
             OpenTaskPageSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskPageSettings);
             OpenTaskItemSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskItemSettings);
             OpenQuickActionSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskQuickActionsSettings);
+            OpenTextEditorQuickActionSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TextEditorQuickActionsSettings);
             OpenNoteSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.NotePageSettings);
             OpenThemeEditorSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.ThemeEditorSettings);
         }

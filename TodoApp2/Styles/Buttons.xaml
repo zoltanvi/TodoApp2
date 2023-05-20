@@ -123,9 +123,10 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
         <Setter Property="Margin" Value="0 0" />
-        <Setter Property="Background" Value="{DynamicResource Elevation_2}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="Opacity" Value="0.6" />
+        <Setter Property="Cursor" Value="Hand" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -148,10 +149,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_5}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_5}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -216,6 +217,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="Cursor" Value="Hand" />
     </Style>
 
 
@@ -614,12 +616,13 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Margin" Value="0 0" />
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
 
         <Setter Property="Opacity" Value="0.6" />
         <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Background" Value="{DynamicResource Elevation_2}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -645,13 +648,13 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_5}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_5}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_5}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

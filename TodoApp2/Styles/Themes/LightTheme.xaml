@@ -156,10 +156,10 @@
     </VisualBrush>
 
     <LinearGradientBrush x:Key="TransparentPatternBrush" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#888888" Offset="0"/>
-        <GradientStop Color="#888888" Offset="0.5"/>
-        <GradientStop Color="#FFFFFFFF" Offset="0.5"/>
-        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+        <GradientStop Color="#888888" Offset="0" />
+        <GradientStop Color="#888888" Offset="0.5" />
+        <GradientStop Color="#FFFFFFFF" Offset="0.5" />
+        <GradientStop Color="#FFFFFFFF" Offset="1" />
     </LinearGradientBrush>
 
 </ResourceDictionary>

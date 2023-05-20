@@ -103,123 +103,36 @@
                 </Border>
 
                 <!--  Item border  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconBorderVisible}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Task border visible" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconBorderVisible}"
+                    Description="Task border visible"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Item background  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconBackgroundVisible}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Task background visible" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconBackgroundVisible}"
+                    Description="Task background visible"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Drop shadow  -->
-                <Border Style="{StaticResource SettingsItemStyle}" Visibility="Collapsed">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconRestoreWindow}"
-                            Style="{DynamicResource SettingsIconLabelStyle}">
-                            <Label.LayoutTransform>
-                                <RotateTransform Angle="90" CenterX="0" CenterY="0" />
-                            </Label.LayoutTransform>
-                        </Label>
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Task drop shadow" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskItemDropShadow, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconRestoreWindow}"
+                    Description="Task drop shadow"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskItemDropShadow, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                    Visibility="Collapsed" />
 
                 <!--  Creation date  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconCalendar}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Creation date visible" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCalendar}"
+                    Description="Creation date visible"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Modification date  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconCalendar}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Modification date visible" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCalendar}"
+                    Description="Modification date visible"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
 
                 <!--  Color bar rounded  -->
                 <Border

@@ -165,6 +165,9 @@
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\ToggleButtonSettingControl.xaml.cs">
+      <DependentUpon>ToggleButtonSettingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
@@ -191,6 +194,9 @@
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Pages\NoteListPage.xaml.cs">
       <DependentUpon>NoteListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml.cs">
+      <DependentUpon>TextEditorQuickActionsSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\ThemeEditorSettingsPage.xaml.cs">
       <DependentUpon>ThemeEditorSettingsPage.xaml</DependentUpon>
@@ -333,6 +339,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Settings\ToggleButtonSettingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SideMenuControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -370,6 +380,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\NotificationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -85,6 +85,10 @@
                                 Command="{Binding OpenQuickActionSettingsCommand}"
                                 Content="QuickAction"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
+                            <!--<Button
+                                Command="{Binding OpenTextEditorQuickActionSettingsCommand}"
+                                Content="TextEditor"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />-->
                             <Button
                                 Command="{Binding OpenNoteSettingsCommand}"
                                 Content="Note"

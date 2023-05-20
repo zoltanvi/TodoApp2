@@ -146,6 +146,15 @@ namespace TodoApp2
 
                         break;
                     }
+                    case ApplicationPage.TextEditorQuickActionsSettings:
+                    {
+                        TextEditorQuickActionsSettingsPageViewModel textEditorQuickActionsSettingsPageViewModel = new TextEditorQuickActionsSettingsPageViewModel();
+
+                        viewModel = textEditorQuickActionsSettingsPageViewModel;
+                        page = new TextEditorQuickActionsSettingsPage(textEditorQuickActionsSettingsPageViewModel);
+
+                        break;
+                    }
                     case ApplicationPage.ThemeSettings:
                     {
                         ThemeSettingsPageViewModel themeSettingsPageViewModel = new ThemeSettingsPageViewModel(_AppViewModel);

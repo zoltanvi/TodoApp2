@@ -57,6 +57,7 @@
         TaskItemSettings,
         TaskPageSettings,
         TaskQuickActionsSettings,
+        TextEditorQuickActionsSettings,
         ThemeSettings,
         WindowSettings,
         ThemeEditorSettings,

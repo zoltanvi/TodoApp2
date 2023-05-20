@@ -32,142 +32,41 @@
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
                 <!--  Category title visible  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconTitle}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Category title visible" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconTitle}"
+                    Description="Category title visible"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Insert new task to the end  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconTaskOrder}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Insert new task to the end" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.InsertOrderReversed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconTaskOrder}"
+                    Description="Insert new task to the end"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.InsertOrderReversed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Move completed task to the end  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid ToolTip="The task list is reordered if this is turned on!">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconCheckList}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Move completed task to the end" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCheckList}"
+                    Description="Move completed task to the end"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Exit edit mode on focus lost  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid ToolTip="Needs page refresh to take effect.">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconEditMode}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Exit edit mode on focus lost" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.FocusLostSavesTask, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconEditMode}"
+                    Description="Exit edit mode on focus lost"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.FocusLostSavesTask, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Play sound for completed tasks  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid ToolTip="Needs page refresh to take effect.">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconBell}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Play sound for completed tasks" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconBell}"
+                    Description="Play sound for completed tasks"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Margin for task list  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconMargin}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Margin for task list" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconMargin}"
+                    Description="Margin for task list"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
 
             </StackPanel>
 

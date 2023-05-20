@@ -33,165 +33,46 @@
 
 
                 <!--  Task Checkbox  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconCheckbox}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Checkbox" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsCheckboxEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCheckbox}"
+                    Description="Checkbox"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsCheckboxEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Reminder button  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconDateTime}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Reminder button" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconDateTime}"
+                    Description="Reminder button"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Marker color button  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconPalette}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Marker color picker" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconPalette}"
+                    Description="Marker color picker"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Background color button  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconPalette}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Background color picker" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconPalette}"
+                    Description="Background color picker"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  BorderColor button  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconPalette}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Border color picker" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconPalette}"
+                    Description="Border color picker"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Pin button  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconPin}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Pin button" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconPin}"
+                    Description="Pin button"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Delete button  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconTrash}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Delete button" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconTrash}"
+                    Description="Delete button"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
             </StackPanel>
 

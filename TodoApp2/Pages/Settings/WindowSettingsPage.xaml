@@ -30,155 +30,43 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
-                <!--  Always on top  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
 
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconAlwaysOnTop}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Always on top" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <!--  Always on top  -->
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconAlwaysOnTop}"
+                    Description="Always on top"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Auto start app with Windows  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconRepeat}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Auto start app with Windows" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RunAtStartup, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconRepeat}"
+                    Description="Auto start app with Windows"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RunAtStartup, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Rounded window corners  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconRoundedCorners}"
+                    Description="Rounded window corners"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RoundedWindowCorners, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconRoundedCorners}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Rounded window corners" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RoundedWindowCorners, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
-
-                <!--  Title bar date  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconCalendar}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Window title bar date visible" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <!--  Window title bar date visible  -->
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCalendar}"
+                    Description="Window title bar date visible"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Exit button minimizes to tray  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconMinimizeToTray}"
-                            Style="{DynamicResource SettingsIconLabelStyle}">
-                            <Label.LayoutTransform>
-                                <RotateTransform Angle="180" CenterX="0" CenterY="0" />
-                            </Label.LayoutTransform>
-                        </Label>
-
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Exit button minimizes to tray" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTrayIconEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconMinimizeToTray}"
+                    Description="Exit button minimizes to tray"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTrayIconEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Close side menu on category change  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconMinimizeToTray}"
-                            Style="{DynamicResource SettingsIconLabelStyle}">
-                            <Label.LayoutTransform>
-                                <RotateTransform Angle="-90" CenterX="0" CenterY="0" />
-                            </Label.LayoutTransform>
-                        </Label>
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconMinimizeToTray}"
+                    Description="Close side menu on category change"
+                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Close side menu on category change" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
 
                 <!--  Accent color  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
