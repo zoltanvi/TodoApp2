@@ -20,6 +20,11 @@ namespace TodoApp2
                 return PositiveValue;
             }
 
+            if (value is string stringValue && stringValue.ToLower() == bool.TrueString.ToLower())
+            {
+                return PositiveValue;
+            }
+
             return NegativeValue;
         }
     }

@@ -1,0 +1,139 @@
+﻿<local:BasePage
+    x:Class="TodoApp2.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=core:SettingsPageViewModel}"
+    Title="SettingsPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="core:SettingsPageViewModel"
+    mc:Ignorable="d">
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--  Settings title  -->
+            <Grid Grid.Row="0" Margin="15 10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Style="{DynamicResource PageTitleTextBlockStyle}"
+                    Text="Settings" />
+
+                <!--  BACK button  -->
+                <Button
+                    Grid.Column="1"
+                    AutomationProperties.AutomationId="SettingsButton"
+                    Command="{Binding GoBackCommand}"
+                    Content="{DynamicResource SegoeIconArrowLeft}"
+                    Style="{DynamicResource ButtonIconHoverRectangleStyle}"
+                    ToolTip="Close settings" />
+            </Grid>
+
+            <!--  MAIN PAGE CONTENT  -->
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border
+                    Grid.Column="0"
+                    Background="{DynamicResource Elevation_1}"
+                    CornerRadius="4"
+                    Margin="5 0 0 5">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Row="0">
+                            <Button
+                                Command="{Binding OpenWindowSettingsCommand}"
+                                Content="Window"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />
+                            <Button
+                                Command="{Binding OpenThemeSettingsCommand}"
+                                Content="Theme"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />
+                            <Button
+                                Command="{Binding OpenTaskPageSettingsCommand}"
+                                Content="TaskPage"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />
+                            <Button
+                                Command="{Binding OpenTaskItemSettingsCommand}"
+                                Content="TaskItem"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />
+                            <Button
+                                Command="{Binding OpenQuickActionSettingsCommand}"
+                                Content="QuickAction"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />
+                            <Button
+                                Command="{Binding OpenTextEditorQuickActionSettingsCommand}"
+                                Content="TextEditor"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />
+                            <Button
+                                Command="{Binding OpenNoteSettingsCommand}"
+                                Content="Note"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />
+
+                            <Button
+                                Command="{Binding OpenThemeEditorSettingsCommand}"
+                                Content="Theme editor"
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Foreground="{DynamicResource HoverCloseButtonBgBrush}"
+                                IsEnabled="{StaticResource ThemeEditor}"
+                                Visibility="{Binding Source={StaticResource ThemeEditor}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+                        </StackPanel>
+
+
+                        <!--  VERSION  -->
+                        <Border Grid.Row="1" Margin="3 0">
+                            <Border Style="{StaticResource SettingsItemStyle}" CornerRadius="5">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="{Binding UIScaler.FontSize.Medium}"
+                                    Foreground="{DynamicResource ForegroundBrush}"
+                                    Text="{DynamicResource CurrentVersion}" />
+                            </Border>
+                        </Border>
+
+                    </Grid>
+
+
+                </Border>
+
+                <Border
+                    Grid.Column="1"
+                    Padding="5"
+                    BorderThickness="1">
+                    <Frame
+                        local:NoFrameHistory.Value="True"
+                        Content="{Binding}"
+                        DataContext="{Binding ActiveSettingsPage, Converter={StaticResource applicationPageValueConverter}}" />
+                </Border>
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</local:BasePage>

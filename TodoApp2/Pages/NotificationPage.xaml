@@ -1,4 +1,5 @@
-﻿<local:BasePage
+﻿
+<local:BasePage
     x:Class="TodoApp2.NotificationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,13 +19,38 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!--
+            WPF BUG workaround: drop shadow effect makes the content blurry
+            so the shadow needs to be in a separate border
+        -->
         <Border
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="White"
+            BorderThickness="2"
+            Margin="20"
+            CornerRadius="6"
+            Width="{Binding ElementName=contentBorder, Path=ActualWidth}"
+            Height="{Binding ElementName=contentBorder, Path=ActualHeight}">
+            <Border.Effect>
+                <DropShadowEffect
+                    ShadowDepth="0"
+                    BlurRadius="100"
+                    Color="Black"
+                    Opacity="0.3" />
+            </Border.Effect>
+        </Border>
+
+        <Border
+            x:Name="contentBorder"
             Margin="20"
             Grid.Row="1"
             Background="{DynamicResource PopUpBgBrush}"
             BorderBrush="{DynamicResource AppBorderBrush}"
             BorderThickness="1"
-            CornerRadius="5">
+            CornerRadius="6">
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -35,7 +61,7 @@
                 <!--  Titlebar  -->
                 <Border
                     Grid.Row="0"
-                    BorderBrush="{DynamicResource CommonBorderBrush}"
+                    BorderBrush="{DynamicResource PopUpBorderBrush}"
                     BorderThickness="0 0 0 1">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -50,6 +76,7 @@
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             Content="Reminder"
+                            HorizontalAlignment="Center"
                             Style="{DynamicResource NotificationTitleStyle}" />
 
                         <!--  X button  -->
@@ -102,6 +129,7 @@
                     Margin="16 10 0 16"
                     Padding="10"
                     VerticalAlignment="Bottom"
+                    IsReadOnly="True"
                     MaxHeight="{Binding UIScaler.TextBoxMaxHeight}" />
             </Grid>
         </Border>

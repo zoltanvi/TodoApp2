@@ -35,6 +35,13 @@
                         <!--  Outer border with the drop shadow margin  -->
 
                         <Border Padding="{Binding IsMaximizedOrDocked, Converter={StaticResource boolToBorderThicknessConverter}}" Background="#01000000">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    ShadowDepth="0"
+                                    BlurRadius="12"
+                                    Color="Black"
+                                    Opacity="0.2" />
+                            </Border.Effect>
                             <Border.CornerRadius>
                                 <MultiBinding>
                                     <MultiBinding.Converter>
@@ -155,12 +162,22 @@
                                                     <!--  Title bar date  -->
                                                     <Grid Grid.Column="1" Grid.ColumnSpan="2">
 
-                                                        <Label
-                                                            Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                                            Content="{Binding CurrentTime}"
-                                                            Foreground="{DynamicResource TitleBarBrush}"
-                                                            VerticalAlignment="Center"
-                                                            HorizontalAlignment="Center" />
+                                                        <Viewbox>
+                                                            <Border
+                                                                Background="{DynamicResource SettingsItemBgBrush}"
+                                                                CornerRadius="3"
+                                                                Margin="0 2"
+                                                                Padding="5 0">
+                                                                <Label
+                                                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                                                                    Content="{Binding CurrentTime}"
+                                                                    Margin="0"
+                                                                    Padding="0"
+                                                                    Foreground="{DynamicResource TitleBarBrush}"
+                                                                    VerticalAlignment="Center"
+                                                                    HorizontalAlignment="Center" />
+                                                            </Border>
+                                                        </Viewbox>
                                                     </Grid>
 
                                                     <!--  Window buttons  -->
@@ -215,10 +232,20 @@
     </WindowChrome.WindowChrome>
 
     <Grid>
+        <Grid x:Name="LayoutReferenceGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border
+                x:Name="ReferenceBorder"
+                Background="#00000000"
+                Grid.Column="0" />
+        </Grid>
         <Grid x:Name="Grid">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition MaxWidth="{Binding ElementName=ReferenceBorder, Path=ActualWidth}" />
                 <ColumnDefinition Width="6" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -241,9 +268,11 @@
                 Grid.Column="2"
                 Margin="-6 0 0 0"
                 local:NoFrameHistory.Value="True"
-                AutomationProperties.AutomationId="CurrentPage"
+                AutomationProperties.AutomationId="MainPageFrame"
                 Content="{Binding}"
-                DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+                DataContext="{Binding ApplicationViewModel.MainPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+
+            <!--  RESIZER HANDLE  -->
 
             <GridSplitter
                 x:Name="Resizer"
@@ -264,8 +293,8 @@
                                         <Storyboard>
                                             <DoubleAnimation
                                                 Storyboard.TargetProperty="Opacity"
-                                                To="0.7"
-                                                Duration="0:0:0.3" />
+                                                To="0.6"
+                                                Duration="0:0:0.15" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
@@ -288,12 +317,13 @@
             </GridSplitter>
 
             <!--  Overlay background  -->
-            <local:OverlayBackgroundControl Grid.Column="2" AutomationProperties.AutomationId="OverlayBackgroundControl" />
+            <local:OverlayBackgroundControl Grid.ColumnSpan="3" AutomationProperties.AutomationId="OverlayBackgroundControl" />
 
         </Grid>
 
         <Grid>
             <!--  Message line  -->
+
             <Grid
                 Grid.ColumnSpan="3"
                 VerticalAlignment="Top"
@@ -310,8 +340,18 @@
                     MaxHeight="100"
                     CornerRadius="4"
                     SnapsToDevicePixels="True"
+                    BorderThickness="{Binding UIScaler.ScaleValue}"
+                    BorderBrush="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBorderConverter}}"
                     Background="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBackgroundConverter}}">
-                    <Grid Margin="10">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            ShadowDepth="0"
+                            BlurRadius="12"
+                            Color="Black"
+                            Opacity="0.5" />
+                    </Border.Effect>
+
+                    <Grid Margin="10 4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />

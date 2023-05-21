@@ -82,6 +82,7 @@ namespace TodoApp2
 
             CommandManager.AddPreviewExecutedHandler(this, OnExecuted);
             SelectionChanged += OnSelectionChanged;
+            PreviewKeyDown += OnPrevKeyDown;
             PreviewKeyUp += OnPrevKeyUp;
             KeyDown += OnKeyDown;
 
@@ -106,10 +107,30 @@ namespace TodoApp2
             PreviewKeyDown += FormattableTextEditorBox_PreviewKeyDown;
         }
 
+        private void OnPrevKeyDown(object sender, KeyEventArgs e)
+        {
+            var ctrl = Keyboard.Modifiers.HasFlag(ModifierKeys.Control);
+            var shift = Keyboard.Modifiers.HasFlag(ModifierKeys.Shift);
+
+            if (ctrl && shift && e.Key != Key.LeftCtrl && e.Key != Key.LeftShift)
+            {
+                if (e.Key == Key.L)
+                {
+                    e.Handled = false;
+                }
+            }
+        }
+
         private void FormattableTextEditorBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // Check if enter has been pressed without shift modifiers
-            if (e.Key == Key.Enter && !Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            bool keyL = e.Key == Key.L;
+            bool keyN = e.Key == Key.N;
+            bool enter = e.Key == Key.Enter;
+            bool escape = e.Key == Key.Escape;
+            bool shiftPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Shift);
+            bool ctrlPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Control);
+
+            if (escape || (enter && !shiftPressed))
             {
                 UpdateContent();
 
@@ -117,6 +138,16 @@ namespace TodoApp2
 
                 // Mark the key as handled
                 e.Handled = true;
+            }
+
+            if (ctrlPressed && shiftPressed && (keyL || keyN))
+            {
+                e.Handled = true;
+
+                if (keyL)
+                {
+                    Mediator.NotifyClients(ViewModelMessages.NextThemeWithHotkeyRequested);
+                }
             }
         }
 
@@ -252,8 +283,10 @@ namespace TodoApp2
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            // TODO: Implement Shift + TAB
+            if (IsReadOnly) return;
 
+            // TODO: Implement Shift + TAB
+            
             switch (e.Key)
             {
                 // Delete text formatting on Ctrl + H

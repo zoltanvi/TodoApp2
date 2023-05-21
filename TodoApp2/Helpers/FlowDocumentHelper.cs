@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Documents;
 using System.Windows.Markup;
@@ -75,10 +76,37 @@ namespace TodoApp2.Helpers
                 if (block is Paragraph paragraph)
                 {
                     AddInlines(documentItems, paragraph);
+                } 
+                else if(block is System.Windows.Documents.List list)
+                {
+                    AddListItems(documentItems, list);
                 }
             }
 
             return documentItems;
+        }
+
+        private static void AddListItems(List<string> documentItems, System.Windows.Documents.List list)
+        {
+            foreach (ListItem listItem in list.ListItems)
+            {
+                AddListItem(documentItems, listItem);
+            }
+        }
+
+        private static void AddListItem(List<string> documentItems, ListItem listItem)
+        {
+            foreach (Block block in listItem.Blocks)
+            {
+                if (block is Paragraph paragraph)
+                {
+                    AddInlines(documentItems, paragraph);
+                }
+                else if (block is System.Windows.Documents.List list)
+                {
+                    AddListItems(documentItems, list);
+                }
+            }
         }
 
         private static void AddInlines(List<string> documentItems, Paragraph paragraph)

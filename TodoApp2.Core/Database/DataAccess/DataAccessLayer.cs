@@ -19,7 +19,7 @@ namespace TodoApp2.Core
 
         private readonly SQLiteConnection m_Connection;
 
-        private const int DatabaseVersion = 3;
+        private const int DatabaseVersion = 4;
         private int m_ReadDatabaseVersion;
 
         public TaskDataAccess TaskDataAccess { get; }
@@ -90,12 +90,24 @@ namespace TodoApp2.Core
 
                     // Missing Note table
                     NoteDataAccess.CreateNoteTable();
+
+                    // Missing BackgroundColor column from Task
+                    CompatibilityDataAccess.AddBackgroundColorToTaskTable();
                     break;
                 }
                 case 2:
                 {
                     // Missing Note table
                     NoteDataAccess.CreateNoteTable();
+
+                    // Missing BackgroundColor column from Task
+                    CompatibilityDataAccess.AddBackgroundColorToTaskTable();
+                    break;
+                }
+                case 3:
+                {
+                    // Missing BackgroundColor column from Task
+                    CompatibilityDataAccess.AddBackgroundColorToTaskTable();
                     break;
                 }
             }

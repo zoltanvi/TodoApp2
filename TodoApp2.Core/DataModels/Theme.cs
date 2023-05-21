@@ -10,6 +10,11 @@
         VSBlue,
         LightGreen,
         MaterialLight,
+        YellowGold,
+        Mint,
+        LightBlue,
+        Violet,
+        LightGray,
         Light,
     }
 }

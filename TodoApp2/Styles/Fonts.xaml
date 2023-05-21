@@ -103,12 +103,14 @@
     <system:String x:Key="SegoeIconBell">&#xEA8F;</system:String>
     <system:String x:Key="SegoeIconMargin">&#xE1C0;</system:String>
     <system:String x:Key="SegoeIconDeleteX">&#xEDAE;</system:String>
-
+    <system:String x:Key="SegoeIconMonospace">&#xEDE5;</system:String>
 
     <system:String x:Key="SegoeIconChevronUp">&#xE70E;</system:String>
     <system:String x:Key="SegoeIconChevronDown">&#xE70D;</system:String>
     <system:String x:Key="SegoeIconChevronLeft">&#xE76B;</system:String>
     <system:String x:Key="SegoeIconChevronRight">&#xE76C;</system:String>
+
+    <system:String x:Key="SegoeIconArrowLeft">&#xE0C4;</system:String>
 
     <system:String x:Key="SegoeIconColorBar">&#xEA4B;</system:String>
     <system:String x:Key="SegoeIconBorderVisible">&#xF16B;</system:String>

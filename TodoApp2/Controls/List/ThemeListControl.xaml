@@ -15,6 +15,7 @@
             ItemsSource="{Binding ThemeListService.Items, Source={x:Static local:ViewModelLocator.Instance}}"
             x:Name="ThemeListListView"
             Background="Transparent"
+            HorizontalAlignment="Center"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
             <ListView.ItemTemplate>

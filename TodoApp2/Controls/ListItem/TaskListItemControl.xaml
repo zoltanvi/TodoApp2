@@ -82,6 +82,26 @@
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
+            <MenuItem Header="Change background color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Header" Value="{Binding}" />
+                        <Setter Property="Foreground" Value="{Binding Converter={StaticResource stringRGBToBrushConverter}}" />
+                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetBackgroundColorParameterizedCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                        <Setter Property="CommandParameter" Value="{Binding}" />
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+                <MenuItem.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest}" />
+                        </Border>
+                    </DataTemplate>
+                </MenuItem.ItemTemplate>
+            </MenuItem>
             <MenuItem Header="Change border color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="MenuItem">
@@ -103,6 +123,7 @@
                 </MenuItem.ItemTemplate>
             </MenuItem>
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset colors in category" />
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBackgroundColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset background colors in category" />
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBorderColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset border colors in category" />
             <Separator />
             <MenuItem
@@ -117,14 +138,15 @@
 
     <Grid Background="Transparent" Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
 
-        <!--  Color bar overlaying the border  -->
+        <!--  COLOR BAR  -->
+        <!--  CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">  -->
         <Border
-            Margin="5 2"
-            HorizontalAlignment="Left"
+            Margin="4 2"
             Panel.ZIndex="1000"
+            HorizontalAlignment="Left"
             AutomationProperties.AutomationId="TaskListItemColorBar"
             Background="{Binding Color, Converter={StaticResource stringRGBToBrushConverter}}"
-            CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">
+            CornerRadius="3 0 0 3">
             <Border.Width>
                 <MultiBinding>
                     <MultiBinding.Converter>
@@ -134,22 +156,31 @@
                     <Binding Path="UIScaler.ScaleValue" />
                 </MultiBinding>
             </Border.Width>
-
         </Border>
 
+        <!--  ITEM BORDER  -->
         <Border
             Margin="4 2"
             BorderBrush="{Binding BorderColor, Converter={StaticResource taskBorderBrushConverter}}"
-            BorderThickness="{Binding UIScaler.ScaleValue}"
-            CornerRadius="2"
+            BorderThickness="1"
+            CornerRadius="3"
             Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+        <!--  Editor indicator  -->
+        <Border
+            Margin="2 0"
+            BorderThickness="1.5"
+            CornerRadius="3"
+            BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+            Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />
+
 
         <Border
             x:Name="TaskListItemBackground"
             Margin="4 2"
             BorderBrush="Transparent"
-            BorderThickness="{Binding UIScaler.ScaleValue}"
-            CornerRadius="2">
+            BorderThickness="1"
+            CornerRadius="3">
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
@@ -178,6 +209,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
+                <!--  ITEM BACKGROUND  -->
+                <Border
+                    Grid.ColumnSpan="3"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    CornerRadius="3"
+                    Background="{Binding BackgroundColor, Converter={StaticResource stringRGBToBrushConverter}}"
+                    Opacity="0.3" />
 
                 <!--  Task Checkbox  -->
                 <CheckBox
@@ -228,13 +267,13 @@
                     </Grid>
                 </Border>
 
-                <!--  Editor indicator  -->
-                <Border
+                <!--  Old Editor indicator  -->
+                <!--<Border
                     Grid.Column="2"
                     Width="2"
                     Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                     HorizontalAlignment="Right"
-                    Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />
+                    Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />-->
 
 
                 <!--  Main content  -->
@@ -319,7 +358,6 @@
                     Background="Transparent"
                     IsEnabled="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
                     Opacity="0">
-
                     <Border.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
@@ -361,22 +399,24 @@
                         </EventTrigger>
                     </Border.Triggers>
 
+                    <Behaviors:Interaction.Triggers>
+                        <Behaviors:EventTrigger EventName="MouseEnter">
+                            <Behaviors:InvokeCommandAction Command="{Binding EnableQuickActionsCommand}" />
+                        </Behaviors:EventTrigger>
+
+                        <Behaviors:EventTrigger EventName="MouseLeave">
+                            <Behaviors:InvokeCommandAction Command="{Binding DisableQuickActionsCommand}" />
+                        </Behaviors:EventTrigger>
+                    </Behaviors:Interaction.Triggers>
+
                     <!--  HOVER PANEL  -->
                     <Border
-                        Padding="10 0 10 0"
+                        Padding="20 0 10 0"
                         HorizontalAlignment="Right"
                         Background="{DynamicResource TaskListItemHoverPanelBrush}"
                         CornerRadius="0 2 2 0">
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
+                        <StackPanel Orientation="Horizontal">
                             <!--  Calendar empty button  -->
                             <Grid Grid.Column="0" Visibility="{Binding IsReminderOn, Converter={StaticResource boolToVisibilityNegatedConverter}}">
                                 <Button
@@ -385,6 +425,7 @@
                                     Content="{DynamicResource SegoeIconCalendar}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
                                     ToolTip="Set Reminder"
+                                    IsEnabled="{Binding IsQuickActionsEnabled}"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
 
@@ -395,6 +436,7 @@
                                     Command="{Binding OpenReminderCommand}"
                                     Content="{DynamicResource SegoeIconDateTime}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
+                                    IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="{Binding ReminderDate, Converter={StaticResource longToFormattedLongDateConverter}}"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
@@ -402,13 +444,37 @@
                             <!--  Color picker  -->
                             <ComboBox
                                 Grid.Column="1"
-                                ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
+                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
                                 ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                 SelectedItem="{Binding Color, Mode=TwoWay}"
-                                Style="{DynamicResource ColorPickerTableStyle}"
-                                ToolTip="Set color bar color"
+                                Margin="4 0 0 0"
+                                Style="{DynamicResource TaskItemColorPickerStyle}"
+                                Background="{DynamicResource TaskBgBrush}"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
+                                ToolTip="Marker color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+
+                                <Behaviors:Interaction.Triggers>
+                                    <Behaviors:EventTrigger EventName="SelectionChanged">
+                                        <Behaviors:InvokeCommandAction Command="{Binding SetColorCommand}" />
+                                    </Behaviors:EventTrigger>
+                                </Behaviors:Interaction.Triggers>
+                            </ComboBox>
+
+                            <!--  Background color picker  -->
+                            <ComboBox
+                                Grid.Column="1"
+                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
+                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
+                                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+                                SelectedItem="{Binding BackgroundColor, Mode=TwoWay}"
+                                Margin="4 0 0 0"
+                                Style="{DynamicResource TaskItemColorPickerStyle}"
+                                Background="{DynamicResource TaskBgBrush}"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
+                                ToolTip="Background color"
+                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
                                 <Behaviors:Interaction.Triggers>
                                     <Behaviors:EventTrigger EventName="SelectionChanged">
@@ -421,13 +487,15 @@
                             <!--  BorderColor picker  -->
                             <ComboBox
                                 Grid.Column="2"
-                                ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource ColorPickerItemTemplate}"
+                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
+                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
                                 ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
                                 SelectedItem="{Binding BorderColor, Mode=TwoWay}"
-                                Margin="5 0 0 0"
-                                Style="{DynamicResource ColorPickerTableStyle}"
-                                ToolTip="Set border color"
+                                Margin="4 0 0 0"
+                                Style="{DynamicResource TaskItemColorPickerStyle}"
+                                Background="{DynamicResource TaskBgBrush}"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
+                                ToolTip="Border color"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
                                 <Behaviors:Interaction.Triggers>
@@ -446,6 +514,8 @@
                                     CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                                     Content="{DynamicResource SegoeIconPin}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
+                                    Margin="4 0 0 0"
+                                    IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="Pin task"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
@@ -457,6 +527,8 @@
                                     CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
                                     Content="{DynamicResource SegoeIconUnpin}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
+                                    Margin="4 0 0 0"
+                                    IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="Unpin task"
                                     Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
@@ -469,13 +541,18 @@
                                 Content="{DynamicResource SegoeIconTrash}"
                                 Cursor="Hand"
                                 Style="{DynamicResource ButtonQuickActionRedStyle}"
+                                Margin="4 0 0 0"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Trash task"
                                 Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-                        </Grid>
+
+                        </StackPanel>
+
                     </Border>
                 </Border>
 
             </Grid>
         </Border>
+
     </Grid>
 </UserControl>

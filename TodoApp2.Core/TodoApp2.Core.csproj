@@ -119,6 +119,7 @@
     <Compile Include="PropertyHandling\EnumPropertyValueHandler.cs" />
     <Compile Include="Services\AutoRunService.cs" />
     <Compile Include="Services\IAsyncActionService.cs" />
+    <Compile Include="Services\IResourceUpdater.cs" />
     <Compile Include="Services\MediaPlayerService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />
     <Compile Include="ViewModel\Controls\RichTextEditorViewModel.cs" />
@@ -127,6 +128,14 @@
     <Compile Include="ViewModel\Items\ThemeViewModel.cs" />
     <Compile Include="ViewModel\Pages\NoteListPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\TextEditorQuickActionsSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\ThemeEditorSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\NotePageSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\WindowSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\ThemeSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\TaskQuickActionsSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\TaskPageSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\TaskItemSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Services\IUIScaler.cs" />
     <Compile Include="ViewModel\Services\MessageService.cs" />
     <Compile Include="ViewModel\Services\IOverlayPageService.cs" />
@@ -153,6 +162,7 @@
     <Compile Include="ViewModel\Items\TaskViewModel.cs" />
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
     <Compile Include="ViewModel\Services\UIScaler.cs" />
+    <Compile Include="ViewModel\Events\ZoomedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

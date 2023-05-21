@@ -32,6 +32,7 @@ namespace TodoApp2.Core
             BackgroundClickedCommand = new RelayCommand(action);
         }
 
+        // TODO: Remove side menu handling from here
         public void CloseSideMenu()
         {
             m_ApplicationViewModel.SideMenuVisible = false;

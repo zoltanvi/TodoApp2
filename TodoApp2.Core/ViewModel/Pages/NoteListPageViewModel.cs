@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TodoApp2.Core
 {
@@ -162,12 +163,17 @@ namespace TodoApp2.Core
                     IoC.CategoryListService.ActiveCategory = null;
                 }
 
+                if (m_AppViewModel.ApplicationSettings.CloseSideMenuOnCategoryChange)
+                {
+                    Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
+                }
+
                 m_OverlayPageService.CloseSideMenu();
 
                 // Change to note page if it wasn't active
-                if (m_AppViewModel.CurrentPage != ApplicationPage.Note)
+                if (m_AppViewModel.MainPage != ApplicationPage.Note)
                 {
-                    m_AppViewModel.CurrentPage = ApplicationPage.Note;
+                    m_AppViewModel.MainPage = ApplicationPage.Note;
                 }
             }
         }
@@ -177,11 +183,9 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_AppViewModel.CurrentPage = ApplicationPage.Settings;
-            
-            // None of them are selected if we are on the settings page
-            IoC.CategoryListService.ActiveCategory = null;
-            IoC.NoteListService.ActiveNote = null;
+            m_AppViewModel.OpenSettingsPage();
+
+            Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
         }
 
         /// <summary>

@@ -1,0 +1,102 @@
+﻿<local:BasePage
+    x:Class="TodoApp2.ThemeEditorSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="core:ThemeEditorSettingsPageViewModel"
+    Title="ThemeEditorSettingsPage">
+
+    <ScrollViewer Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label
+                Content="Theme editor"
+                Style="{DynamicResource SettingsPageTitleStyle}"
+                Grid.Row="0" />
+
+            <Border BorderThickness="2" Grid.Row="1">
+
+                <StackPanel Orientation="Vertical" Visibility="{Binding ElementName=tempSettingsBtn, Path=IsChecked, Converter={StaticResource boolToVisibilityConverter}}">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">TitleBar</Label>
+                        <colorpicker:PortableColorPicker
+                            Width="34"
+                            Height="34"
+                            SelectedColor="{Binding TitleBarBgBrush, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">Page</Label>
+                        <colorpicker:PortableColorPicker
+                            Width="34"
+                            Height="34"
+                            SelectedColor="{Binding PageBgBrush, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">SideMenu</Label>
+                        <colorpicker:PortableColorPicker
+                            Width="34"
+                            Height="34"
+                            SelectedColor="{Binding SideMenuBgBrush, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">BottomBar</Label>
+                        <colorpicker:PortableColorPicker
+                            Width="34"
+                            Height="34"
+                            SelectedColor="{Binding BottomBarBgBrush, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">Foreground</Label>
+                        <colorpicker:PortableColorPicker
+                            Width="34"
+                            Height="34"
+                            SelectedColor="{Binding ForegroundBrush, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">Task background</Label>
+                        <colorpicker:PortableColorPicker
+                            Width="34"
+                            Height="34"
+                            SelectedColor="{Binding TaskBgBrush, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">SelectedCategory</Label>
+                        <colorpicker:PortableColorPicker
+                            Width="34"
+                            Height="34"
+                            SelectedColor="{Binding SelectedCategoryBgBrush, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">HoverCategory</Label>
+                        <colorpicker:PortableColorPicker
+                            Width="34"
+                            Height="34"
+                            SelectedColor="{Binding HoverCategoryBgBrush, Mode=TwoWay}" />
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+
+        </Grid>
+    </ScrollViewer>
+</local:BasePage>

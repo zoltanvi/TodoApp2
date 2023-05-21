@@ -15,16 +15,16 @@
                 x:Name="Border"
                 Grid.ColumnSpan="2"
                 Background="{DynamicResource ComboBoxButtonBgBrush}"
-                BorderBrush="{DynamicResource CommonControlBorderBrush}"
-                BorderThickness="2"
-                CornerRadius="0" />
+                BorderBrush="{DynamicResource Elevation_2}"
+                BorderThickness="1"
+                CornerRadius="4" />
             <Border
                 Grid.Column="0"
-                Margin="2"
-                Background="{DynamicResource ComboBoxBgBrush}"
+                Margin="3 2 2 2"
+                Background="Transparent"
                 BorderBrush="{DynamicResource CommonControlBorderBrush}"
                 BorderThickness="0 0 0 0"
-                CornerRadius="0" />
+                CornerRadius="4" />
             <Path
                 x:Name="Arrow"
                 Grid.Column="1"
@@ -56,6 +56,38 @@
             Background="{TemplateBinding Background}"
             Focusable="False" />
     </ControlTemplate>
+
+    <Style TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border
+                        Name="Border"
+                        Padding="2"
+                        SnapsToDevicePixels="true"
+                        Margin="4 2"
+                        CornerRadius="4">
+                        <ContentPresenter Margin="8 2 8 2" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Elevation_2}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Elevation_3}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="#888888" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="{x:Type ComboBox}">
         <Style.Resources>
@@ -117,8 +149,9 @@
                                 <Border
                                     x:Name="DropDownBorder"
                                     Background="{DynamicResource ComboBoxBgBrush}"
-                                    BorderBrush="{DynamicResource CommonControlBorderBrush}"
-                                    BorderThickness="1" />
+                                    BorderBrush="{DynamicResource Elevation_2}"
+                                    BorderThickness="1"
+                                    CornerRadius="6" />
                                 <ScrollViewer Margin="0 4" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
@@ -136,10 +169,9 @@
                         <Trigger Property="IsGrouping" Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
                         </Trigger>
-                        <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
-                            <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
+                        <!--<Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
                             <Setter TargetName="DropDownBorder" Property="Margin" Value="0" />
-                        </Trigger>
+                        </Trigger>-->
                         <Trigger Property="IsEditable" Value="true">
                             <Setter Property="IsTabStop" Value="false" />
                             <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
@@ -152,74 +184,45 @@
         <Style.Triggers />
     </Style>
 
-    <!--  SimpleStyles: ComboBoxItem  -->
-    <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
-                    <Border
-                        Name="Border"
-                        Padding="2"
-                        SnapsToDevicePixels="true">
-                        <ContentPresenter Margin="8 2 8 2" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsHighlighted" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource HoverComboBoxDropDownItemBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="#888888" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <!--  COLOR PICKER STYLE  -->
-
-    <ControlTemplate x:Key="ColorPickerToggleButton" TargetType="{x:Type ToggleButton}">
+    <ControlTemplate x:Key="TaskItemColorPickerToggleButton" TargetType="{x:Type ToggleButton}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Border
-                x:Name="Border"
+                Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Background="Transparent"
+                x:Name="Border"
+                Background="{DynamicResource Elevation_1}"
                 BorderBrush="{DynamicResource CommonControlBorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="0" />
-            <Path
-                x:Name="Arrow"
+                CornerRadius="4" />
+            <Label
                 Grid.Column="1"
-                Margin="0 0 0 0"
-                HorizontalAlignment="Left"
+                x:Name="Arrow"
+                Margin="4 0 4 0"
+                Padding="0"
+                Content="{StaticResource SegoeIconChevronDown}"
+                FontFamily="{StaticResource IconFont}"
+                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Data="M 0,0 L 0,2 L 4,6 L 8,2 L 8,0 L 4,0 z"
-                Fill="{DynamicResource ForegroundBrush}" />
-            <Grid.LayoutTransform>
-                <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
-            </Grid.LayoutTransform>
+                Foreground="{DynamicResource ForegroundBrush}" />
+
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Arrow" Property="Fill" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Elevation_3}" />
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true" />
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="#888888" />
-                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+                <Setter Property="Opacity" Value="0.4" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-
-    <Style x:Key="ColorPickerTableStyle" TargetType="{x:Type ComboBox}">
+    <Style x:Key="TaskItemColorPickerStyle" TargetType="{x:Type ComboBox}">
         <Style.Resources>
             <Style BasedOn="{StaticResource DarkScrollBarStyle}" TargetType="{x:Type ScrollBar}" />
         </Style.Resources>
@@ -236,17 +239,25 @@
                 <ControlTemplate TargetType="{x:Type ComboBox}">
                     <Grid>
                         <Grid Width="{TemplateBinding Width}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
                             <ToggleButton
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
                                 x:Name="ToggleButton"
                                 BorderThickness="0"
+                                Margin="0"
                                 ClickMode="Press"
                                 Focusable="false"
                                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                Template="{StaticResource ColorPickerToggleButton}" />
+                                Template="{StaticResource TaskItemColorPickerToggleButton}" />
                             <ContentPresenter
+                                Grid.Column="0"
                                 x:Name="ContentSite"
-                                Margin="0"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding SelectionBoxItem}"
                                 ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
@@ -272,21 +283,22 @@
                                         BorderThickness="1"
                                         CornerRadius="4" />
 
-                                    <WrapPanel
-                                        Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                        Margin="8"
-                                        IsItemsHost="True"
-                                        KeyboardNavigation.DirectionalNavigation="Contained"
-                                        Orientation="Horizontal" />
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
 
+                                        <WrapPanel
+                                            Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                            Margin="8"
+                                            IsItemsHost="True"
+                                            KeyboardNavigation.DirectionalNavigation="Contained"
+                                            Orientation="Horizontal" />
+
+                                    </ScrollViewer>
                                 </Grid>
                             </Popup>
                         </Grid>
+
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="HasItems" Value="false">
-                            <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
-                        </Trigger>-->
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="#888888" />
                         </Trigger>
@@ -307,11 +319,100 @@
         </Setter>
     </Style>
 
+    <DataTemplate x:Key="TaskItemColorPickerItemTemplate">
+        <Grid>
+            <Border
+                x:Name="ItemBorder"
+                Background="{Binding}"
+                Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                CornerRadius="4"
+                Cursor="Hand"
+                ToolTip="{Binding}" />
+
+        </Grid>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding}" Value="Transparent">
+                <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="">
+                <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
+            </DataTrigger>
+
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+
+    <Style x:Key="TaskItemColorPickerItemContainerStyle" TargetType="ComboBoxItem">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border
+                        Name="PaddingBorder"
+                        Padding="3"
+                        Background="Transparent">
+                        <Border
+                            Name="HighlightBorder"
+                            BorderBrush="{Binding}"
+                            CornerRadius="2">
+                            <ContentPresenter />
+                        </Border>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="HighlightBorder" Property="BorderThickness" Value="1" />
+                            <Setter TargetName="HighlightBorder" Property="Margin" Value="-2" />
+                            <Setter TargetName="HighlightBorder" Property="Padding" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="RichTextEditorColorPickerToggleButton" TargetType="{x:Type ToggleButton}">
+        <Grid>
+            <Border
+                x:Name="Border"
+                Background="{DynamicResource Elevation_1}"
+                BorderBrush="{DynamicResource CommonControlBorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="6" />
+            <Label
+                x:Name="Arrow"
+                Margin="4 0 4 0"
+                Padding="0"
+                Content="{StaticResource SegoeIconChevronDown}"
+                FontFamily="{StaticResource IconFont}"
+                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource ForegroundBrush}" />
+
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Elevation_3}" />
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="true" />
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.4" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <Style
-        x:Key="ColorPickerOnlyDropDownStyle"
-        BasedOn="{StaticResource ColorPickerTableStyle}"
+        x:Key="RichTextEditorColorPickerOnlyDropDownStyle"
+        BasedOn="{StaticResource TaskItemColorPickerStyle}"
         TargetType="{x:Type ComboBox}">
-        <Setter Property="Width" Value="{Binding UIScaler.ColorPickerOnlyDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="Width" Value="{Binding UIScaler.ColorPickerHalfWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -323,11 +424,11 @@
                                 ClickMode="Press"
                                 Focusable="false"
                                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                Template="{StaticResource ColorPickerToggleButton}" />
+                                Template="{StaticResource RichTextEditorColorPickerToggleButton}" />
                             <ContentPresenter
                                 x:Name="ContentSite"
                                 Margin="0"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding SelectionBoxItem}"
                                 ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
@@ -360,7 +461,6 @@
                                         IsItemsHost="True"
                                         KeyboardNavigation.DirectionalNavigation="Contained"
                                         Orientation="Horizontal" />
-
                                 </Grid>
                             </Popup>
                         </Grid>
@@ -381,159 +481,46 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <!--<Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoverEditorButtonBgBrush}" />
-            </Trigger>
-        </Style.Triggers>-->
     </Style>
 
-    <DataTemplate x:Key="ColorPickerItemTemplate">
-        <Grid>
-            <Border
-                x:Name="ItemBorder"
-                Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                Background="{Binding}"
-                CornerRadius="2" />
-
-            <Path
-                Name="DiagonalLine"
-                Stroke="Red"
-                StrokeThickness="1"
-                Visibility="Collapsed">
-                <Path.Data>
-                    <LineGeometry StartPoint="15,0" EndPoint="0,15" />
-                </Path.Data>
-                <Path.LayoutTransform>
-                    <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
-                </Path.LayoutTransform>
-            </Path>
-
-        </Grid>
-
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding}" Value="Transparent">
-                <Setter TargetName="ItemBorder" Property="Background" Value="White" />
-                <Setter TargetName="DiagonalLine" Property="Visibility" Value="Visible" />
-                <Setter TargetName="ItemBorder" Property="BorderThickness" Value="0.5" />
-                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Black" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding}" Value="">
-                <Setter TargetName="ItemBorder" Property="Background" Value="White" />
-                <Setter TargetName="DiagonalLine" Property="Visibility" Value="Visible" />
-                <Setter TargetName="ItemBorder" Property="BorderThickness" Value="0.5" />
-                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Black" />
-            </DataTrigger>
-
-        </DataTemplate.Triggers>
-    </DataTemplate>
-
-    <Style x:Key="ColorPickerItemContainerStyle" TargetType="ComboBoxItem">
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ComboBoxItem">
-                    <Border
-                        Name="PaddingBorder"
-                        Padding="3"
-                        Background="Transparent">
-                        <Border
-                            Name="HighlightBorder"
-                            BorderBrush="{Binding}"
-                            CornerRadius="2">
-                            <ContentPresenter />
-                        </Border>
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="HighlightBorder" Property="BorderThickness" Value="1" />
-                            <Setter TargetName="HighlightBorder" Property="Margin" Value="-2" />
-                            <Setter TargetName="HighlightBorder" Property="Padding" Value="1" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="ColorPickerButtonStyle" TargetType="local:ColorPickerComboBox">
+    <Style x:Key="RichTextEditorColorPickerButtonStyle" TargetType="local:ColorPickerComboBox">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ColorPickerComboBox}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Column="0">
-                            <Button
-                                Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Margin="3"
-                                Background="{Binding DisplayCol, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
-                                Command="{Binding ApplyDisplayColorCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                Style="{DynamicResource InternalColorPickerButtonStyle}" />
+                    <Border Background="{TemplateBinding Background}">
+                        <!--  Set background to transparent explicitly to prevent focus lost on missclick  -->
+                        <Grid Background="#00ffffff">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Button
+                                    Cursor="Hand"
+                                    Background="{Binding DisplayColor, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
+                                    Command="{Binding ApplyDisplayColorCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Style="{DynamicResource RichTextEditorLeftButtonStyle}" />
+                            </Grid>
+
+                            <ComboBox
+                                Grid.Column="1"
+                                Focusable="False"
+                                Cursor="Hand"
+                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
+                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
+                                ItemsSource="{TemplateBinding ItemsSource}"
+                                Style="{DynamicResource RichTextEditorColorPickerOnlyDropDownStyle}" />
                         </Grid>
-
-                        <local:ColorPickerComboBox
-                            Grid.Column="1"
-                            Focusable="False"
-                            IsSynchronizedWithCurrentItem="True"
-                            ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
-                            ItemTemplate="{StaticResource ColorPickerItemTemplate}"
-                            ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                            Style="{DynamicResource ColorPickerOnlyDropDownStyle}" />
-
-                    </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style
-        x:Key="TaskColorPickerButtonStyle"
-        TargetType="local:ColorPickerComboBox"
-        BasedOn="{StaticResource ColorPickerButtonStyle}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:ColorPickerComboBox}">
-                    <!--  Set background to transparent explicitly to prevent focus lost on missclick  -->
-                    <Grid Background="#00ffffff">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0">
-                            <Button
-                                Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Margin="3"
-                                Background="{Binding DisplayColor, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
-                                Command="{Binding ApplyDisplayColorCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                Style="{DynamicResource InternalTextColorPickerButtonStyle}" />
-                        </Grid>
-
-                        <ComboBox
-                            Grid.Column="1"
-                            Focusable="False"
-                            Cursor="Hand"
-                            ItemContainerStyle="{StaticResource ColorPickerItemContainerStyle}"
-                            ItemTemplate="{StaticResource ColorPickerItemTemplate}"
-                            ItemsSource="{TemplateBinding ItemsSource}"
-                            Style="{DynamicResource ColorPickerOnlyDropDownStyle}" />
-                        <!--  ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"  -->
-
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
 </ResourceDictionary>

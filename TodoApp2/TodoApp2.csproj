@@ -61,6 +61,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ColorPicker, Version=3.3.1.0, Culture=neutral, PublicKeyToken=1c61eec504ce2276, processorArchitecture=MSIL">
+      <HintPath>..\packages\PixiEditor.ColorPicker.3.3.1\lib\net451\ColorPicker.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -162,6 +165,9 @@
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\ToggleButtonSettingControl.xaml.cs">
+      <DependentUpon>ToggleButtonSettingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
@@ -189,6 +195,30 @@
     <Compile Include="Pages\NoteListPage.xaml.cs">
       <DependentUpon>NoteListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml.cs">
+      <DependentUpon>TextEditorQuickActionsSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\ThemeEditorSettingsPage.xaml.cs">
+      <DependentUpon>ThemeEditorSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\NotePageSettingsPage.xaml.cs">
+      <DependentUpon>NotePageSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TaskItemSettingsPage.xaml.cs">
+      <DependentUpon>TaskItemSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TaskPageSettingsPage.xaml.cs">
+      <DependentUpon>TaskPageSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TaskQuickActionsSettingsPage.xaml.cs">
+      <DependentUpon>TaskQuickActionsSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\ThemeSettingsPage.xaml.cs">
+      <DependentUpon>ThemeSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\WindowSettingsPage.xaml.cs">
+      <DependentUpon>WindowSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\AsyncActionService.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\GenericBasePage.cs" />
@@ -204,7 +234,7 @@
     <Compile Include="Pages\ReminderEditorPage.xaml.cs">
       <DependentUpon>ReminderEditorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SettingsPage.xaml.cs">
+    <Compile Include="Pages\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\CategoryPage.xaml.cs">
@@ -214,6 +244,7 @@
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApplicationPageHelper.cs" />
+    <Compile Include="Services\ResourceUpdater.cs" />
     <Compile Include="Services\ThemeListService.cs" />
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
@@ -223,6 +254,9 @@
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Multi\RoundedCornersMultiConverter.cs" />
     <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\Single\Brush\TransparentPatternBrushConverter.cs" />
+    <Compile Include="ValueConverters\Single\DebugConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolNegatedConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToThicknessConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\AccentColorBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\AppBorderBrushConverter.cs" />
@@ -305,6 +339,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Settings\ToggleButtonSettingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SideMenuControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -345,6 +383,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\ThemeEditorSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\NotePageSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\TaskItemSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\TaskPageSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\TaskQuickActionsSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\ThemeSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\WindowSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\TaskReminderPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -353,7 +423,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\SettingsPage.xaml">
+    <Page Include="Pages\Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -362,6 +432,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TaskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\FeatureFlags.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -405,7 +479,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Themes\LightBlueTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\VioletTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Themes\LightGreenTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\LightGrayTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\YellowGoldTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\MintTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -551,6 +645,11 @@
   <ItemGroup>
     <Resource Include="Images\Splash\MaterialBlue.png" />
     <Resource Include="Images\Splash\MaterialLight.png" />
+    <Resource Include="Images\Splash\Mint.png" />
+    <Resource Include="Images\Splash\YellowGold.png" />
+    <Resource Include="Images\Splash\LightGray.png" />
+    <Resource Include="Images\Splash\Violet.png" />
+    <Resource Include="Images\Splash\LightBlue.png" />
     <Content Include="Sounds\click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

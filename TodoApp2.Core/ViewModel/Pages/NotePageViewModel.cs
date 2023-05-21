@@ -26,7 +26,7 @@ namespace TodoApp2.Core
             m_Application = appViewModel;
             m_NoteListService = noteListService;
             m_Database = database;
-            m_Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 3) };
+            m_Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 2) };
             m_Timer.Tick += TimerOnTick;
 
             IsNoteExists = m_NoteListService.ActiveNote != null;

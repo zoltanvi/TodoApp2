@@ -4,7 +4,7 @@
     {
         private TaskViewModel m_EditorOpenTask;
 
-        internal void DisplayMode(TaskViewModel taskListItemViewModel)
+        public void DisplayMode(TaskViewModel taskListItemViewModel)
         {
             if (m_EditorOpenTask == taskListItemViewModel)
             {
@@ -12,7 +12,7 @@
             }
         }
 
-        internal void EditMode(TaskViewModel taskListItemViewModel)
+        public void EditMode(TaskViewModel taskListItemViewModel)
         {
             // Save changes and close editor for old task
             if (m_EditorOpenTask != null && m_EditorOpenTask != taskListItemViewModel)

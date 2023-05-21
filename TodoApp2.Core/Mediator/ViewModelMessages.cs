@@ -40,5 +40,14 @@
         /// </summary>
         SideMenuButtonClicked,
 
+        /// <summary>
+        /// Closing of the side menu has been requested
+        /// </summary>
+        SideMenuCloseRequested,
+
+        /// <summary>
+        /// Ctrl + Shift + L has been pressed in a RichTextBox
+        /// </summary>
+        NextThemeWithHotkeyRequested,
     }
 }

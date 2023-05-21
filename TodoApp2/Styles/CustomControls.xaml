@@ -106,24 +106,21 @@
             <Setter.Value>
                 <ControlTemplate TargetType="CalendarDayButton">
                     <Grid>
-                        <Rectangle
+                        <Border
                             x:Name="TodayBackground"
-                            Fill="{DynamicResource CalendarTodayBgBrush}"
+                            Background="{DynamicResource CalendarButtonBgBrush}"
                             Opacity="0"
-                            RadiusX="1"
-                            RadiusY="1" />
-                        <Rectangle
+                            CornerRadius="4" />
+                        <Border
                             x:Name="SelectedBackground"
-                            Fill="{TemplateBinding Background}"
+                            Background="{DynamicResource CalendarButtonBgBrush}"
                             Opacity="0"
-                            RadiusX="1"
-                            RadiusY="1" />
-                        <Rectangle
+                            CornerRadius="4" />
+                        <Border
                             x:Name="Background"
-                            Fill="{TemplateBinding Background}"
+                            Background="{DynamicResource CalendarButtonBgBrush}"
                             Opacity="0"
-                            RadiusX="1"
-                            RadiusY="1" />
+                            CornerRadius="4" />
 
                         <ContentControl
                             x:Name="Content"
@@ -417,7 +414,7 @@
                                         <DoubleAnimation
                                             Storyboard.TargetName="Background"
                                             Storyboard.TargetProperty="Opacity"
-                                            To=".5"
+                                            To="1"
                                             Duration="0" />
                                     </Storyboard>
                                 </VisualState>
@@ -426,7 +423,7 @@
                                         <DoubleAnimation
                                             Storyboard.TargetName="Background"
                                             Storyboard.TargetProperty="Opacity"
-                                            To=".5"
+                                            To="1"
                                             Duration="0" />
                                     </Storyboard>
                                 </VisualState>
@@ -441,7 +438,7 @@
                                         <DoubleAnimation
                                             Storyboard.TargetName="SelectedBackground"
                                             Storyboard.TargetProperty="Opacity"
-                                            To=".75"
+                                            To="1"
                                             Duration="0" />
                                     </Storyboard>
                                 </VisualState>
@@ -507,33 +504,35 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontFamily="{DynamicResource UIFont}"
-                                FontSize="14"
-                                FontWeight="Normal"
-                                Foreground="{DynamicResource CalendarDayColumnBrush}"
+                                FontSize="16"
+                                FontWeight="Black"
+                                Foreground="{DynamicResource ForegroundBrush}"
                                 Text="{Binding}" />
                         </DataTemplate>
                     </ControlTemplate.Resources>
                     <Grid x:Name="PART_Root">
                         <Grid.Resources>
-                            <SolidColorBrush x:Key="DisabledColor" Color="#A5FFFFFF" />
+                            <SolidColorBrush
+                                x:Key="DisabledColor"
+                                Color="{DynamicResource Foreground}"
+                                Opacity="0.6" />
                         </Grid.Resources>
                         <Border
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="1">
-                            <Border
-                                BorderBrush="#FFFFFFFF"
-                                BorderThickness="0"
-                                CornerRadius="1">
+                            <Border>
                                 <Grid>
                                     <Grid.Resources>
                                         <ControlTemplate x:Key="PreviousButtonTemplate" TargetType="{x:Type Button}">
                                             <Grid Cursor="Hand">
-                                                <Rectangle
-                                                    Fill="{DynamicResource CalendarButtonBgBrush}"
-                                                    Opacity="1"
-                                                    Stretch="Fill" />
+                                                <Border
+                                                    x:Name="PART_PrevButton"
+                                                    Width="{Binding ElementName=PART_PrevButton, Path=ActualHeight}"
+                                                    Background="{DynamicResource CalendarButtonBgBrush}"
+                                                    Opacity="0.5"
+                                                    CornerRadius="4" />
                                                 <Grid>
                                                     <Path
                                                         x:Name="path"
@@ -549,14 +548,15 @@
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Normal" />
-                                                        <!--<VisualState x:Name="MouseOver">
+                                                        <VisualState x:Name="MouseOver">
                                                             <Storyboard>
-                                                                <ColorAnimation Storyboard.TargetName="path"
-                                                                                Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
-                                                                                To="{DynamicResource CalendarButtonBg}"
-                                                                                Duration="0" />
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="Opacity"
+                                                                    Storyboard.TargetName="PART_PrevButton"
+                                                                    To="1"
+                                                                    Duration="0" />
                                                             </Storyboard>
-                                                        </VisualState>-->
+                                                        </VisualState>
                                                         <VisualState x:Name="Disabled">
                                                             <Storyboard>
                                                                 <DoubleAnimation
@@ -572,10 +572,12 @@
                                         </ControlTemplate>
                                         <ControlTemplate x:Key="NextButtonTemplate" TargetType="{x:Type Button}">
                                             <Grid Cursor="Hand">
-                                                <Rectangle
-                                                    Fill="{DynamicResource CalendarButtonBgBrush}"
-                                                    Opacity="1"
-                                                    Stretch="Fill" />
+                                                <Border
+                                                    x:Name="PART_NextButton"
+                                                    Width="{Binding ElementName=PART_NextButton, Path=ActualHeight}"
+                                                    Background="{DynamicResource CalendarButtonBgBrush}"
+                                                    Opacity="0.5"
+                                                    CornerRadius="4" />
                                                 <Grid>
                                                     <Path
                                                         x:Name="path"
@@ -591,14 +593,15 @@
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Normal" />
-                                                        <!--<VisualState x:Name="MouseOver">
+                                                        <VisualState x:Name="MouseOver">
                                                             <Storyboard>
-                                                                <ColorAnimation Storyboard.TargetName="path"
-                                                                                Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
-                                                                                To="{DynamicResource CalendarButtonBg}"
-                                                                                Duration="0" />
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="Opacity"
+                                                                    Storyboard.TargetName="PART_NextButton"
+                                                                    To="1"
+                                                                    Duration="0" />
                                                             </Storyboard>
-                                                        </VisualState>-->
+                                                        </VisualState>
                                                         <VisualState x:Name="Disabled">
                                                             <Storyboard>
                                                                 <DoubleAnimation
@@ -672,7 +675,7 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Focusable="False"
-                                        FontSize="10.5"
+                                        FontSize="16"
                                         FontWeight="Bold"
                                         Template="{StaticResource HeaderButtonTemplate}" />
                                     <Button

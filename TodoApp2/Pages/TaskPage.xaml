@@ -21,14 +21,15 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!--  Current category display text  -->
-            <Grid Grid.Row="0" Margin="5 10 0 10">
-                <TextBlock
+
+            <Grid Grid.Row="0" Margin="5 10 5 10">
+                <Grid
+                    x:Name="CategoryNamePanel"
+                    Background="#00333333"
                     Grid.Row="0"
-                    Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}"
-                    Style="{DynamicResource PageTitleTextBlockStyle}"
-                    Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}">
-                    <TextBlock.Visibility>
+                    Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}"
+                    Style="{DynamicResource CurrentCategoryPanelStyle}">
+                    <Grid.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
                                 <local:BoolToVisibilityMultiValueConverter />
@@ -39,20 +40,20 @@
                                 Path="IsCategoryInDisplayMode"
                                 UpdateSourceTrigger="PropertyChanged" />
                         </MultiBinding>
-                    </TextBlock.Visibility>
-                </TextBlock>
+                    </Grid.Visibility>
 
-                <!--  Current category edit mode  -->
-                <Border Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}">
-                    <local:ClickSelectTextBox
-                        Grid.Row="0"
-                        Margin="-2 0 0 0"
-                        Style="{DynamicResource PageTitleTextBoxStyle}"
-                        BorderThickness="0 0 0 1"
-                        BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
-                        Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                        <TextBox.Visibility>
+                    <!--  CURRENT CATEGORY DISPLAY TEXT  -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Style="{DynamicResource PageTitleTextBlockStyle}"
+                        Margin="0 1"
+                        Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}">
+                        <TextBlock.Visibility>
                             <MultiBinding>
                                 <MultiBinding.Converter>
                                     <local:BoolToVisibilityMultiValueConverter />
@@ -60,34 +61,87 @@
                                 <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
                                 <Binding
                                     Mode="OneWay"
-                                    Path="IsCategoryInEditMode"
+                                    Path="IsCategoryInDisplayMode"
                                     UpdateSourceTrigger="PropertyChanged" />
                             </MultiBinding>
-                        </TextBox.Visibility>
+                        </TextBlock.Visibility>
+                    </TextBlock>
 
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="LostFocus">
-                                <Behaviors:InvokeCommandAction Command="{Binding FinishCategoryEditCommand}" />
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
+                    <Button
+                        Grid.Column="1"
+                        Visibility="{Binding ElementName=CategoryNamePanel, Path=Tag, Converter={StaticResource boolToVisibilityConverter}}"
+                        Command="{Binding EditCategoryCommand}"
+                        Content="{DynamicResource SegoeIconEditMode}"
+                        Style="{DynamicResource ButtonIconHoverRectangleStyle}"
+                        ToolTip="Edit category name"
+                        Margin="3 0 0 0" />
+                </Grid>
 
-                        <TextBox.InputBindings>
-                            <KeyBinding Key="Return" Command="{Binding FinishCategoryEditCommand}" />
-                        </TextBox.InputBindings>
-                    </local:ClickSelectTextBox>
+                <!--  CURRENT CATEGORY EDITOR TEXTBOX  -->
+                <Border Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox
+                            Grid.Column="0"
+                            Margin="-2 0 0 0"
+                            Padding="-1 0 0 0"
+                            Style="{DynamicResource PageTitleEditorTextBoxStyle}"
+                            BorderThickness="1"
+                            BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                            Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                            <TextBox.Visibility>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:BoolToVisibilityMultiValueConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                    <Binding
+                                        Mode="OneWay"
+                                        Path="IsCategoryInEditMode"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </MultiBinding>
+                            </TextBox.Visibility>
+
+                            <!--<Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="LostFocus">
+                                    <Behaviors:InvokeCommandAction Command="{Binding FinishCategoryEditCommand}" />
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>-->
+
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding FinishCategoryEditCommand}" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+
+                        <Button
+                            Visibility="{Binding IsCategoryInEditMode, Converter={StaticResource boolToVisibilityConverter}}"
+                            Grid.Column="1"
+                            Command="{Binding FinishCategoryEditCommand}"
+                            Content="{DynamicResource SegoeIconSave}"
+                            Style="{DynamicResource ButtonIconHoverRectangleStyle}"
+                            ToolTip="Save category name"
+                            Margin="3 0 0 0" />
+
+                    </Grid>
+
                 </Border>
             </Grid>
 
 
             <!--  border to catch double click event  -->
-            <Border
+            <!--<Border
                 Grid.Row="0"
                 Background="Transparent"
                 Visibility="{Binding IsCategoryInEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
                 <Border.InputBindings>
                     <MouseBinding Command="{Binding EditCategoryCommand}" Gesture="LeftClick" />
                 </Border.InputBindings>
-            </Border>
+            </Border>-->
 
             <!--  Task list  -->
             <local:TaskListControl x:Name="MyTaskListControl" Grid.Row="1" />
@@ -96,23 +150,29 @@
             <Border
                 x:Name="BottomBorderPanel"
                 Grid.Row="2"
-                Background="{DynamicResource BottomBarBgBrush}"
+                Background="Transparent"
+                BorderThickness="0"
+                Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}"
                 Style="{DynamicResource BottomPanelStyle}">
+                <!--Background="{DynamicResource BottomBarBgBrush}"-->
 
                 <DockPanel>
-                    <local:RichTextEditorControl
-                        MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
-                        Padding="10"
-                        VerticalAlignment="Bottom"
-                        DataContext="{Binding TextEditorViewModel}">
 
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="GotFocus">
-                                <Behaviors:InvokeCommandAction Command="{Binding DataContext.TextBoxFocusedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}}" />
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
+                    <Border Background="{DynamicResource Elevation_2}" CornerRadius="6" Margin="5">
+                        <local:RichTextEditorControl
+                            MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
+                            Padding="3 8"
+                            VerticalAlignment="Bottom"
+                            DataContext="{Binding TextEditorViewModel}">
 
-                    </local:RichTextEditorControl>
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="GotFocus">
+                                    <Behaviors:InvokeCommandAction Command="{Binding DataContext.TextBoxFocusedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}}" />
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+
+                        </local:RichTextEditorControl>
+                    </Border>
 
                 </DockPanel>
 

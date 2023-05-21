@@ -4,26 +4,37 @@ namespace TodoApp2.Core
 {
     public class SettingsPageViewModel : BaseViewModel
     {
-        private readonly AppViewModel m_ApplicationViewModel;
+        private readonly AppViewModel _AppViewModel;
 
-        public ICommand ChangeThemeCommand { get; }
+        public ApplicationPage ActiveSettingsPage { get; set; } = ApplicationPage.WindowSettings;
 
+        public ICommand GoBackCommand { get; }
+        public ICommand OpenWindowSettingsCommand { get; }
+        public ICommand OpenThemeSettingsCommand { get; }
+        public ICommand OpenTaskPageSettingsCommand { get; }
+        public ICommand OpenTaskItemSettingsCommand { get; }
+        public ICommand OpenQuickActionSettingsCommand { get; }
+        public ICommand OpenTextEditorQuickActionSettingsCommand { get; }
+        public ICommand OpenNoteSettingsCommand { get; }
+        public ICommand OpenThemeEditorSettingsCommand { get; }
+        
         public SettingsPageViewModel()
         {
         }
 
         public SettingsPageViewModel(AppViewModel applicationViewModel)
         {
-            m_ApplicationViewModel = applicationViewModel;
-            ChangeThemeCommand = new RelayParameterizedCommand(ChangeTheme);
-        }
+            _AppViewModel = applicationViewModel;            
+            GoBackCommand = new RelayCommand(() => _AppViewModel.UpdateMainPage());
 
-        private void ChangeTheme(object obj)
-        {
-            if (obj is ThemeViewModel themeViewModel)
-            {
-                m_ApplicationViewModel.ApplicationSettings.ActiveTheme = themeViewModel.Theme;
-            }
+            OpenWindowSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.WindowSettings);
+            OpenThemeSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.ThemeSettings);
+            OpenTaskPageSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskPageSettings);
+            OpenTaskItemSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskItemSettings);
+            OpenQuickActionSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskQuickActionsSettings);
+            OpenTextEditorQuickActionSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TextEditorQuickActionsSettings);
+            OpenNoteSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.NotePageSettings);
+            OpenThemeEditorSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.ThemeEditorSettings);
         }
     }
 }

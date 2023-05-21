@@ -7,7 +7,6 @@ namespace TodoApp2.Core
         double ColorPickerDropDownWidth { get; }
         double ColorPickerHeight { get; }
         double ColorPickerItemSize { get; }
-        double ColorPickerOnlyDropDownWidth { get; }
         double ColorPickerWidth { get; }
         UIScaler.FontSizes FontSize { get; }
         double ScaleValue { get; }
@@ -19,7 +18,7 @@ namespace TodoApp2.Core
         double SliderThumbHeight { get; }
         double SliderThumbWidth { get; }
 
-        event EventHandler Zoomed;
+        event EventHandler<ZoomedEventArgs> Zoomed;
 
         void SetScaling(double value);
         void ZoomIn();

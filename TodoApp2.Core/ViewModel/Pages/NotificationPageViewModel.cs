@@ -27,7 +27,8 @@ namespace TodoApp2.Core
             m_OverlayPageService = overlayPageService;
 
             CloseNotificationCommand = new RelayCommand(CloseNotification);
-            m_OverlayPageService.SetBackgroundClickedAction(CloseNotification);
+            // Commented out: The user cannot accidentaly close the notification
+            //m_OverlayPageService.SetBackgroundClickedAction(CloseNotification);
         }
 
         private void CloseNotification()

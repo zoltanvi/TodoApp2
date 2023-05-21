@@ -112,6 +112,7 @@ namespace TodoApp2.Core
             public const string ModificationDate = "ModificationDate";
             public const string Color = "Color";
             public const string BorderColor = "BorderColor";
+            public const string BackgroundColor = "BackgroundColor";
             public const string Trashed = "Trashed";
             public const string CategoryId = "CategoryId";
             public const string Title = "Title";
@@ -135,6 +136,7 @@ namespace TodoApp2.Core
             public const string ModificationDate = "@" + Column.ModificationDate;
             public const string Color = "@" + Column.Color;
             public const string BorderColor = "@" + Column.BorderColor;
+            public const string BackgroundColor = "@" + Column.BackgroundColor;
             public const string Trashed = "@" + Column.Trashed;
             public const string Title = "@" + Column.Title;
         }
