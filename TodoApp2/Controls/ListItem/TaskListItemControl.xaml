@@ -166,6 +166,14 @@
             CornerRadius="3"
             Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
+        <!--  Editor indicator  -->
+        <Border
+            Margin="2 0"
+            BorderThickness="1.5"
+            CornerRadius="3"
+            BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+            Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />
+
 
         <Border
             x:Name="TaskListItemBackground"
@@ -259,13 +267,13 @@
                     </Grid>
                 </Border>
 
-                <!--  Editor indicator  -->
-                <Border
+                <!--  Old Editor indicator  -->
+                <!--<Border
                     Grid.Column="2"
                     Width="2"
                     Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                     HorizontalAlignment="Right"
-                    Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />
+                    Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />-->
 
 
                 <!--  Main content  -->

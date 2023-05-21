@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TodoApp2.Core;
@@ -145,6 +146,7 @@ namespace TodoApp2
             // Listen out for requests to flash the application window
             Mediator.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
             Mediator.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
+            Mediator.Register(OnNextThemeWithHotkeyRequested, ViewModelMessages.NextThemeWithHotkeyRequested);
 
             // Subscribe to the theme changed event to trigger app border update
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
@@ -177,9 +179,12 @@ namespace TodoApp2
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
+            Key key = e.Key;
+
+            if(key == Key.Escape) IoC.OneEditorOpenService.EditMode(null);
+
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                Key key = e.Key;
 
                 // Ctrl + Z, Ctrl + Y
                 if (key == Key.Z)
@@ -204,16 +209,25 @@ namespace TodoApp2
                     // Ctrl + Shift + J, Ctrl + Shift + L
                     if (key == Key.J || key == Key.L)
                     {
-                        int themeCount = m_ThemeManager.ThemeList.Count;
-                        int currentIndex = m_ThemeManager.ThemeList.IndexOf(ApplicationSettings.ActiveTheme);
-                        int indexOffset = key == Key.L ? 1 : -1;
-                        int nextIndex = (currentIndex + indexOffset) % themeCount;
-                        nextIndex = nextIndex < 0 ? themeCount - 1 : nextIndex;
-                        ApplicationSettings.ActiveTheme = m_ThemeManager.ThemeList[nextIndex];
-                        //ChangeToActiveTheme();
+                        ChangeActiveTheme(key == Key.L);
                     }
                 }
             }
+        }
+
+        private void ChangeActiveTheme(bool next)
+        {
+            int themeCount = m_ThemeManager.ThemeList.Count;
+            int currentIndex = m_ThemeManager.ThemeList.IndexOf(ApplicationSettings.ActiveTheme);
+            int indexOffset = next ? 1 : -1;
+            int nextIndex = (currentIndex + indexOffset) % themeCount;
+            nextIndex = nextIndex < 0 ? themeCount - 1 : nextIndex;
+            ApplicationSettings.ActiveTheme = m_ThemeManager.ThemeList[nextIndex];
+        }
+
+        private void OnNextThemeWithHotkeyRequested(object obj)
+        {
+            ChangeActiveTheme(true);
         }
 
         /// <summary>

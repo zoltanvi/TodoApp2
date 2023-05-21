@@ -150,23 +150,29 @@
             <Border
                 x:Name="BottomBorderPanel"
                 Grid.Row="2"
-                Background="{DynamicResource BottomBarBgBrush}"
+                Background="Transparent"
+                BorderThickness="0"
+                Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}"
                 Style="{DynamicResource BottomPanelStyle}">
+                <!--Background="{DynamicResource BottomBarBgBrush}"-->
 
                 <DockPanel>
-                    <local:RichTextEditorControl
-                        MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
-                        Padding="10"
-                        VerticalAlignment="Bottom"
-                        DataContext="{Binding TextEditorViewModel}">
 
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="GotFocus">
-                                <Behaviors:InvokeCommandAction Command="{Binding DataContext.TextBoxFocusedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}}" />
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
+                    <Border Background="{DynamicResource Elevation_2}" CornerRadius="6" Margin="5">
+                        <local:RichTextEditorControl
+                            MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
+                            Padding="3 8"
+                            VerticalAlignment="Bottom"
+                            DataContext="{Binding TextEditorViewModel}">
 
-                    </local:RichTextEditorControl>
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="GotFocus">
+                                    <Behaviors:InvokeCommandAction Command="{Binding DataContext.TextBoxFocusedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}}" />
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+
+                        </local:RichTextEditorControl>
+                    </Border>
 
                 </DockPanel>
 

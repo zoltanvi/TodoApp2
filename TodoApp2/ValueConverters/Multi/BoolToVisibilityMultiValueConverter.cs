@@ -19,7 +19,10 @@ namespace TodoApp2
             }
             else
             {
-                throw new ArgumentException($"FirstValue: {values[0]?.GetType()}, SecondValue: {values[1]?.GetType()}.");
+                return Visibility.Visible;
+
+                // TODO: Check binding errors
+                //throw new ArgumentException($"FirstValue: {values[0]?.GetType()}, SecondValue: {values[1]?.GetType()}.");
             }
         }
     }

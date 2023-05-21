@@ -45,5 +45,9 @@
         /// </summary>
         SideMenuCloseRequested,
 
+        /// <summary>
+        /// Ctrl + Shift + L has been pressed in a RichTextBox
+        /// </summary>
+        NextThemeWithHotkeyRequested,
     }
 }
