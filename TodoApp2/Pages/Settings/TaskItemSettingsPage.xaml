@@ -114,6 +114,7 @@
                     Description="Task background visible"
                     IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
+                <!--  DISABLED SETTING  -->
                 <!--  Drop shadow  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRestoreWindow}"
@@ -193,6 +194,44 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
+                </Border>
+
+                <!--  Font family  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="{DynamicResource SegoeIconFontFamily}"
+                            Style="{DynamicResource SettingsIconLabelStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Font family" />
+                        <ComboBox
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
+                            SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <!--  Font size  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                        <local:FontSizeSliderControl />
+                    </DockPanel>
                 </Border>
 
             </StackPanel>

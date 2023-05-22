@@ -24,13 +24,15 @@ namespace TodoApp2.Core
     /// </remarks>
     public class ApplicationSettings : BaseViewModel
     {
-        private IUIScaler m_UiScaler;
+        private readonly IUIScaler _UiScaler;
 
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
 
-        public bool IsAnyQuickActionEnabled => IsQuickActionsEnabled && (IsQuickActionsColorEnabled ||
+        public bool IsAnyQuickActionEnabled => IsQuickActionsEnabled && (IsQuickActionsReminderEnabled || 
+                                                                         IsQuickActionsColorEnabled ||
+                                                                         IsQuickActionsBackgroundColorEnabled ||
+                                                                         IsQuickActionsBorderColorEnabled ||
                                                                          IsQuickActionsPinEnabled ||
-                                                                         IsQuickActionsReminderEnabled ||
                                                                          IsQuickActionsTrashEnabled);
 
         public int WindowLeftPos { get; set; }
@@ -108,7 +110,7 @@ namespace TodoApp2.Core
 
         public ApplicationSettings(IUIScaler uiScaler)
         {
-            m_UiScaler = uiScaler;
+            _UiScaler = uiScaler;
 
             // This dictionary describes the data that is stored in database in the Settings table
             PropertyDescriptors = new Dictionary<string, IPropertyValueHandler>
@@ -175,7 +177,7 @@ namespace TodoApp2.Core
                 { nameof(TextEditorQATextColor), PropertyValueHandlers.Bool },
             };
 
-            m_UiScaler.Zoomed += OnZoomed;
+            _UiScaler.Zoomed += OnZoomed;
         }
 
         private void OnZoomed(object sender, EventArgs e)

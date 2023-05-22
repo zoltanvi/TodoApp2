@@ -21,30 +21,28 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Column="0" Grid.Row="1">
+        <DockPanel Grid.Column="0" Grid.Row="0">
             <Label
                 Content="{DynamicResource SegoeIconFontSize}"
                 Style="{DynamicResource SettingsIconLabelStyle}"
                 VerticalAlignment="Center" />
             <TextBlock
-                Grid.Column="0"
-                Grid.Row="1"
                 Text="Font size"
                 Style="{DynamicResource SettingsDescriptionStyle}" />
         </DockPanel>
 
         <!--  SAMPLE TEXT  -->
         <Label
-            Margin="0 0 0 -10"
+            Margin="0 -10 0 0"
             Grid.Column="2"
-            Grid.Row="0"
+            Grid.Row="1"
             Content="Sample text"
             FontSize="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
             FontFamily="{Binding ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
             Foreground="{DynamicResource ForegroundBrush}"
             HorizontalAlignment="Center" />
 
-        <Grid Grid.Column="2" Grid.Row="1">
+        <Grid Grid.Column="2" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -53,11 +51,12 @@
 
             <Label
                 Grid.Column="0"
-                Content="A"
+                Content="s"
                 Style="{DynamicResource SettingsALabelStyle}"
                 Margin="0 0 4 0"
                 Padding="0"
                 FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                FontWeight="Bold"
                 VerticalAlignment="Center" />
 
             <Slider
@@ -69,17 +68,18 @@
                 VerticalAlignment="Center"
                 IsSnapToTickEnabled="True"
                 TickFrequency="1"
-                AutoToolTipPlacement="BottomRight"
+                AutoToolTipPlacement="TopLeft"
                 Style="{DynamicResource CustomSliderStyle}"
                 Value="{Binding ApplicationViewModel.ApplicationSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
             <Label
                 Grid.Column="2"
-                Content="A"
+                Content="L"
                 Style="{DynamicResource SettingsALabelStyle}"
                 Margin="4 0 0 0"
                 Padding="0"
                 FontSize="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}"
+                FontWeight="Bold"
                 VerticalAlignment="Center" />
 
         </Grid>

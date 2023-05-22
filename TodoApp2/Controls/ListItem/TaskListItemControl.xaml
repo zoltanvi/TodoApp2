@@ -242,7 +242,7 @@
                     <Border.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
-                                <local:BoolToVisibilityMultiValueConverter />
+                                <local:BoolToVisibilityAndConverter />
                             </MultiBinding.Converter>
                             <Binding Path="Pinned" />
                             <Binding Path="TextEditorViewModel.IsDisplayMode" />
@@ -361,7 +361,7 @@
                     <Border.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
-                                <local:BoolToVisibilityMultiValueConverter />
+                                <local:BoolToVisibilityAndConverter />
                             </MultiBinding.Converter>
                             <Binding Path="ApplicationViewModel.ApplicationSettings.IsAnyQuickActionEnabled" Source="{x:Static local:ViewModelLocator.Instance}" />
                             <Binding
