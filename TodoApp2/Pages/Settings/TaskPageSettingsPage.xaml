@@ -55,6 +55,13 @@
                     Description="Exit edit mode on focus lost"
                     IsChecked="{Binding AppSettings.FocusLostSavesTask, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
+                <!--  Save task on enter  -->
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconSend}"
+                    Description="Save task on Enter"
+                    ToolTip="If turned off: Save task on Ctrl + Enter"
+                    IsChecked="{Binding AppSettings.SaveOnEnter, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
                 <!--  Play sound for completed tasks  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBell}"

@@ -68,7 +68,7 @@ namespace TodoApp2.Core
             SetBackgroundColorParameterizedCommand = new RelayParameterizedCommand(SetBackgroundColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
-            TextEditorViewModel = new RichTextEditorViewModel(true, focusLostSavesTask, false, false);
+            TextEditorViewModel = new RichTextEditorViewModel(true, focusLostSavesTask, false, true);
             TextEditorViewModel.EnterAction = UpdateContent;
             EnableQuickActionsCommand = new RelayCommand(() => IsQuickActionsEnabled = true);
             DisableQuickActionsCommand = new RelayCommand(() => IsQuickActionsEnabled = false);

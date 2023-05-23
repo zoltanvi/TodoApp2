@@ -92,7 +92,7 @@ namespace TodoApp2.Core
         public bool TextEditorQAMonospace { get; set; } = true;
         public bool TextEditorQAReset { get; set; } = true;
         public bool TextEditorQATextColor { get; set; } = true;
-        public bool SaveOnEnter { get; set; }
+        public bool SaveOnEnter { get; set; } = true;
 
         #region Testing
 

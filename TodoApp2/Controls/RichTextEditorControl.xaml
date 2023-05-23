@@ -39,6 +39,7 @@
                 <DockPanel>
                     <WrapPanel
                         Visibility="{Binding IsChecked, ElementName=IsEditorOpenToggle, Converter={StaticResource boolToVisibilityConverter}}"
+                        IsEnabled="{Binding IsChecked, ElementName=IsEditorOpenToggle}"
                         Background="#00ffffff"
                         DockPanel.Dock="Top"
                         ToolBarTray.IsLocked="True">

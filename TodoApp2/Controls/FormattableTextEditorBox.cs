@@ -132,12 +132,15 @@ namespace TodoApp2
 
             if (escape || (enter && !shiftPressed))
             {
-                UpdateContent();
+                if (IoC.AppSettings.SaveOnEnter || ctrlPressed && enter)
+                {
+                    UpdateContent();
 
-                EnterAction?.Invoke();
+                    EnterAction?.Invoke();
 
-                // Mark the key as handled
-                e.Handled = true;
+                    // Mark the key as handled
+                    e.Handled = true;
+                }
             }
 
             if (ctrlPressed && shiftPressed && (keyL || keyN))
