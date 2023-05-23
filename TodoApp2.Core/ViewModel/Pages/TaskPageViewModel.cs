@@ -445,7 +445,7 @@ namespace TodoApp2.Core
 
         private void MoveTaskToEnd(TaskViewModel task)
         {
-            if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+            if (IoC.AppSettings.MoveTaskOnCompletion)
             {
                 int newIndex = Items.Count - 1;
 
@@ -464,7 +464,7 @@ namespace TodoApp2.Core
 
         private void MoveTaskToTop(TaskViewModel task)
         {
-            if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+            if (IoC.AppSettings.MoveTaskOnCompletion)
             {
                 // Get the valid index. E.g: A normal item cannot be above the pinned ones.
                 int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task);

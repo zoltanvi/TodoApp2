@@ -136,10 +136,10 @@
         </ContextMenu>
     </UserControl.ContextMenu>
 
-    <Grid Background="Transparent" Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
+    <Grid Background="Transparent" Margin="{Binding Path=AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
 
         <!--  COLOR BAR  -->
-        <!--  CornerRadius="{Binding Path=ApplicationViewModel.ApplicationSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">  -->
+        <!--  CornerRadius="{Binding Path=AppSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">  -->
         <Border
             Margin="4 2"
             Panel.ZIndex="1000"
@@ -152,7 +152,7 @@
                     <MultiBinding.Converter>
                         <local:ColorBarBorderWidthMultiValueConverter />
                     </MultiBinding.Converter>
-                    <Binding Path="ApplicationViewModel.ApplicationSettings.ColorBarThickness" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding Path="AppSettings.ColorBarThickness" Source="{x:Static local:ViewModelLocator.Instance}" />
                     <Binding Path="UIScaler.ScaleValue" />
                 </MultiBinding>
             </Border.Width>
@@ -164,14 +164,14 @@
             BorderBrush="{Binding BorderColor, Converter={StaticResource taskBorderBrushConverter}}"
             BorderThickness="1"
             CornerRadius="3"
-            Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+            Visibility="{Binding AppSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
         <!--  Editor indicator  -->
         <Border
             Margin="2 0"
             BorderThickness="1.5"
             CornerRadius="3"
-            BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+            BorderBrush="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
             Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />
 
 
@@ -184,7 +184,7 @@
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
-                    <Binding Path="ApplicationViewModel.ApplicationSettings.IsItemBackgroundVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                    <Binding Path="AppSettings.IsItemBackgroundVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
                 </MultiBinding>
             </Border.Background>
 
@@ -197,7 +197,7 @@
                                 <MultiBinding.Converter>
                                     <local:ColorBarGridWidthMultiValueConverter />
                                 </MultiBinding.Converter>
-                                <Binding Path="ApplicationViewModel.ApplicationSettings.ColorBarThickness" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                <Binding Path="AppSettings.ColorBarThickness" Source="{x:Static local:ViewModelLocator.Instance}" />
                                 <Binding Path="UIScaler.ScaleValue" />
                             </MultiBinding>
                         </ColumnDefinition.Width>
@@ -231,7 +231,7 @@
                     IsChecked="{Binding IsDone}"
                     Style="{DynamicResource TaskCheckBoxStyle}"
                     Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
-                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsCheckboxEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                    Visibility="{Binding AppSettings.IsQuickActionsCheckboxEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                 <!--  Pin icon  -->
                 <Border
@@ -254,12 +254,12 @@
                             Padding="2"
                             Content="{DynamicResource SegoeIconPinFilled}"
                             FontFamily="{StaticResource IconFont}"
-                            Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                            Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
                         <Label
                             Padding="2"
                             Content="{DynamicResource SegoeIconPin}"
                             FontFamily="{StaticResource IconFont}"
-                            Foreground="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                            Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
                         <Grid.LayoutTransform>
                             <!--  -1 to mirror it  -->
                             <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
@@ -271,13 +271,13 @@
                 <!--<Border
                     Grid.Column="2"
                     Width="2"
-                    Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                    Background="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                     HorizontalAlignment="Right"
                     Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />-->
 
 
                 <!--  Main content  -->
-                <Border Grid.Column="2" Margin="{Binding ApplicationViewModel.ApplicationSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskSpacingToMarginConverter}}">
+                <Border Grid.Column="2" Margin="{Binding AppSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskSpacingToMarginConverter}}">
                     <Grid Margin="0 2 10 2">
                         <Grid.RowDefinitions>
                             <!--  Task description row  -->
@@ -307,41 +307,41 @@
                             <Label
                                 Padding="0"
                                 Content="Created: "
-                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                 FontSize="{Binding UIScaler.FontSize.Smaller}"
                                 Foreground="{DynamicResource TaskDateBrush}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                             <!--  Creation date  -->
                             <TextBlock
                                 Grid.Row="1"
                                 Margin="0 0 16 0"
-                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                 FontSize="{Binding UIScaler.FontSize.Smaller}"
                                 Foreground="{DynamicResource TaskDateBrush}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Text="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                             <Label
                                 Padding="0"
                                 Content="Modified: "
-                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                 FontSize="{Binding UIScaler.FontSize.Smaller}"
                                 Foreground="{DynamicResource TaskDateBrush}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                Visibility="{Binding AppSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                             <!--  Modification date  -->
                             <TextBlock
                                 Grid.Row="1"
-                                FontFamily="{Binding Path=ApplicationViewModel.ApplicationSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                 FontSize="{Binding UIScaler.FontSize.Smaller}"
                                 Foreground="{DynamicResource TaskDateBrush}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Text="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                Visibility="{Binding AppSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                         </StackPanel>
 
                     </Grid>
@@ -356,14 +356,14 @@
                     HorizontalAlignment="Right"
                     AutomationProperties.AutomationId="TaskListItemHiddenPanel"
                     Background="Transparent"
-                    IsEnabled="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
+                    IsEnabled="{Binding AppSettings.IsQuickActionsEnabled, Source={x:Static local:ViewModelLocator.Instance}}"
                     Opacity="0">
                     <Border.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
                                 <local:BoolToVisibilityAndConverter />
                             </MultiBinding.Converter>
-                            <Binding Path="ApplicationViewModel.ApplicationSettings.IsAnyQuickActionEnabled" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            <Binding Path="AppSettings.IsAnyQuickActionEnabled" Source="{x:Static local:ViewModelLocator.Instance}" />
                             <Binding
                                 Mode="OneWay"
                                 Path="TextEditorViewModel.IsDisplayMode"
@@ -426,7 +426,7 @@
                                     Style="{DynamicResource ButtonQuickActionStyle}"
                                     ToolTip="Set Reminder"
                                     IsEnabled="{Binding IsQuickActionsEnabled}"
-                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                    Visibility="{Binding AppSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
 
                             <!--  Calendar active button  -->
@@ -438,7 +438,7 @@
                                     Style="{DynamicResource ButtonQuickActionStyle}"
                                     IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="{Binding ReminderDate, Converter={StaticResource longToFormattedLongDateConverter}}"
-                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                    Visibility="{Binding AppSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
 
                             <!--  Color picker  -->
@@ -453,7 +453,7 @@
                                 Background="{DynamicResource TaskBgBrush}"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Marker color"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                                Visibility="{Binding AppSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
                                 <Behaviors:Interaction.Triggers>
                                     <Behaviors:EventTrigger EventName="SelectionChanged">
@@ -474,7 +474,7 @@
                                 Background="{DynamicResource TaskBgBrush}"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Background color"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                                Visibility="{Binding AppSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
                                 <Behaviors:Interaction.Triggers>
                                     <Behaviors:EventTrigger EventName="SelectionChanged">
@@ -496,7 +496,7 @@
                                 Background="{DynamicResource TaskBgBrush}"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Border color"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                                Visibility="{Binding AppSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
 
                                 <Behaviors:Interaction.Triggers>
                                     <Behaviors:EventTrigger EventName="SelectionChanged">
@@ -517,7 +517,7 @@
                                     Margin="4 0 0 0"
                                     IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="Pin task"
-                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                    Visibility="{Binding AppSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
                             <!--  Unpin button  -->
                             <Grid Grid.Column="3" Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityConverter}}">
@@ -530,7 +530,7 @@
                                     Margin="4 0 0 0"
                                     IsEnabled="{Binding IsQuickActionsEnabled}"
                                     ToolTip="Unpin task"
-                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                    Visibility="{Binding AppSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
                             <!--  Trash button  -->
                             <Button
@@ -544,7 +544,7 @@
                                 Margin="4 0 0 0"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Trash task"
-                                Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                Visibility="{Binding AppSettings.IsQuickActionsTrashEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                         </StackPanel>
 

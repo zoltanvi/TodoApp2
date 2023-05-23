@@ -45,7 +45,7 @@ namespace TodoApp2.Core
             set
             {
                 m_ActiveCategory = value;
-                m_ApplicationViewModel.ApplicationSettings.ActiveCategoryId = value?.Id ?? -1;
+                IoC.AppSettings.ActiveCategoryId = value?.Id ?? -1;
             }
         }
 
@@ -53,7 +53,7 @@ namespace TodoApp2.Core
         {
             m_ApplicationViewModel = applicationViewModel;
             m_Database = database;
-            m_ActiveCategory = m_Database.GetCategory(m_ApplicationViewModel.ApplicationSettings.ActiveCategoryId);
+            m_ActiveCategory = m_Database.GetCategory(IoC.AppSettings.ActiveCategoryId);
 
             m_Database.CategoryChanged += OnDatabaseCategoryChanged;
 

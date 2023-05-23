@@ -47,7 +47,7 @@
                                     <MultiBinding.Converter>
                                         <local:RoundedCornersMultiConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="ApplicationViewModel.ApplicationSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                    <Binding Path="AppSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
                                     <Binding Path="IsRoundedCornersAllowed" />
                                 </MultiBinding>
                             </Border.CornerRadius>
@@ -68,7 +68,7 @@
                                         <MultiBinding.Converter>
                                             <local:RoundedCornersMultiConverter />
                                         </MultiBinding.Converter>
-                                        <Binding Path="ApplicationViewModel.ApplicationSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                        <Binding Path="AppSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
                                         <Binding Path="IsRoundedCornersAllowed" />
                                     </MultiBinding>
                                 </Border.CornerRadius>
@@ -87,7 +87,7 @@
                                     <!--  BorderBrush="{DynamicResource AppBorderBrush}"  -->
                                     <Border
                                         Panel.ZIndex="2"
-                                        BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource appBorderBrushConverter}}"
+                                        BorderBrush="{Binding AppSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource appBorderBrushConverter}}"
                                         BorderThickness="1">
 
                                         <Border.CornerRadius>
@@ -95,7 +95,7 @@
                                                 <MultiBinding.Converter>
                                                     <local:RoundedCornersMultiConverter />
                                                 </MultiBinding.Converter>
-                                                <Binding Path="ApplicationViewModel.ApplicationSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                                <Binding Path="AppSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
                                                 <Binding Path="IsRoundedCornersAllowed" />
                                             </MultiBinding>
                                         </Border.CornerRadius>
@@ -109,7 +109,7 @@
                                                 <MultiBinding.Converter>
                                                     <local:RoundedCornersMultiConverter />
                                                 </MultiBinding.Converter>
-                                                <Binding Path="ApplicationViewModel.ApplicationSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                                <Binding Path="AppSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
                                                 <Binding Path="IsRoundedCornersAllowed" />
                                             </MultiBinding>
                                         </Border.CornerRadius>
@@ -169,7 +169,7 @@
                                                                 Margin="0 2"
                                                                 Padding="5 0">
                                                                 <Label
-                                                                    Visibility="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                                                                    Visibility="{Binding AppSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                                                                     Content="{Binding CurrentTime}"
                                                                     Margin="0"
                                                                     Padding="0"
@@ -276,7 +276,7 @@
 
             <GridSplitter
                 x:Name="Resizer"
-                Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                Background="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                 Grid.Column="1"
                 Opacity="0"
                 Width="6"

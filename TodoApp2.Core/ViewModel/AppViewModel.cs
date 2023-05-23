@@ -65,7 +65,11 @@ namespace TodoApp2.Core
         /// <summary>
         /// The settings for the whole application
         /// </summary>
-        public ApplicationSettings ApplicationSettings { get; }
+        public ApplicationSettings ApplicationSettings
+        {
+            get => IoC.AppSettings;
+            set => IoC.AppSettings = value;
+        }
 
         /// <summary>
         /// The value change triggers the animation

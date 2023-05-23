@@ -7,7 +7,8 @@
     {
         public static IAsyncActionService AsyncActionService { get; set; }
         public static IResourceUpdater ResourceUpdater { get; set; }
-        public static AppViewModel ApplicationViewModel { get; private set; }
+        public static ApplicationSettings AppSettings { get; set; }
+        public static AppViewModel AppViewModel { get; private set; }
         public static IDatabase Database { get; private set; }
         public static OverlayPageService OverlayPageService { get; private set; }
         public static CategoryListService CategoryListService { get; private set; }
@@ -38,14 +39,14 @@
             MediaPlayerService = new MediaPlayerService();
             UIScaler = UIScaler.Instance;
             UndoManager = new UndoManager();
-            ApplicationViewModel = new AppViewModel(Database, UIScaler);
-            OverlayPageService = new OverlayPageService(ApplicationViewModel, Database);
+            AppViewModel = new AppViewModel(Database, UIScaler);
+            OverlayPageService = new OverlayPageService(AppViewModel, Database);
             
             // Create default categories + help tasks
             Database.AddDefaultRecords();
 
             // This dependency must be set here. Workaround to avoid circular dependencies
-            ApplicationViewModel.OverlayPageService = OverlayPageService;
+            AppViewModel.OverlayPageService = OverlayPageService;
 
             TaskScheduler2 taskScheduler2 = new TaskScheduler2();
             
@@ -55,9 +56,9 @@
             // This dependency must be set here. Workaround to avoid circular dependencies
             OverlayPageService.ReminderNotificationService = reminderNotificationService;
 
-            CategoryListService = new CategoryListService(ApplicationViewModel, Database);
-            NoteListService = new NoteListService(ApplicationViewModel, Database);
-            TaskListService = new TaskListService(Database, CategoryListService, ApplicationViewModel);
+            CategoryListService = new CategoryListService(AppViewModel, Database);
+            NoteListService = new NoteListService(AppViewModel, Database);
+            TaskListService = new TaskListService(Database, CategoryListService, AppViewModel);
 
             OneEditorOpenService = new OneEditorOpenService();
 

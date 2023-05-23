@@ -19,7 +19,7 @@ namespace TodoApp2
             }
             else
             {
-                return Visibility.Visible;
+                return Visibility.Collapsed;
 
                 // TODO: Check binding errors
                 //throw new ArgumentException($"FirstValue: {values[0]?.GetType()}, SecondValue: {values[1]?.GetType()}.");
@@ -42,7 +42,7 @@ namespace TodoApp2
             }
             else
             {
-                return Visibility.Visible;
+                return Visibility.Collapsed;
 
                 // TODO: Check binding errors
                 //throw new ArgumentException($"FirstValue: {values[0]?.GetType()}, SecondValue: {values[1]?.GetType()}.");

@@ -59,7 +59,7 @@ namespace TodoApp2.Core
 
         public TaskViewModel()
         {
-            bool focusLostSavesTask = IoC.ApplicationViewModel.ApplicationSettings.FocusLostSavesTask;
+            bool focusLostSavesTask = IoC.AppViewModel.ApplicationSettings.FocusLostSavesTask;
             SetColorCommand = new RelayCommand(SetColor);
             SetBorderColorCommand = new RelayCommand(SetColor);
             SetBackgroundColorCommand = new RelayCommand(SetColor);

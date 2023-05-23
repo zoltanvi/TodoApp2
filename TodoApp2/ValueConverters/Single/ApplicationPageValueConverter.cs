@@ -32,7 +32,7 @@ namespace TodoApp2
             public ApplicationPageManager()
             {
                 _TaskListService = IoC.TaskListService;
-                _AppViewModel = IoC.ApplicationViewModel;
+                _AppViewModel = IoC.AppViewModel;
                 _Database = IoC.Database;
                 _OverlayPageService = IoC.OverlayPageService;
                 _CategoryListService = IoC.CategoryListService;

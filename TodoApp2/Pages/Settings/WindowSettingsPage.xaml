@@ -35,37 +35,37 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlwaysOnTop}"
                     Description="Always on top"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Auto start app with Windows  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRepeat}"
                     Description="Auto start app with Windows"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RunAtStartup, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.RunAtStartup, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Rounded window corners  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRoundedCorners}"
                     Description="Rounded window corners"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.RoundedWindowCorners, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.RoundedWindowCorners, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Window title bar date visible  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCalendar}"
                     Description="Window title bar date visible"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Exit button minimizes to tray  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMinimizeToTray}"
                     Description="Exit button minimizes to tray"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.IsTrayIconEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.IsTrayIconEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Close side menu on category change  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMinimizeToTray}"
                     Description="Close side menu on category change"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
 
                 <!--  Accent color  -->
@@ -95,7 +95,7 @@
                                 ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
                                 ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
                                 ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                SelectedItem="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                                 Style="{DynamicResource TaskItemColorPickerStyle}" />
                         </Border>
 
@@ -130,7 +130,7 @@
                                 ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
                                 ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
                                 ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                SelectedItem="{Binding ApplicationViewModel.ApplicationSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                SelectedItem="{Binding AppSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                                 Style="{DynamicResource TaskItemColorPickerStyle}">
 
                                 <!--<Behaviors:Interaction.Triggers>
