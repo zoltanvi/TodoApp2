@@ -46,11 +46,11 @@
                     Icon="{DynamicResource SegoeIconUnderlined}"
                     Description="Underlined button"
                     IsChecked="{Binding AppSettings.TextEditorQAUnderlined, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-
+                
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSize}"
-                    Description="Small font button"
-                    IsChecked="{Binding AppSettings.TextEditorQASmall, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    Description="Header1 button"
+                    IsChecked="{Binding AppSettings.TextEditorQALarge, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSize}"
@@ -59,8 +59,28 @@
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSize}"
-                    Description="Large font button"
-                    IsChecked="{Binding AppSettings.TextEditorQALarge, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    Description="Small font button"
+                    IsChecked="{Binding AppSettings.TextEditorQASmall, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconAlignLeft}"
+                    Description="Align left button"
+                    IsChecked="{Binding AppSettings.TextEditorQAAlignLeft, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconAlignCenter}"
+                    Description="Align center button"
+                    IsChecked="{Binding AppSettings.TextEditorQAAlignCenter, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconAlignRight}"
+                    Description="Align right button"
+                    IsChecked="{Binding AppSettings.TextEditorQAAlignRight, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+               
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconAlignJustify}"
+                    Description="Justify button"
+                    IsChecked="{Binding AppSettings.TextEditorQAAlignJustify, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSizeIncrease}"

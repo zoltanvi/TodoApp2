@@ -92,6 +92,10 @@ namespace TodoApp2.Core
         public bool TextEditorQAMonospace { get; set; } = true;
         public bool TextEditorQAReset { get; set; } = true;
         public bool TextEditorQATextColor { get; set; } = true;
+        public bool TextEditorQAAlignLeft { get; set; }
+        public bool TextEditorQAAlignCenter { get; set; }
+        public bool TextEditorQAAlignRight { get; set; }
+        public bool TextEditorQAAlignJustify { get; set; }
         public bool SaveOnEnter { get; set; } = true;
 
         #region Testing
@@ -185,6 +189,10 @@ namespace TodoApp2.Core
                 { nameof(TextEditorQAMonospace), boolean },
                 { nameof(TextEditorQAReset), boolean },
                 { nameof(TextEditorQATextColor), boolean },
+                { nameof(TextEditorQAAlignLeft), boolean },
+                { nameof(TextEditorQAAlignCenter), boolean },
+                { nameof(TextEditorQAAlignRight), boolean },
+                { nameof(TextEditorQAAlignJustify), boolean },
                 { nameof(SaveOnEnter), boolean },
             };
 

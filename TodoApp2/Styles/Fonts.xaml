@@ -126,6 +126,11 @@
     <system:String x:Key="SegoeIconFontSizeDecrease">&#xE8E7;</system:String>
     <system:String x:Key="SegoeIconFontSizeIncrease">&#xE8E8;</system:String>
 
+    <system:String x:Key="SegoeIconAlignLeft">&#xE1A2;</system:String>
+    <system:String x:Key="SegoeIconAlignCenter">&#xE1A1;</system:String>
+    <system:String x:Key="SegoeIconAlignRight">&#xE1A0;</system:String>
+    <system:String x:Key="SegoeIconAlignJustify">&#xEA42;</system:String>
+
     <system:String x:Key="SegoeIconMinimizeToTray">&#xE18C;</system:String>
     <system:String x:Key="SegoeIconDeleteFormatting">&#xED60;</system:String>
 

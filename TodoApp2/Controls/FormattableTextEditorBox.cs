@@ -62,17 +62,18 @@ namespace TodoApp2
         public ICommand SetBoldCommand { get; set; }
         public ICommand SetItalicCommand { get; set; }
         public ICommand SetUnderlinedCommand { get; set; }
-
         public ICommand SetSmallFontSizeCommand { get; set; }
         public ICommand SetMediumFontSizeCommand { get; set; }
         public ICommand SetBigFontSizeCommand { get; set; }
-
         public ICommand IncreaseFontSizeCommand { get; set; }
         public ICommand DecreaseFontSizeCommand { get; set; }
-
         public ICommand ResetFormattingCommand { get; set; }
-
         public ICommand MonospaceCommand { get; set; }
+        public ICommand AlignLeftCommand { get; set; }
+        public ICommand AlignCenterCommand { get; set; }
+        public ICommand AlignRightCommand { get; set; }
+        public ICommand AlignJustifyCommand { get; set; }
+
 
         private bool IsCtrlDown => (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl));
 
@@ -103,6 +104,11 @@ namespace TodoApp2
             DecreaseFontSizeCommand = new RelayCommand(DecreaseFontSize);
             ResetFormattingCommand = new RelayCommand(ResetAllFormatting);
             MonospaceCommand = new RelayCommand(ChangeToMonospace);
+
+            AlignLeftCommand = new RelayCommand(() => EditingCommands.AlignLeft.Execute(null, this));
+            AlignCenterCommand = new RelayCommand(() => EditingCommands.AlignCenter.Execute(null, this));
+            AlignRightCommand = new RelayCommand(() => EditingCommands.AlignRight.Execute(null, this));
+            AlignJustifyCommand = new RelayCommand(() => EditingCommands.AlignJustify.Execute(null, this));
 
             PreviewKeyDown += FormattableTextEditorBox_PreviewKeyDown;
         }
@@ -156,11 +162,27 @@ namespace TodoApp2
 
         private void ChangeToMonospace()
         {
-            MediaFontFamily consolas = new MediaFontFamily(GlobalConstants.FontFamily.Consolas);
-            if (consolas != null)
+            object currentFontFamily = Selection.GetPropertyValue(TextElement.FontFamilyProperty);
+
+            if (currentFontFamily is MediaFontFamily fontFamily && fontFamily.Source == GlobalConstants.FontFamily.Consolas)
             {
-                Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, consolas);
+                MediaFontFamily defaultFontFamily = EnumToFontFamilyConverter.Instance.Convert(IoC.AppSettings.FontFamily);
+
+                if (defaultFontFamily != null)
+                {
+                    Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, defaultFontFamily);
+                }
             }
+            else
+            {
+                MediaFontFamily consolas = EnumToFontFamilyConverter.Instance.Convert(TodoApp2.Core.FontFamily.Consolas);
+                    
+                if (consolas != null)
+                {
+                    Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, consolas);
+                }
+            }
+
         }
 
         private void ResetAllFormatting()
