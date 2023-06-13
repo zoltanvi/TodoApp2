@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
 
 namespace TodoApp2
 {
-    public class SingletonColorPicker : ToggleButton
+    public class SingletonColorPicker : Button
     {
         public static readonly DependencyProperty SelectedColorStringProperty = DependencyProperty.Register(nameof(SelectedColorString), typeof(string), typeof(SingletonColorPicker), new PropertyMetadata());
 
@@ -16,31 +16,26 @@ namespace TodoApp2
             set => SetValue(SelectedColorStringProperty, value);
         }
 
-        protected override void OnToggle()
+        protected override void OnClick()
         {
-            base.OnToggle();
+            base.OnClick();
 
-            if (IsChecked.HasValue && IsChecked.Value)
+            if (_popup == null)
             {
-                if (_popup == null)
-                {
-                    _popup = (SingletonPopup)FindResource("ColorPickerPopup");
-                }
-
-                _popup.Closed += OnPopupClosed;
-                _popup.LostFocus += OnPopupLostFocus;
-                _popup.SelectedColor = SelectedColorString;
-                _popup.SelectedColorChanged += OnPopupSelectedColorChanged;
-                _popup.PlacementTarget = this;
-                _popup.IsOpen = true;
-                //IsEnabled = false;
-                //IsHitTestVisible = false;
-
+                _popup = PopupService.Popup;
             }
-            else
-            {
-                _popup.IsOpen = false;
-            }
+
+            _popup.IsOpen = false;
+
+            // First register to clear previous registration if there is any
+            _popup.RegisterSelectedColorChangeEvent(OnPopupSelectedColorChanged);
+            _popup.SelectedColor = SelectedColorString;
+
+            _popup.Closed += OnPopupClosed;
+            _popup.LostFocus += OnPopupLostFocus;
+
+            _popup.PlacementTarget = this;
+            _popup.IsOpen = true;
         }
 
         private void OnPopupLostFocus(object sender, RoutedEventArgs e)
@@ -49,7 +44,7 @@ namespace TodoApp2
             _popup.LostFocus -= OnPopupLostFocus;
         }
 
-        private void OnPopupSelectedColorChanged(object sender, EventArgs e)
+        private void OnPopupSelectedColorChanged()
         {
             SelectedColorString = _popup.SelectedColor;
             _popup.IsOpen = false;
@@ -57,9 +52,7 @@ namespace TodoApp2
 
         private void OnPopupClosed(object sender, EventArgs e)
         {
-            IsChecked = false;
             IsEnabled = true;
-            _popup.SelectedColorChanged -= OnPopupSelectedColorChanged;
             _popup.Closed -= OnPopupClosed;
         }
 

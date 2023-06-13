@@ -9,8 +9,8 @@
         x:Name="ColorPickerPopup"
         AllowsTransparency="True"
         Focusable="False"
-        Placement="Bottom"
-        PopupAnimation="Fade"
+        Placement="Right"
+        PopupAnimation="None"
         MaxHeight="400"
         StaysOpen="False"
         >
@@ -114,7 +114,7 @@
     <Style TargetType="local:SingletonColorPicker">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                <ControlTemplate TargetType="{x:Type Button}">
                     <Border
                         x:Name="border"
                         Background="{DynamicResource Elevation_1}"
@@ -144,7 +144,7 @@
                                 </Border>
                             </Border>
 
-                            <Viewbox VerticalAlignment="Center" Grid.Column="1">
+                            <!--<Viewbox VerticalAlignment="Center" Grid.Column="1" >
                                 <Label
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
@@ -154,7 +154,7 @@
                                     Content="{StaticResource SegoeIconChevronUp}"
                                     Style="{DynamicResource IconLabelStyle}"
                                     BorderThickness="0" />
-                            </Viewbox>
+                            </Viewbox>-->
 
                             <Viewbox VerticalAlignment="Center" Grid.Column="1">
                                 <Label
@@ -179,14 +179,14 @@
 
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="false">
+                        <!--<Trigger Property="IsChecked" Value="false">
                             <Setter TargetName="ArrowDown" Property="Visibility" Value="Visible" />
                             <Setter TargetName="ArrowTop" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter TargetName="ArrowDown" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="ArrowTop" Property="Visibility" Value="Visible" />
-                        </Trigger>
+                        </Trigger>-->
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
                         </Trigger>

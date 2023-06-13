@@ -246,6 +246,7 @@
       <DependentUpon>TaskPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApplicationPageHelper.cs" />
+    <Compile Include="Services\PopupService.cs" />
     <Compile Include="Services\ResourceUpdater.cs" />
     <Compile Include="Services\ThemeListService.cs" />
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
