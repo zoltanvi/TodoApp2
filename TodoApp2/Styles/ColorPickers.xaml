@@ -1,0 +1,213 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:TodoApp2">
+
+    <local:SingletonPopup
+        x:Key="ColorPickerPopup"
+        x:Name="ColorPickerPopup"
+        AllowsTransparency="True"
+        Focusable="False"
+        Placement="Bottom"
+        PopupAnimation="Fade"
+        MaxHeight="400"
+        StaysOpen="False"
+        >
+        <Grid
+            x:Name="DropDown2"
+            SnapsToDevicePixels="True">
+            <Border
+                x:Name="DropDownBorder2"
+                Background="{DynamicResource ComboBoxBgBrush}"
+                BorderBrush="{DynamicResource CommonControlBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="4" />
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}" Padding="0 0 26 0">
+
+                <ItemsControl ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}" Margin="6 6 0 6" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="9" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid>
+                                <Border
+                                    Name="HighlightBorder"
+                                    BorderThickness="1"
+                                    BorderBrush="{Binding ElementName=PART_border, Path=Background}"
+                                    CornerRadius="2"
+                                    Margin="1"
+                                    Visibility="Collapsed"
+                                    >
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:DataTrigger Value="True">
+                                            <Behaviors:DataTrigger.Binding>
+                                                <MultiBinding>
+                                                    <MultiBinding.Converter>
+                                                        <local:EqualityConverter/>
+                                                    </MultiBinding.Converter>
+                                                    <Binding Path="." />
+                                                    <Binding Path="SelectedColor" RelativeSource="{RelativeSource AncestorType=local:SingletonPopup}"/>
+                                                </MultiBinding>
+                                            </Behaviors:DataTrigger.Binding>
+                                            <Behaviors:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                                        </Behaviors:DataTrigger>
+
+                                        <Behaviors:DataTrigger Value="False">
+                                            <Behaviors:DataTrigger.Binding>
+                                                <MultiBinding>
+                                                    <MultiBinding.Converter>
+                                                        <local:EqualityConverter/>
+                                                    </MultiBinding.Converter>
+                                                    <Binding Path="." />
+                                                    <Binding Path="SelectedColor" RelativeSource="{RelativeSource AncestorType=local:SingletonPopup}"/>
+                                                </MultiBinding>
+                                            </Behaviors:DataTrigger.Binding>
+                                            <Behaviors:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                                        </Behaviors:DataTrigger>
+                                    </Behaviors:Interaction.Triggers>
+
+                                </Border>
+
+                                <Border
+                                    x:Name="PART_border"
+                                    Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    CornerRadius="3"
+                                    Margin="3"
+                                    Cursor="Hand"
+                                    ToolTip="{Binding}"
+                                    Background="{Binding Path=., Converter={StaticResource stringRGBToBrushConverter}}">
+
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                            <Behaviors:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=local:SingletonPopup}}"
+                                                                                PropertyName="SelectedColor" Value="{Binding}" />
+                                        </Behaviors:EventTrigger>
+
+                                        <Behaviors:DataTrigger Binding="{Binding}" Value="Transparent">
+                                            <Behaviors:ChangePropertyAction PropertyName="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                                        </Behaviors:DataTrigger>
+                                        <Behaviors:DataTrigger Binding="{Binding}" Value="">
+                                            <Behaviors:ChangePropertyAction PropertyName="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                                        </Behaviors:DataTrigger>
+                                        <Behaviors:DataTrigger Binding="{Binding}" Value="{x:Null}">
+                                            <Behaviors:ChangePropertyAction PropertyName="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                                        </Behaviors:DataTrigger>
+
+                                    </Behaviors:Interaction.Triggers>
+                                </Border>
+                            </Grid>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </local:SingletonPopup>
+
+    <Style TargetType="local:SingletonColorPicker">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border
+                        x:Name="border"
+                        Background="{DynamicResource Elevation_1}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="0"
+                        CornerRadius="4"
+                        SnapsToDevicePixels="true">
+                        <Grid Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0">
+                                <Border
+                                    Name="PaddingBorder"
+                                    Padding="3"
+                                    Background="Transparent">
+                                    <Border
+                                        x:Name="PART_selectedColorBorder"
+                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        Background="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
+                                        Tag="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                        CornerRadius="4" >
+                                    </Border>
+                                </Border>
+                            </Border>
+
+                            <Viewbox VerticalAlignment="Center" Grid.Column="1">
+                                <Label
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    x:Name="ArrowTop"
+                                    Margin="0"
+                                    Padding="10"
+                                    Content="{StaticResource SegoeIconChevronUp}"
+                                    Style="{DynamicResource IconLabelStyle}"
+                                    BorderThickness="0" />
+                            </Viewbox>
+
+                            <Viewbox VerticalAlignment="Center" Grid.Column="1">
+                                <Label
+                                    x:Name="ArrowDown"
+                                    Margin="0"
+                                    Padding="10"
+                                    Content="{StaticResource SegoeIconChevronDown}"
+                                    Style="{DynamicResource IconLabelStyle}"
+                                    BorderThickness="0" />
+                            </Viewbox>
+
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Visibility="Visible" />
+                        </Grid>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter TargetName="ArrowDown" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ArrowTop" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="ArrowDown" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ArrowTop" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
+                        </Trigger>
+
+                        <DataTrigger Binding="{Binding ElementName=PART_selectedColorBorder, Path=Tag}" Value="Transparent">
+                            <Setter TargetName="PART_selectedColorBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                        </DataTrigger>
+                        <!--<DataTrigger Binding="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}" Value="">
+                            <Setter TargetName="PART_selectedColorBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}" Value="{x:Null}">
+                            <Setter TargetName="PART_selectedColorBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                        </DataTrigger>-->
+
+
+                        <!--PART_selectedColorBorder-->
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

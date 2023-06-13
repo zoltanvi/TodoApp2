@@ -134,6 +134,7 @@
     <Compile Include="Controls\BasicTextEditorBox.cs" />
     <Compile Include="Controls\ClickSelectTextBox.cs" />
     <Compile Include="Controls\ColorPickerComboBox.cs" />
+    <Compile Include="Controls\ColorPicker\SingletonPopup.cs" />
     <Compile Include="Controls\CustomScrollViewer.cs" />
     <Compile Include="Controls\FontSizeSliderControl.xaml.cs">
       <DependentUpon>FontSizeSliderControl.xaml</DependentUpon>
@@ -178,6 +179,7 @@
       <DependentUpon>TaskListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FormattableTextEditorBox.cs" />
+    <Compile Include="Controls\ColorPicker\SingletonColorPicker.cs" />
     <Compile Include="Controls\TimePickerControl.xaml.cs">
       <DependentUpon>TimePickerControl.xaml</DependentUpon>
     </Compile>
@@ -444,6 +446,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Version.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ColorPickers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

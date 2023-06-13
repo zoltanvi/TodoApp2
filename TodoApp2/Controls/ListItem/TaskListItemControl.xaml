@@ -16,7 +16,7 @@
 
     <UserControl.ContextMenu>
 
-        <ContextMenu>
+        <ContextMenu x:Name="MyContext">
             <MenuItem
                 Command="{Binding Path=PlacementTarget.Tag.ToggleTaskIsDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                 CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
@@ -62,66 +62,78 @@
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
             <Separator />
-            <MenuItem Header="Change color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
-                <MenuItem.ItemContainerStyle>
-                    <Style TargetType="MenuItem">
-                        <Setter Property="Header" Value="{Binding}" />
-                        <Setter Property="Foreground" Value="{Binding Converter={StaticResource stringRGBToBrushConverter}}" />
-                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetColorParameterizedCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                        <Setter Property="CommandParameter" Value="{Binding}" />
-                    </Style>
-                </MenuItem.ItemContainerStyle>
-                <MenuItem.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
-                            BorderBrush="Black"
-                            BorderThickness="1">
-                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest}" />
-                        </Border>
-                    </DataTemplate>
-                </MenuItem.ItemTemplate>
+            <MenuItem Header="Marker color">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Marker color</Label>
+                            <local:SingletonColorPicker
+                                Grid.Column="2"    
+                                SelectedColorString="{Binding DataContext.Color, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Margin="4 0 0 0"
+                                ToolTip="Marker color"
+                                />
+                        </Grid>
+                    </ControlTemplate>
+                </MenuItem.Template>
             </MenuItem>
-            <MenuItem Header="Change background color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
-                <MenuItem.ItemContainerStyle>
-                    <Style TargetType="MenuItem">
-                        <Setter Property="Header" Value="{Binding}" />
-                        <Setter Property="Foreground" Value="{Binding Converter={StaticResource stringRGBToBrushConverter}}" />
-                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetBackgroundColorParameterizedCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                        <Setter Property="CommandParameter" Value="{Binding}" />
-                    </Style>
-                </MenuItem.ItemContainerStyle>
-                <MenuItem.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
-                            BorderBrush="Black"
-                            BorderThickness="1">
-                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest}" />
-                        </Border>
-                    </DataTemplate>
-                </MenuItem.ItemTemplate>
+
+            <MenuItem Header="Background color">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Background color</Label>
+                            <local:SingletonColorPicker
+                                Grid.Column="2"    
+                                SelectedColorString="{Binding DataContext.BackgroundColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Margin="4 0 0 0"
+                                ToolTip="Background color"
+                                />
+                        </Grid>
+                    </ControlTemplate>
+                </MenuItem.Template>
             </MenuItem>
-            <MenuItem Header="Change border color" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
-                <MenuItem.ItemContainerStyle>
-                    <Style TargetType="MenuItem">
-                        <Setter Property="Header" Value="{Binding}" />
-                        <Setter Property="Foreground" Value="{Binding Converter={StaticResource stringRGBToBrushConverter}}" />
-                        <Setter Property="Command" Value="{Binding Path=PlacementTarget.DataContext.SetBorderColorParameterizedCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                        <Setter Property="CommandParameter" Value="{Binding}" />
-                    </Style>
-                </MenuItem.ItemContainerStyle>
-                <MenuItem.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Background="{Binding Converter={StaticResource stringRGBToBrushConverter}}"
-                            BorderBrush="Black"
-                            BorderThickness="1">
-                            <Label Content="                          " FontSize="{Binding UIScaler.FontSize.Smallest}" />
-                        </Border>
-                    </DataTemplate>
-                </MenuItem.ItemTemplate>
+
+            <MenuItem Header="Border color">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Border color</Label>
+                            <local:SingletonColorPicker
+                                Grid.Column="2"    
+                                SelectedColorString="{Binding DataContext.BorderColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Margin="4 0 0 0"
+                                ToolTip="Border color"
+                                />
+                        </Grid>
+                    </ControlTemplate>
+                </MenuItem.Template>
             </MenuItem>
+
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset colors in category" />
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBackgroundColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset background colors in category" />
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBorderColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Reset border colors in category" />
@@ -267,15 +279,6 @@
                     </Grid>
                 </Border>
 
-                <!--  Old Editor indicator  -->
-                <!--<Border
-                    Grid.Column="2"
-                    Width="2"
-                    Background="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
-                    HorizontalAlignment="Right"
-                    Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />-->
-
-
                 <!--  Main content  -->
                 <Border Grid.Column="2" Margin="{Binding AppSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskSpacingToMarginConverter}}">
                     <Grid Margin="0 2 10 2">
@@ -418,7 +421,7 @@
 
                         <StackPanel Orientation="Horizontal">
                             <!--  Calendar empty button  -->
-                            <Grid Grid.Column="0" Visibility="{Binding IsReminderOn, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                            <Grid Visibility="{Binding IsReminderOn, Converter={StaticResource boolToVisibilityNegatedConverter}}">
                                 <Button
                                     AutomationProperties.AutomationId="TaskListItemCalendarEmptyButton"
                                     Command="{Binding OpenReminderCommand}"
@@ -430,7 +433,7 @@
                             </Grid>
 
                             <!--  Calendar active button  -->
-                            <Grid Grid.Column="0" Visibility="{Binding IsReminderOn, Converter={StaticResource boolToVisibilityConverter}}">
+                            <Grid Visibility="{Binding IsReminderOn, Converter={StaticResource boolToVisibilityConverter}}">
                                 <Button
                                     AutomationProperties.AutomationId="TaskListItemCalendarActiveButton"
                                     Command="{Binding OpenReminderCommand}"
@@ -441,73 +444,41 @@
                                     Visibility="{Binding AppSettings.IsQuickActionsReminderEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
 
-                            <!--  Color picker  -->
-                            <ComboBox
-                                Grid.Column="1"
-                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
-                                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                SelectedItem="{Binding Color, Mode=TwoWay}"
+                            <!--  Marker color  -->
+                            <local:SingletonColorPicker
+                                SelectedColorString="{Binding Color, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
-                                Style="{DynamicResource TaskItemColorPickerStyle}"
-                                Background="{DynamicResource TaskBgBrush}"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Marker color"
-                                Visibility="{Binding AppSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
-
-                                <Behaviors:Interaction.Triggers>
-                                    <Behaviors:EventTrigger EventName="SelectionChanged">
-                                        <Behaviors:InvokeCommandAction Command="{Binding SetColorCommand}" />
-                                    </Behaviors:EventTrigger>
-                                </Behaviors:Interaction.Triggers>
-                            </ComboBox>
+                                Visibility="{Binding AppSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                                />
 
                             <!--  Background color picker  -->
-                            <ComboBox
-                                Grid.Column="1"
-                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
-                                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                SelectedItem="{Binding BackgroundColor, Mode=TwoWay}"
+                            <local:SingletonColorPicker
+                                SelectedColorString="{Binding BackgroundColor, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
-                                Style="{DynamicResource TaskItemColorPickerStyle}"
-                                Background="{DynamicResource TaskBgBrush}"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Background color"
-                                Visibility="{Binding AppSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
-
-                                <Behaviors:Interaction.Triggers>
-                                    <Behaviors:EventTrigger EventName="SelectionChanged">
-                                        <Behaviors:InvokeCommandAction Command="{Binding SetColorCommand}" />
-                                    </Behaviors:EventTrigger>
-                                </Behaviors:Interaction.Triggers>
-                            </ComboBox>
-
-
+                                Visibility="{Binding AppSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                                />
+                            
                             <!--  BorderColor picker  -->
-                            <ComboBox
-                                Grid.Column="2"
-                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
-                                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                SelectedItem="{Binding BorderColor, Mode=TwoWay}"
+                            <local:SingletonColorPicker
+                                SelectedColorString="{Binding BorderColor, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
-                                Style="{DynamicResource TaskItemColorPickerStyle}"
-                                Background="{DynamicResource TaskBgBrush}"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Border color"
-                                Visibility="{Binding AppSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
-
-                                <Behaviors:Interaction.Triggers>
-                                    <Behaviors:EventTrigger EventName="SelectionChanged">
-                                        <Behaviors:InvokeCommandAction Command="{Binding SetBorderColorCommand}" />
-                                    </Behaviors:EventTrigger>
-                                </Behaviors:Interaction.Triggers>
-                            </ComboBox>
-
+                                Visibility="{Binding AppSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                                />
 
                             <!--  Pin button  -->
-                            <Grid Grid.Column="3" Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                            <Grid Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityNegatedConverter}}">
                                 <Button
                                     AutomationProperties.AutomationId="TaskListItemPinButton"
                                     Command="{Binding Path=DataContext.PinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
@@ -520,7 +491,7 @@
                                     Visibility="{Binding AppSettings.IsQuickActionsPinEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                             </Grid>
                             <!--  Unpin button  -->
-                            <Grid Grid.Column="3" Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityConverter}}">
+                            <Grid Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityConverter}}">
                                 <Button
                                     AutomationProperties.AutomationId="TaskListItemUnpinButton"
                                     Command="{Binding Path=DataContext.UnpinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
@@ -534,7 +505,6 @@
                             </Grid>
                             <!--  Trash button  -->
                             <Button
-                                Grid.Column="4"
                                 AutomationProperties.AutomationId="TaskListItemTrashBinButton"
                                 Command="{Binding Path=DataContext.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                                 CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"

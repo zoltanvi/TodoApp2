@@ -217,8 +217,15 @@ namespace TodoApp2
             {
                 m_IsExecuting = true;
 
-                e.Command?.Execute(e.Parameter);
-                e.Handled = true;
+                try
+                {
+                    e.Command?.Execute(e.Parameter);
+                    e.Handled = true;
+                }
+                catch (FormatException)
+                {
+                    e.Handled = false;
+                }
 
                 if (e.Command == EditingCommands.ToggleBold)
                 {

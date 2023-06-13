@@ -25,4 +25,16 @@ namespace TodoApp2
             //return value;
         }
     }
+
+    public class DebugMultiConverter : BaseMultiValueConverter<DebugMultiConverter>
+    {
+        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            int valueCount = values.Length;
+
+            string stringValues = string.Join(", ", values);
+
+            return values[4];
+        }
+    }
 }
