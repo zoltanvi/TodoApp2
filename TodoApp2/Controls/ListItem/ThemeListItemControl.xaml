@@ -29,7 +29,7 @@
                                         x:Name="PART_selectionBorder"
                                         BorderThickness="0"
                                         Padding="4"
-                                        BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                                        BorderBrush="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                                         CornerRadius="4" />
 
                                     <!--  Button border  -->

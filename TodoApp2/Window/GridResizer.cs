@@ -26,7 +26,7 @@ namespace TodoApp2
         private double GridHalfWidth => _grid.ActualWidth / 2;
         private double MaxColumnWidth => GridHalfWidth < MinColumnWidth ? MinColumnWidth : GridHalfWidth;
         private double SnappingWidth => UnscaledSnappingWidth * UIScaler.Instance.ScaleValue;
-        private AppViewModel AppViewModel => IoC.ApplicationViewModel;
+        private AppViewModel AppViewModel => IoC.AppViewModel;
 
         private double LeftColumnWidth
         {

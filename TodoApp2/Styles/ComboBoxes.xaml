@@ -455,12 +455,14 @@
                                         BorderThickness="1"
                                         CornerRadius="4" />
 
-                                    <WrapPanel
-                                        Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                        Margin="8"
-                                        IsItemsHost="True"
-                                        KeyboardNavigation.DirectionalNavigation="Contained"
-                                        Orientation="Horizontal" />
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <WrapPanel
+                                            Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                            Margin="8"
+                                            IsItemsHost="True"
+                                            KeyboardNavigation.DirectionalNavigation="Contained"
+                                            Orientation="Horizontal" />
+                                    </ScrollViewer>
                                 </Grid>
                             </Popup>
                         </Grid>

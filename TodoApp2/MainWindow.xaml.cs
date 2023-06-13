@@ -8,7 +8,7 @@ namespace TodoApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AppViewModel AppViewModel => IoC.ApplicationViewModel;
+        private AppViewModel AppViewModel => IoC.AppViewModel;
         private GridResizer _GridResizer;
         public MainWindow()
         {

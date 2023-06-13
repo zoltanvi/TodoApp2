@@ -13,66 +13,78 @@ namespace TodoApp2
     /// </summary>
     public class EnumToFontFamilyConverter : BaseValueConverter
     {
+        private static bool _Initialized = false;
         private static readonly MediaFontFamily s_DefaultFontFamily = new MediaFontFamily(GlobalConstants.FontFamily.SegoeUI);
         private static readonly Dictionary<FontFamily, MediaFontFamily> s_FontFamilies = new Dictionary<FontFamily, MediaFontFamily>();
 
+        public static EnumToFontFamilyConverter Instance { get; } = new EnumToFontFamilyConverter();
+
         public EnumToFontFamilyConverter()
         {
-            AddDefaultFontFamily(FontFamily.Calibri, GlobalConstants.FontFamily.Calibri);
+            if (!_Initialized)
+            {
+                _Initialized = true;
+                AddDefaultFontFamily(FontFamily.Calibri, GlobalConstants.FontFamily.Calibri);
             
-            AddFontFamily(FontFamily.CascadiaMonoLight);
-            AddFontFamily(FontFamily.CascadiaMonoRegular);
-            AddFontFamily(FontFamily.CascadiaMonoBold);
+                AddFontFamily(FontFamily.CascadiaMonoLight);
+                AddFontFamily(FontFamily.CascadiaMonoRegular);
+                AddFontFamily(FontFamily.CascadiaMonoBold);
 
-            AddDefaultFontFamily(FontFamily.Consolas, GlobalConstants.FontFamily.Consolas);
+                AddDefaultFontFamily(FontFamily.Consolas, GlobalConstants.FontFamily.Consolas);
 
-            AddFontFamily(FontFamily.CormorantLight);
-            AddFontFamily(FontFamily.CormorantRegular);
-            AddFontFamily(FontFamily.CormorantBold);
+                AddFontFamily(FontFamily.CormorantLight);
+                AddFontFamily(FontFamily.CormorantRegular);
+                AddFontFamily(FontFamily.CormorantBold);
 
-            AddDefaultFontFamily(FontFamily.CourierNew, GlobalConstants.FontFamily.CourierNew);
+                AddDefaultFontFamily(FontFamily.CourierNew, GlobalConstants.FontFamily.CourierNew);
 
-            AddFontFamily(FontFamily.FiraSansLight);
-            AddFontFamily(FontFamily.FiraSansRegular);
-            AddFontFamily(FontFamily.FiraSansBold);
+                AddFontFamily(FontFamily.FiraSansLight);
+                AddFontFamily(FontFamily.FiraSansRegular);
+                AddFontFamily(FontFamily.FiraSansBold);
 
-            AddFontFamily(FontFamily.InterLight);
-            AddFontFamily(FontFamily.InterRegular);
-            AddFontFamily(FontFamily.InterBold);
+                AddFontFamily(FontFamily.InterLight);
+                AddFontFamily(FontFamily.InterRegular);
+                AddFontFamily(FontFamily.InterBold);
 
-            AddFontFamily(FontFamily.MontserratAlternatesLight);
-            AddFontFamily(FontFamily.MontserratAlternatesRegular);
-            AddFontFamily(FontFamily.MontserratAlternatesBold);
+                AddFontFamily(FontFamily.MontserratAlternatesLight);
+                AddFontFamily(FontFamily.MontserratAlternatesRegular);
+                AddFontFamily(FontFamily.MontserratAlternatesBold);
 
-            AddFontFamily(FontFamily.MontserratLight);
-            AddFontFamily(FontFamily.MontserratRegular);
-            AddFontFamily(FontFamily.MontserratBold);
+                AddFontFamily(FontFamily.MontserratLight);
+                AddFontFamily(FontFamily.MontserratRegular);
+                AddFontFamily(FontFamily.MontserratBold);
 
-            AddFontFamily(FontFamily.NotoSansLight);
-            AddFontFamily(FontFamily.NotoSansRegular);
-            AddFontFamily(FontFamily.NotoSansBold);
+                AddFontFamily(FontFamily.NotoSansLight);
+                AddFontFamily(FontFamily.NotoSansRegular);
+                AddFontFamily(FontFamily.NotoSansBold);
 
-            AddFontFamily(FontFamily.SCE_PS3);
+                AddFontFamily(FontFamily.SCE_PS3);
 
-            AddDefaultFontFamily(FontFamily.SegoeUI, GlobalConstants.FontFamily.SegoeUI);
+                AddDefaultFontFamily(FontFamily.SegoeUI, GlobalConstants.FontFamily.SegoeUI);
 
-            AddFontFamily(FontFamily.SourceCodeProRegular);
-            AddFontFamily(FontFamily.SourceCodeProBold);
+                AddFontFamily(FontFamily.SourceCodeProRegular);
+                AddFontFamily(FontFamily.SourceCodeProBold);
 
-            AddDefaultFontFamily(FontFamily.Tahoma, GlobalConstants.FontFamily.Tahoma);
-            AddDefaultFontFamily(FontFamily.TimesNewRoman, GlobalConstants.FontFamily.TimesNewRoman);
+                AddDefaultFontFamily(FontFamily.Tahoma, GlobalConstants.FontFamily.Tahoma);
+                AddDefaultFontFamily(FontFamily.TimesNewRoman, GlobalConstants.FontFamily.TimesNewRoman);
 
-            AddFontFamily(FontFamily.UbuntuLight);
-            AddFontFamily(FontFamily.UbuntuRegular);
-            AddFontFamily(FontFamily.UbuntuBold);
+                AddFontFamily(FontFamily.UbuntuLight);
+                AddFontFamily(FontFamily.UbuntuRegular);
+                AddFontFamily(FontFamily.UbuntuBold);
 
-            AddDefaultFontFamily(FontFamily.Verdana, GlobalConstants.FontFamily.Verdana);
+                AddDefaultFontFamily(FontFamily.Verdana, GlobalConstants.FontFamily.Verdana);
+            }
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             FontFamily fValue = (FontFamily)value;
             return s_FontFamilies.ContainsKey(fValue) ? s_FontFamilies[fValue] : s_DefaultFontFamily;
+        }
+
+        public MediaFontFamily Convert(object value)
+        {
+            return (MediaFontFamily)Convert(value, null, null, null);
         }
 
         private static void AddDefaultFontFamily(FontFamily font, string familyName)

@@ -124,9 +124,10 @@
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
         <Setter Property="Margin" Value="0 0" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Padding" Value="5" />
-        <Setter Property="Opacity" Value="0.6" />
+        <!--<Setter Property="Padding" Value="5" />-->
+        <Setter Property="Opacity" Value="0.7" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -363,7 +364,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter Property="Foreground" Value="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="False">
@@ -381,7 +382,7 @@
         <Setter Property="FontWeight" Value="Light" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter Property="Foreground" Value="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
@@ -427,7 +428,7 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter Property="Foreground" Value="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -521,7 +522,7 @@
 
                         <Border
                             x:Name="checkedBorder"
-                            Background="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                            Background="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                             CornerRadius="10"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
@@ -548,7 +549,7 @@
                             Height="10"
                             Margin="6 0"
                             VerticalAlignment="Center"
-                            Fill="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource toggleButtonDynamicBrushConverter}}"
+                            Fill="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource toggleButtonDynamicBrushConverter}}"
                             RenderTransformOrigin="0.5 0.5"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="0">
@@ -617,6 +618,7 @@
         <Setter Property="Margin" Value="0 0" />
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
 
         <Setter Property="Opacity" Value="0.6" />
         <Setter Property="FontFamily" Value="{StaticResource IconFont}" />

@@ -100,6 +100,7 @@
     <system:String x:Key="SegoeIconScaling">&#xE71E;</system:String>
     <system:String x:Key="SegoeIconCheckbox">&#xE930;</system:String>
     <system:String x:Key="SegoeIconEditMode">&#xE104;</system:String>
+    <system:String x:Key="SegoeIconSend">&#xE122;</system:String>
     <system:String x:Key="SegoeIconBell">&#xEA8F;</system:String>
     <system:String x:Key="SegoeIconMargin">&#xE1C0;</system:String>
     <system:String x:Key="SegoeIconDeleteX">&#xEDAE;</system:String>
@@ -124,6 +125,11 @@
     <system:String x:Key="SegoeIconUnderlined">&#xE8DC;</system:String>
     <system:String x:Key="SegoeIconFontSizeDecrease">&#xE8E7;</system:String>
     <system:String x:Key="SegoeIconFontSizeIncrease">&#xE8E8;</system:String>
+
+    <system:String x:Key="SegoeIconAlignLeft">&#xE1A2;</system:String>
+    <system:String x:Key="SegoeIconAlignCenter">&#xE1A1;</system:String>
+    <system:String x:Key="SegoeIconAlignRight">&#xE1A0;</system:String>
+    <system:String x:Key="SegoeIconAlignJustify">&#xEA42;</system:String>
 
     <system:String x:Key="SegoeIconMinimizeToTray">&#xE18C;</system:String>
     <system:String x:Key="SegoeIconDeleteFormatting">&#xED60;</system:String>

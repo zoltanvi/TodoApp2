@@ -9,7 +9,8 @@ namespace TodoApp2
     {
         public static ViewModelLocator Instance { get; } = new ViewModelLocator();
 
-        public static AppViewModel ApplicationViewModel => IoC.ApplicationViewModel;
+        public static AppViewModel ApplicationViewModel => IoC.AppViewModel;
+        public static ApplicationSettings AppSettings => IoC.AppSettings;
         public static OverlayPageService OverlayPageService => IoC.OverlayPageService;
         public static CategoryListService CategoryListService => IoC.CategoryListService;
         public static NoteListService NoteListService => IoC.NoteListService;

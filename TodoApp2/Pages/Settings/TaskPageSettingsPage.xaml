@@ -35,37 +35,44 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconTitle}"
                     Description="Category title visible"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Insert new task to the end  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconTaskOrder}"
                     Description="Insert new task to the end"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.InsertOrderReversed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.InsertOrderReversed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Move completed task to the end  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCheckList}"
                     Description="Move completed task to the end"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.MoveTaskOnCompletion, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Exit edit mode on focus lost  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconEditMode}"
                     Description="Exit edit mode on focus lost"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.FocusLostSavesTask, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.FocusLostSavesTask, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
+                <!--  Save task on enter  -->
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconSend}"
+                    Description="Save task on Enter"
+                    ToolTip="If turned off: Save task on Ctrl + Enter"
+                    IsChecked="{Binding AppSettings.SaveOnEnter, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Play sound for completed tasks  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBell}"
                     Description="Play sound for completed tasks"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.PlaySoundOnTaskIsDoneChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
                 <!--  Margin for task list  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMargin}"
                     Description="Margin for task list"
-                    IsChecked="{Binding ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
 
             </StackPanel>

@@ -21,7 +21,7 @@ namespace TodoApp2.Core
 
         public void PlayClick()
         {
-            if (IoC.ApplicationViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange)
+            if (IoC.AppViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange)
             {
                 m_MediaPlayer.Stop();
                 m_MediaPlayer.Play();
@@ -30,7 +30,7 @@ namespace TodoApp2.Core
 
         public void PlayClickReverse()
         {
-            if (IoC.ApplicationViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange)
+            if (IoC.AppViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange)
             {
                 m_MediaPlayerReverse.Stop();
                 m_MediaPlayerReverse.Play();

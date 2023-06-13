@@ -27,14 +27,14 @@
                     x:Name="CategoryNamePanel"
                     Background="#00333333"
                     Grid.Row="0"
-                    Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}"
+                    Margin="{Binding Path=AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}"
                     Style="{DynamicResource CurrentCategoryPanelStyle}">
                     <Grid.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
-                                <local:BoolToVisibilityMultiValueConverter />
+                                <local:BoolToVisibilityAndConverter />
                             </MultiBinding.Converter>
-                            <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            <Binding Path="AppSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
                             <Binding
                                 Mode="OneWay"
                                 Path="IsCategoryInDisplayMode"
@@ -56,9 +56,9 @@
                         <TextBlock.Visibility>
                             <MultiBinding>
                                 <MultiBinding.Converter>
-                                    <local:BoolToVisibilityMultiValueConverter />
+                                    <local:BoolToVisibilityAndConverter />
                                 </MultiBinding.Converter>
-                                <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                <Binding Path="AppSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
                                 <Binding
                                     Mode="OneWay"
                                     Path="IsCategoryInDisplayMode"
@@ -78,7 +78,7 @@
                 </Grid>
 
                 <!--  CURRENT CATEGORY EDITOR TEXTBOX  -->
-                <Border Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}">
+                <Border Margin="{Binding Path=AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -91,15 +91,15 @@
                             Padding="-1 0 0 0"
                             Style="{DynamicResource PageTitleEditorTextBoxStyle}"
                             BorderThickness="1"
-                            BorderBrush="{Binding ApplicationViewModel.ApplicationSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                            BorderBrush="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                             Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                             <TextBox.Visibility>
                                 <MultiBinding>
                                     <MultiBinding.Converter>
-                                        <local:BoolToVisibilityMultiValueConverter />
+                                        <local:BoolToVisibilityAndConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="ApplicationViewModel.ApplicationSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                    <Binding Path="AppSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
                                     <Binding
                                         Mode="OneWay"
                                         Path="IsCategoryInEditMode"
@@ -152,13 +152,13 @@
                 Grid.Row="2"
                 Background="Transparent"
                 BorderThickness="0"
-                Margin="{Binding Path=ApplicationViewModel.ApplicationSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}"
+                Margin="0"
                 Style="{DynamicResource BottomPanelStyle}">
                 <!--Background="{DynamicResource BottomBarBgBrush}"-->
 
                 <DockPanel>
 
-                    <Border Background="{DynamicResource Elevation_2}" CornerRadius="6" Margin="5">
+                    <Border Background="{DynamicResource Elevation_1}" CornerRadius="6" Margin="5">
                         <local:RichTextEditorControl
                             MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
                             Padding="3 8"

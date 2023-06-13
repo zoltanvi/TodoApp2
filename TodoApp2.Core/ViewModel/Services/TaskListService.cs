@@ -46,7 +46,7 @@ namespace TodoApp2.Core
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
 
-            m_ApplicationViewModel.ApplicationSettings.PropertyChanged += OnAppSettingsChanged;
+            IoC.AppSettings.PropertyChanged += OnAppSettingsChanged;
         }
 
         public TaskViewModel AddNewTask(string taskContent)
@@ -55,7 +55,7 @@ namespace TodoApp2.Core
             int pinnedItemsCount = TaskPageItems.Count(i => i.Pinned);
             int activeCategoryId = m_CategoryListService.ActiveCategory.Id;
 
-            if (m_ApplicationViewModel.ApplicationSettings.InsertOrderReversed)
+            if (IoC.AppSettings.InsertOrderReversed)
             {
                 int endInsertIndex = TaskPageItems.Count - CountDoneItemsFromBackwards();
 
@@ -168,7 +168,7 @@ namespace TodoApp2.Core
         private void OnAppSettingsChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ApplicationSettings.MoveTaskOnCompletion)
-                && m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+                && IoC.AppSettings.MoveTaskOnCompletion)
             {
                 FixTaskPageItemsOrder(TaskPageItems);
             }
@@ -217,7 +217,7 @@ namespace TodoApp2.Core
             IoC.AsyncActionService.AbortRunningActions();
 
             // Fill the actual list with the queried items
-            if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+            if (IoC.AppSettings.MoveTaskOnCompletion)
             {
                 FixTaskPageItemsOrder(filteredItems);
             }
@@ -251,7 +251,7 @@ namespace TodoApp2.Core
                     newIndex = pinnedItemsCount;
                 }
 
-                if (m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+                if (IoC.AppSettings.MoveTaskOnCompletion)
                 {
                     // If the task is done,
                     // it must be on the bottom of the list or directly before or after another done item
@@ -279,7 +279,7 @@ namespace TodoApp2.Core
         /// <param name="e"></param>
         private void OnTaskPageItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (m_CategoryChangeInProgress && !m_ApplicationViewModel.ApplicationSettings.MoveTaskOnCompletion)
+            if (m_CategoryChangeInProgress && !IoC.AppSettings.MoveTaskOnCompletion)
             {
                 return;
             }
