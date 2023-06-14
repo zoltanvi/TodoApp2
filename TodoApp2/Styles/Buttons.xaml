@@ -66,10 +66,10 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border
                         x:Name="border"
+                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="{TemplateBinding Padding}"
                         CornerRadius="4"
                         SnapsToDevicePixels="true">
                         <ContentPresenter
@@ -322,10 +322,10 @@
 
                         <Border
                             x:Name="ItemBorder"
-                            Background="{TemplateBinding Background,
-                                                         Converter={StaticResource transparentPatternBrushConverter}}"
                             Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
                             Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                            Background="{TemplateBinding Background,
+                                                         Converter={StaticResource transparentPatternBrushConverter}}"
                             CornerRadius="6">
                             <ContentPresenter
                                 HorizontalAlignment="Center"
@@ -454,9 +454,9 @@
                                     x:Name="ArrowTop"
                                     Margin="0"
                                     Padding="0"
+                                    BorderThickness="0"
                                     Content="{StaticResource SegoeIconChevronUp}"
-                                    Style="{DynamicResource IconLabelStyle}"
-                                    BorderThickness="0" />
+                                    Style="{DynamicResource IconLabelStyle}" />
                             </Viewbox>
 
                             <Viewbox VerticalAlignment="Top">
@@ -464,9 +464,9 @@
                                     x:Name="ArrowDown"
                                     Margin="0"
                                     Padding="0"
+                                    BorderThickness="0"
                                     Content="{StaticResource SegoeIconChevronDown}"
-                                    Style="{DynamicResource IconLabelStyle}"
-                                    BorderThickness="0" />
+                                    Style="{DynamicResource IconLabelStyle}" />
                             </Viewbox>
 
                             <ContentPresenter
@@ -676,12 +676,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border
+                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="4"
-                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+                        CornerRadius="4">
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -705,8 +705,8 @@
 
     <Style
         x:Key="TimePickerTextBoxStyle"
-        TargetType="TextBox"
-        BasedOn="{StaticResource BaseInputTextBoxStyle}">
+        BasedOn="{StaticResource BaseInputTextBoxStyle}"
+        TargetType="TextBox">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
@@ -745,19 +745,19 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         x:Name="border"
+                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="{TemplateBinding Padding}"
                         SnapsToDevicePixels="true">
                         <ContentPresenter
                             x:Name="contentPresenter"
-                            Focusable="False"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Margin="0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
                             RecognizesAccessKey="True"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
@@ -771,6 +771,25 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
 
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SingletonEditorColorPickerRightStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
