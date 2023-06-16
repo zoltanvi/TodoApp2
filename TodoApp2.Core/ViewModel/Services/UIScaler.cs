@@ -63,8 +63,8 @@ namespace TodoApp2.Core
         public double TaskCheckBoxWidth => 8 * ScaleValue;
         public double SliderHeight => 18 * ScaleValue;
         public double SliderThumbHeight => 18 * ScaleValue;
-        public double SliderThumbWidth => 15 * ScaleValue;
-        public double ScrollbarWidth => 16 * ScaleValue;
+        public double SliderThumbWidth => 15;
+        public double ScrollbarWidth => 16;
         public double NotePageBoxWidth => 17 * ScaleValue;
 
         public double ThemeItemWidth => OriginalThemeItemWidth * ScaleValue;

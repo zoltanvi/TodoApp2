@@ -131,7 +131,8 @@
     <Compile Include="AttachedProperties\MarginUpdater.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\PutCaretAtTheEndRTBBehavior.cs" />
-    <Compile Include="Controls\BasicTextEditorBox.cs" />
+    <Compile Include="Controls\TextEditor\SingletonToolbar.cs" />
+    <Compile Include="Controls\TextEditor\BasicTextEditorBox.cs" />
     <Compile Include="Controls\ClickSelectTextBox.cs" />
     <Compile Include="Controls\ColorPickerComboBox.cs" />
     <Compile Include="Controls\ColorPicker\SingletonEditorColorPicker.cs" />
@@ -152,7 +153,7 @@
     <Compile Include="Controls\List\ThemeListControl.xaml.cs">
       <DependentUpon>ThemeListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RichTextEditorControl.xaml.cs">
+    <Compile Include="Controls\TextEditor\RichTextEditorControl.xaml.cs">
       <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\List\CategoryListControl.xaml.cs">
@@ -179,7 +180,7 @@
     <Compile Include="Controls\ListItem\TaskListItemControl.xaml.cs">
       <DependentUpon>TaskListItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FormattableTextEditorBox.cs" />
+    <Compile Include="Controls\TextEditor\FormattableTextEditorBox.cs" />
     <Compile Include="Controls\ColorPicker\SingletonColorPicker.cs" />
     <Compile Include="Controls\TimePickerControl.xaml.cs">
       <DependentUpon>TimePickerControl.xaml</DependentUpon>
@@ -250,6 +251,7 @@
     <Compile Include="Services\PopupService.cs" />
     <Compile Include="Services\ResourceUpdater.cs" />
     <Compile Include="Services\ThemeListService.cs" />
+    <Compile Include="Services\ToolbarService.cs" />
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\BoolToVisibilityMultiValueConverter.cs" />
@@ -339,7 +341,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\RichTextEditorControl.xaml">
+    <Page Include="Controls\TextEditor\RichTextEditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

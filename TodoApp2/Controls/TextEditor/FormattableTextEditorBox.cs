@@ -23,6 +23,10 @@ namespace TodoApp2
 
         public static readonly DependencyProperty EnterActionProperty = DependencyProperty.Register(nameof(EnterAction), typeof(Action), typeof(FormattableTextEditorBox), new PropertyMetadata());
 
+        public event EventHandler StatePropertyChanged;
+
+        public Action CtrlShiftEnterAction { get; set; }
+
         public bool IsSelectionBold
         {
             get => (bool)GetValue(IsSelectionBoldProperty);
@@ -75,7 +79,7 @@ namespace TodoApp2
         public ICommand AlignJustifyCommand { get; set; }
 
 
-        private bool IsCtrlDown => (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl));
+        private bool IsCtrlDown => Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
 
         public FormattableTextEditorBox()
         {
@@ -144,7 +148,6 @@ namespace TodoApp2
 
                     EnterAction?.Invoke();
 
-                    // Mark the key as handled
                     e.Handled = true;
                 }
             }
@@ -157,6 +160,12 @@ namespace TodoApp2
                 {
                     Mediator.NotifyClients(ViewModelMessages.NextThemeWithHotkeyRequested);
                 }
+            }
+
+            if (ctrlPressed && shiftPressed && enter)
+            {
+                e.Handled = true;
+                CtrlShiftEnterAction?.Invoke();
             }
         }
 
@@ -176,7 +185,7 @@ namespace TodoApp2
             else
             {
                 MediaFontFamily consolas = EnumToFontFamilyConverter.Instance.Convert(TodoApp2.Core.FontFamily.Consolas);
-                    
+
                 if (consolas != null)
                 {
                     Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, consolas);
@@ -349,6 +358,8 @@ namespace TodoApp2
             UpdateSelectionUnderlined();
 
             UpdateSelectionColor();
+
+            StatePropertyChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void ResetFormatting()

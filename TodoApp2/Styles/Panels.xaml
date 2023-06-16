@@ -1,4 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TodoApp2">
 
     <Style x:Key="SettingsDockPanelStyle" TargetType="{x:Type DockPanel}">
         <Setter Property="Margin" Value="0 0 0 0" />
@@ -25,5 +28,142 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+
+    <local:SingletonToolbar x:Key="TextEditorToolbar" Focusable="False">
+        <StackPanel Orientation="Horizontal">
+            <ToggleButton
+                Margin="0 0 0 4"
+                Command="{Binding SetBoldCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconBold}"
+                IsChecked="{Binding IsSelectionBold, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Style="{DynamicResource TextEditorToggleButtonStyle}"
+                ToolTip="Bold (Ctrl + B)"
+                Visibility="{Binding AppSettings.TextEditorQABold, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+            <ToggleButton
+                Margin="2 0 0 2"
+                Command="{Binding SetItalicCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconItalic}"
+                IsChecked="{Binding IsSelectionItalic, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Style="{DynamicResource TextEditorToggleButtonStyle}"
+                ToolTip="Italic (Ctrl + I)"
+                Visibility="{Binding AppSettings.TextEditorQAItalic, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+            <ToggleButton
+                Margin="2 0 0 2"
+                Command="{Binding SetUnderlinedCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconUnderlined}"
+                IsChecked="{Binding IsSelectionUnderlined, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Style="{DynamicResource TextEditorToggleButtonStyle}"
+                ToolTip="Underline (Ctrl + U)"
+                Visibility="{Binding AppSettings.TextEditorQAUnderlined, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding SetBigFontSizeCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="H1"
+                FontFamily="Segoe UI"
+                FontWeight="Bold"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Large font"
+                Visibility="{Binding AppSettings.TextEditorQALarge, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding SetMediumFontSizeCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="M"
+                FontFamily="Segoe UI"
+                FontWeight="Bold"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Medium font size"
+                Visibility="{Binding AppSettings.TextEditorQAMedium, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding SetSmallFontSizeCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="S"
+                FontFamily="Segoe UI"
+                FontWeight="Bold"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Small font size"
+                Visibility="{Binding AppSettings.TextEditorQASmall, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding AlignLeftCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconAlignLeft}"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Align left"
+                Visibility="{Binding AppSettings.TextEditorQAAlignLeft, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding AlignCenterCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconAlignCenter}"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Align center"
+                Visibility="{Binding AppSettings.TextEditorQAAlignCenter, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding AlignRightCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconAlignRight}"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Align right"
+                Visibility="{Binding AppSettings.TextEditorQAAlignRight, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding AlignJustifyCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconAlignJustify}"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Justify"
+                Visibility="{Binding AppSettings.TextEditorQAAlignJustify, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding IncreaseFontSizeCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconFontSizeIncrease}"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Increase font size (Ctrl + [OemCloseBrackets])"
+                Visibility="{Binding AppSettings.TextEditorQAIncrease, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding DecreaseFontSizeCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconFontSizeDecrease}"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Decrease font size (Ctrl + [OemOpenBrackets])"
+                Visibility="{Binding AppSettings.TextEditorQADecrease, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding MonospaceCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconMonospace}"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Toggle monospace font"
+                Visibility="{Binding AppSettings.TextEditorQAMonospace, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Button
+                Margin="2 0 0 2"
+                Command="{Binding ResetFormattingCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
+                Content="{DynamicResource SegoeIconDeleteFormatting}"
+                Style="{DynamicResource TextEditorButtonStyle}"
+                ToolTip="Reset all formatting (Ctrl + H)"
+                Visibility="{Binding AppSettings.TextEditorQAReset, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <local:SingletonEditorColorPicker
+                AppliedColorString="{Binding TextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
+                Margin="2 0 0 2"
+                Focusable="False"
+                Visibility="{Binding AppSettings.TextEditorQATextColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+        </StackPanel>
+
+    </local:SingletonToolbar>
+
 
 </ResourceDictionary>

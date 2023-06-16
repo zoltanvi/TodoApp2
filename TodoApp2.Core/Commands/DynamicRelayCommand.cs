@@ -6,21 +6,30 @@ namespace TodoApp2.Core
     /// <summary>
     /// A basic command that runs an action
     /// </summary>
-    public class RelayCommand : ICommand
+    public class DynamicRelayCommand : ICommand
     {
         /// <summary>
         /// The action to run
         /// </summary>
-        private readonly Action m_Action;
+        public Action Action { get; set; }
 
         /// <summary>
         /// The event that's fired when the <see cref="CanExecute(object)"/> value has changed
         /// </summary>
         public event EventHandler CanExecuteChanged;
 
-        public RelayCommand(Action action)
+        public DynamicRelayCommand(Action action)
         {
-            m_Action = action;
+            Action = action;
+        }
+
+        public DynamicRelayCommand()
+        {
+        }
+
+        public void SetAction(Action action)
+        {
+            Action = action;
         }
 
         /// <summary>
@@ -36,7 +45,7 @@ namespace TodoApp2.Core
         /// <param name="parameter"></param>
         public void Execute(object parameter)
         {
-            m_Action?.Invoke();
+            Action?.Invoke();
         }
     }
 }

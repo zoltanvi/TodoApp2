@@ -69,6 +69,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DynamicRelayCommand.cs" />
     <Compile Include="Commands\Undo\CommandObject.cs" />
     <Compile Include="Commands\Undo\IUndoableCommand.cs" />
     <Compile Include="Commands\Undo\UndoableCommand.cs" />

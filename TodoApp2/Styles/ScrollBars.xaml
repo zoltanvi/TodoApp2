@@ -15,6 +15,7 @@
     <SolidColorBrush x:Key="ScrollBar.Pressed.Border" Color="#606060" />
     <SolidColorBrush x:Key="ScrollBar.Disabled.Background" Color="Transparent" />
     <SolidColorBrush x:Key="ScrollBar.Disabled.Border" Color="Transparent" />
+    
     <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -94,7 +95,7 @@
                         <Border
                             x:Name="PART_top"
                             Grid.Row="0"
-                            Width="10"
+                            Width="14"
                             Height="{TemplateBinding Height}"
                             Margin="0"
                             Background="{DynamicResource ScrollBarBgBrush}"
@@ -103,7 +104,7 @@
                         <Border
                             Grid.Row="1"
                             x:Name="PART_middle"
-                            Width="10"
+                            Width="14"
                             Height="{TemplateBinding Height}"
                             Margin="0"
                             Background="{DynamicResource ScrollBarBgBrush}"
@@ -112,7 +113,7 @@
                         <Border
                             x:Name="PART_bottom"
                             Grid.Row="2"
-                            Width="10"
+                            Width="14"
                             Height="{TemplateBinding Height}"
                             Margin="0"
                             Background="{DynamicResource ScrollBarBgBrush}"
@@ -176,7 +177,7 @@
     <Style x:Key="DarkScrollBarStyle" TargetType="{x:Type ScrollBar}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
-        <Setter Property="Background" Value="Yellow" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="Red" />
@@ -188,6 +189,7 @@
                     <Grid
                         x:Name="Bg"
                         Opacity="0"
+                        Background="{TemplateBinding Background}"
                         SnapsToDevicePixels="true">
                         <Grid.RowDefinitions>
                             <!--<RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}" />-->
