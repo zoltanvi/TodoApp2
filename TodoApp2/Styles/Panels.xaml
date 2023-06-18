@@ -166,4 +166,44 @@
     </local:SingletonToolbar>
 
 
+    <Style TargetType="local:TagControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:TagControl}">
+                    <Border
+                        Opacity="{TemplateBinding Opacity}"
+                        Margin="2 2"
+                        Grid.Row="2"
+                        Background="{DynamicResource Lowered_9}"
+                        BorderBrush="{DynamicResource Elevation_9}"
+                        BorderThickness="1"
+                        CornerRadius="4">
+                        <StackPanel
+                            Grid.Row="2"
+                            Margin="6 0"
+                            Orientation="Horizontal">
+
+                            <!--  TITLE  -->
+                            <Label
+                                Padding="0"
+                                Content="{TemplateBinding TagTitle}"
+                                FontWeight="Bold"
+                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller}"
+                                Foreground="{DynamicResource ForegroundBrush}" />
+
+                            <Label
+                                Padding="0"
+                                Content="{TemplateBinding TagBody}"
+                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller}"
+                                Foreground="{DynamicResource ForegroundBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

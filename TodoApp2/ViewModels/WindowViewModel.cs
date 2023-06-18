@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TodoApp2.Core;
@@ -35,7 +34,6 @@ namespace TodoApp2
         private WindowDockPosition m_DockPosition = WindowDockPosition.Undocked;
 
         public ApplicationSettings ApplicationSettings => m_AppViewModel.ApplicationSettings;
-        public UIScaler UIScaler => ViewModelLocator.UIScaler;
 
         public ICommand MinimizeCommand { get; }
         public ICommand MaximizeCommand { get; }
@@ -156,7 +154,7 @@ namespace TodoApp2
 
             m_DragDropMediator = new DragDropMediator();
 
-            m_Timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 3) };
+            m_Timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 1) };
             CurrentTime = DateTime.Now.ToString(s_DateTimeFormatString);
             m_Timer.Tick += TimerOnTick;
             m_Timer.Start();
@@ -418,9 +416,9 @@ namespace TodoApp2
 
         private void OnThemeChanged(object obj)
         {
-            string oldAppBorderColor = ApplicationSettings.AppBorderColor;
-            ApplicationSettings.AppBorderColor = null;
-            ApplicationSettings.AppBorderColor = oldAppBorderColor;
+            // Trigger ui refresh for some properties that don't refresh automatically
+            ApplicationSettings.TriggerUpdate(nameof(ApplicationSettings.AppBorderColor));
+            ApplicationSettings.TriggerUpdate(nameof(ApplicationSettings.TitleColor));
         }
 
         private void ChangeToActiveTheme()

@@ -301,84 +301,23 @@
                             </Border.InputBindings>
                         </Border>
 
-                        <StackPanel
+                        <WrapPanel
                             Grid.Row="1"
-                            Margin="8 0 0 0"
+                            Margin="1 0"
                             Orientation="Horizontal">
 
-                            <Label
-                                Padding="0"
-                                Content="Created: "
-                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                Foreground="{DynamicResource TaskDateBrush}"
+                            <local:TagControl TagTitle="Category: " TagBody="{Binding CategoryId, Converter={StaticResource idToCategoryNameConverter}}" />
+                            <local:TagControl
+                                TagTitle="Created: "
+                                TagBody="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-
-                            <!--  Creation date  -->
-                            <TextBlock
-                                Grid.Row="1"
-                                Margin="0 0 16 0"
-                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                Foreground="{DynamicResource TaskDateBrush}"
-                                Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                                Text="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
-                                Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-
-                            <Label
-                                Padding="0"
-                                Content="Modified: "
-                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                Foreground="{DynamicResource TaskDateBrush}"
+                            <local:TagControl
+                                TagTitle="Modified: "
+                                TagBody="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-
-                            <!--  Modification date  -->
-                            <TextBlock
-                                Grid.Row="1"
-                                FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                Foreground="{DynamicResource TaskDateBrush}"
-                                Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                                Text="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
-                                Visibility="{Binding AppSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-                        </StackPanel>
-
-                        <!--CATEGORY LABEL-->
-                        <Border
-                            Margin="2 2"
-                            Grid.Row="2"
-                            Background="{DynamicResource Lowered_9}"
-                            BorderBrush="{DynamicResource Elevation_9}"
-                            BorderThickness="1"
-                            HorizontalAlignment="Left"
-                            CornerRadius="4" Visibility="Collapsed">
-                            <StackPanel
-                                Grid.Row="2"
-                                Margin="6 0"
-                                Orientation="Horizontal">
-                                <Label
-                                    Padding="0"
-                                    Content="Category: "
-                                    FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                    FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                    Foreground="{DynamicResource ForegroundBrush}"
-                                    Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                                    Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-
-                                <!--  Category  -->
-                                <TextBlock
-                                    Grid.Row="1"
-                                    FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                    FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                    Foreground="{DynamicResource ForegroundBrush}"
-                                    Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
-                                    Text="{Binding CategoryId}"
-                                    Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
-                            </StackPanel>
-                        </Border>
+                        </WrapPanel>
 
                     </Grid>
                 </Border>

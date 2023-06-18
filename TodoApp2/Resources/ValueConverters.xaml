@@ -95,4 +95,6 @@
     <local:TaskSpacingToMarginConverter x:Key="taskSpacingToMarginConverter" />
     <local:TaskCheckboxMarginConverter x:Key="taskCheckboxMarginConverter" />
     <local:DoubleToGridLengthConverter x:Key="doubleToGridLengthConverter" />
+    <local:IdToCategoryNameConverter x:Key="idToCategoryNameConverter" />
+
 </ResourceDictionary>

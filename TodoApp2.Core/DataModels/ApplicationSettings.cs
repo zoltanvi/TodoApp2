@@ -206,6 +206,11 @@ namespace TodoApp2.Core
             _UiScaler.Zoomed += OnZoomed;
         }
 
+        public void TriggerUpdate(string propertyName)
+        {
+            OnPropertyChanged(propertyName);
+        }
+
         private void OnZoomed(object sender, EventArgs e)
         {
             // This is needed to trigger the task font size update (fontSizeScaler)
