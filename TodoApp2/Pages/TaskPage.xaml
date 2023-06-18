@@ -52,7 +52,10 @@
                         Grid.Column="0"
                         Style="{DynamicResource PageTitleTextBlockStyle}"
                         Margin="0 1"
-                        Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}">
+                        Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}"
+                        Foreground="{Binding AppSettings.TitleColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay, Converter={StaticResource stringToForegroundBrushConverter}}"
+                        FontFamily="{Binding Path=AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                        FontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}">
                         <TextBlock.Visibility>
                             <MultiBinding>
                                 <MultiBinding.Converter>
@@ -92,7 +95,10 @@
                             Style="{DynamicResource PageTitleEditorTextBoxStyle}"
                             BorderThickness="1"
                             BorderBrush="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
-                            Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Foreground="{Binding AppSettings.TitleColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay, Converter={StaticResource stringToForegroundBrushConverter}}"
+                            FontFamily="{Binding Path=AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            FontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}">
 
                             <TextBox.Visibility>
                                 <MultiBinding>
@@ -154,11 +160,13 @@
                 BorderThickness="0"
                 Margin="0"
                 Style="{DynamicResource BottomPanelStyle}">
-                <!--Background="{DynamicResource BottomBarBgBrush}"-->
 
                 <DockPanel>
 
-                    <Border Background="{DynamicResource Elevation_1}" CornerRadius="6" Margin="5">
+                    <Border
+                        Background="{DynamicResource Elevation_1}"
+                        CornerRadius="6"
+                        Margin="5">
                         <local:RichTextEditorControl
                             MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
                             Padding="3 8"

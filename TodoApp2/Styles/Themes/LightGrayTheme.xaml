@@ -143,6 +143,16 @@
     <SolidColorBrush x:Key="Elevation_9" Opacity="0.7" Color="{DynamicResource ThemeOpposite}" />
 
 
+    <!--  LOWERED  -->
+    <SolidColorBrush x:Key="Lowered_1" Opacity="0.05" Color="{DynamicResource ThemePrimary}" />
+    <SolidColorBrush x:Key="Lowered_2" Opacity="0.1" Color="{DynamicResource ThemePrimary}" />
+    <SolidColorBrush x:Key="Lowered_3" Opacity="0.15" Color="{DynamicResource ThemePrimary}" />
+    <SolidColorBrush x:Key="Lowered_4" Opacity="0.2" Color="{DynamicResource ThemePrimary}" />
+    <SolidColorBrush x:Key="Lowered_5" Opacity="0.3" Color="{DynamicResource ThemePrimary}" />
+    <SolidColorBrush x:Key="Lowered_6" Opacity="0.4" Color="{DynamicResource ThemePrimary}" />
+    <SolidColorBrush x:Key="Lowered_7" Opacity="0.5" Color="{DynamicResource ThemePrimary}" />
+    <SolidColorBrush x:Key="Lowered_8" Opacity="0.6" Color="{DynamicResource ThemePrimary}" />
+    <SolidColorBrush x:Key="Lowered_9" Opacity="0.7" Color="{DynamicResource ThemePrimary}" />
 
     <!--  BRUSHES (cannot be in a separate xaml because the theme switch would not work)  -->
 

@@ -60,7 +60,9 @@ namespace TodoApp2
 
                 AddFontFamily(FontFamily.SCE_PS3);
 
+                AddDefaultFontFamily(FontFamily.SegoeUILight, GlobalConstants.FontFamily.SegoeUILight);
                 AddDefaultFontFamily(FontFamily.SegoeUI, GlobalConstants.FontFamily.SegoeUI);
+                AddDefaultFontFamily(FontFamily.SegoeUIBold, GlobalConstants.FontFamily.SegoeUIBold);
 
                 AddFontFamily(FontFamily.SourceCodeProRegular);
                 AddFontFamily(FontFamily.SourceCodeProBold);

@@ -15,7 +15,7 @@
     <SolidColorBrush x:Key="ScrollBar.Pressed.Border" Color="#606060" />
     <SolidColorBrush x:Key="ScrollBar.Disabled.Background" Color="Transparent" />
     <SolidColorBrush x:Key="ScrollBar.Disabled.Border" Color="Transparent" />
-    
+
     <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="BorderThickness" Value="1" />

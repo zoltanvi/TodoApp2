@@ -38,8 +38,10 @@
         
         SCE_PS3,
         
+        SegoeUILight,
         SegoeUI,
-        
+        SegoeUIBold,
+
         SourceCodeProRegular,
         SourceCodeProBold,
         

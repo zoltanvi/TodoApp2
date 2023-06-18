@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TodoApp2"
+    x:Name="FontSizeSlider"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800">
@@ -26,9 +27,7 @@
                 Content="{DynamicResource SegoeIconFontSize}"
                 Style="{DynamicResource SettingsIconLabelStyle}"
                 VerticalAlignment="Center" />
-            <TextBlock
-                Text="Font size"
-                Style="{DynamicResource SettingsDescriptionStyle}" />
+            <TextBlock Text="{Binding ElementName=FontSizeSlider, Path=Description}" Style="{DynamicResource SettingsDescriptionStyle}" />
         </DockPanel>
 
         <!--  SAMPLE TEXT  -->
@@ -37,7 +36,7 @@
             Grid.Column="2"
             Grid.Row="1"
             Content="Sample text"
-            FontSize="{Binding AppSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+            FontSize="{Binding ElementName=FontSizeSlider, Path=PreviewFontSize, Converter={StaticResource fontSizeScaler}}"
             FontFamily="{Binding AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
             Foreground="{DynamicResource ForegroundBrush}"
             HorizontalAlignment="Center" />
@@ -62,15 +61,15 @@
             <Slider
                 Grid.Column="1"
                 Orientation="Horizontal"
-                Minimum="12"
-                Maximum="26"
+                Minimum="{Binding ElementName=FontSizeSlider, Path=Min}"
+                Maximum="{Binding ElementName=FontSizeSlider, Path=Max}"
                 TickPlacement="None"
                 VerticalAlignment="Center"
                 IsSnapToTickEnabled="True"
-                TickFrequency="1"
+                TickFrequency="{Binding ElementName=FontSizeSlider, Path=Steps}"
                 AutoToolTipPlacement="TopLeft"
                 Style="{DynamicResource CustomSliderStyle}"
-                Value="{Binding AppSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                Value="{Binding ElementName=FontSizeSlider, Path=PreviewFontSize, Mode=TwoWay}" />
 
             <Label
                 Grid.Column="2"

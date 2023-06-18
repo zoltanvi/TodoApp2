@@ -14,6 +14,7 @@
             public const string TaskBgBrush = "TaskBgBrush";
             public const string NoteLineAdornerBgBrush = "NoteLineAdornerBgBrush";
             public const string TransparentPatternBrush = "TransparentPatternBrush";
+            public const string ForegroundBrush = "ForegroundBrush";
         }
 
         public struct FontFamily
@@ -21,7 +22,9 @@
             public const string Calibri = "Calibri";
             public const string Consolas = "Consolas";
             public const string CourierNew = "Courier New";
+            public const string SegoeUILight = "Segoe UI Light";
             public const string SegoeUI = "Segoe UI";
+            public const string SegoeUIBold = "Segoe UI Bold";
             public const string Tahoma = "Tahoma";
             public const string TimesNewRoman = "Times New Roman";
             public const string Verdana = "Verdana";

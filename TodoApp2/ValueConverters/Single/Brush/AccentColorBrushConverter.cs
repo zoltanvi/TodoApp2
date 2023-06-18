@@ -11,9 +11,9 @@ namespace TodoApp2
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string brushName)
+            if (value is string colorCode)
             {
-                if (brushName == GlobalConstants.ColorName.Transparent)
+                if (colorCode == GlobalConstants.ColorName.Transparent)
                 {
                     return m_Converter.Convert(GlobalConstants.ColorName.DefaultAccentColor, targetType, parameter, culture);
                 }

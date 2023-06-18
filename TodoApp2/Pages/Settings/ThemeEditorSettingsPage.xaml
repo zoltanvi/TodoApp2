@@ -54,13 +54,13 @@
                             SelectedColor="{Binding SideMenuBgBrush, Mode=TwoWay}" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
+                    <!--<StackPanel Orientation="Horizontal">
                         <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">BottomBar</Label>
                         <colorpicker:PortableColorPicker
                             Width="34"
                             Height="34"
                             SelectedColor="{Binding BottomBarBgBrush, Mode=TwoWay}" />
-                    </StackPanel>
+                    </StackPanel>-->
 
                     <StackPanel Orientation="Horizontal">
                         <Label Foreground="{DynamicResource ForegroundBrush}" Margin="10">Foreground</Label>

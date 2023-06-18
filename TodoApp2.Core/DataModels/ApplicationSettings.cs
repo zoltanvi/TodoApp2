@@ -98,6 +98,10 @@ namespace TodoApp2.Core
         public bool TextEditorQAAlignJustify { get; set; }
         public bool SaveOnEnter { get; set; } = true;
 
+        public double TitleFontSize { get; set; } = 28;
+        public FontFamily TitleFontFamily { get; set; } = FontFamily.SegoeUI;
+        public string TitleColor { get; set; } = GlobalConstants.ColorName.Transparent;
+
         #region Testing
 
         public string TextRenderingMode { get; set; }
@@ -194,6 +198,9 @@ namespace TodoApp2.Core
                 { nameof(TextEditorQAAlignRight), boolean },
                 { nameof(TextEditorQAAlignJustify), boolean },
                 { nameof(SaveOnEnter), boolean },
+                { nameof(TitleColor), string_ },
+                { nameof(TitleFontFamily), fontFamily },
+                { nameof(TitleFontSize), double_ },
             };
 
             _UiScaler.Zoomed += OnZoomed;

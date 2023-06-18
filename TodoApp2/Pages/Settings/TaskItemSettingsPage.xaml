@@ -32,15 +32,6 @@
         </ObjectDataProvider>
 
         <ObjectDataProvider
-            x:Key="FontSizeDataProvider"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="core:FontSize" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-
-        <ObjectDataProvider
             x:Key="FontFamilyDataProvider"
             MethodName="GetValues"
             ObjectType="{x:Type sys:Enum}">
@@ -230,7 +221,12 @@
                 <!--  Font size  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
                     <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                        <local:FontSizeSliderControl />
+                        <local:FontSizeSliderControl
+                            Description="Font size"
+                            PreviewFontSize="{Binding AppSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                            Min="10"
+                            Max="30"
+                            Steps="1" />
                     </DockPanel>
                 </Border>
 

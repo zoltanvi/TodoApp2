@@ -67,20 +67,19 @@
                     <ControlTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Marker color</Label>
                             <local:SingletonColorPicker
-                                Grid.Column="2"    
+                                Grid.Column="2"
                                 SelectedColorString="{Binding DataContext.Color, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
-                                ToolTip="Marker color"
-                                />
+                                ToolTip="Marker color" />
                         </Grid>
                     </ControlTemplate>
                 </MenuItem.Template>
@@ -91,20 +90,19 @@
                     <ControlTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Background color</Label>
                             <local:SingletonColorPicker
-                                Grid.Column="2"    
+                                Grid.Column="2"
                                 SelectedColorString="{Binding DataContext.BackgroundColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
-                                ToolTip="Background color"
-                                />
+                                ToolTip="Background color" />
                         </Grid>
                     </ControlTemplate>
                 </MenuItem.Template>
@@ -115,20 +113,19 @@
                     <ControlTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Border color</Label>
                             <local:SingletonColorPicker
-                                Grid.Column="2"    
+                                Grid.Column="2"
                                 SelectedColorString="{Binding DataContext.BorderColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
-                                ToolTip="Border color"
-                                />
+                                ToolTip="Border color" />
                         </Grid>
                     </ControlTemplate>
                 </MenuItem.Template>
@@ -287,6 +284,8 @@
                             <RowDefinition Height="*" />
                             <!--  Timestamp row  -->
                             <RowDefinition Height="Auto" />
+                            <!--  Category row  -->
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <!--  Task description  -->
@@ -304,7 +303,7 @@
 
                         <StackPanel
                             Grid.Row="1"
-                            Margin="6 0 0 0"
+                            Margin="8 0 0 0"
                             Orientation="Horizontal">
 
                             <Label
@@ -346,6 +345,40 @@
                                 Text="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Visibility="{Binding AppSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                         </StackPanel>
+
+                        <!--CATEGORY LABEL-->
+                        <Border
+                            Margin="2 2"
+                            Grid.Row="2"
+                            Background="{DynamicResource Lowered_9}"
+                            BorderBrush="{DynamicResource Elevation_9}"
+                            BorderThickness="1"
+                            HorizontalAlignment="Left"
+                            CornerRadius="4" Visibility="Collapsed">
+                            <StackPanel
+                                Grid.Row="2"
+                                Margin="6 0"
+                                Orientation="Horizontal">
+                                <Label
+                                    Padding="0"
+                                    Content="Category: "
+                                    FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                    FontSize="{Binding UIScaler.FontSize.Smaller}"
+                                    Foreground="{DynamicResource ForegroundBrush}"
+                                    Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
+                                    Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+                                <!--  Category  -->
+                                <TextBlock
+                                    Grid.Row="1"
+                                    FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                    FontSize="{Binding UIScaler.FontSize.Smaller}"
+                                    Foreground="{DynamicResource ForegroundBrush}"
+                                    Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
+                                    Text="{Binding CategoryId}"
+                                    Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                            </StackPanel>
+                        </Border>
 
                     </Grid>
                 </Border>
@@ -452,8 +485,7 @@
                                 Margin="4 0 0 0"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Marker color"
-                                Visibility="{Binding AppSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                />
+                                Visibility="{Binding AppSettings.IsQuickActionsColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                             <!--  Background color picker  -->
                             <local:SingletonColorPicker
@@ -463,9 +495,8 @@
                                 Margin="4 0 0 0"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Background color"
-                                Visibility="{Binding AppSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                />
-                            
+                                Visibility="{Binding AppSettings.IsQuickActionsBackgroundColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
                             <!--  BorderColor picker  -->
                             <local:SingletonColorPicker
                                 SelectedColorString="{Binding BorderColor, Mode=TwoWay}"
@@ -474,8 +505,7 @@
                                 Margin="4 0 0 0"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Border color"
-                                Visibility="{Binding AppSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                />
+                                Visibility="{Binding AppSettings.IsQuickActionsBorderColorEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                             <!--  Pin button  -->
                             <Grid Visibility="{Binding Pinned, Converter={StaticResource boolToVisibilityNegatedConverter}}">

@@ -90,13 +90,11 @@
                             Padding="20 0 0 0"
                             HorizontalAlignment="Right">
 
-                            <!--  Color picker  -->
-                            <ComboBox
-                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
-                                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                SelectedItem="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                                Style="{DynamicResource TaskItemColorPickerStyle}" />
+                            <local:SingletonColorPicker
+                                SelectedColorString="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+
                         </Border>
 
                     </Grid>
@@ -119,26 +117,15 @@
                             Style="{DynamicResource SettingsDescriptionStyle}"
                             Text="App border color" />
 
-
                         <Border
                             Grid.Column="2"
                             Padding="20 0 0 0"
                             HorizontalAlignment="Right">
 
-                            <!--  Color picker  -->
-                            <ComboBox
-                                ItemContainerStyle="{StaticResource TaskItemColorPickerItemContainerStyle}"
-                                ItemTemplate="{StaticResource TaskItemColorPickerItemTemplate}"
-                                ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}"
-                                SelectedItem="{Binding AppSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                                Style="{DynamicResource TaskItemColorPickerStyle}">
-
-                                <!--<Behaviors:Interaction.Triggers>
-                                        <Behaviors:EventTrigger EventName="SelectionChanged">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeAppBorderColorCommand}" />
-                                        </Behaviors:EventTrigger>
-                                    </Behaviors:Interaction.Triggers>-->
-                            </ComboBox>
+                            <local:SingletonColorPicker
+                                SelectedColorString="{Binding AppSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
                         </Border>
 
                     </Grid>
