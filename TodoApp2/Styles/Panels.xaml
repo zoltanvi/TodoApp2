@@ -175,12 +175,13 @@
                         Margin="2 2"
                         Grid.Row="2"
                         BorderThickness="1"
-                        Background="{TemplateBinding TagStyle,
-                                                     Converter={StaticResource messageTypeToBackgroundConverter}}"
-                        BorderBrush="{TemplateBinding TagStyle,
-                                                      Converter={StaticResource messageTypeToBorderConverter}}"
+                        Background="{TemplateBinding TagColor,
+                                                     Converter={StaticResource tagBackgroundConverter}}"
+                        BorderBrush="{TemplateBinding TagColor,
+                                                      Converter={StaticResource tagBorderConverter}}"
                         CornerRadius="4">
                         <StackPanel
+                            HorizontalAlignment="Center"
                             Grid.Row="2"
                             Margin="6 0"
                             Orientation="Horizontal">
@@ -189,23 +190,25 @@
                             <Label
                                 Margin="0 2"
                                 VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
                                 Padding="0"
                                 Content="{TemplateBinding TagTitle}"
                                 FontWeight="Bold"
                                 FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                 FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                Foreground="{TemplateBinding TagStyle,
-                                                             Converter={StaticResource messageTypeToForegroundConverter}}" />
+                                Foreground="{TemplateBinding TagColor,
+                                                             Converter={StaticResource tagForegroundConverter}}" />
 
                             <Label
                                 Margin="0 2"
                                 VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
                                 Padding="0"
                                 Content="{TemplateBinding TagBody}"
                                 FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                 FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                Foreground="{TemplateBinding TagStyle,
-                                                             Converter={StaticResource messageTypeToForegroundConverter}}" />
+                                Foreground="{TemplateBinding TagColor,
+                                                             Converter={StaticResource tagForegroundConverter}}" />
                         </StackPanel>
                     </Border>
 

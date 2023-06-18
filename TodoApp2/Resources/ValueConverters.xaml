@@ -13,21 +13,13 @@
     <local:TransparentPatternBrushConverter x:Key="transparentPatternBrushConverter" />
     <local:StringToForegroundBrushConverter x:Key="stringToForegroundBrushConverter" />
 
-    <local:MessageTypeToBrushConverter
-        x:Key="messageTypeToForegroundConverter"
-        InfoBrushName="MessageInfoBrush"
-        WarningBrushName="MessageWarningBrush"
-        ErrorBrushName="MessageErrorBrush" />
-    <local:MessageTypeToBrushConverter
-        x:Key="messageTypeToBackgroundConverter"
-        InfoBrushName="MessageInfoBgBrush"
-        WarningBrushName="MessageWarningBgBrush"
-        ErrorBrushName="MessageErrorBgBrush" />
-    <local:MessageTypeToBrushConverter
-        x:Key="messageTypeToBorderConverter"
-        InfoBrushName="MessageInfoBorderBrush"
-        WarningBrushName="MessageWarningBorderBrush"
-        ErrorBrushName="MessageErrorBorderBrush" />
+    <local:TagColorConverter x:Key="tagForegroundConverter" ColorType="Foreground" />
+    <local:TagColorConverter x:Key="tagBackgroundConverter" ColorType="Background" />
+    <local:TagColorConverter x:Key="tagBorderConverter" ColorType="Border" />
+
+    <local:MessageTypeToBrushConverter x:Key="messageForegroundConverter" ColorType="Foreground" />
+    <local:MessageTypeToBrushConverter x:Key="messageBackgroundConverter" ColorType="Background" />
+    <local:MessageTypeToBrushConverter x:Key="messageBorderConverter" ColorType="Border" />
 
     <local:DynamicSolidColorBrushConverter
         x:Key="toggleButtonDynamicBrushConverter"

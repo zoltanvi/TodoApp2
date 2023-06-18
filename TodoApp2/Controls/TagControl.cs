@@ -8,7 +8,7 @@ namespace TodoApp2
     {
         public static readonly DependencyProperty TagTitleProperty = DependencyProperty.Register(nameof(TagTitle), typeof(string), typeof(TagControl), new PropertyMetadata());
         public static readonly DependencyProperty TagBodyProperty = DependencyProperty.Register(nameof(TagBody), typeof(string), typeof(TagControl), new PropertyMetadata());
-        public static readonly DependencyProperty TagStyleProperty = DependencyProperty.Register(nameof(TagStyle), typeof(MessageType), typeof(TagControl), new PropertyMetadata());
+        public static readonly DependencyProperty TagColorProperty = DependencyProperty.Register(nameof(TagColor), typeof(TagPresetColor), typeof(TagControl), new PropertyMetadata());
 
         public string TagTitle
         {
@@ -22,10 +22,10 @@ namespace TodoApp2
             set { SetValue(TagBodyProperty, value); }
         }
 
-        public MessageType TagStyle
+        public TagPresetColor TagColor
         {
-            get { return (MessageType)GetValue(TagStyleProperty); }
-            set { SetValue(TagStyleProperty, value); }
+            get { return (TagPresetColor)GetValue(TagColorProperty); }
+            set { SetValue(TagColorProperty, value); }
         }
     }
 }

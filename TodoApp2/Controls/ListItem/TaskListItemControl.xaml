@@ -306,22 +306,23 @@
                             Margin="1 0"
                             Orientation="Horizontal">
 
-                            <local:TagControl
+                            <!--<local:TagControl
                                 TagTitle="Category: "
                                 TagBody="{Binding CategoryId, Converter={StaticResource idToCategoryNameConverter}}"
-                                TagStyle="Info" />
+                                TagColor="Green"
+                                />-->
                             <local:TagControl
                                 TagTitle="Created: "
                                 TagBody="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                TagStyle="Warning" />
+                                TagColor="Volcano" />
                             <local:TagControl
                                 TagTitle="Modified: "
                                 TagBody="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                TagStyle="Error" />
+                                TagColor="Cyan" />
                         </WrapPanel>
 
                     </Grid>

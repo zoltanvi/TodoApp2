@@ -105,7 +105,6 @@
 
                         </StackPanel>
 
-
                         <!--  VERSION  -->
                         <Border Grid.Row="1" Margin="3 0">
                             <Border Style="{StaticResource SettingsItemStyle}" CornerRadius="5">
@@ -117,9 +116,7 @@
                                     Text="{DynamicResource CurrentVersion}" />
                             </Border>
                         </Border>
-
                     </Grid>
-
 
                 </Border>
 

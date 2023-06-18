@@ -341,8 +341,8 @@
                     CornerRadius="4"
                     SnapsToDevicePixels="True"
                     BorderThickness="{Binding UIScaler.ScaleValue}"
-                    BorderBrush="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBorderConverter}}"
-                    Background="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToBackgroundConverter}}">
+                    BorderBrush="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageBorderConverter}}"
+                    Background="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageBackgroundConverter}}">
                     <!--<Border.Effect>
                         <DropShadowEffect
                             ShadowDepth="0"
@@ -367,7 +367,7 @@
                             Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Foreground="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageTypeToForegroundConverter}}" />
+                            Foreground="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageForegroundConverter}}" />
 
                         <Button
                             Grid.Column="1"
