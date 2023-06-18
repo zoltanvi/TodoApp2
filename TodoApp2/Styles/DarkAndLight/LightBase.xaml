@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <Color x:Key="Transparent">#00000000</Color>
+    <Color x:Key="ThemeOpposite">#000000</Color>
+    <Color x:Key="ThemePrimary">white</Color>
+
+
+    <Color x:Key="MessageInfo">#1677ff</Color>
+    <Color x:Key="MessageWarning">#faad14</Color>
+    <Color x:Key="MessageError">#ff4d4f</Color>
+    <Color x:Key="MessageInfoBg">#e6f4ff</Color>
+    <Color x:Key="MessageWarningBg">#fffbe6</Color>
+    <Color x:Key="MessageErrorBg">#fff1f0</Color>
+    <Color x:Key="MessageInfoBorder">#91caff</Color>
+    <Color x:Key="MessageWarningBorder">#ffe58f</Color>
+    <Color x:Key="MessageErrorBorder">#ffa39e</Color>
+
+    <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
+    <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
+    <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
+    <SolidColorBrush x:Key="MessageInfoBgBrush" Color="{DynamicResource MessageInfoBg}" />
+    <SolidColorBrush x:Key="MessageWarningBgBrush" Color="{DynamicResource MessageWarningBg}" />
+    <SolidColorBrush x:Key="MessageErrorBgBrush" Color="{DynamicResource MessageErrorBg}" />
+    <SolidColorBrush x:Key="MessageInfoBorderBrush" Color="{DynamicResource MessageInfoBorder}" />
+    <SolidColorBrush x:Key="MessageWarningBorderBrush" Color="{DynamicResource MessageWarningBorder}" />
+    <SolidColorBrush x:Key="MessageErrorBorderBrush" Color="{DynamicResource MessageErrorBorder}" />
+
+</ResourceDictionary>

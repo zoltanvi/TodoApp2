@@ -15,11 +15,6 @@
     <Color x:Key="ComboBoxButtonBg">#fefdfe</Color>
     <Color x:Key="ComboBoxDropDownBg">#fefdfe</Color>
 
-
-    <Color x:Key="Transparent">#00000000</Color>
-    <Color x:Key="ThemeOpposite">#000000</Color>
-    <Color x:Key="ThemePrimary">white</Color>
-
     <Color x:Key="Foreground">#000000</Color>
     <SolidColorBrush x:Key="ForegroundBrush" Color="#000000" />
     <Color x:Key="TitleBar">#000000</Color>
@@ -28,9 +23,6 @@
     <Color x:Key="LineNumber">#979797</Color>
     <Color x:Key="TaskDate">#FFFFFF</Color>
     <Color x:Key="CalendarDisabledDays">#4E4E4E</Color>
-    <Color x:Key="MessageInfo">#1677ff</Color>
-    <Color x:Key="MessageWarning">#faad14</Color>
-    <Color x:Key="MessageError">#ff4d4f</Color>
     <Color x:Key="SelectedCategory">#000000</Color>
 
     <Color x:Key="TaskDoneBg">#80E0E0E0</Color>
@@ -40,9 +32,6 @@
     <Color x:Key="CalendarButtonBg">#ACACAC</Color>
     <Color x:Key="ContextMenuBg">#FFFFFF</Color>
     <Color x:Key="NoteLineAdornerBg">#e8e8ff</Color>
-    <Color x:Key="MessageInfoBg">#e6f4ff</Color>
-    <Color x:Key="MessageWarningBg">#fffbe6</Color>
-    <Color x:Key="MessageErrorBg">#fff1f0</Color>
 
     <Color x:Key="HoverCategoryBg">#EDEDED</Color>
     <Color x:Key="HoverCloseButtonBg">#F76E62</Color>
@@ -57,10 +46,6 @@
     <Color x:Key="TaskBorder">#c4cdcc</Color>
     <Color x:Key="CheckBoxBorder">#7e7e7e</Color>
     <Color x:Key="ToggleButtonBorder">#2E2E2E</Color>
-
-    <Color x:Key="MessageInfoBorder">#91caff</Color>
-    <Color x:Key="MessageWarningBorder">#ffe58f</Color>
-    <Color x:Key="MessageErrorBorder">#ffa39e</Color>
     <!--  ===================  -->
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
@@ -72,9 +57,6 @@
     <SolidColorBrush x:Key="PlaceholderBrush" Opacity="0.4" Color="{DynamicResource Foreground}" />
     <SolidColorBrush x:Key="LineNumberBrush" Color="{DynamicResource LineNumber}" />
     <SolidColorBrush x:Key="TaskDateBrush" Opacity="0.65" Color="{DynamicResource Foreground}" />
-    <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
-    <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
-    <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
     <SolidColorBrush x:Key="SelectedCategoryBrush" Color="{DynamicResource SelectedCategory}" />
 
     <!--  Background  -->
@@ -100,9 +82,6 @@
     <SolidColorBrush x:Key="ContextMenuBackgroundBrush" Color="{DynamicResource ContextMenuBg}" />
     <SolidColorBrush x:Key="ContextMenuSelectedBackgroundBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="NoteLineAdornerBgBrush" Color="{DynamicResource NoteLineAdornerBg}" />
-    <SolidColorBrush x:Key="MessageInfoBgBrush" Color="{DynamicResource MessageInfoBg}" />
-    <SolidColorBrush x:Key="MessageWarningBgBrush" Color="{DynamicResource MessageWarningBg}" />
-    <SolidColorBrush x:Key="MessageErrorBgBrush" Color="{DynamicResource MessageErrorBg}" />
 
     <!--  Hover  -->
     <SolidColorBrush x:Key="HoverCategoryBgBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
@@ -126,9 +105,6 @@
     <SolidColorBrush x:Key="TaskBorderBrush" Color="{DynamicResource TaskBorder}" />
     <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{DynamicResource CheckBoxBorder}" />
     <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="{DynamicResource ToggleButtonBorder}" />
-    <SolidColorBrush x:Key="MessageInfoBorderBrush" Color="{DynamicResource MessageInfoBorder}" />
-    <SolidColorBrush x:Key="MessageWarningBorderBrush" Color="{DynamicResource MessageWarningBorder}" />
-    <SolidColorBrush x:Key="MessageErrorBorderBrush" Color="{DynamicResource MessageErrorBorder}" />
 
     <!--  ELEVATION  -->
     <SolidColorBrush x:Key="Elevation_1" Opacity="0.05" Color="{DynamicResource ThemeOpposite}" />

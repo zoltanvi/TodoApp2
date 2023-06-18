@@ -9,20 +9,33 @@ namespace TodoApp2
 {
     public class ThemeManager
     {
-        private const string s_AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/Themes/";
+        private const string AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/Themes/";
+        private const string DarkBaseUri = "pack://application:,,,/TodoApp2;component/Styles/DarkAndLight/DarkBase.xaml";
+        private const string LightBaseUri = "pack://application:,,,/TodoApp2;component/Styles/DarkAndLight/LightBase.xaml";
+
+        private HashSet<Theme> _lightThemes;
 
         public static Theme CurrentTheme { get; private set; }
-       
+
         public Theme ActiveTheme => CurrentTheme;
 
-        public ResourceDictionary CurrentThemeDictionary { get; private set; }
-        
         public List<Theme> ThemeList { get; }
 
         public event EventHandler ThemeChanged;
 
         public ThemeManager()
         {
+            _lightThemes = new HashSet<Theme> {
+                Theme.LightGreen,
+                Theme.MaterialLight,
+                Theme.YellowGold,
+                Theme.Mint,
+                Theme.LightBlue,
+                Theme.Violet,
+                Theme.LightGray,
+                Theme.Light
+            };
+
             ThemeList = new List<Theme>();
             Array values = Enum.GetValues(typeof(Theme));
 
@@ -39,13 +52,12 @@ namespace TodoApp2
         /// <param name="newTheme">The theme to change to.</param>
         public Theme ChangeToTheme(Theme oldTheme, Theme newTheme)
         {
-            string newThemePath = GetThemeUriPath(newTheme);
-            Uri newUri = new Uri(newThemePath, UriKind.RelativeOrAbsolute);
-            CurrentThemeDictionary = new ResourceDictionary() { Source = newUri };
-
             if (oldTheme != newTheme)
             {
+                SwitchLightAndDark(oldTheme, newTheme);
+
                 string oldThemePath = GetThemeUriPath(oldTheme);
+                string newThemePath = GetThemeUriPath(newTheme);
 
                 // Change the old theme to the new one
                 ChangeTheme(oldThemePath, newThemePath);
@@ -56,6 +68,24 @@ namespace TodoApp2
             Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
 
             return newTheme;
+        }
+
+        private void SwitchLightAndDark(Theme oldTheme, Theme newTheme)
+        {
+            bool oldIsLight = _lightThemes.Contains(oldTheme);
+            bool newIsLight = _lightThemes.Contains(newTheme);
+
+            if (oldIsLight != newIsLight)
+            {
+                if (newIsLight)
+                {
+                    ChangeTheme(DarkBaseUri, LightBaseUri);
+                }
+                else
+                {
+                    ChangeTheme(LightBaseUri, DarkBaseUri);
+                }
+            }
         }
 
         public void UpdateTheme(string changedKey, SolidColorBrush changedValue)
@@ -70,7 +100,7 @@ namespace TodoApp2
 
         internal static string GetThemeUriPath(Theme theme)
         {
-            string fullPath = $"{s_AbsoluteThemePathPrefix}{theme}Theme.xaml";
+            string fullPath = $"{AbsoluteThemePathPrefix}{theme}Theme.xaml";
 
             return fullPath;
         }

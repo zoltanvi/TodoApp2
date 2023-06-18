@@ -5,10 +5,6 @@
         because of a WPF bug, the RichTextBox copy-paste won't work properly.
     -->
 
-    <Color x:Key="Transparent">#00000000</Color>
-    <Color x:Key="ThemeOpposite">#FFFFFF</Color>
-    <Color x:Key="ThemePrimary">black</Color>
-
     <Color x:Key="Foreground">#E4E9F8</Color>
     <SolidColorBrush x:Key="ForegroundBrush" Color="#E4E9F8" />
     <Color x:Key="TitleBar">#E4E4E4</Color>
@@ -17,9 +13,6 @@
     <Color x:Key="LineNumber">#8a97c3</Color>
     <Color x:Key="TaskDate">#FFFFFF</Color>
     <Color x:Key="CalendarDisabledDays">#4E4E4E</Color>
-    <Color x:Key="MessageInfo">#5D9CF6</Color>
-    <Color x:Key="MessageWarning">#d89614</Color>
-    <Color x:Key="MessageError">#dc4446</Color>
     <Color x:Key="SelectedCategory">#E4E9F8</Color>
 
     <Color x:Key="PageBg">#21252b</Color>
@@ -38,9 +31,6 @@
     <Color x:Key="CalendarButtonBg">#3F4651</Color>
     <Color x:Key="ContextMenuBg">#2F3031</Color>
     <Color x:Key="NoteLineAdornerBg">#383C42</Color>
-    <Color x:Key="MessageInfoBg">#112545</Color>
-    <Color x:Key="MessageWarningBg">#2b2111</Color>
-    <Color x:Key="MessageErrorBg">#2c1618</Color>
 
     <Color x:Key="HoverCategoryBg">#3A404D</Color>
     <Color x:Key="HoverCloseButtonBg">#D44E42</Color>
@@ -56,9 +46,6 @@
     <Color x:Key="CheckBoxBorder">#687D96</Color>
     <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
 
-    <Color x:Key="MessageInfoBorder">#1677ff</Color>
-    <Color x:Key="MessageWarningBorder">#594214</Color>
-    <Color x:Key="MessageErrorBorder">#5b2526</Color>
     <!--  ===================  -->
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
@@ -70,9 +57,6 @@
     <SolidColorBrush x:Key="PlaceholderBrush" Opacity="0.4" Color="{DynamicResource Foreground}" />
     <SolidColorBrush x:Key="LineNumberBrush" Color="{DynamicResource LineNumber}" />
     <SolidColorBrush x:Key="TaskDateBrush" Opacity="0.65" Color="{DynamicResource Foreground}" />
-    <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
-    <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
-    <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
     <SolidColorBrush x:Key="SelectedCategoryBrush" Color="{DynamicResource SelectedCategory}" />
 
     <!--  Background  -->
@@ -98,9 +82,6 @@
     <SolidColorBrush x:Key="ContextMenuBackgroundBrush" Color="{DynamicResource ContextMenuBg}" />
     <SolidColorBrush x:Key="ContextMenuSelectedBackgroundBrush" Opacity="0.1" Color="{DynamicResource ThemeOpposite}" />
     <SolidColorBrush x:Key="NoteLineAdornerBgBrush" Color="{DynamicResource NoteLineAdornerBg}" />
-    <SolidColorBrush x:Key="MessageInfoBgBrush" Color="{DynamicResource MessageInfoBg}" />
-    <SolidColorBrush x:Key="MessageWarningBgBrush" Color="{DynamicResource MessageWarningBg}" />
-    <SolidColorBrush x:Key="MessageErrorBgBrush" Color="{DynamicResource MessageErrorBg}" />
 
     <!--  Hover  -->
     <SolidColorBrush x:Key="HoverCategoryBgBrush" Color="{DynamicResource HoverCategoryBg}" />
@@ -124,9 +105,6 @@
     <SolidColorBrush x:Key="TaskBorderBrush" Color="{DynamicResource TaskBorder}" />
     <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{DynamicResource CheckBoxBorder}" />
     <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="{DynamicResource ToggleButtonBorder}" />
-    <SolidColorBrush x:Key="MessageInfoBorderBrush" Color="{DynamicResource MessageInfoBorder}" />
-    <SolidColorBrush x:Key="MessageWarningBorderBrush" Color="{DynamicResource MessageWarningBorder}" />
-    <SolidColorBrush x:Key="MessageErrorBorderBrush" Color="{DynamicResource MessageErrorBorder}" />
 
     <!--  ELEVATION  -->
     <SolidColorBrush x:Key="Elevation_1" Opacity="0.05" Color="{DynamicResource ThemeOpposite}" />
