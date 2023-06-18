@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -7,7 +8,7 @@ namespace TodoApp2
     {
         public static readonly DependencyProperty TagTitleProperty = DependencyProperty.Register(nameof(TagTitle), typeof(string), typeof(TagControl), new PropertyMetadata());
         public static readonly DependencyProperty TagBodyProperty = DependencyProperty.Register(nameof(TagBody), typeof(string), typeof(TagControl), new PropertyMetadata());
-        public static readonly DependencyProperty TagStyleProperty = DependencyProperty.Register(nameof(TagStyle), typeof(string), typeof(TagControl), new PropertyMetadata());
+        public static readonly DependencyProperty TagStyleProperty = DependencyProperty.Register(nameof(TagStyle), typeof(MessageType), typeof(TagControl), new PropertyMetadata());
 
         public string TagTitle
         {
@@ -21,10 +22,9 @@ namespace TodoApp2
             set { SetValue(TagBodyProperty, value); }
         }
 
-        // E.g: Blue, green, info, warning, etc.
-        public string TagStyle
+        public MessageType TagStyle
         {
-            get { return (string)GetValue(TagStyleProperty); }
+            get { return (MessageType)GetValue(TagStyleProperty); }
             set { SetValue(TagStyleProperty, value); }
         }
     }

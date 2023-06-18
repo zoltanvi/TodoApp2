@@ -174,9 +174,11 @@
                         Opacity="{TemplateBinding Opacity}"
                         Margin="2 2"
                         Grid.Row="2"
-                        Background="{DynamicResource Lowered_9}"
-                        BorderBrush="{DynamicResource Elevation_9}"
                         BorderThickness="1"
+                        Background="{TemplateBinding TagStyle,
+                                                     Converter={StaticResource messageTypeToBackgroundConverter}}"
+                        BorderBrush="{TemplateBinding TagStyle,
+                                                      Converter={StaticResource messageTypeToBorderConverter}}"
                         CornerRadius="4">
                         <StackPanel
                             Grid.Row="2"
@@ -185,19 +187,25 @@
 
                             <!--  TITLE  -->
                             <Label
+                                Margin="0 2"
+                                VerticalAlignment="Center"
                                 Padding="0"
                                 Content="{TemplateBinding TagTitle}"
                                 FontWeight="Bold"
                                 FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                 FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                Foreground="{DynamicResource ForegroundBrush}" />
+                                Foreground="{TemplateBinding TagStyle,
+                                                             Converter={StaticResource messageTypeToForegroundConverter}}" />
 
                             <Label
+                                Margin="0 2"
+                                VerticalAlignment="Center"
                                 Padding="0"
                                 Content="{TemplateBinding TagBody}"
                                 FontFamily="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                                 FontSize="{Binding UIScaler.FontSize.Smaller}"
-                                Foreground="{DynamicResource ForegroundBrush}" />
+                                Foreground="{TemplateBinding TagStyle,
+                                                             Converter={StaticResource messageTypeToForegroundConverter}}" />
                         </StackPanel>
                     </Border>
 

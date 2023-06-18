@@ -213,8 +213,9 @@ namespace TodoApp2.Core
 
         private void OnZoomed(object sender, EventArgs e)
         {
-            // This is needed to trigger the task font size update (fontSizeScaler)
+            // This is needed to trigger the font size update (fontSizeScaler)
             OnPropertyChanged(nameof(TaskFontSizeDouble));
+            OnPropertyChanged(nameof(TitleFontSize));
         }
 
         /// <summary>

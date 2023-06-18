@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Threading;
 
-namespace TodoApp2
+namespace TodoApp2.Core
 {
     public class TimerService
     {

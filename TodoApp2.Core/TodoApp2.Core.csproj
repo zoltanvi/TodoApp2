@@ -124,6 +124,7 @@
     <Compile Include="Services\IResourceUpdater.cs" />
     <Compile Include="Services\MediaPlayerService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />
+    <Compile Include="Services\TimerService.cs" />
     <Compile Include="ViewModel\Controls\RichTextEditorViewModel.cs" />
     <Compile Include="ViewModel\Controls\TimePickerViewModel.cs" />
     <Compile Include="ViewModel\Items\NoteViewModel.cs" />

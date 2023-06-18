@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 
 namespace TodoApp2.Core
 {
     public class MessageService : BaseViewModel
     {
-        private readonly DispatcherTimer m_Timer;
-        private readonly TimeSpan m_MaxInterval;
-        private readonly TimeSpan m_DefaultDuration;
-        private readonly TimeSpan m_UndoDuration;
+        private const int DefaultDuration = 1500;
+        private const int UndoMessageDuration = 1500;
+
+        private Guid _timer;
 
         public bool MessageLineVisible { get; private set; }
         public bool UndoButtonVisible { get; private set; }
@@ -18,17 +16,14 @@ namespace TodoApp2.Core
 
         public MessageService()
         {
-            m_MaxInterval = new TimeSpan(int.MaxValue);
-            m_DefaultDuration = TimeSpan.FromSeconds(1.5);
-            m_UndoDuration = TimeSpan.FromSeconds(1.5);
-            m_Timer = new DispatcherTimer { Interval = m_MaxInterval };
-            m_Timer.Tick += TimerOnTick;
+            _timer = TimerService.Instance.CreateTimer(TimerOnTick);
+            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
 
         public void ShowUndo(string message)
         {
             //UndoButtonVisible = true;
-            ShowMessage(message, m_UndoDuration, MessageType.Warning);
+            ShowMessage(message, UndoMessageDuration, MessageType.Warning);
         }
 
         public void HideMessage()
@@ -39,55 +34,64 @@ namespace TodoApp2.Core
 
         public void ShowSuccess(string message)
         {
-            ShowMessage(message, m_DefaultDuration, MessageType.Success);
+            ShowMessage(message, DefaultDuration, MessageType.Success);
         }
 
         public void ShowInfo(string message)
         {
-            ShowMessage(message, m_DefaultDuration, MessageType.Info);
+            ShowMessage(message, DefaultDuration, MessageType.Info);
         }
 
         public void ShowWarning(string message)
         {
-            ShowMessage(message, m_DefaultDuration, MessageType.Warning);
+            ShowMessage(message, DefaultDuration, MessageType.Warning);
         }
 
         public void ShowError(string message)
         {
-            ShowError(message, m_DefaultDuration);
+            ShowError(message, DefaultDuration);
         }
 
-        public void ShowError(string message, TimeSpan duration)
+        public void ShowError(string message, int duration)
         {
             ShowMessage(message, duration, MessageType.Error);
         }
 
-        private void ShowMessage(string message, TimeSpan duration, MessageType messageType)
+        private void ShowMessage(string message, int duration, MessageType messageType)
         {
             MessageType = messageType;
             MessageLineVisible = true;
 
             Message = message;
 
-            OnPropertyChanged(nameof(MessageType));
-            OnPropertyChanged(nameof(MessageLineVisible));
-            OnPropertyChanged(nameof(Message));
+            TriggerRefresh();
 
-            m_Timer.Interval = duration;
-            m_Timer.Start();
+            TimerService.Instance.ModifyTimerInterval(_timer, duration);
+            TimerService.Instance.StartTimer(_timer);
         }
 
-        private async void TimerOnTick(object sender, EventArgs e)
+        private void TimerOnTick(object sender, EventArgs e)
         {
             MessageLineVisible = false;
             UndoButtonVisible = false;
 
-            m_Timer.Stop();
-            m_Timer.Interval = m_MaxInterval;
+            TimerService.Instance.StopTimer(_timer);
 
             //await Task.Delay(600);
 
             MessageType = MessageType.Invalid;
+        }
+
+        private void OnThemeChanged(object obj)
+        {
+            TriggerRefresh();
+        }
+
+        private void TriggerRefresh()
+        {
+            OnPropertyChanged(nameof(MessageType));
+            OnPropertyChanged(nameof(MessageLineVisible));
+            OnPropertyChanged(nameof(Message));
         }
     }
 }

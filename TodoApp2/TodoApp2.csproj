@@ -252,7 +252,6 @@
     <Compile Include="Services\PopupService.cs" />
     <Compile Include="Services\ResourceUpdater.cs" />
     <Compile Include="Services\ThemeListService.cs" />
-    <Compile Include="Services\TimerService.cs" />
     <Compile Include="Services\ToolbarService.cs" />
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
