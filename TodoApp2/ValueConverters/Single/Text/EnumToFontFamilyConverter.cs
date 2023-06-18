@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using TodoApp2.Core;
-using TodoApp2.Core.Constants;
 using MediaFontFamily = System.Windows.Media.FontFamily;
 
 namespace TodoApp2

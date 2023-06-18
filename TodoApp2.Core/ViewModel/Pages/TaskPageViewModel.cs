@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {

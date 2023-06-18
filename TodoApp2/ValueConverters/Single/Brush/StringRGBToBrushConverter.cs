@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Media;
-using TodoApp2.Core.Constants;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
@@ -31,7 +31,7 @@ namespace TodoApp2
 
                 // Prefixes the input string with a # character, except if it is "Transparent"
                 string inputColor = (colorString == GlobalConstants.ColorName.Transparent ? string.Empty : "#") + colorString;
-                return (SolidColorBrush)(m_BrushConverter.ConvertFrom(inputColor));
+                return (SolidColorBrush)m_BrushConverter.ConvertFrom(inputColor);
             }
 
             return null;

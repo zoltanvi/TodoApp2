@@ -5,7 +5,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using TodoApp2.Core;
-using TodoApp2.Core.Constants;
 using MediaFontFamily = System.Windows.Media.FontFamily;
 
 namespace TodoApp2

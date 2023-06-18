@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Media;
-using TodoApp2.Core.Constants;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {

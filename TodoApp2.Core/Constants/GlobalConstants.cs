@@ -1,4 +1,4 @@
-﻿namespace TodoApp2.Core.Constants
+﻿namespace TodoApp2.Core
 {
     public struct GlobalConstants
     {

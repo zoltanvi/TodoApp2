@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {

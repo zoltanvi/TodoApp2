@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {

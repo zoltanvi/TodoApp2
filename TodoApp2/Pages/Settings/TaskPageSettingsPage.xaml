@@ -116,8 +116,9 @@
                         <local:FontSizeSliderControl
                             Description="Page title font size"
                             PreviewFontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                            SampleFontFamily="{Binding AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                             Min="10"
-                            Max="50"
+                            Max="80"
                             Steps="2" />
                     </DockPanel>
                 </Border>

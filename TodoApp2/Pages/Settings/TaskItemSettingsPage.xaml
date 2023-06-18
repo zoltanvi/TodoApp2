@@ -224,8 +224,9 @@
                         <local:FontSizeSliderControl
                             Description="Font size"
                             PreviewFontSize="{Binding AppSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                            SampleFontFamily="{Binding AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                             Min="10"
-                            Max="30"
+                            Max="40"
                             Steps="1" />
                     </DockPanel>
                 </Border>

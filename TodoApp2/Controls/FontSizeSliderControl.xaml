@@ -37,7 +37,7 @@
             Grid.Row="1"
             Content="Sample text"
             FontSize="{Binding ElementName=FontSizeSlider, Path=PreviewFontSize, Converter={StaticResource fontSizeScaler}}"
-            FontFamily="{Binding AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+            FontFamily="{Binding ElementName=FontSizeSlider, Path=SampleFontFamily}"
             Foreground="{DynamicResource ForegroundBrush}"
             HorizontalAlignment="Center" />
 

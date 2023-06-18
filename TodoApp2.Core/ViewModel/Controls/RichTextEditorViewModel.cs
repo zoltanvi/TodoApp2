@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using TodoApp2.Core.Constants;
 
 namespace TodoApp2.Core
 {
