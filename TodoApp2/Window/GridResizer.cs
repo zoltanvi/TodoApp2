@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Threading;
 using TodoApp2.Core;
 using Window = System.Windows.Window;
 
@@ -13,15 +12,16 @@ namespace TodoApp2
     public class GridResizer
     {
         private const double UnscaledSnappingWidth = 60;
-        
+        private readonly double _unscaledMinColumnWidth = 180;
+
+        private Guid _doubleClickTimer;
         private readonly Grid _grid;
         private readonly GridSplitter _resizer;
         private readonly Window _window;
-        private readonly DispatcherTimer _timer;
-        private readonly double _unscaledMinColumnWidth = 180;
         private bool _isDragging;
         private bool _isDraggingEnabled = true;
 
+        private bool IsGridInitialized => _grid.ActualWidth != 0;
         private double MinColumnWidth => _unscaledMinColumnWidth * UIScaler.Instance.ScaleValue;
         private double GridHalfWidth => _grid.ActualWidth / 2;
         private double MaxColumnWidth => GridHalfWidth < MinColumnWidth ? MinColumnWidth : GridHalfWidth;
@@ -36,7 +36,7 @@ namespace TodoApp2
                 double clampedValue = value;
 
                 // Snap below snapping width
-                if (clampedValue < SnappingWidth)
+                if (clampedValue <= SnappingWidth)
                 {
                     clampedValue = 0;
                 }
@@ -46,7 +46,7 @@ namespace TodoApp2
                     clampedValue = MinColumnWidth;
                 }
                 // Stop at maximum width (at 1/2)
-                else if (clampedValue > MaxColumnWidth)
+                else if (IsGridInitialized && clampedValue > MaxColumnWidth)
                 {
                     clampedValue = MaxColumnWidth;
                 }
@@ -83,29 +83,27 @@ namespace TodoApp2
             _grid = grid;
             _resizer = resizer;
             _window = window;
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromMilliseconds(100);
-            _timer.Tick += OnTimer_Tick;
+
+            _doubleClickTimer = TimerService.Instance.CreateTimer(100, OnDoubleClickTimer);
+            InitializeLeftColumnWidth();
 
             _resizer.DragDelta += GridSplitter_DragDelta;
             _resizer.DragStarted += GridSplitter_DragStarted;
             _resizer.DragCompleted += GridSplitter_DragCompleted;
             _resizer.MouseDoubleClick += GridSplitter_MouseDoubleClick;
             _grid.MouseMove += Grid_MouseMove;
-            
-            InitializeLeftColumnWidth();
 
             _window.SizeChanged += WindowSizeChanged;
             _window.StateChanged += Window_StateChanged;
 
-            UIScaler.Instance.Zoomed += Instance_Zoomed; ;
+            UIScaler.Instance.Zoomed += Instance_Zoomed;
             Mediator.Register(OnSideMenuButtonClicked, ViewModelMessages.SideMenuButtonClicked);
             Mediator.Register(OnSideMenuCloseRequested, ViewModelMessages.SideMenuCloseRequested);
         }
 
-        private void OnTimer_Tick(object sender, EventArgs e)
+        private void OnDoubleClickTimer(object sender, EventArgs e)
         {
-            _timer.Stop();
+            TimerService.Instance.StopTimer(_doubleClickTimer);
 
             // Since the dragging and double click handling gets tangled,
             // there is a slight delay for enabling dragging after a double click event
@@ -178,7 +176,7 @@ namespace TodoApp2
                 LeftColumnWidth = LastSavedColumnWidth;
             }
 
-            _timer.Start();
+            TimerService.Instance.StartTimer(_doubleClickTimer);
         }
 
         private void OnSideMenuCloseRequested(object obj)
