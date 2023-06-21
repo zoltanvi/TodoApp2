@@ -156,10 +156,12 @@ namespace TodoApp2
             if (LeftColumnWidth == 0)
             {
                 RecalculateLeftColumnWidth();
+                IsSideMenuOpen = true;
             }
             else
             {
                 LeftColumnWidth = 0;
+                IsSideMenuOpen = false;
             }
         }
 
@@ -175,6 +177,8 @@ namespace TodoApp2
             {
                 LeftColumnWidth = LastSavedColumnWidth;
             }
+
+            IsSideMenuOpen = !IsSideMenuOpen;
 
             TimerService.Instance.StartTimer(_doubleClickTimer);
         }
