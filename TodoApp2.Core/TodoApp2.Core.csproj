@@ -95,6 +95,7 @@
     <Compile Include="DataModels\TaskSpacing.cs" />
     <Compile Include="DataModels\Thickness.cs" />
     <Compile Include="DataModels\Theme.cs" />
+    <Compile Include="EventHandling\NotifiableObject.cs" />
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
     <Compile Include="Helpers\StringDateConverterExtender.cs" />
     <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Services\MediaPlayerService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />
     <Compile Include="Services\TimerService.cs" />
+    <Compile Include="EventHandling\INotifiableObject.cs" />
     <Compile Include="ViewModel\Controls\RichTextEditorViewModel.cs" />
     <Compile Include="ViewModel\Controls\TimePickerViewModel.cs" />
     <Compile Include="ViewModel\Items\NoteViewModel.cs" />

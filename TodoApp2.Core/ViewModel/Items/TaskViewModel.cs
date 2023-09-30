@@ -46,32 +46,23 @@ namespace TodoApp2.Core
         public bool ColorPickerVisible { get; set; }
         public bool IsQuickActionsEnabled { get; set; }
         public RichTextEditorViewModel TextEditorViewModel { get; }
-        public ICommand SetColorCommand { get; }
-        public ICommand SetBorderColorCommand { get; }
-        public ICommand SetBackgroundColorCommand { get; }
-        public ICommand SetColorParameterizedCommand { get; }
-        public ICommand SetBorderColorParameterizedCommand { get; }
-        public ICommand SetBackgroundColorParameterizedCommand { get; }
         public ICommand OpenReminderCommand { get; }
         public ICommand EditItemCommand { get; }
         public ICommand EnableQuickActionsCommand { get; }
         public ICommand DisableQuickActionsCommand { get; }
+        public INotifiableObject ColorChangedNotification { get; }
 
         public TaskViewModel()
         {
             bool focusLostSavesTask = IoC.AppViewModel.ApplicationSettings.FocusLostSavesTask;
-            SetColorCommand = new RelayCommand(SetColor);
-            SetBorderColorCommand = new RelayCommand(SetColor);
-            SetBackgroundColorCommand = new RelayCommand(SetColor);
-            SetColorParameterizedCommand = new RelayParameterizedCommand(SetColorParameterized);
-            SetBorderColorParameterizedCommand = new RelayParameterizedCommand(SetBorderColorParameterized);
-            SetBackgroundColorParameterizedCommand = new RelayParameterizedCommand(SetBackgroundColorParameterized);
             OpenReminderCommand = new RelayCommand(OpenReminder);
             EditItemCommand = new RelayCommand(EditItem);
             TextEditorViewModel = new RichTextEditorViewModel(true, focusLostSavesTask, false, true);
             TextEditorViewModel.EnterAction = UpdateContent;
             EnableQuickActionsCommand = new RelayCommand(() => IsQuickActionsEnabled = true);
             DisableQuickActionsCommand = new RelayCommand(() => IsQuickActionsEnabled = false);
+
+            ColorChangedNotification = new NotifiableObject(SetColor);
         }
 
         public void CopyProperties(TaskViewModel task)
@@ -132,33 +123,6 @@ namespace TodoApp2.Core
         {
             // Combobox changes the Color and BorderColor properties directly, we just need to persist it
             Database.UpdateTask(this);
-        }
-
-        private void SetColorParameterized(object obj)
-        {
-            if (obj is string colorString)
-            {
-                // Combobox will trigger the SetColor command so this value will be persisted!
-                Color = colorString;
-            }
-        }
-
-        private void SetBorderColorParameterized(object obj)
-        {
-            if (obj is string colorString)
-            {
-                // Combobox will trigger the SetColor command so this value will be persisted!
-                BorderColor = colorString;
-            }
-        }
-
-        private void SetBackgroundColorParameterized(object obj)
-        {
-            if (obj is string colorString)
-            {
-                // Combobox will trigger the SetColor command so this value will be persisted!
-                BackgroundColor = colorString;
-            }
         }
 
         public override bool Equals(object obj)

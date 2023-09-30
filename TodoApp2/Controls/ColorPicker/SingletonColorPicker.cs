@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
     public class SingletonColorPicker : Button
     {
         public static readonly DependencyProperty SelectedColorStringProperty = DependencyProperty.Register(nameof(SelectedColorString), typeof(string), typeof(SingletonColorPicker), new PropertyMetadata());
+        public static readonly DependencyProperty ColorChangedNotificationProperty = DependencyProperty.Register(nameof(ColorChangedNotification), typeof(INotifiableObject), typeof(SingletonColorPicker));
 
         private SingletonPopup _popup;
 
@@ -14,6 +16,12 @@ namespace TodoApp2
         {
             get => (string)GetValue(SelectedColorStringProperty);
             set => SetValue(SelectedColorStringProperty, value);
+        }
+
+        public INotifiableObject ColorChangedNotification
+        {
+            get { return (INotifiableObject)GetValue(ColorChangedNotificationProperty); }
+            set { SetValue(ColorChangedNotificationProperty, value); }
         }
 
         protected override void OnClick()
@@ -54,7 +62,7 @@ namespace TodoApp2
         {
             IsEnabled = true;
             _popup.Closed -= OnPopupClosed;
+            ColorChangedNotification?.Notify();
         }
-
     }
 }
