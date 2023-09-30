@@ -101,6 +101,7 @@ namespace TodoApp2.Core
         public double TitleFontSize { get; set; } = 28;
         public FontFamily TitleFontFamily { get; set; } = FontFamily.SegoeUIBold;
         public string TitleColor { get; set; } = GlobalConstants.ColorName.Transparent;
+        public HorizontalAlignment TitleAlignment { get; set; } = HorizontalAlignment.Left;
 
         #region Testing
 
@@ -127,6 +128,7 @@ namespace TodoApp2.Core
             IPropertyValueHandler double_ = PropertyValueHandlers.Double;
             IPropertyValueHandler string_ = PropertyValueHandlers.String;
             IPropertyValueHandler fontFamily = PropertyValueHandlers.FontFamily;
+            IPropertyValueHandler horizontalAlignment = PropertyValueHandlers.HorizontalAlignment;
             IPropertyValueHandler applicationPage = PropertyValueHandlers.ApplicationPage;
             IPropertyValueHandler taskSpacing = PropertyValueHandlers.TaskSpacing;
 
@@ -202,6 +204,7 @@ namespace TodoApp2.Core
                 { nameof(TitleColor), string_ },
                 { nameof(TitleFontFamily), fontFamily },
                 { nameof(TitleFontSize), double_ },
+                { nameof(TitleAlignment), horizontalAlignment },
             };
 
             _UiScaler.Zoomed += OnZoomed;

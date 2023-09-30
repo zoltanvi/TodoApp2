@@ -135,5 +135,7 @@
     <system:String x:Key="SegoeIconDeleteFormatting">&#xED60;</system:String>
 
     <system:String x:Key="SegoeIconPaste">&#xE16D;</system:String>
+    <system:String x:Key="SegoeIconFolder">&#xE8B7;</system:String>
+
 
 </ResourceDictionary>

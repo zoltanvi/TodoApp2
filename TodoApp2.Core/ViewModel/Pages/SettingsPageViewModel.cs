@@ -11,6 +11,7 @@ namespace TodoApp2.Core
         public ICommand GoBackCommand { get; }
         public ICommand OpenWindowSettingsCommand { get; }
         public ICommand OpenThemeSettingsCommand { get; }
+        public ICommand OpenPageTitleSettingsCommand { get; }
         public ICommand OpenTaskPageSettingsCommand { get; }
         public ICommand OpenTaskItemSettingsCommand { get; }
         public ICommand OpenQuickActionSettingsCommand { get; }
@@ -29,6 +30,7 @@ namespace TodoApp2.Core
 
             OpenWindowSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.WindowSettings);
             OpenThemeSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.ThemeSettings);
+            OpenPageTitleSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.PageTitleSettings);
             OpenTaskPageSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskPageSettings);
             OpenTaskItemSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskItemSettings);
             OpenQuickActionSettingsCommand = new RelayCommand(() => ActiveSettingsPage = ApplicationPage.TaskQuickActionsSettings);

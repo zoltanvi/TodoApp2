@@ -12,17 +12,6 @@
     d:DesignWidth="800"
     x:TypeArguments="core:TaskPageSettingsPageViewModel"
     Title="TaskPageSettingsPage">
-    <local:BasePage.Resources>
-        <ObjectDataProvider
-            x:Key="FontFamilyDataProvider"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="core:FontFamily" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </local:BasePage.Resources>
-
 
     <ScrollViewer Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
         <Grid>
@@ -41,87 +30,6 @@
                 Grid.Row="0" />
 
             <StackPanel Orientation="Vertical" Grid.Row="1">
-
-                <!--  Page title visible  -->
-                <local:ToggleButtonSettingControl
-                    Icon="{DynamicResource SegoeIconTitle}"
-                    Description="Page title visible"
-                    IsChecked="{Binding AppSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-
-                <!--  Page title color  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconPalette}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Page title color" />
-
-                        <Border
-                            Grid.Column="2"
-                            Padding="20 0 0 0"
-                            HorizontalAlignment="Right">
-
-                            <local:SingletonColorPicker
-                                SelectedColorString="{Binding AppSettings.TitleColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
-                        </Border>
-
-                    </Grid>
-                </Border>
-
-                <!--  Page title font family  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconFontFamily}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Page title font family" />
-                        <ComboBox
-                            Grid.Column="2"
-                            HorizontalAlignment="Right"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
-                            ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
-                            SelectedItem="{Binding AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
-                </Border>
-
-                <!--  Page title font size  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
-                        <local:FontSizeSliderControl
-                            Description="Page title font size"
-                            PreviewFontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            SampleFontFamily="{Binding AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            Min="10"
-                            Max="80"
-                            Steps="2" />
-                    </DockPanel>
-                </Border>
 
                 <!--  Insert new task to the end  -->
                 <local:ToggleButtonSettingControl

@@ -61,5 +61,6 @@
         ThemeSettings,
         WindowSettings,
         ThemeEditorSettings,
+        PageTitleSettings,
     }
 }

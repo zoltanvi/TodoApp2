@@ -142,7 +142,7 @@
 
                         <Label
                             Grid.Column="0"
-                            Content="{DynamicResource SegoeIconPalette}"
+                            Content="{DynamicResource SegoeIconFolder}"
                             Style="{DynamicResource SettingsIconLabelStyle}" />
 
                         <TextBlock

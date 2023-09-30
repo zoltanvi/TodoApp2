@@ -202,6 +202,9 @@
     <Compile Include="Pages\NoteListPage.xaml.cs">
       <DependentUpon>NoteListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Settings\PageTitleSettingsPage.xaml.cs">
+      <DependentUpon>PageTitleSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml.cs">
       <DependentUpon>TextEditorQuickActionsSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -284,6 +287,8 @@
     <Compile Include="ValueConverters\Single\FromBool\BoolToScrollBarVisibilityConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToTextWrappingConverter.cs" />
     <Compile Include="ValueConverters\Single\CamelCaseConverter.cs" />
+    <Compile Include="ValueConverters\Single\FromBool\BoolToVisibilityHiddenConverter.cs" />
+    <Compile Include="ValueConverters\Single\HorizontalAlignmentConverter.cs" />
     <Compile Include="ValueConverters\Single\IdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Single\IntTo2DigitTextConverter.cs" />
     <Compile Include="ValueConverters\Multi\LeftMarginConverter.cs" />
@@ -296,7 +301,6 @@
     <Compile Include="ValueConverters\Single\Text\FontSizeScaler.cs" />
     <Compile Include="ValueConverters\Single\Brush\SolidColorBrushToStringConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringToColorConverter.cs" />
-    <Compile Include="ValueConverters\Single\Text\TextToLineNumbersConverter.cs" />
     <Compile Include="ValueConverters\Single\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\Single\LongToFormattedLongDateConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToVisibilityConverter.cs" />
@@ -392,6 +396,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\NotificationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\PageTitleSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

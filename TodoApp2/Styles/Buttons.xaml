@@ -58,8 +58,9 @@
         BasedOn="{StaticResource ButtonHoverStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
-        <Setter Property="Margin" Value="3 3" />
-        <Setter Property="Padding" Value="2 0" />
+        <Setter Property="Margin" Value="3 4" />
+        <Setter Property="Padding" Value="3 2" />
+        <Setter Property="HorizontalContentAlignment" Value="Right" />
 
         <Setter Property="Template">
             <Setter.Value>

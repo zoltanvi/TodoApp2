@@ -91,6 +91,7 @@
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationSettings.cs" />
     <Compile Include="DataModels\FontFamily.cs" />
+    <Compile Include="DataModels\HorizontalAlignment.cs" />
     <Compile Include="DataModels\MessageType.cs" />
     <Compile Include="DataModels\TaskSpacing.cs" />
     <Compile Include="DataModels\Thickness.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="ViewModel\Items\ThemeViewModel.cs" />
     <Compile Include="ViewModel\Pages\NoteListPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\PageTitleSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\TextEditorQuickActionsSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\ThemeEditorSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\NotePageSettingsPageViewModel.cs" />

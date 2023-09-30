@@ -67,36 +67,40 @@
                         <StackPanel Orientation="Vertical" Grid.Row="0">
                             <Button
                                 Command="{Binding OpenWindowSettingsCommand}"
-                                Content="Application"
+                                Content="APPLICATION"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenThemeSettingsCommand}"
-                                Content="Themes"
+                                Content="THEMES"
+                                Style="{StaticResource SettingsCategoryButtonStyle}" />
+                            <Button
+                                Command="{Binding OpenPageTitleSettingsCommand}"
+                                Content="PAGE TITLE"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenTaskPageSettingsCommand}"
-                                Content="Task page"
+                                Content="TASK PAGE"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenTaskItemSettingsCommand}"
-                                Content="Tasks"
+                                Content="TASKS"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenQuickActionSettingsCommand}"
-                                Content="Quick actions"
+                                Content="QUICK ACTIONS"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenTextEditorQuickActionSettingsCommand}"
-                                Content="Editor"
+                                Content="EDITOR"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenNoteSettingsCommand}"
-                                Content="Notes"
+                                Content="NOTES"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
 
                             <Button
                                 Command="{Binding OpenThemeEditorSettingsCommand}"
-                                Content="Theme editor"
+                                Content="THEME EDITOR"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 Foreground="{DynamicResource HoverCloseButtonBgBrush}"
                                 IsEnabled="{StaticResource ThemeEditor}"

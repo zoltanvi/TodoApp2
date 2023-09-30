@@ -128,6 +128,14 @@ namespace TodoApp2
 
                         break;
                     }
+                    case ApplicationPage.PageTitleSettings:
+                    {
+                        PageTitleSettingsPageViewModel pageTitleSettingsPageViewModel = new PageTitleSettingsPageViewModel();
+
+                        viewModel = pageTitleSettingsPageViewModel;
+                        page = new PageTitleSettingsPage(pageTitleSettingsPageViewModel);
+                        break;
+                    }
                     case ApplicationPage.TaskPageSettings:
                     {
                         TaskPageSettingsPageViewModel taskPageSettingsPageViewModel = new TaskPageSettingsPageViewModel();

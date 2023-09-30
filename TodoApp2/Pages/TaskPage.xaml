@@ -27,7 +27,7 @@
                     x:Name="CategoryNamePanel"
                     Background="#00333333"
                     Grid.Row="0"
-                    Margin="{Binding Path=AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskListItemMarginConverter}}"
+                    Margin="{Binding Path=AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}"
                     Style="{DynamicResource CurrentCategoryPanelStyle}">
                     <Grid.Visibility>
                         <MultiBinding>
@@ -55,7 +55,8 @@
                         Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}"
                         Foreground="{Binding AppSettings.TitleColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay, Converter={StaticResource stringToForegroundBrushConverter}}"
                         FontFamily="{Binding Path=AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                        FontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}">
+                        FontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+                        HorizontalAlignment="{Binding AppSettings.TitleAlignment, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource horizontalAlignmentConverter}}">
                         <TextBlock.Visibility>
                             <MultiBinding>
                                 <MultiBinding.Converter>
@@ -98,7 +99,8 @@
                             Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Foreground="{Binding AppSettings.TitleColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay, Converter={StaticResource stringToForegroundBrushConverter}}"
                             FontFamily="{Binding Path=AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}">
+                            FontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+                            HorizontalAlignment="{Binding AppSettings.TitleAlignment, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource horizontalAlignmentConverter}}">
 
                             <TextBox.Visibility>
                                 <MultiBinding>

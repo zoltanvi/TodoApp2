@@ -47,6 +47,7 @@
     <local:BoolToScrollBarVisibilityConverter x:Key="boolToScrollBarVisibilityConverter" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityNegatedConverter" Negated="True" />
     <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" Negated="False" />
+    <local:BoolToVisibilityHiddenConverter x:Key="boolToVisibilityHiddenConverter" Negated="False" />
     <local:BoolToCornerRadiusConverter x:Key="boolToCornerRadiusConverter" />
     <local:BoolNegatedConverter x:Key="boolNegatedConverter" />
 
@@ -58,14 +59,13 @@
         x:Key="taskPageTitleMarginConverter"
         Left="15"
         Right="15"
-        NegativeLeft="5"
-        NegativeRight="5" />
-
-
+        NegativeLeft="15"
+        NegativeRight="15" />
 
     <local:EnumToFontFamilyConverter x:Key="enumToFontFamilyConverter" />
     <local:FontSizeScaler x:Key="fontSizeScaler" />
-    <local:TextToLineNumbersConverter x:Key="textToLineNumbersConverter" />
+    <local:HorizontalAlignmentConverter x:Key="horizontalAlignmentConverter" />
+
 
     <local:ApplicationPageValueConverter x:Key="applicationPageValueConverter" />
     <local:CamelCaseConverter x:Key="camelCaseConverter" />
