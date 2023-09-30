@@ -72,6 +72,11 @@ namespace TodoApp2.Core
         }
 
         /// <summary>
+        /// The database location.
+        /// </summary>
+        public string DatabaseLocation => DataAccessLayer.DatabasePath;
+
+        /// <summary>
         /// The value change triggers the animation
         /// </summary>
         public bool SaveIconVisible { get; set; }

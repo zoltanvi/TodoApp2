@@ -21,10 +21,9 @@
             </Grid.RowDefinitions>
 
             <!--  ===========================================================  -->
-            <!--  Window and app settings  -->
 
             <Label
-                Content="Window and app settings"
+                Content="Application settings"
                 Style="{DynamicResource SettingsPageTitleStyle}"
                 Grid.Row="0" />
 
@@ -126,6 +125,46 @@
                                 SelectedColorString="{Binding AppSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+                        </Border>
+
+                    </Grid>
+                </Border>
+
+                <!--  Database location  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="0"
+                            Content="{DynamicResource SegoeIconPalette}"
+                            Style="{DynamicResource SettingsIconLabelStyle}" />
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Database location" />
+
+                        <Border
+                            Grid.Column="2"
+                            CornerRadius="4"
+                            Background="{DynamicResource Elevation_2}"
+                            Margin="10 0 0 0">
+                            <TextBox
+                                Background="Transparent"
+                                Foreground="{DynamicResource ForegroundBrush}"
+                                FontFamily="{DynamicResource UIFont}"
+                                BorderThickness="0"
+                                VerticalAlignment="Center"
+                                IsReadOnly="True"
+                                Margin="5 0"
+                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                                Text="{Binding ApplicationViewModel.DatabaseLocation, Source={x:Static local:ViewModelLocator.Instance}, Mode=OneWay}" />
                         </Border>
 
                     </Grid>

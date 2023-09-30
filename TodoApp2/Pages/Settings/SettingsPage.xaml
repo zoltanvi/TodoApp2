@@ -67,31 +67,31 @@
                         <StackPanel Orientation="Vertical" Grid.Row="0">
                             <Button
                                 Command="{Binding OpenWindowSettingsCommand}"
-                                Content="Window"
+                                Content="Application"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenThemeSettingsCommand}"
-                                Content="Theme"
+                                Content="Themes"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenTaskPageSettingsCommand}"
-                                Content="TaskPage"
+                                Content="Task page"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenTaskItemSettingsCommand}"
-                                Content="TaskItem"
+                                Content="Tasks"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenQuickActionSettingsCommand}"
-                                Content="QuickAction"
+                                Content="Quick actions"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenTextEditorQuickActionSettingsCommand}"
-                                Content="TextEditor"
+                                Content="Editor"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
                             <Button
                                 Command="{Binding OpenNoteSettingsCommand}"
-                                Content="NotePage"
+                                Content="Notes"
                                 Style="{StaticResource SettingsCategoryButtonStyle}" />
 
                             <Button
@@ -100,7 +100,7 @@
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 Foreground="{DynamicResource HoverCloseButtonBgBrush}"
                                 IsEnabled="{StaticResource ThemeEditor}"
-                                ToolTip="Warning: These are developer options!"
+                                ToolTip="Warning: These are experimental settings! Restarting the application resets the values."
                                 Visibility="{Binding Source={StaticResource ThemeEditor}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                         </StackPanel>
