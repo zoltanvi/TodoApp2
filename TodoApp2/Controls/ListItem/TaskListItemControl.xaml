@@ -76,7 +76,7 @@
                             <local:SingletonColorPicker
                                 Grid.Column="2"
                                 SelectedColorString="{Binding DataContext.Color, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
-                                ColorChangedNotification="{Binding DataContext.ColorChangedNotification, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
+                                ColorChangedNotification="{Binding DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
@@ -100,7 +100,7 @@
                             <local:SingletonColorPicker
                                 Grid.Column="2"
                                 SelectedColorString="{Binding DataContext.BackgroundColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
-                                ColorChangedNotification="{Binding DataContext.ColorChangedNotification, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
+                                ColorChangedNotification="{Binding DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
@@ -124,7 +124,7 @@
                             <local:SingletonColorPicker
                                 Grid.Column="2"
                                 SelectedColorString="{Binding DataContext.BorderColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
-                                ColorChangedNotification="{Binding DataContext.ColorChangedNotification, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
+                                ColorChangedNotification="{Binding DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListItemControl}}}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
@@ -428,7 +428,7 @@
                             <!--  Marker color  -->
                             <local:SingletonColorPicker
                                 SelectedColorString="{Binding Color, Mode=TwoWay}"
-                                ColorChangedNotification="{Binding ColorChangedNotification}"
+                                ColorChangedNotification="{Binding ColorChangedNotification, Mode=OneWay}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
@@ -439,7 +439,7 @@
                             <!--  Background color picker  -->
                             <local:SingletonColorPicker
                                 SelectedColorString="{Binding BackgroundColor, Mode=TwoWay}"
-                                ColorChangedNotification="{Binding ColorChangedNotification}"
+                                ColorChangedNotification="{Binding ColorChangedNotification, Mode=OneWay}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
@@ -450,7 +450,7 @@
                             <!--  BorderColor picker  -->
                             <local:SingletonColorPicker
                                 SelectedColorString="{Binding BorderColor, Mode=TwoWay}"
-                                ColorChangedNotification="{Binding ColorChangedNotification}"
+                                ColorChangedNotification="{Binding ColorChangedNotification, Mode=OneWay}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}"
                                 Margin="4 0 0 0"
