@@ -41,16 +41,16 @@ namespace TodoApp2.Core
         public int ActiveCategoryId { get; set; }
         public int ActiveNoteId { get; set; }
         public bool CategoryTitleVisible { get; set; } = true;
-        public Theme ActiveTheme { get; set; }
+        public Theme ActiveTheme { get; set; } = Theme.BlueTint;
         public bool IsAlwaysOnTop { get; set; }
         public bool IsCreationDateVisible { get; set; }
         public bool IsModificationDateVisible { get; set; }
-        public Thickness ColorBarThickness { get; set; } = Thickness.Medium;
+        public Thickness ColorBarThickness { get; set; } = Thickness.Thick;
         public FontFamily FontFamily { get; set; } = FontFamily.SegoeUI;
         public FontFamily NoteFontFamily { get; set; } = FontFamily.Consolas;
         public string AccentColor { get; set; } = GlobalConstants.ColorName.Transparent;
         public string AppBorderColor { get; set; } = GlobalConstants.ColorName.Transparent;
-        public bool RoundedWindowCorners { get; set; }
+        public bool RoundedWindowCorners { get; set; } = true;
         public bool IsItemBackgroundVisible { get; set; } = true;
         public bool IsItemBorderVisible { get; set; } = true;
         public bool IsQuickActionsEnabled { get; set; } = true;
@@ -64,7 +64,7 @@ namespace TodoApp2.Core
         public double TaskFontSizeDouble { get; set; } = 16;
         public bool IsTitleBarDateVisible { get; set; }
         public bool NotePageWordWrap { get; set; }
-        public TaskSpacing TaskSpacing { get; set; }
+        public TaskSpacing TaskSpacing { get; set; } = TaskSpacing.Normal;
         public bool InsertOrderReversed { get; set; }
         public bool MoveTaskOnCompletion { get; set; } = true;
         public bool IsColorBarRounded { get; set; } = true;
@@ -72,7 +72,7 @@ namespace TodoApp2.Core
         public bool FocusLostSavesTask { get; set; }
         public bool PlaySoundOnTaskIsDoneChange { get; set; } = true;
         public bool RunAtStartup { get; set; }
-        public bool TaskListHasMargin { get; set; }
+        public bool TaskListHasMargin { get; set; } = true;
         public bool TaskItemDropShadow { get; set; }
         public ApplicationPage MainPage { get; set; }
         public ApplicationPage SideMenuPage { get; set; }
@@ -99,7 +99,7 @@ namespace TodoApp2.Core
         public bool SaveOnEnter { get; set; } = true;
 
         public double TitleFontSize { get; set; } = 28;
-        public FontFamily TitleFontFamily { get; set; } = FontFamily.SegoeUI;
+        public FontFamily TitleFontFamily { get; set; } = FontFamily.SegoeUIBold;
         public string TitleColor { get; set; } = GlobalConstants.ColorName.Transparent;
 
         #region Testing
