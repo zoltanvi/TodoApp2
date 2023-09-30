@@ -134,5 +134,6 @@
     <system:String x:Key="SegoeIconMinimizeToTray">&#xE18C;</system:String>
     <system:String x:Key="SegoeIconDeleteFormatting">&#xED60;</system:String>
 
+    <system:String x:Key="SegoeIconPaste">&#xE16D;</system:String>
 
 </ResourceDictionary>

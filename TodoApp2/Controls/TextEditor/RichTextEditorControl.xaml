@@ -76,6 +76,7 @@
                     Foreground="{DynamicResource ForegroundBrush}"
                     IsReadOnly="{Binding ElementName=RichTextEditorUC, Path=IsReadOnly}"
                     Opacity="{Binding TextOpacity}"
+                    IsFormattedPasteEnabled="{Binding IsFormattedPasteEnabled}"
                     RenderOptions.ClearTypeHint="Enabled"
                     ScrollViewer.CanContentScroll="False"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"

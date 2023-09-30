@@ -12,6 +12,7 @@ namespace TodoApp2.Core
         public bool Focusable { get; set; }
         public bool NeedFocus { get; set; }
         public bool AcceptsTab { get; set; }
+        public bool IsFormattedPasteEnabled => IoC.AppSettings.IsFormattedPasteEnabled;
         public string WatermarkText { get; set; }
         public bool IsEditMode
         {

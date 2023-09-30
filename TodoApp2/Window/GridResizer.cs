@@ -186,6 +186,7 @@ namespace TodoApp2
         private void OnSideMenuCloseRequested(object obj)
         {
             LeftColumnWidth = 0;
+            IsSideMenuOpen = false;
         }
 
         private void RecalculateLeftColumnWidth()

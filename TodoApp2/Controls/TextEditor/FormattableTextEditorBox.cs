@@ -19,6 +19,8 @@ namespace TodoApp2
         public static readonly DependencyProperty IsSelectionUnderlinedProperty = DependencyProperty.Register(nameof(IsSelectionUnderlined), typeof(bool), typeof(FormattableTextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(FormattableTextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty TextColorProperty = DependencyProperty.Register(nameof(TextColor), typeof(string), typeof(FormattableTextEditorBox), new PropertyMetadata(OnTextColorChanged));
+        
+        public static readonly DependencyProperty IsFormattedPasteEnabledProperty = DependencyProperty.Register(nameof(IsFormattedPasteEnabled), typeof(bool), typeof(FormattableTextEditorBox), new PropertyMetadata(true));
 
         public static readonly DependencyProperty EnterActionProperty = DependencyProperty.Register(nameof(EnterAction), typeof(Action), typeof(FormattableTextEditorBox), new PropertyMetadata());
 
@@ -54,6 +56,12 @@ namespace TodoApp2
         {
             get => (string)GetValue(TextColorProperty);
             set => SetValue(TextColorProperty, value);
+        }
+
+        public bool IsFormattedPasteEnabled
+        {
+            get => (bool)GetValue(IsFormattedPasteEnabledProperty);
+            set => SetValue(IsFormattedPasteEnabledProperty, value);
         }
 
         public Action EnterAction
@@ -114,6 +122,8 @@ namespace TodoApp2
             AlignJustifyCommand = new RelayCommand(() => EditingCommands.AlignJustify.Execute(null, this));
 
             PreviewKeyDown += FormattableTextEditorBox_PreviewKeyDown;
+
+            DataObject.AddPastingHandler(this, OnPaste);
         }
 
         private void OnPrevKeyDown(object sender, KeyEventArgs e)
@@ -392,6 +402,14 @@ namespace TodoApp2
             if (d is FormattableTextEditorBox textEditor && e.NewValue is string textColor)
             {
                 textEditor.ApplyColor(textColor);
+            }
+        }
+
+        private void OnPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            if (!IsFormattedPasteEnabled)
+            {
+                e.DataObject = new DataObject(DataFormats.Text, e.DataObject.GetData(DataFormats.Text) as string ?? string.Empty);
             }
         }
     }

@@ -79,6 +79,7 @@ namespace TodoApp2.Core
         public double SideMenuWidth { get; set; } // 0 = closed by default
         public bool IsSideMenuOpen { get; set; }
         public bool CloseSideMenuOnCategoryChange { get; set; } = true;
+        public bool IsFormattedPasteEnabled { get; set; } = true;
 
         public bool TextEditorQABold { get; set; } = true;
         public bool TextEditorQAItalic { get; set; } = true;
@@ -181,6 +182,7 @@ namespace TodoApp2.Core
                 { nameof(IsSideMenuOpen), boolean },
                 { nameof(TaskItemDropShadow), boolean },
                 { nameof(CloseSideMenuOnCategoryChange), boolean },
+                { nameof(IsFormattedPasteEnabled), boolean },
                 { nameof(TextEditorQABold), boolean },
                 { nameof(TextEditorQAItalic), boolean },
                 { nameof(TextEditorQAUnderlined), boolean },

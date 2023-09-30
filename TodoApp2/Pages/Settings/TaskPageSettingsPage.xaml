@@ -160,6 +160,11 @@
                     Description="Margin for task list"
                     IsChecked="{Binding AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
+                <!--  Allow pasting formatted text  -->
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconPaste}"
+                    Description="Allow pasting formatted text"
+                    IsChecked="{Binding AppSettings.IsFormattedPasteEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 
             </StackPanel>
 

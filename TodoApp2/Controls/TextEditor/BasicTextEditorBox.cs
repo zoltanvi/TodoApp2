@@ -26,7 +26,7 @@ namespace TodoApp2
                 {
                     SetValue(DocumentContentProperty, FlowDocumentHelper.EmptySerializedDocument);
                 }
-                else if(!m_SetContentInProgress)
+                else if (!m_SetContentInProgress)
                 {
                     m_SetContentInProgress = true;
                     
@@ -89,7 +89,7 @@ namespace TodoApp2
             if (e.FormatToApply == DataFormats.Bitmap)
             {
                 e.CancelCommand();
-            } 
+            }
         }
 
         private bool IsRichTextBoxEmpty()
