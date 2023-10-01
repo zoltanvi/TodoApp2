@@ -301,6 +301,10 @@
                             Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
                             <Border.InputBindings>
                                 <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
+                                <MouseBinding
+                                    Command="{Binding Path=DataContext.ToggleTaskIsDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
+                                    CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
+                                    Gesture="MiddleDoubleClick" />
                             </Border.InputBindings>
                         </Border>
 
