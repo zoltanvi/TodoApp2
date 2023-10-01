@@ -41,7 +41,7 @@ namespace TodoApp2.Core
         public int ActiveCategoryId { get; set; }
         public int ActiveNoteId { get; set; }
         public bool CategoryTitleVisible { get; set; } = true;
-        public Theme ActiveTheme { get; set; } = Theme.BlueTint;
+        public Theme ActiveTheme { get; set; } = Theme.ExtraDark;
         public bool IsAlwaysOnTop { get; set; }
         public bool IsCreationDateVisible { get; set; }
         public bool IsModificationDateVisible { get; set; }

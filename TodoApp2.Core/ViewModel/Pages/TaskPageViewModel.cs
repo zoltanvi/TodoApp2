@@ -121,6 +121,8 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand TextBoxFocusedCommand { get; }
 
+        public ICommand SortByStateCommand { get; }
+
         public TaskPageViewModel()
         {
         }
@@ -154,6 +156,7 @@ namespace TodoApp2.Core
             FinishCategoryEditCommand = new RelayCommand(FinishCategoryEdit);
 
             TextBoxFocusedCommand = new RelayCommand(OnTextBoxFocused);
+            SortByStateCommand = new RelayCommand(m_TaskListService.SortTaskPageItems);
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);

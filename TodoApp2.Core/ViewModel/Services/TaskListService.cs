@@ -165,6 +165,8 @@ namespace TodoApp2.Core
             return newIndex;
         }
 
+        public void SortTaskPageItems() => FixTaskPageItemsOrder(TaskPageItems);
+
         private void OnAppSettingsChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ApplicationSettings.MoveTaskOnCompletion)
