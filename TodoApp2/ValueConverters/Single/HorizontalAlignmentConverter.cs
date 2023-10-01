@@ -24,4 +24,25 @@ namespace TodoApp2
             return System.Windows.HorizontalAlignment.Left;
         }
     }
+
+    public class HorizontalAlignmentInvertedConverter : BaseValueConverter
+    {
+        private Dictionary<HorizontalAlignment, System.Windows.HorizontalAlignment> _dictionary = new Dictionary<HorizontalAlignment, System.Windows.HorizontalAlignment>
+        {
+            { HorizontalAlignment.Left, System.Windows.HorizontalAlignment.Right },
+            { HorizontalAlignment.Center, System.Windows.HorizontalAlignment.Right },
+            { HorizontalAlignment.Right, System.Windows.HorizontalAlignment.Left }
+        };
+
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is HorizontalAlignment alignment)
+            {
+                return _dictionary[alignment];
+            }
+
+            return System.Windows.HorizontalAlignment.Left;
+        }
+    }
+
 }

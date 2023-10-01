@@ -65,6 +65,7 @@
     <local:EnumToFontFamilyConverter x:Key="enumToFontFamilyConverter" />
     <local:FontSizeScaler x:Key="fontSizeScaler" />
     <local:HorizontalAlignmentConverter x:Key="horizontalAlignmentConverter" />
+    <local:HorizontalAlignmentInvertedConverter x:Key="horizontalAlignmentInvertedConverter" />
 
 
     <local:ApplicationPageValueConverter x:Key="applicationPageValueConverter" />
