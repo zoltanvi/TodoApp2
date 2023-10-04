@@ -60,7 +60,8 @@
                                         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
                                         Style="{StaticResource ButtonIconHoverCategoryDeleteStyle}"
                                         Content="{StaticResource SegoeIconDeleteX}"
-                                        FontSize="{Binding UIScaler.FontSize.Small}" />
+                                        FontSize="{Binding UIScaler.FontSize.Small}"
+                                        Cursor="Hand" />
 
                                 </Grid>
                             </Border>
