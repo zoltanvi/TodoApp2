@@ -112,39 +112,87 @@
                     Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
                     Visibility="{Binding AppSettings.IsQuickActionsCheckboxEnabled, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
 
-                <!--  Pin icon  -->
+                <!--  Clock and Pin icon  -->
                 <Border
                     Grid.Column="2"
                     Margin="0"
                     HorizontalAlignment="Right"
                     Background="Transparent">
-                    <Border.Visibility>
-                        <MultiBinding>
-                            <MultiBinding.Converter>
-                                <local:BoolToVisibilityAndConverter />
-                            </MultiBinding.Converter>
-                            <Binding Path="Pinned" />
-                            <Binding Path="TextEditorViewModel.IsDisplayMode" />
-                        </MultiBinding>
-                    </Border.Visibility>
 
                     <Grid>
-                        <Label
-                            Padding="2"
-                            Content="{DynamicResource SegoeIconPinFilled}"
-                            FontFamily="{StaticResource IconFont}"
-                            Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
-                        <Label
-                            Padding="2"
-                            Content="{DynamicResource SegoeIconPin}"
-                            FontFamily="{StaticResource IconFont}"
-                            Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
-                        <Grid.LayoutTransform>
-                            <!--  -1 to mirror it  -->
-                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
-                        </Grid.LayoutTransform>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  CLOCK ICON  -->
+                        <Border
+                            Grid.Column="0"
+                            Margin="0"
+                            HorizontalAlignment="Right"
+                            Background="Transparent">
+                            <Border.Visibility>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:BoolToVisibilityAndConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="IsReminderOn" />
+                                    <Binding Path="TextEditorViewModel.IsDisplayMode" />
+                                </MultiBinding>
+                            </Border.Visibility>
+
+                            <Grid>
+                                <Label
+                                    Padding="2"
+                                    Content="{DynamicResource SegoeIconClock}"
+                                    FontFamily="{StaticResource IconFont}"
+                                    Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                                <Grid.LayoutTransform>
+                                    <!--  -1 to mirror it  -->
+                                    <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
+                                </Grid.LayoutTransform>
+                            </Grid>
+                        </Border>
+
+                        <!--  PIN ICON  -->
+                        <Border
+                            Grid.Column="1"
+                            Margin="0"
+                            HorizontalAlignment="Right"
+                            Background="Transparent">
+                            <Border.Visibility>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:BoolToVisibilityAndConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="Pinned" />
+                                    <Binding Path="TextEditorViewModel.IsDisplayMode" />
+                                </MultiBinding>
+                            </Border.Visibility>
+
+                            <Grid>
+                                <Label
+                                    Padding="2"
+                                    Content="{DynamicResource SegoeIconPinFilled}"
+                                    FontFamily="{StaticResource IconFont}"
+                                    Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                                <Label
+                                    Padding="2"
+                                    Content="{DynamicResource SegoeIconPin}"
+                                    FontFamily="{StaticResource IconFont}"
+                                    Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                                <Grid.LayoutTransform>
+                                    <!--  -1 to mirror it  -->
+                                    <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
+                                </Grid.LayoutTransform>
+                            </Grid>
+                        </Border>
+
                     </Grid>
+
+
                 </Border>
+
 
                 <!--  Main content  -->
                 <Border Grid.Column="2" Margin="{Binding AppSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskSpacingToMarginConverter}}">
