@@ -1,5 +1,6 @@
 # TodoApp2
-A highly customizable portable task management application. 
+A highly customizable and portable task management application.
+ 
 100% offline.
 
 ### Screenshots
