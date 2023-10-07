@@ -1,28 +1,27 @@
 # TodoApp2
-A customizable and portable WPF ToDo application.
+A highly customizable portable task management application. 
+100% offline.
 
-## Simple dark theme
-![Darker theme](TodoApp2/Images/Readme/01.png)
+### Screenshots
+![Preview](TodoApp2/Images/Readme/preview.gif)
 
-## Nord theme
-![Nord theme](TodoApp2/Images/Readme/08.png)
+### Themes to choose from
 
-## Context menu
-![Context menu](TodoApp2/Images/Readme/02.png)
+![Themes](TodoApp2/Images/Readme/Themes.png)
 
-## Customize it however you like
-![Customized light theme](TodoApp2/Images/Readme/03.png)
+### Notes
+Switch between task categories and plain text notes by clicking on "CATEGORIES" or "NOTES".
 
-## Categorize your tasks
-![Category menu](TodoApp2/Images/Readme/04.png)
+![Notes](TodoApp2/Images/Readme/notes.gif)
 
-## Set reminders
-![Reminder](TodoApp2/Images/Readme/05.png)
+### Customize
+There are a lot of settings to tweak!
 
-## Use it as a widget
-See: Settings menu -> Always on top
+![Customize](TodoApp2/Images/Readme/settings.png)
 
-![Context menu](TodoApp2/Images/Readme/06.png)
+### High DPI and scalability support
 
-## Lot of options to customize the interface
-![Context menu](TodoApp2/Images/Readme/07.png)
+![Scalable](TodoApp2/Images/Readme/scale.gif)
+
+### Task management from context menu
+![Context menu](TodoApp2/Images/Readme/context_menu.png)
