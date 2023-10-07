@@ -1,0 +1,79 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="SegoeIconMenu">&#xE700;</system:String>
+    <system:String x:Key="SegoeIconSettings">&#xE713;</system:String>
+    <system:String x:Key="SegoeIconNote">&#xE70B;</system:String>
+    <system:String x:Key="SegoeIconCategories">&#xE71D;</system:String>
+
+    <system:String x:Key="SegoeIconMinimizeWindow">&#xE921;</system:String>
+
+    <system:String x:Key="SegoeIconMaximizeWindow">&#xE922;</system:String>
+    <system:String x:Key="SegoeIconMaximizeWindow2">&#xE739;</system:String>
+    <system:String x:Key="SegoeIconRestoreWindow">&#xE923;</system:String>
+
+    <system:String x:Key="SegoeIconCloseWindow">&#xE8BB;</system:String>
+    <system:String x:Key="SegoeIconCloseWindow2">&#xE894;</system:String>
+
+    <system:String x:Key="SegoeIconAdd">&#xE710;</system:String>
+    <system:String x:Key="SegoeIconDateTime">&#xEC92;</system:String>
+    <system:String x:Key="SegoeIconCalendar">&#xE787;</system:String>
+    <system:String x:Key="SegoeIconPalette">&#xE790;</system:String>
+    <system:String x:Key="SegoeIconTrash">&#xE74D;</system:String>
+    <system:String x:Key="SegoeIconBack">&#xE830;</system:String>
+    <system:String x:Key="SegoeIconPin">&#xE840;</system:String>
+    <system:String x:Key="SegoeIconUnpin">&#xE77A;</system:String>
+    <system:String x:Key="SegoeIconPinFilled">&#xE842;</system:String>
+    <system:String x:Key="SegoeIconAlwaysOnTop">&#xE78B;</system:String>
+    <system:String x:Key="SegoeIconRoundedCorners">&#xEC12;</system:String>
+    <system:String x:Key="SegoeIconTheme">&#xE771;</system:String>
+    <system:String x:Key="SegoeIconFontFamily">&#xE8D2;</system:String>
+    <system:String x:Key="SegoeIconFontSize">&#xE8E9;</system:String>
+    <system:String x:Key="SegoeIconTitle">&#xEC0A;</system:String>
+    <system:String x:Key="SegoeIconWordWrap">&#xE8E4;</system:String>
+    <system:String x:Key="SegoeIconSave">&#xE74E;</system:String>
+    <system:String x:Key="SegoeIconCheckList">&#xE133;</system:String>
+    <system:String x:Key="SegoeIconRepeat">&#xE8EE;</system:String>
+    <system:String x:Key="SegoeIconScaling">&#xE71E;</system:String>
+    <system:String x:Key="SegoeIconCheckbox">&#xE930;</system:String>
+    <system:String x:Key="SegoeIconEditMode">&#xE104;</system:String>
+    <system:String x:Key="SegoeIconSend">&#xE122;</system:String>
+    <system:String x:Key="SegoeIconBell">&#xEA8F;</system:String>
+    <system:String x:Key="SegoeIconMargin">&#xE1C0;</system:String>
+    <system:String x:Key="SegoeIconDeleteX">&#xEDAE;</system:String>
+    <system:String x:Key="SegoeIconMonospace">&#xEDE5;</system:String>
+
+    <system:String x:Key="SegoeIconChevronUp">&#xE70E;</system:String>
+    <system:String x:Key="SegoeIconChevronDown">&#xE70D;</system:String>
+    <system:String x:Key="SegoeIconChevronLeft">&#xE76B;</system:String>
+    <system:String x:Key="SegoeIconChevronRight">&#xE76C;</system:String>
+
+    <system:String x:Key="SegoeIconArrowLeft">&#xE0C4;</system:String>
+
+    <system:String x:Key="SegoeIconColorBar">&#xEA4B;</system:String>
+    <system:String x:Key="SegoeIconBorderVisible">&#xF16B;</system:String>
+    <system:String x:Key="SegoeIconBackgroundVisible">&#xF16D;</system:String>
+
+    <system:String x:Key="SegoeIconCompactMode">&#xE71D;</system:String>
+    <system:String x:Key="SegoeIconTaskOrder">&#xF168;</system:String>
+
+    <system:String x:Key="SegoeIconBold">&#xE8DD;</system:String>
+    <system:String x:Key="SegoeIconItalic">&#xE8DB;</system:String>
+    <system:String x:Key="SegoeIconUnderlined">&#xE8DC;</system:String>
+    <system:String x:Key="SegoeIconFontSizeDecrease">&#xE8E7;</system:String>
+    <system:String x:Key="SegoeIconFontSizeIncrease">&#xE8E8;</system:String>
+
+    <system:String x:Key="SegoeIconAlignLeft">&#xE1A2;</system:String>
+    <system:String x:Key="SegoeIconAlignCenter">&#xE1A1;</system:String>
+    <system:String x:Key="SegoeIconAlignRight">&#xE1A0;</system:String>
+    <system:String x:Key="SegoeIconAlignJustify">&#xEA42;</system:String>
+
+    <system:String x:Key="SegoeIconMinimizeToTray">&#xE18C;</system:String>
+    <system:String x:Key="SegoeIconDeleteFormatting">&#xED60;</system:String>
+
+    <system:String x:Key="SegoeIconPaste">&#xE16D;</system:String>
+    <system:String x:Key="SegoeIconFolder">&#xE8B7;</system:String>
+
+</ResourceDictionary>
