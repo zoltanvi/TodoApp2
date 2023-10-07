@@ -75,7 +75,7 @@
                     <Button
                         Visibility="{Binding ElementName=CategoryNamePanel, Path=Tag, Converter={StaticResource boolToVisibilityConverter}}"
                         Command="{Binding EditCategoryCommand}"
-                        Content="{DynamicResource SegoeIconEditMode}"
+                        Content="{DynamicResource SegoeIconEdit}"
                         Style="{DynamicResource ButtonIconHoverRectangleStyle}"
                         ToolTip="Edit category name"
                         Margin="3 0 0 0"
