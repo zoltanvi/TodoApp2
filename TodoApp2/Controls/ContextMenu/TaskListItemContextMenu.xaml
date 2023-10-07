@@ -13,6 +13,7 @@
             Command="{Binding Path=PlacementTarget.Tag.ToggleTaskIsDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             Header="Mark as completed"
+            Icon="{StaticResource ctxIconCompleted}"
             Visibility="{Binding Path=PlacementTarget.DataContext.IsDone, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={StaticResource boolToVisibilityNegatedConverter}}" />
 
         <!--  "Mark as not completed"  -->
@@ -20,6 +21,7 @@
             Command="{Binding Path=PlacementTarget.Tag.ToggleTaskIsDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             Header="Mark as not completed"
+            Icon="{StaticResource ctxIconNotCompleted}"
             Visibility="{Binding Path=PlacementTarget.DataContext.IsDone, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={StaticResource boolToVisibilityConverter}}" />
 
         <!--  ============================================================  -->
@@ -30,6 +32,7 @@
             Command="{Binding Path=PlacementTarget.Tag.PinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             Header="Pin"
+            Icon="{StaticResource ctxIconPin}"
             Visibility="{Binding Path=PlacementTarget.DataContext.Pinned, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={StaticResource boolToVisibilityNegatedConverter}}" />
 
         <!--  Unpin  -->
@@ -37,18 +40,28 @@
             Command="{Binding Path=PlacementTarget.Tag.UnpinTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             Header="Unpin"
+            Icon="{StaticResource ctxIconUnpin}"
             Visibility="{Binding Path=PlacementTarget.DataContext.Pinned, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Converter={StaticResource boolToVisibilityConverter}}" />
 
         <!--  Edit  -->
-        <MenuItem Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Edit" />
+        <MenuItem
+            Command="{Binding Path=PlacementTarget.DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+            Header="Edit"
+            Icon="{StaticResource ctxIconEdit}" />
 
         <!--  Set reminder  -->
-        <MenuItem Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Set reminder" />
+        <MenuItem
+            Command="{Binding Path=PlacementTarget.DataContext.OpenReminderCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+            Header="Set reminder"
+            Icon="{StaticResource ctxIconReminder}" />
 
         <!--  ============================================================  -->
         <Separator />
 
-        <MenuItem Header="Colors" HorizontalAlignment="Center" IsEnabled="False"/>
+        <MenuItem
+            Header="Colors"
+            HorizontalAlignment="Center"
+            IsEnabled="False" />
 
         <!--  Marker color  -->
         <MenuItem Header="Marker">
@@ -57,13 +70,15 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Marker</Label>
+                        <Label Grid.Column="0" Content="{StaticResource ctxIconColor1}" />
+                        <Label Grid.Column="1" Style="{DynamicResource BaseLabelClearTypeStyle}">Marker</Label>
                         <local:SingletonColorPicker
-                            Grid.Column="2"
+                            Grid.Column="3"
                             SelectedColorString="{Binding PlacementTarget.DataContext.Color, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             ColorChangedNotification="{Binding PlacementTarget.DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
@@ -82,13 +97,15 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Background</Label>
+                        <Label Grid.Column="0" Content="{StaticResource ctxIconColor2}" />
+                        <Label Grid.Column="1" Style="{DynamicResource BaseLabelClearTypeStyle}">Background</Label>
                         <local:SingletonColorPicker
-                            Grid.Column="2"
+                            Grid.Column="3"
                             SelectedColorString="{Binding PlacementTarget.DataContext.BackgroundColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             ColorChangedNotification="{Binding PlacementTarget.DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
@@ -107,13 +124,17 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Style="{DynamicResource BaseLabelClearTypeStyle}" Margin="6 0 0 0">Border</Label>
+                        <Label Grid.Column="0" Content="{StaticResource ctxIconColor3}" />
+                        <Label Grid.Column="1" Style="{DynamicResource BaseLabelClearTypeStyle}">
+                            Border
+                        </Label>
                         <local:SingletonColorPicker
-                            Grid.Column="2"
+                            Grid.Column="3"
                             SelectedColorString="{Binding PlacementTarget.DataContext.BorderColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             ColorChangedNotification="{Binding PlacementTarget.DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
@@ -129,25 +150,33 @@
         <Separator />
 
         <!--  Sort by state  -->
-        <MenuItem Command="{Binding Path=PlacementTarget.Tag.SortByStateCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Sort by state" />
+        <MenuItem
+            Command="{Binding Path=PlacementTarget.Tag.SortByStateCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+            Header="Sort by state"
+            Icon="{StaticResource ctxIconSort}" />
 
         <!--  Move to top  -->
         <MenuItem
             Command="{Binding Path=PlacementTarget.Tag.MoveToTopCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-            Header="Move to top" />
+            Header="Move to top"
+            Icon="{StaticResource ctxIconMoveToTop}" />
 
         <!--  Move to bottom  -->
         <MenuItem
             Command="{Binding Path=PlacementTarget.Tag.MoveToBottomCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-            Header="Move to bottom" />
+            Header="Move to bottom"
+            Icon="{StaticResource ctxIconMoveToBottom}" />
 
         <!--  ============================================================  -->
         <Separator />
 
         <!--  Move item to...  -->
-        <MenuItem Header="Move item to ..." ItemsSource="{Binding CategoryListService.InactiveCategories, Source={x:Static local:ViewModelLocator.Instance}}">
+        <MenuItem
+            Header="Move item to ..."
+            ItemsSource="{Binding CategoryListService.InactiveCategories, Source={x:Static local:ViewModelLocator.Instance}}"
+            Icon="{StaticResource ctxIconMoveTo}">
             <MenuItem.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Header" Value="{Binding Name}" />
@@ -167,7 +196,7 @@
         </MenuItem>
 
         <!--  Reset all ...  -->
-        <MenuItem Header="Reset all ...">
+        <MenuItem Header="Reset all ..." Icon="{StaticResource ctxIconReset}">
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetAllColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Colors in category" />
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Marker colors in category" />
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBackgroundColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Background colors in category" />
@@ -175,7 +204,7 @@
         </MenuItem>
 
         <!--  Delete all ...  -->
-        <MenuItem Header="Delete all ...">
+        <MenuItem Header="Delete all ..." Icon="{StaticResource ctxIconDelete1}">
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.DeleteAllCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Items in category" />
             <MenuItem Command="{Binding Path=PlacementTarget.Tag.DeleteDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Completed items in category" />
         </MenuItem>
@@ -187,7 +216,8 @@
         <MenuItem
             Command="{Binding Path=PlacementTarget.Tag.DeleteTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
             CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-            Header="Delete" />
+            Header="Delete"
+            Icon="{StaticResource ctxIconDelete2}" />
 
     </ContextMenu>
 

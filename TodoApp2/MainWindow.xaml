@@ -145,8 +145,7 @@
                                                         Command="{Binding ToggleSideMenuCommand}"
                                                         AutomationProperties.AutomationId="SideMenuButton"
                                                         Content="{DynamicResource SegoeIconMenu}"
-                                                        Style="{DynamicResource ButtonTitleBarStyle}"
-                                                        FontSize="16" />
+                                                        Style="{DynamicResource ButtonTitleBarStyle}" />
 
                                                     <Label
                                                         Content="{DynamicResource SegoeIconSave}"
@@ -156,7 +155,6 @@
                                                         Opacity="0"
                                                         local:SaveIconAnimator.Animate="{Binding ApplicationViewModel.SaveIconVisible, Source={x:Static local:ViewModelLocator.Instance}}"
                                                         Style="{DynamicResource IconLabelStyle}"
-                                                        FontSize="16"
                                                         Foreground="{DynamicResource TitleBarBrush}" />
 
                                                     <!--  Title bar date  -->
@@ -187,13 +185,15 @@
                                                             AutomationProperties.AutomationId="MinimizeWindow"
                                                             Command="{Binding MinimizeCommand}"
                                                             Content="{DynamicResource SegoeIconMinimizeWindow}"
-                                                            Style="{DynamicResource ButtonTitleBarStyle}" />
+                                                            Style="{DynamicResource ButtonTitleBarStyle}"
+                                                            FontSize="12" />
                                                         <Button
                                                             x:Name="MaximizeWindow"
                                                             AutomationProperties.AutomationId="MaximizeWindow"
                                                             Command="{Binding MaximizeCommand}"
                                                             Content="{Binding IsMaximized, Converter={StaticResource boolToMaximizeRestoreConverter}}"
-                                                            Style="{DynamicResource ButtonTitleBarStyle}" />
+                                                            Style="{DynamicResource ButtonTitleBarStyle}"
+                                                            FontSize="13" />
                                                         <Button
                                                             Name="CloseWindow"
                                                             AutomationProperties.AutomationId="CloseWindow"

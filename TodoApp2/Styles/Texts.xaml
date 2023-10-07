@@ -152,6 +152,14 @@
     </Style>
 
     <Style
+        x:Key="ContextMenuIconStyle"
+        BasedOn="{StaticResource IconLabelStyle}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="Margin" Value="-3 0" />
+    </Style>
+
+    <Style
         x:Key="IconLabelLargeStyle"
         BasedOn="{StaticResource IconLabelStyle}"
         TargetType="Label">
@@ -334,5 +342,83 @@
         <Setter Property="Padding" Value="0" />
     </Style>
 
+    <Label
+        x:Key="ctxIconCompleted"
+        Content="{StaticResource SegoeIconCompleted}"
+        Style="{StaticResource ContextMenuIconStyle}" />
 
+    <Label
+        x:Key="ctxIconNotCompleted"
+        Content="{StaticResource SegoeIconNotCompleted}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconPin"
+        Content="{StaticResource SegoeIconPin}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconUnpin"
+        Content="{StaticResource SegoeIconUnpin}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconEdit"
+        Content="{StaticResource SegoeIconEdit}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconReminder"
+        Content="{StaticResource SegoeIconDateTime}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconColor1"
+        Content="{StaticResource SegoeIconPalette}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconColor2"
+        Content="{StaticResource SegoeIconPalette}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconColor3"
+        Content="{StaticResource SegoeIconPalette}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconSort"
+        Content="{StaticResource SegoeIconSort}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconMoveToTop"
+        Content="{StaticResource SegoeIconArrowUp}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconMoveToBottom"
+        Content="{StaticResource SegoeIconArrowDown}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconMoveTo"
+        Content="{StaticResource SegoeIconMoveTo}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconReset"
+        Content="{StaticResource SegoeIconResetAll}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconDelete1"
+        Content="{StaticResource SegoeIconTrash}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+
+    <Label
+        x:Key="ctxIconDelete2"
+        Content="{StaticResource SegoeIconTrash}"
+        Style="{StaticResource ContextMenuIconStyle}" />
 </ResourceDictionary>

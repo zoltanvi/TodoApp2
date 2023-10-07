@@ -38,7 +38,7 @@
     <system:String x:Key="SegoeIconRepeat">&#xE8EE;</system:String>
     <system:String x:Key="SegoeIconScaling">&#xE71E;</system:String>
     <system:String x:Key="SegoeIconCheckbox">&#xE930;</system:String>
-    <system:String x:Key="SegoeIconEditMode">&#xE104;</system:String>
+    <system:String x:Key="SegoeIconEdit">&#xE104;</system:String>
     <system:String x:Key="SegoeIconSend">&#xE122;</system:String>
     <system:String x:Key="SegoeIconBell">&#xEA8F;</system:String>
     <system:String x:Key="SegoeIconMargin">&#xE1C0;</system:String>
@@ -75,5 +75,14 @@
 
     <system:String x:Key="SegoeIconPaste">&#xE16D;</system:String>
     <system:String x:Key="SegoeIconFolder">&#xE8B7;</system:String>
+    <system:String x:Key="SegoeIconPath">&#xE62F;</system:String>
+
+    <system:String x:Key="SegoeIconNotCompleted">&#xE003;</system:String>
+    <system:String x:Key="SegoeIconCompleted">&#xE65F;</system:String>
+    <system:String x:Key="SegoeIconSort">&#xE174;</system:String>
+    <system:String x:Key="SegoeIconArrowUp">&#xE74A;</system:String>
+    <system:String x:Key="SegoeIconArrowDown">&#xE74B;</system:String>
+    <system:String x:Key="SegoeIconMoveTo">&#xE72D;</system:String>
+    <system:String x:Key="SegoeIconResetAll">&#xE777;</system:String>
 
 </ResourceDictionary>

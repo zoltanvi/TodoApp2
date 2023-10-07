@@ -46,7 +46,7 @@
 
                 <!--  Exit edit mode on focus lost  -->
                 <local:ToggleButtonSettingControl
-                    Icon="{DynamicResource SegoeIconEditMode}"
+                    Icon="{DynamicResource SegoeIconEdit}"
                     Description="Exit edit mode on focus lost"
                     IsChecked="{Binding AppSettings.FocusLostSavesTask, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
 

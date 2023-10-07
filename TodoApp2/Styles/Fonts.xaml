@@ -5,7 +5,8 @@
     <FontFamily x:Key="UIFont">Segoe UI</FontFamily>
     <FontFamily x:Key="UIBoldFont">Segoe UI Bold</FontFamily>
     <FontFamily x:Key="UIMonospaceFont">Consolas</FontFamily>
-    <FontFamily x:Key="IconFont">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
+    <FontFamily x:Key="IconFontOld">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
+    <FontFamily x:Key="IconFont">pack://application;,,,/Fonts/#Segoe Fluent Icons</FontFamily>
 
     <!--  ================================================================================================  -->
 
