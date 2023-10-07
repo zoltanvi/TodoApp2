@@ -169,8 +169,8 @@ namespace TodoApp2.Core
 
         private void OnAppSettingsChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ApplicationSettings.MoveTaskOnCompletion)
-                && IoC.AppSettings.MoveTaskOnCompletion)
+            if (e.PropertyName == nameof(ApplicationSettings.ForceTaskOrderByState)
+                && IoC.AppSettings.ForceTaskOrderByState)
             {
                 FixTaskPageItemsOrder(TaskPageItems);
             }
@@ -219,7 +219,7 @@ namespace TodoApp2.Core
             IoC.AsyncActionService.AbortRunningActions();
 
             // Fill the actual list with the queried items
-            if (IoC.AppSettings.MoveTaskOnCompletion)
+            if (IoC.AppSettings.ForceTaskOrderByState)
             {
                 FixTaskPageItemsOrder(filteredItems);
             }
@@ -253,7 +253,7 @@ namespace TodoApp2.Core
                     newIndex = pinnedItemsCount;
                 }
 
-                if (IoC.AppSettings.MoveTaskOnCompletion)
+                if (IoC.AppSettings.ForceTaskOrderByState)
                 {
                     // If the task is done,
                     // it must be on the bottom of the list or directly before or after another done item
@@ -281,7 +281,7 @@ namespace TodoApp2.Core
         /// <param name="e"></param>
         private void OnTaskPageItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (m_CategoryChangeInProgress && !IoC.AppSettings.MoveTaskOnCompletion)
+            if (m_CategoryChangeInProgress && !IoC.AppSettings.ForceTaskOrderByState)
             {
                 return;
             }

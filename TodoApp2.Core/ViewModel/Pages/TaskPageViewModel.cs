@@ -12,13 +12,13 @@ namespace TodoApp2.Core
     /// </summary>
     public class TaskPageViewModel : BaseViewModel
     {
-        private readonly AppViewModel m_ApplicationViewModel;
-        private readonly TaskListService m_TaskListService;
-        private readonly CategoryListService m_CategoryListService;
+        private readonly AppViewModel _applicationViewModel;
+        private readonly TaskListService _taskListService;
+        private readonly CategoryListService _categoryListService;
 
-        private CategoryViewModel ActiveCategory => m_CategoryListService.ActiveCategory;
+        private CategoryViewModel ActiveCategory => _categoryListService.ActiveCategory;
 
-        private ObservableCollection<TaskViewModel> Items => m_TaskListService.TaskPageItems;
+        private ObservableCollection<TaskViewModel> Items => _taskListService.TaskPageItems;
 
         public RichTextEditorViewModel TextEditorViewModel { get; }
 
@@ -90,6 +90,7 @@ namespace TodoApp2.Core
         /// Resets each task items background color in the current category
         /// </summary>
         public ICommand ResetBackgroundColorsCommand { get; }
+        public ICommand ResetAllColorsCommand { get; }
 
         /// <summary>
         /// Saves the task item. The IsDone is modified by the checkbox itself.
@@ -122,6 +123,8 @@ namespace TodoApp2.Core
         public ICommand TextBoxFocusedCommand { get; }
 
         public ICommand SortByStateCommand { get; }
+        public ICommand MoveToTopCommand { get; }
+        public ICommand MoveToBottomCommand { get; }
 
         public TaskPageViewModel()
         {
@@ -129,9 +132,9 @@ namespace TodoApp2.Core
 
         public TaskPageViewModel(AppViewModel applicationViewModel, TaskListService taskListService, CategoryListService categoryListService)
         {
-            m_ApplicationViewModel = applicationViewModel;
-            m_TaskListService = taskListService;
-            m_CategoryListService = categoryListService;
+            _applicationViewModel = applicationViewModel;
+            _taskListService = taskListService;
+            _categoryListService = categoryListService;
 
             TextEditorViewModel = new RichTextEditorViewModel(false, false, true, true);
             TextEditorViewModel.WatermarkText = "Add new task";
@@ -147,6 +150,7 @@ namespace TodoApp2.Core
             ResetColorsCommand = new RelayCommand(ResetColors);
             ResetBorderColorsCommand = new RelayCommand(ResetBorderColors);
             ResetBackgroundColorsCommand = new RelayCommand(ResetBackgroundColors);
+            ResetAllColorsCommand = new RelayCommand(ResetAllColors);
 
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
             ToggleTaskIsDoneCommand = new RelayParameterizedCommand(ToggleTaskIsDone);
@@ -156,13 +160,16 @@ namespace TodoApp2.Core
             FinishCategoryEditCommand = new RelayCommand(FinishCategoryEdit);
 
             TextBoxFocusedCommand = new RelayCommand(OnTextBoxFocused);
-            SortByStateCommand = new RelayCommand(m_TaskListService.SortTaskPageItems);
+            SortByStateCommand = new RelayCommand(_taskListService.SortTaskPageItems);
+            MoveToTopCommand = new RelayParameterizedCommand(MoveToTop);
+            MoveToBottomCommand = new RelayParameterizedCommand(MoveToBottom);
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
 
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
         }
+
 
         private void OnTextBoxFocused()
         {
@@ -177,7 +184,7 @@ namespace TodoApp2.Core
             {
                 tuple.Item2.Trashed = false;
 
-                m_TaskListService.UntrashExistingTask(tuple.Item2, tuple.Item1);
+                _taskListService.UntrashExistingTask(tuple.Item2, tuple.Item1);
             }
         }
 
@@ -197,7 +204,7 @@ namespace TodoApp2.Core
 
             if (commandObject?.CommandArgument is TaskViewModel task)
             {
-                int oldPosition = m_TaskListService.TaskPageItems.IndexOf(task);
+                int oldPosition = _taskListService.TaskPageItems.IndexOf(task);
 
                 // Set Trashed property to true so it won't be listed in the active list
                 task.Trashed = true;
@@ -206,10 +213,10 @@ namespace TodoApp2.Core
                 task.ListOrder = long.MinValue;
 
                 // Persist modifications
-                m_TaskListService.UpdateTask(task);
+                _taskListService.UpdateTask(task);
 
                 // Remove from the list
-                m_TaskListService.RemoveTaskFromMemory(task);
+                _taskListService.RemoveTaskFromMemory(task);
 
                 result = new CommandObject(true, new Tuple<int, TaskViewModel>(oldPosition, task), null,
                     "Task deleted.");
@@ -226,7 +233,7 @@ namespace TodoApp2.Core
             }
 
             // Add task to list and persist it
-            TaskViewModel task = m_TaskListService.AddNewTask(AddTaskTextBoxContent);
+            TaskViewModel task = _taskListService.AddNewTask(AddTaskTextBoxContent);
 
             // Reset the input TextBox text
             AddTaskTextBoxContent = string.Empty;
@@ -240,8 +247,8 @@ namespace TodoApp2.Core
             {
                 task.Trashed = true;
                 task.ListOrder = long.MinValue;
-                m_TaskListService.UpdateTask(task);
-                m_TaskListService.RemoveTaskFromMemory(task);
+                _taskListService.UpdateTask(task);
+                _taskListService.RemoveTaskFromMemory(task);
             }
         }
 
@@ -251,12 +258,12 @@ namespace TodoApp2.Core
             if (commandObject.CommandResult is TaskViewModel task)
             {
                 List<TaskViewModel> taskList =
-                    Task.Run(() => m_TaskListService.GetActiveTaskItemsAsync(ActiveCategory)).Result;
+                    Task.Run(() => _taskListService.GetActiveTaskItemsAsync(ActiveCategory)).Result;
 
                 int pinnedItemCount = taskList.Count(i => i.Pinned);
                 int position = task.Pinned ? 0 : pinnedItemCount;
 
-                m_TaskListService.UntrashExistingTask(task, position);
+                _taskListService.UntrashExistingTask(task, position);
 
                 result = new CommandObject(true, task);
             }
@@ -272,17 +279,25 @@ namespace TodoApp2.Core
                 {
                     // A done item cannot be pinned.
                     task.Pinned = false;
-                    MoveTaskToEnd(task);
+
+                    if (IoC.AppSettings.ForceTaskOrderByState)
+                    {
+                        MoveTaskToBottom(task);
+                    }
+
                     IoC.MediaPlayerService.PlayClick();
                 }
                 else
                 {
-                    MoveTaskToTop(task);
+                    if (IoC.AppSettings.ForceTaskOrderByState)
+                    {
+                        MoveTaskToTop(task);
+                    }
+
                     IoC.MediaPlayerService.PlayClickReverse();
                 }
 
-
-                m_TaskListService.UpdateTask(task);
+                _taskListService.UpdateTask(task);
             }
         }
 
@@ -328,11 +343,11 @@ namespace TodoApp2.Core
                 item.ListOrder = long.MinValue;
             }
 
-            m_TaskListService.PersistTaskList();
+            _taskListService.PersistTaskList();
 
             foreach (TaskViewModel item in items)
             {
-                m_TaskListService.RemoveTaskFromMemory(item);
+                _taskListService.RemoveTaskFromMemory(item);
             }
         }
 
@@ -343,7 +358,7 @@ namespace TodoApp2.Core
                 item.Color = GlobalConstants.ColorName.Transparent;
             }
 
-            m_TaskListService.PersistTaskList();
+            _taskListService.PersistTaskList();
         }
 
         private void ResetBorderColors()
@@ -353,7 +368,7 @@ namespace TodoApp2.Core
                 item.BorderColor = GlobalConstants.ColorName.Transparent;
             }
 
-            m_TaskListService.PersistTaskList();
+            _taskListService.PersistTaskList();
         }
 
         private void ResetBackgroundColors()
@@ -363,7 +378,19 @@ namespace TodoApp2.Core
                 item.BackgroundColor = GlobalConstants.ColorName.Transparent;
             }
 
-            m_TaskListService.PersistTaskList();
+            _taskListService.PersistTaskList();
+        }
+
+        private void ResetAllColors()
+        {
+            foreach (TaskViewModel item in Items)
+            {
+                item.Color = GlobalConstants.ColorName.Transparent;
+                item.BackgroundColor = GlobalConstants.ColorName.Transparent;
+                item.BorderColor = GlobalConstants.ColorName.Transparent;
+            }
+
+            _taskListService.PersistTaskList();
         }
 
         /// <summary>
@@ -384,11 +411,11 @@ namespace TodoApp2.Core
                         task.CategoryId = categoryToMoveTo.Id;
 
                         // Insert into the first correct position.
-                        int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task, categoryToMoveTo);
-                        m_TaskListService.ReorderTask(task, newIndex);
+                        int newIndex = _taskListService.GetCorrectReorderIndex(0, task, categoryToMoveTo);
+                        _taskListService.ReorderTask(task, newIndex);
 
                         // Delete the item from the currently listed items
-                        m_TaskListService.RemoveTaskFromMemory(task);
+                        _taskListService.RemoveTaskFromMemory(task);
                     }
                 }
             }
@@ -400,7 +427,7 @@ namespace TodoApp2.Core
         private void EditCategory()
         {
             IsCategoryInEditMode = true;
-            RenameCategoryContent = m_CategoryListService.ActiveCategoryName;
+            RenameCategoryContent = _categoryListService.ActiveCategoryName;
         }
 
         /// <summary>
@@ -408,7 +435,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void FinishCategoryEdit()
         {
-            m_CategoryListService.ActiveCategoryName = RenameCategoryContent;
+            _categoryListService.ActiveCategoryName = RenameCategoryContent;
             IsCategoryInEditMode = false;
         }
 
@@ -423,7 +450,7 @@ namespace TodoApp2.Core
                 task.IsDone = false;
 
                 // 3. Reorder task to the top of the list
-                m_TaskListService.ReorderTask(task, 0, true);
+                _taskListService.ReorderTask(task, 0, true);
             }
         }
 
@@ -432,7 +459,7 @@ namespace TodoApp2.Core
             if (obj is TaskViewModel task)
             {
                 // 1. Get the tasks in the category
-                var taskList = await m_TaskListService.GetActiveTaskItemsAsync(ActiveCategory);
+                var taskList = await _taskListService.GetActiveTaskItemsAsync(ActiveCategory);
 
                 // 2. Count all pinned items. The currently pinned item is in this list.
                 int pinnedItemCount = taskList.Count(i => i.Pinned);
@@ -441,37 +468,51 @@ namespace TodoApp2.Core
                 task.Pinned = false;
 
                 // 4. Reorder task below the already pinned tasks and above the not-pinned tasks
-                m_TaskListService.ReorderTask(task, pinnedItemCount - 1, true);
+                _taskListService.ReorderTask(task, pinnedItemCount - 1, true);
             }
         }
 
-        private void MoveTaskToEnd(TaskViewModel task)
-        {
-            if (IoC.AppSettings.MoveTaskOnCompletion)
-            {
-                int newIndex = Items.Count - 1;
 
+        private void MoveToBottom(object obj)
+        {
+            if (obj is TaskViewModel task)
+            {
+                MoveTaskToBottom(task);
+            }
+        }
+
+        private void MoveToTop(object obj)
+        {
+            if (obj is TaskViewModel task)
+            {
+                MoveTaskToTop(task);
+            }
+        }
+
+        private void MoveTaskToBottom(TaskViewModel task)
+        {
+            int newIndex = Items.Count - 1;
+
+            if (IoC.AppSettings.ForceTaskOrderByState && !task.IsDone)
+            {
                 for (int i = Items.Count - 1; i >= 0; i--)
                 {
                     newIndex = i;
-                    if (Items[i].Equals(task) || Items[i].IsDone == false)
+                    if (Items[i].Equals(task) || !Items[i].IsDone)
                     {
                         break;
                     }
                 }
-
-                m_TaskListService.ReorderTask(task, newIndex, true);
             }
+
+            _taskListService.ReorderTask(task, newIndex, true);
         }
 
         private void MoveTaskToTop(TaskViewModel task)
         {
-            if (IoC.AppSettings.MoveTaskOnCompletion)
-            {
-                // Get the valid index. E.g: A normal item cannot be above the pinned ones.
-                int newIndex = m_TaskListService.GetCorrectReorderIndex(0, task);
-                m_TaskListService.ReorderTask(task, newIndex, true);
-            }
+            // Get the valid index. E.g: A normal item cannot be above the pinned ones.
+            int newIndex = _taskListService.GetCorrectReorderIndex(0, task);
+            _taskListService.ReorderTask(task, newIndex, true);
         }
 
         /// <summary>

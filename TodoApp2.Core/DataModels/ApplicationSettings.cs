@@ -66,7 +66,7 @@ namespace TodoApp2.Core
         public bool NotePageWordWrap { get; set; }
         public TaskSpacing TaskSpacing { get; set; } = TaskSpacing.Normal;
         public bool InsertOrderReversed { get; set; }
-        public bool MoveTaskOnCompletion { get; set; } = true;
+        public bool ForceTaskOrderByState { get; set; }
         public bool IsColorBarRounded { get; set; } = true;
         public bool IsTrayIconEnabled { get; set; }
         public bool FocusLostSavesTask { get; set; }
@@ -171,7 +171,7 @@ namespace TodoApp2.Core
                 { nameof(ClearTypeHint), boolean },
                 { nameof(TaskSpacing), taskSpacing },
                 { nameof(InsertOrderReversed), boolean },
-                { nameof(MoveTaskOnCompletion), boolean },
+                { nameof(ForceTaskOrderByState), boolean },
                 { nameof(IsColorBarRounded), boolean },
                 { nameof(IsTrayIconEnabled), boolean },
                 { nameof(FocusLostSavesTask), boolean },
