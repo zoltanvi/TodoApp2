@@ -65,47 +65,64 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Orientation="Vertical" Grid.Row="0">
-                            <Button
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenWindowSettingsCommand}"
                                 Content="APPLICATION"
-                                Style="{StaticResource SettingsCategoryButtonStyle}" />
-                            <Button
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Id="{x:Static core:ApplicationPage.WindowSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenThemeSettingsCommand}"
                                 Content="THEMES"
-                                Style="{StaticResource SettingsCategoryButtonStyle}" />
-                            <Button
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Id="{x:Static core:ApplicationPage.ThemeSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenPageTitleSettingsCommand}"
                                 Content="PAGE TITLE"
-                                Style="{StaticResource SettingsCategoryButtonStyle}" />
-                            <Button
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Id="{x:Static core:ApplicationPage.PageTitleSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenTaskPageSettingsCommand}"
                                 Content="TASK PAGE"
-                                Style="{StaticResource SettingsCategoryButtonStyle}" />
-                            <Button
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Id="{x:Static core:ApplicationPage.TaskPageSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenTaskItemSettingsCommand}"
                                 Content="TASKS"
-                                Style="{StaticResource SettingsCategoryButtonStyle}" />
-                            <Button
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Id="{x:Static core:ApplicationPage.TaskItemSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenQuickActionSettingsCommand}"
                                 Content="QUICK ACTIONS"
-                                Style="{StaticResource SettingsCategoryButtonStyle}" />
-                            <Button
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Id="{x:Static core:ApplicationPage.TaskQuickActionsSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenTextEditorQuickActionSettingsCommand}"
                                 Content="EDITOR"
-                                Style="{StaticResource SettingsCategoryButtonStyle}" />
-                            <Button
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Id="{x:Static core:ApplicationPage.TextEditorQuickActionsSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenNoteSettingsCommand}"
                                 Content="NOTES"
-                                Style="{StaticResource SettingsCategoryButtonStyle}" />
-
-                            <Button
+                                Style="{StaticResource SettingsCategoryButtonStyle}"
+                                Id="{x:Static core:ApplicationPage.NotePageSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
+                            <local:SettingsCategoryButton
                                 Command="{Binding OpenThemeEditorSettingsCommand}"
                                 Content="THEME EDITOR"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 Foreground="{DynamicResource HoverCloseButtonBgBrush}"
                                 IsEnabled="{StaticResource ThemeEditor}"
                                 ToolTip="Warning: These are experimental settings! Restarting the application resets the values."
-                                Visibility="{Binding Source={StaticResource ThemeEditor}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                Visibility="{Binding Source={StaticResource ThemeEditor}, Converter={StaticResource boolToVisibilityConverter}}"
+                                Id="{x:Static core:ApplicationPage.ThemeEditorSettings}"
+                                SelectedPage="{Binding ActiveSettingsPage}" />
 
                         </StackPanel>
 

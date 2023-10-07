@@ -56,7 +56,7 @@
     <Style
         x:Key="SettingsCategoryButtonStyle"
         BasedOn="{StaticResource ButtonHoverStyle}"
-        TargetType="{x:Type Button}">
+        TargetType="{x:Type local:SettingsCategoryButton}">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
         <Setter Property="Margin" Value="3 4" />
         <Setter Property="Padding" Value="3 2" />
@@ -64,7 +64,7 @@
 
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
+                <ControlTemplate TargetType="{x:Type local:SettingsCategoryButton}">
                     <Border
                         x:Name="border"
                         Padding="{TemplateBinding Padding}"
@@ -87,6 +87,9 @@
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_2}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_2}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_2}" />
                         </Trigger>
                     </ControlTemplate.Triggers>

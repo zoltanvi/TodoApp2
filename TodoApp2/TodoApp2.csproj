@@ -131,6 +131,7 @@
     <Compile Include="AttachedProperties\MarginUpdater.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\PutCaretAtTheEndRTBBehavior.cs" />
+    <Compile Include="Controls\Settings\SettingsCategoryButton.cs" />
     <Compile Include="Controls\SubmitEscapeTextBox.cs" />
     <Compile Include="Controls\TagControl.cs" />
     <Compile Include="Controls\TextEditor\SingletonToolbar.cs" />
