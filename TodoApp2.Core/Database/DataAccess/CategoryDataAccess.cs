@@ -41,13 +41,6 @@ namespace TodoApp2.Core
                     Name = "Today",
                     ListOrder = DefaultListOrder
                 });
-
-                AddCategory(new CategoryViewModel
-                {
-                    Id = 1,
-                    Name = "Help",
-                    ListOrder = DefaultListOrder + 1
-                });
             }
             return exists;
         }
