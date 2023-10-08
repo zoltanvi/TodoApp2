@@ -135,6 +135,7 @@
     <Compile Include="ViewModel\Pages\NoteListPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\PageTitleSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\ShortcutsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\TextEditorQuickActionsSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\ThemeEditorSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\NotePageSettingsPageViewModel.cs" />
@@ -165,7 +166,7 @@
     <Compile Include="ViewModel\Pages\ReminderEditorPageViewModel.cs" />
     <Compile Include="ViewModel\Services\CategoryListService.cs" />
     <Compile Include="ListProviders\ColorListProvider.cs" />
-    <Compile Include="ViewModel\Pages\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Items\TaskViewModel.cs" />
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
     <Compile Include="ViewModel\Services\UIScaler.cs" />

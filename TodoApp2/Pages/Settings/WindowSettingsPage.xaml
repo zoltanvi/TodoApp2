@@ -148,7 +148,8 @@
                         <TextBlock
                             Grid.Column="1"
                             Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Database location" />
+                            Text="Database location"
+                            ToolTip="We store all your tasks, notes and application settings in this file." />
 
                         <Border
                             Grid.Column="2"

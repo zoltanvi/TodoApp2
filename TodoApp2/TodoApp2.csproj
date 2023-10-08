@@ -132,6 +132,11 @@
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\PutCaretAtTheEndRTBBehavior.cs" />
     <Compile Include="Controls\Settings\SettingsCategoryButton.cs" />
+    <Compile Include="Controls\Settings\ShortcutItemControl.xaml.cs">
+      <DependentUpon>ShortcutItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\ShortcutKey.cs" />
+    <Compile Include="Controls\Settings\ShortcutSeparator.cs" />
     <Compile Include="Controls\SubmitEscapeTextBox.cs" />
     <Compile Include="Controls\TagControl.cs" />
     <Compile Include="Controls\TextEditor\SingletonToolbar.cs" />
@@ -206,6 +211,9 @@
     </Compile>
     <Compile Include="Pages\Settings\PageTitleSettingsPage.xaml.cs">
       <DependentUpon>PageTitleSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\ShortcutsPage.xaml.cs">
+      <DependentUpon>ShortcutsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml.cs">
       <DependentUpon>TextEditorQuickActionsSettingsPage.xaml</DependentUpon>
@@ -303,6 +311,7 @@
     <Compile Include="ValueConverters\Single\Text\FontSizeScaler.cs" />
     <Compile Include="ValueConverters\Single\Brush\SolidColorBrushToStringConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringToColorConverter.cs" />
+    <Compile Include="ValueConverters\Single\Text\StringToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\Single\ThicknessToDoubleConverter.cs" />
     <Compile Include="ValueConverters\Single\LongToFormattedLongDateConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToVisibilityConverter.cs" />
@@ -357,6 +366,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Settings\ShortcutItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TextEditor\RichTextEditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -406,6 +419,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Settings\PageTitleSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\ShortcutsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

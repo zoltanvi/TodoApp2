@@ -7,57 +7,121 @@
 
     <Color x:Key="TagMagenta">#c41d7f</Color>
     <Color x:Key="TagMagentaBg">#fff0f6</Color>
-    <Color x:Key="TagMagentaBorder">#ffadd2</Color>
+    <Color x:Key="TagMagentaBorder">#c41d7f</Color>
 
     <Color x:Key="TagRed">#cf1322</Color>
     <Color x:Key="TagRedBg">#fff1f0</Color>
-    <Color x:Key="TagRedBorder">#ffa39e</Color>
+    <Color x:Key="TagRedBorder">#cf1322</Color>
 
     <Color x:Key="TagVolcano">#d4380d</Color>
     <Color x:Key="TagVolcanoBg">#fff2e8</Color>
-    <Color x:Key="TagVolcanoBorder">#ffbb96</Color>
+    <Color x:Key="TagVolcanoBorder">#d4380d</Color>
 
     <Color x:Key="TagOrange">#d46b08</Color>
     <Color x:Key="TagOrangeBg">#fff7e6</Color>
-    <Color x:Key="TagOrangeBorder">#ffd591</Color>
+    <Color x:Key="TagOrangeBorder">#d46b08</Color>
 
     <Color x:Key="TagGold">#d48806</Color>
     <Color x:Key="TagGoldBg">#fffbe6</Color>
-    <Color x:Key="TagGoldBorder">#ffe58f</Color>
+    <Color x:Key="TagGoldBorder">#d48806</Color>
 
     <Color x:Key="TagLime">#7cb305</Color>
     <Color x:Key="TagLimeBg">#fcffe6</Color>
-    <Color x:Key="TagLimeBorder">#eaff8f</Color>
+    <Color x:Key="TagLimeBorder">#7cb305</Color>
 
     <Color x:Key="TagGreen">#389e0d</Color>
     <Color x:Key="TagGreenBg">#f6ffed</Color>
-    <Color x:Key="TagGreenBorder">#b7eb8f</Color>
+    <Color x:Key="TagGreenBorder">#389e0d</Color>
 
     <Color x:Key="TagCyan">#08979c</Color>
     <Color x:Key="TagCyanBg">#e6fffb</Color>
-    <Color x:Key="TagCyanBorder">#87e8de</Color>
+    <Color x:Key="TagCyanBorder">#08979c</Color>
 
     <Color x:Key="TagBlue">#0958d9</Color>
     <Color x:Key="TagBlueBg">#e6f4ff</Color>
-    <Color x:Key="TagBlueBorder">#91caff</Color>
+    <Color x:Key="TagBlueBorder">#0958d9</Color>
 
     <Color x:Key="TagGeekblue">#1d39c4</Color>
     <Color x:Key="TagGeekblueBg">#f0f5ff</Color>
-    <Color x:Key="TagGeekblueBorder">#adc6ff</Color>
+    <Color x:Key="TagGeekblueBorder">#1d39c4</Color>
 
     <Color x:Key="TagPurple">#531dab</Color>
     <Color x:Key="TagPurpleBg">#f9f0ff</Color>
-    <Color x:Key="TagPurpleBorder">#d3adf7</Color>
-
+    <Color x:Key="TagPurpleBorder">#531dab</Color>
 
     <Color x:Key="MessageInfo">#1677ff</Color>
-    <Color x:Key="MessageWarning">#faad14</Color>
-    <Color x:Key="MessageError">#ff4d4f</Color>
     <Color x:Key="MessageInfoBg">#e6f4ff</Color>
+    <Color x:Key="MessageInfoBorder">#1677ff</Color>
+
+    <Color x:Key="MessageWarning">#faad14</Color>
     <Color x:Key="MessageWarningBg">#fffbe6</Color>
+    <Color x:Key="MessageWarningBorder">#faad14</Color>
+
+    <Color x:Key="MessageError">#ff4d4f</Color>
     <Color x:Key="MessageErrorBg">#fff1f0</Color>
-    <Color x:Key="MessageInfoBorder">#91caff</Color>
-    <Color x:Key="MessageWarningBorder">#ffe58f</Color>
-    <Color x:Key="MessageErrorBorder">#ffa39e</Color>
+    <Color x:Key="MessageErrorBorder">#ff4d4f</Color>
+
+
+    <!--  SolidColorBrushes for colors  -->
+    <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
+    <SolidColorBrush x:Key="ThemeOppositeBrush" Color="{DynamicResource ThemeOpposite}" />
+    <SolidColorBrush x:Key="ThemePrimaryBrush" Color="{DynamicResource ThemePrimary}" />
+
+    <SolidColorBrush x:Key="TagMagentaBrush" Color="{DynamicResource TagMagenta}" />
+    <SolidColorBrush x:Key="TagMagentaBgBrush" Color="{DynamicResource TagMagentaBg}" />
+    <SolidColorBrush x:Key="TagMagentaBorderBrush" Color="{DynamicResource TagMagentaBorder}" />
+
+    <SolidColorBrush x:Key="TagRedBrush" Color="{DynamicResource TagRed}" />
+    <SolidColorBrush x:Key="TagRedBgBrush" Color="{DynamicResource TagRedBg}" />
+    <SolidColorBrush x:Key="TagRedBorderBrush" Color="{DynamicResource TagRedBorder}" />
+
+    <SolidColorBrush x:Key="TagVolcanoBrush" Color="{DynamicResource TagVolcano}" />
+    <SolidColorBrush x:Key="TagVolcanoBgBrush" Color="{DynamicResource TagVolcanoBg}" />
+    <SolidColorBrush x:Key="TagVolcanoBorderBrush" Color="{DynamicResource TagVolcanoBorder}" />
+
+    <SolidColorBrush x:Key="TagOrangeBrush" Color="{DynamicResource TagOrange}" />
+    <SolidColorBrush x:Key="TagOrangeBgBrush" Color="{DynamicResource TagOrangeBg}" />
+    <SolidColorBrush x:Key="TagOrangeBorderBrush" Color="{DynamicResource TagOrangeBorder}" />
+
+    <SolidColorBrush x:Key="TagGoldBrush" Color="{DynamicResource TagGold}" />
+    <SolidColorBrush x:Key="TagGoldBgBrush" Color="{DynamicResource TagGoldBg}" />
+    <SolidColorBrush x:Key="TagGoldBorderBrush" Color="{DynamicResource TagGoldBorder}" />
+
+    <SolidColorBrush x:Key="TagLimeBrush" Color="{DynamicResource TagLime}" />
+    <SolidColorBrush x:Key="TagLimeBgBrush" Color="{DynamicResource TagLimeBg}" />
+    <SolidColorBrush x:Key="TagLimeBorderBrush" Color="{DynamicResource TagLimeBorder}" />
+
+    <SolidColorBrush x:Key="TagGreenBrush" Color="{DynamicResource TagGreen}" />
+    <SolidColorBrush x:Key="TagGreenBgBrush" Color="{DynamicResource TagGreenBg}" />
+    <SolidColorBrush x:Key="TagGreenBorderBrush" Color="{DynamicResource TagGreenBorder}" />
+
+    <SolidColorBrush x:Key="TagCyanBrush" Color="{DynamicResource TagCyan}" />
+    <SolidColorBrush x:Key="TagCyanBgBrush" Color="{DynamicResource TagCyanBg}" />
+    <SolidColorBrush x:Key="TagCyanBorderBrush" Color="{DynamicResource TagCyanBorder}" />
+
+    <SolidColorBrush x:Key="TagBlueBrush" Color="{DynamicResource TagBlue}" />
+    <SolidColorBrush x:Key="TagBlueBgBrush" Color="{DynamicResource TagBlueBg}" />
+    <SolidColorBrush x:Key="TagBlueBorderBrush" Color="{DynamicResource TagBlueBorder}" />
+
+    <SolidColorBrush x:Key="TagGeekblueBrush" Color="{DynamicResource TagGeekblue}" />
+    <SolidColorBrush x:Key="TagGeekblueBgBrush" Color="{DynamicResource TagGeekblueBg}" />
+    <SolidColorBrush x:Key="TagGeekblueBorderBrush" Color="{DynamicResource TagGeekblueBorder}" />
+
+    <SolidColorBrush x:Key="TagPurpleBrush" Color="{DynamicResource TagPurple}" />
+    <SolidColorBrush x:Key="TagPurpleBgBrush" Color="{DynamicResource TagPurpleBg}" />
+    <SolidColorBrush x:Key="TagPurpleBorderBrush" Color="{DynamicResource TagPurpleBorder}" />
+
+    <SolidColorBrush x:Key="MessageInfoBrush" Color="{DynamicResource MessageInfo}" />
+    <SolidColorBrush x:Key="MessageWarningBrush" Color="{DynamicResource MessageWarning}" />
+    <SolidColorBrush x:Key="MessageErrorBrush" Color="{DynamicResource MessageError}" />
+
+    <SolidColorBrush x:Key="MessageInfoBgBrush" Color="{DynamicResource MessageInfoBg}" />
+    <SolidColorBrush x:Key="MessageWarningBgBrush" Color="{DynamicResource MessageWarningBg}" />
+    <SolidColorBrush x:Key="MessageErrorBgBrush" Color="{DynamicResource MessageErrorBg}" />
+
+    <SolidColorBrush x:Key="MessageInfoBorderBrush" Color="{DynamicResource MessageInfoBorder}" />
+    <SolidColorBrush x:Key="MessageWarningBorderBrush" Color="{DynamicResource MessageWarningBorder}" />
+    <SolidColorBrush x:Key="MessageErrorBorderBrush" Color="{DynamicResource MessageErrorBorder}" />
+
 
 </ResourceDictionary>

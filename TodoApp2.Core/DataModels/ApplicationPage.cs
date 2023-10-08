@@ -62,5 +62,6 @@
         WindowSettings,
         ThemeEditorSettings,
         PageTitleSettings,
+        Shortcuts
     }
 }

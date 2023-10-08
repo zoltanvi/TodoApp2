@@ -16,30 +16,72 @@ namespace TodoApp2
         /// </summary>
         private class ApplicationPageManager : BaseValueConverter
         {
-            private readonly TaskListService _TaskListService;
-            private readonly AppViewModel _AppViewModel;
-            private readonly IDatabase _Database;
-            private readonly OverlayPageService _OverlayPageService;
-            private readonly CategoryListService _CategoryListService;
-            private readonly NoteListService _NoteListService;
-            private readonly MessageService _MessageService;
+            private readonly TaskListService _taskListService;
+            private readonly AppViewModel _appViewModel;
+            private readonly IDatabase _database;
+            private readonly OverlayPageService _overlayPageService;
+            private readonly CategoryListService _categoryListService;
+            private readonly NoteListService _noteListService;
+            private readonly MessageService _messageService;
 
             private static ApplicationPageManager _Instance;
             public static ApplicationPageManager Instance => _Instance ?? (_Instance = new ApplicationPageManager());
 
-            private readonly Dictionary<ApplicationPage, BaseViewModel> m_ViewModelDictionary;
+            private readonly Dictionary<ApplicationPage, BaseViewModel> _viewModelDictionary;
+            private readonly Dictionary<ApplicationPage, Type> _viewModelTypesDefault;
+            private readonly Dictionary<ApplicationPage, Type> _pageTypesDefault;
+
+            private readonly Dictionary<ApplicationPage, Type> _viewModelTypesAppVm;
+            private readonly Dictionary<ApplicationPage, Type> _pageTypesAppVm;
 
             public ApplicationPageManager()
             {
-                _TaskListService = IoC.TaskListService;
-                _AppViewModel = IoC.AppViewModel;
-                _Database = IoC.Database;
-                _OverlayPageService = IoC.OverlayPageService;
-                _CategoryListService = IoC.CategoryListService;
-                _NoteListService = IoC.NoteListService;
-                _MessageService = IoC.MessageService;
+                _taskListService = IoC.TaskListService;
+                _appViewModel = IoC.AppViewModel;
+                _database = IoC.Database;
+                _overlayPageService = IoC.OverlayPageService;
+                _categoryListService = IoC.CategoryListService;
+                _noteListService = IoC.NoteListService;
+                _messageService = IoC.MessageService;
 
-                m_ViewModelDictionary = new Dictionary<ApplicationPage, BaseViewModel>();
+                _viewModelDictionary = new Dictionary<ApplicationPage, BaseViewModel>();
+                _viewModelTypesDefault = new Dictionary<ApplicationPage, Type>
+                {
+                    { ApplicationPage.NotePageSettings, typeof(NotePageSettingsPageViewModel)},
+                    { ApplicationPage.TaskItemSettings, typeof(TaskItemSettingsPageViewModel)},
+                    { ApplicationPage.PageTitleSettings, typeof(PageTitleSettingsPageViewModel)},
+                    { ApplicationPage.TaskPageSettings, typeof(TaskPageSettingsPageViewModel)},
+                    { ApplicationPage.TaskQuickActionsSettings, typeof(TaskQuickActionsSettingsPageViewModel)},
+                    { ApplicationPage.TextEditorQuickActionsSettings, typeof(TextEditorQuickActionsSettingsPageViewModel)},
+                    { ApplicationPage.WindowSettings, typeof(WindowSettingsPageViewModel)},
+                    { ApplicationPage.Shortcuts, typeof(ShortcutsPageViewModel)},
+                };
+
+                _pageTypesDefault = new Dictionary<ApplicationPage, Type>
+                {
+                    { ApplicationPage.NotePageSettings, typeof(NotePageSettingsPage)},
+                    { ApplicationPage.TaskItemSettings, typeof(TaskItemSettingsPage)},
+                    { ApplicationPage.PageTitleSettings, typeof(PageTitleSettingsPage)},
+                    { ApplicationPage.TaskPageSettings, typeof(TaskPageSettingsPage)},
+                    { ApplicationPage.TaskQuickActionsSettings, typeof(TaskQuickActionsSettingsPage)},
+                    { ApplicationPage.TextEditorQuickActionsSettings, typeof(TextEditorQuickActionsSettingsPage)},
+                    { ApplicationPage.WindowSettings, typeof(WindowSettingsPage)},
+                    { ApplicationPage.Shortcuts, typeof(ShortcutsPage)},
+                };
+
+                _viewModelTypesAppVm = new Dictionary<ApplicationPage, Type>
+                {
+                    { ApplicationPage.Settings, typeof(SettingsPageViewModel)},
+                    { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPageViewModel)},
+                    { ApplicationPage.ThemeEditorSettings, typeof(ThemeEditorSettingsPageViewModel)},
+                };
+
+                _pageTypesAppVm = new Dictionary<ApplicationPage, Type>
+                {
+                    { ApplicationPage.Settings, typeof(SettingsPage)},
+                    { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPage)},
+                    { ApplicationPage.ThemeEditorSettings, typeof(ThemeEditorSettingsPage)},
+                };
             }
 
             public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -53,160 +95,85 @@ namespace TodoApp2
                 {
                     case ApplicationPage.Task:
                     {
-                        TaskPageViewModel taskPageViewModel = new TaskPageViewModel(_AppViewModel, _TaskListService, _CategoryListService);
+                        TaskPageViewModel taskPageViewModel = new TaskPageViewModel(
+                            _appViewModel,
+                            _taskListService,
+                            _categoryListService);
 
                         viewModel = taskPageViewModel;
-                        page = new TaskPage(taskPageViewModel, _TaskListService);
+                        page = new TaskPage(taskPageViewModel, _taskListService);
 
                         break;
                     }
                     case ApplicationPage.Category:
                     {
                         CategoryPageViewModel categoryPageViewModel = new CategoryPageViewModel(
-                            _AppViewModel,
-                            _Database,
-                            _OverlayPageService,
-                            _CategoryListService,
-                            _MessageService);
+                            _appViewModel,
+                            _database,
+                            _overlayPageService,
+                            _categoryListService,
+                            _messageService);
 
                         viewModel = categoryPageViewModel;
                         page = new CategoryPage(categoryPageViewModel);
 
                         break;
                     }
-                    case ApplicationPage.Settings:
-                    {
-                        SettingsPageViewModel settingsPageViewModel = new SettingsPageViewModel(_AppViewModel);
-
-                        viewModel = settingsPageViewModel;
-                        page = new SettingsPage(settingsPageViewModel);
-
-                        break;
-                    }
                     case ApplicationPage.NoteList:
                     {
                         NoteListPageViewModel notePageViewModel = new NoteListPageViewModel(
-                            _AppViewModel,
-                            _Database,
-                            _OverlayPageService,
-                            _NoteListService,
-                            _MessageService);
+                            _appViewModel,
+                            _database,
+                            _overlayPageService,
+                            _noteListService,
+                            _messageService);
 
                         viewModel = notePageViewModel;
                         page = new NoteListPage(notePageViewModel);
 
                         break;
                     }
-
                     case ApplicationPage.Note:
                     {
                         NotePageViewModel notePageViewModel = new NotePageViewModel(
-                            _AppViewModel,
-                            _NoteListService,
-                            _Database);
+                            _appViewModel,
+                            _noteListService,
+                            _database);
 
                         viewModel = notePageViewModel;
                         page = new NotePage(notePageViewModel);
 
                         break;
                     }
-                    case ApplicationPage.NotePageSettings:
-                    {
-                        NotePageSettingsPageViewModel notePageSettingsPageViewModel = new NotePageSettingsPageViewModel();
-                        
-                        viewModel = notePageSettingsPageViewModel;
-                        page = new NotePageSettingsPage(notePageSettingsPageViewModel);
-
-                        break;
-                    }
-                    case ApplicationPage.TaskItemSettings:
-                    {
-                        TaskItemSettingsPageViewModel taskItemSettingsPageViewModel = new TaskItemSettingsPageViewModel();
-
-                        viewModel = taskItemSettingsPageViewModel;
-                        page = new TaskItemSettingsPage(taskItemSettingsPageViewModel);
-
-                        break;
-                    }
-                    case ApplicationPage.PageTitleSettings:
-                    {
-                        PageTitleSettingsPageViewModel pageTitleSettingsPageViewModel = new PageTitleSettingsPageViewModel();
-
-                        viewModel = pageTitleSettingsPageViewModel;
-                        page = new PageTitleSettingsPage(pageTitleSettingsPageViewModel);
-                        break;
-                    }
-                    case ApplicationPage.TaskPageSettings:
-                    {
-                        TaskPageSettingsPageViewModel taskPageSettingsPageViewModel = new TaskPageSettingsPageViewModel();
-
-                        viewModel = taskPageSettingsPageViewModel;
-                        page = new TaskPageSettingsPage(taskPageSettingsPageViewModel);
-
-                        break;
-                    }
-                    case ApplicationPage.TaskQuickActionsSettings:
-                    {
-                        TaskQuickActionsSettingsPageViewModel taskQuickActionsSettingsPageViewModel = new TaskQuickActionsSettingsPageViewModel();
-
-                        viewModel = taskQuickActionsSettingsPageViewModel;
-                        page = new TaskQuickActionsSettingsPage(taskQuickActionsSettingsPageViewModel);
-
-                        break;
-                    }
-                    case ApplicationPage.TextEditorQuickActionsSettings:
-                    {
-                        TextEditorQuickActionsSettingsPageViewModel textEditorQuickActionsSettingsPageViewModel = new TextEditorQuickActionsSettingsPageViewModel();
-
-                        viewModel = textEditorQuickActionsSettingsPageViewModel;
-                        page = new TextEditorQuickActionsSettingsPage(textEditorQuickActionsSettingsPageViewModel);
-
-                        break;
-                    }
-                    case ApplicationPage.ThemeSettings:
-                    {
-                        ThemeSettingsPageViewModel themeSettingsPageViewModel = new ThemeSettingsPageViewModel(_AppViewModel);
-
-                        viewModel = themeSettingsPageViewModel;
-                        page = new ThemeSettingsPage(themeSettingsPageViewModel);
-
-                        break;
-                    }
-                    case ApplicationPage.WindowSettings:
-                    {
-                        WindowSettingsPageViewModel windowSettingsPageViewModel = new WindowSettingsPageViewModel();
-
-                        viewModel = windowSettingsPageViewModel;
-                        page = new WindowSettingsPage(windowSettingsPageViewModel);
-
-                        break;
-                    }
-                    case ApplicationPage.ThemeEditorSettings:
-                    {
-                        ThemeEditorSettingsPageViewModel themeEditorSettingsPageViewModel = new ThemeEditorSettingsPageViewModel(_AppViewModel);
-
-                        viewModel = themeEditorSettingsPageViewModel;
-                        page = new ThemeEditorSettingsPage(themeEditorSettingsPageViewModel);
-
-                        break;
-                    }
-                    default:
-                    {
-                        applicationPage = ApplicationPage.Invalid;
-                        break;
-                    }
                 }
 
-                if (applicationPage != ApplicationPage.Invalid)
+                if (_viewModelTypesDefault.ContainsKey(applicationPage))
                 {
-                    if (m_ViewModelDictionary.ContainsKey(applicationPage))
+                    var viewModelType = _viewModelTypesDefault[applicationPage];
+                    var pageType = _pageTypesDefault[applicationPage];
+
+                    viewModel = Activator.CreateInstance(viewModelType) as BaseViewModel;
+                    page = Activator.CreateInstance(pageType, viewModel) as BasePage;
+                }
+                else if (_viewModelTypesAppVm.ContainsKey(applicationPage))
+                {
+                    var viewModelType = _viewModelTypesAppVm[applicationPage];
+                    var pageType = _pageTypesAppVm[applicationPage];
+
+                    viewModel = Activator.CreateInstance(viewModelType, _appViewModel) as BaseViewModel;
+                    page = Activator.CreateInstance(pageType, viewModel) as BasePage;
+                }
+
+                if (page != null)
+                {
+                    if (_viewModelDictionary.ContainsKey(applicationPage))
                     {
-                        BaseViewModel oldViewModel = m_ViewModelDictionary[applicationPage];
+                        BaseViewModel oldViewModel = _viewModelDictionary[applicationPage];
                         oldViewModel?.Dispose();
-                        m_ViewModelDictionary.Remove(applicationPage);
+                        _viewModelDictionary.Remove(applicationPage);
                     }
 
-                    m_ViewModelDictionary.Add(applicationPage, viewModel);
+                    _viewModelDictionary.Add(applicationPage, viewModel);
                 }
 
                 return page;
