@@ -264,6 +264,9 @@
         </Style.Triggers>
         <Setter Property="Opacity" Value="0.4" />
         <Setter Property="Margin" Value="0 5 0 0" />
+        <Setter Property="Padding" Value="6" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
+
     </Style>
 
     <Style
@@ -538,8 +541,8 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Grid
                         x:Name="markGrid"
-                        Width="54"
-                        Height="32"
+                        Width="52"
+                        Height="30"
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                         VerticalAlignment="Center">
 
@@ -573,8 +576,8 @@
 
                         <Ellipse
                             x:Name="checkedOptionMark"
-                            Width="23"
-                            Height="23"
+                            Width="22"
+                            Height="22"
                             Margin="5 0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
