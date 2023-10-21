@@ -41,8 +41,8 @@
     <Color x:Key="CheckedComboBoxButtonBg">#585858</Color>
 
     <Color x:Key="CommonBorder">#5C5C5C</Color>
-    <Color x:Key="AppBorder">#404040</Color>
-    <Color x:Key="CommonControlBorder">#404040</Color>
+    <Color x:Key="AppBorder">#36363B</Color>
+    <Color x:Key="CommonControlBorder">#111118</Color>
     <Color x:Key="BottomBarBorder">#2D2D2D</Color>
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
     <Color x:Key="TaskBorder">#1B1B21</Color>
