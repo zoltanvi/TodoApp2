@@ -45,7 +45,7 @@
     <Color x:Key="CommonControlBorder">#404040</Color>
     <Color x:Key="BottomBarBorder">#2D2D2D</Color>
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
-    <Color x:Key="TaskBorder">#2D2D2D</Color>
+    <Color x:Key="TaskBorder">#1B1B21</Color>
     <Color x:Key="CheckBoxBorder">#7e7e7e</Color>
     <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
     <!--  ===================  -->
