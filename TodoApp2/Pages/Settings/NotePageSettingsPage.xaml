@@ -35,11 +35,6 @@
             <!--  ===========================================================  -->
             <!--  Note page settings  -->
 
-            <Label
-                Content="Note page settings"
-                Style="{DynamicResource SettingsPageTitleStyle}"
-                Grid.Row="0" />
-
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
                 <Border Style="{StaticResource SettingsItemStyle}">

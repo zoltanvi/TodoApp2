@@ -24,11 +24,6 @@
             <!--  ===========================================================  -->
             <!--  Task quick actions  -->
 
-            <Label
-                Content="Task quick actions"
-                Style="{DynamicResource SettingsPageTitleStyle}"
-                Grid.Row="0" />
-
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
 

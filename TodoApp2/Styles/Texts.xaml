@@ -361,6 +361,7 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
+                        MinWidth="{TemplateBinding MinWidth}"
                         CornerRadius="4">
                         <Label
                             Content="{TemplateBinding Content}"

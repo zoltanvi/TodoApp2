@@ -24,17 +24,13 @@
 
             <!--  ===========================================================  -->
 
-            <Label
-                Content="Shortcuts"
-                Style="{DynamicResource SettingsPageTitleStyle}"
-                Grid.Row="0" />
-
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
                 <Label
                     Content="Text editor shortcuts"
                     Style="{DynamicResource BaseLabelClearTypeStyle}"
                     FontSize="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
+                
                 <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" />
 
                 <local:ShortcutItemControl

@@ -12,75 +12,84 @@
     x:TypeArguments="core:CategoryPageViewModel"
     mc:Ignorable="d">
 
-    <Grid Margin="0 5 0 0">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <Border
+            Grid.Row="0"
+            Background="{DynamicResource SideMenuBgBrush}"
+            CornerRadius="6">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-
-            <Grid Grid.Row="0" Margin="0 0 5 25">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <!--  CATEGORIES  -->
 
-                <Button
+                <Grid Grid.Row="0" Margin="0 0 5 25">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  CATEGORIES  -->
+
+                    <Button
+                        Grid.Column="0"
+                        Command="{Binding OpenNoteListPageCommand}"
+                        Style="{DynamicResource ButtonBaseStyle}"
+                        ToolTip="Click to switch to NOTES"
+                        Content="CATEGORIES"
+                        Cursor="Hand"
+                        FontSize="{Binding UIScaler.FontSize.Regular}"
+                        HorizontalAlignment="Left"
+                        Margin="25 5 0 0"
+                        FontFamily="{DynamicResource UIBoldFont}" />
+
+                    <!--  Settings button  -->
+                    <Button
+                        Grid.Column="2"
+                        AutomationProperties.AutomationId="SettingsButton"
+                        Command="{Binding OpenSettingsPageCommand}"
+                        Content="{DynamicResource SegoeIconSettings}"
+                        Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
+                        ToolTip="Settings" />
+                </Grid>
+
+                <!--  Category list  -->
+                <local:CategoryListControl
+                    Grid.Row="1"
                     Grid.Column="0"
-                    Command="{Binding OpenNoteListPageCommand}"
-                    Style="{DynamicResource ButtonBaseStyle}"
-                    ToolTip="Go to NOTES"
-                    Content="CATEGORIES"
-                    Cursor="Hand"
-                    FontSize="{Binding UIScaler.FontSize.Regular}"
-                    HorizontalAlignment="Left"
-                    Margin="25 0 0 0"
-                    FontFamily="{DynamicResource UIBoldFont}" />
-
-                <!--  Settings button  -->
-                <Button
-                    Grid.Column="2"
-                    AutomationProperties.AutomationId="SettingsButton"
-                    Command="{Binding OpenSettingsPageCommand}"
-                    Content="{DynamicResource SegoeIconSettings}"
-                    Style="{DynamicResource ButtonIconHoverSideMenuStyle}"
-                    ToolTip="Settings" />
+                    Grid.ColumnSpan="2" />
             </Grid>
 
-            <!--  Category list  -->
-            <local:CategoryListControl
-                Grid.Row="1"
-                Grid.Column="0"
-                Grid.ColumnSpan="2" />
-        </Grid>
+        </Border>
 
         <!--  ADD NEW CATEGORY  -->
         <Border
             Grid.Row="1"
-            Background="{DynamicResource Elevation_1}"
-            Margin="5"
+            Background="{DynamicResource SideMenuBgBrush}"
+            Margin="0 5 0 0"
             BorderThickness="0 0 0 0"
             CornerRadius="6">
+
             <TextBox
                 Padding="2 7"
                 VerticalAlignment="Bottom"
                 AutomationProperties.AutomationId="AddNewCategoryTextBox"
                 Style="{StaticResource SidePageAddNewTextBoxStyle}"
+                
                 Tag="Add new category"
                 Text="{Binding PendingAddNewCategoryText, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="NoWrap">
@@ -88,6 +97,7 @@
                     <KeyBinding Key="Return" Command="{Binding AddCategoryCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
+
         </Border>
 
     </Grid>

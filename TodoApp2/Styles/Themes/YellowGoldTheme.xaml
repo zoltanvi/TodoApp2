@@ -19,7 +19,7 @@
     <Color x:Key="SelectedCategory">#000000</Color>
 
     <Color x:Key="PageBg">#f9f5ea</Color>
-    <Color x:Key="SideMenuBg">#f9f5ea</Color>
+    <Color x:Key="SideMenuBg">#EBE7DD</Color>
     <Color x:Key="TitleBarBg">#eddfbb</Color>
     <Color x:Key="BottomBarBg">#f4eee0</Color>
     <Color x:Key="TaskBg">#fdfcf8</Color>
@@ -27,7 +27,7 @@
     <Color x:Key="TaskDoneBg">#80E0E0E0</Color>
     <Color x:Key="ScrollBarBg">#B7B7B7</Color>
     <Color x:Key="ScrollBarPressedBg">#9FA2A8</Color>
-    <Color x:Key="SelectedCategoryBg">#DEDEDE</Color>
+    <Color x:Key="SelectedCategoryBg">#D9CFB7</Color>
     <Color x:Key="ComboBoxBg">#fcfaf6</Color>
     <Color x:Key="ComboBoxButtonBg">#fcfaf6</Color>
     <Color x:Key="ComboBoxDropDownBg">#fcfaf6</Color>
@@ -35,7 +35,7 @@
     <Color x:Key="ContextMenuBg">#FFFFFF</Color>
     <Color x:Key="NoteLineAdornerBg">#e8e8ff</Color>
 
-    <Color x:Key="HoverCategoryBg">#EDEDED</Color>
+    <Color x:Key="HoverCategoryBg">#D9CFB7</Color>
     <Color x:Key="HoverCloseButtonBg">#F76E62</Color>
     <Color x:Key="HoverContextMenuBg">#EDEDED</Color>
     <Color x:Key="CheckedComboBoxButtonBg">#fcfaf6</Color>

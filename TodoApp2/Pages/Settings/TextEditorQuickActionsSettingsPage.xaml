@@ -24,11 +24,6 @@
             <!--  ===========================================================  -->
             <!--  Text editor quick actions  -->
 
-            <Label
-                Content="Text editor quick actions"
-                Style="{DynamicResource SettingsPageTitleStyle}"
-                Grid.Row="0" />
-
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
 
@@ -46,7 +41,7 @@
                     Icon="{DynamicResource SegoeIconUnderlined}"
                     Description="Underlined button"
                     IsChecked="{Binding AppSettings.TextEditorQAUnderlined, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-                
+
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSize}"
                     Description="Header1 button"
@@ -61,7 +56,7 @@
                     Icon="{DynamicResource SegoeIconFontSize}"
                     Description="Small font button"
                     IsChecked="{Binding AppSettings.TextEditorQASmall, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-                
+
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlignLeft}"
                     Description="Align left button"
@@ -76,7 +71,7 @@
                     Icon="{DynamicResource SegoeIconAlignRight}"
                     Description="Align right button"
                     IsChecked="{Binding AppSettings.TextEditorQAAlignRight, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-               
+
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlignJustify}"
                     Description="Justify button"

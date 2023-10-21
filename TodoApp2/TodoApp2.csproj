@@ -236,8 +236,8 @@
     <Compile Include="Pages\Settings\ThemeSettingsPage.xaml.cs">
       <DependentUpon>ThemeSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\WindowSettingsPage.xaml.cs">
-      <DependentUpon>WindowSettingsPage.xaml</DependentUpon>
+    <Compile Include="Pages\Settings\ApplicationSettingsPage.xaml.cs">
+      <DependentUpon>ApplicationSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AsyncActionService.cs" />
     <Compile Include="Pages\BasePage.cs" />
@@ -302,6 +302,7 @@
     <Compile Include="ValueConverters\Single\IdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Single\IntTo2DigitTextConverter.cs" />
     <Compile Include="ValueConverters\Multi\LeftMarginConverter.cs" />
+    <Compile Include="ValueConverters\Single\SettingsPageTitleConverter.cs" />
     <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskCheckboxMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToDoubleConverter.cs" />
@@ -454,7 +455,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Settings\WindowSettingsPage.xaml">
+    <Page Include="Pages\Settings\ApplicationSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

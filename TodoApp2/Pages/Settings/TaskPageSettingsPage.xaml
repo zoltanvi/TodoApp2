@@ -24,11 +24,6 @@
             <!--  ===========================================================  -->
             <!--  Task page settings  -->
 
-            <Label
-                Content="Task page settings"
-                Style="{DynamicResource SettingsPageTitleStyle}"
-                Grid.Row="0" />
-
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
                 <!--  Insert new task to the end  -->

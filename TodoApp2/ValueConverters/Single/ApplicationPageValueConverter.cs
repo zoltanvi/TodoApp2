@@ -53,7 +53,7 @@ namespace TodoApp2
                     { ApplicationPage.TaskPageSettings, typeof(TaskPageSettingsPageViewModel)},
                     { ApplicationPage.TaskQuickActionsSettings, typeof(TaskQuickActionsSettingsPageViewModel)},
                     { ApplicationPage.TextEditorQuickActionsSettings, typeof(TextEditorQuickActionsSettingsPageViewModel)},
-                    { ApplicationPage.WindowSettings, typeof(WindowSettingsPageViewModel)},
+                    { ApplicationPage.ApplicationSettings, typeof(ApplicationSettingsPageViewModel)},
                     { ApplicationPage.Shortcuts, typeof(ShortcutsPageViewModel)},
                 };
 
@@ -65,7 +65,7 @@ namespace TodoApp2
                     { ApplicationPage.TaskPageSettings, typeof(TaskPageSettingsPage)},
                     { ApplicationPage.TaskQuickActionsSettings, typeof(TaskQuickActionsSettingsPage)},
                     { ApplicationPage.TextEditorQuickActionsSettings, typeof(TextEditorQuickActionsSettingsPage)},
-                    { ApplicationPage.WindowSettings, typeof(WindowSettingsPage)},
+                    { ApplicationPage.ApplicationSettings, typeof(ApplicationSettingsPage)},
                     { ApplicationPage.Shortcuts, typeof(ShortcutsPage)},
                 };
 

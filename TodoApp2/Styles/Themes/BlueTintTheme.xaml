@@ -16,7 +16,7 @@
     <Color x:Key="SelectedCategory">#FFFFFF</Color>
 
     <Color x:Key="PageBg">#181c27</Color>
-    <Color x:Key="SideMenuBg">#1e222d</Color>
+    <Color x:Key="SideMenuBg">#222733</Color>
     <Color x:Key="TitleBarBg">#131722</Color>
     <Color x:Key="BottomBarBg">#131722</Color>
     <Color x:Key="TaskBg">#202533</Color>

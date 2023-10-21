@@ -32,7 +32,7 @@
                 <TextBlock
                     Grid.Column="0"
                     Style="{DynamicResource PageTitleTextBlockStyle}"
-                    Text="Settings" />
+                    Text="{Binding ActiveSettingsPage, Converter={StaticResource settingsPageTitleConverter}}" />
 
                 <!--  BACK button  -->
                 <Button
@@ -52,121 +52,127 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Border
-                    Grid.Column="0"
-                    Background="{DynamicResource Elevation_1}"
-                    CornerRadius="4"
-                    Margin="5 0 0 5">
+                <Grid Grid.Column="0">
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Orientation="Vertical" Grid.Row="0">
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.WindowSettings}"
-                                Id="{x:Static core:ApplicationPage.WindowSettings}"
-                                Content="APPLICATION"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.ThemeSettings}"
-                                Id="{x:Static core:ApplicationPage.ThemeSettings}"
-                                Content="THEMES"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.PageTitleSettings}"
-                                Id="{x:Static core:ApplicationPage.PageTitleSettings}"
-                                Content="PAGE TITLE"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.TaskPageSettings}"
-                                Id="{x:Static core:ApplicationPage.TaskPageSettings}"
-                                Content="TASK PAGE"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.TaskItemSettings}"
-                                Id="{x:Static core:ApplicationPage.TaskItemSettings}"
-                                Content="TASKS"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.TaskQuickActionsSettings}"
-                                Id="{x:Static core:ApplicationPage.TaskQuickActionsSettings}"
-                                Content="QUICK ACTIONS"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.TextEditorQuickActionsSettings}"
-                                Id="{x:Static core:ApplicationPage.TextEditorQuickActionsSettings}"
-                                Content="EDITOR"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.NotePageSettings}"
-                                Id="{x:Static core:ApplicationPage.NotePageSettings}"
-                                Content="NOTES"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.Shortcuts}"
-                                Id="{x:Static core:ApplicationPage.Shortcuts}"
-                                Content="SHORTCUTS"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
-
-                            <local:SettingsCategoryButton
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.ThemeEditorSettings}"
-                                Id="{x:Static core:ApplicationPage.ThemeEditorSettings}"
-                                Content="THEME EDITOR"
-                                Style="{StaticResource SettingsCategoryButtonStyle}"
-                                Foreground="{DynamicResource HoverCloseButtonBgBrush}"
-                                IsEnabled="{StaticResource ThemeEditor}"
-                                ToolTip="Warning: These are experimental settings! Restarting the application resets the values."
-                                Visibility="{Binding Source={StaticResource ThemeEditor}, Converter={StaticResource boolToVisibilityConverter}}"
-                                SelectedPage="{Binding ActiveSettingsPage}" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
 
-                        </StackPanel>
+                    <Border
+                        Grid.Row="0"
+                        Background="{DynamicResource SideMenuBgBrush}"
+                        CornerRadius="6"
+                        Margin="5 0 0 5">
 
-                        <!--  VERSION  -->
-                        <Border Grid.Row="2" Margin="3 0">
-                            <Border Style="{StaticResource SettingsItemStyle}" CornerRadius="5">
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontSize="{Binding UIScaler.FontSize.Medium}"
-                                    Foreground="{DynamicResource ForegroundBrush}"
-                                    Text="{DynamicResource CurrentVersion}" />
-                            </Border>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Row="0">
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.ApplicationSettings}"
+                                    Id="{x:Static core:ApplicationPage.ApplicationSettings}"
+                                    Content="APPLICATION"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.ThemeSettings}"
+                                    Id="{x:Static core:ApplicationPage.ThemeSettings}"
+                                    Content="THEMES"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.PageTitleSettings}"
+                                    Id="{x:Static core:ApplicationPage.PageTitleSettings}"
+                                    Content="PAGE TITLE"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.TaskPageSettings}"
+                                    Id="{x:Static core:ApplicationPage.TaskPageSettings}"
+                                    Content="TASK PAGE"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.TaskItemSettings}"
+                                    Id="{x:Static core:ApplicationPage.TaskItemSettings}"
+                                    Content="TASKS"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.TaskQuickActionsSettings}"
+                                    Id="{x:Static core:ApplicationPage.TaskQuickActionsSettings}"
+                                    Content="QUICK ACTIONS"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.TextEditorQuickActionsSettings}"
+                                    Id="{x:Static core:ApplicationPage.TextEditorQuickActionsSettings}"
+                                    Content="EDITOR"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.NotePageSettings}"
+                                    Id="{x:Static core:ApplicationPage.NotePageSettings}"
+                                    Content="NOTES"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.Shortcuts}"
+                                    Id="{x:Static core:ApplicationPage.Shortcuts}"
+                                    Content="SHORTCUTS"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.ThemeEditorSettings}"
+                                    Id="{x:Static core:ApplicationPage.ThemeEditorSettings}"
+                                    Content="THEME EDITOR"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    Foreground="{DynamicResource HoverCloseButtonBgBrush}"
+                                    IsEnabled="{StaticResource ThemeEditor}"
+                                    ToolTip="Warning: These are experimental settings! Restarting the application resets the values."
+                                    Visibility="{Binding Source={StaticResource ThemeEditor}, Converter={StaticResource boolToVisibilityConverter}}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!--  VERSION  -->
+                    <Border Grid.Row="1" Margin="5 0 0 0">
+                        <Border Style="{StaticResource SettingsItemStyle}" CornerRadius="5" Background="{DynamicResource SideMenuBgBrush}">
+                            <TextBlock
+                                Padding="0 2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="{Binding UIScaler.FontSize.Regular}"
+                                Foreground="{DynamicResource ForegroundBrush}"
+                                Text="{DynamicResource CurrentVersion}" />
                         </Border>
-                    </Grid>
+                    </Border>
 
-                </Border>
+                </Grid>
 
-                <Border
-                    Grid.Column="1"
-                    Padding="5"
-                    BorderThickness="1">
+                <Border Grid.Column="1" Padding="5 0 5 5">
                     <Frame
                         local:NoFrameHistory.Value="True"
                         Content="{Binding}"

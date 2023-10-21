@@ -22,11 +22,6 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Label
-                Content="Themes"
-                Style="{DynamicResource SettingsPageTitleStyle}"
-                Grid.Row="0" />
-
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
                 <local:ThemeListControl PreviewMouseWheel="ListView_PreviewMouseWheel" />

@@ -59,7 +59,7 @@
         TaskQuickActionsSettings,
         TextEditorQuickActionsSettings,
         ThemeSettings,
-        WindowSettings,
+        ApplicationSettings,
         ThemeEditorSettings,
         PageTitleSettings,
         Shortcuts

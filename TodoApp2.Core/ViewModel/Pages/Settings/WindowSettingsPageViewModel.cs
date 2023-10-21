@@ -1,8 +1,8 @@
 ﻿namespace TodoApp2.Core
 {
-    public class WindowSettingsPageViewModel : BaseViewModel
+    public class ApplicationSettingsPageViewModel : BaseViewModel
     {
-        public WindowSettingsPageViewModel()
+        public ApplicationSettingsPageViewModel()
         {
         }
     }

@@ -10,7 +10,7 @@
 
     <Color x:Key="TitleBarBg">#cacac9</Color>
     <Color x:Key="PageBg">#eeeeee</Color>
-    <Color x:Key="SideMenuBg">#eeeeee</Color>
+    <Color x:Key="SideMenuBg">#E2E2E2</Color>
     <Color x:Key="TaskBg">#fafafa</Color>
     <Color x:Key="TaskTransparentBg">#00fafafa</Color>
     <Color x:Key="BottomBarBg">#e6e6e5</Color>

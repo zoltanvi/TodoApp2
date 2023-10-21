@@ -84,13 +84,13 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_2}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_2}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_2}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -263,6 +263,7 @@
             </Trigger>
         </Style.Triggers>
         <Setter Property="Opacity" Value="0.4" />
+        <Setter Property="Margin" Value="0 5 0 0" />
     </Style>
 
     <Style

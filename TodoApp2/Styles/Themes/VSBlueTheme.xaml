@@ -24,7 +24,7 @@
     <Color x:Key="TaskDoneBg">#C02B3A61</Color>
     <Color x:Key="ScrollBarBg">#243257</Color>
     <Color x:Key="ScrollBarPressedBg">#1F2C4C</Color>
-    <Color x:Key="SelectedCategoryBg">#4D5982</Color>
+    <Color x:Key="SelectedCategoryBg">#425684</Color>
     <Color x:Key="ComboBoxBg">#3B4F81</Color>
     <Color x:Key="ComboBoxButtonBg">#3B4F81</Color>
     <Color x:Key="ComboBoxDropDownBg">#3B4F81</Color>
@@ -32,7 +32,7 @@
     <Color x:Key="ContextMenuBg">#3b4f81</Color>
     <Color x:Key="NoteLineAdornerBg">#343E56</Color>
 
-    <Color x:Key="HoverCategoryBg">#425684</Color>
+    <Color x:Key="HoverCategoryBg">#4D5982</Color>
     <Color x:Key="HoverCloseButtonBg">#F55B4D</Color>
     <Color x:Key="HoverContextMenuBg">#EDEDED</Color>
 

@@ -19,7 +19,7 @@
     <Color x:Key="SelectedCategory">#FFFFFF</Color>
 
     <Color x:Key="PageBg">#192030</Color>
-    <Color x:Key="SideMenuBg">#192030</Color>
+    <Color x:Key="SideMenuBg">#252B3B</Color>
     <Color x:Key="TitleBarBg">#192030</Color>
     <Color x:Key="BottomBarBg">#192030</Color>
     <Color x:Key="TaskBg">#22293B</Color>

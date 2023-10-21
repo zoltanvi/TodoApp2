@@ -12,18 +12,19 @@
 
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
-
             <Border
                 x:Name="NavigatorContentBorder"
-                Background="{DynamicResource SideMenuBgBrush}"
-                BorderThickness="0 0 1 0"
+                BorderThickness="0 0 0 0"
                 BorderBrush="{DynamicResource Elevation_2}"
                 ClipToBounds="True"
+                Margin="5 5 0 5"
+                CornerRadius="6"
                 HorizontalAlignment="Stretch">
 
                 <ContentPresenter />
 
             </Border>
+
         </ControlTemplate>
     </UserControl.Template>
 </UserControl>

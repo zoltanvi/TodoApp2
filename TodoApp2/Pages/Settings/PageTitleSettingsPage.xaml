@@ -44,10 +44,7 @@
             <!--  ===========================================================  -->
             <!--  Task page settings  -->
 
-            <Label
-                Content="Page title settings"
-                Style="{DynamicResource SettingsPageTitleStyle}"
-                Grid.Row="0" />
+
 
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
