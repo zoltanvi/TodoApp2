@@ -532,13 +532,14 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Grid
                         x:Name="markGrid"
-                        Width="44"
-                        Height="20"
+                        Width="54"
+                        Height="32"
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                         VerticalAlignment="Center">
 
@@ -546,46 +547,40 @@
                             x:Name="normalBorder"
                             Background="Transparent"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="0.7"
-                            CornerRadius="10"
+                            BorderThickness="2"
+                            CornerRadius="15"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
                         <Border
                             x:Name="checkedBorder"
                             Background="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
-                            CornerRadius="10"
+                            CornerRadius="15"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
 
                         <!--  Fill="{TemplateBinding BorderBrush}"  -->
                         <Ellipse
                             x:Name="normalOptionMark"
-                            Width="10"
-                            Height="10"
-                            Margin="6 0"
+                            Width="15"
+                            Height="15"
+                            Margin="7 0"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Fill="{TemplateBinding BorderBrush}"
-                            RenderTransformOrigin="0.5 0.5"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="0">
-                            <Ellipse.RenderTransform>
-                                <TranslateTransform X="-10" />
-                            </Ellipse.RenderTransform>
                         </Ellipse>
 
                         <Ellipse
                             x:Name="checkedOptionMark"
-                            Width="10"
-                            Height="10"
-                            Margin="6 0"
+                            Width="23"
+                            Height="23"
+                            Margin="5 0"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Fill="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource toggleButtonDynamicBrushConverter}}"
-                            RenderTransformOrigin="0.5 0.5"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="0">
-                            <Ellipse.RenderTransform>
-                                <TranslateTransform X="10" />
-                            </Ellipse.RenderTransform>
                         </Ellipse>
 
                         <!--  delete opacity=0 to turn on  -->
