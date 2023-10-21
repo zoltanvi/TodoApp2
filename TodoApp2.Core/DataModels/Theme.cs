@@ -3,6 +3,7 @@
     public enum Theme
     {
         ExtraDark,
+        DarkSlateGray,
         BlueTint,
         MaterialBlue,
         DarkBlue,
