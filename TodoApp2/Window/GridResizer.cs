@@ -26,7 +26,7 @@ namespace TodoApp2
         private double GridHalfWidth => _grid.ActualWidth / 2;
         private double MaxColumnWidth => GridHalfWidth < MinColumnWidth ? MinColumnWidth : GridHalfWidth;
         private double SnappingWidth => UnscaledSnappingWidth * UIScaler.Instance.ScaleValue;
-        private AppViewModel AppViewModel => IoC.AppViewModel;
+        private SessionSettings SessionSettings => IoC.AppSettings.SessionSettings;
 
         private double LeftColumnWidth
         {
@@ -57,18 +57,18 @@ namespace TodoApp2
 
         private bool IsSideMenuOpen
         {
-            get => AppViewModel.ApplicationSettings.IsSideMenuOpen;
-            set => AppViewModel.ApplicationSettings.IsSideMenuOpen = value;
+            get => SessionSettings.SideMenuOpen;
+            set => SessionSettings.SideMenuOpen = value;
         }
 
         private double LastSavedColumnWidth
         {
-            get => AppViewModel.ApplicationSettings.SideMenuWidth;
+            get => SessionSettings.SideMenuWidth;
             set
             {
                 if (value != 0)
                 {
-                    AppViewModel.ApplicationSettings.SideMenuWidth = value;
+                    SessionSettings.SideMenuWidth = value;
                     IsSideMenuOpen = true;
                 }
                 else
@@ -112,7 +112,7 @@ namespace TodoApp2
 
         private void InitializeLeftColumnWidth()
         {
-            if (AppViewModel.ApplicationSettings.IsSideMenuOpen)
+            if (SessionSettings.SideMenuOpen)
             {
                 LeftColumnWidth = LastSavedColumnWidth;
             }

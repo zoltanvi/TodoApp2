@@ -151,7 +151,7 @@ namespace TodoApp2
 
             if (escape || (enter && !shiftPressed))
             {
-                if (IoC.AppSettings.SaveOnEnter || ctrlPressed && enter)
+                if (IoC.AppSettings.TaskPageSettings.SaveOnEnter || ctrlPressed && enter)
                 {
                     UpdateContent();
 
@@ -184,7 +184,7 @@ namespace TodoApp2
 
             if (currentFontFamily is MediaFontFamily fontFamily && fontFamily.Source == GlobalConstants.FontFamily.Consolas)
             {
-                MediaFontFamily defaultFontFamily = EnumToFontFamilyConverter.Instance.Convert(IoC.AppSettings.FontFamily);
+                MediaFontFamily defaultFontFamily = EnumToFontFamilyConverter.Instance.Convert(IoC.AppSettings.TaskSettings.FontFamily);
 
                 if (defaultFontFamily != null)
                 {

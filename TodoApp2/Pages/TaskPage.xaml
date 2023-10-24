@@ -26,14 +26,14 @@
                 <Grid
                     x:Name="CategoryNamePanel"
                     Background="#00333333"
-                    Margin="{Binding Path=AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}"
+                    Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}"
                     Style="{DynamicResource CurrentCategoryPanelStyle}">
                     <Grid.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
                                 <local:BoolToVisibilityAndConverter />
                             </MultiBinding.Converter>
-                            <Binding Path="AppSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                            <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
                             <Binding
                                 Mode="OneWay"
                                 Path="IsCategoryInDisplayMode"
@@ -52,17 +52,17 @@
                             Grid.Column="0"
                             Style="{DynamicResource PageTitleTextBlockStyle}"
                             Margin="0 1"
-                            Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:ViewModelLocator.Instance}}"
-                            Foreground="{Binding AppSettings.TitleColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay, Converter={StaticResource stringToForegroundBrushConverter}}"
-                            FontFamily="{Binding Path=AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
-                            HorizontalAlignment="{Binding AppSettings.TitleAlignment, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource horizontalAlignmentConverter}}">
+                            Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:VML.Instance}}"
+                            Foreground="{Binding AppSettings.PageTitleSettings.Color, Source={x:Static local:VML.Instance}, Mode=TwoWay, Converter={StaticResource stringToForegroundBrushConverter}}"
+                            FontFamily="{Binding Path=AppSettings.PageTitleSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
+                            HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentConverter}}">
                             <TextBlock.Visibility>
                                 <MultiBinding>
                                     <MultiBinding.Converter>
                                         <local:BoolToVisibilityAndConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="AppSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                    <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
                                     <Binding
                                         Mode="OneWay"
                                         Path="IsCategoryInDisplayMode"
@@ -79,11 +79,11 @@
                         Style="{DynamicResource ButtonIconHoverRectangleStyle}"
                         ToolTip="Edit category name"
                         Margin="3 0 0 0"
-                        HorizontalAlignment="{Binding AppSettings.TitleAlignment, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource horizontalAlignmentInvertedConverter}}" />
+                        HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentInvertedConverter}}" />
                 </Grid>
 
                 <!--  CURRENT CATEGORY EDITOR TEXTBOX  -->
-                <Border Margin="{Binding Path=AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}">
+                <Border Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -96,21 +96,21 @@
                             Padding="-1 0 -1 0"
                             Style="{DynamicResource PageTitleEditorTextBoxStyle}"
                             BorderThickness="1"
-                            BorderBrush="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                            BorderBrush="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                             Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Foreground="{Binding AppSettings.TitleColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay, Converter={StaticResource stringToForegroundBrushConverter}}"
-                            FontFamily="{Binding Path=AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+                            Foreground="{Binding AppSettings.PageTitleSettings.Color, Source={x:Static local:VML.Instance}, Mode=TwoWay, Converter={StaticResource stringToForegroundBrushConverter}}"
+                            FontFamily="{Binding Path=AppSettings.PageTitleSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
                             EscapePressedCommand="{Binding FinishCategoryEditCommand}"
                             EnterPressedCommand="{Binding FinishCategoryEditCommand}"
-                            HorizontalContentAlignment="{Binding AppSettings.TitleAlignment, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource horizontalAlignmentConverter}}">
+                            HorizontalContentAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentConverter}}">
 
                             <TextBox.Visibility>
                                 <MultiBinding>
                                     <MultiBinding.Converter>
                                         <local:BoolToVisibilityAndConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="AppSettings.CategoryTitleVisible" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                    <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
                                     <Binding
                                         Mode="OneWay"
                                         Path="IsCategoryInEditMode"
@@ -140,7 +140,7 @@
                     Style="{DynamicResource ButtonIconHoverRectangleStyle}"
                     ToolTip="Save category name"
                     Margin="15 0"
-                    HorizontalAlignment="{Binding AppSettings.TitleAlignment, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource horizontalAlignmentInvertedConverter}}" />
+                    HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentInvertedConverter}}" />
 
             </Grid>
 

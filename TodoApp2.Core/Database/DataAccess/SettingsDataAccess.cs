@@ -17,8 +17,7 @@ namespace TodoApp2.Core
         {
             string createSettingsTable =
                $"CREATE TABLE IF NOT EXISTS {Table.Settings} ( " +
-               $" {Column.Id} INTEGER PRIMARY KEY, " +
-               $" {Column.Key} TEXT, " +
+               $" {Column.Key} TEXT PRIMARY KEY, " +
                $" {Column.Value} TEXT " +
                $"); ";
 
@@ -27,20 +26,13 @@ namespace TodoApp2.Core
 
         public void AddDefaultSettingsIfNotExists()
         {
-            const string windowLeftPos = "WindowLeftPos";
-            const string windowTopPos = "WindowTopPos";
-            const string windowWidth = "WindowWidth";
-            const string windowHeight = "WindowHeight";
-            const string activeCategoryId = "ActiveCategoryId";
-
-
             List<Setting> defaultSettings = new List<Setting>
             {
-                new Setting {Id = 0, Key = windowLeftPos, Value = "100"},
-                new Setting {Id = 1, Key = windowTopPos, Value = "100"},
-                new Setting {Id = 2, Key = windowWidth, Value = "380"},
-                new Setting {Id = 3, Key = windowHeight, Value = "500"},
-                new Setting {Id = 4, Key = activeCategoryId, Value = "0"}
+                new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Left)}", "100"),
+                new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Top)}", "100"),
+                new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Width)}", "400"),
+                new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Height)}", "500"),
+                new Setting($"{nameof(SessionSettings)}.{nameof(SessionSettings.ActiveCategoryId)}", "0"),
             };
 
             List<Setting> settings = GetSettings();
@@ -56,12 +48,11 @@ namespace TodoApp2.Core
         {
             using (SQLiteCommand command = new SQLiteCommand(m_Connection))
             {
-                command.CommandText = $"INSERT INTO {Table.Settings} ({Column.Id}, {Column.Key}, {Column.Value}) " +
-                                      $" VALUES ({Parameter.Id}, {Parameter.Key}, {Parameter.Value});";
+                command.CommandText = $"INSERT INTO {Table.Settings} ({Column.Key}, {Column.Value}) " +
+                                      $" VALUES ({Parameter.Key}, {Parameter.Value});";
 
                 command.Parameters.AddRange(new[]
                 {
-                    new SQLiteParameter(Parameter.Id, settings.Id),
                     new SQLiteParameter(Parameter.Key, settings.Key),
                     new SQLiteParameter(Parameter.Value, settings.Value)
                 });
@@ -98,40 +89,14 @@ namespace TodoApp2.Core
                 {
                     while (reader.Read())
                     {
-                        items.Add(new Setting
-                        {
-                            Id = reader.SafeGetInt(Column.Id),
-                            Key = reader.SafeGetString(Column.Key),
-                            Value = reader.SafeGetString(Column.Value)
-                        });
+                        items.Add(new Setting(
+                            reader.SafeGetString(Column.Key),
+                            reader.SafeGetString(Column.Value)));
                     }
                 }
             }
 
             return items;
-        }
-
-        public int GetNextId()
-        {
-            int nextId = int.MinValue;
-
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
-            {
-                command.CommandText = 
-                    $"SELECT * FROM {Table.Settings} " +
-                    $"ORDER BY {Column.Id} DESC LIMIT 1";
-
-                using (SQLiteDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        nextId = reader.SafeGetInt(Column.Id) + 1;
-                        break;
-                    }
-                }
-            }
-
-            return nextId;
         }
 
         // Update

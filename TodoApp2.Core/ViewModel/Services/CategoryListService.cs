@@ -11,9 +11,9 @@ namespace TodoApp2.Core
     /// </summary>
     public class CategoryListService : BaseViewModel
     {
-        private readonly AppViewModel m_ApplicationViewModel;
-        private readonly IDatabase m_Database;
-        private CategoryViewModel m_ActiveCategory;
+        private readonly AppViewModel _appViewModel;
+        private readonly IDatabase _database;
+        private CategoryViewModel _activeCategory;
 
         /// <summary>
         /// The category list items
@@ -34,30 +34,30 @@ namespace TodoApp2.Core
                 if (!string.IsNullOrWhiteSpace(value) && ActiveCategory.Name != value)
                 {
                     ActiveCategory.Name = value;
-                    m_Database.UpdateCategory(ActiveCategory);
+                    _database.UpdateCategory(ActiveCategory);
                 }
             }
         }
 
         public CategoryViewModel ActiveCategory
         {
-            get => m_ActiveCategory;
+            get => _activeCategory;
             set
             {
-                m_ActiveCategory = value;
-                IoC.AppSettings.ActiveCategoryId = value?.Id ?? -1;
+                _activeCategory = value;
+                IoC.AppSettings.SessionSettings.ActiveCategoryId = value?.Id ?? -1;
             }
         }
 
         public CategoryListService(AppViewModel applicationViewModel, IDatabase database)
         {
-            m_ApplicationViewModel = applicationViewModel;
-            m_Database = database;
-            m_ActiveCategory = m_Database.GetCategory(IoC.AppSettings.ActiveCategoryId);
+            _appViewModel = applicationViewModel;
+            _database = database;
+            _activeCategory = _database.GetCategory(IoC.AppSettings.SessionSettings.ActiveCategoryId);
 
-            m_Database.CategoryChanged += OnDatabaseCategoryChanged;
+            _database.CategoryChanged += OnDatabaseCategoryChanged;
 
-            List<CategoryViewModel> categories = m_Database.GetValidCategories();
+            List<CategoryViewModel> categories = _database.GetValidCategories();
             Items = new ObservableCollection<CategoryViewModel>(categories);
             Items.CollectionChanged += OnItemsChanged;
         }
@@ -76,10 +76,10 @@ namespace TodoApp2.Core
             // Update the category in the items list
             CategoryViewModel modifiedItem = Items.FirstOrDefault(item => item.Id == e.ChangedCategory.Id);
             modifiedItem.Name = e.ChangedCategory.Name;
-            m_ApplicationViewModel.SaveApplicationSettings();
+            _appViewModel.SaveApplicationSettings();
         }
 
-        public CategoryViewModel GetCategory(int id) => m_Database.GetCategory(id);
+        public CategoryViewModel GetCategory(int id) => _database.GetCategory(id);
 
         protected override void OnDispose()
         {

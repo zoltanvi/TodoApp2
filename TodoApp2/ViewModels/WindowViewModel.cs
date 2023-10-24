@@ -17,23 +17,24 @@ namespace TodoApp2
         private const string s_DateTimeFormatString = "yyyy-MM-dd HH:mm";
         private const int s_ResizeBorderSize = 9;
 
-        private readonly Window m_Window;
-        private readonly WindowResizer m_Resizer;
-        private readonly TrayIconModule m_TrayIconModule;
-        private readonly ThemeManager m_ThemeManager;
+        private readonly Window _window;
+        private readonly WindowResizer _resizer;
+        private readonly TrayIconModule _trayIconModule;
+        private readonly ThemeManager _themeManager;
 
-        private readonly AppViewModel m_AppViewModel;
-        private readonly IDatabase m_Database;
-        private readonly DragDropMediator m_DragDropMediator;
-        private readonly DispatcherTimer m_Timer;
-        private bool m_Closing;
+        private readonly AppViewModel _appViewModel;
+        private readonly IDatabase _database;
+        private readonly DragDropMediator _dragDropMediator;
+        private readonly DispatcherTimer _timer;
+        private bool _closing;
 
         /// <summary>
         /// The last known dock position
         /// </summary>
-        private WindowDockPosition m_DockPosition = WindowDockPosition.Undocked;
+        private WindowDockPosition _dockPosition = WindowDockPosition.Undocked;
 
-        public ApplicationSettings ApplicationSettings => m_AppViewModel.ApplicationSettings;
+        private CommonSettings CommonSettings => IoC.AppSettings.CommonSettings;
+        private WindowSettings WindowSettings => IoC.AppSettings.WindowSettings;
 
         public ICommand MinimizeCommand { get; }
         public ICommand MaximizeCommand { get; }
@@ -54,7 +55,7 @@ namespace TodoApp2
         /// <summary>
         /// The size of the resize border around the window
         /// </summary>
-        public int ResizeBorder => m_Window.WindowState == WindowState.Maximized ? 0 : s_ResizeBorderSize;
+        public int ResizeBorder => _window.WindowState == WindowState.Maximized ? 0 : s_ResizeBorderSize;
 
         /// <summary>
         /// The size of the resize border around the window, taking into account the outer margin
@@ -76,7 +77,7 @@ namespace TodoApp2
         public bool IsMaximizedOrDocked { get; set; }
 
         /// <summary>
-        /// <see cref="ApplicationSettings.RoundedWindowCorners"/> and this property both must be true 
+        /// <see cref="CommonSettings.RoundedWindowCorners"/> and this property both must be true 
         /// for the rounded corners to work.
         /// </summary>
         public bool IsRoundedCornersAllowed { get; set; }
@@ -85,8 +86,8 @@ namespace TodoApp2
 
         public bool IsTrayIconEnabled
         {
-            get => m_TrayIconModule.IsEnabled;
-            set => m_TrayIconModule.IsEnabled = value;
+            get => _trayIconModule.IsEnabled;
+            set => _trayIconModule.IsEnabled = value;
         }
 
         #region Workaround
@@ -101,42 +102,42 @@ namespace TodoApp2
 
         public WindowViewModel(Window window, AppViewModel applicationViewModel, IDatabase database)
         {
-            m_Window = window;
-            m_AppViewModel = applicationViewModel;
-            m_Database = database;
-            m_AppViewModel.ApplicationSettings.PropertyChanged += OnAppSettingsPropertyChanged;
+            _window = window;
+            _appViewModel = applicationViewModel;
+            _database = database;
+            IoC.AppSettings.CommonSettings.PropertyChanged += CommonSettings_PropertyChanged;
 
-            m_ThemeManager = new ThemeManager();
+            _themeManager = new ThemeManager();
 
-            m_Window.Deactivated += OnWindowDeactivated;
+            _window.Deactivated += OnWindowDeactivated;
 
             // Listen out for all properties that are affected by a resize
-            m_Window.StateChanged += OnWindowStateChanged;
+            _window.StateChanged += OnWindowStateChanged;
 
             // Restore the last saved position and size of the window
-            m_Window.Loaded += OnWindowLoaded;
+            _window.Loaded += OnWindowLoaded;
 
             // Save the window size and position into the database
-            m_Window.Closing += OnWindowClosing;
+            _window.Closing += OnWindowClosing;
 
             // Dispose the database at last
-            m_Window.Closed += OnWindowClosed;
+            _window.Closed += OnWindowClosed;
 
             // Create commands
-            MinimizeCommand = new RelayCommand(() => m_Window.WindowState = WindowState.Minimized);
-            MaximizeCommand = new RelayCommand(() => m_Window.WindowState ^= WindowState.Maximized);
+            MinimizeCommand = new RelayCommand(() => _window.WindowState = WindowState.Minimized);
+            MaximizeCommand = new RelayCommand(() => _window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(CloseWindow);
             UndoCommand = new RelayCommand(() => { IoC.UndoManager.Undo(); });
             RedoCommand = new RelayCommand(() => { IoC.UndoManager.Redo(); });
             ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
 
             // Fix window resize issue
-            m_Resizer = new WindowResizer(m_Window);
-            m_Resizer.WindowDockChanged += OnWindowDockChanged;
-            m_Resizer.IsDockedChanged += OnIsDockedChanged;
+            _resizer = new WindowResizer(_window);
+            _resizer.WindowDockChanged += OnWindowDockChanged;
+            _resizer.IsDockedChanged += OnIsDockedChanged;
 
-            m_TrayIconModule = new TrayIconModule(m_Window);
-            m_TrayIconModule.IsEnabled = ApplicationSettings.IsTrayIconEnabled;
+            _trayIconModule = new TrayIconModule(_window);
+            _trayIconModule.IsEnabled = CommonSettings.ExitToTray;
 
             // At application start, the saved theme is loaded back
             LoadBackTheme();
@@ -149,15 +150,23 @@ namespace TodoApp2
             // Subscribe to the theme changed event to trigger app border update
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
 
-            m_AppViewModel.UpdateMainPage();
-            m_AppViewModel.UpdateSideMenuPage();
+            _appViewModel.UpdateMainPage();
+            _appViewModel.UpdateSideMenuPage();
 
-            m_DragDropMediator = new DragDropMediator();
+            _dragDropMediator = new DragDropMediator();
 
-            m_Timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 1) };
+            _timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 1) };
             CurrentTime = DateTime.Now.ToString(s_DateTimeFormatString);
-            m_Timer.Tick += TimerOnTick;
-            m_Timer.Start();
+            _timer.Tick += TimerOnTick;
+            _timer.Start();
+        }
+
+        private void CommonSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CommonSettings.ExitToTray))
+            {
+                _trayIconModule.IsEnabled = CommonSettings.ExitToTray;
+            }
         }
 
         public void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -215,12 +224,12 @@ namespace TodoApp2
 
         private void ChangeActiveTheme(bool next)
         {
-            int themeCount = m_ThemeManager.ThemeList.Count;
-            int currentIndex = m_ThemeManager.ThemeList.IndexOf(ApplicationSettings.ActiveTheme);
-            int indexOffset = next ? 1 : -1;
-            int nextIndex = (currentIndex + indexOffset) % themeCount;
-            nextIndex = nextIndex < 0 ? themeCount - 1 : nextIndex;
-            ApplicationSettings.ActiveTheme = m_ThemeManager.ThemeList[nextIndex];
+            //int themeCount = _themeManager.ThemeList.Count;
+            //int currentIndex = _themeManager.ThemeList.IndexOf(ApplicationSettings.ActiveTheme);
+            //int indexOffset = next ? 1 : -1;
+            //int nextIndex = (currentIndex + indexOffset) % themeCount;
+            //nextIndex = nextIndex < 0 ? themeCount - 1 : nextIndex;
+            //ApplicationSettings.ActiveTheme = _themeManager.ThemeList[nextIndex];
         }
 
         private void OnNextThemeWithHotkeyRequested(object obj)
@@ -234,7 +243,7 @@ namespace TodoApp2
         /// </summary>
         public void ShowWindowRequested()
         {
-            m_TrayIconModule.ShowWindow();
+            _trayIconModule.ShowWindow();
         }
 
         private void ToggleSideMenu()
@@ -254,22 +263,14 @@ namespace TodoApp2
 
         private void CloseWindow()
         {
-            if (m_TrayIconModule.IsEnabled)
+            if (_trayIconModule.IsEnabled)
             {
-                m_TrayIconModule.MinimizeToTray();
+                _trayIconModule.MinimizeToTray();
             }
             else
             {
-                m_TrayIconModule.Dispose();
-                m_Window.Close();
-            }
-        }
-
-        private void OnAppSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ApplicationSettings.IsTrayIconEnabled))
-            {
-                m_TrayIconModule.IsEnabled = ApplicationSettings.IsTrayIconEnabled;
+                _trayIconModule.Dispose();
+                _window.Close();
             }
         }
 
@@ -277,24 +278,24 @@ namespace TodoApp2
         {
             bool playSound = (bool)obj;
 
-            if (!m_Window.IsVisible)
+            if (!_window.IsVisible)
             {
-                m_Window.Show();
+                _window.Show();
             }
 
-            if (m_Window.WindowState == WindowState.Minimized)
+            if (_window.WindowState == WindowState.Minimized)
             {
-                m_Window.WindowState = WindowState.Normal;
+                _window.WindowState = WindowState.Normal;
             }
 
-            m_Window.Activate();
-            m_Window.Topmost = true;  // important
-            m_Window.Topmost = false; // important
-            m_Window.Focus();         // important
-            m_Window.Topmost = ApplicationSettings.IsAlwaysOnTop;
+            _window.Activate();
+            _window.Topmost = true;  // important
+            _window.Topmost = false; // important
+            _window.Focus();         // important
+            _window.Topmost = CommonSettings.AlwaysOnTop;
 
             // Flash the window 3 times
-            m_Window.FlashWindow(3);
+            _window.FlashWindow(3);
 
             // Play notification sound
             if (playSound)
@@ -306,7 +307,7 @@ namespace TodoApp2
         private void OnWindowClosed(object sender, EventArgs e)
         {
             // Dispose the database
-            m_Database.Dispose();
+            _database.Dispose();
         }
 
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)
@@ -319,16 +320,16 @@ namespace TodoApp2
 
         private void UpdateRoundedCornersAllowed()
         {
-            bool isDocked = IsDocked || m_DockPosition != WindowDockPosition.Undocked;
+            bool isDocked = IsDocked || _dockPosition != WindowDockPosition.Undocked;
             IsRoundedCornersAllowed = !(isDocked || IsMaximized);
         }
 
         private void OnWindowDeactivated(object sender, EventArgs e)
         {
-            if (!m_Closing)
+            if (!_closing)
             {
                 Window window = (Window)sender;
-                bool isAlwaysOnTop = ApplicationSettings.IsAlwaysOnTop;
+                bool isAlwaysOnTop = CommonSettings.AlwaysOnTop;
                 window.Topmost = isAlwaysOnTop;
                 if (isAlwaysOnTop)
                 {
@@ -347,7 +348,7 @@ namespace TodoApp2
         private void OnWindowDockChanged(WindowDockPosition dockPosition)
         {
             // Store last position
-            m_DockPosition = dockPosition;
+            _dockPosition = dockPosition;
 
             // Fire off resize events
             WindowResized();
@@ -357,12 +358,12 @@ namespace TodoApp2
         {
             // When the window finished loading,
             // load the settings from the database
-            m_AppViewModel.LoadApplicationSettingsOnce();
+            _appViewModel.LoadAppSettingsOnce();
 
-            var left = ApplicationSettings.WindowLeftPos;
-            var top = ApplicationSettings.WindowTopPos;
-            var width = ApplicationSettings.WindowWidth;
-            var height = ApplicationSettings.WindowHeight;
+            var left = WindowSettings.Left;
+            var top = WindowSettings.Top;
+            var width = WindowSettings.Width;
+            var height = WindowSettings.Height;
 
             bool outOfBounds =
                 (left <= SystemParameters.VirtualScreenLeft - width) ||
@@ -378,10 +379,10 @@ namespace TodoApp2
             //       the default window position is at center of screen
             if (!outOfBounds)
             {
-                m_Window.Left = ApplicationSettings.WindowLeftPos;
-                m_Window.Top = ApplicationSettings.WindowTopPos;
-                m_Window.Width = ApplicationSettings.WindowWidth;
-                m_Window.Height = ApplicationSettings.WindowHeight;
+                _window.Left = WindowSettings.Left;
+                _window.Top = WindowSettings.Top;
+                _window.Width = WindowSettings.Width;
+                _window.Height = WindowSettings.Height;
             }
 
             UpdateRoundedCornersAllowed();
@@ -389,19 +390,19 @@ namespace TodoApp2
 
         private void OnWindowClosing(object sender, CancelEventArgs e)
         {
-            ApplicationSettings.WindowLeftPos = (int)GetWindowLeft(m_Window);
-            ApplicationSettings.WindowTopPos = (int)GetWindowTop(m_Window);
+            WindowSettings.Left = (int)GetWindowLeft(_window);
+            WindowSettings.Top = (int)GetWindowTop(_window);
 
             // Don't save window size when the window is minimized,
             // because the window size is invalid in this case.
-            if (m_Window.WindowState != WindowState.Minimized)
+            if (_window.WindowState != WindowState.Minimized)
             {
-                ApplicationSettings.WindowWidth = (int)m_Window.Width;
-                ApplicationSettings.WindowHeight = (int)m_Window.Height;
+                WindowSettings.Width = (int)_window.Width;
+                WindowSettings.Height = (int)_window.Height;
             }
 
-            m_AppViewModel.SaveApplicationSettings();
-            m_Closing = true;
+            _appViewModel.SaveApplicationSettings();
+            _closing = true;
         }
 
         private void TimerOnTick(object sender, EventArgs e)
@@ -417,16 +418,16 @@ namespace TodoApp2
         private void OnThemeChanged(object obj)
         {
             // Trigger ui refresh for some properties that don't refresh automatically
-            ApplicationSettings.TriggerUpdate(nameof(ApplicationSettings.AppBorderColor));
-            ApplicationSettings.TriggerUpdate(nameof(ApplicationSettings.TitleColor));
+            //ApplicationSettings.TriggerUpdate(nameof(ApplicationSettings.AppBorderColor));
+            //ApplicationSettings.TriggerUpdate(nameof(ApplicationSettings.TitleColor));
         }
 
         private void ChangeToActiveTheme()
         {
-            if (ApplicationSettings.ActiveTheme != ThemeManager.CurrentTheme)
-            {
-                m_ThemeManager.ChangeToTheme(ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
-            }
+            //if (ApplicationSettings.ActiveTheme != ThemeManager.CurrentTheme)
+            //{
+            //    _themeManager.ChangeToTheme(ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
+            //}
         }
 
         /// <summary>
@@ -435,7 +436,7 @@ namespace TodoApp2
         private void LoadBackTheme()
         {
             // Theme.Darker is the default, it is always the current theme at application start
-            m_ThemeManager.ChangeToTheme(Theme.ExtraDark, ApplicationSettings.ActiveTheme);
+            //_themeManager.ChangeToTheme(Theme.ExtraDark, ApplicationSettings.ActiveTheme);
         }
 
         /// <summary>
@@ -445,10 +446,10 @@ namespace TodoApp2
         private Point GetMousePosition()
         {
             // Position of the mouse relative to the window
-            var position = Mouse.GetPosition(m_Window);
+            var position = Mouse.GetPosition(_window);
 
             // Adds the window position so its a "ToScreen"
-            return new Point(position.X + m_Window.Left, position.Y + m_Window.Top);
+            return new Point(position.X + _window.Left, position.Y + _window.Top);
         }
 
         /// <summary>
@@ -457,7 +458,7 @@ namespace TodoApp2
         /// </summary>
         private void WindowResized()
         {
-            IsMaximized = m_Window.WindowState == WindowState.Maximized;
+            IsMaximized = _window.WindowState == WindowState.Maximized;
             IsMaximizedOrDocked = IsMaximized || IsDocked;
             UpdateRoundedCornersAllowed();
 

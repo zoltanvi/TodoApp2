@@ -99,18 +99,19 @@
         public ThemeEditorSettingsPageViewModel(AppViewModel appViewModel)
         {
             _resourceUpdater = IoC.ResourceUpdater;
-            appViewModel.ApplicationSettings.PropertyChanged += ApplicationSettings_PropertyChanged;
+            // TODO: 
+            //IoC.AppSettings.PropertyChanged += ApplicationSettings_PropertyChanged;
 
             UpdateBrushes();
         }
 
-        private void ApplicationSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ApplicationSettings.ActiveTheme))
-            {
-                UpdateBrushes();
-            }
-        }
+        //private void ApplicationSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        //{
+            //if (e.PropertyName == nameof(ApplicationSettings.ActiveTheme))
+            //{
+            //    UpdateBrushes();
+            //}
+        //}
 
         private void UpdateBrushes()
         {

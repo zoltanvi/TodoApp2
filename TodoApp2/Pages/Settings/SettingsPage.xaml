@@ -138,7 +138,7 @@
                                     Id="{x:Static core:ApplicationPage.Shortcuts}"
                                     Content="SHORTCUTS"
                                     Style="{StaticResource SettingsCategoryButtonStyle}"
-                                    Foreground="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                                    Foreground="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                                     SelectedPage="{Binding ActiveSettingsPage}" />
 
                                 <local:SettingsCategoryButton

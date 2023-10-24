@@ -5,35 +5,41 @@ namespace TodoApp2.Core
 {
     public class MediaPlayerService
     {
-        MediaPlayer m_MediaPlayer;
-        MediaPlayer m_MediaPlayerReverse;
+        MediaPlayer _mediaPlayer;
+        MediaPlayer _mediaPlayerReverse;
+
+        private TaskPageSettings TaskPageSettings => IoC.AppViewModel.AppSettings.TaskPageSettings;
 
         public MediaPlayerService()
         {
-            m_MediaPlayer = new MediaPlayer();
-            double volume = m_MediaPlayer.Volume;
-            m_MediaPlayer.Volume = 0;
-            m_MediaPlayer.Open(new Uri("Sounds/click.mp3", UriKind.Relative));
-            m_MediaPlayerReverse = new MediaPlayer();
-            m_MediaPlayerReverse.Open(new Uri("Sounds/click_reverse.mp3", UriKind.Relative));
-            m_MediaPlayer.Volume = volume;
+            _mediaPlayer = new MediaPlayer();
+            double volume = _mediaPlayer.Volume;
+            _mediaPlayer.Volume = 0;
+            _mediaPlayer.Open(new Uri("Sounds/click.mp3", UriKind.Relative));
+
+            _mediaPlayerReverse = new MediaPlayer();
+            _mediaPlayerReverse.Volume = 0;
+            _mediaPlayerReverse.Open(new Uri("Sounds/click_reverse.mp3", UriKind.Relative));
+            
+            _mediaPlayer.Volume = volume;
+            _mediaPlayerReverse.Volume = volume;
         }
 
         public void PlayClick()
         {
-            if (IoC.AppViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange)
+            if (TaskPageSettings.PlaySoundOnTaskIsDoneChange)
             {
-                m_MediaPlayer.Stop();
-                m_MediaPlayer.Play();
+                _mediaPlayer.Stop();
+                _mediaPlayer.Play();
             }
         }
 
         public void PlayClickReverse()
         {
-            if (IoC.AppViewModel.ApplicationSettings.PlaySoundOnTaskIsDoneChange)
+            if (TaskPageSettings.PlaySoundOnTaskIsDoneChange)
             {
-                m_MediaPlayerReverse.Stop();
-                m_MediaPlayerReverse.Play();
+                _mediaPlayerReverse.Stop();
+                _mediaPlayerReverse.Play();
             }
         }
     }

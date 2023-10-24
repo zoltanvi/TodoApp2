@@ -42,9 +42,14 @@ namespace TodoApp2.Core
             ExecuteCommand($"ALTER TABLE {Table.Task} ADD COLUMN {Column.BorderColor} TEXT DEFAULT \"Transparent\" ");
         }
 
-        internal void AddBackgroundColorToTaskTable()
+        public void AddBackgroundColorToTaskTable()
         {
             ExecuteCommand($"ALTER TABLE {Table.Task} ADD COLUMN {Column.BackgroundColor} TEXT DEFAULT \"Transparent\" ");
+        }
+
+        public void DropSettingsTable()
+        {
+            ExecuteCommand($"DROP TABLE {Table.Settings} ");
         }
     }
 }

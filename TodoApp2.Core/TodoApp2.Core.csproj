@@ -75,6 +75,19 @@
     <Compile Include="Commands\Undo\UndoableCommand.cs" />
     <Compile Include="Commands\Undo\UndoItem.cs" />
     <Compile Include="Commands\Undo\UndoManager.cs" />
+    <Compile Include="Configuration\Settings\AppSettings.cs" />
+    <Compile Include="Configuration\SettingsBase.cs" />
+    <Compile Include="Configuration\AppSettingsExtensions.cs" />
+    <Compile Include="Configuration\Settings\CommonSettings.cs" />
+    <Compile Include="Configuration\Settings\NoteSettings.cs" />
+    <Compile Include="Configuration\Settings\PageTitleSettings.cs" />
+    <Compile Include="Configuration\Settings\SessionSettings.cs" />
+    <Compile Include="Configuration\Settings\TaskPageSettings.cs" />
+    <Compile Include="Configuration\Settings\TaskQuickActionSettings.cs" />
+    <Compile Include="Configuration\Settings\TaskSettings.cs" />
+    <Compile Include="Configuration\Settings\TextEditorQuickActionSettings.cs" />
+    <Compile Include="Configuration\Settings\ThemeSettings.cs" />
+    <Compile Include="Configuration\Settings\WindowSettings.cs" />
     <Compile Include="Constants\GlobalConstants.cs" />
     <Compile Include="Database\CategoryChangedEventArgs.cs" />
     <Compile Include="Database\DataAccess\BaseDataAccess.cs" />
@@ -89,7 +102,7 @@
     <Compile Include="Database\ListOrder\Reorderer.cs" />
     <Compile Include="Database\TaskChangedEventArgs.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
-    <Compile Include="DataModels\ApplicationSettings.cs" />
+    <Compile Include="Configuration\ApplicationSettings.cs" />
     <Compile Include="DataModels\FontFamily.cs" />
     <Compile Include="DataModels\HorizontalAlignment.cs" />
     <Compile Include="DataModels\MessageType.cs" />
@@ -167,6 +180,7 @@
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
     <Compile Include="ViewModel\Services\UIScaler.cs" />
     <Compile Include="ViewModel\Events\ZoomedEventArgs.cs" />
+    <Compile Include="ViewModel\Services\ZoomingListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig">

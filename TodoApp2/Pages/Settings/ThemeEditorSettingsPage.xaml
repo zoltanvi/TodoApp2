@@ -14,8 +14,8 @@
     Title="ThemeEditorSettingsPage">
     <local:BasePage.Resources>
         <Style TargetType="{x:Type colorpicker:PortableColorPicker}">
-            <Setter Property="Width" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
-            <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+            <Setter Property="Width" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
+            <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
             <Setter Property="Margin" Value="5" />
         </Style>
 

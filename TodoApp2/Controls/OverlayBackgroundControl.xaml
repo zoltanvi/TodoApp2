@@ -20,10 +20,10 @@
                     x:Name="OverlayBackgroundBorder"
                     AutomationProperties.AutomationId="OverlayBackgroundBorder"
                     Background="{DynamicResource OverlayBgBrush}"
-                    Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                    Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="MouseDown">
-                            <Behaviors:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            <Behaviors:InvokeCommandAction Command="{Binding OverlayPageService.BackgroundClickedCommand, Source={x:Static local:VML.Instance}}" />
                         </Behaviors:EventTrigger>
                     </Behaviors:Interaction.Triggers>
                 </Border>
@@ -34,10 +34,10 @@
                     mousedown event if the background is clicked and not the content area
                 -->
                 <local:PageHost
-                    local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                    local:AnimateGrowProperty.Value="{Binding ApplicationViewModel.OverlayPageVisible, Source={x:Static local:VML.Instance}}"
                     AutomationProperties.AutomationId="OverlayPageContent"
-                    CurrentPage="{Binding ApplicationViewModel.OverlayPage, Source={x:Static local:ViewModelLocator.Instance}}"
-                    CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel, Source={x:Static local:ViewModelLocator.Instance}}" />
+                    CurrentPage="{Binding ApplicationViewModel.OverlayPage, Source={x:Static local:VML.Instance}}"
+                    CurrentPageViewModel="{Binding ApplicationViewModel.OverlayPageViewModel, Source={x:Static local:VML.Instance}}" />
             </Grid>
         </ControlTemplate>
     </UserControl.Template>

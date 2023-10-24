@@ -61,15 +61,6 @@ namespace TodoApp2.Core
 
         public List<Setting> GetSettings() => m_DataAccess.SettingsDataAccess.GetSettings();
 
-        public void AddSetting(Setting setting)
-        {
-            // Generate an ID for the item
-            setting.Id = m_DataAccess.SettingsDataAccess.GetNextId();
-
-            // Persist record into database
-            m_DataAccess.SettingsDataAccess.AddSetting(setting);
-        }
-
         /// <summary>
         /// Updates all settings entry in the database if exists,
         /// adds the entry if it not exists.
@@ -87,13 +78,6 @@ namespace TodoApp2.Core
 
             if (settingsToAdd.Any())
             {
-                int nextId = m_DataAccess.SettingsDataAccess.GetNextId();
-
-                foreach (var settingsModel in settingsToAdd)
-                {
-                    settingsModel.Id = nextId++;
-                }
-
                 m_DataAccess.SettingsDataAccess.AddSettings(settingsToAdd);
             }
 

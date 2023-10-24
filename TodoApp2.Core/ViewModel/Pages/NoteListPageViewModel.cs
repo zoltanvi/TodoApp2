@@ -9,13 +9,13 @@ namespace TodoApp2.Core
 {
     public class NoteListPageViewModel : BaseViewModel
     {
-        private readonly IDatabase m_Database;
-        private readonly AppViewModel m_AppViewModel;
-        private readonly OverlayPageService m_OverlayPageService;
-        private readonly NoteListService m_NoteListService;
-        private readonly MessageService m_MessageService;
+        private readonly IDatabase _database;
+        private readonly AppViewModel _appViewModel;
+        private readonly OverlayPageService _overlayPageService;
+        private readonly NoteListService _noteListService;
+        private readonly MessageService _messageService;
 
-        private int m_LastRemovedId = int.MinValue;
+        private int _lastRemovedId = int.MinValue;
 
         /// <summary>
         /// The Title of the current note being added
@@ -28,12 +28,12 @@ namespace TodoApp2.Core
         public ICommand OpenSettingsPageCommand { get; }
         public ICommand OpenCategoryPageCommand { get; }
 
-        private ObservableCollection<NoteViewModel> Items => m_NoteListService.Items;
+        private ObservableCollection<NoteViewModel> Items => _noteListService.Items;
 
         private NoteViewModel ActiveNote
         {
-            get => m_NoteListService.ActiveNote;
-            set => m_NoteListService.ActiveNote = value;
+            get => _noteListService.ActiveNote;
+            set => _noteListService.ActiveNote = value;
         }
 
         public NoteListPageViewModel()
@@ -47,11 +47,11 @@ namespace TodoApp2.Core
             NoteListService noteListService,
             MessageService messageService)
         {
-            m_AppViewModel = applicationViewModel;
-            m_Database = database;
-            m_OverlayPageService = overlayPageService;
-            m_NoteListService = noteListService;
-            m_MessageService = messageService;
+            _appViewModel = applicationViewModel;
+            _database = database;
+            _overlayPageService = overlayPageService;
+            _noteListService = noteListService;
+            _messageService = messageService;
 
             AddNoteCommand = new RelayCommand(AddNote);
             DeleteNoteCommand = new RelayParameterizedCommand(TrashNote);
@@ -60,10 +60,10 @@ namespace TodoApp2.Core
             OpenCategoryPageCommand = new RelayCommand(OpenCategoryPage);
 
             // Subscribe to the collection changed event for synchronizing with database
-            m_NoteListService.Items.CollectionChanged += ItemsOnCollectionChanged;
+            _noteListService.Items.CollectionChanged += ItemsOnCollectionChanged;
 
             // Load the application settings to update the ActiveNote
-            m_AppViewModel.LoadApplicationSettingsOnce();
+            _appViewModel.LoadAppSettingsOnce();
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
@@ -81,12 +81,12 @@ namespace TodoApp2.Core
 
                         // If the newly added item is the same as the last deleted one,
                         // then this was a drag and drop reorder
-                        if (newItem.Id == m_LastRemovedId)
+                        if (newItem.Id == _lastRemovedId)
                         {
-                            m_Database.ReorderNote(newItem, e.NewStartingIndex);
+                            _database.ReorderNote(newItem, e.NewStartingIndex);
                         }
 
-                        m_LastRemovedId = int.MinValue;
+                        _lastRemovedId = int.MinValue;
                     }
                     break;
                 }
@@ -96,7 +96,7 @@ namespace TodoApp2.Core
                     {
                         var last = (NoteViewModel)e.OldItems[0];
 
-                        m_LastRemovedId = last.Id;
+                        _lastRemovedId = last.Id;
                     }
                     break;
                 }
@@ -114,7 +114,7 @@ namespace TodoApp2.Core
                 return;
             }
 
-            NoteViewModel note = m_Database.CreateNote(PendingAddNewNoteText);
+            NoteViewModel note = _database.CreateNote(PendingAddNewNoteText);
 
             Items.Add(note);
 
@@ -130,11 +130,11 @@ namespace TodoApp2.Core
 
                 Items.Remove(note);
 
-                m_Database.UpdateNote(note);
+                _database.UpdateNote(note);
 
                 if (ActiveNote.Id == note.Id)
                 {
-                    ActiveNote = m_Database.GetValidNotes().FirstOrDefault();
+                    ActiveNote = _database.GetValidNotes().FirstOrDefault();
                 }
             }
         }
@@ -163,17 +163,17 @@ namespace TodoApp2.Core
                     IoC.CategoryListService.ActiveCategory = null;
                 }
 
-                if (m_AppViewModel.ApplicationSettings.CloseSideMenuOnCategoryChange)
+                if (IoC.AppSettings.CommonSettings.CloseSideMenuOnCategoryChange)
                 {
                     Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
                 }
 
-                m_OverlayPageService.CloseSideMenu();
+                _overlayPageService.CloseSideMenu();
 
                 // Change to note page if it wasn't active
-                if (m_AppViewModel.MainPage != ApplicationPage.Note)
+                if (_appViewModel.MainPage != ApplicationPage.Note)
                 {
-                    m_AppViewModel.MainPage = ApplicationPage.Note;
+                    _appViewModel.MainPage = ApplicationPage.Note;
                 }
             }
         }
@@ -183,7 +183,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_AppViewModel.OpenSettingsPage();
+            _appViewModel.OpenSettingsPage();
 
             Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
         }
@@ -193,7 +193,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenCategoryPage()
         {
-            m_AppViewModel.SideMenuPage = ApplicationPage.Category;
+            _appViewModel.SideMenuPage = ApplicationPage.Category;
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace TodoApp2.Core
 
         protected override void OnDispose()
         {
-            m_NoteListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
+            _noteListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
 
             Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }

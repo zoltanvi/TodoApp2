@@ -27,7 +27,7 @@
                 VerticalScrollBarVisibility="Auto"
                 Focusable="False">
 
-                <ItemsControl Margin="6 6 0 6" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:ViewModelLocator.Instance}}">
+                <ItemsControl Margin="6 6 0 6" ItemsSource="{Binding ColorListProvider.Items, Source={x:Static local:VML.Instance}}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="9" />
@@ -77,8 +77,8 @@
 
                                 <Border
                                     x:Name="PART_border"
-                                    Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                                    Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                    Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                                    Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
                                     Margin="3"
                                     Background="{Binding Path=., Converter={StaticResource stringRGBToBrushConverter}}"
                                     CornerRadius="3"
@@ -139,8 +139,8 @@
                                     Background="Transparent">
                                     <Border
                                         x:Name="PART_selectedColorBorder"
-                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
                                         Background="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
                                         CornerRadius="4"
                                         Tag="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
@@ -209,8 +209,8 @@
                                     CornerRadius="4">
                                     <Border
                                         x:Name="PART_selectedColorBorder"
-                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
                                         Background="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
                                         CornerRadius="4"
                                         Tag="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}"

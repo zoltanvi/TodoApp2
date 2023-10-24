@@ -54,7 +54,7 @@
                             Text="Word wrap" />
                         <ToggleButton
                             Grid.Column="2"
-                            IsChecked="{Binding AppSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
+                            IsChecked="{Binding AppSettings.NoteSettings.WordWrap, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
                             Style="{DynamicResource ToggleSideMenuStyle}" />
                     </Grid>
                 </Border>
@@ -80,7 +80,7 @@
                             HorizontalAlignment="Right"
                             FontSize="{Binding UIScaler.FontSize.Small}"
                             ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
-                            SelectedItem="{Binding AppSettings.NoteFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.NoteSettings.FontFamily, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />

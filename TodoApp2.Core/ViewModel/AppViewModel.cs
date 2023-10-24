@@ -11,9 +11,11 @@ namespace TodoApp2.Core
     /// </summary>
     public class AppViewModel : BaseViewModel
     {
-        private bool m_AppSettingsLoadedFirstTime;
-        private IUIScaler m_UiScaler;
-        private readonly IDatabase m_Database;
+        private bool _appSettingsLoadedFirstTime;
+        private IUIScaler _uiScaler;
+        private readonly IDatabase _database;
+
+        private SessionSettings SessionSettings => IoC.AppSettings.SessionSettings;
 
         public IOverlayPageService OverlayPageService { get; set; }
 
@@ -22,8 +24,8 @@ namespace TodoApp2.Core
         /// </summary>
         public ApplicationPage SideMenuPage
         {
-            get => ApplicationSettings.SideMenuPage;
-            set => ApplicationSettings.SideMenuPage = value;
+            get => SessionSettings.SideMenuPage;
+            set => SessionSettings.SideMenuPage = value;
         }
 
         /// <summary>
@@ -65,7 +67,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The settings for the whole application
         /// </summary>
-        public ApplicationSettings ApplicationSettings
+        public AppSettings AppSettings
         {
             get => IoC.AppSettings;
             set => IoC.AppSettings = value;
@@ -83,13 +85,13 @@ namespace TodoApp2.Core
 
         public AppViewModel(IDatabase database, IUIScaler uiScaler)
         {
-            m_Database = database;
-            m_UiScaler = uiScaler;
+            _database = database;
+            _uiScaler = uiScaler;
 
             // Load the application settings to update the ActiveCategoryId before querying the tasks
-            LoadApplicationSettingsOnce();
+            LoadAppSettingsOnce();
 
-            ApplicationSettings.PropertyChanged += OnApplicationSettingsPropertyChanged;
+            AppSettings.CommonSettings.PropertyChanged += CommonSettings_PropertyChanged;
         }
 
         /// <summary>
@@ -99,7 +101,7 @@ namespace TodoApp2.Core
         {
             // The ActiveCategoryId and the ActiveNoteId must be mutually exclusive,
             // meaning that one or the other is set to -1 at all times, but never both at once.
-            MainPage = ApplicationSettings.ActiveCategoryId != -1
+            MainPage = SessionSettings.ActiveCategoryId != -1
                 ? ApplicationPage.Task
                 : ApplicationPage.Note;
         }
@@ -128,7 +130,7 @@ namespace TodoApp2.Core
         {
             // The ActiveCategoryId and the ActiveNoteId must be mutually exclusive,
             // meaning that one or the other is set to -1 at all times, but never both at once.
-            SideMenuPage = ApplicationSettings.ActiveCategoryId != -1
+            SideMenuPage = SessionSettings.ActiveCategoryId != -1
                 ? ApplicationPage.Category
                 : ApplicationPage.NoteList;
         }
@@ -198,11 +200,11 @@ namespace TodoApp2.Core
             }
         }
 
-        public void LoadApplicationSettingsOnce()
+        public void LoadAppSettingsOnce()
         {
-            if (!m_AppSettingsLoadedFirstTime)
+            if (!_appSettingsLoadedFirstTime)
             {
-                m_AppSettingsLoadedFirstTime = true;
+                _appSettingsLoadedFirstTime = true;
 
                 LoadApplicationSettings();
             }
@@ -210,31 +212,25 @@ namespace TodoApp2.Core
 
         public void LoadApplicationSettings()
         {
-            List<Setting> settings = m_Database.GetSettings();
-            ApplicationSettings.SetSettings(settings);
+            List<Setting> settings = _database.GetSettings();
+            IoC.AppSettings.Populate(settings);
 
             // Must be set to always check the registry on startup
-            IoC.AutoRunService.RunAtStartup = ApplicationSettings.RunAtStartup;
+            IoC.AutoRunService.RunAtStartup = AppSettings.CommonSettings.AutoStart;
         }
 
         public void SaveApplicationSettings()
         {
-            List<Setting> settings = ApplicationSettings.GetSettings();
-            m_Database.UpdateSettings(settings);
+            List<Setting> settings = IoC.AppSettings.CreateSettingsList();
+
+            _database.UpdateSettings(settings);
         }
 
-        /// <summary>
-        /// Notifies clients that an application theme change was requested
-        /// </summary>
-        private void OnApplicationSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void CommonSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ApplicationSettings.ActiveTheme))
+            if (e.PropertyName == nameof(CommonSettings.AutoStart))
             {
-                Mediator.NotifyClients(ViewModelMessages.ThemeChangeRequested);
-            }
-            else if (e.PropertyName == nameof(ApplicationSettings.RunAtStartup))
-            {
-                IoC.AutoRunService.RunAtStartup = ApplicationSettings.RunAtStartup;
+                IoC.AutoRunService.RunAtStartup = AppSettings.CommonSettings.AutoStart;
             }
         }
     }

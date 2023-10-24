@@ -6,38 +6,38 @@ namespace TodoApp2.Core
 {
     public class NoteListService : BaseViewModel
     {
-        private AppViewModel m_AppViewModel;
-        private IDatabase m_Database;
-        private NoteViewModel m_ActiveNote;
+        private AppViewModel _appViewModel;
+        private IDatabase _database;
+        private NoteViewModel _activeNote;
 
         public ObservableCollection<NoteViewModel> Items { get; set; }
         
         public NoteViewModel ActiveNote
         {
-            get => m_ActiveNote;
+            get => _activeNote;
             set
             {
                 SaveNoteContent();
-                m_ActiveNote = value;
-                m_AppViewModel.ApplicationSettings.ActiveNoteId = value?.Id ?? -1;
+                _activeNote = value;
+                IoC.AppSettings.SessionSettings.ActiveNoteId = value?.Id ?? -1;
                 Mediator.NotifyClients(ViewModelMessages.NoteChanged);
             }
         }
 
         public NoteListService(AppViewModel appViewModel, IDatabase database)
         {
-            m_AppViewModel = appViewModel;
-            m_Database = database;
+            _appViewModel = appViewModel;
+            _database = database;
 
-            List<NoteViewModel> notes = m_Database.GetValidNotes();
+            List<NoteViewModel> notes = _database.GetValidNotes();
             Items = new ObservableCollection<NoteViewModel>(notes);
 
-            m_ActiveNote = m_Database.GetNote(m_AppViewModel.ApplicationSettings.ActiveNoteId);
+            _activeNote = _database.GetNote(IoC.AppSettings.SessionSettings.ActiveNoteId);
         }
 
         public void SaveNoteContent()
         {
-            m_Database.UpdateNote(ActiveNote);
+            _database.UpdateNote(ActiveNote);
         }
     }
 }

@@ -13,13 +13,13 @@
     <Grid Background="Transparent">
 
         <ListView
-            ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+            ItemsSource="{Binding CategoryListService.Items, Source={x:Static local:VML.Instance}}"
             AutomationProperties.AutomationId="CategoryListListView"
             x:Name="CategoryListListView"
             BorderThickness="0"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
-            dd:DragDrop.DropHandler="{Binding CustomDropHandler, Source={x:Static local:ViewModelLocator.Instance}}"
+            dd:DragDrop.DropHandler="{Binding CustomDropHandler, Source={x:Static local:VML.Instance}}"
             Background="Transparent"
             HorizontalContentAlignment="Stretch"
             ScrollViewer.VerticalScrollBarVisibility="Auto"

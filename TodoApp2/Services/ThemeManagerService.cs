@@ -6,26 +6,26 @@ namespace TodoApp2
     public class ThemeManagerService : IThemeManagerService
     {
         private static IThemeManagerService _instance;
-        private ApplicationSettings _appSettings;
+        private AppSettings _appSettings;
 
-        internal static IThemeManagerService Get(ApplicationSettings appSettings) => _instance ?? (_instance = new ThemeManagerService(appSettings));
+        internal static IThemeManagerService Get(AppSettings appSettings) => _instance ?? (_instance = new ThemeManagerService(appSettings));
 
-        private ThemeManagerService(ApplicationSettings applicationSettings)
+        private ThemeManagerService(AppSettings appSettings)
         {
-            _appSettings = applicationSettings;
-            _appSettings.PropertyChanged += OnAppSettingChanged;
+            _appSettings = appSettings;
+            _appSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
+        }
+
+        private void ThemeSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(AppSettings.ThemeSettings.SeedColor)) return;
+
+            OnThemeSeedChanged();
         }
 
         private void OnThemeSeedChanged()
         {
             
-        }
-
-        private void OnAppSettingChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName != nameof(ApplicationSettings.ThemeSeed)) return;
-
-            OnThemeSeedChanged();
         }
     }
 }

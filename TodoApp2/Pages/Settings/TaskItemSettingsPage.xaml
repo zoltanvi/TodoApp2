@@ -84,7 +84,7 @@
                             HorizontalAlignment="Right"
                             FontSize="{Binding UIScaler.FontSize.Small}"
                             ItemsSource="{Binding Source={StaticResource TaskSpacingDataProvider}}"
-                            SelectedItem="{Binding AppSettings.TaskSpacing, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                            SelectedItem="{Binding AppSettings.TaskSettings.Spacing, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
                     </Grid>
                 </Border>
 
@@ -92,64 +92,25 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBorderVisible}"
                     Description="Task border visible"
-                    IsChecked="{Binding AppSettings.IsItemBorderVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskSettings.BorderVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Item background  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBackgroundVisible}"
                     Description="Task background visible"
-                    IsChecked="{Binding AppSettings.IsItemBackgroundVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-
-                <!--  DISABLED SETTING  -->
-                <!--  Drop shadow  -->
-                <local:ToggleButtonSettingControl
-                    Icon="{DynamicResource SegoeIconRestoreWindow}"
-                    Description="Task drop shadow"
-                    IsChecked="{Binding AppSettings.TaskItemDropShadow, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                    Visibility="Collapsed" />
+                    IsChecked="{Binding AppSettings.TaskSettings.BackgroundVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Creation date  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCalendar}"
                     Description="Creation date visible"
-                    IsChecked="{Binding AppSettings.IsCreationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskSettings.CreationDateVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Modification date  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCalendar}"
                     Description="Modification date visible"
-                    IsChecked="{Binding AppSettings.IsModificationDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
-
-
-                <!--  Color bar rounded  -->
-                <Border
-                    Style="{StaticResource SettingsItemStyle}"
-                    IsEnabled="{StaticResource RoundedColorBar}"
-                    Visibility="{Binding Source={StaticResource RoundedColorBar}, Converter={StaticResource boolToVisibilityConverter}}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconRoundedCorners}"
-                            Style="{DynamicResource SettingsIconLabelStyle}">
-                            <Label.LayoutTransform>
-                                <RotateTransform Angle="90" CenterX="0" CenterY="0" />
-                            </Label.LayoutTransform>
-                        </Label>
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Rounded color bar" />
-                        <ToggleButton
-                            Grid.Column="2"
-                            IsChecked="{Binding AppSettings.IsColorBarRounded, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            Style="{DynamicResource ToggleSideMenuStyle}" />
-                    </Grid>
-                </Border>
+                    IsChecked="{Binding AppSettings.TaskSettings.ModificationDateVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Color bar thickness  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
@@ -172,7 +133,7 @@
                             HorizontalAlignment="Right"
                             FontSize="{Binding UIScaler.FontSize.Small}"
                             ItemsSource="{Binding Source={StaticResource ThicknessDataProvider}}"
-                            SelectedItem="{Binding AppSettings.ColorBarThickness, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.TaskSettings.ColorBarThickness, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
@@ -203,7 +164,7 @@
                             HorizontalAlignment="Right"
                             FontSize="{Binding UIScaler.FontSize.Small}"
                             ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
-                            SelectedItem="{Binding AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.TaskSettings.FontFamily, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
@@ -218,8 +179,8 @@
                     <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                         <local:FontSizeSliderControl
                             Description="Font size"
-                            PreviewFontSize="{Binding AppSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            SampleFontFamily="{Binding AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            PreviewFontSize="{Binding AppSettings.TaskSettings.FontSize, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
+                            SampleFontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                             Min="10"
                             Max="40"
                             Steps="1" />

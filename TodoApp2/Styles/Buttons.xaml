@@ -57,7 +57,7 @@
         x:Key="SettingsCategoryButtonStyle"
         BasedOn="{StaticResource ButtonHoverStyle}"
         TargetType="{x:Type local:SettingsCategoryButton}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Margin" Value="3 4" />
         <Setter Property="Padding" Value="3 2" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
@@ -103,7 +103,7 @@
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:VML.Instance}}" />
     </Style>
 
 
@@ -123,7 +123,7 @@
         x:Key="TextEditorButtonStyle"
         BasedOn="{StaticResource ButtonIconStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
         <Setter Property="Margin" Value="0 0" />
@@ -265,7 +265,7 @@
         <Setter Property="Opacity" Value="0.4" />
         <Setter Property="Margin" Value="0 5 0 0" />
         <Setter Property="Padding" Value="6" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:VML.Instance}}" />
 
     </Style>
 
@@ -293,7 +293,7 @@
         TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource Elevation_1}" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="MaxHeight" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="MaxHeight" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
@@ -355,8 +355,8 @@
 
                         <Border
                             x:Name="ItemBorder"
-                            Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                            Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                            Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                            Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
                             Background="{TemplateBinding Background,
                                                          Converter={StaticResource transparentPatternBrushConverter}}"
                             CornerRadius="6">
@@ -382,40 +382,21 @@
         x:Key="ButtonInnerWindowStyle"
         BasedOn="{StaticResource ButtonIconHoverSideMenuStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FontWeight" Value="Light" />
         <!--<Setter Property="Width" Value="30" />-->
     </Style>
-
-    <!--<Style
-        x:Key="ButtonInnerWindowStyle"
-        BasedOn="{StaticResource ButtonIconStyle}"
-        TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontWeight" Value="Light" />
-        <Setter Property="Width" Value="30" />
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
-            </Trigger>
-
-            <Trigger Property="IsMouseOver" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>-->
 
     <!--  Reminder window button  -->
     <Style
         x:Key="ReminderButtonStyle"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FontWeight" Value="Light" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter Property="Foreground" Value="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
@@ -461,7 +442,7 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter Property="Foreground" Value="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -556,7 +537,7 @@
 
                         <Border
                             x:Name="checkedBorder"
-                            Background="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                            Background="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                             CornerRadius="15"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
@@ -581,7 +562,7 @@
                             Margin="5 0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Fill="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource toggleButtonDynamicBrushConverter}}"
+                            Fill="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource toggleButtonDynamicBrushConverter}}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="0">
                         </Ellipse>
@@ -605,7 +586,7 @@
                             Opacity="0" />
 
                         <Grid.LayoutTransform>
-                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" />
                         </Grid.LayoutTransform>
                     </Grid>
 
@@ -650,7 +631,7 @@
 
         <Setter Property="Opacity" Value="0.6" />
         <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
@@ -747,7 +728,7 @@
         x:Key="TimePickerLabelStyle"
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -758,7 +739,7 @@
     <Style x:Key="ClickableTextToggleButtonStyle" TargetType="ToggleButton">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />

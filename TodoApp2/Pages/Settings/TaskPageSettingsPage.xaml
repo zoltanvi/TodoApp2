@@ -30,45 +30,45 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconTaskOrder}"
                     Description="Insert new task at the bottom"
-                    IsChecked="{Binding AppSettings.InsertOrderReversed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskPageSettings.InsertOrderReversed, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Move completed task to the end  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCheckList}"
                     Description="Force task order by state"
                     ToolTip="The task order: 1. Pinned, 2. Active, 3. Finished"
-                    IsChecked="{Binding AppSettings.ForceTaskOrderByState, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskPageSettings.ForceTaskOrderByState, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Exit edit mode on focus lost  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconEdit}"
                     Description="Exit edit mode on focus lost"
-                    IsChecked="{Binding AppSettings.FocusLostSavesTask, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskPageSettings.ExitEditOnFocusLost, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Save task on enter  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconSend}"
                     Description="Save task on Enter"
                     ToolTip="If turned off: Save task on Ctrl + Enter"
-                    IsChecked="{Binding AppSettings.SaveOnEnter, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskPageSettings.SaveOnEnter, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Play sound for completed tasks  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBell}"
                     Description="Play sound for completed tasks"
-                    IsChecked="{Binding AppSettings.PlaySoundOnTaskIsDoneChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskPageSettings.PlaySoundOnTaskIsDoneChange, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Margin for task list  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMargin}"
                     Description="Margin for task list"
-                    IsChecked="{Binding AppSettings.TaskListHasMargin, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Allow pasting formatted text  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconPaste}"
                     Description="Allow pasting formatted text"
-                    IsChecked="{Binding AppSettings.IsFormattedPasteEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskPageSettings.FormattedPasteEnabled, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
             </StackPanel>
 

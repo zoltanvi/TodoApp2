@@ -85,7 +85,7 @@
                             Foreground="Blue"
                             Style="{DynamicResource ReminderCalendarItemStyle}" />
                         <StackPanel.LayoutTransform>
-                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
+                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" />
                         </StackPanel.LayoutTransform>
                     </StackPanel>
                 </ControlTemplate>

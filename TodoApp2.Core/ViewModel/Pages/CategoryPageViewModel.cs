@@ -8,13 +8,13 @@ namespace TodoApp2.Core
 {
     public class CategoryPageViewModel : BaseViewModel
     {
-        private readonly IDatabase m_Database;
-        private readonly AppViewModel m_Application;
-        private readonly OverlayPageService m_OverlayPageService;
-        private readonly CategoryListService m_CategoryListService;
-        private readonly MessageService m_MessageService;
+        private readonly IDatabase _database;
+        private readonly AppViewModel _application;
+        private readonly OverlayPageService _overlayPageService;
+        private readonly CategoryListService _categoryListService;
+        private readonly MessageService _messageService;
 
-        private int m_LastRemovedId = int.MinValue;
+        private int _lastRemovedId = int.MinValue;
 
         /// <summary>
         /// The name of the current category being added
@@ -26,12 +26,12 @@ namespace TodoApp2.Core
         public ICommand OpenSettingsPageCommand { get; }
         public ICommand OpenNoteListPageCommand { get; }
 
-        private ObservableCollection<CategoryViewModel> Items => m_CategoryListService.Items;
+        private ObservableCollection<CategoryViewModel> Items => _categoryListService.Items;
 
         private CategoryViewModel ActiveCategory
         {
-            get => m_CategoryListService.ActiveCategory;
-            set => m_CategoryListService.ActiveCategory = value;
+            get => _categoryListService.ActiveCategory;
+            set => _categoryListService.ActiveCategory = value;
         }
 
         public CategoryPageViewModel()
@@ -45,11 +45,11 @@ namespace TodoApp2.Core
             CategoryListService categoryListService,
             MessageService messageService)
         {
-            m_Application = applicationViewModel;
-            m_Database = database;
-            m_OverlayPageService = overlayPageService;
-            m_CategoryListService = categoryListService;
-            m_MessageService = messageService;
+            _application = applicationViewModel;
+            _database = database;
+            _overlayPageService = overlayPageService;
+            _categoryListService = categoryListService;
+            _messageService = messageService;
 
             AddCategoryCommand = new RelayCommand(AddCategory);
             DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
@@ -58,10 +58,10 @@ namespace TodoApp2.Core
             OpenNoteListPageCommand = new RelayCommand(OpenNoteListPage);
 
             // Subscribe to the collection changed event for synchronizing with database
-            m_CategoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;
+            _categoryListService.Items.CollectionChanged += ItemsOnCollectionChanged;
 
             // Load the application settings to update the ActiveCategory
-            m_Application.LoadApplicationSettingsOnce();
+            _application.LoadAppSettingsOnce();
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
@@ -79,12 +79,12 @@ namespace TodoApp2.Core
 
                         // If the newly added item is the same as the last deleted one,
                         // then this was a drag and drop reorder
-                        if (newItem.Id == m_LastRemovedId)
+                        if (newItem.Id == _lastRemovedId)
                         {
-                            m_Database.ReorderCategory(newItem, e.NewStartingIndex);
+                            _database.ReorderCategory(newItem, e.NewStartingIndex);
                         }
 
-                        m_LastRemovedId = int.MinValue;
+                        _lastRemovedId = int.MinValue;
                     }
                     break;
                 }
@@ -94,7 +94,7 @@ namespace TodoApp2.Core
                     {
                         var last = (CategoryViewModel)e.OldItems[0];
 
-                        m_LastRemovedId = last.Id;
+                        _lastRemovedId = last.Id;
                     }
                     break;
                 }
@@ -119,16 +119,16 @@ namespace TodoApp2.Core
             };
 
             // Untrash category if it existed before
-            CategoryViewModel existingCategory = m_Database.GetCategory(PendingAddNewCategoryText);
+            CategoryViewModel existingCategory = _database.GetCategory(PendingAddNewCategoryText);
 
             if (existingCategory != null && existingCategory.Trashed)
             {
-                m_Database.UntrashCategory(existingCategory);
+                _database.UntrashCategory(existingCategory);
                 Items.Add(existingCategory);
             }
             // Persist into database if the category is not existed before
             // Database.AddCategory call can't be optimized because the database gives the ID to the category
-            else if (m_Database.AddCategoryIfNotExists(categoryToAdd))
+            else if (_database.AddCategoryIfNotExists(categoryToAdd))
             {
                 // Add the category into the ViewModel list
                 // only if it is currently added to the database
@@ -144,9 +144,9 @@ namespace TodoApp2.Core
             if (obj is CategoryViewModel category)
             {
                 // At least one category is required
-                if (m_Database.GetValidCategories().Count > 1)
+                if (_database.GetValidCategories().Count > 1)
                 {
-                    m_Database.TrashCategory(category);
+                    _database.TrashCategory(category);
 
                     Items.Remove(category);
 
@@ -159,7 +159,7 @@ namespace TodoApp2.Core
                 }
                 else
                 {
-                    m_MessageService.ShowError("Cannot delete last category.");
+                    _messageService.ShowError("Cannot delete last category.");
                 }
             }
         }
@@ -191,15 +191,15 @@ namespace TodoApp2.Core
                     IoC.NoteListService.ActiveNote = null;
                 }
 
-                if (m_Application.ApplicationSettings.CloseSideMenuOnCategoryChange)
+                if (IoC.AppSettings.CommonSettings.CloseSideMenuOnCategoryChange)
                 {
                     Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
                 }
 
                 // Change to task page if it wasn't active
-                if (m_Application.MainPage != ApplicationPage.Task)
+                if (_application.MainPage != ApplicationPage.Task)
                 {
-                    m_Application.MainPage = ApplicationPage.Task;
+                    _application.MainPage = ApplicationPage.Task;
                 }
             }
         }
@@ -209,7 +209,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenSettingsPage()
         {
-            m_Application.OpenSettingsPage();
+            _application.OpenSettingsPage();
 
             Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
         }
@@ -219,7 +219,7 @@ namespace TodoApp2.Core
         /// </summary>
         private void OpenNoteListPage()
         {
-            m_Application.SideMenuPage = ApplicationPage.NoteList;
+            _application.SideMenuPage = ApplicationPage.NoteList;
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace TodoApp2.Core
 
         protected override void OnDispose()
         {
-            m_CategoryListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
+            _categoryListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
 
             Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }

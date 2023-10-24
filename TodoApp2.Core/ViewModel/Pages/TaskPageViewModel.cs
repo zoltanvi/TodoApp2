@@ -280,7 +280,7 @@ namespace TodoApp2.Core
                     // A done item cannot be pinned.
                     task.Pinned = false;
 
-                    if (IoC.AppSettings.ForceTaskOrderByState)
+                    if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState)
                     {
                         MoveTaskToBottom(task);
                     }
@@ -289,7 +289,7 @@ namespace TodoApp2.Core
                 }
                 else
                 {
-                    if (IoC.AppSettings.ForceTaskOrderByState)
+                    if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState)
                     {
                         MoveTaskToTop(task);
                     }
@@ -493,7 +493,7 @@ namespace TodoApp2.Core
         {
             int newIndex = Items.Count - 1;
 
-            if (IoC.AppSettings.ForceTaskOrderByState && !task.IsDone)
+            if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState && !task.IsDone)
             {
                 for (int i = Items.Count - 1; i >= 0; i--)
                 {

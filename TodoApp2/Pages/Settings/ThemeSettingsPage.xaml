@@ -25,8 +25,8 @@
         </ObjectDataProvider>
 
         <Style TargetType="{x:Type colorpicker:PortableColorPicker}">
-            <Setter Property="Width" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
-            <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+            <Setter Property="Width" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
+            <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
             <Setter Property="Margin" Value="5" />
         </Style>
     </local:BasePage.Resources>
@@ -46,7 +46,7 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconPalette}"
                     Description="Dark mode"
-                    IsChecked="{Binding AppSettings.ThemeIsDarkMode, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.ThemeSettings.DarkMode, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
 
                 <!--  Theme style  -->
@@ -70,7 +70,7 @@
                             HorizontalAlignment="Right"
                             FontSize="{Binding UIScaler.FontSize.Small}"
                             ItemsSource="{Binding Source={StaticResource ThemeStyleDataProvider}}"
-                            SelectedItem="{Binding AppSettings.ThemeStyle, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.ThemeSettings.ThemeStyle, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
@@ -96,7 +96,7 @@
                             Style="{DynamicResource SettingsDescriptionStyle}"
                             Text="Seed color" />
 
-                        <colorpicker:PortableColorPicker Grid.Column="2" SelectedColor="{Binding AppSettings.ThemeSeed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                        <colorpicker:PortableColorPicker Grid.Column="2" SelectedColor="{Binding AppSettings.ThemeSettings.SeedColor, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
                         
                     </Grid>
                 </Border>

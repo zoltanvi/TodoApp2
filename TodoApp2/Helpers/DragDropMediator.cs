@@ -10,7 +10,7 @@ namespace TodoApp2
         public DragDropMediator()
         {
             m_TaskListService = IoC.TaskListService;
-            m_CustomDropHandler = ViewModelLocator.CustomDropHandler;
+            m_CustomDropHandler = VML.CustomDropHandler;
             m_CustomDropHandler.BeforeItemDropped += OnBeforeItemDropped;
         }
 

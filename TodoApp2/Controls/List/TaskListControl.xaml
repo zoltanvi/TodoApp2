@@ -15,10 +15,10 @@
         <ListView
             AutomationProperties.AutomationId="TaskListListView"
             x:Name="TaskListListView"
-            ItemsSource="{Binding TaskListService.TaskPageItems, Source={x:Static local:ViewModelLocator.Instance}}"
+            ItemsSource="{Binding TaskListService.TaskPageItems, Source={x:Static local:VML.Instance}}"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
-            dd:DragDrop.DropHandler="{Binding CustomDropHandler, Source={x:Static local:ViewModelLocator.Instance}}"
+            dd:DragDrop.DropHandler="{Binding CustomDropHandler, Source={x:Static local:VML.Instance}}"
             BorderThickness="0"
             Background="Transparent"
             HorizontalContentAlignment="Stretch"
