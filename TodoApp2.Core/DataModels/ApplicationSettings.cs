@@ -28,7 +28,7 @@ namespace TodoApp2.Core
 
         private Dictionary<string, IPropertyValueHandler> PropertyDescriptors { get; }
 
-        public bool IsAnyQuickActionEnabled => IsQuickActionsEnabled && (IsQuickActionsReminderEnabled || 
+        public bool IsAnyQuickActionEnabled => IsQuickActionsEnabled && (IsQuickActionsReminderEnabled ||
                                                                          IsQuickActionsColorEnabled ||
                                                                          IsQuickActionsBackgroundColorEnabled ||
                                                                          IsQuickActionsBorderColorEnabled ||
@@ -108,14 +108,6 @@ namespace TodoApp2.Core
         public ThemeStyle ThemeStyle { get; set; }
         public string ThemeSeed { get; set; }
 
-        #region Testing
-
-        public string TextRenderingMode { get; set; }
-        public bool TextFormattingMode { get; set; }
-        public bool ClearTypeHint { get; set; }
-
-        #endregion
-
         public double Scaling
         {
             get => IoC.UIScaler.ScaleValue;
@@ -126,95 +118,111 @@ namespace TodoApp2.Core
         {
             _UiScaler = uiScaler;
 
-            IPropertyValueHandler integer = PropertyValueHandlers.Integer;
-            IPropertyValueHandler boolean = PropertyValueHandlers.Bool;
-            IPropertyValueHandler theme = PropertyValueHandlers.Theme;
-            IPropertyValueHandler thickness = PropertyValueHandlers.Thickness;
-            IPropertyValueHandler double_ = PropertyValueHandlers.Double;
-            IPropertyValueHandler string_ = PropertyValueHandlers.String;
-            IPropertyValueHandler fontFamily = PropertyValueHandlers.FontFamily;
-            IPropertyValueHandler horizontalAlignment = PropertyValueHandlers.HorizontalAlignment;
-            IPropertyValueHandler applicationPage = PropertyValueHandlers.ApplicationPage;
-            IPropertyValueHandler taskSpacing = PropertyValueHandlers.TaskSpacing;
-            IPropertyValueHandler themeStyle = PropertyValueHandlers.ThemeStyle;
-
             // This dictionary describes the data that is stored in database in the Settings table
             PropertyDescriptors = new Dictionary<string, IPropertyValueHandler>
             {
-                { nameof(WindowLeftPos), integer },
-                { nameof(WindowTopPos), integer },
-                { nameof(WindowWidth), integer },
-                { nameof(WindowHeight), integer },
-                { nameof(ActiveCategoryId), integer },
-                { nameof(ActiveNoteId), integer },
-                { nameof(CategoryTitleVisible), boolean },
-                { nameof(ActiveTheme), theme },
-                { nameof(IsAlwaysOnTop), boolean },
-                { nameof(IsCreationDateVisible), boolean },
-                { nameof(IsModificationDateVisible), boolean },
-                { nameof(IsQuickActionsEnabled), boolean },
-                { nameof(IsQuickActionsCheckboxEnabled), boolean },
-                { nameof(IsQuickActionsReminderEnabled), boolean },
-                { nameof(IsQuickActionsColorEnabled), boolean },
-                { nameof(IsQuickActionsBackgroundColorEnabled), boolean },
-                { nameof(IsQuickActionsBorderColorEnabled), boolean },
-                { nameof(IsQuickActionsPinEnabled), boolean },
-                { nameof(IsQuickActionsTrashEnabled), boolean },
-                { nameof(IsItemBackgroundVisible), boolean },
-                { nameof(IsItemBorderVisible), boolean },
-                { nameof(ColorBarThickness), thickness },
-                { nameof(TaskFontSizeDouble), double_ },
-                { nameof(FontFamily), fontFamily },
-                { nameof(NoteFontFamily), fontFamily },
-                { nameof(AccentColor), string_ },
-                { nameof(AppBorderColor), string_ },
-                { nameof(RoundedWindowCorners), boolean },
-                { nameof(IsTitleBarDateVisible), boolean },
-                { nameof(Scaling), double_ },
-                { nameof(NotePageWordWrap), boolean },
-                { nameof(TextRenderingMode), string_ },
-                { nameof(TextFormattingMode), boolean },
-                { nameof(ClearTypeHint), boolean },
-                { nameof(TaskSpacing), taskSpacing },
-                { nameof(InsertOrderReversed), boolean },
-                { nameof(ForceTaskOrderByState), boolean },
-                { nameof(IsColorBarRounded), boolean },
-                { nameof(IsTrayIconEnabled), boolean },
-                { nameof(FocusLostSavesTask), boolean },
-                { nameof(RunAtStartup), boolean },
-                { nameof(MainPage), applicationPage },
-                { nameof(SideMenuPage), applicationPage },
-                { nameof(PlaySoundOnTaskIsDoneChange), boolean },
-                { nameof(TaskListHasMargin), boolean },
-                { nameof(SideMenuWidth), double_ },
-                { nameof(IsSideMenuOpen), boolean },
-                { nameof(TaskItemDropShadow), boolean },
-                { nameof(CloseSideMenuOnCategoryChange), boolean },
-                { nameof(IsFormattedPasteEnabled), boolean },
-                { nameof(TextEditorQABold), boolean },
-                { nameof(TextEditorQAItalic), boolean },
-                { nameof(TextEditorQAUnderlined), boolean },
-                { nameof(TextEditorQASmall), boolean },
-                { nameof(TextEditorQAMedium), boolean },
-                { nameof(TextEditorQALarge), boolean },
-                { nameof(TextEditorQAIncrease), boolean },
-                { nameof(TextEditorQADecrease), boolean },
-                { nameof(TextEditorQAMonospace), boolean },
-                { nameof(TextEditorQAReset), boolean },
-                { nameof(TextEditorQATextColor), boolean },
-                { nameof(TextEditorQAAlignLeft), boolean },
-                { nameof(TextEditorQAAlignCenter), boolean },
-                { nameof(TextEditorQAAlignRight), boolean },
-                { nameof(TextEditorQAAlignJustify), boolean },
-                { nameof(SaveOnEnter), boolean },
-                { nameof(TitleColor), string_ },
-                { nameof(TitleFontFamily), fontFamily },
-                { nameof(TitleFontSize), double_ },
-                { nameof(TitleAlignment), horizontalAlignment },
-                { nameof(ThemeIsDarkMode), boolean},
-                { nameof(ThemeStyle), themeStyle },
-                { nameof(ThemeSeed), string_ },
+                { nameof(ActiveTheme), new EnumPropertyValueHandler<Theme>() },
+                { nameof(ColorBarThickness), new EnumPropertyValueHandler<Thickness>() },
+                { nameof(TaskSpacing), new EnumPropertyValueHandler<TaskSpacing>() },
+                { nameof(TitleAlignment), new EnumPropertyValueHandler<HorizontalAlignment>() },
+                { nameof(ThemeStyle), new EnumPropertyValueHandler<ThemeStyle>() },
             };
+
+            var intProperties = new[]
+            {
+                nameof(WindowLeftPos),
+                nameof(WindowTopPos),
+                nameof(WindowWidth),
+                nameof(WindowHeight),
+                nameof(ActiveCategoryId),
+                nameof(ActiveNoteId)
+            };
+
+            var boolProperties = new[]
+            {
+                nameof(CategoryTitleVisible),
+                nameof(IsAlwaysOnTop),
+                nameof(IsCreationDateVisible),
+                nameof(IsModificationDateVisible),
+                nameof(IsQuickActionsEnabled),
+                nameof(IsQuickActionsCheckboxEnabled),
+                nameof(IsQuickActionsReminderEnabled),
+                nameof(IsQuickActionsColorEnabled),
+                nameof(IsQuickActionsBackgroundColorEnabled),
+                nameof(IsQuickActionsBorderColorEnabled),
+                nameof(IsQuickActionsPinEnabled),
+                nameof(IsQuickActionsTrashEnabled),
+                nameof(IsItemBackgroundVisible),
+                nameof(IsItemBorderVisible),
+                nameof(RoundedWindowCorners),
+                nameof(IsTitleBarDateVisible),
+                nameof(NotePageWordWrap),
+                nameof(InsertOrderReversed),
+                nameof(ForceTaskOrderByState),
+                nameof(IsColorBarRounded),
+                nameof(IsTrayIconEnabled),
+                nameof(FocusLostSavesTask),
+                nameof(RunAtStartup),
+                nameof(PlaySoundOnTaskIsDoneChange),
+                nameof(TaskListHasMargin),
+                nameof(IsSideMenuOpen),
+                nameof(TaskItemDropShadow),
+                nameof(CloseSideMenuOnCategoryChange),
+                nameof(IsFormattedPasteEnabled),
+                nameof(TextEditorQABold),
+                nameof(TextEditorQAItalic),
+                nameof(TextEditorQAUnderlined),
+                nameof(TextEditorQASmall),
+                nameof(TextEditorQAMedium),
+                nameof(TextEditorQALarge),
+                nameof(TextEditorQAIncrease),
+                nameof(TextEditorQADecrease),
+                nameof(TextEditorQAMonospace),
+                nameof(TextEditorQAReset),
+                nameof(TextEditorQATextColor),
+                nameof(TextEditorQAAlignLeft),
+                nameof(TextEditorQAAlignCenter),
+                nameof(TextEditorQAAlignRight),
+                nameof(TextEditorQAAlignJustify),
+                nameof(SaveOnEnter),
+                nameof(ThemeIsDarkMode)
+            };
+
+            var stringProperties = new[]
+            {
+                nameof(AccentColor),
+                nameof(AppBorderColor),
+                nameof(TitleColor),
+                nameof(ThemeSeed)
+            };
+
+            var doubleProperties = new[]
+            {
+                nameof(TaskFontSizeDouble),
+                nameof(Scaling),
+                nameof(SideMenuWidth),
+                nameof(TitleFontSize)
+            };
+
+            var fontFamilyProperties = new[]
+            {
+                nameof(FontFamily),
+                nameof(NoteFontFamily),
+                nameof(TitleFontFamily),
+            };
+
+            var applicationPageProperties = new[]
+            {
+                nameof(MainPage),
+                nameof(SideMenuPage)
+            };
+
+            AddDescriptors(intProperties, new IntegerPropertyValueHandler());
+            AddDescriptors(boolProperties, new BoolPropertyValueHandler());
+            AddDescriptors(stringProperties, new StringPropertyValueHandler());
+            AddDescriptors(doubleProperties, new DoublePropertyValueHandler());
+            AddDescriptors(fontFamilyProperties, new EnumPropertyValueHandler<FontFamily>());
+            AddDescriptors(applicationPageProperties, new EnumPropertyValueHandler<ApplicationPage>());
 
             _UiScaler.Zoomed += OnZoomed;
         }
@@ -301,6 +309,14 @@ namespace TodoApp2.Core
         private bool IsPropertyNameValid(string propertyName)
         {
             return PropertyDescriptors.ContainsKey(propertyName);
+        }
+
+        private void AddDescriptors(IEnumerable<string> names, IPropertyValueHandler handler)
+        {
+            foreach (var name in names)
+            {
+                PropertyDescriptors.Add(name, handler);
+            }
         }
     }
 }

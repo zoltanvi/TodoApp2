@@ -86,8 +86,6 @@ namespace TodoApp2.Core
             m_Database = database;
             m_UiScaler = uiScaler;
 
-            ApplicationSettings = new ApplicationSettings(m_UiScaler);
-
             // Load the application settings to update the ActiveCategoryId before querying the tasks
             LoadApplicationSettingsOnce();
 
