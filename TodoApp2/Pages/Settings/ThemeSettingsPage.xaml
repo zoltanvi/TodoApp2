@@ -5,12 +5,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:material="clr-namespace:TodoApp2.Material;assembly=TodoApp2.Material"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:local="clr-namespace:TodoApp2"
+    xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:TypeArguments="core:ThemeSettingsPageViewModel"
     Title="ThemeSettingsPage">
+    <local:BasePage.Resources>
+        <ObjectDataProvider
+            x:Key="ThemeStyleDataProvider"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="material:ThemeStyle" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <Style TargetType="{x:Type colorpicker:PortableColorPicker}">
+            <Setter Property="Width" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+            <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </local:BasePage.Resources>
 
     <ScrollViewer x:Name="OuterScrollViewer" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
         <Grid>
@@ -24,7 +43,66 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="1">
 
-                <local:ThemeListControl PreviewMouseWheel="ListView_PreviewMouseWheel" />
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconPalette}"
+                    Description="Dark mode"
+                    IsChecked="{Binding AppSettings.ThemeIsDarkMode, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+
+
+                <!--  Theme style  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="{DynamicResource SegoeIconPalette}"
+                            Style="{DynamicResource SettingsIconLabelStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Theme style" />
+                        <ComboBox
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            ItemsSource="{Binding Source={StaticResource ThemeStyleDataProvider}}"
+                            SelectedItem="{Binding AppSettings.ThemeStyle, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="{DynamicResource SegoeIconPalette}"
+                            Style="{DynamicResource SettingsIconLabelStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Seed color" />
+
+                        <colorpicker:PortableColorPicker Grid.Column="2" SelectedColor="{Binding AppSettings.ThemeSeed, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                        
+                    </Grid>
+                </Border>
+
+
+
 
             </StackPanel>
 

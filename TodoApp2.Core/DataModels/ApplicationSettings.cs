@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TodoApp2.Material;
 
 namespace TodoApp2.Core
 {
@@ -103,6 +104,10 @@ namespace TodoApp2.Core
         public string TitleColor { get; set; } = GlobalConstants.ColorName.Transparent;
         public HorizontalAlignment TitleAlignment { get; set; } = HorizontalAlignment.Left;
 
+        public bool ThemeIsDarkMode { get; set; }
+        public ThemeStyle ThemeStyle { get; set; }
+        public string ThemeSeed { get; set; }
+
         #region Testing
 
         public string TextRenderingMode { get; set; }
@@ -131,6 +136,7 @@ namespace TodoApp2.Core
             IPropertyValueHandler horizontalAlignment = PropertyValueHandlers.HorizontalAlignment;
             IPropertyValueHandler applicationPage = PropertyValueHandlers.ApplicationPage;
             IPropertyValueHandler taskSpacing = PropertyValueHandlers.TaskSpacing;
+            IPropertyValueHandler themeStyle = PropertyValueHandlers.ThemeStyle;
 
             // This dictionary describes the data that is stored in database in the Settings table
             PropertyDescriptors = new Dictionary<string, IPropertyValueHandler>
@@ -205,6 +211,9 @@ namespace TodoApp2.Core
                 { nameof(TitleFontFamily), fontFamily },
                 { nameof(TitleFontSize), double_ },
                 { nameof(TitleAlignment), horizontalAlignment },
+                { nameof(ThemeIsDarkMode), boolean},
+                { nameof(ThemeStyle), themeStyle },
+                { nameof(ThemeSeed), string_ },
             };
 
             _UiScaler.Zoomed += OnZoomed;

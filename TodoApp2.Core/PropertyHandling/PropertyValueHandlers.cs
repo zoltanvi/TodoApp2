@@ -1,4 +1,6 @@
-﻿namespace TodoApp2.Core
+﻿using TodoApp2.Material;
+
+namespace TodoApp2.Core
 {
     public static class PropertyValueHandlers
     {
@@ -12,6 +14,7 @@
         public static IPropertyValueHandler FontFamily { get; } = new EnumPropertyValueHandler<FontFamily>();
         public static IPropertyValueHandler HorizontalAlignment { get; } = new EnumPropertyValueHandler<HorizontalAlignment>();
         public static IPropertyValueHandler TaskSpacing { get; } = new EnumPropertyValueHandler<TaskSpacing>();
+        public static IPropertyValueHandler ThemeStyle { get; } = new EnumPropertyValueHandler<ThemeStyle>();
         public static IPropertyValueHandler ApplicationPage { get; } = new EnumPropertyValueHandler<ApplicationPage>();
     }
 }

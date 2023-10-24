@@ -176,7 +176,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj">
+      <Project>{f6ecbf99-f92f-4578-8737-5a2d458f0453}</Project>
+      <Name>TodoApp2.Material</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

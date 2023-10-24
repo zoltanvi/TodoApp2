@@ -26,14 +26,14 @@ namespace TodoApp2
         public ThemeManager()
         {
             _lightThemes = new HashSet<Theme> {
-                Theme.LightGreen,
-                Theme.MaterialLight,
-                Theme.YellowGold,
-                Theme.Mint,
-                Theme.LightBlue,
-                Theme.Violet,
-                Theme.LightGray,
-                Theme.Light
+                //Theme.LightGreen,
+                //Theme.MaterialLight,
+                //Theme.YellowGold,
+                //Theme.Mint,
+                //Theme.LightBlue,
+                //Theme.Violet,
+                //Theme.LightGray,
+                //Theme.Light
             };
 
             ThemeList = new List<Theme>();
