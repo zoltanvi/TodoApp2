@@ -203,6 +203,7 @@
     <Compile Include="Helpers\BindingFix\FreezableBinding.cs" />
     <Compile Include="Helpers\BindingFix\PushBinding.cs" />
     <Compile Include="Helpers\FlowDocumentHelper.cs" />
+    <Compile Include="Helpers\MaterialColorHelper.cs" />
     <Compile Include="Helpers\SizeObserver.cs" />
     <Compile Include="Helpers\TextBoxHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
@@ -685,6 +686,10 @@
     <ProjectReference Include="..\TodoApp2.Core\TodoApp2.Core.csproj">
       <Project>{ae97f324-618b-4ea9-b00d-2a805d47861e}</Project>
       <Name>TodoApp2.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj">
+      <Project>{f6ecbf99-f92f-4578-8737-5a2d458f0453}</Project>
+      <Name>TodoApp2.Material</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

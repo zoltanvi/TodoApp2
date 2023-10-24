@@ -123,4 +123,47 @@
     <SolidColorBrush x:Key="MessageErrorBorderBrush" Color="{DynamicResource MessageErrorBorder}" />
 
 
+    <!-- Placeholders for intellisense -->
+    <SolidColorBrush x:Key="Primary" />
+    <SolidColorBrush x:Key="OnPrimary" />
+    <SolidColorBrush x:Key="PrimaryContainer" />
+    <SolidColorBrush x:Key="OnPrimaryContainer" />
+    <SolidColorBrush x:Key="Secondary" />
+    <SolidColorBrush x:Key="OnSecondary" />
+    <SolidColorBrush x:Key="SecondaryContainer" />
+    <SolidColorBrush x:Key="OnSecondaryContainer" />
+    <SolidColorBrush x:Key="Tertiary" />
+    <SolidColorBrush x:Key="OnTertiary" />
+    <SolidColorBrush x:Key="TertiaryContainer" />
+    <SolidColorBrush x:Key="OnTertiaryContainer" />
+    <SolidColorBrush x:Key="Error" />
+    <SolidColorBrush x:Key="OnError" />
+    <SolidColorBrush x:Key="ErrorContainer" />
+    <SolidColorBrush x:Key="OnErrorContainer" />
+    <SolidColorBrush x:Key="Background" />
+    <SolidColorBrush x:Key="OnBackground" />
+    <SolidColorBrush x:Key="Surface" />
+    <SolidColorBrush x:Key="OnSurface" />
+    <SolidColorBrush x:Key="SurfaceVariant" />
+    <SolidColorBrush x:Key="OnSurfaceVariant" />
+    <SolidColorBrush x:Key="Outline" />
+    <SolidColorBrush x:Key="Shadow" />
+    <SolidColorBrush x:Key="InverseSurface" />
+    <SolidColorBrush x:Key="InverseOnSurface" />
+    <SolidColorBrush x:Key="InversePrimary" />
+    <SolidColorBrush x:Key="Surface1" />
+    <SolidColorBrush x:Key="Surface2" />
+    <SolidColorBrush x:Key="Surface3" />
+    <SolidColorBrush x:Key="Surface4" />
+    <SolidColorBrush x:Key="Surface5" />
+    <SolidColorBrush x:Key="SurfaceDim" />
+    <SolidColorBrush x:Key="SurfaceBright" />
+    <SolidColorBrush x:Key="SurfaceContainerLowest" />
+    <SolidColorBrush x:Key="SurfaceContainerLow" />
+    <SolidColorBrush x:Key="SurfaceContainer" />
+    <SolidColorBrush x:Key="SurfaceContainerHigh" />
+    <SolidColorBrush x:Key="SurfaceContainerHighest" />
+    <SolidColorBrush x:Key="OutlineVariant" />
+
+
 </ResourceDictionary>
