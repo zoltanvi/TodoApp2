@@ -20,6 +20,7 @@
         public static UndoManager UndoManager { get; private set; }
         public static AutoRunService AutoRunService { get; private set; }
         public static MediaPlayerService MediaPlayerService { get; private set; }
+        public static IThemeManagerService ThemeManagerService { get; set; }
 
         /// <summary>
         /// Sets up the essential services and modules
@@ -39,6 +40,7 @@
             MediaPlayerService = new MediaPlayerService();
             UIScaler = UIScaler.Instance;
             UndoManager = new UndoManager();
+            AppSettings = new ApplicationSettings(UIScaler);
             AppViewModel = new AppViewModel(Database, UIScaler);
             OverlayPageService = new OverlayPageService(AppViewModel, Database);
             
@@ -61,7 +63,6 @@
             TaskListService = new TaskListService(Database, CategoryListService, AppViewModel);
 
             OneEditorOpenService = new OneEditorOpenService();
-
         }
     }
 }

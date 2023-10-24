@@ -58,9 +58,13 @@ namespace TodoApp2
             // Load resource updater
             IResourceUpdater resourceUpdater = ResourceUpdater.Instance;
             IoC.ResourceUpdater = resourceUpdater;
-
+            
             // Setup IoC. It can take some time
             IoC.Setup();
+
+            // Load theme manager service
+            IThemeManagerService themeManagerService = ThemeManagerService.Get(IoC.AppSettings);
+            IoC.ThemeManagerService = themeManagerService;
 
             // Show the main window
             Current.MainWindow = new MainWindow();

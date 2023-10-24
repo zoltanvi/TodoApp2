@@ -1,20 +1,42 @@
-﻿using TodoApp2.Material;
+﻿using System;
+using System.Globalization;
 
 namespace TodoApp2.Core
 {
-    public static class PropertyValueHandlers
+    public class BoolPropertyValueHandler : BasePropertyValueHandler<bool>
     {
-        public static IPropertyValueHandler Bool { get; } = new BoolPropertyValueHandler();
-        public static IPropertyValueHandler Integer { get; } = new IntegerPropertyValueHandler();
-        public static IPropertyValueHandler Long { get; } = new LongPropertyValueHandler();
-        public static IPropertyValueHandler Double { get; } = new DoublePropertyValueHandler();
-        public static IPropertyValueHandler String { get; } = new StringPropertyValueHandler();
-        public static IPropertyValueHandler Theme { get; } = new EnumPropertyValueHandler<Theme>();
-        public static IPropertyValueHandler Thickness { get; } = new EnumPropertyValueHandler<Thickness>();
-        public static IPropertyValueHandler FontFamily { get; } = new EnumPropertyValueHandler<FontFamily>();
-        public static IPropertyValueHandler HorizontalAlignment { get; } = new EnumPropertyValueHandler<HorizontalAlignment>();
-        public static IPropertyValueHandler TaskSpacing { get; } = new EnumPropertyValueHandler<TaskSpacing>();
-        public static IPropertyValueHandler ThemeStyle { get; } = new EnumPropertyValueHandler<ThemeStyle>();
-        public static IPropertyValueHandler ApplicationPage { get; } = new EnumPropertyValueHandler<ApplicationPage>();
+        protected override bool TryParseValue(string value, out bool result) =>
+            bool.TryParse(value, out result);
+    }
+
+    public class DoublePropertyValueHandler : BasePropertyValueHandler<double>
+    {
+        protected override bool TryParseValue(string value, out double result) =>
+            double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
+
+        protected override string DataToString(double value) => 
+            value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    public class IntegerPropertyValueHandler : BasePropertyValueHandler<int>
+    {
+        protected override bool TryParseValue(string value, out int result) =>
+            int.TryParse(value, out result);
+    }
+
+    public class EnumPropertyValueHandler<TEnum> : BasePropertyValueHandler<TEnum> 
+        where TEnum : struct
+    {
+        protected override bool TryParseValue(string value, out TEnum result) =>
+            Enum.TryParse(value, out result);
+    }
+
+    public class StringPropertyValueHandler : BasePropertyValueHandler<string>
+    {
+        protected override bool TryParseValue(string value, out string result)
+        {
+            result = value;
+            return true;
+        }
     }
 }
