@@ -90,7 +90,7 @@
                                     <local:EqualityConverter />
                                 </MultiBinding.Converter>
                                 <Binding Path="Id" />
-                                <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
                             </MultiBinding>
                         </DataTrigger.Binding>
                         <Setter Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
@@ -128,7 +128,7 @@
                                             <local:EqualityConverter />
                                         </MultiBinding.Converter>
                                         <Binding Path="Id" />
-                                        <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                        <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
                                     </MultiBinding>
                                 </DataTrigger.Binding>
                                 <Setter Property="Foreground" Value="{DynamicResource SelectedCategoryBrush}" />

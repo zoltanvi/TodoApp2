@@ -12,7 +12,7 @@
 
         <ListView
             BorderThickness="0"
-            ItemsSource="{Binding ThemeListService.Items, Source={x:Static local:ViewModelLocator.Instance}}"
+            ItemsSource="{Binding ThemeListService.Items, Source={x:Static local:VML.Instance}}"
             x:Name="ThemeListListView"
             Background="Transparent"
             HorizontalAlignment="Center"

@@ -11,7 +11,6 @@ namespace TodoApp2.Core
 
         void AddDefaultRecords();
         bool AddCategoryIfNotExists(CategoryViewModel categoryToAdd);
-        void AddSetting(Setting setting);
         void Dispose();
         List<CategoryViewModel> GetValidCategories();
         List<TaskViewModel> GetActiveTasksWithReminder();

@@ -27,9 +27,9 @@
             <avalonEdit:TextEditor
                 xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                 Name="textEditor"
-                WordWrap="{Binding AppSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged}"
-                FontFamily="{Binding Path=AppSettings.NoteFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                FontSize="{Binding Path=AppSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}"
+                WordWrap="{Binding AppSettings.NoteSettings.WordWrap, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged}"
+                FontFamily="{Binding Path=AppSettings.NoteSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                FontSize="{Binding Path=AppSettings.TaskSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
                 TextChanged="textEditor_TextChanged"
                 Background="Transparent"
                 Foreground="{DynamicResource ForegroundBrush}"
@@ -48,7 +48,7 @@
             <Border
                 Background="{DynamicResource PageBgBrush}"
                 BorderBrush="black"
-                Visibility="{Binding AppSettings.NotePageWordWrap, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
+                Visibility="{Binding AppSettings.NoteSettings.WordWrap, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Width="{Binding UIScaler.NotePageBoxWidth}"

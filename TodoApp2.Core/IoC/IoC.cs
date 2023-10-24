@@ -5,9 +5,10 @@
     /// </summary>
     public static class IoC
     {
+        private static ZoomingListener _zoomingListener;
         public static IAsyncActionService AsyncActionService { get; set; }
         public static IResourceUpdater ResourceUpdater { get; set; }
-        public static ApplicationSettings AppSettings { get; set; }
+        public static AppSettings AppSettings { get; set; }
         public static AppViewModel AppViewModel { get; private set; }
         public static IDatabase Database { get; private set; }
         public static OverlayPageService OverlayPageService { get; private set; }
@@ -23,13 +24,14 @@
         public static IThemeManagerService ThemeManagerService { get; set; }
 
         /// <summary>
-        /// Sets up the essential services and modules
+        /// Sets up the essential services, modules and the AppSettings
         /// </summary>
         public static void PreSetup()
         {
             AutoRunService = new AutoRunService();
             MessageService = new MessageService();
             Database = new Database();
+            AppSettings = new AppSettings();
         }
 
         /// <summary>
@@ -39,8 +41,9 @@
         {
             MediaPlayerService = new MediaPlayerService();
             UIScaler = UIScaler.Instance;
+            _zoomingListener = new ZoomingListener(UIScaler, AppSettings);
+
             UndoManager = new UndoManager();
-            AppSettings = new ApplicationSettings(UIScaler);
             AppViewModel = new AppViewModel(Database, UIScaler);
             OverlayPageService = new OverlayPageService(AppViewModel, Database);
             

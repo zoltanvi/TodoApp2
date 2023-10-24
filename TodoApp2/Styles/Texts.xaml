@@ -42,7 +42,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource ToolTipBorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Background" Value="{DynamicResource ContextMenuBgBrush}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToolTip}">
@@ -60,8 +60,8 @@
 
 
     <Style x:Key="BaseRichTextBoxStyle" TargetType="RichTextBox">
-        <Setter Property="FontFamily" Value="{Binding Path=AppSettings.FontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
-        <Setter Property="FontSize" Value="{Binding Path=AppSettings.TaskFontSizeDouble, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource fontSizeScaler}}" />
+        <Setter Property="FontFamily" Value="{Binding Path=AppSettings.TaskSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}" />
+        <Setter Property="FontSize" Value="{Binding Path=AppSettings.TaskSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
@@ -88,7 +88,7 @@
         BasedOn="{StaticResource BaseTextBlockClearTypeStyle}"
         TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
@@ -98,14 +98,14 @@
         BasedOn="{StaticResource BaseTextBlockClearTypeStyle}"
         TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{DynamicResource UIBoldFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
     <Style x:Key="PageTitleEditorTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{DynamicResource UIBoldFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Huge, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -138,7 +138,7 @@
         BasedOn="{StaticResource PageTitleTextBlockStyle}"
         TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
     </Style>
 
     <Style
@@ -146,7 +146,7 @@
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight" />
     </Style>
@@ -155,7 +155,7 @@
         x:Key="ContextMenuIconStyle"
         BasedOn="{StaticResource IconLabelStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Margin" Value="-3 0" />
     </Style>
 
@@ -163,12 +163,12 @@
         x:Key="IconLabelLargeStyle"
         BasedOn="{StaticResource IconLabelStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.LargeIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.LargeIcon, Source={x:Static local:VML.Instance}}" />
     </Style>
 
     <Style x:Key="BaseInputTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="BorderThickness" Value="0" />
@@ -253,7 +253,7 @@
         x:Key="NotificationTitleStyle"
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="FontWeight" Value="UltraLight" />
         <Setter Property="Padding" Value="0 4 0 0" />
@@ -263,7 +263,7 @@
         x:Key="NotificationCategoryTitleStyle"
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
@@ -274,7 +274,7 @@
         x:Key="NotificationReminderDateStyle"
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="0" />
@@ -285,7 +285,7 @@
         x:Key="ReminderLabelStyle"
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -300,7 +300,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>
@@ -309,7 +309,7 @@
         x:Key="SettingsDescriptionBoldStyle"
         BasedOn="{StaticResource SettingsDescriptionStyle}"
         TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="TextDecorations" Value="Underline" />
     </Style>
@@ -319,7 +319,7 @@
         BasedOn="{StaticResource IconLabelStyle}"
         TargetType="Label">
         <Setter Property="Margin" Value="0 0 10 0" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -333,7 +333,7 @@
     </Style>
 
     <Style x:Key="SettingsPageTitleStyle" TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
@@ -344,13 +344,13 @@
     </Style>
 
     <Style TargetType="{x:Type local:ShortcutKey}">
-        <Setter Property="BorderThickness" Value="{Binding UIScaler.ScaleValue, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="BorderThickness" Value="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" />
         <Setter Property="BorderBrush" Value="{DynamicResource TagPurpleBorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource TagPurpleBgBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TagPurpleBrush}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ShortcutKey}">
@@ -415,7 +415,7 @@
 
     <Style TargetType="{x:Type local:ShortcutSeparator}">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}" />
     </Style>
 
     <Label

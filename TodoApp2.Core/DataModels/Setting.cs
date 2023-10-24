@@ -2,7 +2,11 @@
 {
     public class Setting
     {
-        public int Id { get; set; }
+        public Setting(string key, string value)
+        {
+            Key = key;
+            Value = value;
+        }
 
         public string Key { get; set; }
 

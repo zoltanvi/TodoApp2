@@ -47,7 +47,7 @@
                                     <MultiBinding.Converter>
                                         <local:RoundedCornersMultiConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="AppSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                    <Binding Path="AppSettings.CommonSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
                                     <Binding Path="IsRoundedCornersAllowed" />
                                 </MultiBinding>
                             </Border.CornerRadius>
@@ -68,7 +68,7 @@
                                         <MultiBinding.Converter>
                                             <local:RoundedCornersMultiConverter />
                                         </MultiBinding.Converter>
-                                        <Binding Path="AppSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                        <Binding Path="AppSettings.CommonSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
                                         <Binding Path="IsRoundedCornersAllowed" />
                                     </MultiBinding>
                                 </Border.CornerRadius>
@@ -87,7 +87,7 @@
                                     <!--  BorderBrush="{DynamicResource AppBorderBrush}"  -->
                                     <Border
                                         Panel.ZIndex="2"
-                                        BorderBrush="{Binding AppSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource appBorderBrushConverter}}"
+                                        BorderBrush="{Binding AppSettings.CommonSettings.AppBorderColor, Source={x:Static local:VML.Instance}, Converter={StaticResource appBorderBrushConverter}}"
                                         BorderThickness="1">
 
                                         <Border.CornerRadius>
@@ -95,7 +95,7 @@
                                                 <MultiBinding.Converter>
                                                     <local:RoundedCornersMultiConverter />
                                                 </MultiBinding.Converter>
-                                                <Binding Path="AppSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                                <Binding Path="AppSettings.CommonSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
                                                 <Binding Path="IsRoundedCornersAllowed" />
                                             </MultiBinding>
                                         </Border.CornerRadius>
@@ -109,7 +109,7 @@
                                                 <MultiBinding.Converter>
                                                     <local:RoundedCornersMultiConverter />
                                                 </MultiBinding.Converter>
-                                                <Binding Path="AppSettings.RoundedWindowCorners" Source="{x:Static local:ViewModelLocator.Instance}" />
+                                                <Binding Path="AppSettings.CommonSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
                                                 <Binding Path="IsRoundedCornersAllowed" />
                                             </MultiBinding>
                                         </Border.CornerRadius>
@@ -153,7 +153,7 @@
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
                                                         Opacity="0"
-                                                        local:SaveIconAnimator.Animate="{Binding ApplicationViewModel.SaveIconVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                                                        local:SaveIconAnimator.Animate="{Binding ApplicationViewModel.SaveIconVisible, Source={x:Static local:VML.Instance}}"
                                                         Style="{DynamicResource IconLabelStyle}"
                                                         Foreground="{DynamicResource TitleBarBrush}" />
 
@@ -167,7 +167,7 @@
                                                                 Margin="0 2"
                                                                 Padding="5 0">
                                                                 <Label
-                                                                    Visibility="{Binding AppSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                                                                    Visibility="{Binding AppSettings.CommonSettings.TitleBarDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                                                                     Content="{Binding CurrentTime}"
                                                                     Margin="0"
                                                                     Padding="0"
@@ -259,7 +259,7 @@
                         local:NoFrameHistory.Value="True"
                         AutomationProperties.AutomationId="SideMenuPage"
                         Content="{Binding}"
-                        DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+                        DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:VML.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
                 </local:SideMenuControl>
             </Grid>
 
@@ -270,13 +270,13 @@
                 local:NoFrameHistory.Value="True"
                 AutomationProperties.AutomationId="MainPageFrame"
                 Content="{Binding}"
-                DataContext="{Binding ApplicationViewModel.MainPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+                DataContext="{Binding ApplicationViewModel.MainPage, Source={x:Static local:VML.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
 
             <!--  RESIZER HANDLE  -->
 
             <GridSplitter
                 x:Name="Resizer"
-                Background="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                Background="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}"
                 Grid.Column="1"
                 Opacity="0"
                 Width="6"
@@ -327,7 +327,7 @@
             <Grid
                 Grid.ColumnSpan="3"
                 VerticalAlignment="Top"
-                local:AnimateSlideInFromTopProperty.Value="{Binding MessageService.MessageLineVisible, Source={x:Static local:ViewModelLocator.Instance}}">
+                local:AnimateSlideInFromTopProperty.Value="{Binding MessageService.MessageLineVisible, Source={x:Static local:VML.Instance}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -341,8 +341,8 @@
                     CornerRadius="4"
                     SnapsToDevicePixels="True"
                     BorderThickness="{Binding UIScaler.ScaleValue}"
-                    BorderBrush="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageBorderConverter}}"
-                    Background="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageBackgroundConverter}}">
+                    BorderBrush="{Binding MessageService.MessageType, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageBorderConverter}}"
+                    Background="{Binding MessageService.MessageType, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageBackgroundConverter}}">
                     <!--<Border.Effect>
                         <DropShadowEffect
                             ShadowDepth="0"
@@ -364,16 +364,16 @@
                             FontSize="{Binding UIScaler.FontSize.Regular}"
                             FontFamily="{DynamicResource UIFont}"
                             FontWeight="Bold"
-                            Text="{Binding MessageService.Message, Source={x:Static local:ViewModelLocator.Instance}}"
+                            Text="{Binding MessageService.Message, Source={x:Static local:VML.Instance}}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Foreground="{Binding MessageService.MessageType, Source={x:Static local:ViewModelLocator.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageForegroundConverter}}" />
+                            Foreground="{Binding MessageService.MessageType, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageForegroundConverter}}" />
 
                         <Button
                             Grid.Column="1"
                             DockPanel.Dock="Right"
                             Margin="30 2 0 2"
-                            Visibility="{Binding MessageService.UndoButtonVisible, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                            Visibility="{Binding MessageService.UndoButtonVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                             Command="{Binding UndoCommand}"
                             Content="Undo"
                             Style="{DynamicResource ReminderBottomButtonStyle}" />

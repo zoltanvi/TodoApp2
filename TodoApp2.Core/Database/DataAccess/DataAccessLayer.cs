@@ -19,7 +19,7 @@ namespace TodoApp2.Core
 
         private readonly SQLiteConnection m_Connection;
 
-        private const int DatabaseVersion = 4;
+        private const int DatabaseVersion = 5;
         private int m_ReadDatabaseVersion;
 
         public TaskDataAccess TaskDataAccess { get; }
@@ -93,6 +93,11 @@ namespace TodoApp2.Core
 
                     // Missing BackgroundColor column from Task
                     CompatibilityDataAccess.AddBackgroundColorToTaskTable();
+
+                    // Re-create the settings table
+                    CompatibilityDataAccess.DropSettingsTable();
+                    SettingsDataAccess.CreateSettingsTable();
+
                     break;
                 }
                 case 2:
@@ -102,12 +107,30 @@ namespace TodoApp2.Core
 
                     // Missing BackgroundColor column from Task
                     CompatibilityDataAccess.AddBackgroundColorToTaskTable();
+
+                    // Re-create the settings table
+                    CompatibilityDataAccess.DropSettingsTable();
+                    SettingsDataAccess.CreateSettingsTable();
+                
                     break;
                 }
                 case 3:
                 {
                     // Missing BackgroundColor column from Task
                     CompatibilityDataAccess.AddBackgroundColorToTaskTable();
+
+                    // Re-create the settings table
+                    CompatibilityDataAccess.DropSettingsTable();
+                    SettingsDataAccess.CreateSettingsTable();
+
+                    break;
+                }
+                case 4:
+                {
+                    // Re-create the settings table
+                    CompatibilityDataAccess.DropSettingsTable();
+                    SettingsDataAccess.CreateSettingsTable();
+
                     break;
                 }
             }

@@ -29,37 +29,37 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlwaysOnTop}"
                     Description="Always on top"
-                    IsChecked="{Binding AppSettings.IsAlwaysOnTop, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.CommonSettings.AlwaysOnTop, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Auto start app with Windows  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRepeat}"
                     Description="Auto start app with Windows"
-                    IsChecked="{Binding AppSettings.RunAtStartup, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.CommonSettings.AutoStart, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Rounded window corners  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRoundedCorners}"
                     Description="Rounded window corners"
-                    IsChecked="{Binding AppSettings.RoundedWindowCorners, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.CommonSettings.RoundedWindowCorners, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Window title bar date visible  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCalendar}"
                     Description="Window title bar date visible"
-                    IsChecked="{Binding AppSettings.IsTitleBarDateVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.CommonSettings.TitleBarDateVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Exit button minimizes to tray  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMinimizeToTray}"
                     Description="Exit button minimizes to tray"
-                    IsChecked="{Binding AppSettings.IsTrayIconEnabled, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.CommonSettings.ExitToTray, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Close side menu on category change  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMinimizeToTray}"
                     Description="Close side menu on category change"
-                    IsChecked="{Binding AppSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.CommonSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
 
                 <!--  Accent color  -->
@@ -85,9 +85,9 @@
                             HorizontalAlignment="Right">
 
                             <local:SingletonColorPicker
-                                SelectedColorString="{Binding AppSettings.AccentColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+                                SelectedColorString="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
 
                         </Border>
 
@@ -117,9 +117,9 @@
                             HorizontalAlignment="Right">
 
                             <local:SingletonColorPicker
-                                SelectedColorString="{Binding AppSettings.AppBorderColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+                                SelectedColorString="{Binding AppSettings.CommonSettings.AppBorderColor, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
                         </Border>
 
                     </Grid>
@@ -159,8 +159,8 @@
                                 VerticalAlignment="Center"
                                 IsReadOnly="True"
                                 Margin="5 0"
-                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Text="{Binding ApplicationViewModel.DatabaseLocation, Source={x:Static local:ViewModelLocator.Instance}, Mode=OneWay}" />
+                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}"
+                                Text="{Binding ApplicationViewModel.DatabaseLocation, Source={x:Static local:VML.Instance}, Mode=OneWay}" />
                         </Border>
 
                     </Grid>

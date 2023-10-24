@@ -21,7 +21,7 @@ namespace TodoApp2.Core
         {
             if (obj is ThemeViewModel themeViewModel)
             {
-                _appViewModel.ApplicationSettings.ActiveTheme = themeViewModel.Theme;
+                //_appViewModel.ApplicationSettings.ActiveTheme = themeViewModel.Theme;
             }
         }
     }

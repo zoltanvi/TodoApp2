@@ -205,7 +205,7 @@
                 Padding="0"
                 Content="{StaticResource SegoeIconChevronDown}"
                 FontFamily="{StaticResource IconFont}"
-                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource ForegroundBrush}" />
@@ -231,8 +231,8 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
-        <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
-        <Setter Property="Width" Value="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="Width" Value="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -286,7 +286,7 @@
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
 
                                         <WrapPanel
-                                            Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                            Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:VML.Instance}}"
                                             Margin="8"
                                             IsItemsHost="True"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -324,8 +324,8 @@
             <Border
                 x:Name="ItemBorder"
                 Background="{Binding}"
-                Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
-                Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:ViewModelLocator.Instance}}"
+                Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
                 CornerRadius="4"
                 Cursor="Hand"
                 ToolTip="{Binding}" />
@@ -391,7 +391,7 @@
                 Padding="0"
                 Content="{StaticResource SegoeIconChevronDown}"
                 FontFamily="{StaticResource IconFont}"
-                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:ViewModelLocator.Instance}}"
+                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource ForegroundBrush}" />
@@ -412,7 +412,7 @@
         x:Key="RichTextEditorColorPickerOnlyDropDownStyle"
         BasedOn="{StaticResource TaskItemColorPickerStyle}"
         TargetType="{x:Type ComboBox}">
-        <Setter Property="Width" Value="{Binding UIScaler.ColorPickerHalfWidth, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="Width" Value="{Binding UIScaler.ColorPickerHalfWidth, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -457,7 +457,7 @@
 
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <WrapPanel
-                                            Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:ViewModelLocator.Instance}}"
+                                            Width="{Binding UIScaler.ColorPickerDropDownWidth, Source={x:Static local:VML.Instance}}"
                                             Margin="8"
                                             IsItemsHost="True"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -488,7 +488,7 @@
     <Style x:Key="RichTextEditorColorPickerButtonStyle" TargetType="local:ColorPickerComboBox">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+        <Setter Property="Height" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ColorPickerComboBox}">

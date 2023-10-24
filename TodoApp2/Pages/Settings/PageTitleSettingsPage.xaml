@@ -52,7 +52,7 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconTitle}"
                     Description="Visibility"
-                    IsChecked="{Binding AppSettings.CategoryTitleVisible, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.PageTitleSettings.Visible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Title color  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
@@ -77,9 +77,9 @@
                             HorizontalAlignment="Right">
 
                             <local:SingletonColorPicker
-                                SelectedColorString="{Binding AppSettings.TitleColor, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:ViewModelLocator.Instance}}"
-                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:ViewModelLocator.Instance}}" />
+                                SelectedColorString="{Binding AppSettings.PageTitleSettings.Color, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
                         </Border>
 
                     </Grid>
@@ -106,7 +106,7 @@
                             HorizontalAlignment="Right"
                             FontSize="{Binding UIScaler.FontSize.Small}"
                             ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
-                            SelectedItem="{Binding AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.PageTitleSettings.FontFamily, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
@@ -121,8 +121,8 @@
                     <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                         <local:FontSizeSliderControl
                             Description="Font size"
-                            PreviewFontSize="{Binding AppSettings.TitleFontSize, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}"
-                            SampleFontFamily="{Binding AppSettings.TitleFontFamily, Source={x:Static local:ViewModelLocator.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            PreviewFontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
+                            SampleFontFamily="{Binding AppSettings.PageTitleSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
                             Min="10"
                             Max="80"
                             Steps="2" />
@@ -150,7 +150,7 @@
                             HorizontalAlignment="Right"
                             FontSize="{Binding UIScaler.FontSize.Small}"
                             ItemsSource="{Binding Source={StaticResource AlignmentDataProvider}}"
-                            SelectedItem="{Binding AppSettings.TitleAlignment, Source={x:Static local:ViewModelLocator.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
