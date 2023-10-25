@@ -10,7 +10,7 @@ namespace TodoApp2.Core
 {
     public static class AppSettingsExtensions
     {
-        public static void Populate(this AppSettings appSettings, List<Setting> settingsList)
+        public static void Read(this AppSettings appSettings, List<Setting> settingsList)
         {
             foreach (var setting in settingsList)
             {
@@ -18,7 +18,7 @@ namespace TodoApp2.Core
             }
         }
 
-        public static List<Setting> CreateSettingsList(this AppSettings appSettings)
+        public static List<Setting> Write(this AppSettings appSettings)
         {
             return CreateSettingsList(appSettings, string.Empty);
         }
