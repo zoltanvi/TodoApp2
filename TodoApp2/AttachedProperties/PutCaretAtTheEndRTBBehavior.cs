@@ -6,7 +6,7 @@ namespace TodoApp2
 {
     internal class PutCaretAtTheEndRTBBehavior : Behavior<UIElement>
     {
-        private RichTextBox m_RichTextBox;
+        private RichTextBox _richTextBox;
 
         protected override void OnAttached()
         {
@@ -15,16 +15,16 @@ namespace TodoApp2
 
             if (AssociatedObject is RichTextBox richTextBox)
             {
-                m_RichTextBox = richTextBox;
-                m_RichTextBox.GotFocus += RichTextBox_GotFocus;
+                _richTextBox = richTextBox;
+                _richTextBox.GotFocus += RichTextBox_GotFocus;
             }
         }
 
         protected override void OnDetaching()
         {
-            if (m_RichTextBox != null)
+            if (_richTextBox != null)
             {
-                m_RichTextBox.GotFocus -= RichTextBox_GotFocus;
+                _richTextBox.GotFocus -= RichTextBox_GotFocus;
             }
 
             base.OnDetaching();
@@ -32,7 +32,7 @@ namespace TodoApp2
 
         private void RichTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            m_RichTextBox.CaretPosition = m_RichTextBox.Document.ContentEnd;
+            _richTextBox.CaretPosition = _richTextBox.Document.ContentEnd;
         }
     }
 }

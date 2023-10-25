@@ -15,7 +15,7 @@ namespace TodoApp2
         /// <summary>
         /// A single static instance of this value converter
         /// </summary>
-        private static T s_Converter;
+        private static T _converter;
 
         /// <summary>
         /// Provides a static instance of the value converter
@@ -24,7 +24,7 @@ namespace TodoApp2
         /// <returns></returns>
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return s_Converter ?? (s_Converter = new T());
+            return _converter ?? (_converter = new T());
         }
 
         /// <summary>

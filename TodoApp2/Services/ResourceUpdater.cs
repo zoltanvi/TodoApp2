@@ -6,9 +6,9 @@ namespace TodoApp2
 {
     public class ResourceUpdater : IResourceUpdater
     {
-        private static IResourceUpdater m_Instance;
+        private static IResourceUpdater _instance;
 
-        public static IResourceUpdater Instance => m_Instance ?? (m_Instance = new ResourceUpdater());
+        public static IResourceUpdater Instance => _instance ?? (_instance = new ResourceUpdater());
 
         private ResourceUpdater()
         {

@@ -7,40 +7,40 @@ namespace TodoApp2
 {
     internal class TrayIconModule : IDisposable
     {
-        private Window m_Window;
-        private NotifyIcon m_NotifyIcon;
-        private bool m_IsEnabled;
-        private bool m_IsVisible;
-        private ContextMenu m_ContextMenu;
-        private WindowState m_PreviousWindowState;
+        private Window _window;
+        private NotifyIcon _notifyIcon;
+        private bool _enabled;
+        private bool _visible;
+        private ContextMenu _contextMenu;
+        private WindowState _previousWindowState;
 
         public bool IsEnabled
         {
-            get => m_IsEnabled;
+            get => _enabled;
             set
             {
-                m_IsEnabled = value;
-                m_NotifyIcon.Visible = m_IsEnabled;
+                _enabled = value;
+                _notifyIcon.Visible = _enabled;
             }
         }
 
         public TrayIconModule(Window window)
         {
-            m_Window = window;
-            m_PreviousWindowState = m_Window.WindowState;
+            _window = window;
+            _previousWindowState = _window.WindowState;
 
             string path = "pack://application:,,,/TodoApp2;component/Images/Tray.ico";
             Uri iconUri = new Uri(path);
             StreamResourceInfo imageInfo = System.Windows.Application.GetResourceStream(iconUri);
 
-            m_NotifyIcon = new NotifyIcon
+            _notifyIcon = new NotifyIcon
             {
                 Icon = new System.Drawing.Icon(imageInfo.Stream),
                 Visible = false,
                 Text = "TodoApp2"
             };
 
-            m_NotifyIcon.MouseClick += OnNotifyIconMouseClick;
+            _notifyIcon.MouseClick += OnNotifyIconMouseClick;
 
             CreateContextMenu();
         }
@@ -49,7 +49,7 @@ namespace TodoApp2
         {
             if (IsEnabled && e.Button == MouseButtons.Left)
             {
-                if (m_IsVisible && m_Window.WindowState != WindowState.Minimized)
+                if (_visible && _window.WindowState != WindowState.Minimized)
                 {
                     MinimizeToTray();
                 }
@@ -64,26 +64,26 @@ namespace TodoApp2
         {
             if (IsEnabled)
             {
-                m_PreviousWindowState = m_Window.WindowState;
-                m_Window.Hide();
-                m_IsVisible = false;
+                _previousWindowState = _window.WindowState;
+                _window.Hide();
+                _visible = false;
             }
         }
 
         public void ShowWindow()
         {
-            if (!m_IsVisible)
+            if (!_visible)
             {
-                m_Window.Show();
-                m_IsVisible = true;
+                _window.Show();
+                _visible = true;
             }
 
-            m_Window.WindowState = m_PreviousWindowState;
+            _window.WindowState = _previousWindowState;
         }
 
         private void CreateContextMenu()
         {
-            m_ContextMenu = new ContextMenu();
+            _contextMenu = new ContextMenu();
 
             MenuItem[] menuItems = new MenuItem[]
             {
@@ -91,9 +91,9 @@ namespace TodoApp2
                 new MenuItem("Exit", OnExitClicked),
             };
 
-            m_ContextMenu.MenuItems.AddRange(menuItems);
+            _contextMenu.MenuItems.AddRange(menuItems);
 
-            m_NotifyIcon.ContextMenu = m_ContextMenu;
+            _notifyIcon.ContextMenu = _contextMenu;
         }
 
         private void OnShowClicked(object sender, EventArgs e)
@@ -104,12 +104,12 @@ namespace TodoApp2
         private void OnExitClicked(object sender, EventArgs e)
         {
             Dispose();
-            m_Window.Close();
+            _window.Close();
         }
 
         public void Dispose()
         {
-            m_NotifyIcon.Dispose();
+            _notifyIcon.Dispose();
         }
     }
 }

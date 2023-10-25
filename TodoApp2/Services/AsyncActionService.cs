@@ -8,10 +8,10 @@ namespace TodoApp2
 {
     public class AsyncActionService : IAsyncActionService
     {
-        private static IAsyncActionService m_Instance;
-        private static List<DispatcherOperation> m_Operations = new List<DispatcherOperation>();
+        private static IAsyncActionService _instance;
+        private static List<DispatcherOperation> _operations = new List<DispatcherOperation>();
 
-        public static IAsyncActionService Instance => m_Instance ?? (m_Instance = new AsyncActionService());
+        public static IAsyncActionService Instance => _instance ?? (_instance = new AsyncActionService());
 
         private AsyncActionService() { }
 
@@ -20,17 +20,17 @@ namespace TodoApp2
         {
             DispatcherOperation currentOperation = Application.Current.Dispatcher.BeginInvoke(action, DispatcherPriority.Background);
 
-            m_Operations.Add(currentOperation);
+            _operations.Add(currentOperation);
         }
 
         public void AbortRunningActions()
         {
-            foreach (DispatcherOperation operation in m_Operations)
+            foreach (DispatcherOperation operation in _operations)
             {
                 operation.Abort();
             }
 
-            m_Operations.Clear();
+            _operations.Clear();
         }
     }
 }

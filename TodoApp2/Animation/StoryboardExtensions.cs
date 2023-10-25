@@ -9,8 +9,8 @@ namespace TodoApp2
     /// </summary>
     public static class StoryboardExtensions
     {
-        private const string s_PropertyNameOpacity = "Opacity";
-        private const string s_PropertyNameMargin = "Margin";
+        private const string PropertyNameOpacity = "Opacity";
+        private const string PropertyNameMargin = "Margin";
 
         public static void ResetStoryboard(this Storyboard storyboard)
         {
@@ -28,7 +28,7 @@ namespace TodoApp2
             };
 
             Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
-            Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameOpacity));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameOpacity));
             storyBoard.Children.Add(animation);
         }
 
@@ -43,7 +43,7 @@ namespace TodoApp2
             };
 
             Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
-            Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameOpacity));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameOpacity));
             storyBoard.Children.Add(animation);
         }
 
@@ -59,7 +59,7 @@ namespace TodoApp2
             };
 
             Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
-            Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameMargin));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameMargin));
             storyboard.Children.Add(animation);
         }
 
@@ -75,7 +75,7 @@ namespace TodoApp2
             };
 
             Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
-            Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameMargin));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameMargin));
             storyboard.Children.Add(animation);
         }
 
@@ -125,7 +125,7 @@ namespace TodoApp2
             };
 
             Timeline.SetDesiredFrameRate(animation, 60); // 60 FPS
-            Storyboard.SetTargetProperty(animation, new PropertyPath(s_PropertyNameMargin));
+            Storyboard.SetTargetProperty(animation, new PropertyPath(PropertyNameMargin));
             storyboard.Children.Add(animation);
         }
 

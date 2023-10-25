@@ -12,17 +12,17 @@ namespace TodoApp2
     /// </summary>
     public class EnumToFontFamilyConverter : BaseValueConverter
     {
-        private static bool _Initialized = false;
-        private static readonly MediaFontFamily s_DefaultFontFamily = new MediaFontFamily(GlobalConstants.FontFamily.SegoeUI);
-        private static readonly Dictionary<FontFamily, MediaFontFamily> s_FontFamilies = new Dictionary<FontFamily, MediaFontFamily>();
+        private static bool _initialized = false;
+        private static readonly MediaFontFamily DefaultFontFamily = new MediaFontFamily(GlobalConstants.FontFamily.SegoeUI);
+        private static readonly Dictionary<FontFamily, MediaFontFamily> FontFamilies = new Dictionary<FontFamily, MediaFontFamily>();
 
         public static EnumToFontFamilyConverter Instance { get; } = new EnumToFontFamilyConverter();
 
         public EnumToFontFamilyConverter()
         {
-            if (!_Initialized)
+            if (!_initialized)
             {
-                _Initialized = true;
+                _initialized = true;
                 AddDefaultFontFamily(FontFamily.Calibri, GlobalConstants.FontFamily.Calibri);
             
                 AddFontFamily(FontFamily.CascadiaMonoLight);
@@ -80,7 +80,7 @@ namespace TodoApp2
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             FontFamily fValue = (FontFamily)value;
-            return s_FontFamilies.ContainsKey(fValue) ? s_FontFamilies[fValue] : s_DefaultFontFamily;
+            return FontFamilies.ContainsKey(fValue) ? FontFamilies[fValue] : DefaultFontFamily;
         }
 
         public MediaFontFamily Convert(object value)
@@ -90,13 +90,13 @@ namespace TodoApp2
 
         private static void AddDefaultFontFamily(FontFamily font, string familyName)
         {
-            s_FontFamilies.Add(font, new MediaFontFamily(familyName));
+            FontFamilies.Add(font, new MediaFontFamily(familyName));
         }
 
         private void AddFontFamily(FontFamily font)
         {
             MediaFontFamily fontFamily = (MediaFontFamily)Application.Current.TryFindResource(Enum.GetName(typeof(FontFamily), font));
-            s_FontFamilies.Add(font, fontFamily);
+            FontFamilies.Add(font, fontFamily);
         }
     }
 }

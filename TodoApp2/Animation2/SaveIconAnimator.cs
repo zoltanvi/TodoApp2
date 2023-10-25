@@ -6,7 +6,7 @@ namespace TodoApp2
 {
     public static class SaveIconAnimator
     {
-        private static DispatcherTimer m_Timer;
+        private static DispatcherTimer _timer;
 
         public static readonly DependencyProperty AnimateProperty = 
             DependencyProperty.RegisterAttached("Animate", typeof(bool), typeof(SaveIconAnimator), new FrameworkPropertyMetadata(false, OnAnimateChanged));
@@ -27,28 +27,28 @@ namespace TodoApp2
             {
                 InitializeTimer();
 
-                m_Timer.Stop();
-                m_Timer.Start();
+                _timer.Stop();
+                _timer.Start();
 
-                m_Timer.Tag = element;
+                _timer.Tag = element;
                 element.Opacity = 1;
             }
         }
 
         private static void InitializeTimer()
         {
-            if (m_Timer == null)
+            if (_timer == null)
             {
-                m_Timer = new DispatcherTimer();
-                m_Timer.Interval = TimeSpan.FromSeconds(1);
-                m_Timer.Tick += OnTimerTick;
+                _timer = new DispatcherTimer();
+                _timer.Interval = TimeSpan.FromSeconds(1);
+                _timer.Tick += OnTimerTick;
             }
         }
 
         private static void OnTimerTick(object sender, EventArgs e)
         {
-            m_Timer.Stop();
-            FrameworkElement element = (FrameworkElement)m_Timer.Tag;
+            _timer.Stop();
+            FrameworkElement element = (FrameworkElement)_timer.Tag;
             element.Opacity = 0;
         }
     }

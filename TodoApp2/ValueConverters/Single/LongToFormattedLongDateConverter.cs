@@ -8,6 +8,7 @@ namespace TodoApp2
     /// </summary>
     public class LongToFormattedLongDateConverter : BaseValueConverter
     {
+        // TODO: add to config or make it culture dependent
         private const string DateTimeFormatString = "yyyy. MMMM dd. dddd, HH:mm";
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

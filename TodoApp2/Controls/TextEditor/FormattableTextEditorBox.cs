@@ -11,8 +11,8 @@ namespace TodoApp2
 {
     internal class FormattableTextEditorBox : BasicTextEditorBox
     {
-        private bool m_IsExecuting;
-        private readonly StringRGBToBrushConverter m_ColorConverter;
+        private bool _executing;
+        private readonly StringRGBToBrushConverter _colorConverter;
 
         public static readonly DependencyProperty IsSelectionBoldProperty = DependencyProperty.Register(nameof(IsSelectionBold), typeof(bool), typeof(FormattableTextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty IsSelectionItalicProperty = DependencyProperty.Register(nameof(IsSelectionItalic), typeof(bool), typeof(FormattableTextEditorBox), new PropertyMetadata());
@@ -90,7 +90,7 @@ namespace TodoApp2
 
         public FormattableTextEditorBox()
         {
-            m_ColorConverter = new StringRGBToBrushConverter();
+            _colorConverter = new StringRGBToBrushConverter();
 
             CommandManager.AddPreviewExecutedHandler(this, OnExecuted);
             SelectionChanged += OnSelectionChanged;
@@ -231,9 +231,9 @@ namespace TodoApp2
         private void OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             // First execute the command then do the update
-            if (!m_IsExecuting)
+            if (!_executing)
             {
-                m_IsExecuting = true;
+                _executing = true;
 
                 try
                 {
@@ -268,7 +268,7 @@ namespace TodoApp2
                     e.Handled = true;
                 }
 
-                m_IsExecuting = false;
+                _executing = false;
             }
         }
 
@@ -312,7 +312,7 @@ namespace TodoApp2
 
             if (foreground != DependencyProperty.UnsetValue)
             {
-                color = (string)m_ColorConverter.ConvertBack(foreground, typeof(string), null, CultureInfo.InvariantCulture);
+                color = (string)_colorConverter.ConvertBack(foreground, typeof(string), null, CultureInfo.InvariantCulture);
             }
 
             SelectedColor = color;
@@ -380,7 +380,7 @@ namespace TodoApp2
 
         private void ApplyColor(string newColor)
         {
-            SolidColorBrush color = m_ColorConverter.Convert(
+            SolidColorBrush color = _colorConverter.Convert(
                 newColor,
                 typeof(SolidColorBrush),
                 null,

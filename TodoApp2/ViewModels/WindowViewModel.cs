@@ -14,8 +14,9 @@ namespace TodoApp2
     /// </summary>
     public class WindowViewModel : BaseViewModel
     {
-        private const string s_DateTimeFormatString = "yyyy-MM-dd HH:mm";
-        private const int s_ResizeBorderSize = 9;
+        // TODO: Add to config or make it language dependent
+        private const string DateTimeFormatString = "yyyy-MM-dd HH:mm";
+        private const int ResizeBorderSize = 9;
 
         private readonly Window _window;
         private readonly WindowResizer _resizer;
@@ -55,7 +56,7 @@ namespace TodoApp2
         /// <summary>
         /// The size of the resize border around the window
         /// </summary>
-        public int ResizeBorder => _window.WindowState == WindowState.Maximized ? 0 : s_ResizeBorderSize;
+        public int ResizeBorder => _window.WindowState == WindowState.Maximized ? 0 : ResizeBorderSize;
 
         /// <summary>
         /// The size of the resize border around the window, taking into account the outer margin
@@ -95,7 +96,7 @@ namespace TodoApp2
         // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
         public double MyWidth { get; set; }
         public double MyHeight { get; set; }
-        public int OuterMargin { get; set; } = 2 * s_ResizeBorderSize;
+        public int OuterMargin { get; set; } = 2 * ResizeBorderSize;
         public Rect ClipRect => new Rect(0, 0, MyWidth, MyHeight);
         public Rect OuterClipRect => new Rect(0, 0, MyWidth + OuterMargin, MyHeight + OuterMargin);
         #endregion Workaround
@@ -156,7 +157,7 @@ namespace TodoApp2
             _dragDropMediator = new DragDropMediator();
 
             _timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 1) };
-            CurrentTime = DateTime.Now.ToString(s_DateTimeFormatString);
+            CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
             _timer.Tick += TimerOnTick;
             _timer.Start();
         }
@@ -407,7 +408,7 @@ namespace TodoApp2
 
         private void TimerOnTick(object sender, EventArgs e)
         {
-            CurrentTime = DateTime.Now.ToString(s_DateTimeFormatString);
+            CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
         }
 
         private void OnThemeChangeRequested(object obj)

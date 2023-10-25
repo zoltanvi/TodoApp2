@@ -12,7 +12,7 @@ namespace TodoApp2
     /// </summary>
     public class BackgroundBrushConverter : BaseMultiValueConverter<BackgroundBrushConverter>
     {
-        private static readonly SolidColorBrush s_Transparent = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+        private static readonly SolidColorBrush Transparent = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
 
         public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -20,7 +20,7 @@ namespace TodoApp2
             {
                 // The task list item background is hatched when the task is done and the background is enabled in the settings
                 // Brush is always got from resources because this way it can dynamically change during runtime
-                if (!isBackgroundVisible) return s_Transparent;
+                if (!isBackgroundVisible) return Transparent;
 
                 return isDone
                     ? Application.Current.TryFindResource(GlobalConstants.BrushName.HatchBrush)

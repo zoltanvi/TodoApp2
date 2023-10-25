@@ -11,30 +11,30 @@ namespace TodoApp2
         /// <summary>
         /// The View Model associated with this page
         /// </summary>
-        private TViewModel m_ViewModel;
+        private TViewModel _viewModel;
 
         /// <summary>
         /// The View Model associated with this page
         /// </summary>
         public TViewModel ViewModel
         {
-            get => m_ViewModel;
+            get => _viewModel;
             set
             {
                 // If nothing has changed, return
-                if (m_ViewModel == value)
+                if (_viewModel == value)
                 {
                     return;
                 }
 
                 // Update the value
-                m_ViewModel = value;
+                _viewModel = value;
 
                 // Update the base property
-                BaseViewModelObject = m_ViewModel;
+                BaseViewModelObject = _viewModel;
 
                 //Set the data context for this page
-                DataContext = m_ViewModel;
+                DataContext = _viewModel;
             }
         }
 

@@ -7,7 +7,7 @@ namespace TodoApp2
 {
     public class AccentColorBrushConverter : BaseValueConverter
     {
-        private readonly StringRGBToBrushConverter m_Converter = new StringRGBToBrushConverter();
+        private readonly StringRGBToBrushConverter _converter = new StringRGBToBrushConverter();
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -15,10 +15,10 @@ namespace TodoApp2
             {
                 if (colorCode == GlobalConstants.ColorName.Transparent)
                 {
-                    return m_Converter.Convert(GlobalConstants.ColorName.DefaultAccentColor, targetType, parameter, culture);
+                    return _converter.Convert(GlobalConstants.ColorName.DefaultAccentColor, targetType, parameter, culture);
                 }
 
-                return m_Converter.Convert(value, targetType, parameter, culture);
+                return _converter.Convert(value, targetType, parameter, culture);
             }
 
             return null;
