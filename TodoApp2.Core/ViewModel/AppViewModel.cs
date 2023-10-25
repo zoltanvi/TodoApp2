@@ -213,7 +213,7 @@ namespace TodoApp2.Core
         public void LoadApplicationSettings()
         {
             List<Setting> settings = _database.GetSettings();
-            IoC.AppSettings.Populate(settings);
+            IoC.AppSettings.Read(settings);
 
             // Must be set to always check the registry on startup
             IoC.AutoRunService.RunAtStartup = AppSettings.CommonSettings.AutoStart;
@@ -221,7 +221,7 @@ namespace TodoApp2.Core
 
         public void SaveApplicationSettings()
         {
-            List<Setting> settings = IoC.AppSettings.CreateSettingsList();
+            List<Setting> settings = IoC.AppSettings.Write();
 
             _database.UpdateSettings(settings);
         }

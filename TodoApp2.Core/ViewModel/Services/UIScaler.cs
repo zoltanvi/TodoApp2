@@ -45,14 +45,14 @@ namespace TodoApp2.Core
 
         private const int ColorPickerColumns = 9;
 
-        private double m_ScalingPercent = OriginalScalingPercent;
+        private double _scalingPercent = OriginalScalingPercent;
 
         public static double StaticScaleValue { get; private set; } = 1;
         public double ScaleValue => StaticScaleValue;
 
         public FontSizes FontSize { get; } = new FontSizes();
         public double SideMenuWidth => OriginalSideMenuWidth * ScaleValue;
-        public double SideMenuMinimumWidth => OriginalSideMenuMinimumWidth * ScaleValue; // Not decided yet
+        public double SideMenuMinimumWidth => OriginalSideMenuMinimumWidth * ScaleValue;
         public double TextBoxMaxHeight => OriginalTextBoxMaxHeight * ScaleValue;
         public double ColorPickerHeight => OriginalColorPickerHeight * ScaleValue;
         public double ColorPickerWidth => OriginalColorPickerWidth * ScaleValue;
@@ -92,7 +92,7 @@ namespace TodoApp2.Core
             bool zoomed = value != StaticScaleValue;
             var oldScaleValue = StaticScaleValue;
             StaticScaleValue = value;
-            m_ScalingPercent = StaticScaleValue * OriginalScalingPercent;
+            _scalingPercent = StaticScaleValue * OriginalScalingPercent;
             OnPropertyChanged(string.Empty);
 
             if (zoomed)
@@ -107,20 +107,20 @@ namespace TodoApp2.Core
             const double maxScalingPercent = 500;
             const double minScalingPercent = 30;
 
-            if (zoomIn && m_ScalingPercent < maxScalingPercent)
+            if (zoomIn && _scalingPercent < maxScalingPercent)
             {
                 // Zoom in
                 zoomOffset = 10;
             }
-            else if (!zoomIn && m_ScalingPercent > minScalingPercent)
+            else if (!zoomIn && _scalingPercent > minScalingPercent)
             {
                 // Zoom out
                 zoomOffset = -10;
             }
 
-            m_ScalingPercent += zoomOffset;
-            SetScaling(m_ScalingPercent / OriginalScalingPercent);
-            IoC.MessageService.ShowInfo($"{m_ScalingPercent} %");
+            _scalingPercent += zoomOffset;
+            SetScaling(_scalingPercent / OriginalScalingPercent);
+            IoC.MessageService.ShowInfo($"{_scalingPercent} %");
         }
     }
 }

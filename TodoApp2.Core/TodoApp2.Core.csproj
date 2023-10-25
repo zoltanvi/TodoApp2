@@ -116,9 +116,6 @@
     <Compile Include="ListProviders\AccentColorProvider.cs" />
     <Compile Include="ListProviders\EnumValuesListProvider.cs" />
     <Compile Include="Mediator\AsyncEventArgs.cs" />
-    <Compile Include="PropertyHandling\BasePropertyValueHandler.cs" />
-    <Compile Include="PropertyHandling\PropertyValueHandlers.cs" />
-    <Compile Include="PropertyHandling\IPropertyValueHandler.cs" />
     <Compile Include="DataModels\Setting.cs" />
     <Compile Include="Helpers\CollectionExtender.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
