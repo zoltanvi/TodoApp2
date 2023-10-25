@@ -18,8 +18,8 @@ namespace TodoApp2
         private const string PipeName = "TodoApp2Pipe";
         private const string ShowRunningAppWindowMessage = "ShowRunningApp";
 
-        private static bool m_IsFirstInstance;
-        private static Mutex m_InstanceMutex;
+        private static bool _isFirstInstance;
+        private static Mutex _instanceMutex;
 
         private string m_CrashReportPath;
 
@@ -31,9 +31,9 @@ namespace TodoApp2
         {
             SubscribeToExceptionHandling();
 
-            m_InstanceMutex = new Mutex(true, PipeName, out m_IsFirstInstance);
+            _instanceMutex = new Mutex(true, PipeName, out _isFirstInstance);
 
-            if (!m_IsFirstInstance)
+            if (!_isFirstInstance)
             {
                 SendMessageToRunningInstance(ShowRunningAppWindowMessage);
                 Current.Shutdown();

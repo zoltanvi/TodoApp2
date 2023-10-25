@@ -407,7 +407,7 @@ namespace TodoApp2.Core
                     // If the category is the same as the task is in, there is nothing to do
                     if (task.CategoryId != categoryToMoveTo.Id)
                     {
-                        //CategoryListItemViewModel newCategory = m_CategoryListService.GetCategory(categoryToMoveTo);
+                        //CategoryListItemViewModel newCategory = _categoryListService.GetCategory(categoryToMoveTo);
                         task.CategoryId = categoryToMoveTo.Id;
 
                         // Insert into the first correct position.

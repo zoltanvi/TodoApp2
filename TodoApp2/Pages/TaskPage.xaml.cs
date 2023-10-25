@@ -9,11 +9,11 @@ namespace TodoApp2
     /// </summary>
     public partial class TaskPage : BasePage<TaskPageViewModel>
     {
-        private readonly TaskListService m_TaskListService;
+        private readonly TaskListService _taskListService;
 
         public TaskPage(TaskPageViewModel viewModel, TaskListService taskListService) : base(viewModel)
         {
-            m_TaskListService = taskListService;
+            _taskListService = taskListService;
 
             InitializeComponent();
 
@@ -31,7 +31,7 @@ namespace TodoApp2
         /// <param name="e"></param>
         private void MainWindowOnClosing(object sender, CancelEventArgs e)
         {
-            m_TaskListService.PersistTaskList();
+            _taskListService.PersistTaskList();
         }
     }
 }
