@@ -17,7 +17,7 @@ namespace TodoApp2.Core
             string command = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{Table.Task}' ";
 
             // Get user version
-            using (SQLiteCommand dbCommand = new SQLiteCommand(command, m_Connection))
+            using (SQLiteCommand dbCommand = new SQLiteCommand(command, _connection))
             using (SQLiteDataReader reader = dbCommand.ExecuteReader())
             {
                 while (reader.Read())
@@ -116,7 +116,7 @@ namespace TodoApp2.Core
         {
             TaskViewModel readTask = null;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText =
                     $"SELECT * FROM {Table.Task} " +
@@ -141,7 +141,7 @@ namespace TodoApp2.Core
         public bool UpdateTask(TaskViewModel task)
         {
             bool result = false;
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"UPDATE {Table.Task} SET " +
                                       $"  {Column.CategoryId} = {Parameter.CategoryId}, " +
@@ -171,7 +171,7 @@ namespace TodoApp2.Core
             int modifiedItems = 0;
 
             // Using transaction to write the database only once
-            using (SQLiteTransaction transaction = m_Connection.BeginTransaction())
+            using (SQLiteTransaction transaction = _connection.BeginTransaction())
             {
                 foreach (TaskViewModel task in taskList)
                 {
@@ -189,11 +189,11 @@ namespace TodoApp2.Core
             int modifiedItems = 0;
 
             // Using transaction to write the database only once
-            using (SQLiteTransaction transaction = m_Connection.BeginTransaction())
+            using (SQLiteTransaction transaction = _connection.BeginTransaction())
             {
                 foreach (var todoTask in taskList)
                 {
-                    using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+                    using (SQLiteCommand command = new SQLiteCommand(_connection))
                     {
                         command.CommandText = $"UPDATE {Table.Task} SET " +
                                               $" {Column.ListOrder} = {Parameter.ListOrder} " +
@@ -216,7 +216,7 @@ namespace TodoApp2.Core
 
         private void AddTask(TaskViewModel taskListItem)
         {
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"INSERT INTO {Table.Task} " +
                                       $" ({Column.Id}, {Column.CategoryId}, {Column.Content}, " +
@@ -240,7 +240,7 @@ namespace TodoApp2.Core
         {
             int nextId = 0;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText =
                     $"SELECT * FROM {Table.Task} " +

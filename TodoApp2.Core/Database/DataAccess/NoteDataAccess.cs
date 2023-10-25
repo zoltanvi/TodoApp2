@@ -56,7 +56,7 @@ namespace TodoApp2.Core
         {
             NoteViewModel item = null;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText =
                     $"SELECT * FROM {Table.Note} " +
@@ -91,7 +91,7 @@ namespace TodoApp2.Core
         public bool UpdateNote(NoteViewModel note)
         {
             bool result = false;
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"UPDATE {Table.Note} SET " +
                                       $"  {Column.Title} = {Parameter.Title}, " +
@@ -111,7 +111,7 @@ namespace TodoApp2.Core
 
         private void AddNote(NoteViewModel note)
         {
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"INSERT INTO {Table.Note} " +
                                       $" ({Column.Id}, {Column.Title}, {Column.ListOrder}, " +
@@ -161,7 +161,7 @@ namespace TodoApp2.Core
         {
             int nextId = 0;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"SELECT * FROM {Table.Note} ORDER BY {Column.Id} DESC LIMIT 1";
 

@@ -47,7 +47,7 @@ namespace TodoApp2.Core
 
         public void AddCategory(CategoryViewModel category)
         {
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText =
                     $"INSERT INTO {Table.Category} " +
@@ -91,7 +91,7 @@ namespace TodoApp2.Core
         {
             CategoryViewModel item = null;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText =
                     $"SELECT * FROM {Table.Category} " +
@@ -115,7 +115,7 @@ namespace TodoApp2.Core
         {
             CategoryViewModel item = null;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText =
                     $"SELECT * FROM {Table.Category} " +
@@ -139,7 +139,7 @@ namespace TodoApp2.Core
         {
             int nextId = int.MinValue;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText =
                     $"SELECT * FROM {Table.Category} " +
@@ -167,7 +167,7 @@ namespace TodoApp2.Core
         public bool UpdateCategory(CategoryViewModel category)
         {
             bool result = false;
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"UPDATE {Table.Category} SET " +
                                       $" {Column.Name} = {Parameter.Name}, " +
@@ -194,11 +194,11 @@ namespace TodoApp2.Core
             int modifiedItems = 0;
 
             // Using transaction to write the database only once
-            using (SQLiteTransaction transaction = m_Connection.BeginTransaction())
+            using (SQLiteTransaction transaction = _connection.BeginTransaction())
             {
                 foreach (var category in categoryList)
                 {
-                    using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+                    using (SQLiteCommand command = new SQLiteCommand(_connection))
                     {
                         command.CommandText = $"UPDATE {Table.Category} SET " +
                                               $" {Column.ListOrder} = {Parameter.ListOrder} " +
@@ -237,7 +237,7 @@ namespace TodoApp2.Core
         {
             int count = 0;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"SELECT COUNT(*) FROM {Table.Category} ";
 

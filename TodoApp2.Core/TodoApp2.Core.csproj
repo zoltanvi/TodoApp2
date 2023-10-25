@@ -102,7 +102,6 @@
     <Compile Include="Database\ListOrder\Reorderer.cs" />
     <Compile Include="Database\TaskChangedEventArgs.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
-    <Compile Include="Configuration\ApplicationSettings.cs" />
     <Compile Include="DataModels\FontFamily.cs" />
     <Compile Include="DataModels\HorizontalAlignment.cs" />
     <Compile Include="DataModels\MessageType.cs" />

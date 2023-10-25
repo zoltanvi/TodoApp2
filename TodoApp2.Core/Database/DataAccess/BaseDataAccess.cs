@@ -10,19 +10,19 @@ namespace TodoApp2.Core
 {
     public abstract partial class BaseDataAccess
     {
-        protected readonly SQLiteConnection m_Connection;
+        protected readonly SQLiteConnection _connection;
 
         public const long DefaultListOrder = long.MaxValue / 2;
         public const long ListOrderInterval = 1_000_000_000_000;
 
         protected BaseDataAccess(SQLiteConnection connection)
         {
-            m_Connection = connection;
+            _connection = connection;
         }
 
         protected void ExecuteCommand(string command)
         {
-            using (SQLiteCommand dbCommand = new SQLiteCommand(command, m_Connection))
+            using (SQLiteCommand dbCommand = new SQLiteCommand(command, _connection))
             using (SQLiteDataReader reader = dbCommand.ExecuteReader())
             {
             }
@@ -42,7 +42,7 @@ namespace TodoApp2.Core
             string ordering = first ? string.Empty : "DESC";
             long listOrder = DefaultListOrder;
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText =
                     $"SELECT * FROM {table} " +
@@ -65,7 +65,7 @@ namespace TodoApp2.Core
         {
             List<T> items = new List<T>();
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = query;
 

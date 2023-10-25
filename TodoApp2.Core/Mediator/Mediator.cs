@@ -5,18 +5,18 @@ namespace TodoApp2.Core
 {
     public sealed class Mediator
     {
-        private static Mediator s_Instance;
-        private static Mediator Instance => s_Instance ?? (s_Instance = new Mediator());
+        private static Mediator _instance;
+        private static Mediator Instance => _instance ?? (_instance = new Mediator());
 
-        private readonly MultiDictionary<ViewModelMessages, Action<object>> m_MessageActionDictionary;
-        private readonly MultiDictionary<ViewModelMessages, Func<Task>> m_MessageFunctionDictionary;
-        private readonly EventHandler<AsyncEventArgs> m_AsyncEvent;
+        private readonly MultiDictionary<ViewModelMessages, Action<object>> _messageActionDictionary;
+        private readonly MultiDictionary<ViewModelMessages, Func<Task>> _messageFunctionDictionary;
+        private readonly EventHandler<AsyncEventArgs> _asyncEvent;
 
         private Mediator()
         {
-            m_MessageActionDictionary = new MultiDictionary<ViewModelMessages, Action<object>>();
-            m_MessageFunctionDictionary = new MultiDictionary<ViewModelMessages, Func<Task>>();
-            m_AsyncEvent += OnAsyncEvent;
+            _messageActionDictionary = new MultiDictionary<ViewModelMessages, Action<object>>();
+            _messageFunctionDictionary = new MultiDictionary<ViewModelMessages, Func<Task>>();
+            _asyncEvent += OnAsyncEvent;
         }
 
         private async void OnAsyncEvent(object sender, AsyncEventArgs e)
@@ -77,45 +77,45 @@ namespace TodoApp2.Core
         /// <inheritdoc cref="Register(Action{object},ViewModelMessages)"/>
         private void InstanceRegister(Action<object> action, ViewModelMessages message)
         {
-            m_MessageActionDictionary.AddValue(message, action);
+            _messageActionDictionary.AddValue(message, action);
         }
 
         /// <inheritdoc cref="Register(Func{Task},ViewModelMessages)"/>
         private void InstanceRegister(Func<Task> task, ViewModelMessages message)
         {
-            m_MessageFunctionDictionary.AddValue(message, task);
+            _messageFunctionDictionary.AddValue(message, task);
         }
 
         /// <inheritdoc cref="Deregister(Action{object},ViewModelMessages)"/>
         private void InstanceDeregister(Action<object> action, ViewModelMessages message)
         {
-            m_MessageActionDictionary.RemoveValue(message, action);
+            _messageActionDictionary.RemoveValue(message, action);
         }
 
         /// <inheritdoc cref="Deregister(Func{Task},ViewModelMessages)"/>
         private void InstanceDeregister(Func<Task> task, ViewModelMessages message)
         {
-            m_MessageFunctionDictionary.RemoveValue(message, task);
+            _messageFunctionDictionary.RemoveValue(message, task);
         }
 
         /// <inheritdoc cref="NotifyClients"/>
         private void InstanceNotifyClients(ViewModelMessages message, object args = null)
         {
-            if (m_MessageActionDictionary.ContainsKey(message))
+            if (_messageActionDictionary.ContainsKey(message))
             {
                 // forward the message to all listeners
-                foreach (Action<object> action in m_MessageActionDictionary[message])
+                foreach (Action<object> action in _messageActionDictionary[message])
                 {
                     action(args);
                 }
             }
 
-            if (m_MessageFunctionDictionary.ContainsKey(message))
+            if (_messageFunctionDictionary.ContainsKey(message))
             {
                 // forward the message to all listeners
-                foreach (var func in m_MessageFunctionDictionary[message])
+                foreach (var func in _messageFunctionDictionary[message])
                 {
-                    m_AsyncEvent.Invoke(this, new AsyncEventArgs(func, args));
+                    _asyncEvent.Invoke(this, new AsyncEventArgs(func, args));
                 }
             }
         }

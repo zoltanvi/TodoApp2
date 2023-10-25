@@ -2,7 +2,7 @@
 {
     public class ShortcutsPageViewModel : BaseViewModel
     {
-        private readonly AppViewModel _AppViewModel;
+        private readonly AppViewModel _appViewModel;
 
         public ShortcutsPageViewModel()
         {
@@ -10,7 +10,7 @@
 
         public ShortcutsPageViewModel(AppViewModel applicationViewModel)
         {
-            _AppViewModel = applicationViewModel;
+            _appViewModel = applicationViewModel;
         }
     }
 }

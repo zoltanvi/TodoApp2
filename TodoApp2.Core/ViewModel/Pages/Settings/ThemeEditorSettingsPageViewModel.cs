@@ -3,92 +3,92 @@
     public class ThemeEditorSettingsPageViewModel : BaseViewModel
     {
         private readonly IResourceUpdater _resourceUpdater;
-        private object _TitleBarBgBrush;
-        private object _PageBgBrush;
-        private object _SideMenuBgBrush;
-        private object _BottomBarBgBrush;
-        private object _ForegroundBrush;
-        private object _TaskBgBrush;
-        private object _SelectedCategoryBgBrush;
-        private object _HoverCategoryBgBrush;
+        private object _titleBarBgBrush;
+        private object _pageBgBrush;
+        private object _sideMenuBgBrush;
+        private object _bottomBarBgBrush;
+        private object _foregroundBrush;
+        private object _taskBgBrush;
+        private object _selectedCategoryBgBrush;
+        private object _hoverCategoryBgBrush;
 
         public object TitleBarBgBrush
         {
-            get => _TitleBarBgBrush;
+            get => _titleBarBgBrush;
             set
             {
-                _TitleBarBgBrush = value;
-                _resourceUpdater.UpdateResource(nameof(TitleBarBgBrush), _TitleBarBgBrush);
+                _titleBarBgBrush = value;
+                _resourceUpdater.UpdateResource(nameof(TitleBarBgBrush), _titleBarBgBrush);
             }
         }
 
         public object PageBgBrush
         {
-            get => _PageBgBrush;
+            get => _pageBgBrush;
             set
             {
-                _PageBgBrush = value;
-                _resourceUpdater.UpdateResource(nameof(PageBgBrush), _PageBgBrush);
+                _pageBgBrush = value;
+                _resourceUpdater.UpdateResource(nameof(PageBgBrush), _pageBgBrush);
             }
         }
 
         public object SideMenuBgBrush
         {
-            get => _SideMenuBgBrush;
+            get => _sideMenuBgBrush;
             set
             {
-                _SideMenuBgBrush = value;
-                _resourceUpdater.UpdateResource(nameof(SideMenuBgBrush), _SideMenuBgBrush);
+                _sideMenuBgBrush = value;
+                _resourceUpdater.UpdateResource(nameof(SideMenuBgBrush), _sideMenuBgBrush);
             }
         }
 
         public object BottomBarBgBrush
         {
-            get => _BottomBarBgBrush;
+            get => _bottomBarBgBrush;
             set
             {
-                _BottomBarBgBrush = value;
-                _resourceUpdater.UpdateResource(nameof(BottomBarBgBrush), _BottomBarBgBrush);
+                _bottomBarBgBrush = value;
+                _resourceUpdater.UpdateResource(nameof(BottomBarBgBrush), _bottomBarBgBrush);
             }
         }
 
         public object ForegroundBrush
         {
-            get => _ForegroundBrush;
+            get => _foregroundBrush;
             set
             {
-                _ForegroundBrush = value;
-                _resourceUpdater.UpdateResource(nameof(ForegroundBrush), _ForegroundBrush);
+                _foregroundBrush = value;
+                _resourceUpdater.UpdateResource(nameof(ForegroundBrush), _foregroundBrush);
             }
         }
 
         public object TaskBgBrush
         {
-            get => _TaskBgBrush;
+            get => _taskBgBrush;
             set
             {
-                _TaskBgBrush = value;
-                _resourceUpdater.UpdateResource(nameof(TaskBgBrush), _TaskBgBrush);
+                _taskBgBrush = value;
+                _resourceUpdater.UpdateResource(nameof(TaskBgBrush), _taskBgBrush);
             }
         }
 
         public object SelectedCategoryBgBrush
         {
-            get => _SelectedCategoryBgBrush;
+            get => _selectedCategoryBgBrush;
             set
             {
-                _SelectedCategoryBgBrush = value;
-                _resourceUpdater.UpdateResource(nameof(SelectedCategoryBgBrush), _SelectedCategoryBgBrush);
+                _selectedCategoryBgBrush = value;
+                _resourceUpdater.UpdateResource(nameof(SelectedCategoryBgBrush), _selectedCategoryBgBrush);
             }
         }
 
         public object HoverCategoryBgBrush
         {
-            get => _HoverCategoryBgBrush;
+            get => _hoverCategoryBgBrush;
             set
             {
-                _HoverCategoryBgBrush = value;
-                _resourceUpdater.UpdateResource(nameof(HoverCategoryBgBrush), _HoverCategoryBgBrush);
+                _hoverCategoryBgBrush = value;
+                _resourceUpdater.UpdateResource(nameof(HoverCategoryBgBrush), _hoverCategoryBgBrush);
             }
         }
 
@@ -115,14 +115,14 @@
 
         private void UpdateBrushes()
         {
-            _TitleBarBgBrush = _resourceUpdater.GetResourceValue(nameof(TitleBarBgBrush));
-            _PageBgBrush = _resourceUpdater.GetResourceValue(nameof(PageBgBrush));
-            _SideMenuBgBrush = _resourceUpdater.GetResourceValue(nameof(SideMenuBgBrush));
-            _BottomBarBgBrush = _resourceUpdater.GetResourceValue(nameof(BottomBarBgBrush));
-            _ForegroundBrush = _resourceUpdater.GetResourceValue(nameof(ForegroundBrush));
-            _TaskBgBrush = _resourceUpdater.GetResourceValue(nameof(TaskBgBrush));
-            _SelectedCategoryBgBrush = _resourceUpdater.GetResourceValue(nameof(SelectedCategoryBgBrush));
-            _HoverCategoryBgBrush = _resourceUpdater.GetResourceValue(nameof(HoverCategoryBgBrush));
+            _titleBarBgBrush = _resourceUpdater.GetResourceValue(nameof(TitleBarBgBrush));
+            _pageBgBrush = _resourceUpdater.GetResourceValue(nameof(PageBgBrush));
+            _sideMenuBgBrush = _resourceUpdater.GetResourceValue(nameof(SideMenuBgBrush));
+            _bottomBarBgBrush = _resourceUpdater.GetResourceValue(nameof(BottomBarBgBrush));
+            _foregroundBrush = _resourceUpdater.GetResourceValue(nameof(ForegroundBrush));
+            _taskBgBrush = _resourceUpdater.GetResourceValue(nameof(TaskBgBrush));
+            _selectedCategoryBgBrush = _resourceUpdater.GetResourceValue(nameof(SelectedCategoryBgBrush));
+            _hoverCategoryBgBrush = _resourceUpdater.GetResourceValue(nameof(HoverCategoryBgBrush));
         }
     }
 }

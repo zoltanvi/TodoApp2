@@ -11,7 +11,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The action to run
         /// </summary>
-        private readonly Action<object> m_Action;
+        private readonly Action<object> _action;
 
         /// <summary>
         /// The event that's fired when the <see cref="CanExecute(object)"/> value has changed
@@ -20,7 +20,7 @@ namespace TodoApp2.Core
 
         public RelayParameterizedCommand(Action<object> action)
         {
-            m_Action = action;
+            _action = action;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace TodoApp2.Core
         public void Execute(object parameter)
         {
             //IoC.UndoManager.ClearHistory();
-            m_Action?.Invoke(parameter);
+            _action?.Invoke(parameter);
         }
     }
 }

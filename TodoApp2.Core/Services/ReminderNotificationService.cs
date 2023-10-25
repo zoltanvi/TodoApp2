@@ -5,40 +5,40 @@ namespace TodoApp2.Core
 {
     public class ReminderNotificationService
     {
-        private const bool s_PlaySound = true;
-        private bool m_CanShowNotification = true;
-        private readonly Queue<TaskViewModel> m_NotificationQueue;
-        private readonly IDatabase m_Database;
-        private readonly TaskScheduler2 m_TaskScheduler;
-        private readonly OverlayPageService m_OverlayPageService;
-        private Dictionary<TaskViewModel, DateTime> m_ScheduledTasks;
+        private const bool PlaySound = true;
+        private bool _canShowNotification = true;
+        private readonly Queue<TaskViewModel> _notificationQueue;
+        private readonly IDatabase _database;
+        private readonly TaskScheduler2 _taskScheduler;
+        private readonly OverlayPageService _overlayPageService;
+        private Dictionary<TaskViewModel, DateTime> _scheduledTasks;
 
         public ReminderNotificationService(IDatabase database, TaskScheduler2 taskScheduler, OverlayPageService overlayPageService)
         {
-            m_Database = database;
-            m_TaskScheduler = taskScheduler;
-            m_OverlayPageService = overlayPageService;
+            _database = database;
+            _taskScheduler = taskScheduler;
+            _overlayPageService = overlayPageService;
 
-            m_ScheduledTasks = new Dictionary<TaskViewModel, DateTime>();
-            m_NotificationQueue = new Queue<TaskViewModel>();
-            m_TaskScheduler.ScheduledAction = ShowNotification;
+            _scheduledTasks = new Dictionary<TaskViewModel, DateTime>();
+            _notificationQueue = new Queue<TaskViewModel>();
+            _taskScheduler.ScheduledAction = ShowNotification;
 
             Mediator.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
 
-            List<TaskViewModel> taskList = m_Database.GetActiveTasksWithReminder();
+            List<TaskViewModel> taskList = _database.GetActiveTasksWithReminder();
 
             foreach (TaskViewModel task in taskList)
             {
                 DateTime reminderDate = new DateTime(task.ReminderDate);
 
-                if (m_TaskScheduler.AddTask(task, reminderDate))
+                if (_taskScheduler.AddTask(task, reminderDate))
                 {
-                    m_ScheduledTasks.Add(task, reminderDate);
+                    _scheduledTasks.Add(task, reminderDate);
                 }
                 else
                 {
                     DateTime immediately = DateTime.Now.AddSeconds(3);
-                    m_TaskScheduler.AddTask(task, immediately);
+                    _taskScheduler.AddTask(task, immediately);
                 }
             }
         }
@@ -47,43 +47,43 @@ namespace TodoApp2.Core
         {
             DateTime reminderDate = new DateTime(task.ReminderDate);
 
-            if (m_ScheduledTasks.ContainsKey(task))
+            if (_scheduledTasks.ContainsKey(task))
             {
-                if (!m_TaskScheduler.ModifyTask(task, reminderDate))
+                if (!_taskScheduler.ModifyTask(task, reminderDate))
                 {
-                    m_ScheduledTasks.Remove(task);
+                    _scheduledTasks.Remove(task);
                 }
             }
             else
             {
-                if (m_TaskScheduler.AddTask(task, reminderDate))
+                if (_taskScheduler.AddTask(task, reminderDate))
                 {
-                    m_ScheduledTasks.Add(task, reminderDate);
+                    _scheduledTasks.Add(task, reminderDate);
                 }
                 else
                 {
                     task.IsReminderOn = false;
-                    m_Database.UpdateTask(task);
+                    _database.UpdateTask(task);
                 }
             }
         }
 
         public void DeleteReminder(TaskViewModel task)
         {
-            if (m_TaskScheduler.DeleteTask(task))
+            if (_taskScheduler.DeleteTask(task))
             {
-                m_ScheduledTasks.Remove(task);
+                _scheduledTasks.Remove(task);
             }
         }
 
         private void ShowNotification(TaskViewModel task)
         {
-            m_ScheduledTasks.Remove(task);
+            _scheduledTasks.Remove(task);
 
-            TaskViewModel dbTask = m_Database.GetTask(task.Id);
+            TaskViewModel dbTask = _database.GetTask(task.Id);
             if (dbTask.IsReminderOn)
             {
-                m_NotificationQueue.Enqueue(dbTask);
+                _notificationQueue.Enqueue(dbTask);
             }
 
             OpenNextNotification();
@@ -91,8 +91,8 @@ namespace TodoApp2.Core
 
         private void OnNotificationClosed(object obj)
         {
-            m_CanShowNotification = true;
-            if (m_NotificationQueue.Count > 0)
+            _canShowNotification = true;
+            if (_notificationQueue.Count > 0)
             {
                 OpenNextNotification();
             }
@@ -100,14 +100,14 @@ namespace TodoApp2.Core
 
         private void OpenNextNotification()
         {
-            if (m_CanShowNotification)
+            if (_canShowNotification)
             {
-                m_CanShowNotification = false;
+                _canShowNotification = false;
 
-                if (m_NotificationQueue.Count > 0)
+                if (_notificationQueue.Count > 0)
                 {
-                    TaskViewModel notificationTask = m_NotificationQueue.Dequeue();
-                    notificationTask = m_Database.GetTask(notificationTask.Id);
+                    TaskViewModel notificationTask = _notificationQueue.Dequeue();
+                    notificationTask = _database.GetTask(notificationTask.Id);
 
                     if (notificationTask.Trashed)
                     {
@@ -115,10 +115,10 @@ namespace TodoApp2.Core
                     }
 
                     notificationTask.IsReminderOn = false;
-                    m_Database.UpdateTask(notificationTask);
+                    _database.UpdateTask(notificationTask);
 
-                    m_OverlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
-                    Mediator.NotifyClients(ViewModelMessages.WindowFlashRequested, s_PlaySound);
+                    _overlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
+                    Mediator.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
                 }
             }
         }
