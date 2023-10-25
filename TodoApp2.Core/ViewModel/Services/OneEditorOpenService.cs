@@ -2,25 +2,25 @@
 {
     public class OneEditorOpenService : BaseViewModel
     {
-        private TaskViewModel m_EditorOpenTask;
+        private TaskViewModel _editorOpenTask;
 
         public void DisplayMode(TaskViewModel taskListItemViewModel)
         {
-            if (m_EditorOpenTask == taskListItemViewModel)
+            if (_editorOpenTask == taskListItemViewModel)
             {
-                m_EditorOpenTask = null;
+                _editorOpenTask = null;
             }
         }
 
         public void EditMode(TaskViewModel taskListItemViewModel)
         {
             // Save changes and close editor for old task
-            if (m_EditorOpenTask != null && m_EditorOpenTask != taskListItemViewModel)
+            if (_editorOpenTask != null && _editorOpenTask != taskListItemViewModel)
             {
-                m_EditorOpenTask.UpdateContent();
+                _editorOpenTask.UpdateContent();
             }
 
-            m_EditorOpenTask = taskListItemViewModel;
+            _editorOpenTask = taskListItemViewModel;
         }
     }
 }

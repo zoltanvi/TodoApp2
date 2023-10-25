@@ -4,19 +4,19 @@ namespace TodoApp2.Core
 {
     public class TimePickerViewModel : BaseViewModel
     {
-        private int m_Hour;
-        private int m_Minute;
+        private int _hour;
+        private int _minute;
 
         public int Hour
         {
-            get => m_Hour;
-            set => m_Hour = value;
+            get => _hour;
+            set => _hour = value;
         }
 
         public int Minute
         {
-            get => m_Minute;
-            set => m_Minute = value;
+            get => _minute;
+            set => _minute = value;
         }
 
         public ICommand HourUpCommand { get; set; }

@@ -10,8 +10,8 @@ namespace TodoApp2.Core
     [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}]")]
     public class TaskViewModel : BaseViewModel, IReorderable
     {
-        private string m_ContentRollback = string.Empty;
-        private bool m_IsDone;
+        private string _contentRollback = string.Empty;
+        private bool _isDone;
 
         private IDatabase Database => IoC.Database;
 
@@ -23,10 +23,10 @@ namespace TodoApp2.Core
 
         public bool IsDone
         {
-            get => m_IsDone;
+            get => _isDone;
             set
             {
-                m_IsDone = value;
+                _isDone = value;
                 TextEditorViewModel.TextOpacity = IsDone ? 0.25 : 1.0;
             }
         }
@@ -89,10 +89,10 @@ namespace TodoApp2.Core
             if (TextEditorViewModel.IsContentEmpty)
             {
                 // Empty content is rejected, roll back the previous content.
-                Content = m_ContentRollback;
+                Content = _contentRollback;
             }
             // If nothing changed, do not update 
-            else if (Content != m_ContentRollback)
+            else if (Content != _contentRollback)
             {
                 //Modifications are accepted, update task
                 ModificationDate = DateTime.Now.Ticks;
@@ -107,7 +107,7 @@ namespace TodoApp2.Core
         private void EditItem()
         {
             // Save the content before editing for a possible rollback
-            m_ContentRollback = Content;
+            _contentRollback = Content;
 
             // Enable editing
             TextEditorViewModel.IsEditMode = true;

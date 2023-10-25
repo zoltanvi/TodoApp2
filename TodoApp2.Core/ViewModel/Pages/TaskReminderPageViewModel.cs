@@ -5,8 +5,8 @@ namespace TodoApp2.Core
 {
     public class TaskReminderPageViewModel : BaseViewModel
     {
-        private readonly OverlayPageService m_OverlayPageService;
-        private readonly IDatabase m_Database;
+        private readonly OverlayPageService _overlayPageService;
+        private readonly IDatabase _database;
 
         /// <summary>
         /// The task to show the notification for.
@@ -38,32 +38,32 @@ namespace TodoApp2.Core
                 throw new ArgumentNullException(nameof(reminderTask));
             }
 
-            m_OverlayPageService = overlayPageService;
-            m_Database = database;
+            _overlayPageService = overlayPageService;
+            _database = database;
 
             EditReminderCommand = new RelayCommand(EditReminder);
             ClosePageCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeIsOn);
-            m_OverlayPageService.SetBackgroundClickedAction(ClosePage);
+            _overlayPageService.SetBackgroundClickedAction(ClosePage);
 
-            ReminderTask = m_Database.GetTask(reminderTask.Id);
+            ReminderTask = _database.GetTask(reminderTask.Id);
         }
 
         private void ChangeIsOn()
         {
             // ReminderTask.IsReminderOn is modified with the toggle button,
             // so we persist the modification
-            m_Database.UpdateTask(ReminderTask);
+            _database.UpdateTask(ReminderTask);
         }
 
         private void EditReminder()
         {
-            m_OverlayPageService.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
+            _overlayPageService.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
         }
 
         private void ClosePage()
         {
-            m_OverlayPageService.ClosePage();
+            _overlayPageService.ClosePage();
         }
     }
 }

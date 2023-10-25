@@ -4,22 +4,22 @@ namespace TodoApp2.Core
 {
     public class UndoableCommand : IUndoableCommand
     {
-        private readonly UndoManager m_UndoManager;
+        private readonly UndoManager _undoManager;
 
         /// <summary>
         /// The function to run when executing the command.
         /// </summary>
-        private readonly Func<CommandObject, CommandObject> m_DoAction;
+        private readonly Func<CommandObject, CommandObject> _doAction;
 
         /// <summary>
         /// The function to run when redoing the command.
         /// </summary>
-        private readonly Func<CommandObject, CommandObject> m_RedoAction;
+        private readonly Func<CommandObject, CommandObject> _redoAction;
 
         /// <summary>
         /// The action to run when undoing the command
         /// </summary>
-        private readonly Action<CommandObject> m_UndoAction;
+        private readonly Action<CommandObject> _undoAction;
 
         /// <summary>
         /// The event that's fired when the <see cref="CanExecute(object)"/> value has changed
@@ -37,10 +37,10 @@ namespace TodoApp2.Core
             Func<CommandObject, CommandObject> redoAction,
             Action<CommandObject> undoAction)
         {
-            m_UndoManager = IoC.UndoManager;
-            m_DoAction = doAction;
-            m_RedoAction = redoAction;
-            m_UndoAction = undoAction;
+            _undoManager = IoC.UndoManager;
+            _doAction = doAction;
+            _redoAction = redoAction;
+            _undoAction = undoAction;
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace TodoApp2.Core
         /// </summary>
         public void Execute(object parameter)
         {
-            m_UndoManager.Execute(m_DoAction, m_RedoAction, m_UndoAction, parameter);
+            _undoManager.Execute(_doAction, _redoAction, _undoAction, parameter);
         }
     }
 }

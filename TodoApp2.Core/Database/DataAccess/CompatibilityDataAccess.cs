@@ -20,7 +20,7 @@ namespace TodoApp2.Core
             int version = 0;
 
             // Get user version
-            using (SQLiteCommand dbCommand = new SQLiteCommand(GetVersionCommand, m_Connection))
+            using (SQLiteCommand dbCommand = new SQLiteCommand(GetVersionCommand, _connection))
             using (SQLiteDataReader reader = dbCommand.ExecuteReader())
             {
                 if (reader.Read())

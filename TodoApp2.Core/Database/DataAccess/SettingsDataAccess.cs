@@ -46,7 +46,7 @@ namespace TodoApp2.Core
 
         public void AddSetting(Setting settings)
         {
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"INSERT INTO {Table.Settings} ({Column.Key}, {Column.Value}) " +
                                       $" VALUES ({Parameter.Key}, {Parameter.Value});";
@@ -64,7 +64,7 @@ namespace TodoApp2.Core
         public void AddSettings(IEnumerable<Setting> settingsList)
         {
             // Using transaction to write the database only once
-            using (SQLiteTransaction transaction = m_Connection.BeginTransaction())
+            using (SQLiteTransaction transaction = _connection.BeginTransaction())
             {
                 foreach (Setting settings in settingsList)
                 {
@@ -81,7 +81,7 @@ namespace TodoApp2.Core
         {
             List<Setting> items = new List<Setting>();
 
-            using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
             {
                 command.CommandText = $"SELECT * FROM {Table.Settings}";
 
@@ -106,11 +106,11 @@ namespace TodoApp2.Core
             int modifiedItems = 0;
 
             // Using transaction to write the database only once
-            using (SQLiteTransaction transaction = m_Connection.BeginTransaction())
+            using (SQLiteTransaction transaction = _connection.BeginTransaction())
             {
                 foreach (var setting in settingsList)
                 {
-                    using (SQLiteCommand command = new SQLiteCommand(m_Connection))
+                    using (SQLiteCommand command = new SQLiteCommand(_connection))
                     {
                         command.CommandText = $"UPDATE {Table.Settings} SET " +
                                               $"  {Column.Value} = {Parameter.Value} " +

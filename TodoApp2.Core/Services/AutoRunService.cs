@@ -9,23 +9,23 @@ namespace TodoApp2.Core
     {
         private const string APP_NAME = "TodoApp2";
         private const string REGISTRY_PATH = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-        private bool _RunAtStartup;
-        private string _BaseDirectory;
-        private string _ExePath;
+        private bool _runAtStartup;
+        private string _baseDirectory;
+        private string _exePath;
 
-        private string BaseDirectory => _BaseDirectory ?? 
-            (_BaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+        private string BaseDirectory => _baseDirectory ?? 
+            (_baseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
-        private string ExePath => _ExePath ?? (_ExePath = Path.Combine(BaseDirectory, "TodoApp2.exe"));
+        private string ExePath => _exePath ?? (_exePath = Path.Combine(BaseDirectory, "TodoApp2.exe"));
 
         public bool RunAtStartup
         {
-            get => _RunAtStartup;
+            get => _runAtStartup;
             set
             {
-                _RunAtStartup = value;
+                _runAtStartup = value;
 
-                if (_RunAtStartup)
+                if (_runAtStartup)
                 {
                     SetRegistryKey();
                 }

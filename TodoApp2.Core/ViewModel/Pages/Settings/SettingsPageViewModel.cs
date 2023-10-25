@@ -4,7 +4,7 @@ namespace TodoApp2.Core
 {
     public class SettingsPageViewModel : BaseViewModel
     {
-        private readonly AppViewModel _AppViewModel;
+        private readonly AppViewModel _appViewModel;
 
         public ApplicationPage ActiveSettingsPage { get; set; } = ApplicationPage.ApplicationSettings;
 
@@ -17,8 +17,8 @@ namespace TodoApp2.Core
 
         public SettingsPageViewModel(AppViewModel applicationViewModel)
         {
-            _AppViewModel = applicationViewModel;
-            GoBackCommand = new RelayCommand(() => _AppViewModel.UpdateMainPage());
+            _appViewModel = applicationViewModel;
+            GoBackCommand = new RelayCommand(() => _appViewModel.UpdateMainPage());
 
             SwitchToPageCommand = new RelayParameterizedCommand(SwitchToPage);
         }

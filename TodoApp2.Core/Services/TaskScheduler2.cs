@@ -7,13 +7,13 @@ namespace TodoApp2.Core
 {
     public class TaskScheduler2
     {
-        private static readonly TimeSpan s_PollingInterval = TimeSpan.FromSeconds(5);
+        private static readonly TimeSpan PollingInterval = TimeSpan.FromSeconds(5);
 
-        private DispatcherTimer m_PollingTimer;
-        private OrderedDictionary m_TaskDictionary;
-        private Dictionary<TaskViewModel, DateTime> m_TaskDictionaryReversed;
-        private int m_NextId = 0;
-        private int NextId => m_NextId++;
+        private DispatcherTimer _pollingTimer;
+        private OrderedDictionary _taskDictionary;
+        private Dictionary<TaskViewModel, DateTime> _taskDictionaryReversed;
+        private int _nextId = 0;
+        private int NextId => _nextId++;
 
         /// <summary>
         /// The Action which is executed when the timer reaches the scheduled times.
@@ -24,11 +24,11 @@ namespace TodoApp2.Core
 
         public TaskScheduler2()
         {
-            m_TaskDictionary = new OrderedDictionary();
-            m_TaskDictionaryReversed = new Dictionary<TaskViewModel, DateTime>();
+            _taskDictionary = new OrderedDictionary();
+            _taskDictionaryReversed = new Dictionary<TaskViewModel, DateTime>();
 
-            m_PollingTimer = new DispatcherTimer { Interval = s_PollingInterval };
-            m_PollingTimer.Tick += OnPollingTimerTick;
+            _pollingTimer = new DispatcherTimer { Interval = PollingInterval };
+            _pollingTimer.Tick += OnPollingTimerTick;
         }
 
         public bool AddTask(TaskViewModel task, DateTime dateTime)
@@ -39,23 +39,23 @@ namespace TodoApp2.Core
             if (dateTime > DateTime.Now)
             {
                 // Start polling when there is at least 1 item to watch
-                if (m_TaskDictionary.Count == 0)
+                if (_taskDictionary.Count == 0)
                 {
-                    m_PollingTimer.Start();
+                    _pollingTimer.Start();
                 }
 
                 // Prevent tasks to be added with the same notification time
-                while (m_TaskDictionary.Contains(dateTime))
+                while (_taskDictionary.Contains(dateTime))
                 {
                     dateTime = dateTime.AddSeconds(3);
                 }
 
                 ScheduleItem item = new ScheduleItem(NextId, task, dateTime);
 
-                m_TaskDictionary.Add(dateTime, item);
-                m_TaskDictionaryReversed.Add(task, dateTime);
+                _taskDictionary.Add(dateTime, item);
+                _taskDictionaryReversed.Add(task, dateTime);
 
-                m_PollingTimer.Tag = GetNearestScheduleItem();
+                _pollingTimer.Tag = GetNearestScheduleItem();
                 success = true;
             }
 
@@ -66,11 +66,11 @@ namespace TodoApp2.Core
         {
             bool success = false;
 
-            if (m_TaskDictionaryReversed.ContainsKey(task))
+            if (_taskDictionaryReversed.ContainsKey(task))
             {
-                DateTime key = m_TaskDictionaryReversed[task];
-                m_TaskDictionary.Remove(key);
-                m_TaskDictionaryReversed.Remove(task);
+                DateTime key = _taskDictionaryReversed[task];
+                _taskDictionary.Remove(key);
+                _taskDictionaryReversed.Remove(task);
 
                 AddTask(task, reminderDate);
 
@@ -85,18 +85,18 @@ namespace TodoApp2.Core
         {
             bool success = false;
 
-            if (m_TaskDictionaryReversed.ContainsKey(task))
+            if (_taskDictionaryReversed.ContainsKey(task))
             {
-                DateTime key = m_TaskDictionaryReversed[task];
-                m_TaskDictionary.Remove(key);
-                m_TaskDictionaryReversed.Remove(task);
+                DateTime key = _taskDictionaryReversed[task];
+                _taskDictionary.Remove(key);
+                _taskDictionaryReversed.Remove(task);
 
-                m_PollingTimer.Tag = GetNearestScheduleItem();
+                _pollingTimer.Tag = GetNearestScheduleItem();
 
                 // Stop polling when there is no item to watch
-                if (m_TaskDictionary.Count == 0)
+                if (_taskDictionary.Count == 0)
                 {
-                    m_PollingTimer.Stop();
+                    _pollingTimer.Stop();
                 }
 
                 success = true;
@@ -107,9 +107,9 @@ namespace TodoApp2.Core
 
         private ScheduleItem GetNearestScheduleItem()
         {
-            return m_TaskDictionary.Count == 0
+            return _taskDictionary.Count == 0
                 ? ScheduleItem.Invalid
-                : m_TaskDictionary[0] as ScheduleItem;
+                : _taskDictionary[0] as ScheduleItem;
         }
 
         private void OnPollingTimerTick(object sender, EventArgs e)

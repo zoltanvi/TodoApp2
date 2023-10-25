@@ -10,7 +10,9 @@ namespace TodoApp2.Core
 
         public static void Log(string message)
         {
+#if DEBUG
             _stringBuilder.AppendLine(message);
+#endif
         }
     }
 }

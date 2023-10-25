@@ -5,12 +5,12 @@ namespace TodoApp2.Core
 {
     public class NotePageViewModel : BaseViewModel
     {
-        private AppViewModel m_Application;
-        private NoteListService m_NoteListService;
-        private IDatabase m_Database;
-        private DispatcherTimer m_Timer;
-        private bool m_Saved;
-        private bool m_Initialized = false;
+        private AppViewModel _appViewModel;
+        private NoteListService _noteListService;
+        private IDatabase _database;
+        private DispatcherTimer _timer;
+        private bool _saved;
+        private bool _initialized = false;
 
         public NotePageViewModel()
         {
@@ -23,25 +23,25 @@ namespace TodoApp2.Core
             NoteListService noteListService, 
             IDatabase database)
         {
-            m_Application = appViewModel;
-            m_NoteListService = noteListService;
-            m_Database = database;
-            m_Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 2) };
-            m_Timer.Tick += TimerOnTick;
+            _appViewModel = appViewModel;
+            _noteListService = noteListService;
+            _database = database;
+            _timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 2) };
+            _timer.Tick += TimerOnTick;
 
-            IsNoteExists = m_NoteListService.ActiveNote != null;
+            IsNoteExists = _noteListService.ActiveNote != null;
 
             Mediator.Register(OnNoteChanged, ViewModelMessages.NoteChanged);
         }
 
         private void OnNoteChanged(object obj)
         {
-            IsNoteExists = m_NoteListService.ActiveNote != null;
+            IsNoteExists = _noteListService.ActiveNote != null;
         }
 
         private void TimerOnTick(object sender, EventArgs e)
         {
-            if (!m_Saved)
+            if (!_saved)
             {
                 SaveNoteContent();
             }
@@ -49,25 +49,25 @@ namespace TodoApp2.Core
 
         public void SaveNoteContent()
         {
-            m_Saved = true;
-            m_Timer.Stop();
+            _saved = true;
+            _timer.Stop();
 
-            m_NoteListService.SaveNoteContent();
+            _noteListService.SaveNoteContent();
             
-            m_Application.SaveIconVisible = !m_Application.SaveIconVisible;
+            _appViewModel.SaveIconVisible = !_appViewModel.SaveIconVisible;
         }
 
         public void NoteContentChanged()
         {
-            if (m_Initialized)
+            if (_initialized)
             {
-                m_Saved = false;
-                m_Timer.Stop();
-                m_Timer.Start();
+                _saved = false;
+                _timer.Stop();
+                _timer.Start();
             }
             else
             {
-                m_Initialized = true;
+                _initialized = true;
             }
         }
     }
