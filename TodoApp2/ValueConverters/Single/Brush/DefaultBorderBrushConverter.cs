@@ -8,7 +8,7 @@ namespace TodoApp2
 {
     internal abstract class DefaultBorderBrushConverter : BaseValueConverter
     {
-        private readonly StringRGBToBrushConverter m_Converter = new StringRGBToBrushConverter();
+        private readonly StringRGBToBrushConverter _converter = new StringRGBToBrushConverter();
 
         protected abstract string DefaultResourceName { get; }
 
@@ -21,7 +21,7 @@ namespace TodoApp2
                     return (SolidColorBrush)Application.Current.TryFindResource(DefaultResourceName);
                 }
 
-                return m_Converter.Convert(value, targetType, parameter, culture);
+                return _converter.Convert(value, targetType, parameter, culture);
             }
 
             return null;

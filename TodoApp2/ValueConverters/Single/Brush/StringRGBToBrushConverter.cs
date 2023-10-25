@@ -10,11 +10,11 @@ namespace TodoApp2
     /// </summary>
     public class StringRGBToBrushConverter : BaseValueConverter
     {
-        private readonly BrushConverter m_BrushConverter;
+        private readonly BrushConverter _brushConverter;
 
         public StringRGBToBrushConverter()
         {
-            m_BrushConverter = new BrushConverter();
+            _brushConverter = new BrushConverter();
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -31,7 +31,7 @@ namespace TodoApp2
 
                 // Prefixes the input string with a # character, except if it is "Transparent"
                 string inputColor = (colorString == GlobalConstants.ColorName.Transparent ? string.Empty : "#") + colorString;
-                return (SolidColorBrush)m_BrushConverter.ConvertFrom(inputColor);
+                return (SolidColorBrush)_brushConverter.ConvertFrom(inputColor);
             }
 
             return null;

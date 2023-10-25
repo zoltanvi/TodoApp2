@@ -7,7 +7,7 @@ namespace TodoApp2
 
     internal class TaskSpacingToMarginConverter : BaseValueConverter
     {
-        TaskSpacingToDoubleConverter m_Converter = new TaskSpacingToDoubleConverter();
+        TaskSpacingToDoubleConverter _converter = new TaskSpacingToDoubleConverter();
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -15,7 +15,7 @@ namespace TodoApp2
             
             if (value is TaskSpacing taskSpacing)
             {
-                marginThickness = (double)m_Converter.Convert(taskSpacing, targetType, parameter, culture);
+                marginThickness = (double)_converter.Convert(taskSpacing, targetType, parameter, culture);
             }
 
             return new System.Windows.Thickness(0, marginThickness, 0, marginThickness);

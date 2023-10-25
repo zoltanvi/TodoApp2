@@ -7,9 +7,9 @@ namespace TodoApp2
 {
     public class DynamicSolidColorBrushConverter : BaseValueConverter
     {
-        private readonly StringRGBToBrushConverter m_Converter = new StringRGBToBrushConverter();
-        private SolidColorBrush m_LightBrush;
-        private SolidColorBrush m_DarkBrush;
+        private readonly StringRGBToBrushConverter _converter = new StringRGBToBrushConverter();
+        private SolidColorBrush _lightBrush;
+        private SolidColorBrush _darkBrush;
 
         public string LightName { get; set; }
         public string DarkName { get; set; }
@@ -17,13 +17,13 @@ namespace TodoApp2
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string colorString = (string)value;
-            SolidColorBrush colorBrush = (SolidColorBrush)m_Converter.Convert(colorString, targetType, parameter, culture);
+            SolidColorBrush colorBrush = (SolidColorBrush)_converter.Convert(colorString, targetType, parameter, culture);
 
             if (colorBrush != null)
             {
-                GetBrushes(out m_LightBrush, out m_DarkBrush);
+                GetBrushes(out _lightBrush, out _darkBrush);
                 var brightness = GetBrightness(colorBrush.Color);
-                return brightness < 0.5 ? m_LightBrush : m_DarkBrush;
+                return brightness < 0.5 ? _lightBrush : _darkBrush;
             }
 
             return null;

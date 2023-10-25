@@ -7,7 +7,7 @@ namespace TodoApp2
 {
     public class StringToForegroundBrushConverter : BaseValueConverter
     {
-        private readonly StringRGBToBrushConverter m_Converter = new StringRGBToBrushConverter();
+        private readonly StringRGBToBrushConverter _converter = new StringRGBToBrushConverter();
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -16,7 +16,7 @@ namespace TodoApp2
                 return Application.Current.TryFindResource(GlobalConstants.BrushName.ForegroundBrush);
             }
 
-            return m_Converter.Convert(value, targetType, parameter, culture);
+            return _converter.Convert(value, targetType, parameter, culture);
         }
     }
 }

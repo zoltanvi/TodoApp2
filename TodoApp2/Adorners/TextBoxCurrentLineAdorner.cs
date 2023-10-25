@@ -10,19 +10,19 @@ namespace TodoApp2.Adorners
 {
     public class TextBoxCurrentLineAdorner : Adorner
     {
-        private Brush m_HighlightBrush;
-        private TextBox m_TextBox;
-        private Rect m_CachedRect;
+        private Brush _highlightBrush;
+        private TextBox _textBox;
+        private Rect _cachedRect;
 
         public TextBoxCurrentLineAdorner(TextBox textBox, UIElement adornedElement) : base(adornedElement)
         {
-            m_HighlightBrush = (SolidColorBrush)Application.Current.TryFindResource(
+            _highlightBrush = (SolidColorBrush)Application.Current.TryFindResource(
                 GlobalConstants.BrushName.NoteLineAdornerBgBrush);
-            m_TextBox = textBox;
-            m_TextBox.SelectionChanged += OnTextBoxSelectionChanged;
-            m_TextBox.SizeChanged += OnTextBoxSizeChanged;
+            _textBox = textBox;
+            _textBox.SelectionChanged += OnTextBoxSelectionChanged;
+            _textBox.SizeChanged += OnTextBoxSizeChanged;
             IsHitTestVisible = false;
-            m_CachedRect = Rect.Empty;
+            _cachedRect = Rect.Empty;
 
             // Subscribe to the theme changed event to repaint the list items when it happens
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
@@ -37,7 +37,7 @@ namespace TodoApp2.Adorners
 
         private void OnThemeChanged(object obj)
         {
-            m_HighlightBrush = (SolidColorBrush)Application.Current.TryFindResource(
+            _highlightBrush = (SolidColorBrush)Application.Current.TryFindResource(
                 GlobalConstants.BrushName.NoteLineAdornerBgBrush);
             InvalidateVisual();
         }
@@ -56,13 +56,13 @@ namespace TodoApp2.Adorners
         {
             base.OnRender(drawingContext);
 
-            int caretIndex = m_TextBox.CaretIndex;
-            int textLength = m_TextBox.Text.Length;
-            string text = m_TextBox.Text;
+            int caretIndex = _textBox.CaretIndex;
+            int textLength = _textBox.Text.Length;
+            string text = _textBox.Text;
 
-            double characterHeight = TextBoxHelper.GetTextHeight(m_TextBox, "a");
+            double characterHeight = TextBoxHelper.GetTextHeight(_textBox, "a");
 
-            int lineNumberStart = m_TextBox.GetLineIndexFromCharacterIndex(caretIndex);
+            int lineNumberStart = _textBox.GetLineIndexFromCharacterIndex(caretIndex);
             int lineNumberEnd = lineNumberStart;
 
             if (textLength == 0)
@@ -85,7 +85,7 @@ namespace TodoApp2.Adorners
                         lineStartCharIndex = i;
                     }
 
-                    lineNumberStart = m_TextBox.GetLineIndexFromCharacterIndex(lineStartCharIndex);
+                    lineNumberStart = _textBox.GetLineIndexFromCharacterIndex(lineStartCharIndex);
                 }
 
                 // NOT standing on last position
@@ -103,15 +103,15 @@ namespace TodoApp2.Adorners
                         lineEndCharIndex = i;
                     }
 
-                    lineNumberEnd = m_TextBox.GetLineIndexFromCharacterIndex(lineEndCharIndex);
+                    lineNumberEnd = _textBox.GetLineIndexFromCharacterIndex(lineEndCharIndex);
                 }
             }
 
-            Point lineStart = new Point(0, m_TextBox.Padding.Top + (lineNumberStart * characterHeight));
-            Point lineEnd = new Point(m_TextBox.ActualWidth, m_TextBox.Padding.Top + ((lineNumberEnd + 1) * characterHeight));
+            Point lineStart = new Point(0, _textBox.Padding.Top + (lineNumberStart * characterHeight));
+            Point lineEnd = new Point(_textBox.ActualWidth, _textBox.Padding.Top + ((lineNumberEnd + 1) * characterHeight));
 
-            m_CachedRect = new Rect(lineStart, lineEnd);
-            drawingContext.DrawRectangle(m_HighlightBrush, null, m_CachedRect);
+            _cachedRect = new Rect(lineStart, lineEnd);
+            drawingContext.DrawRectangle(_highlightBrush, null, _cachedRect);
         }
     }
 }

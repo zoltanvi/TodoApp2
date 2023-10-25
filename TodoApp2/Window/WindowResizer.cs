@@ -42,56 +42,50 @@ namespace TodoApp2
     /// </summary>
     public class WindowResizer
     {
-        #region Private Members
-
         /// <summary>
         /// The window to handle the resizing for
         /// </summary>
-        private Window m_Window;
+        private Window _window;
 
         /// <summary>
         /// The last calculated available screen size
         /// </summary>
-        private Rect m_ScreenSize = new Rect();
+        private Rect _screenSize = new Rect();
 
         /// <summary>
         /// How close to the edge the window has to be to be detected as at the edge of the screen
         /// </summary>
-        private int m_EdgeTolerance = 2;
+        private int _edgeTolerance = 2;
 
         /// <summary>
         /// The transform matrix used to convert WPF sizes to screen pixels
         /// </summary>
-        private Matrix m_TransformToDevice;
+        private Matrix _transformToDevice;
 
         /// <summary>
         /// The last screen the window was on
         /// </summary>
-        private IntPtr m_LastScreen;
+        private IntPtr _lastScreen;
 
         /// <summary>
         /// The last known dock position
         /// </summary>
-        private WindowDockPosition m_LastDock = WindowDockPosition.Undocked;
+        private WindowDockPosition _lastDock = WindowDockPosition.Undocked;
 
-        private bool m_IsSnapped;
+        private bool _isSnapped;
 
         private bool IsSnapped
         {
-            get => m_IsSnapped;
+            get => _isSnapped;
             set
             {
-                if (m_IsSnapped != value)
+                if (_isSnapped != value)
                 {
-                    m_IsSnapped = value;
-                    IsDockedChanged?.Invoke(this, new DockChangeEventArgs(m_IsSnapped));
+                    _isSnapped = value;
+                    IsDockedChanged?.Invoke(this, new DockChangeEventArgs(_isSnapped));
                 }
             }
         }
-
-        #endregion Private Members
-
-        #region Dll Imports
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -106,20 +100,12 @@ namespace TodoApp2
         [DllImport("user32")]
         private static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
-        #endregion Dll Imports
-
-        #region Public Events
-
         /// <summary>
         /// Called when the window dock position changes
         /// </summary>
         public event Action<WindowDockPosition> WindowDockChanged = (dock) => { };
 
         public event EventHandler<DockChangeEventArgs> IsDockedChanged;
-
-        #endregion Public Events
-
-        #region Constructor
 
         /// <summary>
         /// Default constructor
@@ -128,21 +114,17 @@ namespace TodoApp2
         /// <param name="adjustSize">The callback for the host to adjust the maximum available size if needed</param>
         public WindowResizer(Window window)
         {
-            m_Window = window;
+            _window = window;
 
             // Create transform visual (for converting WPF size to pixel size)
             GetTransform();
 
             // Listen out for source initialized to setup
-            m_Window.SourceInitialized += Window_SourceInitialized;
+            _window.SourceInitialized += Window_SourceInitialized;
 
             // Monitor for edge docking
-            m_Window.SizeChanged += Window_SizeChanged;
+            _window.SizeChanged += Window_SizeChanged;
         }
-
-        #endregion Constructor
-
-        #region Initialize
 
         /// <summary>
         /// Gets the transform object used to convert WPF sizes to screen pixels
@@ -150,17 +132,17 @@ namespace TodoApp2
         private void GetTransform()
         {
             // Get the visual source
-            var source = PresentationSource.FromVisual(m_Window);
+            var source = PresentationSource.FromVisual(_window);
 
             // Reset the transform to default
-            m_TransformToDevice = default(Matrix);
+            _transformToDevice = default(Matrix);
 
             // If we cannot get the source, ignore
             if (source == null)
                 return;
 
             // Otherwise, get the new transform object
-            m_TransformToDevice = source.CompositionTarget.TransformToDevice;
+            _transformToDevice = source.CompositionTarget.TransformToDevice;
         }
 
         /// <summary>
@@ -171,7 +153,7 @@ namespace TodoApp2
         private void Window_SourceInitialized(object sender, System.EventArgs e)
         {
             // Get the handle of this window
-            var handle = (new WindowInteropHelper(m_Window)).Handle;
+            var handle = (new WindowInteropHelper(_window)).Handle;
             var handleSource = HwndSource.FromHwnd(handle);
 
             // If not found, end
@@ -182,10 +164,6 @@ namespace TodoApp2
             handleSource.AddHook(WindowProc);
         }
 
-        #endregion Initialize
-
-        #region Edge Docking
-
         /// <summary>
         /// Monitors for size changes and detects if the window has been docked (Aero snap) to an edge
         /// TODO: Aero snap is not working with this method! Workaround: WindowProc method case WM_SIZE
@@ -195,27 +173,27 @@ namespace TodoApp2
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             // We cannot find positioning until the window transform has been established
-            if (m_TransformToDevice == default(Matrix))
+            if (_transformToDevice == default(Matrix))
                 return;
 
             // Get the WPF size
             var size = e.NewSize;
 
             // Get window rectangle
-            var top = m_Window.Top;
-            var left = m_Window.Left;
+            var top = _window.Top;
+            var left = _window.Left;
             var bottom = top + size.Height;
-            var right = left + m_Window.Width;
+            var right = left + _window.Width;
 
             // Get window position/size in device pixels
-            var windowTopLeft = m_TransformToDevice.Transform(new Point(left, top));
-            var windowBottomRight = m_TransformToDevice.Transform(new Point(right, bottom));
+            var windowTopLeft = _transformToDevice.Transform(new Point(left, top));
+            var windowBottomRight = _transformToDevice.Transform(new Point(right, bottom));
 
             // Check for edges docked
-            var edgedTop = windowTopLeft.Y <= (m_ScreenSize.Top + m_EdgeTolerance);
-            var edgedLeft = windowTopLeft.X <= (m_ScreenSize.Left + m_EdgeTolerance);
-            var edgedBottom = windowBottomRight.Y >= (m_ScreenSize.Bottom - m_EdgeTolerance);
-            var edgedRight = windowBottomRight.X >= (m_ScreenSize.Right - m_EdgeTolerance);
+            var edgedTop = windowTopLeft.Y <= (_screenSize.Top + _edgeTolerance);
+            var edgedLeft = windowTopLeft.X <= (_screenSize.Left + _edgeTolerance);
+            var edgedBottom = windowBottomRight.Y >= (_screenSize.Bottom - _edgeTolerance);
+            var edgedRight = windowBottomRight.X >= (_screenSize.Right - _edgeTolerance);
 
             // Get docked position
             var dock = WindowDockPosition.Undocked;
@@ -230,17 +208,13 @@ namespace TodoApp2
                 dock = WindowDockPosition.Undocked;
 
             // If dock has changed
-            if (dock != m_LastDock)
+            if (dock != _lastDock)
                 // Inform listeners
                 WindowDockChanged(dock);
 
             // Save last dock position
-            m_LastDock = dock;
+            _lastDock = dock;
         }
-
-        #endregion Edge Docking
-
-        #region Windows Proc
 
         private const Int32 WM_GETMINMAXINFO = 0x0024;
         private const Int32 WM_SIZE = 0x0005;
@@ -322,8 +296,6 @@ namespace TodoApp2
             return null;
         }
 
-        #endregion Windows Proc
-
         /// <summary>
         /// Get the min/max window size for this window
         /// Correctly accounting for the taskbar size and position
@@ -348,11 +320,11 @@ namespace TodoApp2
             var lCurrentScreen = MonitorFromPoint(lMousePosition, MonitorOptions.MONITOR_DEFAULTTONEAREST);
 
             // If this has changed from the last one, update the transform
-            if (lCurrentScreen != m_LastScreen || m_TransformToDevice == default)
+            if (lCurrentScreen != _lastScreen || _transformToDevice == default)
                 GetTransform();
 
             // Store last know screen
-            m_LastScreen = lCurrentScreen;
+            _lastScreen = lCurrentScreen;
 
             // Get min/max structure to fill with information
             MINMAXINFO lMmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
@@ -379,20 +351,18 @@ namespace TodoApp2
             }
 
             // Set min size
-            var minSize = m_TransformToDevice.Transform(new Point(m_Window.MinWidth, m_Window.MinHeight));
+            var minSize = _transformToDevice.Transform(new Point(_window.MinWidth, _window.MinHeight));
 
             mmi.ptMinTrackSize.X = (int)minSize.X;
             mmi.ptMinTrackSize.Y = (int)minSize.Y;
 
             // Store new size
-            m_ScreenSize = new Rect(mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y);
+            _screenSize = new Rect(mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y);
 
             // Now we have the max size, allow the host to tweak as needed
             Marshal.StructureToPtr(mmi, lParam, true);
         }
     }
-
-    #region Dll Helper Structures
 
     internal enum MonitorOptions : uint
     {
@@ -503,6 +473,4 @@ namespace TodoApp2
                 Math.Abs(work.Top - display.Top));
         }
     }
-
-    #endregion Dll Helper Structures
 }

@@ -6,11 +6,11 @@ namespace TodoApp2
 {
     internal class ColorBarGridWidthMultiValueConverter : BaseMultiValueConverter<ColorBarGridWidthMultiValueConverter>
     {
-        private ColorBarBorderWidthMultiValueConverter m_MultiConverter = new ColorBarBorderWidthMultiValueConverter();
+        private ColorBarBorderWidthMultiValueConverter _multiConverter = new ColorBarBorderWidthMultiValueConverter();
 
         public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            double width = (double)m_MultiConverter.Convert(values, targetType, parameter, culture);
+            double width = (double)_multiConverter.Convert(values, targetType, parameter, culture);
             return new GridLength(width);
         }
     }

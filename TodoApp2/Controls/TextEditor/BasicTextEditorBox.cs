@@ -12,7 +12,7 @@ namespace TodoApp2
         internal static readonly DependencyPropertyKey IsEmptyPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEmpty), typeof(bool), typeof(BasicTextEditorBox), new PropertyMetadata());
         public static readonly DependencyProperty DocumentContentProperty = DependencyProperty.Register(nameof(DocumentContent), typeof(string), typeof(BasicTextEditorBox), new PropertyMetadata(OnContentChanged));
 
-        private bool m_SetContentInProgress = false;
+        private bool _setContentInProgress = false;
 
         /// <summary>
         /// The Document of the <see cref="BasicTextEditorBox"/> serialized into an xml format.
@@ -26,9 +26,9 @@ namespace TodoApp2
                 {
                     SetValue(DocumentContentProperty, FlowDocumentHelper.EmptySerializedDocument);
                 }
-                else if (!m_SetContentInProgress)
+                else if (!_setContentInProgress)
                 {
-                    m_SetContentInProgress = true;
+                    _setContentInProgress = true;
                     
                     if (FlowDocumentHelper.DeserializeDocument(value) is FlowDocument flowDocument)
                     {
@@ -37,7 +37,7 @@ namespace TodoApp2
                         Document.Blocks.AddRange(flowDocument.Blocks.ToList());
                     }
 
-                    m_SetContentInProgress = false;
+                    _setContentInProgress = false;
                 }
             }
         }
