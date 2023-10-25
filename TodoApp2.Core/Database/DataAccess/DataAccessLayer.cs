@@ -17,10 +17,10 @@ namespace TodoApp2.Core
         public const string DatabaseName = "TodoApp2Database.db";
         public static string DatabasePath { get; } = Path.Combine(AppDataFolder, DatabaseName);
 
-        private readonly SQLiteConnection m_Connection;
+        private readonly SQLiteConnection _connection;
 
         private const int DatabaseVersion = 5;
-        private int m_ReadDatabaseVersion;
+        private int _readDatabaseVersion;
 
         public TaskDataAccess TaskDataAccess { get; }
         public SettingsDataAccess SettingsDataAccess { get; }
@@ -30,19 +30,19 @@ namespace TodoApp2.Core
 
         public DataAccessLayer()
         {
-            m_Connection = new SQLiteConnection($"Data Source={DatabasePath};");
-            m_Connection.Open();
+            _connection = new SQLiteConnection($"Data Source={DatabasePath};");
+            _connection.Open();
 
-            TaskDataAccess = new TaskDataAccess(m_Connection);
-            SettingsDataAccess = new SettingsDataAccess(m_Connection);
-            CategoryDataAccess = new CategoryDataAccess(m_Connection);
-            NoteDataAccess = new NoteDataAccess(m_Connection);
-            CompatibilityDataAccess = new CompatibilityDataAccess(m_Connection);
+            TaskDataAccess = new TaskDataAccess(_connection);
+            SettingsDataAccess = new SettingsDataAccess(_connection);
+            CategoryDataAccess = new CategoryDataAccess(_connection);
+            NoteDataAccess = new NoteDataAccess(_connection);
+            CompatibilityDataAccess = new CompatibilityDataAccess(_connection);
         }
 
         public void InitializeDatabase()
         {
-            m_ReadDatabaseVersion = CompatibilityDataAccess.ReadDbVersion();
+            _readDatabaseVersion = CompatibilityDataAccess.ReadDbVersion();
 
             // Turn foreign keys on
             ExecuteCommand("PRAGMA foreign_keys = ON; ");
@@ -51,7 +51,7 @@ namespace TodoApp2.Core
             if (!TaskDataAccess.IsTaskTableExists())
             {
                 // Update db version
-                m_ReadDatabaseVersion = DatabaseVersion;
+                _readDatabaseVersion = DatabaseVersion;
                 CompatibilityDataAccess.UpdateDbVersion(DatabaseVersion);
 
                 SettingsDataAccess.CreateSettingsTable();
@@ -75,13 +75,13 @@ namespace TodoApp2.Core
 
         private void UpgradeToCurrentVersion()
         {
-            if (m_ReadDatabaseVersion > DatabaseVersion)
+            if (_readDatabaseVersion > DatabaseVersion)
             {
                 // Crash the app. The database cannot be used
                 throw new Exception("The database file is created by a newer version of the program and could not be read.");
             }
 
-            switch (m_ReadDatabaseVersion)
+            switch (_readDatabaseVersion)
             {
                 case 0:
                 {
@@ -141,7 +141,7 @@ namespace TodoApp2.Core
 
         private void ExecuteCommand(string command)
         {
-            using (SQLiteCommand dbCommand = new SQLiteCommand(command, m_Connection))
+            using (SQLiteCommand dbCommand = new SQLiteCommand(command, _connection))
             using (SQLiteDataReader reader = dbCommand.ExecuteReader())
             {
             }
@@ -149,8 +149,8 @@ namespace TodoApp2.Core
 
         public void Dispose()
         {
-            m_Connection?.Close();
-            m_Connection?.Dispose();
+            _connection?.Close();
+            _connection?.Dispose();
         }
     }
 }
