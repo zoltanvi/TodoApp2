@@ -140,7 +140,7 @@
     <Compile Include="ViewModel\Pages\Settings\ShortcutsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\TextEditorQuickActionsSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\NotePageSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\WindowSettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\Settings\ApplicationSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\ThemeSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\TaskQuickActionsSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\TaskPageSettingsPageViewModel.cs" />

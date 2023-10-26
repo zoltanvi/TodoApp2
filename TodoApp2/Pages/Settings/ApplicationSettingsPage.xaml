@@ -102,10 +102,21 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label
+                        <Button
+                            Grid.Column="0"
+                            Style="{DynamicResource ButtonIconHoverRectangleStyle}"
+                            Content="{DynamicResource SegoeIconPath}"
+                            FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}"
+                            Margin="0 0 10 0"
+                            Padding="5"
+                            ToolTip="Open database location in explorer"
+                            Command="{Binding OpenDbLocationCommand}"
+                            />
+
+                        <!--<Label
                             Grid.Column="0"
                             Content="{DynamicResource SegoeIconPath}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
+                            Style="{DynamicResource SettingsIconLabelStyle}" />-->
 
                         <TextBlock
                             Grid.Column="1"
