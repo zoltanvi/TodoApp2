@@ -6,6 +6,6 @@ namespace TodoApp2.Core
     {
         public bool DarkMode { get; set; }
         public ThemeStyle ThemeStyle { get; set; }
-        public string SeedColor { get; set; }
+        public string SeedColor { get; set; } = "#1D64DD";
     }
 }

@@ -73,14 +73,12 @@ namespace TodoApp2
                 {
                     { ApplicationPage.Settings, typeof(SettingsPageViewModel)},
                     { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPageViewModel)},
-                    { ApplicationPage.ThemeEditorSettings, typeof(ThemeEditorSettingsPageViewModel)},
                 };
 
                 _pageTypesAppVm = new Dictionary<ApplicationPage, Type>
                 {
                     { ApplicationPage.Settings, typeof(SettingsPage)},
                     { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPage)},
-                    { ApplicationPage.ThemeEditorSettings, typeof(ThemeEditorSettingsPage)},
                 };
             }
 

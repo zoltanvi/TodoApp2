@@ -12,7 +12,7 @@
     <Style x:Key="ButtonBaseStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -46,6 +46,7 @@
         x:Key="ButtonHoverStyle"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource HoverButtonBgBrush}" />
@@ -84,13 +85,13 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SecondaryContainer}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SecondaryContainer}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryContainer}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -113,7 +114,7 @@
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoverButtonBgBrush}" />
+                <Setter Property="Background" Value="{DynamicResource PrimaryContainer}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -125,9 +126,9 @@
         TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnSurface}" />
         <Setter Property="Margin" Value="0 0" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource Surface3}" />
         <!--<Setter Property="Padding" Value="5" />-->
         <Setter Property="Opacity" Value="0.7" />
         <Setter Property="Cursor" Value="Hand" />
@@ -154,10 +155,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource InversePrimary}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource InversePrimary}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -176,7 +177,7 @@
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="FontSize" Value="16" />
 
-        <Setter Property="Foreground" Value="{DynamicResource TitleBarBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnSurface}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -203,7 +204,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoverTitleBarButtonBgBrush}" />
+                <Setter Property="Background" Value="{DynamicResource SurfaceVariant}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -214,7 +215,7 @@
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoverCloseButtonBgBrush}" />
+                <Setter Property="Background" Value="{DynamicResource ErrorContainer}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -226,7 +227,7 @@
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoverButtonBgBrush}" />
+                <Setter Property="Background" Value="{DynamicResource SecondaryContainer}" />
             </Trigger>
         </Style.Triggers>
         <Setter Property="Template">
@@ -291,7 +292,7 @@
         x:Key="ButtonQuickActionStyle"
         BasedOn="{StaticResource ButtonIconHoverRectangleStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{DynamicResource Elevation_1}" />
+        <Setter Property="Background" Value="{DynamicResource Surface3}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="MaxHeight" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
@@ -300,14 +301,11 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
                         <Border
+                            x:Name="PART_hover"
                             Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="4" />
-                        <Border
-                            x:Name="PART_hover"
-                            Background="Transparent"
                             CornerRadius="4" />
                         <ContentPresenter
                             HorizontalAlignment="Center"
@@ -316,14 +314,15 @@
                             TextOptions.TextHintingMode="Fixed"
                             TextOptions.TextRenderingMode="ClearType" />
                     </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="PART_hover" Property="Background" Value="{DynamicResource Elevation_2}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Surface5}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!--  Quick action trash button  -->
@@ -333,51 +332,12 @@
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource HoverCloseButtonBgBrush}" />
+                <Setter Property="Background" Value="{DynamicResource ErrorContainer}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <!--  Color picker button  -->
-    <Style x:Key="RichTextEditorLeftButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="ToolTip" Value="Apply color (Ctrl + G)" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid Width="{TemplateBinding ActualHeight}">
-
-                        <!--  To darken the current color on mouseover  -->
-                        <Border
-                            x:Name="PART_hoverBackground"
-                            Background="{DynamicResource Elevation_1}"
-                            CornerRadius="6" />
-
-                        <Border
-                            x:Name="ItemBorder"
-                            Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
-                            Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
-                            Background="{TemplateBinding Background,
-                                                         Converter={StaticResource transparentPatternBrushConverter}}"
-                            CornerRadius="6">
-                            <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Content=" " />
-                        </Border>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="PART_hoverBackground" Property="Background" Value="{DynamicResource Elevation_3}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <!--  Inner window button  -->
-
     <Style
         x:Key="ButtonInnerWindowStyle"
         BasedOn="{StaticResource ButtonIconHoverSideMenuStyle}"
@@ -393,13 +353,13 @@
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
-        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FontWeight" Value="Bold" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter Property="Foreground" Value="{DynamicResource Primary}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -442,13 +402,14 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                <Setter Property="Foreground" Value="{DynamicResource Primary}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="TextEditorArrowToggleButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="false" />
+        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Cursor" Value="Hand" />
@@ -470,7 +431,9 @@
                                     Padding="0"
                                     BorderThickness="0"
                                     Content="{StaticResource SegoeIconChevronUp}"
-                                    Style="{DynamicResource IconLabelStyle}" />
+                                    Style="{DynamicResource IconLabelStyle}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    />
                             </Viewbox>
 
                             <Viewbox VerticalAlignment="Top">
@@ -480,7 +443,9 @@
                                     Padding="0"
                                     BorderThickness="0"
                                     Content="{StaticResource SegoeIconChevronDown}"
-                                    Style="{DynamicResource IconLabelStyle}" />
+                                    Style="{DynamicResource IconLabelStyle}" 
+                                    Foreground="{TemplateBinding Foreground}"
+                                    />
                             </Viewbox>
 
                             <ContentPresenter
@@ -512,7 +477,7 @@
 
     <!--  Toggle Button style  -->
     <Style x:Key="CustomToggleStyle" TargetType="{x:Type ToggleButton}">
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleButtonBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Outline}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -522,8 +487,8 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Grid
                         x:Name="markGrid"
-                        Width="52"
-                        Height="30"
+                        Width="45"
+                        Height="26"
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                         VerticalAlignment="Center">
 
@@ -532,21 +497,21 @@
                             Background="Transparent"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="2"
-                            CornerRadius="15"
+                            CornerRadius="12"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
                         <Border
                             x:Name="checkedBorder"
-                            Background="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}"
-                            CornerRadius="15"
+                            Background="{DynamicResource Primary}"
+                            CornerRadius="13"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
 
                         <!--  Fill="{TemplateBinding BorderBrush}"  -->
                         <Ellipse
                             x:Name="normalOptionMark"
-                            Width="15"
-                            Height="15"
+                            Width="13"
+                            Height="13"
                             Margin="7 0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -557,12 +522,12 @@
 
                         <Ellipse
                             x:Name="checkedOptionMark"
-                            Width="22"
-                            Height="22"
-                            Margin="5 0"
+                            Width="20"
+                            Height="20"
+                            Margin="3.5 0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Fill="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource toggleButtonDynamicBrushConverter}}"
+                            Fill="{DynamicResource PrimaryContainer}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="0">
                         </Ellipse>
@@ -617,23 +582,20 @@
         x:Key="ToggleSideMenuStyle"
         BasedOn="{StaticResource CustomToggleStyle}"
         TargetType="{x:Type ToggleButton}">
-
-        <Setter Property="BorderBrush" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
 
     <Style x:Key="TextEditorToggleButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Margin" Value="0 0" />
-        <Setter Property="Foreground" Value="{DynamicResource EditorButtonBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnSurface}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
-
         <Setter Property="Opacity" Value="0.6" />
         <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource Surface3}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -659,13 +621,13 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource InversePrimary}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource InversePrimary}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource InversePrimary}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -729,7 +691,7 @@
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Margin" Value="5 0" />
@@ -742,7 +704,7 @@
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -787,7 +749,7 @@
     <Style x:Key="SingletonEditorColorPickerRightStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">

@@ -18,9 +18,7 @@
                 Command="{Binding Path=PlacementTarget.Tag.DeleteCategoryCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                 CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                 Header="Delete" />
-
         </ContextMenu>
-
     </UserControl.ContextMenu>
 
     <Button
@@ -28,7 +26,6 @@
         Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}"
         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
         ToolTip="{Binding Name}">
-
         <Button.Style>
             <Style BasedOn="{StaticResource ButtonHoverStyle}" TargetType="Button">
                 <Setter Property="Template">
@@ -80,7 +77,7 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource SecondaryContainer}" />
                     </Trigger>
 
                     <DataTrigger Value="True">
@@ -93,7 +90,7 @@
                                 <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
                             </MultiBinding>
                         </DataTrigger.Binding>
-                        <Setter Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource PrimaryContainer}" />
                     </DataTrigger>
 
                 </Style.Triggers>
@@ -112,13 +109,11 @@
                 AutomationProperties.AutomationId="CategoryListItemText"
                 FontSize="{Binding UIScaler.FontSize.Medium}"
                 Text="{Binding Name}">
-
                 <TextBlock.Style>
                     <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
                         <Style.Triggers>
-
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
                             </Trigger>
 
                             <DataTrigger Value="True">
@@ -131,10 +126,11 @@
                                         <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
                                     </MultiBinding>
                                 </DataTrigger.Binding>
-                                <Setter Property="Foreground" Value="{DynamicResource SelectedCategoryBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
                             </DataTrigger>
-
                         </Style.Triggers>
+                        <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
+
                     </Style>
                 </TextBlock.Style>
             </TextBlock>

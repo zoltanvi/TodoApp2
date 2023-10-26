@@ -16,8 +16,8 @@
         <Grid x:Name="DropDown2" SnapsToDevicePixels="True">
             <Border
                 x:Name="DropDownBorder2"
-                Background="{DynamicResource ComboBoxBgBrush}"
-                BorderBrush="{DynamicResource CommonControlBorderBrush}"
+                Background="{DynamicResource Surface2}"
+                BorderBrush="{DynamicResource Outline}"
                 BorderThickness="1"
                 CornerRadius="4" />
 
@@ -121,7 +121,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border
                         x:Name="border"
-                        Background="{DynamicResource Elevation_1}"
+                        Background="{DynamicResource Surface3}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="0"
                         CornerRadius="4"
@@ -143,6 +143,8 @@
                                         Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
                                         Background="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
                                         CornerRadius="4"
+                                        BorderBrush="{DynamicResource Outline}"
+                                        BorderThickness="0"
                                         Tag="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                                 </Border>
                             </Border>
@@ -171,7 +173,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Elevation_3}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Surface5}" />
                         </Trigger>
 
                         <DataTrigger Binding="{Binding ElementName=PART_selectedColorBorder, Path=Tag}" Value="Transparent">
@@ -185,6 +187,7 @@
 
 
     <Style TargetType="local:SingletonEditorColorPicker">
+        <Setter Property="Background" Value="{DynamicResource Surface3}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -205,7 +208,7 @@
                                 <Border
                                     Name="PART_LeftBorder"
                                     Padding="3"
-                                    Background="{DynamicResource Elevation_1}"
+                                    Background="{TemplateBinding Background}"
                                     CornerRadius="4">
                                     <Border
                                         x:Name="PART_selectedColorBorder"
@@ -214,29 +217,31 @@
                                         Background="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
                                         CornerRadius="4"
                                         Tag="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                                        ToolTip="Apply color (Ctrl + G)" />
+                                        ToolTip="Apply color (Ctrl + G)"
+                                        Cursor="Hand"
+                                        />
 
-                                    <Behaviors:Interaction.Triggers>
+                                    <!--<Behaviors:Interaction.Triggers>
                                         <Behaviors:EventTrigger EventName="MouseEnter">
                                             <Behaviors:ChangePropertyAction
                                                 PropertyName="Background"
                                                 TargetObject="{Binding ElementName=PART_LeftBorder}"
-                                                Value="{DynamicResource Elevation_3}" />
+                                                Value="{DynamicResource Surface5}" />
                                         </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="MouseLeave">
                                             <Behaviors:ChangePropertyAction
                                                 PropertyName="Background"
                                                 TargetObject="{Binding ElementName=PART_LeftBorder}"
-                                                Value="{DynamicResource Elevation_1}" />
+                                                Value="{DynamicResource Surface3}" />
                                         </Behaviors:EventTrigger>
-                                    </Behaviors:Interaction.Triggers>
+                                    </Behaviors:Interaction.Triggers>-->
                                 </Border>
                             </Border>
 
                             <Border
                                 x:Name="PART_RightBorder"
                                 Grid.Column="1"
-                                Background="{DynamicResource Elevation_1}"
+                                Background="{TemplateBinding Background}"
                                 CornerRadius="6">
                                 <Button
                                     Command="{Binding OpenPopupCommand, RelativeSource={RelativeSource Mode=TemplatedParent}}"
@@ -254,20 +259,20 @@
                                     </Viewbox>
                                 </Button>
 
-                                <Behaviors:Interaction.Triggers>
+                                <!--<Behaviors:Interaction.Triggers>
                                     <Behaviors:EventTrigger EventName="MouseEnter">
                                         <Behaviors:ChangePropertyAction
                                             PropertyName="Background"
                                             TargetObject="{Binding ElementName=PART_RightBorder}"
-                                            Value="{DynamicResource Elevation_3}" />
+                                            Value="{DynamicResource Surface5}" />
                                     </Behaviors:EventTrigger>
                                     <Behaviors:EventTrigger EventName="MouseLeave">
                                         <Behaviors:ChangePropertyAction
                                             PropertyName="Background"
                                             TargetObject="{Binding ElementName=PART_RightBorder}"
-                                            Value="{DynamicResource Elevation_1}" />
+                                            Value="{DynamicResource Surface3}" />
                                     </Behaviors:EventTrigger>
-                                </Behaviors:Interaction.Triggers>
+                                </Behaviors:Interaction.Triggers>-->
                             </Border>
 
                             <ContentPresenter
@@ -283,7 +288,6 @@
 
                     </Border>
                     <ControlTemplate.Triggers>
-
                         <DataTrigger Binding="{Binding ElementName=PART_selectedColorBorder, Path=Tag}" Value="Transparent">
                             <Setter TargetName="PART_selectedColorBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
                         </DataTrigger>
@@ -297,6 +301,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource InversePrimary}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 

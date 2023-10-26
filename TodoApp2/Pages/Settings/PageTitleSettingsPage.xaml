@@ -55,7 +55,8 @@
                     IsChecked="{Binding AppSettings.PageTitleSettings.Visible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Title color  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
+                <!--DEACTIVATED SETTING-->
+                <Border Style="{StaticResource SettingsItemStyle}" Visibility="Collapsed">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />

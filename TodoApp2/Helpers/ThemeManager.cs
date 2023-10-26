@@ -7,102 +7,40 @@ using TodoApp2.Core;
 
 namespace TodoApp2
 {
+    /// <summary>
+    /// Responsible for switching between the dark and light resource dictionary, based on the DarkMode setting.
+    /// </summary>
     public class ThemeManager
     {
-        private const string AbsoluteThemePathPrefix = "pack://application:,,,/TodoApp2;component/Styles/Themes/";
         private const string DarkBaseUri = "pack://application:,,,/TodoApp2;component/Styles/DarkAndLight/DarkBase.xaml";
         private const string LightBaseUri = "pack://application:,,,/TodoApp2;component/Styles/DarkAndLight/LightBase.xaml";
 
-        private HashSet<Theme> _lightThemes;
-
-        public static Theme CurrentTheme { get; private set; }
-
-        public Theme ActiveTheme => CurrentTheme;
-
-        public List<Theme> ThemeList { get; }
-
-        public event EventHandler ThemeChanged;
-
         public ThemeManager()
         {
-            _lightThemes = new HashSet<Theme> {
-                //Theme.LightGreen,
-                //Theme.MaterialLight,
-                //Theme.YellowGold,
-                //Theme.Mint,
-                //Theme.LightBlue,
-                //Theme.Violet,
-                //Theme.LightGray,
-                //Theme.Light
-            };
+            IoC.AppSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
 
-            ThemeList = new List<Theme>();
-            Array values = Enum.GetValues(typeof(Theme));
-
-            foreach (Theme item in values)
-            {
-                ThemeList.Add(item);
-            }
+            CheckAndSwitchLightAndDark();
         }
 
-        /// <summary>
-        /// Changes the current theme to the provided one.
-        /// </summary>
-        /// <param name="oldTheme">The theme to change from.</param>
-        /// <param name="newTheme">The theme to change to.</param>
-        public Theme ChangeToTheme(Theme oldTheme, Theme newTheme)
+        private void ThemeSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (oldTheme != newTheme)
+            if (e.PropertyName != nameof(ThemeSettings.DarkMode)) return;
+
+            CheckAndSwitchLightAndDark();
+        }
+
+        private void CheckAndSwitchLightAndDark()
+        {
+            if (IoC.AppSettings.ThemeSettings.DarkMode)
             {
-                SwitchLightAndDark(oldTheme, newTheme);
-
-                string oldThemePath = GetThemeUriPath(oldTheme);
-                string newThemePath = GetThemeUriPath(newTheme);
-
-                // Change the old theme to the new one
-                ChangeTheme(oldThemePath, newThemePath);
+                ChangeTheme(LightBaseUri, DarkBaseUri);
+            }
+            else
+            {
+                ChangeTheme(DarkBaseUri, LightBaseUri);
             }
 
-            CurrentTheme = newTheme;
-            ThemeChanged?.Invoke(this, EventArgs.Empty);
             Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
-
-            return newTheme;
-        }
-
-        private void SwitchLightAndDark(Theme oldTheme, Theme newTheme)
-        {
-            bool oldIsLight = _lightThemes.Contains(oldTheme);
-            bool newIsLight = _lightThemes.Contains(newTheme);
-
-            if (oldIsLight != newIsLight)
-            {
-                if (newIsLight)
-                {
-                    ChangeTheme(DarkBaseUri, LightBaseUri);
-                }
-                else
-                {
-                    ChangeTheme(LightBaseUri, DarkBaseUri);
-                }
-            }
-        }
-
-        public void UpdateTheme(string changedKey, SolidColorBrush changedValue)
-        {
-            ResourceDictionary currentResources = Application.Current.Resources;
-            if (currentResources.Contains(changedKey))
-            {
-                currentResources[changedKey] = changedValue;
-            }
-            Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
-        }
-
-        internal static string GetThemeUriPath(Theme theme)
-        {
-            string fullPath = $"{AbsoluteThemePathPrefix}{theme}Theme.xaml";
-
-            return fullPath;
         }
 
         private void ChangeTheme(string oldTheme, string newTheme)

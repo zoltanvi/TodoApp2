@@ -142,7 +142,6 @@
     <Compile Include="Controls\TextEditor\SingletonToolbar.cs" />
     <Compile Include="Controls\TextEditor\BasicTextEditorBox.cs" />
     <Compile Include="Controls\ClickSelectTextBox.cs" />
-    <Compile Include="Controls\ColorPickerComboBox.cs" />
     <Compile Include="Controls\ColorPicker\SingletonEditorColorPicker.cs" />
     <Compile Include="Controls\ColorPicker\SingletonPopup.cs" />
     <Compile Include="Controls\CustomScrollViewer.cs" />
@@ -152,14 +151,8 @@
     <Compile Include="Controls\ListItem\NoteListItemControl.xaml.cs">
       <DependentUpon>NoteListItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ListItem\ThemeListItemControl.xaml.cs">
-      <DependentUpon>ThemeListItemControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\List\NoteListControl.xaml.cs">
       <DependentUpon>NoteListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\List\ThemeListControl.xaml.cs">
-      <DependentUpon>ThemeListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TextEditor\RichTextEditorControl.xaml.cs">
       <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
@@ -219,9 +212,6 @@
     <Compile Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml.cs">
       <DependentUpon>TextEditorQuickActionsSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\ThemeEditorSettingsPage.xaml.cs">
-      <DependentUpon>ThemeEditorSettingsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Settings\NotePageSettingsPage.xaml.cs">
       <DependentUpon>NotePageSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -266,8 +256,6 @@
     </Compile>
     <Compile Include="Helpers\ApplicationPageHelper.cs" />
     <Compile Include="Services\PopupService.cs" />
-    <Compile Include="Services\ResourceUpdater.cs" />
-    <Compile Include="Services\ThemeListService.cs" />
     <Compile Include="Services\ThemeManagerService.cs" />
     <Compile Include="Services\ToolbarService.cs" />
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
@@ -284,7 +272,6 @@
     <Compile Include="ValueConverters\Single\DebugConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolNegatedConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToThicknessConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\AccentColorBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\AppBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\DefaultBorderBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\MessageTypeToBrushConverter.cs" />
@@ -333,10 +320,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ListItem\ThemeListItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\List\NoteListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -354,10 +337,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FontSizeSliderControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\List\ThemeListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -430,10 +409,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Settings\ThemeEditorSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -532,62 +507,6 @@
     <Page Include="Styles\Sliders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Themes\DarkBlueTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\BlueTintTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\DarkSlateGrayTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\LightBlueTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\VioletTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\LightGreenTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\LightGrayTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\YellowGoldTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\MintTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\MaterialLightTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\NordTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\LightTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\MaterialBlueTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Themes\VSBlueTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Themes\ExtraDarkTheme.xaml">
       <Generator>MSBuild:Compile</Generator>

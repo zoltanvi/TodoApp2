@@ -32,8 +32,8 @@
                 FontSize="{Binding Path=AppSettings.TaskSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
                 TextChanged="textEditor_TextChanged"
                 Background="Transparent"
-                Foreground="{DynamicResource ForegroundBrush}"
-                LineNumbersForeground="{DynamicResource LineNumberBrush}"
+                Foreground="{DynamicResource OnBackground}"
+                LineNumbersForeground="{DynamicResource Secondary}"
                 ShowLineNumbers="True">
                 <avalonEdit:TextEditor.Style>
                     <Style TargetType="avalonEdit:TextEditor">
@@ -46,7 +46,7 @@
             </avalonEdit:TextEditor>
 
             <Border
-                Background="{DynamicResource PageBgBrush}"
+                Background="{DynamicResource Background}"
                 BorderBrush="black"
                 Visibility="{Binding AppSettings.NoteSettings.WordWrap, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
                 HorizontalAlignment="Right"

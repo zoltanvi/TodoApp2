@@ -82,7 +82,7 @@
                 <Style.Triggers>
                     <!--  The mouse over trigger is the second defined one so it can highlight an already selected item also  -->
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource HoverCategoryBgBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource SecondaryContainer}" />
                     </Trigger>
 
                     <DataTrigger Value="True">
@@ -95,7 +95,7 @@
                                 <Binding Path="NoteListService.ActiveNote.Id" Source="{x:Static local:VML.Instance}" />
                             </MultiBinding>
                         </DataTrigger.Binding>
-                        <Setter Property="Background" Value="{DynamicResource SelectedCategoryBgBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource PrimaryContainer}" />
                     </DataTrigger>
 
                 </Style.Triggers>
@@ -112,7 +112,7 @@
                 <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
                         </Trigger>
 
                         <DataTrigger Value="True">
@@ -125,10 +125,11 @@
                                     <Binding Path="NoteListService.ActiveNote.Id" Source="{x:Static local:VML.Instance}" />
                                 </MultiBinding>
                             </DataTrigger.Binding>
-                            <Setter Property="Foreground" Value="{DynamicResource SelectedCategoryBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
                         </DataTrigger>
 
                     </Style.Triggers>
+                    <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
                 </Style>
             </TextBlock.Style>
         </TextBlock>

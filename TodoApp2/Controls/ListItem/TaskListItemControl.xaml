@@ -50,7 +50,7 @@
             Margin="2 0"
             BorderThickness="1.5"
             CornerRadius="3"
-            BorderBrush="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+            BorderBrush="{DynamicResource Tertiary}"
             Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />
 
 
@@ -103,10 +103,8 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     IsEnabled="{Binding TextEditorViewModel.IsDisplayMode}"
-                    AutomationProperties.AutomationId="TaskListItemCheckBox"
                     Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
                     CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
-                    Foreground="{Binding ElementName=TaskListItemBackground, Path=Background}"
                     IsChecked="{Binding IsDone}"
                     Style="{DynamicResource TaskCheckBoxStyle}"
                     Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
@@ -146,7 +144,7 @@
                                     Padding="2"
                                     Content="{DynamicResource SegoeIconClock}"
                                     FontFamily="{StaticResource IconFont}"
-                                    Foreground="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                                    Foreground="{DynamicResource Tertiary}" />
                                 <Grid.LayoutTransform>
                                     <!--  -1 to mirror it  -->
                                     <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
@@ -175,12 +173,12 @@
                                     Padding="2"
                                     Content="{DynamicResource SegoeIconPinFilled}"
                                     FontFamily="{StaticResource IconFont}"
-                                    Foreground="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                                    Foreground="{DynamicResource Tertiary}" />
                                 <Label
                                     Padding="2"
                                     Content="{DynamicResource SegoeIconPin}"
                                     FontFamily="{StaticResource IconFont}"
-                                    Foreground="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}" />
+                                    Foreground="{DynamicResource Tertiary}" />
                                 <Grid.LayoutTransform>
                                     <!--  -1 to mirror it  -->
                                     <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
@@ -238,13 +236,13 @@
                                 TagBody="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.TaskSettings.CreationDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                TagColor="Volcano" />
+                                TagColor="Geekblue" />
                             <local:TagControl
                                 TagTitle="Modified: "
                                 TagBody="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.TaskSettings.ModificationDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                TagColor="Cyan" />
+                                TagColor="Purple" />
                         </WrapPanel>
 
                     </Grid>
@@ -314,9 +312,11 @@
 
                     <!--  HOVER PANEL  -->
                     <Border
-                        Padding="20 0 10 0"
+                        Padding="10 0"
                         HorizontalAlignment="Right"
-                        Background="{DynamicResource TaskListItemHoverPanelBrush}"
+                        Background="{DynamicResource Surface1}"
+                        BorderBrush="{DynamicResource SurfaceVariant}"
+                        BorderThickness="1 0 0 0"
                         CornerRadius="0 2 2 0">
 
                         <StackPanel Orientation="Horizontal">

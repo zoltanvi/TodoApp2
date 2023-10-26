@@ -27,5 +27,8 @@ namespace TodoApp2
 
             return Color.FromArgb(a, r, g, b);
         }
+
+        public static Color HexToColor(string value) => 
+            (Color)ColorConverter.ConvertFromString(value);
     }
 }

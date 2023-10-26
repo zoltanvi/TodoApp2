@@ -61,7 +61,7 @@
         <MenuItem
             Header="Colors"
             HorizontalAlignment="Center"
-            IsEnabled="False" />
+            IsEnabled="False" Foreground="{DynamicResource OnSurface}" />
 
         <!--  Marker color  -->
         <MenuItem Header="Marker">

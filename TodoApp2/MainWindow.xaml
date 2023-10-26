@@ -84,10 +84,11 @@
                                 <Grid>
 
                                     <!--  Outer dragging border  -->
-                                    <!--  BorderBrush="{DynamicResource AppBorderBrush}"  -->
                                     <Border
                                         Panel.ZIndex="2"
-                                        BorderBrush="{Binding AppSettings.CommonSettings.AppBorderColor, Source={x:Static local:VML.Instance}, Converter={StaticResource appBorderBrushConverter}}"
+                                        BorderBrush="{Binding AppSettings.CommonSettings.AppBorderColor, 
+                                        Source={x:Static local:VML.Instance}, 
+                                        Converter={StaticResource appBorderBrushConverter}}"
                                         BorderThickness="1">
 
                                         <Border.CornerRadius>
@@ -103,7 +104,7 @@
                                     </Border>
 
                                     <!--  Window border and drop shadow  -->
-                                    <Border Background="{DynamicResource PageBgBrush}">
+                                    <Border Background="{DynamicResource Background}">
                                         <Border.CornerRadius>
                                             <MultiBinding>
                                                 <MultiBinding.Converter>
@@ -127,7 +128,7 @@
                                             <Border
                                                 Grid.Column="0"
                                                 Panel.ZIndex="0"
-                                                Background="{DynamicResource TitleBarBgBrush}">
+                                                Background="{DynamicResource Surface2}">
 
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -155,7 +156,7 @@
                                                         Opacity="0"
                                                         local:SaveIconAnimator.Animate="{Binding ApplicationViewModel.SaveIconVisible, Source={x:Static local:VML.Instance}}"
                                                         Style="{DynamicResource IconLabelStyle}"
-                                                        Foreground="{DynamicResource TitleBarBrush}" />
+                                                        Foreground="{DynamicResource OnSurface}" />
 
                                                     <!--  Title bar date  -->
                                                     <Grid Grid.Column="1" Grid.ColumnSpan="2">
@@ -171,7 +172,7 @@
                                                                     Content="{Binding CurrentTime}"
                                                                     Margin="0"
                                                                     Padding="0"
-                                                                    Foreground="{DynamicResource TitleBarBrush}"
+                                                                    Foreground="{DynamicResource OnSurface}"
                                                                     VerticalAlignment="Center"
                                                                     HorizontalAlignment="Center" />
                                                             </Border>
@@ -276,7 +277,7 @@
 
             <GridSplitter
                 x:Name="Resizer"
-                Background="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}"
+                Background="{DynamicResource Primary}"
                 Grid.Column="1"
                 Opacity="0"
                 Width="6"

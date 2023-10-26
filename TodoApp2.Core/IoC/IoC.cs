@@ -6,8 +6,8 @@
     public static class IoC
     {
         private static ZoomingListener _zoomingListener;
+        private static ThemeChangeNotifier _themeChangeNotifier;
         public static IAsyncActionService AsyncActionService { get; set; }
-        public static IResourceUpdater ResourceUpdater { get; set; }
         public static AppSettings AppSettings { get; set; }
         public static AppViewModel AppViewModel { get; private set; }
         public static IDatabase Database { get; private set; }
@@ -41,7 +41,10 @@
         {
             MediaPlayerService = new MediaPlayerService();
             UIScaler = UIScaler.Instance;
+            
             _zoomingListener = new ZoomingListener(UIScaler, AppSettings);
+            _themeChangeNotifier = new ThemeChangeNotifier();
+            _themeChangeNotifier.AppSettings = AppSettings;
 
             UndoManager = new UndoManager();
             AppViewModel = new AppViewModel(Database, UIScaler);

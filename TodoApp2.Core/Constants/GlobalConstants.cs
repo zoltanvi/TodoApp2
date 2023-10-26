@@ -5,16 +5,16 @@
         public struct ColorName
         {
             public const string Transparent = "Transparent";
-            public const string DefaultAccentColor = "#0291cd";
         }
 
         public struct BrushName
         {
             public const string HatchBrush = "HatchBrush";
-            public const string TaskBgBrush = "TaskBgBrush";
+            public const string TaskBgBrush = "Surface1";
             public const string NoteLineAdornerBgBrush = "NoteLineAdornerBgBrush";
             public const string TransparentPatternBrush = "TransparentPatternBrush";
-            public const string ForegroundBrush = "ForegroundBrush";
+            public const string ForegroundBrush = "OnBackground";
+            public const string Surface3 = "Surface3";
         }
 
         public struct FontFamily

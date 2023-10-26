@@ -14,8 +14,6 @@
         <ControlTemplate TargetType="UserControl">
             <Border
                 x:Name="NavigatorContentBorder"
-                BorderThickness="0 0 0 0"
-                BorderBrush="{DynamicResource Elevation_2}"
                 ClipToBounds="True"
                 Margin="5 5 0 5"
                 CornerRadius="6"
