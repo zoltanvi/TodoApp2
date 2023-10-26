@@ -140,16 +140,8 @@ namespace TodoApp2
             _trayIconModule = new TrayIconModule(_window);
             _trayIconModule.IsEnabled = CommonSettings.ExitToTray;
 
-            // At application start, the saved theme is loaded back
-            LoadBackTheme();
-
             // Listen out for requests to flash the application window
             Mediator.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
-            Mediator.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
-            //Mediator.Register(OnNextThemeWithHotkeyRequested, ViewModelMessages.NextThemeWithHotkeyRequested);
-
-            // Subscribe to the theme changed event to trigger app border update
-            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
 
             _appViewModel.UpdateMainPage();
             _appViewModel.UpdateSideMenuPage();
@@ -393,35 +385,6 @@ namespace TodoApp2
         private void TimerOnTick(object sender, EventArgs e)
         {
             CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
-        }
-
-        private void OnThemeChangeRequested(object obj)
-        {
-            ChangeToActiveTheme();
-        }
-
-        private void OnThemeChanged(object obj)
-        {
-            // Trigger ui refresh for some properties that don't refresh automatically
-            //ApplicationSettings.TriggerUpdate(nameof(ApplicationSettings.AppBorderColor));
-            //ApplicationSettings.TriggerUpdate(nameof(ApplicationSettings.TitleColor));
-        }
-
-        private void ChangeToActiveTheme()
-        {
-            //if (ApplicationSettings.ActiveTheme != ThemeManager.CurrentTheme)
-            //{
-            //    _themeManager.ChangeToTheme(ThemeManager.CurrentTheme, ApplicationSettings.ActiveTheme);
-            //}
-        }
-
-        /// <summary>
-        /// Loads the initial theme that was saved in the database
-        /// </summary>
-        private void LoadBackTheme()
-        {
-            // Theme.Darker is the default, it is always the current theme at application start
-            //_themeManager.ChangeToTheme(Theme.ExtraDark, ApplicationSettings.ActiveTheme);
         }
 
         /// <summary>

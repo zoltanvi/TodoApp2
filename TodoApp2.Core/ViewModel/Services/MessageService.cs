@@ -8,6 +8,7 @@ namespace TodoApp2.Core
         private const int UndoMessageDuration = 1500;
 
         private Guid _timer;
+        private bool _initialized = false;
 
         public bool MessageLineVisible { get; private set; }
         public bool UndoButtonVisible { get; private set; }
@@ -17,7 +18,6 @@ namespace TodoApp2.Core
         public MessageService()
         {
             _timer = TimerService.Instance.CreateTimer(TimerOnTick);
-            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
 
         public void ShowUndo(string message)
@@ -61,10 +61,9 @@ namespace TodoApp2.Core
         {
             MessageType = messageType;
             MessageLineVisible = true;
-
             Message = message;
 
-            TriggerRefresh();
+            Initialize();
 
             TimerService.Instance.ModifyTimerInterval(_timer, duration);
             TimerService.Instance.StartTimer(_timer);
@@ -82,16 +81,18 @@ namespace TodoApp2.Core
             MessageType = MessageType.Invalid;
         }
 
-        private void OnThemeChanged(object obj)
+        // Lazy initialization
+        private void Initialize()
         {
-            TriggerRefresh();
+            if (!_initialized)
+            {
+                _initialized = true;
+
+                IoC.ThemeChangeNotifier.AddRecipient(this, nameof(MessageType));
+                IoC.ThemeChangeNotifier.AddRecipient(this, nameof(MessageLineVisible));
+                IoC.ThemeChangeNotifier.AddRecipient(this, nameof(Message));
+            }
         }
 
-        private void TriggerRefresh()
-        {
-            OnPropertyChanged(nameof(MessageType));
-            OnPropertyChanged(nameof(MessageLineVisible));
-            OnPropertyChanged(nameof(Message));
-        }
     }
 }

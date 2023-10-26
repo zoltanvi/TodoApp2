@@ -20,15 +20,6 @@
     <local:MessageTypeToBrushConverter x:Key="messageBackgroundConverter" ColorType="Background" />
     <local:MessageTypeToBrushConverter x:Key="messageBorderConverter" ColorType="Border" />
 
-    <local:DynamicSolidColorBrushConverter
-        x:Key="toggleButtonDynamicBrushConverter"
-        DarkName="PageBgBrush"
-        LightName="OnBackground" />
-    <local:DynamicSolidColorBrushConverter
-        x:Key="titleBarDynamicBrushConverter"
-        DarkName="ButtonHoverBackgroundBrushDark"
-        LightName="ButtonHoverBackgroundBrushLight" />
-
     <local:BoolToBorderThicknessConverter x:Key="boolToBorderThicknessConverter" />
     <local:BoolToDoubleConverter
         x:Key="boolToTaskOpacityConverter"
@@ -36,8 +27,8 @@
         PositiveValue="0.8" />
     <local:BoolToResourceConverter
         x:Key="reminderBoolToBrushConverter"
-        NegativeResourceName="TextBoxErrorBorderBrush"
-        PositiveResourceName="CommonBorderBrush" />
+        NegativeResourceName="Error"
+        PositiveResourceName="Outline" />
     <local:BoolToResourceConverter
         x:Key="boolToMaximizeRestoreConverter"
         NegativeResourceName="SegoeIconMaximizeWindow2"

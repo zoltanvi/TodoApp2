@@ -12,8 +12,8 @@ namespace TodoApp2
     /// </summary>
     public class ThemeManager
     {
-        private const string DarkBaseUri = "pack://application:,,,/TodoApp2;component/Styles/DarkAndLight/DarkBase.xaml";
-        private const string LightBaseUri = "pack://application:,,,/TodoApp2;component/Styles/DarkAndLight/LightBase.xaml";
+        private const string DarkTheme = "pack://application:,,,/TodoApp2;component/Themes/DarkTheme.xaml";
+        private const string LightTheme = "pack://application:,,,/TodoApp2;component/Themes/LightTheme.xaml";
 
         public ThemeManager()
         {
@@ -33,20 +33,20 @@ namespace TodoApp2
         {
             if (IoC.AppSettings.ThemeSettings.DarkMode)
             {
-                ChangeTheme(LightBaseUri, DarkBaseUri);
+                ChangeTheme(from: LightTheme, to: DarkTheme);
             }
             else
             {
-                ChangeTheme(DarkBaseUri, LightBaseUri);
+                ChangeTheme(from: DarkTheme, to: LightTheme);
             }
 
             Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
         }
 
-        private void ChangeTheme(string oldTheme, string newTheme)
+        private void ChangeTheme(string from, string to)
         {
-            Uri oldUri = new Uri(oldTheme, UriKind.RelativeOrAbsolute);
-            Uri newUri = new Uri(newTheme, UriKind.RelativeOrAbsolute);
+            Uri oldUri = new Uri(from, UriKind.RelativeOrAbsolute);
+            Uri newUri = new Uri(to, UriKind.RelativeOrAbsolute);
 
             // The Application resources contains all resources that are used
             SearchAndReplaceAll(Application.Current.Resources, oldUri, newUri);

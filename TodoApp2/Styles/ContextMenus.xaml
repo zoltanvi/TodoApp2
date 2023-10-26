@@ -11,7 +11,7 @@
                 <ControlTemplate TargetType="{x:Type ContextMenu}">
                     <Border
                         x:Name="Border"
-                        Background="{DynamicResource Surface2}"
+                        Background="{DynamicResource Surface1}"
                         BorderBrush="{DynamicResource Outline}"
                         BorderThickness="1"
                         CornerRadius="6"

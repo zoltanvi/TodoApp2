@@ -285,7 +285,7 @@
         x:Key="ReminderLabelStyle"
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}" />
         <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />

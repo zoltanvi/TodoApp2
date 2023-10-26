@@ -164,9 +164,6 @@ namespace TodoApp2.Core
             MoveToTopCommand = new RelayParameterizedCommand(MoveToTop);
             MoveToBottomCommand = new RelayParameterizedCommand(MoveToBottom);
 
-            // Subscribe to the theme changed event to repaint the list items when it happens
-            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
-
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
         }
 
@@ -515,28 +512,9 @@ namespace TodoApp2.Core
             _taskListService.ReorderTask(task, newIndex, true);
         }
 
-        /// <summary>
-        /// Forces the UI to repaint the list items when the theme changes
-        /// </summary>
-        /// <param name="obj"></param>
-        private void OnThemeChanged(object obj)
-        {
-            // Save the current items
-            List<TaskViewModel> itemsBackup = new List<TaskViewModel>(Items);
-
-            // Clear the items and add back the cleared items to refresh the list (repaint)
-            Items.Clear();
-            Items.AddRange(itemsBackup);
-        }
-
         private void OnCategoryChanged(object obj)
         {
             IsCategoryInEditMode = false;
-        }
-
-        protected override void OnDispose()
-        {
-            Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
     }
 }

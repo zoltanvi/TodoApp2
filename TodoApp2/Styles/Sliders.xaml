@@ -11,8 +11,8 @@
             VerticalAlignment="Center">
             <Border
                 x:Name="grip"
-                Background="{DynamicResource ScrollBarBgBrush}"
-                BorderBrush="{DynamicResource CommonControlBorderBrush}"
+                Background="{DynamicResource Outline}"
+                BorderBrush="{DynamicResource Outline}"
                 Width="{TemplateBinding Width}"
                 Height="{TemplateBinding Height}"
                 SnapsToDevicePixels="True"
@@ -20,20 +20,6 @@
                 UseLayoutRounding="True"
                 VerticalAlignment="Center" />
         </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" TargetName="grip" Value="{DynamicResource ScrollBarPressedBgBrush}" />
-                <!--<Setter Property="BorderBrush" TargetName="grip" Value="orange" />-->
-            </Trigger>
-            <Trigger Property="IsDragging" Value="true">
-                <Setter Property="Background" TargetName="grip" Value="{DynamicResource ScrollBarPressedBgBrush}" />
-                <!--<Setter Property="BorderBrush" TargetName="grip" Value="darkblue" />-->
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" TargetName="grip" Value="lightgray" />
-                <!--<Setter Property="BorderBrush" TargetName="grip" Value="lightblue" />-->
-            </Trigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
 
 
@@ -132,7 +118,7 @@
     <Style x:Key="CustomSliderStyle" TargetType="{x:Type Slider}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource CommonControlBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Outline}" />
         <Setter Property="Foreground" Value="Lime" />
         <Setter Property="Template" Value="{StaticResource SliderHorizontal}" />
     </Style>

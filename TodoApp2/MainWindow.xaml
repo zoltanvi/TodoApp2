@@ -163,7 +163,7 @@
 
                                                         <Viewbox>
                                                             <Border
-                                                                Background="{DynamicResource SettingsItemBgBrush}"
+                                                                Background="{DynamicResource Surface5}"
                                                                 CornerRadius="3"
                                                                 Margin="0 2"
                                                                 Padding="5 0">

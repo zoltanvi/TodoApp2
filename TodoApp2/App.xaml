@@ -11,8 +11,8 @@
                 <ResourceDictionary Source="Resources/FeatureFlags.xaml" />
                 <ResourceDictionary Source="Resources/Version.xaml" />
                 <ResourceDictionary Source="Resources/ValueConverters.xaml" />
-                <ResourceDictionary Source="Styles/DarkAndLight/DarkBase.xaml" />
-                <ResourceDictionary Source="Styles/Themes/ExtraDarkTheme.xaml" />
+                <ResourceDictionary Source="Themes/BaseTheme.xaml" />
+                <ResourceDictionary Source="Themes/DarkTheme.xaml" />
                 <ResourceDictionary Source="Styles/Icons.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 <ResourceDictionary Source="Styles/ComboBoxes.xaml" />

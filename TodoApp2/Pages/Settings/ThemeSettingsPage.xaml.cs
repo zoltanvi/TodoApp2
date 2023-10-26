@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using TodoApp2.Core;
-using TodoApp2.Material;
 
 namespace TodoApp2
 {

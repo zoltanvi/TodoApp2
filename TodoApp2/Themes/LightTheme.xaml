@@ -2,64 +2,65 @@
 
 
     <Color x:Key="Transparent">#00000000</Color>
-    <Color x:Key="ThemeOpposite">#FFFFFF</Color>
-    <Color x:Key="ThemePrimary">black</Color>
+    <Color x:Key="ThemeOpposite">#000000</Color>
+    <Color x:Key="ThemePrimary">white</Color>
 
-    <Color x:Key="TagMagenta">#e0529c</Color>
-    <Color x:Key="TagMagentaBg">#291321</Color>
-    <Color x:Key="TagMagentaBorder">#e0529c</Color>
+    <Color x:Key="TagMagenta">#c41d7f</Color>
+    <Color x:Key="TagMagentaBg">#fff0f6</Color>
+    <Color x:Key="TagMagentaBorder">#c41d7f</Color>
 
-    <Color x:Key="TagRed">#e84749</Color>
-    <Color x:Key="TagRedBg">#2a1215</Color>
-    <Color x:Key="TagRedBorder">#e84749</Color>
+    <Color x:Key="TagRed">#cf1322</Color>
+    <Color x:Key="TagRedBg">#fff1f0</Color>
+    <Color x:Key="TagRedBorder">#cf1322</Color>
 
-    <Color x:Key="TagVolcano">#e87040</Color>
-    <Color x:Key="TagVolcanoBg">#2b1611</Color>
-    <Color x:Key="TagVolcanoBorder">#e87040</Color>
+    <Color x:Key="TagVolcano">#d4380d</Color>
+    <Color x:Key="TagVolcanoBg">#fff2e8</Color>
+    <Color x:Key="TagVolcanoBorder">#d4380d</Color>
 
-    <Color x:Key="TagOrange">#e89a3c</Color>
-    <Color x:Key="TagOrangeBg">#2b1d11</Color>
-    <Color x:Key="TagOrangeBorder">#e89a3c</Color>
+    <Color x:Key="TagOrange">#d46b08</Color>
+    <Color x:Key="TagOrangeBg">#fff7e6</Color>
+    <Color x:Key="TagOrangeBorder">#d46b08</Color>
 
-    <Color x:Key="TagGold">#e8b339</Color>
-    <Color x:Key="TagGoldBg">#2b2111</Color>
-    <Color x:Key="TagGoldBorder">#e8b339</Color>
+    <Color x:Key="TagGold">#d48806</Color>
+    <Color x:Key="TagGoldBg">#fffbe6</Color>
+    <Color x:Key="TagGoldBorder">#d48806</Color>
 
-    <Color x:Key="TagLime">#a9d134</Color>
-    <Color x:Key="TagLimeBg">#1f2611</Color>
-    <Color x:Key="TagLimeBorder">#a9d134</Color>
+    <Color x:Key="TagLime">#7cb305</Color>
+    <Color x:Key="TagLimeBg">#fcffe6</Color>
+    <Color x:Key="TagLimeBorder">#7cb305</Color>
 
-    <Color x:Key="TagGreen">#6abe39</Color>
-    <Color x:Key="TagGreenBg">#162312</Color>
-    <Color x:Key="TagGreenBorder">#6abe39</Color>
+    <Color x:Key="TagGreen">#389e0d</Color>
+    <Color x:Key="TagGreenBg">#f6ffed</Color>
+    <Color x:Key="TagGreenBorder">#389e0d</Color>
 
-    <Color x:Key="TagCyan">#33bcb7</Color>
-    <Color x:Key="TagCyanBg">#112123</Color>
-    <Color x:Key="TagCyanBorder">#33bcb7</Color>
+    <Color x:Key="TagCyan">#08979c</Color>
+    <Color x:Key="TagCyanBg">#e6fffb</Color>
+    <Color x:Key="TagCyanBorder">#08979c</Color>
 
-    <Color x:Key="TagBlue">#3c89e8</Color>
-    <Color x:Key="TagBlueBg">#111a2c</Color>
-    <Color x:Key="TagBlueBorder">#3c89e8</Color>
+    <Color x:Key="TagBlue">#0958d9</Color>
+    <Color x:Key="TagBlueBg">#e6f4ff</Color>
+    <Color x:Key="TagBlueBorder">#0958d9</Color>
 
-    <Color x:Key="TagGeekblue">#5273e0</Color>
-    <Color x:Key="TagGeekblueBg">#131629</Color>
-    <Color x:Key="TagGeekblueBorder">#5273e0</Color>
+    <Color x:Key="TagGeekblue">#1d39c4</Color>
+    <Color x:Key="TagGeekblueBg">#f0f5ff</Color>
+    <Color x:Key="TagGeekblueBorder">#1d39c4</Color>
 
-    <Color x:Key="TagPurple">#854eca</Color>
-    <Color x:Key="TagPurpleBg">#1a1325</Color>
-    <Color x:Key="TagPurpleBorder">#854eca</Color>
+    <Color x:Key="TagPurple">#531dab</Color>
+    <Color x:Key="TagPurpleBg">#f9f0ff</Color>
+    <Color x:Key="TagPurpleBorder">#531dab</Color>
 
-    <Color x:Key="MessageInfo">#5D9CF6</Color>
-    <Color x:Key="MessageInfoBg">#112545</Color>
-    <Color x:Key="MessageInfoBorder">#5D9CF6</Color>
+    <Color x:Key="MessageInfo">#1677ff</Color>
+    <Color x:Key="MessageInfoBg">#e6f4ff</Color>
+    <Color x:Key="MessageInfoBorder">#1677ff</Color>
 
-    <Color x:Key="MessageWarning">#d89614</Color>
-    <Color x:Key="MessageWarningBg">#2b2111</Color>
-    <Color x:Key="MessageWarningBorder">#d89614</Color>
+    <Color x:Key="MessageWarning">#faad14</Color>
+    <Color x:Key="MessageWarningBg">#fffbe6</Color>
+    <Color x:Key="MessageWarningBorder">#faad14</Color>
 
-    <Color x:Key="MessageError">#dc4446</Color>
-    <Color x:Key="MessageErrorBg">#2c1618</Color>
-    <Color x:Key="MessageErrorBorder">#dc4446</Color>
+    <Color x:Key="MessageError">#ff4d4f</Color>
+    <Color x:Key="MessageErrorBg">#fff1f0</Color>
+    <Color x:Key="MessageErrorBorder">#ff4d4f</Color>
+
 
     <!--  SolidColorBrushes for colors  -->
     <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
@@ -165,5 +166,5 @@
     <SolidColorBrush x:Key="SurfaceContainerHighest" />
     <SolidColorBrush x:Key="OutlineVariant" />
 
-
+    
 </ResourceDictionary>

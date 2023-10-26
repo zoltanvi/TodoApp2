@@ -19,7 +19,8 @@
                 <Border
                     x:Name="OverlayBackgroundBorder"
                     AutomationProperties.AutomationId="OverlayBackgroundBorder"
-                    Background="{DynamicResource OverlayBgBrush}"
+                    Background="{DynamicResource Background}"
+                    Opacity="0.5"
                     Visibility="{Binding OverlayPageService.OverlayBackgroundVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="MouseDown">
