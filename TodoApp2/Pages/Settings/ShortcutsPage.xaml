@@ -127,7 +127,7 @@
                 <Border Height="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:VML.Instance}}" />
 
 
-                <local:ShortcutItemControl
+                <!--<local:ShortcutItemControl
                     Description="Switch to previous theme"
                     Key1="Ctrl"
                     Key2="Alt"
@@ -139,7 +139,7 @@
                     Key2="Alt"
                     Key3="L" />
 
-                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />-->
 
 
                 <local:ShortcutItemControl
