@@ -14,7 +14,7 @@
         public bool CheckboxEnabled { get; set; } = true;
         public bool ReminderEnabled { get; set; } = true;
         public bool ColorEnabled { get; set; } = true;
-        public bool BackgroundColorEnabled { get; set; } = true;
+        public bool BackgroundColorEnabled { get; set; }
         public bool BorderColorEnabled { get; set; }
         public bool PinEnabled { get; set; } = true;
         public bool TrashEnabled { get; set; } = true;
