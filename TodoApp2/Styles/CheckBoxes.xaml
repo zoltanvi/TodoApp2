@@ -34,12 +34,13 @@
                                     Stretch="Uniform" />
                             </Border>
                             <Border
+                                x:Name="checkMarkBorder"
                                 Width="20"
                                 Height="20"
                                 Margin="0"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                BorderBrush="{DynamicResource CheckBoxBorderBrush}"
+                                BorderBrush="{DynamicResource SurfaceVariant}"
                                 BorderThickness="1.5"
                                 CornerRadius="30" />
                         </Grid>
@@ -51,12 +52,13 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="checkMarkIcon" Property="Opacity" Value="1" />
-                            <Setter TargetName="checkMarkIcon" Property="Fill" Value="{DynamicResource CheckBoxBorderBrush}" />
+                            <Setter TargetName="checkMarkBorder" Property="BorderBrush" Value="{DynamicResource OutlineVariant}" />
+                            <Setter TargetName="checkMarkIcon" Property="Fill" Value="{DynamicResource OutlineVariant}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter TargetName="checkMarkIcon" Property="Opacity" Value="1" />
-                            <Setter TargetName="checkMarkIcon" Property="Fill" Value="{DynamicResource PageBgBrush}" />
-                            <Setter TargetName="checkMarkParentBorder" Property="Background" Value="{DynamicResource CheckBoxBorderBrush}" />
+                            <Setter TargetName="checkMarkIcon" Property="Fill" Value="{DynamicResource OutlineVariant}" />
+                            <!--<Setter TargetName="checkMarkParentBorder" Property="Background" Value="{DynamicResource OutlineVariant}" />-->
                         </Trigger>
 
                     </ControlTemplate.Triggers>

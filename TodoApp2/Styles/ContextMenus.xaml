@@ -3,33 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:TodoApp2">
 
-    <!--  Fill Brushes  -->
-
-    <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#FFF" />
-                <GradientStop Offset="1.0" Color="#CCC" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
-
-    <!--  Border Brushes  -->
-
-    <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Offset="0.0" Color="#CCC" />
-                <GradientStop Offset="1.0" Color="#444" />
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <!--  Miscellaneous Brushes  -->
-    <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
-
     <Style TargetType="{x:Type ContextMenu}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -38,8 +11,8 @@
                 <ControlTemplate TargetType="{x:Type ContextMenu}">
                     <Border
                         x:Name="Border"
-                        Background="{DynamicResource ContextMenuBackgroundBrush}"
-                        BorderBrush="{DynamicResource Elevation_6}"
+                        Background="{DynamicResource Surface2}"
+                        BorderBrush="{DynamicResource Outline}"
                         BorderThickness="1"
                         CornerRadius="6"
                         ClipToBounds="False">
@@ -65,7 +38,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Separator}">
-                    <Border BorderBrush="{DynamicResource Elevation_4}" BorderThickness="1" />
+                    <Border BorderBrush="{DynamicResource SurfaceDim}" BorderThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -92,8 +65,8 @@
                     Width="13"
                     Height="13"
                     Margin="6 0 6 0"
-                    Background="{StaticResource NormalBrush}"
-                    BorderBrush="{StaticResource NormalBorderBrush}"
+                    Background="{DynamicResource PrimaryContainer}"
+                    BorderBrush="{DynamicResource Error}"
                     BorderThickness="1"
                     Visibility="Collapsed">
                     <Path
@@ -102,7 +75,7 @@
                         Height="7"
                         Data="M 0 0 L 7 7 M 0 7 L 7 0"
                         SnapsToDevicePixels="False"
-                        Stroke="{StaticResource GlyphBrush}"
+                        Stroke="red"
                         StrokeThickness="2"
                         Visibility="Hidden" />
                 </Border>
@@ -131,10 +104,10 @@
                 <Setter TargetName="Icon" Property="Visibility" Value="Hidden" />
             </Trigger>
             <Trigger Property="IsHighlighted" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuSelectedBackgroundBrush}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource PrimaryContainer}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource SurfaceVariant}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -171,7 +144,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Data="M 0 0 L 0 7 L 4 3.5 Z"
-                    Fill="{DynamicResource ForegroundBrush}" />
+                    Fill="{DynamicResource OnBackground}" />
                 <Popup
                     Name="Popup"
                     MaxHeight="290"
@@ -183,8 +156,8 @@
                     PopupAnimation="Fade">
                     <Border
                         Name="SubmenuBorder"
-                        Background="{DynamicResource ContextMenuBackgroundBrush}"
-                        BorderBrush="{DynamicResource Elevation_6}"
+                        Background="{DynamicResource Surface2}"
+                        BorderBrush="{DynamicResource Outline}"
                         BorderThickness="1"
                         SnapsToDevicePixels="True"
                         CornerRadius="6">
@@ -204,13 +177,13 @@
                 <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="IsHighlighted" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuSelectedBackgroundBrush}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource PrimaryContainer}" />
             </Trigger>
             <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="True">
                 <Setter TargetName="SubmenuBorder" Property="Padding" Value="0 3 0 3" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource SurfaceVariant}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -219,7 +192,7 @@
 
     <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
         <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:VML.Instance}}" />
         <Style.Triggers>
             <Trigger Property="Role" Value="TopLevelHeader">

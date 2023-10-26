@@ -61,39 +61,6 @@
                     Description="Close side menu on category change"
                     IsChecked="{Binding AppSettings.CommonSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
-
-                <!--  Accent color  -->
-                <Border Style="{StaticResource SettingsItemStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="{DynamicResource SegoeIconPalette}"
-                            Style="{DynamicResource SettingsIconLabelStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{DynamicResource SettingsDescriptionStyle}"
-                            Text="Accent color" />
-
-                        <Border
-                            Grid.Column="2"
-                            Padding="20 0 0 0"
-                            HorizontalAlignment="Right">
-
-                            <local:SingletonColorPicker
-                                SelectedColorString="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
-                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
-                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
-
-                        </Border>
-
-                    </Grid>
-                </Border>
-
                 <!--  App border color  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
                     <Grid>
@@ -149,11 +116,11 @@
                         <Border
                             Grid.Column="2"
                             CornerRadius="4"
-                            Background="{DynamicResource Elevation_2}"
+                            Background="{DynamicResource Surface5}"
                             Margin="10 0 0 0">
                             <TextBox
                                 Background="Transparent"
-                                Foreground="{DynamicResource ForegroundBrush}"
+                                Foreground="{DynamicResource OnSurface}"
                                 FontFamily="{DynamicResource UIFont}"
                                 BorderThickness="0"
                                 VerticalAlignment="Center"

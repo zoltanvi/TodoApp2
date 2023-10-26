@@ -506,7 +506,7 @@
                                 FontFamily="{DynamicResource UIFont}"
                                 FontSize="16"
                                 FontWeight="Black"
-                                Foreground="{DynamicResource ForegroundBrush}"
+                                Foreground="{DynamicResource OnBackground}"
                                 Text="{Binding}" />
                         </DataTemplate>
                     </ControlTemplate.Resources>
@@ -542,7 +542,7 @@
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
                                                         Data="M288.75,232.25 L288.75,240.625 L283,236.625 z"
-                                                        Fill="{DynamicResource ForegroundBrush}"
+                                                        Fill="{DynamicResource OnBackground}"
                                                         Stretch="Fill" />
                                                 </Grid>
                                                 <VisualStateManager.VisualStateGroups>
@@ -587,7 +587,7 @@
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
                                                         Data="M282.875,231.875 L282.875,240.375 L288.625,236 z"
-                                                        Fill="{DynamicResource ForegroundBrush}"
+                                                        Fill="{DynamicResource OnBackground}"
                                                         Stretch="Fill" />
                                                 </Grid>
                                                 <VisualStateManager.VisualStateGroups>
@@ -624,7 +624,7 @@
                                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                     Content="{TemplateBinding Content}"
                                                     ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                    TextElement.Foreground="{DynamicResource ForegroundBrush}" />
+                                                    TextElement.Foreground="{DynamicResource OnBackground}" />
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Normal" />

@@ -2,6 +2,6 @@
 {
     internal class AppBorderBrushConverter : DefaultBorderBrushConverter
     {
-        protected override string DefaultResourceName { get; } = "AppBorderBrush";
+        protected override string DefaultResourceName { get; } = "SurfaceDim";
     }
 }

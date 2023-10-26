@@ -62,7 +62,7 @@
 
                     <Border
                         Grid.Row="0"
-                        Background="{DynamicResource SideMenuBgBrush}"
+                        Background="{DynamicResource Surface1}"
                         CornerRadius="6"
                         Margin="5 0 0 5">
 
@@ -138,19 +138,7 @@
                                     Id="{x:Static core:ApplicationPage.Shortcuts}"
                                     Content="SHORTCUTS"
                                     Style="{StaticResource SettingsCategoryButtonStyle}"
-                                    Foreground="{Binding AppSettings.CommonSettings.AccentColor, Source={x:Static local:VML.Instance}, Converter={StaticResource accentColorBrushConverter}}"
-                                    SelectedPage="{Binding ActiveSettingsPage}" />
-
-                                <local:SettingsCategoryButton
-                                    Command="{Binding SwitchToPageCommand}"
-                                    CommandParameter="{x:Static core:ApplicationPage.ThemeEditorSettings}"
-                                    Id="{x:Static core:ApplicationPage.ThemeEditorSettings}"
-                                    Content="THEME EDITOR"
-                                    Style="{StaticResource SettingsCategoryButtonStyle}"
-                                    Foreground="{DynamicResource HoverCloseButtonBgBrush}"
-                                    IsEnabled="{StaticResource ThemeEditor}"
-                                    ToolTip="Warning: These are experimental settings! Restarting the application resets the values."
-                                    Visibility="{Binding Source={StaticResource ThemeEditor}, Converter={StaticResource boolToVisibilityConverter}}"
+                                    Foreground="{DynamicResource Secondary}"
                                     SelectedPage="{Binding ActiveSettingsPage}" />
 
                             </StackPanel>
@@ -159,13 +147,13 @@
 
                     <!--  VERSION  -->
                     <Border Grid.Row="1" Margin="5 0 0 0">
-                        <Border Style="{StaticResource SettingsItemStyle}" CornerRadius="5" Background="{DynamicResource SideMenuBgBrush}">
+                        <Border Style="{StaticResource SettingsItemStyle}" CornerRadius="5" Background="{DynamicResource PrimaryContainer}">
                             <TextBlock
                                 Padding="0 2"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="{Binding UIScaler.FontSize.Regular}"
-                                Foreground="{DynamicResource ForegroundBrush}"
+                                Foreground="{DynamicResource OnPrimaryContainer}"
                                 Text="{DynamicResource CurrentVersion}" />
                         </Border>
                     </Border>

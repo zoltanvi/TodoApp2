@@ -112,7 +112,6 @@
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
     <Compile Include="Helpers\StringDateConverterExtender.cs" />
     <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
-    <Compile Include="ListProviders\AccentColorProvider.cs" />
     <Compile Include="ListProviders\EnumValuesListProvider.cs" />
     <Compile Include="Mediator\AsyncEventArgs.cs" />
     <Compile Include="DataModels\Setting.cs" />
@@ -127,7 +126,6 @@
     <Compile Include="Services\AutoRunService.cs" />
     <Compile Include="Services\DebugLogger.cs" />
     <Compile Include="Services\IAsyncActionService.cs" />
-    <Compile Include="Services\IResourceUpdater.cs" />
     <Compile Include="Services\IThemeManagerService.cs" />
     <Compile Include="Services\MediaPlayerService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />
@@ -142,7 +140,6 @@
     <Compile Include="ViewModel\Pages\Settings\PageTitleSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\ShortcutsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\TextEditorQuickActionsSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\ThemeEditorSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\NotePageSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\WindowSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\ThemeSettingsPageViewModel.cs" />
@@ -174,6 +171,7 @@
     <Compile Include="ViewModel\Pages\Settings\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Items\TaskViewModel.cs" />
     <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
+    <Compile Include="ViewModel\Services\ThemeChangeNotifier.cs" />
     <Compile Include="ViewModel\Services\UIScaler.cs" />
     <Compile Include="ViewModel\Events\ZoomedEventArgs.cs" />
     <Compile Include="ViewModel\Services\ZoomingListener.cs" />

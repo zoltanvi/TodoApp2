@@ -392,7 +392,7 @@ namespace TodoApp2
             }
             else
             {
-                SolidColorBrush defaultColor = (SolidColorBrush)Application.Current.TryFindResource("ForegroundBrush");
+                SolidColorBrush defaultColor = (SolidColorBrush)Application.Current.TryFindResource("OnBackground");
                 Selection.ApplyPropertyValue(TextElement.ForegroundProperty, defaultColor);
             }
         }

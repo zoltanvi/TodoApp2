@@ -9,15 +9,9 @@
 
     <Style x:Key="SettingsItemStyle" TargetType="Border">
         <Setter Property="CornerRadius" Value="6" />
-        <Setter Property="Background" Value="{DynamicResource SettingsItemBgBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Surface2}" />
         <Setter Property="Margin" Value="0 0 0 5" />
         <Setter Property="Padding" Value="5" />
-    </Style>
-
-    <Style x:Key="BottomPanelStyle" TargetType="Border">
-        <Setter Property="Background" Value="{DynamicResource TaskPageBottomBarBackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Elevation_2}" />
-        <Setter Property="BorderThickness" Value="0 1 0 0" />
     </Style>
 
     <Style x:Key="CurrentCategoryPanelStyle" TargetType="Grid">

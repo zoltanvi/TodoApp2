@@ -8,7 +8,7 @@
         because of a WPF bug, the RichTextBox copy-paste won't work properly.
     -->
 
-    <Color x:Key="Foreground">#FFFFFF</Color>
+    <!--<Color x:Key="Foreground">#FFFFFF</Color>
     <SolidColorBrush x:Key="ForegroundBrush" Color="#FFFFFF" />
     <Color x:Key="TitleBar">#E4E4E4</Color>
     <Color x:Key="Caret">#FFFFFF</Color>
@@ -47,7 +47,51 @@
     <Color x:Key="TextBoxErrorBorder">#FF3100</Color>
     <Color x:Key="TaskBorder">#2D2D2D</Color>
     <Color x:Key="CheckBoxBorder">#7e7e7e</Color>
-    <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>
+    <Color x:Key="ToggleButtonBorder">#D0D0D0</Color>-->
+
+
+    <Color x:Key="Foreground">#FF00FF</Color>
+    <SolidColorBrush x:Key="ForegroundBrush" Color="#FF00FF" />
+    <Color x:Key="TitleBar">#FF00FF</Color>
+    <Color x:Key="Caret">#FF00FF</Color>
+    <Color x:Key="EditorButton">#FF00FF</Color>
+    <Color x:Key="LineNumber">#FF00FF</Color>
+    <Color x:Key="TaskDate">#FF00FF</Color>
+    <Color x:Key="CalendarDisabledDays">#FF00FF</Color>
+    <Color x:Key="SelectedCategory">#FF00FF</Color>
+
+    <Color x:Key="PageBg">#FF00FF</Color>
+    <Color x:Key="SideMenuBg">#FF00FF</Color>
+    <Color x:Key="TitleBarBg">#FF00FF</Color>
+    <Color x:Key="BottomBarBg">#FF00FF</Color>
+    <Color x:Key="TaskBg">#FF00FF</Color>
+    <Color x:Key="TaskTransparentBg">#FF00FF</Color>
+    <Color x:Key="TaskDoneBg">#FF00FF</Color>
+    <Color x:Key="ScrollBarBg">#FF00FF</Color>
+    <Color x:Key="ScrollBarPressedBg">#FF00FF</Color>
+    <Color x:Key="SelectedCategoryBg">#FF00FF</Color>
+    <Color x:Key="ComboBoxBg">#FF00FF</Color>
+    <Color x:Key="ComboBoxButtonBg">#FF00FF</Color>
+    <Color x:Key="ComboBoxDropDownBg">#FF00FF</Color>
+    <Color x:Key="CalendarButtonBg">#FF00FF</Color>
+    <Color x:Key="ContextMenuBg">#FF00FF</Color>
+    <Color x:Key="NoteLineAdornerBg">#FF00FF</Color>
+
+    <Color x:Key="HoverCategoryBg">#FF00FF</Color>
+    <Color x:Key="HoverCloseButtonBg">#FF00FF</Color>
+    <Color x:Key="HoverContextMenuBg">#FF00FF</Color>
+    <Color x:Key="CheckedComboBoxButtonBg">#FF00FF</Color>
+
+    <Color x:Key="CommonBorder">#FF00FF</Color>
+    <Color x:Key="AppBorder">#FF00FF</Color>
+    <Color x:Key="CommonControlBorder">#FF00FF</Color>
+    <Color x:Key="BottomBarBorder">#FF00FF</Color>
+    <Color x:Key="TextBoxErrorBorder">#FF00FF</Color>
+    <Color x:Key="TaskBorder">#FF00FF</Color>
+    <Color x:Key="CheckBoxBorder">#FF00FF</Color>
+    <Color x:Key="ToggleButtonBorder">#FF00FF</Color>
+    
+    
     <!--  ===================  -->
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource Transparent}" />
@@ -153,107 +197,8 @@
     <SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{DynamicResource CheckBoxBorder}" />
     <SolidColorBrush x:Key="ToggleButtonBorderBrush" Color="{DynamicResource ToggleButtonBorder}" />
 
-    <!--  ELEVATION  -->
-    <SolidColorBrush
-        x:Key="Elevation_1"
-        Opacity="0.05"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="Elevation_2"
-        Opacity="0.1"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="Elevation_3"
-        Opacity="0.15"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="Elevation_4"
-        Opacity="0.2"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="Elevation_5"
-        Opacity="0.3"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="Elevation_6"
-        Opacity="0.4"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="Elevation_7"
-        Opacity="0.5"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="Elevation_8"
-        Opacity="0.6"
-        Color="{DynamicResource ThemeOpposite}" />
-    <SolidColorBrush
-        x:Key="Elevation_9"
-        Opacity="0.7"
-        Color="{DynamicResource ThemeOpposite}" />
 
-
-    <!--  LOWERED  -->
-    <SolidColorBrush
-        x:Key="Lowered_1"
-        Opacity="0.05"
-        Color="{DynamicResource ThemePrimary}" />
-    <SolidColorBrush
-        x:Key="Lowered_2"
-        Opacity="0.1"
-        Color="{DynamicResource ThemePrimary}" />
-    <SolidColorBrush
-        x:Key="Lowered_3"
-        Opacity="0.15"
-        Color="{DynamicResource ThemePrimary}" />
-    <SolidColorBrush
-        x:Key="Lowered_4"
-        Opacity="0.2"
-        Color="{DynamicResource ThemePrimary}" />
-    <SolidColorBrush
-        x:Key="Lowered_5"
-        Opacity="0.3"
-        Color="{DynamicResource ThemePrimary}" />
-    <SolidColorBrush
-        x:Key="Lowered_6"
-        Opacity="0.4"
-        Color="{DynamicResource ThemePrimary}" />
-    <SolidColorBrush
-        x:Key="Lowered_7"
-        Opacity="0.5"
-        Color="{DynamicResource ThemePrimary}" />
-    <SolidColorBrush
-        x:Key="Lowered_8"
-        Opacity="0.6"
-        Color="{DynamicResource ThemePrimary}" />
-    <SolidColorBrush
-        x:Key="Lowered_9"
-        Opacity="0.7"
-        Color="{DynamicResource ThemePrimary}" />
-
-    <!--  BRUSHES (cannot be in a separate xaml because the theme switch would not work)  -->
-
-    <LinearGradientBrush x:Key="TaskListItemHoverPanelBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Offset="0" Color="{DynamicResource TaskTransparentBg}" />
-        <GradientStop Offset="0.1" Color="{DynamicResource TaskBg}" />
-        <GradientStop Offset="1" Color="{DynamicResource TaskBg}" />
-    </LinearGradientBrush>
-
-    <VisualBrush
-        x:Key="HatchBrush"
-        TileMode="Tile"
-        Viewbox="0,0,8,8"
-        ViewboxUnits="Absolute"
-        Viewport="0,0,8,8"
-        ViewportUnits="Absolute">
-        <VisualBrush.Visual>
-            <Path
-                Data="M 0 8 L 8 0"
-                RenderOptions.EdgeMode="Aliased"
-                Stroke="{DynamicResource TaskDoneBgBrush}"
-                StrokeEndLineCap="Square" />
-        </VisualBrush.Visual>
-    </VisualBrush>
-
+    <!--  KEEP THESE BELOW  -->
 
     <LinearGradientBrush x:Key="TransparentPatternBrush" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Offset="0" Color="#888888" />

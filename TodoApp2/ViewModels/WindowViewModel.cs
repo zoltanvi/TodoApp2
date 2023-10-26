@@ -146,7 +146,7 @@ namespace TodoApp2
             // Listen out for requests to flash the application window
             Mediator.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
             Mediator.Register(OnThemeChangeRequested, ViewModelMessages.ThemeChangeRequested);
-            Mediator.Register(OnNextThemeWithHotkeyRequested, ViewModelMessages.NextThemeWithHotkeyRequested);
+            //Mediator.Register(OnNextThemeWithHotkeyRequested, ViewModelMessages.NextThemeWithHotkeyRequested);
 
             // Subscribe to the theme changed event to trigger app border update
             Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
@@ -193,7 +193,6 @@ namespace TodoApp2
 
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-
                 // Ctrl + Z, Ctrl + Y
                 if (key == Key.Z)
                 {
@@ -217,25 +216,10 @@ namespace TodoApp2
                     // Ctrl + Shift + J, Ctrl + Shift + L
                     if (key == Key.J || key == Key.L)
                     {
-                        ChangeActiveTheme(key == Key.L);
+                        // TODO: think about it
                     }
                 }
             }
-        }
-
-        private void ChangeActiveTheme(bool next)
-        {
-            //int themeCount = _themeManager.ThemeList.Count;
-            //int currentIndex = _themeManager.ThemeList.IndexOf(ApplicationSettings.ActiveTheme);
-            //int indexOffset = next ? 1 : -1;
-            //int nextIndex = (currentIndex + indexOffset) % themeCount;
-            //nextIndex = nextIndex < 0 ? themeCount - 1 : nextIndex;
-            //ApplicationSettings.ActiveTheme = _themeManager.ThemeList[nextIndex];
-        }
-
-        private void OnNextThemeWithHotkeyRequested(object obj)
-        {
-            ChangeActiveTheme(true);
         }
 
         /// <summary>

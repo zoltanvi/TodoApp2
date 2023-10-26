@@ -46,8 +46,8 @@
             x:Name="contentBorder"
             Grid.Row="1"
             Grid.Column="1"
-            Background="{DynamicResource PopUpBgBrush}"
-            BorderBrush="{DynamicResource PopUpBorderBrush}"
+            Background="{DynamicResource Surface}"
+            BorderBrush="{DynamicResource Outline}"
             BorderThickness="1"
             CornerRadius="6">
 
@@ -60,8 +60,8 @@
                 <!--  Titlebar  -->
                 <Border
                     Grid.Row="0"
-                    BorderBrush="{DynamicResource PopUpBorderBrush}"
-                    Padding="6"
+                    BorderBrush="{DynamicResource OutlineVariant}"
+                    Padding="6 3 6 6"
                     BorderThickness="0 0 0 1">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -91,7 +91,7 @@
 
                 <Border
                     Grid.Row="1"
-                    Background="{DynamicResource ReminderItemBgBrush}"
+                    Background="{DynamicResource Surface2}"
                     CornerRadius="6"
                     Margin="10">
 
