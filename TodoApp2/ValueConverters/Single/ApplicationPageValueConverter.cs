@@ -50,6 +50,7 @@ namespace TodoApp2
                     { ApplicationPage.NotePageSettings, typeof(NotePageSettingsPageViewModel)},
                     { ApplicationPage.TaskItemSettings, typeof(TaskItemSettingsPageViewModel)},
                     { ApplicationPage.PageTitleSettings, typeof(PageTitleSettingsPageViewModel)},
+                    { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPageViewModel)},
                     { ApplicationPage.TaskPageSettings, typeof(TaskPageSettingsPageViewModel)},
                     { ApplicationPage.TaskQuickActionsSettings, typeof(TaskQuickActionsSettingsPageViewModel)},
                     { ApplicationPage.TextEditorQuickActionsSettings, typeof(TextEditorQuickActionsSettingsPageViewModel)},
@@ -62,6 +63,7 @@ namespace TodoApp2
                     { ApplicationPage.NotePageSettings, typeof(NotePageSettingsPage)},
                     { ApplicationPage.TaskItemSettings, typeof(TaskItemSettingsPage)},
                     { ApplicationPage.PageTitleSettings, typeof(PageTitleSettingsPage)},
+                    { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPage)},
                     { ApplicationPage.TaskPageSettings, typeof(TaskPageSettingsPage)},
                     { ApplicationPage.TaskQuickActionsSettings, typeof(TaskQuickActionsSettingsPage)},
                     { ApplicationPage.TextEditorQuickActionsSettings, typeof(TextEditorQuickActionsSettingsPage)},
@@ -72,13 +74,11 @@ namespace TodoApp2
                 _viewModelTypesAppVm = new Dictionary<ApplicationPage, Type>
                 {
                     { ApplicationPage.Settings, typeof(SettingsPageViewModel)},
-                    { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPageViewModel)},
                 };
 
                 _pageTypesAppVm = new Dictionary<ApplicationPage, Type>
                 {
                     { ApplicationPage.Settings, typeof(SettingsPage)},
-                    { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPage)},
                 };
             }
 

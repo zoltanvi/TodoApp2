@@ -118,7 +118,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Adorners\TextBoxCurrentLineAdorner.cs" />
     <Compile Include="Animation2\SaveIconAnimator.cs" />
     <Compile Include="Animation\AnimateBaseProperty.cs" />
     <Compile Include="Animation\PageAnimation.cs" />
@@ -256,7 +255,7 @@
     </Compile>
     <Compile Include="Helpers\ApplicationPageHelper.cs" />
     <Compile Include="Services\PopupService.cs" />
-    <Compile Include="Services\ThemeManagerService.cs" />
+    <Compile Include="Services\MaterialThemeManagerService.cs" />
     <Compile Include="Services\ToolbarService.cs" />
     <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
     <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
@@ -476,11 +475,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\DarkAndLight\LightBase.xaml">
+    <Page Include="Themes\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\DarkAndLight\DarkBase.xaml">
+    <Page Include="Themes\DarkTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -508,7 +507,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Themes\ExtraDarkTheme.xaml">
+    <Page Include="Themes\BaseTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -622,25 +621,9 @@
     <Resource Include="Images\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Splash\BlueTint.png" />
-    <Resource Include="Images\Splash\DarkBlue.png" />
-    <Resource Include="Images\Splash\ExtraDark.png" />
-    <Resource Include="Images\Splash\Light.png" />
-    <Resource Include="Images\Splash\Nord.png" />
-    <Resource Include="Images\Splash\VSBlue.png" />
+    <Resource Include="Images\Splash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Splash\LightGreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Splash\MaterialBlue.png" />
-    <Resource Include="Images\Splash\MaterialLight.png" />
-    <Resource Include="Images\Splash\Mint.png" />
-    <Resource Include="Images\Splash\YellowGold.png" />
-    <Resource Include="Images\Splash\LightGray.png" />
-    <Resource Include="Images\Splash\Violet.png" />
-    <Resource Include="Images\Splash\LightBlue.png" />
-    <Resource Include="Images\Splash\DarkSlateGray.png" />
     <Content Include="Sounds\click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

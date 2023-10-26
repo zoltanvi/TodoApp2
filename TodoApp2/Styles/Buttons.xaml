@@ -49,7 +49,7 @@
         <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoverButtonBgBrush}" />
+                <Setter Property="Background" Value="{DynamicResource Surface3}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -370,7 +370,10 @@
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoverButtonBgBrush}" />
+                <Setter Property="Background" Value="{DynamicResource PrimaryContainer}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource OutlineVariant}"/>
             </Trigger>
         </Style.Triggers>
         <Setter Property="Template">
@@ -547,7 +550,7 @@
                             Margin="15 -1 0 0"
                             Content="OFF"
                             FontSize="9"
-                            Foreground="{DynamicResource ToggleButtonBorderBrush}"
+                            Foreground="{DynamicResource Outline}"
                             Opacity="0" />
 
                         <Grid.LayoutTransform>

@@ -2,7 +2,6 @@
     x:Class="TodoApp2.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TodoApp2"
@@ -86,7 +85,7 @@
                                     Command="{Binding SwitchToPageCommand}"
                                     CommandParameter="{x:Static core:ApplicationPage.ThemeSettings}"
                                     Id="{x:Static core:ApplicationPage.ThemeSettings}"
-                                    Content="THEMES"
+                                    Content="THEME"
                                     Style="{StaticResource SettingsCategoryButtonStyle}"
                                     SelectedPage="{Binding ActiveSettingsPage}" />
                                 <local:SettingsCategoryButton
@@ -138,7 +137,6 @@
                                     Id="{x:Static core:ApplicationPage.Shortcuts}"
                                     Content="SHORTCUTS"
                                     Style="{StaticResource SettingsCategoryButtonStyle}"
-                                    Foreground="{DynamicResource Secondary}"
                                     SelectedPage="{Binding ActiveSettingsPage}" />
 
                             </StackPanel>

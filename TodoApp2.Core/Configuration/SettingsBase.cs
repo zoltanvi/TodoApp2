@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace TodoApp2.Core
 {
     [AddINotifyPropertyChangedInterface]
-    public abstract class SettingsBase : INotifyPropertyChanged
+    public abstract class SettingsBase : IPropertyChangeNotifier
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

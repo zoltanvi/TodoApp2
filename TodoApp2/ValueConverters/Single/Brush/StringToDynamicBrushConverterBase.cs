@@ -5,6 +5,7 @@ using System.Windows.Media;
 
 namespace TodoApp2
 {
+    [Obsolete]
     public class DynamicSolidColorBrushConverter : BaseValueConverter
     {
         private readonly StringRGBToBrushConverter _converter = new StringRGBToBrushConverter();

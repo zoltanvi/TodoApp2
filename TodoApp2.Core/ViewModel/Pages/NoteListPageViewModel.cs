@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TodoApp2.Core
 {
@@ -64,9 +62,6 @@ namespace TodoApp2.Core
 
             // Load the application settings to update the ActiveNote
             _appViewModel.LoadAppSettingsOnce();
-
-            // Subscribe to the theme changed event to repaint the list items when it happens
-            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
 
         private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -196,25 +191,9 @@ namespace TodoApp2.Core
             _appViewModel.SideMenuPage = ApplicationPage.Category;
         }
 
-        /// <summary>
-        /// Forces the UI to repaint the list items when the theme changes
-        /// </summary>
-        /// <param name="obj"></param>
-        private void OnThemeChanged(object obj)
-        {
-            //Save the current items
-            List<NoteViewModel> itemsBackup = new List<NoteViewModel>(Items);
-
-            //Clear the items and add back the cleared items to refresh the list(repaint)
-            Items.Clear();
-            Items.AddRange(itemsBackup);
-        }
-
         protected override void OnDispose()
         {
             _noteListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
-
-            Mediator.Deregister(OnThemeChanged, ViewModelMessages.ThemeChanged);
         }
     }
 }

@@ -1,51 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TodoApp2.Core
 {
     public class ThemeChangeNotifier
     {
-        private AppSettings _appSettings;
-
-        public AppSettings AppSettings
+        private List<KeyValuePair<IPropertyChangeNotifier, string>> _recipients;
+        public ThemeChangeNotifier()
         {
-            get => _appSettings;
-            set
+            _recipients = new List<KeyValuePair<IPropertyChangeNotifier, string>>();
+            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+        }
+
+        public void AddRecipient(IPropertyChangeNotifier recipient, string propertyName)
+        {
+            _recipients.Add(new KeyValuePair<IPropertyChangeNotifier, string>(recipient, propertyName));
+        }
+
+        private void OnThemeChanged(object obj)
+        {
+            foreach (var recipient in _recipients)
             {
-                Unsubscribe();
-                _appSettings = value;
-                Subscribe();
+                recipient.Key?.OnPropertyChanged(recipient.Value);
             }
-        }
-        
-        private void OnDarkModeChanged()
-        {
-            // Trigger a property change event to force update the dependent UI elements
-            _appSettings.CommonSettings.OnPropertyChanged(nameof(CommonSettings.AppBorderColor));
-        }
-
-        private void Subscribe()
-        {
-            if (_appSettings != null)
-            {
-                _appSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
-            }
-        }
-
-        private void Unsubscribe()
-        {
-            if (_appSettings != null)
-            {
-                _appSettings.ThemeSettings.PropertyChanged -= ThemeSettings_PropertyChanged;
-            }
-        }
-
-        private void ThemeSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            OnDarkModeChanged();
         }
     }
 }

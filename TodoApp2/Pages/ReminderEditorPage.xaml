@@ -74,7 +74,7 @@
                 <!--  Titlebar  -->
                 <Border
                     Grid.Row="0"
-                    BorderBrush="{DynamicResource PopUpBorderBrush}"
+                    BorderBrush="{DynamicResource OutlineVariant}"
                     Padding="6"
                     BorderThickness="0 0 0 1">
                     <Grid>
@@ -130,18 +130,27 @@
                         Style="{DynamicResource ReminderLabelStyle}" />
 
                     <!--  DATE TextBox  -->
-                    <TextBox
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
                         Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="0 0 10 0"
-                        Style="{DynamicResource BaseInputTextBoxStyle}"
-                        Background="#00000000"
-                        BorderBrush="{Binding IsSelectedDateStringValid, Converter={StaticResource reminderBoolToBrushConverter}, Mode=TwoWay}"
-                        FontSize="{Binding UIScaler.FontSize.Regular}"
-                        Foreground="{DynamicResource OnBackground}"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Text="{Binding SelectedDateString, Mode=TwoWay}" />
+                        Grid.Column="0">
+                        <Border
+                            BorderBrush="{Binding IsSelectedDateStringValid, Converter={StaticResource reminderBoolToBrushConverter}, Mode=TwoWay}"
+                            BorderThickness="1"
+                            CornerRadius="6">
+                            <TextBox
+                                Padding="6"
+                                Style="{DynamicResource BaseInputTextBoxStyle}"
+                                Background="#00000000"
+                                FontSize="{Binding UIScaler.FontSize.Regular}"
+                                Foreground="{DynamicResource OnBackground}"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Text="{Binding SelectedDateString, Mode=TwoWay}" />
+                        </Border>
+
+                    </StackPanel>
 
                     <!--  TimePicker  -->
                     <local:TimePickerControl
@@ -160,7 +169,7 @@
                     SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
                     Style="{DynamicResource CalendarStyle}" />
 
-                <Border Grid.Row="4" BorderBrush="{DynamicResource CommonBorderBrush}">
+                <Border Grid.Row="4">
                     <Grid Margin="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -170,7 +179,6 @@
                         <!--  RESET button  -->
                         <Button
                             Grid.Column="0"
-                            BorderBrush="{DynamicResource CommonBorderBrush}"
                             Command="{Binding ResetReminderCommand}"
                             Content="Reset"
                             Style="{DynamicResource ReminderBottomButtonStyle}" />
@@ -178,7 +186,6 @@
                         <!--  SET button  -->
                         <Button
                             Grid.Column="1"
-                            BorderBrush="{DynamicResource CommonBorderBrush}"
                             Command="{Binding SetReminderCommand}"
                             Content="Set"
                             IsEnabled="{Binding IsSelectedDateStringValid}"

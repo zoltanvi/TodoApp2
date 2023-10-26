@@ -78,10 +78,12 @@
                                 <Border
                                     x:Name="PART_border"
                                     Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
-                                    Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                                    Height="{Binding ActualWidth, ElementName=PART_border}"
                                     Margin="3"
                                     Background="{Binding Path=., Converter={StaticResource stringRGBToBrushConverter}}"
                                     CornerRadius="3"
+                                    BorderThickness="1"
+                                    BorderBrush="{DynamicResource SurfaceDim}"
                                     Cursor="Hand"
                                     Focusable="False"
                                     ToolTip="{Binding}">

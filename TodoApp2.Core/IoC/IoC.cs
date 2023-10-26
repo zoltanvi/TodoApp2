@@ -6,7 +6,6 @@
     public static class IoC
     {
         private static ZoomingListener _zoomingListener;
-        private static ThemeChangeNotifier _themeChangeNotifier;
         public static IAsyncActionService AsyncActionService { get; set; }
         public static AppSettings AppSettings { get; set; }
         public static AppViewModel AppViewModel { get; private set; }
@@ -22,6 +21,7 @@
         public static AutoRunService AutoRunService { get; private set; }
         public static MediaPlayerService MediaPlayerService { get; private set; }
         public static IThemeManagerService ThemeManagerService { get; set; }
+        public static ThemeChangeNotifier ThemeChangeNotifier { get; private set; }
 
         /// <summary>
         /// Sets up the essential services, modules and the AppSettings
@@ -43,8 +43,8 @@
             UIScaler = UIScaler.Instance;
             
             _zoomingListener = new ZoomingListener(UIScaler, AppSettings);
-            _themeChangeNotifier = new ThemeChangeNotifier();
-            _themeChangeNotifier.AppSettings = AppSettings;
+            ThemeChangeNotifier = new ThemeChangeNotifier();
+            ThemeChangeNotifier.AddRecipient(AppSettings.CommonSettings, nameof(CommonSettings.AppBorderColor));
 
             UndoManager = new UndoManager();
             AppViewModel = new AppViewModel(Database, UIScaler);

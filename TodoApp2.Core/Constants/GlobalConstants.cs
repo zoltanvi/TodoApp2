@@ -11,7 +11,6 @@
         {
             public const string HatchBrush = "HatchBrush";
             public const string TaskBgBrush = "Surface1";
-            public const string NoteLineAdornerBgBrush = "NoteLineAdornerBgBrush";
             public const string TransparentPatternBrush = "TransparentPatternBrush";
             public const string ForegroundBrush = "OnBackground";
             public const string Surface3 = "Surface3";

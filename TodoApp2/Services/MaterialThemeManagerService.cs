@@ -7,9 +7,9 @@ using TodoApp2.Material;
 
 namespace TodoApp2
 {
-    public class ThemeManagerService : IThemeManagerService
+    public class MaterialThemeManagerService : IThemeManagerService
     {
-        internal static IThemeManagerService Get(AppSettings appSettings) => _instance ?? (_instance = new ThemeManagerService(appSettings));
+        internal static IThemeManagerService Get(AppSettings appSettings) => _instance ?? (_instance = new MaterialThemeManagerService(appSettings));
         private static IThemeManagerService _instance;
         private AppSettings _appSettings;
 
@@ -17,7 +17,7 @@ namespace TodoApp2
         private uint SeedColor { get; set; }
         public Scheme<string> CurrentScheme { get; set; }
 
-        private ThemeManagerService(AppSettings appSettings)
+        private MaterialThemeManagerService(AppSettings appSettings)
         {
             _appSettings = appSettings;
             _appSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
@@ -60,8 +60,6 @@ namespace TodoApp2
                     currentResources[item.Key] = new SolidColorBrush(MaterialColorHelper.HexToColor(item.Value));
                 }
             }
-
-            //Mediator.NotifyClients(ViewModelMessages.ThemeChanged)
         }
     }
 }

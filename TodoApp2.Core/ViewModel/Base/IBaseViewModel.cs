@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace TodoApp2.Core
 {
-    public interface IBaseViewModel
+    /// <summary>
+    /// Marker interface for view models.
+    /// See: <see cref="IPropertyChangeNotifier"/>.
+    /// </summary>
+    public interface IBaseViewModel : IPropertyChangeNotifier, IDisposable
     {
-        event PropertyChangedEventHandler PropertyChanged;
-
-        void OnPropertyChanged(string name);
     }
 }

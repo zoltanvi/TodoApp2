@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -59,7 +57,7 @@ namespace TodoApp2
             IoC.Setup();
 
             // Load theme manager service
-            IThemeManagerService themeManagerService = ThemeManagerService.Get(IoC.AppSettings);
+            IThemeManagerService themeManagerService = MaterialThemeManagerService.Get(IoC.AppSettings);
             IoC.ThemeManagerService = themeManagerService;
 
             // Show the main window
@@ -72,12 +70,7 @@ namespace TodoApp2
 
         private SplashScreen ShowSplashScreenForTheme()
         {
-            //List<Setting> settings = IoC.Database.GetSettings();
-            //Setting activeThemeSetting = settings.FirstOrDefault(s => s.Key == nameof(ApplicationSettings.ActiveTheme));
-
-            string activeThemeName = nameof(Theme.ExtraDark);
-
-            SplashScreen splashScreen = new SplashScreen($"Images/Splash/{activeThemeName}.png");
+            SplashScreen splashScreen = new SplashScreen($"Images/Splash.png");
             splashScreen.Show(false, true);
             
             return splashScreen;
