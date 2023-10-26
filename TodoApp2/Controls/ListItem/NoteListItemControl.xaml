@@ -20,11 +20,10 @@
                 Header="Delete" />
 
         </ContextMenu>
-
     </UserControl.ContextMenu>
 
     <Button
-        Padding="20 2 10 2"
+        Padding="0 2 10 2"
         Command="{Binding Path=Tag.OpenNoteCommand, ElementName=NoteListItemUC}"
         CommandParameter="{Binding DataContext, ElementName=NoteListItemUC}"
         ToolTip="{Binding Title}">
@@ -35,7 +34,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border
-                                Margin="4 2"
+                                Margin="0 2 4 2"
                                 Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -44,25 +43,35 @@
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
 
+                                    <Label
+                                        Style="{DynamicResource IconLabelStyle}"
+                                        Content="{DynamicResource SegoeIconNote}"
+                                        FontSize="{Binding UIScaler.FontSize.Small}"
+                                        Margin="6 0"
+                                        Padding="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center" />
+
                                     <ContentPresenter
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Center"
-                                        Grid.Column="0" />
+                                        Grid.Column="1" />
 
                                     <Button
                                         x:Name="PART_DeleteButton"
-                                        Grid.Column="1"
+                                        Grid.Column="2"
                                         Visibility="Hidden"
                                         Command="{Binding Path=Tag.DeleteNoteCommand, ElementName=NoteListItemUC}"
                                         CommandParameter="{Binding DataContext, ElementName=NoteListItemUC}"
-                                        Style="{StaticResource ButtonIconHoverStyle}"
+                                        Style="{StaticResource ButtonIconHoverCategoryDeleteStyle}"
                                         Content="{StaticResource SegoeIconDeleteX}"
                                         FontSize="{Binding UIScaler.FontSize.Small}"
-                                        ToolTip="Delete" />
+                                        Cursor="Hand" />
 
                                 </Grid>
                             </Border>
@@ -103,7 +112,6 @@
         </Button.Style>
 
         <TextBlock
-            Grid.Column="0"
             AutomationProperties.AutomationId="NoteListItemText"
             FontSize="{Binding UIScaler.FontSize.Medium}"
             Text="{Binding Title}">
