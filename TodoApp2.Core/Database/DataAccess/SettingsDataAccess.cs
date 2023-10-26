@@ -31,7 +31,7 @@ namespace TodoApp2.Core
                 new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Left)}", "100"),
                 new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Top)}", "100"),
                 new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Width)}", "400"),
-                new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Height)}", "500"),
+                new Setting($"{nameof(WindowSettings)}.{nameof(WindowSettings.Height)}", "540"),
                 new Setting($"{nameof(SessionSettings)}.{nameof(SessionSettings.ActiveCategoryId)}", "0"),
             };
 
