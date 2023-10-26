@@ -22,7 +22,7 @@
     </UserControl.ContextMenu>
 
     <Button
-        Padding="20 2 10 2"
+        Padding="0 2 10 2"
         Command="{Binding Path=Tag.ChangeCategoryCommand, ElementName=CategoryListItemUC}"
         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
         ToolTip="{Binding Name}">
@@ -32,7 +32,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border
-                                Margin="4 2"
+                                Margin="0 2 4 2"
                                 Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -40,18 +40,28 @@
                                 CornerRadius="4">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
 
+                                    <Label
+                                        Style="{DynamicResource IconLabelStyle}"
+                                        Content="{DynamicResource SegoeIconList}"
+                                        FontSize="{Binding UIScaler.FontSize.Small}"
+                                        Margin="6 0"
+                                        Padding="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center" />
+
                                     <ContentPresenter
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Center"
-                                        Grid.Column="0" />
+                                        Grid.Column="1" />
 
                                     <Button
                                         x:Name="PART_DeleteButton"
-                                        Grid.Column="1"
+                                        Grid.Column="2"
                                         Visibility="Hidden"
                                         Command="{Binding Path=Tag.DeleteCategoryCommand, ElementName=CategoryListItemUC}"
                                         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
@@ -97,48 +107,36 @@
             </Style>
         </Button.Style>
 
+        <TextBlock
+            AutomationProperties.AutomationId="CategoryListItemText"
+            FontSize="{Binding UIScaler.FontSize.Medium}"
+            Text="{Binding Name}">
+            
+            <TextBlock.Style>
+                <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
+                        </Trigger>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:EqualityConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="Id" />
+                                    <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
 
-            <TextBlock
-                DockPanel.Dock="Left"
-                AutomationProperties.AutomationId="CategoryListItemText"
-                FontSize="{Binding UIScaler.FontSize.Medium}"
-                Text="{Binding Name}">
-                <TextBlock.Style>
-                    <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
-                            </Trigger>
-
-                            <DataTrigger Value="True">
-                                <DataTrigger.Binding>
-                                    <MultiBinding>
-                                        <MultiBinding.Converter>
-                                            <local:EqualityConverter />
-                                        </MultiBinding.Converter>
-                                        <Binding Path="Id" />
-                                        <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
-                                    </MultiBinding>
-                                </DataTrigger.Binding>
-                                <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                        <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
-
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-
-
-
-        </Grid>
-
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
     </Button>
 
