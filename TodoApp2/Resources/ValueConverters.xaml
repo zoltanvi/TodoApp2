@@ -58,12 +58,12 @@
     <local:HorizontalAlignmentConverter x:Key="horizontalAlignmentConverter" />
     <local:HorizontalAlignmentInvertedConverter x:Key="horizontalAlignmentInvertedConverter" />
 
+    <local:DateTimeFormatDisplayConverter x:Key="dateTimeFormatDisplayConverter" />
+    
 
     <local:ApplicationPageValueConverter x:Key="applicationPageValueConverter" />
     <local:SettingsPageTitleConverter x:Key="settingsPageTitleConverter" />
     <local:CamelCaseConverter x:Key="camelCaseConverter" />
-    <local:LongToFormattedLongDateConverter x:Key="longToFormattedLongDateConverter" />
-    <local:LongToTimestampConverter x:Key="longToTimestampConverter" />
     <local:SingleCornerRadiusConverter x:Key="singleCornerRadiusConverter" />
 
     <local:CategoryIdToCategoryNameConverter x:Key="categoryIdToCategoryNameConverter" />

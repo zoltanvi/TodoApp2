@@ -226,23 +226,38 @@
                             Margin="1 0"
                             Orientation="Horizontal">
 
-                            <!--<local:TagControl
-                                TagTitle="Category: "
-                                TagBody="{Binding CategoryId, Converter={StaticResource idToCategoryNameConverter}}"
-                                TagColor="Green"
-                                />-->
                             <local:TagControl
                                 TagTitle="Created: "
-                                TagBody="{Binding CreationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.TaskSettings.CreationDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                TagColor="Geekblue" />
+                                TagColor="Geekblue" >
+                                <local:TagControl.TagBody>
+                                    <MultiBinding>
+                                        <MultiBinding.Converter>
+                                            <local:CurrentDateTimeFormatMultiConverter />
+                                        </MultiBinding.Converter>
+                                        <Binding Path="CreationDate" />
+                                        <Binding Path="AppSettings.DateTimeSettings.TaskCreationDateFormat" Source="{x:Static local:VML.Instance}" />
+                                    </MultiBinding>
+                                </local:TagControl.TagBody>
+                            </local:TagControl>
+
                             <local:TagControl
                                 TagTitle="Modified: "
-                                TagBody="{Binding ModificationDate, Converter={StaticResource longToTimestampConverter}}"
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.TaskSettings.ModificationDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                TagColor="Purple" />
+                                TagColor="Purple" >
+                                <local:TagControl.TagBody>
+                                    <MultiBinding>
+                                        <MultiBinding.Converter>
+                                            <local:CurrentDateTimeFormatMultiConverter />
+                                        </MultiBinding.Converter>
+                                        <Binding Path="ModificationDate" />
+                                        <Binding Path="AppSettings.DateTimeSettings.TaskCreationDateFormat" Source="{x:Static local:VML.Instance}" />
+                                    </MultiBinding>
+                                </local:TagControl.TagBody>
+
+                            </local:TagControl>
                         </WrapPanel>
 
                     </Grid>
@@ -340,8 +355,17 @@
                                     Content="{DynamicResource SegoeIconDateTime}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
                                     IsEnabled="{Binding IsQuickActionsEnabled}"
-                                    ToolTip="{Binding ReminderDate, Converter={StaticResource longToFormattedLongDateConverter}}"
-                                    Visibility="{Binding AppSettings.TaskQuickActionSettings.ReminderEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                    Visibility="{Binding AppSettings.TaskQuickActionSettings.ReminderEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" >
+                                    <Button.ToolTip>
+                                        <MultiBinding>
+                                            <MultiBinding.Converter>
+                                                <local:CurrentDateTimeFormatMultiConverter />
+                                            </MultiBinding.Converter>
+                                            <Binding Path="ReminderDate" />
+                                            <Binding Path="AppSettings.DateTimeSettings.ReminderDateFormat" Source="{x:Static local:VML.Instance}" />
+                                        </MultiBinding>
+                                    </Button.ToolTip>
+                                </Button>
                             </Grid>
 
                             <!--  Marker color  -->

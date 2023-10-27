@@ -12,7 +12,7 @@
     x:TypeArguments="core:ApplicationSettingsPageViewModel"
     Title="ApplicationSettingsPage">
 
-    <ScrollViewer Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+    <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
         <Grid>
 
             <Grid.RowDefinitions>
@@ -42,12 +42,6 @@
                     Icon="{DynamicResource SegoeIconRoundedCorners}"
                     Description="Rounded window corners"
                     IsChecked="{Binding AppSettings.CommonSettings.RoundedWindowCorners, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
-
-                <!--  Window title bar date visible  -->
-                <local:ToggleButtonSettingControl
-                    Icon="{DynamicResource SegoeIconCalendar}"
-                    Description="Window title bar date visible"
-                    IsChecked="{Binding AppSettings.CommonSettings.TitleBarDateVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Exit button minimizes to tray  -->
                 <local:ToggleButtonSettingControl

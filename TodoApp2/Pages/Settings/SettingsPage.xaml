@@ -73,7 +73,9 @@
 
                             </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Vertical" Grid.Row="0">
+                            <ScrollViewer Style="{DynamicResource TodoAppScrollViewerLeft}" >
+
+                                <StackPanel Orientation="Vertical" Grid.Row="0">
                                 <local:SettingsCategoryButton
                                     Command="{Binding SwitchToPageCommand}"
                                     CommandParameter="{x:Static core:ApplicationPage.ApplicationSettings}"
@@ -130,6 +132,14 @@
                                     Content="NOTES"
                                     Style="{StaticResource SettingsCategoryButtonStyle}"
                                     SelectedPage="{Binding ActiveSettingsPage}" />
+                                <local:SettingsCategoryButton
+                                    Command="{Binding SwitchToPageCommand}"
+                                    CommandParameter="{x:Static core:ApplicationPage.DateTimeSettings}"
+                                    Id="{x:Static core:ApplicationPage.DateTimeSettings}"
+                                    Content="DATE TIME"
+                                    Style="{StaticResource SettingsCategoryButtonStyle}"
+                                    SelectedPage="{Binding ActiveSettingsPage}" />
+
 
                                 <local:SettingsCategoryButton
                                     Command="{Binding SwitchToPageCommand}"
@@ -140,6 +150,7 @@
                                     SelectedPage="{Binding ActiveSettingsPage}" />
 
                             </StackPanel>
+                            </ScrollViewer>
                         </Grid>
                     </Border>
 

@@ -13,7 +13,7 @@
     x:TypeArguments="core:TaskQuickActionsSettingsPageViewModel"
     Title="TaskQuickActionsSettingsPage">
 
-    <ScrollViewer Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+    <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
         <Grid>
 
             <Grid.RowDefinitions>

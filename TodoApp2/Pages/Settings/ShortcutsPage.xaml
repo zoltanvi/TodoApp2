@@ -14,7 +14,7 @@
     x:TypeArguments="core:ShortcutsPageViewModel"
     mc:Ignorable="d">
 
-    <ScrollViewer Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+    <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
         <Grid>
 
             <Grid.RowDefinitions>

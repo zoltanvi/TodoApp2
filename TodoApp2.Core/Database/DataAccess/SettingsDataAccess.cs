@@ -99,6 +99,35 @@ namespace TodoApp2.Core
             return items;
         }
 
+        public Setting GetSetting(string key)
+        {
+            Setting item = null;
+
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
+            {
+                command.CommandText = $"SELECT * FROM {Table.Settings}" +
+                                      $" WHERE {Column.Key} = {Parameter.Key};";
+
+                command.Parameters.AddRange(new[]
+                {
+                    new SQLiteParameter(Parameter.Key, key),
+                });
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        item = new Setting(
+                            reader.SafeGetString(Column.Key),
+                            reader.SafeGetString(Column.Value));
+                        break;
+                    }
+                }
+            }
+
+            return item;
+        }
+
         // Update
 
         public int UpdateSettings(IEnumerable<Setting> settingsList)
@@ -130,6 +159,30 @@ namespace TodoApp2.Core
             }
 
             return modifiedItems;
+        }
+
+        public bool UpdateSetting(string settingKey, Setting newSetting)
+        {
+            bool result = false;
+
+            using (SQLiteCommand command = new SQLiteCommand(_connection))
+            {
+                command.CommandText = $"UPDATE {Table.Settings} SET " +
+                                      $"  {Column.Key} = {Parameter.NewKey}," +
+                                      $"  {Column.Value} = {Parameter.Value} " +
+                                      $" WHERE {Column.Key} = {Parameter.Key};";
+
+                command.Parameters.AddRange(new[]
+                {
+                    new SQLiteParameter(Parameter.Key, settingKey),
+                    new SQLiteParameter(Parameter.NewKey, newSetting.Key),
+                    new SQLiteParameter(Parameter.Value, newSetting.Value)
+                });
+
+                result = command.ExecuteNonQuery() > 0;
+            }
+
+            return result;
         }
 
         private bool ContainsDefaultSettings(IEnumerable<Setting> settingsList, List<Setting> defaultSettings)

@@ -124,6 +124,7 @@ namespace TodoApp2.Core
             public const string Name = "@" + Column.Name;
             public const string Id = "@" + Column.Id;
             public const string Key = "@" + Column.Key;
+            public const string NewKey = "@New" + Column.Key;
             public const string Value = "@" + Column.Value;
             public const string ReminderDate = "@" + Column.ReminderDate;
             public const string IsReminderOn = "@" + Column.IsReminderOn;

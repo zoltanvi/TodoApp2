@@ -168,13 +168,22 @@
                                                                 Margin="0 2"
                                                                 Padding="5 0">
                                                                 <Label
-                                                                    Visibility="{Binding AppSettings.CommonSettings.TitleBarDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                                                    Content="{Binding CurrentTime}"
+                                                                    Visibility="{Binding AppSettings.DateTimeSettings.TitleBarDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                                                                     Margin="0"
                                                                     Padding="0"
                                                                     Foreground="{DynamicResource OnSurface}"
                                                                     VerticalAlignment="Center"
-                                                                    HorizontalAlignment="Center" />
+                                                                    HorizontalAlignment="Center" >
+                                                                    <Label.Content>
+                                                                        <MultiBinding>
+                                                                            <MultiBinding.Converter>
+                                                                                <local:CurrentDateTimeFormatMultiConverter />
+                                                                            </MultiBinding.Converter>
+                                                                            <Binding Path="CurrentTime" />
+                                                                            <Binding Path="AppSettings.DateTimeSettings.TitleBarDateFormat" Source="{x:Static local:VML.Instance}" />
+                                                                        </MultiBinding>
+                                                                    </Label.Content>
+                                                                </Label>
                                                             </Border>
                                                         </Viewbox>
                                                     </Grid>

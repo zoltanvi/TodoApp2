@@ -202,6 +202,9 @@
     <Compile Include="Pages\NoteListPage.xaml.cs">
       <DependentUpon>NoteListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Settings\DateTimeSettingsPage.xaml.cs">
+      <DependentUpon>DateTimeSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings\PageTitleSettingsPage.xaml.cs">
       <DependentUpon>PageTitleSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -263,6 +266,7 @@
     <Compile Include="ValueConverters\Multi\ColorBarBorderWidthMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\ColorBarGridWidthMultiValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
+    <Compile Include="ValueConverters\Multi\CurrentDateTimeFormatMultiConverter.cs" />
     <Compile Include="ValueConverters\Multi\RoundedCornersMultiConverter.cs" />
     <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringToForegroundBrushConverter.cs" />
@@ -295,6 +299,7 @@
     <Compile Include="ValueConverters\Single\TaskCheckboxMarginConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToDoubleConverter.cs" />
     <Compile Include="ValueConverters\Single\TaskSpacingToMarginConverter.cs" />
+    <Compile Include="ValueConverters\Single\Text\DateTimeFormatDisplayConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\EnumToFontFamilyConverter.cs" />
     <Compile Include="ValueConverters\Multi\EqualityConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\FontSizeScaler.cs" />
@@ -302,9 +307,7 @@
     <Compile Include="ValueConverters\Single\Brush\StringToColorConverter.cs" />
     <Compile Include="ValueConverters\Single\Text\StringToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\Single\ThicknessToDoubleConverter.cs" />
-    <Compile Include="ValueConverters\Single\LongToFormattedLongDateConverter.cs" />
     <Compile Include="ValueConverters\Single\FromBool\BoolToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\Single\LongToTimestampConverter.cs" />
     <Compile Include="ValueConverters\Multi\TaskContextMenuCommandParameterConverter.cs" />
     <Compile Include="ValueConverters\Single\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\BackgroundBrushConverter.cs" />
@@ -398,6 +401,10 @@
     <Page Include="Pages\NotificationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\DateTimeSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Settings\PageTitleSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

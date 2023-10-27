@@ -23,7 +23,7 @@
 
             <ScrollViewer
                 Padding="0 0 26 0"
-                Template="{DynamicResource TaskListControlScrollViewerControlTemplate}"
+                Style="{DynamicResource TodoAppScrollViewer}"
                 VerticalScrollBarVisibility="Auto"
                 Focusable="False">
 

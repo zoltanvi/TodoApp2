@@ -33,7 +33,7 @@
     </local:BasePage.Resources>
 
 
-    <ScrollViewer Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+    <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
         <Grid>
 
             <Grid.RowDefinitions>

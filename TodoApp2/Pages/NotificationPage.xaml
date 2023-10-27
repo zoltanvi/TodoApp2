@@ -120,8 +120,17 @@
                     <Label
                         Grid.Row="1"
                         Grid.Column="1"
-                        Content="{Binding NotificationTask.ReminderDate, Converter={StaticResource longToFormattedLongDateConverter}}"
-                        Style="{DynamicResource NotificationReminderDateStyle}" />
+                        Style="{DynamicResource NotificationReminderDateStyle}" >
+                        <Label.Content>
+                            <MultiBinding>
+                                <MultiBinding.Converter>
+                                    <local:CurrentDateTimeFormatMultiConverter />
+                                </MultiBinding.Converter>
+                                <Binding Path="NotificationTask.ReminderDate" />
+                                <Binding Path="AppSettings.DateTimeSettings.ReminderDateFormat" Source="{x:Static local:VML.Instance}" />
+                            </MultiBinding>
+                        </Label.Content>
+                    </Label>
                 </Grid>
 
                 <local:RichTextEditorControl
