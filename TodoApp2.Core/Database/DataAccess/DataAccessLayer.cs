@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TodoApp2.Core
 {
@@ -13,13 +15,13 @@ namespace TodoApp2.Core
         public const long ListOrderInterval = BaseDataAccess.ListOrderInterval;
 
         private static string AppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        
+
         public const string DatabaseName = "TodoApp2Database.db";
         public static string DatabasePath { get; } = Path.Combine(AppDataFolder, DatabaseName);
 
         private readonly SQLiteConnection _connection;
 
-        private const int DatabaseVersion = 5;
+        private const int DatabaseVersion = 6;
         private int _readDatabaseVersion;
 
         public TaskDataAccess TaskDataAccess { get; }
@@ -81,62 +83,53 @@ namespace TodoApp2.Core
                 throw new Exception("The database file is created by a newer version of the program and could not be read.");
             }
 
-            switch (_readDatabaseVersion)
+            var dbVersion = _readDatabaseVersion;
+            while (dbVersion != DatabaseVersion)
             {
-                case 0:
-                {
-                    // Missing BorderColor column from Task
-                    CompatibilityDataAccess.AddBorderColorToTaskTable();
-
-                    // Missing Note table
-                    NoteDataAccess.CreateNoteTable();
-
-                    // Missing BackgroundColor column from Task
-                    CompatibilityDataAccess.AddBackgroundColorToTaskTable();
-
-                    // Re-create the settings table
-                    CompatibilityDataAccess.DropSettingsTable();
-                    SettingsDataAccess.CreateSettingsTable();
-
-                    break;
-                }
-                case 2:
-                {
-                    // Missing Note table
-                    NoteDataAccess.CreateNoteTable();
-
-                    // Missing BackgroundColor column from Task
-                    CompatibilityDataAccess.AddBackgroundColorToTaskTable();
-
-                    // Re-create the settings table
-                    CompatibilityDataAccess.DropSettingsTable();
-                    SettingsDataAccess.CreateSettingsTable();
-                
-                    break;
-                }
-                case 3:
-                {
-                    // Missing BackgroundColor column from Task
-                    CompatibilityDataAccess.AddBackgroundColorToTaskTable();
-
-                    // Re-create the settings table
-                    CompatibilityDataAccess.DropSettingsTable();
-                    SettingsDataAccess.CreateSettingsTable();
-
-                    break;
-                }
-                case 4:
-                {
-                    // Re-create the settings table
-                    CompatibilityDataAccess.DropSettingsTable();
-                    SettingsDataAccess.CreateSettingsTable();
-
-                    break;
-                }
+                UpgradeToNextVersion(ref dbVersion);
             }
 
             // Update db version
-            CompatibilityDataAccess.UpdateDbVersion(DatabaseVersion);
+            CompatibilityDataAccess.UpdateDbVersion(dbVersion);
+        }
+
+        private void UpgradeToNextVersion(ref int currentDbVersion)
+        {
+            if (currentDbVersion == 0)
+            {
+                // Missing BorderColor column from Task
+                CompatibilityDataAccess.AddBorderColorToTaskTable();
+            }
+            else if (currentDbVersion == 2)
+            {
+                // Missing Note table
+                NoteDataAccess.CreateNoteTable();
+            }
+            else if (currentDbVersion == 3)
+            {
+                // Missing BackgroundColor column from Task
+                CompatibilityDataAccess.AddBackgroundColorToTaskTable();
+            }
+            else if (currentDbVersion == 4)
+            {
+                // Re-create the settings table
+                CompatibilityDataAccess.DropSettingsTable();
+                SettingsDataAccess.CreateSettingsTable();
+            }
+            else if (currentDbVersion == 5)
+            {
+                // Move TitleBarDateVisible from AppSettings.CommonSettings to AppSettings.DateTimeSettings
+                string oldSettingKey = $"{nameof(CommonSettings)}.{nameof(DateTimeSettings.TitleBarDateVisible)}";
+                var oldSetting = SettingsDataAccess.GetSetting(oldSettingKey);
+
+                if (oldSetting != null)
+                {
+                    var newSetting = new Setting($"{nameof(DateTimeSettings)}.{nameof(DateTimeSettings.TitleBarDateVisible)}", oldSetting.Value);
+                    SettingsDataAccess.UpdateSetting(oldSettingKey, newSetting);
+                }
+            }
+
+            currentDbVersion++;
         }
 
         private void ExecuteCommand(string command)

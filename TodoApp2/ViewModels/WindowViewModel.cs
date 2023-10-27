@@ -14,8 +14,6 @@ namespace TodoApp2
     /// </summary>
     public class WindowViewModel : BaseViewModel
     {
-        // TODO: Add to config or make it language dependent
-        private const string DateTimeFormatString = "yyyy-MM-dd HH:mm";
         private const int ResizeBorderSize = 9;
 
         private readonly Window _window;
@@ -83,7 +81,7 @@ namespace TodoApp2
         /// </summary>
         public bool IsRoundedCornersAllowed { get; set; }
 
-        public string CurrentTime { get; set; }
+        public long CurrentTime { get; set; }
 
         public bool IsTrayIconEnabled
         {
@@ -149,7 +147,7 @@ namespace TodoApp2
             _dragDropMediator = new DragDropMediator();
 
             _timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 1) };
-            CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
+            CurrentTime = DateTime.Now.Ticks;
             _timer.Tick += TimerOnTick;
             _timer.Start();
         }
@@ -384,7 +382,7 @@ namespace TodoApp2
 
         private void TimerOnTick(object sender, EventArgs e)
         {
-            CurrentTime = DateTime.Now.ToString(DateTimeFormatString);
+            CurrentTime = DateTime.Now.Ticks;
         }
 
         /// <summary>

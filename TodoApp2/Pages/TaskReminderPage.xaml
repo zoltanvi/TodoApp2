@@ -101,13 +101,31 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Viewbox Grid.Column="0" StretchDirection="DownOnly">
+                        <Viewbox Grid.Column="0" StretchDirection="DownOnly" Visibility="{Binding HasValidReminderTime, Converter={StaticResource boolToVisibilityConverter}}">
                             <Button
                                 Cursor="Hand"
                                 Command="{Binding EditReminderCommand}"
-                                Content="{Binding ReminderDateTime, Converter={StaticResource longToFormattedLongDateConverter}}"
+                                Style="{DynamicResource ReminderButtonStyle}" >
+                                <Button.Content>
+                                    <MultiBinding>
+                                        <MultiBinding.Converter>
+                                            <local:CurrentDateTimeFormatMultiConverter />
+                                        </MultiBinding.Converter>
+                                        <Binding Path="ReminderDateTime" />
+                                        <Binding Path="AppSettings.DateTimeSettings.ReminderDateFormat" Source="{x:Static local:VML.Instance}" />
+                                    </MultiBinding>
+                                </Button.Content>
+                            </Button>
+                        </Viewbox>
+
+                        <Viewbox Grid.Column="0" StretchDirection="DownOnly" Visibility="{Binding HasValidReminderTime, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                            <Button
+                                Cursor="Hand"
+                                Content="Add reminder"
+                                Command="{Binding EditReminderCommand}"
                                 Style="{DynamicResource ReminderButtonStyle}" />
                         </Viewbox>
+                        
 
                         <ToggleButton
                             Name="IsReminderOnToggle"

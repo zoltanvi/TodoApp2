@@ -11,6 +11,7 @@
         public TextEditorQuickActionSettings TextEditorQuickActionSettings { get; set; } = new TextEditorQuickActionSettings();
         public NoteSettings NoteSettings { get; set; } = new NoteSettings();
         public WindowSettings WindowSettings { get; set; } = new WindowSettings();
+        public DateTimeSettings DateTimeSettings { get; set; } = new DateTimeSettings();
         public SessionSettings SessionSettings { get; set; } = new SessionSettings();
     }
 }

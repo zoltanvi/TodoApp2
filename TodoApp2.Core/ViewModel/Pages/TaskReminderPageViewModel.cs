@@ -17,6 +17,8 @@ namespace TodoApp2.Core
 
         public bool IsReminderOnToggle => ReminderDateTime > 0;
 
+        public bool HasValidReminderTime => ReminderDateTime != 0; 
+
         public bool IsReminderOn
         {
             get => ReminderTask.IsReminderOn;

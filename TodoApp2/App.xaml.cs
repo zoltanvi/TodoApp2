@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 using TodoApp2.Core;
 
 namespace TodoApp2
@@ -37,6 +39,11 @@ namespace TodoApp2
                 Current.Shutdown();
                 return;
             }
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-EN");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-EN");
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
+                        XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             // Setup the essential services and modules for the application
             IoC.PreSetup();

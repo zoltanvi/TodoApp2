@@ -17,8 +17,8 @@ namespace TodoApp2
             { ApplicationPage.TaskQuickActionsSettings, "Task quick actions" },
             { ApplicationPage.TextEditorQuickActionsSettings, "Text editor quick actions" },
             { ApplicationPage.NotePageSettings, "Note page settings" },
+            { ApplicationPage.DateTimeSettings, "Date time settings" },
             { ApplicationPage.Shortcuts, "Shortcuts" },
-            { ApplicationPage.ThemeEditorSettings, "Theme editor (experimental)" },
         };
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -31,7 +31,7 @@ namespace TodoApp2
                 }
             }
 
-            return "CONVERTER ERROR";
+            return "TITLE CONVERTER ERROR";
         }
     }
 }

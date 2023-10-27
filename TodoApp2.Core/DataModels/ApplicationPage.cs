@@ -60,8 +60,8 @@
         TextEditorQuickActionsSettings,
         ThemeSettings,
         ApplicationSettings,
-        ThemeEditorSettings,
         PageTitleSettings,
+        DateTimeSettings,
         Shortcuts
     }
 }

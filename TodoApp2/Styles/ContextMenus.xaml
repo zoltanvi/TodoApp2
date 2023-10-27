@@ -161,7 +161,7 @@
                         BorderThickness="1"
                         SnapsToDevicePixels="True"
                         CornerRadius="6">
-                        <ScrollViewer CanContentScroll="True" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+                        <ScrollViewer CanContentScroll="True" Style="{DynamicResource TodoAppScrollViewer}">
                             <StackPanel
                                 IsItemsHost="True"
                                 KeyboardNavigation.DirectionalNavigation="Cycle"

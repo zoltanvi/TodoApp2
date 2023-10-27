@@ -70,7 +70,9 @@ namespace TodoApp2.Core
 
                 if (propInfo == null)
                 {
+#if DEBUG
                     throw new ArgumentException($"Property '{part}' not found in {currentObj.GetType().Name}");
+#endif
                 }
 
                 if (i == parts.Length - 1)

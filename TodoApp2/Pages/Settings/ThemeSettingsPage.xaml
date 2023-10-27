@@ -31,7 +31,7 @@
         </Style>
     </local:BasePage.Resources>
 
-    <ScrollViewer x:Name="OuterScrollViewer" Template="{DynamicResource TaskListControlScrollViewerControlTemplate}">
+    <ScrollViewer x:Name="OuterScrollViewer" Style="{DynamicResource TodoAppScrollViewer}">
         <Grid>
             <!--  ===========================================================  -->
             <!--  Themes  -->
