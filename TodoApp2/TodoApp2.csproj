@@ -44,6 +44,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>true</Prefer32Bit>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -616,6 +618,10 @@
     <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj">
       <Project>{f6ecbf99-f92f-4578-8737-5a2d458f0453}</Project>
       <Name>TodoApp2.Material</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TodoApp2.Persistence\TodoApp2.Persistence.csproj">
+      <Project>{f3af67e4-5aa8-4634-8212-cd4168fcc124}</Project>
+      <Name>TodoApp2.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
