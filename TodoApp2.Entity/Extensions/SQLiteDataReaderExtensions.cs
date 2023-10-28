@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Reflection;
@@ -8,15 +7,6 @@ namespace TodoApp2.Entity.Extensions
 {
     public static class SQLiteDataReaderExtensions
     {
-        private static Dictionary<Type, Func<SQLiteDataReader, string, object>> PropertyReaders 
-            = new Dictionary<Type, Func<SQLiteDataReader, string, object>>
-        {
-            { typeof(bool), ReadBool },
-            { typeof(int), ReadInt },
-            { typeof(long), ReadLong },
-            { typeof(string), ReadString },
-        };
-
         public static TModel ReadProperties<TModel>(this SQLiteDataReader reader)
             where TModel : class, new()
         {
@@ -37,15 +27,17 @@ namespace TodoApp2.Entity.Extensions
             return result;
         }
 
-
         public static object ReadProperty(this SQLiteDataReader reader, PropertyInfo propertyInfo)
         {
             Type propType = propertyInfo.PropertyType;
+            string propName = propertyInfo.Name;
 
-            if (!PropertyReaders.TryGetValue(propType, out var propertyReader)) throw new ArgumentException($"Cannot read unknown type [{propType.Name}]");
+            if (propType == typeof(bool)) return reader.SafeGetBoolFromInt(propName);
+            if (propType == typeof(int)) return reader.SafeGetInt(propName);
+            if (propType == typeof(long)) return reader.SafeGetLong(propName);
+            if (propType == typeof(string)) return reader.SafeGetString(propName);
 
-            object propValue = propertyReader(reader, propertyInfo.Name);
-            return propValue;
+            throw new ArgumentException($"Cannot read unknown type [{propType.Name}]");
         }
 
         private static int SafeGetInt(this SQLiteDataReader reader, string columnName)
@@ -57,22 +49,6 @@ namespace TodoApp2.Entity.Extensions
             }
 
             throw new NullReferenceException($"The record is null in the {columnName} column!");
-        }
-
-        // TODO: delete
-        private static long SafeGetLongFromString(this SQLiteDataReader reader, string columnName)
-        {
-            var ordinal = reader.GetOrdinal(columnName);
-            if (!reader.IsDBNull(ordinal))
-            {
-                string textLong = reader.GetString(ordinal);
-                if (long.TryParse(textLong, out long result))
-                {
-                    return result;
-                }
-            }
-
-            throw new NullReferenceException($"The record is not a long in the {columnName} column!");
         }
 
         private static int? SafeGetNullableInt(this SQLiteDataReader reader, string columnName)
@@ -118,10 +94,5 @@ namespace TodoApp2.Entity.Extensions
 
             throw new NullReferenceException($"The record is null in the {columnName} column!");
         }
-
-        private static object ReadBool(SQLiteDataReader reader, string propertyName) => reader.SafeGetBoolFromInt(propertyName);
-        private static object ReadInt(SQLiteDataReader reader, string propertyName) => reader.SafeGetInt(propertyName);
-        private static object ReadLong(SQLiteDataReader reader, string propertyName) => reader.SafeGetLong(propertyName);
-        private static object ReadString(SQLiteDataReader reader, string propertyName) => reader.SafeGetString(propertyName);
     }
 }
