@@ -4,14 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F6ECBF99-F92F-4578-8737-5A2D458F0453}</ProjectGuid>
+    <ProjectGuid>{F3AF67E4-5AA8-4634-8212-CD4168FCC124}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TodoApp2.Material</RootNamespace>
-    <AssemblyName>TodoApp2.Material</AssemblyName>
+    <RootNamespace>TodoApp2.Persistence</RootNamespace>
+    <AssemblyName>TodoApp2.Persistence</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,7 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,21 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SchemeMapping\BaseSchemeMapper.cs" />
-    <Compile Include="SchemeMapping\Cam16.cs" />
-    <Compile Include="SchemeMapping\CamSolver.cs" />
-    <Compile Include="SchemeMapping\ColorUtils.cs" />
-    <Compile Include="SchemeMapping\CorePalette.cs" />
-    <Compile Include="SchemeMapping\DarkSchemeMapper.cs" />
-    <Compile Include="SchemeMapping\Hct.cs" />
-    <Compile Include="SchemeMapping\ISchemeMapper.cs" />
-    <Compile Include="SchemeMapping\LightSchemeMapper.cs" />
-    <Compile Include="SchemeMapping\MathUtils.cs" />
+    <Compile Include="AppContext.cs" />
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\Setting.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SchemeMapping\Scheme.cs" />
-    <Compile Include="SchemeMapping\ThemeStyle.cs" />
-    <Compile Include="SchemeMapping\TonalPalette.cs" />
-    <Compile Include="SchemeMapping\ViewingConditions.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj">
+      <Project>{87f2a88a-7848-44ed-8f4f-89b12ebbc129}</Project>
+      <Name>TodoApp2.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

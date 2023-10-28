@@ -73,6 +73,8 @@ namespace TodoApp2
 
             // The main window is open, so close the splash screen 
             splashScreen.Close(TimeSpan.Zero);
+
+            var asd = new TodoApp2.Persistence.DataAccess();
         }
 
         private SplashScreen ShowSplashScreenForTheme()
