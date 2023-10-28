@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Linq;
+using System.Text;
 using TodoApp2.Entity.Extensions;
 
 namespace TodoApp2.Entity
@@ -7,7 +10,9 @@ namespace TodoApp2.Entity
     public class DbSet<TModel> where TModel : class, new()
     {
         private DbConnection _connection;
-        private string _tableName;
+
+        internal string TableName;
+        internal DbSetConfiguration<TModel> DbSetConfiguration;
 
         /// <summary>
         /// Creates an abstract representation of an actual database table.
@@ -17,16 +22,41 @@ namespace TodoApp2.Entity
         public DbSet(DbConnection connection, string tableName)
         {
             _connection = connection;
-            _tableName = tableName;
+            TableName = tableName;
         }
 
         public List<TModel> GetAll()
         {
-            string query = $"SELECT * FROM {_tableName} ";
+            string query = $"SELECT * FROM {TableName} ";
 
             return GetItemsWithQuery(query);
         }
 
+
+        public DbSetConfiguration<TModel> Configure()
+        {
+            if (DbSetConfiguration == null)
+            {
+                DbSetConfiguration = new DbSetConfiguration<TModel>(this);
+            }
+
+            return DbSetConfiguration;
+        }
+
+        // TODO: Separate creation from DbSet -> ctor param DbSetMapping ?
+        public void CreateIfNotExists()
+        {
+            string query = DbSetQueryBuilder.BuildCreateIfNotExists(this);
+            ExecuteQuery(query);
+        }
+
+        private void ExecuteQuery(string query)
+        {
+            using (SQLiteCommand dbCommand = new SQLiteCommand(query, _connection.InternalConnection))
+            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
+            {
+            }
+        }
 
         private List<TModel> GetItemsWithQuery(string query)
         {
@@ -48,5 +78,6 @@ namespace TodoApp2.Entity
 
             return items;
         }
+
     }
 }
