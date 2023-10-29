@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using TodoApp2.Entity.Extensions;
+using TodoApp2.Entity.Model;
 
 namespace TodoApp2.Entity.Query
 {
@@ -9,8 +11,11 @@ namespace TodoApp2.Entity.Query
         public const string TurnForeignKeysOn = "PRAGMA foreign_keys = ON;";
         public const string GetDbVersion = "PRAGMA user_version; ";
 
-        public static string BuildDropTable(string tableName) => $"DROP TABLE IF EXISTS {tableName} ;";
         public static string BuildUpdateDbVersion(int dbVersion) => $"PRAGMA user_version = {dbVersion}; ";
+        public static string BuildDropTable(string tableName) => $"DROP TABLE IF EXISTS {tableName} ;";
+        internal static string BuildSelectAll(string tableName) => $"SELECT * FROM {tableName} ";
+        internal static string BuildSelectCount(string tableName) => $"SELECT COUNT(*) AS Value FROM {tableName} ";
+
 
         public static string BuildCreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
         {
@@ -89,5 +94,6 @@ namespace TodoApp2.Entity.Query
             sb.Append(" );");
             return sb.ToString();
         }
+
     }
 }

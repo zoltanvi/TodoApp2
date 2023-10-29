@@ -1,5 +1,6 @@
 ﻿using System;
 using TodoApp2.Common;
+using TodoApp2.Entity.Model;
 using TodoApp2.Entity.Query;
 
 namespace TodoApp2.Entity

@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using TodoApp2.Common;
 using TodoApp2.Entity.Extensions;
 using TodoApp2.Entity.Info;
+using TodoApp2.Entity.Model;
 
 namespace TodoApp2.Entity.Migration
 {

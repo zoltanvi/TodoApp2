@@ -63,7 +63,7 @@
     <Compile Include="DbConnection.cs" />
     <Compile Include="DbContext.cs" />
     <Compile Include="DbSet.cs" />
-    <Compile Include="DbSetModelBuilder.cs" />
+    <Compile Include="Model\DbSetModelBuilder.cs" />
     <Compile Include="DbSetMapping.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Info\SingleIntModel.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="Migration\MigrationQueryBuilder.cs" />
     <Compile Include="Migration\MigrationRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BaseDbSetModelBuilder.cs" />
+    <Compile Include="Model\BaseDbSetModelBuilder.cs" />
     <Compile Include="Query\QueryParameterBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
