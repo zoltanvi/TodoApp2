@@ -65,10 +65,12 @@
     <Compile Include="DbSet.cs" />
     <Compile Include="DbSetModelBuilder.cs" />
     <Compile Include="DbSetMapping.cs" />
-    <Compile Include="ModelQueryBuilder.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Info\SingleIntModel.cs" />
+    <Compile Include="Query\QueryBuilder.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\SQLiteDataReaderExtensions.cs" />
-    <Compile Include="Helpers\QueryExecutionHelper.cs" />
+    <Compile Include="Query\QueryExecutor.cs" />
     <Compile Include="Info\DbVersionModel.cs" />
     <Compile Include="Info\TableExistsModel.cs" />
     <Compile Include="Migration\BuildStep.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Migration\MigrationRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseDbSetModelBuilder.cs" />
+    <Compile Include="Query\QueryParameterBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

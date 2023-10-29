@@ -11,12 +11,10 @@ namespace TodoApp2.Entity.Extensions
             where TModel : class, new()
         {
             Type modelType = typeof(TModel);
-
             TModel result = new TModel();
 
             // Public properties with getter and setter
-            var properties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(x => x.CanWrite && x.CanRead);
+            var properties = modelType.GetPublicProperties();
 
             foreach (PropertyInfo propInfo in properties)
             {

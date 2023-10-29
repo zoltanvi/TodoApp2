@@ -1,9 +1,17 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
+using TodoApp2.Entity.Extensions;
 
-namespace TodoApp2.Entity
+namespace TodoApp2.Entity.Query
 {
-    internal static class ModelQueryBuilder
+    internal static class QueryBuilder
     {
+        public const string TurnForeignKeysOn = "PRAGMA foreign_keys = ON;";
+        public const string GetDbVersion = "PRAGMA user_version; ";
+
+        public static string BuildDropTable(string tableName) => $"DROP TABLE IF EXISTS {tableName} ;";
+        public static string BuildUpdateDbVersion(int dbVersion) => $"PRAGMA user_version = {dbVersion}; ";
+
         public static string BuildCreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
         {
             StringBuilder sb = new StringBuilder($"CREATE TABLE IF NOT EXISTS {modelBuilder.TableName} ( \n");
@@ -53,9 +61,33 @@ namespace TodoApp2.Entity
             return sb.ToString();
         }
 
-        public static string BuildDropTable(string tableName)
+        public static string BuildInsertInto<TModel>(string tableName, string primaryKeyName)
+            where TModel : class, new()
         {
-            return $"DROP TABLE IF EXISTS {tableName} ;";
+            var modelType = typeof(TModel);
+            var properties = modelType.GetPublicPropertiesWithExclusion(primaryKeyName);
+
+            StringBuilder sb = new StringBuilder($"INSERT INTO {tableName} (\n");
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                sb.Append($"{properties[i].Name}");
+
+                if (i != properties.Count - 1) sb.AppendLine(", ");
+            }
+
+            sb.Append(" ) \nVALUES (\n");
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                // @ prefix
+                sb.Append($"@{properties[i].Name}");
+
+                if (i != properties.Count - 1) sb.AppendLine(", ");
+            }
+
+            sb.Append(" );");
+            return sb.ToString();
         }
     }
 }

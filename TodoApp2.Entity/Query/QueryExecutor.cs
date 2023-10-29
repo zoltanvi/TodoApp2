@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Diagnostics;
 using TodoApp2.Entity.Extensions;
 
-namespace TodoApp2.Entity.Helpers
+namespace TodoApp2.Entity.Query
 {
-    internal static class QueryExecutionHelper
+    internal static class QueryExecutor
     {
         public static void ExecuteQuery(DbConnection connection, string query)
         {
@@ -17,6 +18,7 @@ namespace TodoApp2.Entity.Helpers
                 }
                 catch (Exception ex)
                 {
+                    Debugger.Break();
                     throw;
                 }
             }
@@ -66,5 +68,19 @@ namespace TodoApp2.Entity.Helpers
             return items;
         }
 
+        internal static bool InsertItem<TModel>(DbConnection connection, TModel modelToInsert, string tableName, string primaryKeyName)
+            where TModel : class, new()
+        {
+            bool success = false;
+
+            using (SQLiteCommand command = new SQLiteCommand(connection.InternalConnection))
+            {
+                command.CommandText = QueryBuilder.BuildInsertInto<TModel>(tableName, primaryKeyName);
+                command.Parameters.AddRange(QueryParameterBuilder.BuildInsertInto<TModel>(modelToInsert, primaryKeyName));
+                command.ExecuteNonQuery();
+            }
+
+            return success;
+        }
     }
 }

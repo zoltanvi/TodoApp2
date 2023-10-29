@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Data.SQLite;
 using TodoApp2.Common;
-using TodoApp2.Entity.Extensions;
+using TodoApp2.Entity.Info;
+using TodoApp2.Entity.Query;
 
 namespace TodoApp2.Entity
 {
@@ -34,28 +34,21 @@ namespace TodoApp2.Entity
         {
             string query = $"SELECT * FROM {TableName} ";
 
-            return GetItemsWithQuery(query);
+            return QueryExecutor.GetItemsWithQuery<TModel>(_connection, query);
         }
 
-        private List<TModel> GetItemsWithQuery(string query)
+        public int Count()
         {
-            List<TModel> items = new List<TModel>();
+            string query = $"SELECT COUNT(*) AS Value FROM {TableName} ";
+            var valueModel = QueryExecutor.GetItemWithQuery<SingleIntModel>(_connection, query);
+            return valueModel.Value;
+        }
 
-            using (SQLiteCommand command = new SQLiteCommand(_connection.InternalConnection))
-            {
-                command.CommandText = query;
-
-                using (SQLiteDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        TModel readItem = reader.ReadProperties<TModel>();
-                        items.Add(readItem);
-                    }
-                }
-            }
-
-            return items;
+        public bool Add(TModel model)
+        {
+            var primaryKeyName = DbSetMapping.ModelBuilder.GetPrimaryKeyName();
+            bool success = QueryExecutor.InsertItem<TModel>(_connection, model, TableName, primaryKeyName);
+            return success;
         }
 
     }
