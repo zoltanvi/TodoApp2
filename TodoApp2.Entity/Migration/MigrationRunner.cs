@@ -28,6 +28,7 @@ namespace TodoApp2.Entity.Migration
             int addPropertyIndex = 0;
             int addModelIndex = 0;
             int removeModelIndex = 0;
+            int customStepIndex = 0;
 
             for (int i = 0; i < builder.BuildSteps.Count; i++)
             {
@@ -48,6 +49,12 @@ namespace TodoApp2.Entity.Migration
                 {
                     query = ModelQueryBuilder.BuildDropTable(builder.ModelRemovers[removeModelIndex]);
                     removeModelIndex++;
+                } 
+                else if (buildStep == BuildStep.CustomStep)
+                {
+                    builder.CustomActions[customStepIndex]?.Invoke();
+                    customStepIndex++;
+                    continue;
                 }
 
                 QueryExecutionHelper.ExecuteQuery(connection, query);

@@ -5,9 +5,9 @@
         AddProperty,
         AddModel,
         RemoveModel,
+        CustomStep
 
         // TODO:
         //RemoveProperty,
-        //CustomStep
     }
 }
