@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using TodoApp2.Common;
-using TodoApp2.Entity.Helpers;
+using TodoApp2.Entity.Query;
 using TodoApp2.Entity.Info;
 using TodoApp2.Entity.Migration;
 using DbMigration = TodoApp2.Entity.Migration.DbMigration;
@@ -107,21 +107,17 @@ namespace TodoApp2.Entity
             Connection = new DbConnection(_connectionString);
             Connection.Open();
 
-            var turnForeignKeysOn = "PRAGMA foreign_keys = ON;";
-            var getDbVersion = "PRAGMA user_version; ";
-
             // Turn foreign keys on
-            QueryExecutionHelper.ExecuteQuery(Connection, turnForeignKeysOn);
+            QueryExecutor.ExecuteQuery(Connection, QueryBuilder.TurnForeignKeysOn);
 
             // Get database version
-            var dbVersionModel = QueryExecutionHelper.GetItemWithQuery<DbVersionModel>(Connection, getDbVersion);
+            var dbVersionModel = QueryExecutor.GetItemWithQuery<DbVersionModel>(Connection, QueryBuilder.GetDbVersion);
             _dbVersion = dbVersionModel?.user_version ?? 0;
         }
 
         private void UpdateDbVersion()
         {
-            string updateDbVersion = $"PRAGMA user_version = {_dbVersion}; ";
-            QueryExecutionHelper.ExecuteQuery(Connection, updateDbVersion);
+            QueryExecutor.ExecuteQuery(Connection, QueryBuilder.BuildUpdateDbVersion(_dbVersion));
         }
 
     }

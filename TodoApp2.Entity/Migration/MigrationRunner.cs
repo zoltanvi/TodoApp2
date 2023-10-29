@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TodoApp2.Entity.Helpers;
+using TodoApp2.Entity.Query;
 
 namespace TodoApp2.Entity.Migration
 {
@@ -42,12 +42,12 @@ namespace TodoApp2.Entity.Migration
                 }
                 else if (buildStep == BuildStep.AddModel)
                 {
-                    query = ModelQueryBuilder.BuildCreateIfNotExists(builder.ModelBuilders[addModelIndex]);
+                    query = QueryBuilder.BuildCreateIfNotExists(builder.ModelBuilders[addModelIndex]);
                     addModelIndex++;
                 }
                 else if (buildStep == BuildStep.RemoveModel)
                 {
-                    query = ModelQueryBuilder.BuildDropTable(builder.ModelRemovers[removeModelIndex]);
+                    query = QueryBuilder.BuildDropTable(builder.ModelRemovers[removeModelIndex]);
                     removeModelIndex++;
                 } 
                 else if (buildStep == BuildStep.CustomStep)
@@ -57,7 +57,7 @@ namespace TodoApp2.Entity.Migration
                     continue;
                 }
 
-                QueryExecutionHelper.ExecuteQuery(connection, query);
+                QueryExecutor.ExecuteQuery(connection, query);
             }
 
             return dbMigration.Version;

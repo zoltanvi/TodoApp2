@@ -1,6 +1,6 @@
 ﻿using System;
 using TodoApp2.Common;
-using TodoApp2.Entity.Helpers;
+using TodoApp2.Entity.Query;
 
 namespace TodoApp2.Entity
 {
@@ -29,8 +29,8 @@ namespace TodoApp2.Entity
         internal void CreateIfNotExists(DbConnection connection)
         {
             ThrowHelper.ThrowIfNull(connection);
-            string query = ModelQueryBuilder.BuildCreateIfNotExists(ModelBuilder);
-            QueryExecutionHelper.ExecuteQuery(connection, query);
+            string query = QueryBuilder.BuildCreateIfNotExists(ModelBuilder);
+            QueryExecutor.ExecuteQuery(connection, query);
         }
     }
 }
