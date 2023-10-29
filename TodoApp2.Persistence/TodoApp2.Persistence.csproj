@@ -48,12 +48,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContext.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableMappings\CategoryTableMapping.cs" />
+    <Compile Include="TableMappings\NoteTableMapping.cs" />
+    <Compile Include="TableMappings\SettingsTableMapping.cs" />
+    <Compile Include="TableMappings\TaskTableMapping.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

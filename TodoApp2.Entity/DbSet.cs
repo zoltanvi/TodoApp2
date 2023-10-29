@@ -3,26 +3,34 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using TodoApp2.Common;
 using TodoApp2.Entity.Extensions;
 
 namespace TodoApp2.Entity
 {
-    public class DbSet<TModel> where TModel : class, new()
+    public class DbSet<TModel> 
+        where TModel : class, new()
     {
         private DbConnection _connection;
 
         internal string TableName;
-        internal DbSetConfiguration<TModel> DbSetConfiguration;
+        internal DbSetMapping<TModel> DbSetMapping;
 
         /// <summary>
         /// Creates an abstract representation of an actual database table.
         /// </summary>
         /// <param name="connection">The db connection.</param>
-        /// <param name="tableName">The name of the table to represent. It MUST match the table name in the db!</param>
-        public DbSet(DbConnection connection, string tableName)
+        /// <param name="dbSetMapping">The db set mapping.</param>
+        public DbSet(DbConnection connection, DbSetMapping<TModel> dbSetMapping)
         {
+            ThrowHelper.ThrowIfNull(connection);
+            ThrowHelper.ThrowIfNull(dbSetMapping);
+
             _connection = connection;
-            TableName = tableName;
+            DbSetMapping = dbSetMapping;
+            TableName = dbSetMapping.TableName;
+            DbSetMapping.CheckEmptyMapping();
+            DbSetMapping.CreateIfNotExists(connection);
         }
 
         public List<TModel> GetAll()
@@ -30,24 +38,6 @@ namespace TodoApp2.Entity
             string query = $"SELECT * FROM {TableName} ";
 
             return GetItemsWithQuery(query);
-        }
-
-
-        public DbSetConfiguration<TModel> Configure()
-        {
-            if (DbSetConfiguration == null)
-            {
-                DbSetConfiguration = new DbSetConfiguration<TModel>(this);
-            }
-
-            return DbSetConfiguration;
-        }
-
-        // TODO: Separate creation from DbSet -> ctor param DbSetMapping ?
-        public void CreateIfNotExists()
-        {
-            string query = DbSetQueryBuilder.BuildCreateIfNotExists(this);
-            ExecuteQuery(query);
         }
 
         private void ExecuteQuery(string query)

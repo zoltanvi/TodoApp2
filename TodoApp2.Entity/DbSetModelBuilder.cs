@@ -19,35 +19,34 @@ namespace TodoApp2.Entity
         public string ReferencedPropertyName;
     }
 
-    public class DbSetConfiguration<TModel> where TModel : class, new()
+    public class DbSetModelBuilder<TModel> where TModel : class, new()
     {
-        private DbSet<TModel> _dbSet;
         internal List<PropInfo> Properties { get; } = new List<PropInfo>();
         internal List<ForeignKeyInfo> ForeignKeys { get; } = new List<ForeignKeyInfo>();
 
-        internal DbSetConfiguration(DbSet<TModel> dbSet)
+        internal DbSetModelBuilder()
         {
         }
 
-        public DbSetConfiguration<TModel> Property(Expression<Func<TModel, object>> sourceProperty)
+        public DbSetModelBuilder<TModel> Property(Expression<Func<TModel, object>> sourceProperty)
         {
             Property(sourceProperty, false, null);
             return this;
         }
 
-        public DbSetConfiguration<TModel> Property(Expression<Func<TModel, object>> sourceProperty, bool isPrimaryKey)
+        public DbSetModelBuilder<TModel> Property(Expression<Func<TModel, object>> sourceProperty, bool isPrimaryKey)
         {
             Property(sourceProperty, isPrimaryKey, null);
             return this;
         }
 
-        public DbSetConfiguration<TModel> Property(Expression<Func<TModel, object>> sourceProperty, string defaultValue)
+        public DbSetModelBuilder<TModel> Property(Expression<Func<TModel, object>> sourceProperty, string defaultValue)
         {
             Property(sourceProperty, false, defaultValue);
             return this;
         }
 
-        public DbSetConfiguration<TModel> Property(Expression<Func<TModel, object>> sourceProperty, bool isPrimaryKey, string defaultValue)
+        public DbSetModelBuilder<TModel> Property(Expression<Func<TModel, object>> sourceProperty, bool isPrimaryKey, string defaultValue)
         {
             var info = new PropInfo();
             info.IsPrimaryKey = isPrimaryKey;
@@ -60,7 +59,7 @@ namespace TodoApp2.Entity
             return this;
         }
 
-        public DbSetConfiguration<TModel> ForeignKey<TReferenced>(
+        public DbSetModelBuilder<TModel> ForeignKey<TReferenced>(
             Expression<Func<TModel, object>> sourceProperty,
             Expression<Func<TReferenced, object>> referencedProperty)
         {

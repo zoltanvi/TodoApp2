@@ -2,12 +2,12 @@
 
 namespace TodoApp2.Entity
 {
-    internal static  class DbSetQueryBuilder
+    internal static class DbSetQueryBuilder
     {
-        public static string BuildCreateIfNotExists<T>(DbSet<T> dbSet) where T : class, new()
+        public static string BuildCreateIfNotExists<T>(DbSetMapping<T> dbSetMapping) where T : class, new()
         {
-            StringBuilder sb = new StringBuilder($"CREATE TABLE IF NOT EXISTS {dbSet.TableName} ( \n");
-            var properties = dbSet.DbSetConfiguration.Properties;
+            StringBuilder sb = new StringBuilder($"CREATE TABLE IF NOT EXISTS {dbSetMapping.TableName} ( \n");
+            var properties = dbSetMapping.ModelBuilder.Properties;
 
             for (int i = 0; i < properties.Count; i++)
             {
@@ -34,7 +34,7 @@ namespace TodoApp2.Entity
                 if (i != properties.Count - 1) sb.AppendLine(", ");
             }
 
-            var foreignKeys = dbSet.DbSetConfiguration.ForeignKeys;
+            var foreignKeys = dbSetMapping.ModelBuilder.ForeignKeys;
             
             if (foreignKeys.Count != 0) sb.AppendLine(", ");
             

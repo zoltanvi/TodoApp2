@@ -63,7 +63,8 @@
     <Compile Include="DbConnection.cs" />
     <Compile Include="DbContext.cs" />
     <Compile Include="DbSet.cs" />
-    <Compile Include="DbSetConfiguration.cs" />
+    <Compile Include="DbSetModelBuilder.cs" />
+    <Compile Include="DbSetMapping.cs" />
     <Compile Include="DbSetQueryBuilder.cs" />
     <Compile Include="Extensions\SQLiteDataReaderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
