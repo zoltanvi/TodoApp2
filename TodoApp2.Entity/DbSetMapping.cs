@@ -1,27 +1,26 @@
 ﻿using System;
-using System.Data.SQLite;
 using TodoApp2.Common;
+using TodoApp2.Entity.Helpers;
 
 namespace TodoApp2.Entity
 {
     public class DbSetMapping<TModel>
         where TModel : class, new()
     {
-        private DbSetModelBuilder<TModel> _modelBuilder;
+        protected internal DbSetModelBuilder<TModel> ModelBuilder { get; }
         
-        internal string TableName;
-
-        protected internal DbSetModelBuilder<TModel> ModelBuilder => _modelBuilder ?? (_modelBuilder = new DbSetModelBuilder<TModel>());
+        internal string TableName { get; }
 
         public DbSetMapping(string tableName)
         {
             ThrowHelper.ThrowIfNull(tableName);
             TableName = tableName;
+            ModelBuilder = new DbSetModelBuilder<TModel>(TableName);
         }
 
         internal void CheckEmptyMapping()
         {
-            if (_modelBuilder == null || _modelBuilder.Properties.Count == 0)
+            if (ModelBuilder.Properties.Count == 0)
             {
                 throw new InvalidOperationException("Cannot create empty mapping!");
             }
@@ -30,16 +29,8 @@ namespace TodoApp2.Entity
         internal void CreateIfNotExists(DbConnection connection)
         {
             ThrowHelper.ThrowIfNull(connection);
-            string query = DbSetQueryBuilder.BuildCreateIfNotExists(this);
-            ExecuteQuery(connection, query);
-        }
-
-        private void ExecuteQuery(DbConnection connection, string query)
-        {
-            using (SQLiteCommand dbCommand = new SQLiteCommand(query, connection.InternalConnection))
-            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
-            {
-            }
+            string query = ModelQueryBuilder.BuildCreateIfNotExists(ModelBuilder);
+            QueryExecutionHelper.ExecuteQuery(connection, query);
         }
     }
 }

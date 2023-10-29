@@ -5,7 +5,7 @@ namespace TodoApp2.Persistence.TableMappings
 {
     internal class SettingsTableMapping : DbSetMapping<Setting>
     {
-        public SettingsTableMapping() : base(Constants.TableNames.Settings)
+        public SettingsTableMapping() : base(Constants.TableNames.Setting)
         {
             ModelBuilder
                 .Property(x => x.Key, isPrimaryKey: true)

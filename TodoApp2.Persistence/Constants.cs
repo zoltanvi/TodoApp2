@@ -11,7 +11,7 @@
             public const string Task = "Task";
             public const string Category = "Category";
             public const string Note = "Note";
-            public const string Settings = "Settings";
+            public const string Setting = "Setting";
         }
     }
 }

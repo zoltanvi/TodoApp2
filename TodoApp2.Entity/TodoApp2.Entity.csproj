@@ -65,9 +65,21 @@
     <Compile Include="DbSet.cs" />
     <Compile Include="DbSetModelBuilder.cs" />
     <Compile Include="DbSetMapping.cs" />
-    <Compile Include="DbSetQueryBuilder.cs" />
+    <Compile Include="ModelQueryBuilder.cs" />
+    <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\SQLiteDataReaderExtensions.cs" />
+    <Compile Include="Helpers\QueryExecutionHelper.cs" />
+    <Compile Include="Info\DbVersionModel.cs" />
+    <Compile Include="Info\TableExistsModel.cs" />
+    <Compile Include="Migration\BuildStep.cs" />
+    <Compile Include="Migration\DbMigration.cs" />
+    <Compile Include="Migration\MigrationBuilder.cs" />
+    <Compile Include="Info\ForeignKeyInfo.cs" />
+    <Compile Include="Info\PropInfo.cs" />
+    <Compile Include="Migration\MigrationQueryBuilder.cs" />
+    <Compile Include="Migration\MigrationRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BaseDbSetModelBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,6 +91,7 @@
       <Name>TodoApp2.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

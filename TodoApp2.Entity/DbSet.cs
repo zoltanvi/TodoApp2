@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
 using TodoApp2.Common;
 using TodoApp2.Entity.Extensions;
 
@@ -38,14 +35,6 @@ namespace TodoApp2.Entity
             string query = $"SELECT * FROM {TableName} ";
 
             return GetItemsWithQuery(query);
-        }
-
-        private void ExecuteQuery(string query)
-        {
-            using (SQLiteCommand dbCommand = new SQLiteCommand(query, _connection.InternalConnection))
-            using (SQLiteDataReader reader = dbCommand.ExecuteReader())
-            {
-            }
         }
 
         private List<TModel> GetItemsWithQuery(string query)

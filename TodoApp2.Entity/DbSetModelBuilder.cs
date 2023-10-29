@@ -1,31 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
+using TodoApp2.Common;
+using TodoApp2.Entity.Extensions;
+using TodoApp2.Entity.Info;
 
 namespace TodoApp2.Entity
 {
-    internal struct PropInfo
+    public class DbSetModelBuilder<TModel> : BaseDbSetModelBuilder
+        where TModel : class, new()
     {
-        public string Name;
-        public Type Type;
-        public bool IsPrimaryKey;
-        public string DefaultValue;
-    }
+        internal override string TableName { get; }
 
-    internal struct ForeignKeyInfo
-    {
-        public string Name;
-        public string ReferencedTableName;
-        public string ReferencedPropertyName;
-    }
-
-    public class DbSetModelBuilder<TModel> where TModel : class, new()
-    {
-        internal List<PropInfo> Properties { get; } = new List<PropInfo>();
-        internal List<ForeignKeyInfo> ForeignKeys { get; } = new List<ForeignKeyInfo>();
-
-        internal DbSetModelBuilder()
+        internal DbSetModelBuilder(string tableName)
         {
+            tableName.ThrowIfEmpty();
+            TableName = tableName;
         }
 
         public DbSetModelBuilder<TModel> Property(Expression<Func<TModel, object>> sourceProperty)
@@ -52,7 +41,7 @@ namespace TodoApp2.Entity
             info.IsPrimaryKey = isPrimaryKey;
             info.DefaultValue = defaultValue;
 
-            GetNameAndType(sourceProperty.Body, out info.Name, out info.Type);
+            sourceProperty.Body.GetNameAndType(out info.PropName, out info.Type);
 
             Properties.Add(info);
 
@@ -65,33 +54,14 @@ namespace TodoApp2.Entity
         {
             var info = new ForeignKeyInfo();
 
-            GetNameAndType(sourceProperty.Body, out info.Name, out _);
-            GetNameAndType(referencedProperty.Body, out info.ReferencedPropertyName, out _);
+            sourceProperty.Body.GetNameAndType(out info.Name, out _);
+            referencedProperty.Body.GetNameAndType(out info.ReferencedPropertyName, out _);
+
             info.ReferencedTableName = typeof(TReferenced).Name;
 
             ForeignKeys.Add(info);
 
             return this;
-        }
-
-        private static void GetNameAndType(Expression ex, out string name, out Type type)
-        {
-            if (ex is MemberExpression memberExpression)
-            {
-                name = memberExpression.Member.Name;
-                type = memberExpression.Type;
-            }
-            else if (ex is UnaryExpression unaryExpression &&
-                unaryExpression.Operand is MemberExpression innerMemberExpression)
-            {
-                // Handle cases where the expression is wrapped in a unary expression (e.g., type casts)
-                name = innerMemberExpression.Member.Name;
-                type = innerMemberExpression.Type;
-            }
-            else
-            {
-                throw new ArgumentException("Cannot process property!");
-            }
         }
     }
 }
