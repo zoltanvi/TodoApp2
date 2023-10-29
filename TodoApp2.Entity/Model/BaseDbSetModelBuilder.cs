@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TodoApp2.Entity.Info;
 
-namespace TodoApp2.Entity
+namespace TodoApp2.Entity.Model
 {
     public abstract class BaseDbSetModelBuilder
     {

@@ -32,15 +32,12 @@ namespace TodoApp2.Entity
 
         public List<TModel> GetAll()
         {
-            string query = $"SELECT * FROM {TableName} ";
-
-            return QueryExecutor.GetItemsWithQuery<TModel>(_connection, query);
+            return QueryExecutor.GetItemsWithQuery<TModel>(_connection, QueryBuilder.BuildSelectAll(TableName));
         }
 
         public int Count()
         {
-            string query = $"SELECT COUNT(*) AS Value FROM {TableName} ";
-            var valueModel = QueryExecutor.GetItemWithQuery<SingleIntModel>(_connection, query);
+            var valueModel = QueryExecutor.GetItemWithQuery<SingleIntModel>(_connection, QueryBuilder.BuildSelectCount(TableName));
             return valueModel.Value;
         }
 

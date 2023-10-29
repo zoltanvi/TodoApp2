@@ -4,7 +4,7 @@ using TodoApp2.Common;
 using TodoApp2.Entity.Extensions;
 using TodoApp2.Entity.Info;
 
-namespace TodoApp2.Entity
+namespace TodoApp2.Entity.Model
 {
     public class DbSetModelBuilder<TModel> : BaseDbSetModelBuilder
         where TModel : class, new()

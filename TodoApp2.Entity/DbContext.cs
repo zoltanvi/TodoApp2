@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using TodoApp2.Common;
-using TodoApp2.Entity.Query;
 using TodoApp2.Entity.Info;
 using TodoApp2.Entity.Migration;
+using TodoApp2.Entity.Query;
 using DbMigration = TodoApp2.Entity.Migration.DbMigration;
 
 namespace TodoApp2.Entity
