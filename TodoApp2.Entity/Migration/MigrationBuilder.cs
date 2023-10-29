@@ -13,6 +13,7 @@ namespace TodoApp2.Entity.Migration
         internal List<PropInfo> Properties { get; } = new List<PropInfo>();
         internal List<BaseDbSetModelBuilder> ModelBuilders { get; } = new List<BaseDbSetModelBuilder>();
         internal List<string> ModelRemovers { get; } = new List<string>();
+        internal List<Action> CustomActions { get; } = new List<Action>();
 
         internal MigrationBuilder()
         {
@@ -56,6 +57,12 @@ namespace TodoApp2.Entity.Migration
             modelName.ThrowIfEmpty();
             ModelRemovers.Add(modelName);
             BuildSteps.Add(BuildStep.RemoveModel);
+        }
+
+        public void ExecuteAction(Action action)
+        {
+            CustomActions.Add(action);
+            BuildSteps.Add(BuildStep.CustomStep);
         }
     }
 }
