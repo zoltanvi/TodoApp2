@@ -6,16 +6,15 @@ namespace TodoApp2.Persistence
 {
     public class DataAccess
     {
-        private const string GetVersionCommand = "PRAGMA user_version; ";
-        public const string DatabaseName = "____TESTDATABASE____.db";
+        public const string DatabaseName = "000.db";
         
         private static string AppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public static string DatabasePath { get; } = Path.Combine(AppDataFolder, DatabaseName);
+        public static string DatabasePath { get; } = Path.Combine(AppDataFolder, "WWWTodoDatabase", DatabaseName);
         
         public DataAccess()
         {
             string connectionString = $"Data Source={DatabasePath};";
-            AppContext appContext = new AppContext(connectionString);
+            //AppContext appContext = new AppContext(connectionString);
         }
     }
 }

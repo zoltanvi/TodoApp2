@@ -2,18 +2,18 @@
 
 namespace TodoApp2.Entity
 {
-    internal static class DbSetQueryBuilder
+    internal static class ModelQueryBuilder
     {
-        public static string BuildCreateIfNotExists<T>(DbSetMapping<T> dbSetMapping) where T : class, new()
+        public static string BuildCreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
         {
-            StringBuilder sb = new StringBuilder($"CREATE TABLE IF NOT EXISTS {dbSetMapping.TableName} ( \n");
-            var properties = dbSetMapping.ModelBuilder.Properties;
+            StringBuilder sb = new StringBuilder($"CREATE TABLE IF NOT EXISTS {modelBuilder.TableName} ( \n");
+            var properties = modelBuilder.Properties;
 
             for (int i = 0; i < properties.Count; i++)
             {
                 var item = properties[i];
 
-                sb.Append($" {item.Name} ");
+                sb.Append($" {item.PropName} ");
 
                 if (item.Type == typeof(bool)) sb.Append("INTEGER ");
                 else if (item.Type == typeof(int)) sb.Append("INTEGER ");
@@ -34,7 +34,7 @@ namespace TodoApp2.Entity
                 if (i != properties.Count - 1) sb.AppendLine(", ");
             }
 
-            var foreignKeys = dbSetMapping.ModelBuilder.ForeignKeys;
+            var foreignKeys = modelBuilder.ForeignKeys;
             
             if (foreignKeys.Count != 0) sb.AppendLine(", ");
             
@@ -51,6 +51,11 @@ namespace TodoApp2.Entity
             sb.AppendLine(")");
 
             return sb.ToString();
+        }
+
+        public static string BuildDropTable(string tableName)
+        {
+            return $"DROP TABLE IF EXISTS {tableName} ;";
         }
     }
 }

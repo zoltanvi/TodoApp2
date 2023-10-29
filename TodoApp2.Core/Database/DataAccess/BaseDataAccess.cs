@@ -89,7 +89,7 @@ namespace TodoApp2.Core
         protected struct Table
         {
             public const string Task = "Task";
-            public const string Settings = "Settings";
+            public const string Settings = "Setting";
             public const string Category = "Category";
             public const string NoteCategory = "NoteCategory";
             public const string Note = "Note";
