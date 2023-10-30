@@ -191,6 +191,10 @@
       <Project>{f6ecbf99-f92f-4578-8737-5a2d458f0453}</Project>
       <Name>TodoApp2.Material</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TodoApp2.Persistence\TodoApp2.Persistence.csproj">
+      <Project>{F3AF67E4-5AA8-4634-8212-CD4168FCC124}</Project>
+      <Name>TodoApp2.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

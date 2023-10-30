@@ -1,25 +1,16 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using TodoApp2.Entity;
-using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Persistence
 {
-    public class DataAccess
+    public static class DataAccess
     {
         public const string DatabaseName = "000.db";
-        
+        private static IAppContext Context;
         private static string AppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public static string DatabasePath { get; } = Path.Combine(AppDataFolder, "WWWTodoDatabase", DatabaseName);
-        
-        public DataAccess()
-        {
-            string connectionString = $"Data Source={DatabasePath};";
-            AppContext appContext = new AppContext(connectionString);
+        private static string ConnectionString = $"Data Source={DatabasePath};";
+        public static string DatabasePath { get; } = Path.Combine(AppDataFolder, DatabaseName);
 
-
-
-        }
+        public static IAppContext GetAppContext() => Context ?? (Context = new AppContext(ConnectionString));
     }
 }
