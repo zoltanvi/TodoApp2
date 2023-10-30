@@ -11,9 +11,12 @@ namespace TodoApp2.Entity
         where TModel : class, new()
     {
         private DbConnection _connection;
+        private string _primaryKey;
+        private string PrimaryKey => _primaryKey ?? (_primaryKey = DbSetMapping.ModelBuilder.GetPrimaryKeyName());
 
         internal string TableName;
         internal DbSetMapping<TModel> DbSetMapping;
+
 
         /// <summary>
         /// Creates an abstract representation of an actual database table.
@@ -32,18 +35,18 @@ namespace TodoApp2.Entity
             DbSetMapping.CreateIfNotExists(connection);
         }
 
-        public List<TModel> GetAll(Expression<Func<TModel, object>> sourceProperty = null, int limit = QueryBuilder.NoLimit)
+        public List<TModel> GetAll(Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit)
         {
             return QueryExecutor.GetItemsWithQuery<TModel>(
                 _connection,
-                WhereBuilder.SelectAll(TableName, sourceProperty, limit));
+                QueryBuilder.SelectAll(TableName, whereExpression, limit));
         }
 
-        public TModel GetFirst(Expression<Func<TModel, object>> sourceProperty = null)
+        public TModel GetFirst(Expression<Func<TModel, object>> whereExpression = null)
         {
             return QueryExecutor.GetItemWithQuery<TModel>(
                 _connection,
-                WhereBuilder.SelectAll(TableName, sourceProperty, QueryBuilder.Single));
+                QueryBuilder.SelectAll(TableName, whereExpression, QueryBuilder.Single));
         }
 
         public int Count()
@@ -55,22 +58,27 @@ namespace TodoApp2.Entity
             return valueModel.Value;
         }
 
-        // Create
         public bool Add(TModel model)
         {
-            var primaryKeyName = DbSetMapping.ModelBuilder.GetPrimaryKeyName();
+            int successful = QueryExecutor.ExecuteQuery(
+                _connection,
+                QueryBuilder.InsertInto<TModel>(TableName, PrimaryKey),
+                QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey));
 
-            bool success = QueryExecutor.InsertItem<TModel>(
-                _connection, 
-                model, 
-                TableName, 
-                primaryKeyName);
-
-            return success;
+            return successful == 1;
         }
 
         // Update
         
+        public bool Update(TModel model, Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit)
+        {
+            int successful = QueryExecutor.ExecuteQuery(
+                _connection,
+                QueryBuilder.UpdateItem<TModel>(TableName, PrimaryKey, whereExpression, limit),
+                QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey));
+
+            return successful == 1;
+        }
 
 
         // Delete

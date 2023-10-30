@@ -24,6 +24,28 @@ namespace TodoApp2.Entity.Query
             }
         }
 
+        internal static int ExecuteQuery(DbConnection connection, string query, SQLiteParameter[] parameters)
+        {
+            int successful = 0;
+
+            using (SQLiteCommand command = new SQLiteCommand(connection.InternalConnection))
+            {
+                try
+                {
+                    command.CommandText = query;
+                    command.Parameters.AddRange(parameters);
+                    successful = command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debugger.Break();
+                    throw;
+                }
+            }
+
+            return successful;
+        }
+
         public static TModel GetItemWithQuery<TModel>(DbConnection connection, string query)
             where TModel : class, new()
         {
@@ -66,21 +88,6 @@ namespace TodoApp2.Entity.Query
             }
 
             return items;
-        }
-
-        internal static bool InsertItem<TModel>(DbConnection connection, TModel modelToInsert, string tableName, string primaryKeyName)
-            where TModel : class, new()
-        {
-            bool success = false;
-
-            using (SQLiteCommand command = new SQLiteCommand(connection.InternalConnection))
-            {
-                command.CommandText = QueryBuilder.InsertInto<TModel>(tableName, primaryKeyName);
-                command.Parameters.AddRange(QueryParameterBuilder.BuildInsertInto<TModel>(modelToInsert, primaryKeyName));
-                command.ExecuteNonQuery();
-            }
-
-            return success;
         }
     }
 }
