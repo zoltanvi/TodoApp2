@@ -46,9 +46,22 @@ namespace TodoApp2.Entity
 
         public bool Add(TModel model) =>
             QueryExecutor.ExecuteQuery(
-                _connection, 
-                QueryBuilder.InsertInto<TModel>(TableName, PrimaryKey), 
+                _connection,
+                QueryBuilder.InsertInto<TModel>(TableName, PrimaryKey),
                 QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey)) == QueryBuilder.Single;
+
+        public void AddRange(IEnumerable<TModel> models)
+        {
+            using (var transaction = _connection.BeginTransaction())
+            {
+                foreach (TModel model in models)
+                {
+                    Add(model);
+                }
+
+                transaction.Commit();
+            }
+        }
 
         public bool UpdateFirst(TModel model, Expression<Func<TModel, object>> whereExpression = null) =>
             Update(model, whereExpression, QueryBuilder.Single) == QueryBuilder.Single;
@@ -58,6 +71,25 @@ namespace TodoApp2.Entity
                 _connection,
                 QueryBuilder.UpdateItem<TModel>(TableName, PrimaryKey, whereExpression, limit),
                 QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey));
+
+        public int UpdateRange(IEnumerable<TModel> models, Expression<Func<TModel, object>> sourceProperty)
+        {
+            int successful = 0;
+            using (var transaction = _connection.BeginTransaction())
+            {
+                foreach(TModel model in models)
+                {
+                    successful += QueryExecutor.ExecuteQuery(
+                        _connection,
+                        QueryBuilder.UpdateItemFromModel<TModel>(TableName, PrimaryKey, model, sourceProperty),
+                        QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey));
+                }
+
+                transaction.Commit();
+            }
+
+            return successful;
+        }
 
         public int Remove(Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit) =>
             QueryExecutor.ExecuteQuery(_connection, QueryBuilder.Delete<TModel>(TableName, whereExpression, limit));

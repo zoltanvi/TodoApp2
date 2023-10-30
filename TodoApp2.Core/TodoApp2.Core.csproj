@@ -191,6 +191,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj">
+      <Project>{87F2A88A-7848-44ED-8F4F-89B12EBBC129}</Project>
+      <Name>TodoApp2.Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj">
       <Project>{f6ecbf99-f92f-4578-8737-5a2d458f0453}</Project>
       <Name>TodoApp2.Material</Name>

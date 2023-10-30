@@ -18,14 +18,12 @@ namespace TodoApp2.Core
         Task<List<TaskViewModel>> GetActiveTasksAsync(CategoryViewModel category);
         CategoryViewModel GetCategory(int categoryId);
         CategoryViewModel GetCategory(string categoryName);
-        List<Setting> GetSettings();
         TaskViewModel GetTask(int id);
         void ReorderCategory(CategoryViewModel category, int newPosition);
         void ReorderTask(TaskViewModel task, int newPosition);
         void TrashCategory(CategoryViewModel category);
         void UntrashCategory(CategoryViewModel category);
         void UpdateCategory(CategoryViewModel category);
-        void UpdateSettings(List<Setting> settings);
         void UpdateCategoryListOrder(IEnumerable<IReorderable> categoryList);
         void UpdateTask(TaskViewModel task);
         void UpdateTasks(IEnumerable<IReorderable> taskList);

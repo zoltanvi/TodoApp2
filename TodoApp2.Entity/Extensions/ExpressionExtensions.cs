@@ -21,7 +21,7 @@ namespace TodoApp2.Entity.Extensions
             }
             else
             {
-                throw new ArgumentException("Cannot process property!");
+                throw new ArgumentException("Cannot process expression!");
             }
         }
     }
