@@ -117,7 +117,7 @@ namespace TodoApp2.Entity
 
         private void UpdateDbVersion()
         {
-            QueryExecutor.ExecuteQuery(Connection, QueryBuilder.BuildUpdateDbVersion(_dbVersion));
+            QueryExecutor.ExecuteQuery(Connection, QueryBuilder.UpdateDbVersion(_dbVersion));
         }
 
     }

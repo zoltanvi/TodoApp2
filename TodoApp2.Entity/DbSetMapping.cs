@@ -30,7 +30,7 @@ namespace TodoApp2.Entity
         internal void CreateIfNotExists(DbConnection connection)
         {
             ThrowHelper.ThrowIfNull(connection);
-            string query = QueryBuilder.BuildCreateIfNotExists(ModelBuilder);
+            string query = QueryBuilder.CreateIfNotExists(ModelBuilder);
             QueryExecutor.ExecuteQuery(connection, query);
         }
     }
