@@ -2,6 +2,8 @@
 {
     public struct GlobalConstants
     {
+        public const string ListOrderFormat = "D19";
+
         public struct ColorName
         {
             public const string Transparent = "Transparent";
