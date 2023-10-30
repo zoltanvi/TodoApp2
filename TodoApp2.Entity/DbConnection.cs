@@ -3,6 +3,8 @@ using System.Data.SQLite;
 
 namespace TodoApp2.Entity
 {
+    // Wrapper for SQLiteConnection to hide it from outside of the Entity project.
+    // See: DbSet ctor
     public class DbConnection : IDisposable
     {
         internal SQLiteConnection InternalConnection { get; }
@@ -21,5 +23,7 @@ namespace TodoApp2.Entity
         {
             InternalConnection.Open();
         }
+
+        internal SQLiteTransaction BeginTransaction() => InternalConnection.BeginTransaction();
     }
 }

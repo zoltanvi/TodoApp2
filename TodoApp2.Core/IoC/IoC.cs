@@ -9,10 +9,10 @@ namespace TodoApp2.Core
     {
         private static ZoomingListener _zoomingListener;
         public static IAppContext Context { get; private set; }
+        public static IDatabase Database { get; private set; }
         public static IAsyncActionService AsyncActionService { get; set; }
         public static AppSettings AppSettings { get; set; }
         public static AppViewModel AppViewModel { get; private set; }
-        public static IDatabase Database { get; private set; }
         public static OverlayPageService OverlayPageService { get; private set; }
         public static CategoryListService CategoryListService { get; private set; }
         public static TaskListService TaskListService { get; private set; }
@@ -32,9 +32,9 @@ namespace TodoApp2.Core
         public static void PreSetup()
         {
             Context = DataAccess.GetAppContext();
+            Database = new Database();
             AutoRunService = new AutoRunService();
             MessageService = new MessageService();
-            Database = new Database();
             AppSettings = new AppSettings();
         }
 
@@ -51,7 +51,7 @@ namespace TodoApp2.Core
             ThemeChangeNotifier.AddRecipient(AppSettings.CommonSettings, nameof(CommonSettings.AppBorderColor));
 
             UndoManager = new UndoManager();
-            AppViewModel = new AppViewModel(Database, UIScaler);
+            AppViewModel = new AppViewModel(Context, UIScaler);
             OverlayPageService = new OverlayPageService(AppViewModel, Database);
             
             // Create default categories + help tasks

@@ -21,19 +21,25 @@ namespace TodoApp2.Entity.Query
         public static string SelectAll<TModel>(string tableName, Expression<Func<TModel, object>> whereExpression, int limit)
             where TModel : class, new()
         {
-            return QueryBuilder.SelectAll(tableName, WhereBuilder.Equals(whereExpression), limit);
+            return QueryBuilder.SelectAll(tableName, WhereBuilder.EqualsExpression(whereExpression), limit);
         }
 
         public static string UpdateItem<TModel>(string tableName, string primaryKeyName, Expression<Func<TModel, object>> whereExpression, int limit)
             where TModel : class, new()
         {
-            return UpdateItem<TModel>(tableName, primaryKeyName, WhereBuilder.Equals(whereExpression), limit);
+            return UpdateItem<TModel>(tableName, primaryKeyName, WhereBuilder.EqualsExpression(whereExpression), limit);
+        }
+
+        internal static string UpdateItemFromModel<TModel>(string tableName, string primaryKeyName, TModel model, Expression<Func<TModel, object>> sourceProperty)
+            where TModel : class, new()
+        {
+            return UpdateItem<TModel>(tableName, primaryKeyName, WhereBuilder.EqualsWithModelExpression(sourceProperty, model), Single);
         }
 
         public static string Delete<TModel>(string tableName, Expression<Func<TModel, object>> whereExpression, int limit)
             where TModel : class, new()
         {
-            return Delete(tableName, WhereBuilder.Equals(whereExpression), limit);
+            return Delete(tableName, WhereBuilder.EqualsExpression(whereExpression), limit);
         }
 
         public static string CreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
@@ -185,6 +191,5 @@ namespace TodoApp2.Entity.Query
 
             return query;
         }
-
     }
 }

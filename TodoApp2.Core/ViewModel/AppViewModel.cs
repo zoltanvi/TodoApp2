@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Persistence;
+using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Core
 {
@@ -13,7 +16,7 @@ namespace TodoApp2.Core
     {
         private bool _appSettingsLoadedFirstTime;
         private IUIScaler _uiScaler;
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
 
         private SessionSettings SessionSettings => IoC.AppSettings.SessionSettings;
 
@@ -83,9 +86,9 @@ namespace TodoApp2.Core
         /// </summary>
         public bool SaveIconVisible { get; set; }
 
-        public AppViewModel(IDatabase database, IUIScaler uiScaler)
+        public AppViewModel(IAppContext context, IUIScaler uiScaler)
         {
-            _database = database;
+            _context = context;
             _uiScaler = uiScaler;
 
             // Load the application settings to update the ActiveCategoryId before querying the tasks
@@ -212,8 +215,8 @@ namespace TodoApp2.Core
 
         public void LoadApplicationSettings()
         {
-            List<Setting> settings = _database.GetSettings();
-            IoC.AppSettings.Read(settings);
+            List<Setting> settingList = _context.Settings.GetAll();
+            IoC.AppSettings.PopulateAppSettingsFromList(settingList);
 
             // Must be set to always check the registry on startup
             IoC.AutoRunService.RunAtStartup = AppSettings.CommonSettings.AutoStart;
@@ -221,9 +224,8 @@ namespace TodoApp2.Core
 
         public void SaveApplicationSettings()
         {
-            List<Setting> settings = IoC.AppSettings.Write();
-
-            _database.UpdateSettings(settings);
+            List<Setting> settingList = IoC.AppSettings.CreateListFromAppSettings();
+            UpdateSettings(settingList);
         }
 
         private void CommonSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -231,6 +233,35 @@ namespace TodoApp2.Core
             if (e.PropertyName == nameof(CommonSettings.AutoStart))
             {
                 IoC.AutoRunService.RunAtStartup = AppSettings.CommonSettings.AutoStart;
+            }
+        }
+
+        /// <summary>
+        /// Updates all settings entry in the database if exists,
+        /// adds the entry if it not exists.
+        /// </summary>
+        private void UpdateSettings(List<Setting> settings)
+        {
+            List<Setting> existingSettings = _context.Settings.GetAll();
+
+            Dictionary<string, Setting> existingSettingsMap =
+                existingSettings.ToDictionary(settingsModel => settingsModel.Key);
+
+            IEnumerable<Setting> settingsToUpdate = settings
+                .Where(s => existingSettingsMap.ContainsKey(s.Key))
+                .Where(s => s.Value != existingSettingsMap[s.Key].Value);
+
+            IEnumerable<Setting> settingsToAdd = settings
+                .Where(s => !existingSettingsMap.ContainsKey(s.Key));
+
+            if (settingsToAdd.Any())
+            {
+                _context.Settings.AddRange(settingsToAdd);
+            }
+
+            if (settingsToUpdate.Any())
+            {
+                _context.Settings.UpdateRange(settingsToUpdate, x => x.Key);
             }
         }
     }

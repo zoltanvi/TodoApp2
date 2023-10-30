@@ -3,6 +3,7 @@ using System.Data.SQLite;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Core
 {
