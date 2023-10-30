@@ -8,16 +8,36 @@ namespace TodoApp2.Entity.Query
 {
     internal static class QueryBuilder
     {
+        public const int NoLimit = -1;
+        public const int Single = 1;
+
         public const string TurnForeignKeysOn = "PRAGMA foreign_keys = ON;";
         public const string GetDbVersion = "PRAGMA user_version; ";
 
-        public static string BuildUpdateDbVersion(int dbVersion) => $"PRAGMA user_version = {dbVersion}; ";
-        public static string BuildDropTable(string tableName) => $"DROP TABLE IF EXISTS {tableName} ;";
-        internal static string BuildSelectAll(string tableName) => $"SELECT * FROM {tableName} ";
-        internal static string BuildSelectCount(string tableName) => $"SELECT COUNT(*) AS Value FROM {tableName} ";
+        public static string UpdateDbVersion(int dbVersion) => $"PRAGMA user_version = {dbVersion}; ";
+        public static string DropTable(string tableName) => $"DROP TABLE IF EXISTS {tableName} ;";
+        internal static string SelectCount(string tableName) => $"SELECT COUNT(*) AS Value FROM {tableName} ;";
+        
+        internal static string SelectAll(string tableName, string whereSqlCondition = null, int limit = NoLimit)
+        {
+            string query = $"SELECT * FROM {tableName} ";
 
+            if (!string.IsNullOrWhiteSpace(whereSqlCondition))
+            {
+                query += $"WHERE {whereSqlCondition} ";
+            }
 
-        public static string BuildCreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
+            if (limit < NoLimit) throw new ArgumentOutOfRangeException("Can't return less than 0 items!");
+
+            if (limit != NoLimit)
+            {
+                query += $"LIMIT {limit}";
+            }
+
+            return query;
+        } 
+
+        public static string CreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
         {
             StringBuilder sb = new StringBuilder($"CREATE TABLE IF NOT EXISTS {modelBuilder.TableName} ( \n");
             var properties = modelBuilder.Properties;
@@ -66,7 +86,7 @@ namespace TodoApp2.Entity.Query
             return sb.ToString();
         }
 
-        public static string BuildInsertInto<TModel>(string tableName, string primaryKeyName)
+        public static string InsertInto<TModel>(string tableName, string primaryKeyName)
             where TModel : class, new()
         {
             var modelType = typeof(TModel);

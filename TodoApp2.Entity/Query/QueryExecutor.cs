@@ -75,7 +75,7 @@ namespace TodoApp2.Entity.Query
 
             using (SQLiteCommand command = new SQLiteCommand(connection.InternalConnection))
             {
-                command.CommandText = QueryBuilder.BuildInsertInto<TModel>(tableName, primaryKeyName);
+                command.CommandText = QueryBuilder.InsertInto<TModel>(tableName, primaryKeyName);
                 command.Parameters.AddRange(QueryParameterBuilder.BuildInsertInto<TModel>(modelToInsert, primaryKeyName));
                 command.ExecuteNonQuery();
             }

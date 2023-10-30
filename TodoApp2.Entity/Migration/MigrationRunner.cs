@@ -42,12 +42,12 @@ namespace TodoApp2.Entity.Migration
                 }
                 else if (buildStep == BuildStep.AddModel)
                 {
-                    query = QueryBuilder.BuildCreateIfNotExists(builder.ModelBuilders[addModelIndex]);
+                    query = QueryBuilder.CreateIfNotExists(builder.ModelBuilders[addModelIndex]);
                     addModelIndex++;
                 }
                 else if (buildStep == BuildStep.RemoveModel)
                 {
-                    query = QueryBuilder.BuildDropTable(builder.ModelRemovers[removeModelIndex]);
+                    query = QueryBuilder.DropTable(builder.ModelRemovers[removeModelIndex]);
                     removeModelIndex++;
                 } 
                 else if (buildStep == BuildStep.CustomStep)
