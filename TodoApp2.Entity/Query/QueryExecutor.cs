@@ -8,13 +8,15 @@ namespace TodoApp2.Entity.Query
 {
     internal static class QueryExecutor
     {
-        public static void ExecuteQuery(DbConnection connection, string query)
+        public static int ExecuteQuery(DbConnection connection, string query)
         {
+            int successful = 0;
+
             using (SQLiteCommand dbCommand = new SQLiteCommand(query, connection.InternalConnection))
             {
                 try
                 {
-                    dbCommand.ExecuteNonQuery();
+                    successful = dbCommand.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -22,6 +24,8 @@ namespace TodoApp2.Entity.Query
                     throw;
                 }
             }
+
+            return successful;
         }
 
         internal static int ExecuteQuery(DbConnection connection, string query, SQLiteParameter[] parameters)

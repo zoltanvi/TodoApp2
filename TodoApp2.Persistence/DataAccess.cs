@@ -18,7 +18,7 @@ namespace TodoApp2.Persistence
             string connectionString = $"Data Source={DatabasePath};";
             AppContext appContext = new AppContext(connectionString);
 
- 
+
 
         }
     }
