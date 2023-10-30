@@ -9,7 +9,7 @@ namespace TodoApp2.Persistence
     /// <summary>
     /// The Application context through which the database can be managed.
     /// </summary>
-    public class AppContext : DbContext
+    public class AppContext : DbContext, IAppContext
     {
         public DbSet<Setting> Settings { get; private set; }
         public DbSet<Category> Categories { get; private set; }

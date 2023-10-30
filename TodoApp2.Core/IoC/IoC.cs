@@ -1,4 +1,6 @@
-﻿namespace TodoApp2.Core
+﻿using TodoApp2.Persistence;
+
+namespace TodoApp2.Core
 {
     /// <summary>
     /// The IoC container for the application
@@ -6,6 +8,7 @@
     public static class IoC
     {
         private static ZoomingListener _zoomingListener;
+        public static IAppContext Context { get; private set; }
         public static IAsyncActionService AsyncActionService { get; set; }
         public static AppSettings AppSettings { get; set; }
         public static AppViewModel AppViewModel { get; private set; }
@@ -28,6 +31,7 @@
         /// </summary>
         public static void PreSetup()
         {
+            Context = DataAccess.GetAppContext();
             AutoRunService = new AutoRunService();
             MessageService = new MessageService();
             Database = new Database();
