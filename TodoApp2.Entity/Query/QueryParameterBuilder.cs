@@ -1,12 +1,14 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Data.SQLite;
 using System.Linq;
+using System.Linq.Expressions;
 using TodoApp2.Entity.Extensions;
 
 namespace TodoApp2.Entity.Query
 {
     internal static class QueryParameterBuilder
     {
-        public static SQLiteParameter[] BuildInsertInto<TModel>(TModel model, string primaryKeyName)
+        public static SQLiteParameter[] ModelParameters<TModel>(TModel model, string primaryKeyName)
             where TModel : class, new()
         {
             var modelType = typeof(TModel);

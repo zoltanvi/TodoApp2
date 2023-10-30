@@ -4,24 +4,36 @@ using TodoApp2.Entity.Extensions;
 
 namespace TodoApp2.Entity.Query
 {
-    public static class WhereBuilder
+    internal static class WhereBuilder
     {
-        internal static string SelectAll<TModel>(string tableName, Expression<Func<TModel, object>> sourceProperty, int limit)
+        public static string Equals<TModel>(Expression<Func<TModel, object>> whereExpression)
             where TModel : class, new()
         {
-            if (sourceProperty == null)
-            {
-                return QueryBuilder.SelectAll(tableName, whereSqlCondition: null, limit);
-            }
+            if (whereExpression == null) return null;
 
-            if (sourceProperty.Body is UnaryExpression unaryExpression &&
+            if (whereExpression.Body is UnaryExpression unaryExpression &&
                 unaryExpression.Operand is BinaryExpression binaryExpression &&
-                binaryExpression.Left is MemberExpression memberExpression &&
-                binaryExpression.Right is ConstantExpression constantExpression &&
+                binaryExpression.Left is MemberExpression leftMemberExpression &&
                 binaryExpression.NodeType == ExpressionType.Equal)
             {
-                string propertyName = memberExpression.Member.Name;
-                object propertyValue = constantExpression.Value;
+                string propertyName = leftMemberExpression.Member.Name;
+
+                object propertyValue = null;
+                
+                if (binaryExpression.Right is ConstantExpression constantExpression)
+                {
+                    propertyValue = constantExpression.Value;
+                } 
+                else if(binaryExpression.Right is MemberExpression rightMemberExpression)
+                {
+                    // Compile and execute the rightMemberExpression to get the value
+                    var compiledExpression = Expression.Lambda(rightMemberExpression).Compile();
+                    propertyValue = compiledExpression.DynamicInvoke();
+                }
+                else
+                {
+                    throw new ArgumentException("Expression must be in the format x => x.Property == value");
+                }
 
                 var modelType = typeof(TModel);
                 var propType = modelType.GetPublicProperty(propertyName).PropertyType;
@@ -33,12 +45,30 @@ namespace TodoApp2.Entity.Query
                 else if (propType == typeof(long)) whereCondition += $"{propertyValue}";
                 else if (propType == typeof(string)) whereCondition += $"'{propertyValue}'";
 
-                return QueryBuilder.SelectAll(tableName, whereCondition, limit);
+                return whereCondition;
             }
             else
             {
                 // TODO: implement greater than and less than if needed
-                throw new ArgumentException("Expression must be in the format x => x.Property == objectValue");
+                throw new ArgumentException("Expression must be in the format x => x.Property == value");
+            }
+        }
+
+        public static string GetExpressionParameterPropertyName<TModel>(Expression<Func<TModel, object>> whereExpression)
+            where TModel : class, new()
+        {
+            if (whereExpression == null) return null;
+
+            if (whereExpression.Body is UnaryExpression unaryExpression &&
+                unaryExpression.Operand is BinaryExpression binaryExpression &&
+                binaryExpression.Left is MemberExpression leftMemberExpression)
+            {
+                return leftMemberExpression.Member.Name;
+            }
+            else
+            {
+                // TODO: implement greater than and less than if needed
+                throw new ArgumentException("Expression must be in the format x => x.Property == value");
             }
         }
     }
