@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
+using System.Reflection;
 
 namespace TodoApp2.Core
 {
@@ -119,7 +116,6 @@ namespace TodoApp2.Core
                 else
                 {
                     throw new ArgumentException($"Cannot convert unknown datatype. The datatype: [{propType.Name}].");
-
                 }
             }
             else if (propType == typeof(double) &&
