@@ -30,6 +30,12 @@ namespace TodoApp2.Entity.Query
             return UpdateItem<TModel>(tableName, primaryKeyName, WhereBuilder.Equals(whereExpression), limit);
         }
 
+        public static string Delete<TModel>(string tableName, Expression<Func<TModel, object>> whereExpression, int limit)
+            where TModel : class, new()
+        {
+            return Delete(tableName, WhereBuilder.Equals(whereExpression), limit);
+        }
+
         public static string CreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
         {
             StringBuilder sb = new StringBuilder($"CREATE TABLE IF NOT EXISTS {modelBuilder.TableName} ( \n");
@@ -128,10 +134,10 @@ namespace TodoApp2.Entity.Query
                 sb.Append($"\n WHERE {whereSqlCondition} ");
             }
 
-            if (limit < NoLimit) throw new ArgumentOutOfRangeException("Can't return less than 0 items!");
-
             if (limit != NoLimit)
             {
+                if (limit < NoLimit) throw new ArgumentOutOfRangeException("Can't update less than 0 items!");
+
                 sb.Append($"\nLIMIT {limit} ;");
             }
             else
@@ -144,21 +150,41 @@ namespace TodoApp2.Entity.Query
 
         private static string SelectAll(string tableName, string whereSqlCondition = null, int limit = NoLimit)
         {
-            string query = $"SELECT * FROM {tableName} ";
+            string query = $"SELECT * FROM {tableName} \n";
 
             if (!string.IsNullOrWhiteSpace(whereSqlCondition))
             {
-                query += $"WHERE {whereSqlCondition} ";
+                query += $"WHERE {whereSqlCondition} \n";
             }
-
-            if (limit < NoLimit) throw new ArgumentOutOfRangeException("Can't return less than 0 items!");
 
             if (limit != NoLimit)
             {
+                if (limit < NoLimit) throw new ArgumentOutOfRangeException("Can't return less than 0 items!");
+
                 query += $"LIMIT {limit}";
             }
 
             return query;
         }
+
+        public static string Delete(string tableName, string whereSqlCondition, int limit = NoLimit)
+        {
+            string query = $"DELETE FROM {tableName} \n";
+
+            if (!string.IsNullOrWhiteSpace(whereSqlCondition))
+            {
+                query += $"WHERE {whereSqlCondition} \n";
+            }
+
+            if (limit != NoLimit)
+            {
+                if (limit < Single) throw new ArgumentOutOfRangeException("Can't delete less than 1 item!");
+
+                query += $"LIMIT {limit}";
+            }
+
+            return query;
+        }
+
     }
 }

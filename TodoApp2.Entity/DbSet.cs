@@ -7,7 +7,7 @@ using TodoApp2.Entity.Query;
 
 namespace TodoApp2.Entity
 {
-    public class DbSet<TModel> 
+    public class DbSet<TModel>
         where TModel : class, new()
     {
         private DbConnection _connection;
@@ -16,7 +16,6 @@ namespace TodoApp2.Entity
 
         internal string TableName;
         internal DbSetMapping<TModel> DbSetMapping;
-
 
         /// <summary>
         /// Creates an abstract representation of an actual database table.
@@ -31,58 +30,42 @@ namespace TodoApp2.Entity
             _connection = connection;
             DbSetMapping = dbSetMapping;
             TableName = dbSetMapping.TableName;
+
             DbSetMapping.CheckEmptyMapping();
             DbSetMapping.CreateIfNotExists(connection);
         }
 
-        public List<TModel> GetAll(Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit)
-        {
-            return QueryExecutor.GetItemsWithQuery<TModel>(
-                _connection,
-                QueryBuilder.SelectAll(TableName, whereExpression, limit));
-        }
+        public List<TModel> Where(Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit) =>
+            GetAll(whereExpression, limit);
 
-        public TModel GetFirst(Expression<Func<TModel, object>> whereExpression = null)
-        {
-            return QueryExecutor.GetItemWithQuery<TModel>(
-                _connection,
-                QueryBuilder.SelectAll(TableName, whereExpression, QueryBuilder.Single));
-        }
+        public List<TModel> GetAll(Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit) =>
+            QueryExecutor.GetItemsWithQuery<TModel>(_connection, QueryBuilder.SelectAll(TableName, whereExpression, limit));
 
-        public int Count()
-        {
-            var valueModel = QueryExecutor.GetItemWithQuery<SingleIntModel>(
+        public TModel First(Expression<Func<TModel, object>> whereExpression = null) =>
+            QueryExecutor.GetItemWithQuery<TModel>(_connection, QueryBuilder.SelectAll(TableName, whereExpression, QueryBuilder.Single));
+
+        public bool Add(TModel model) =>
+            QueryExecutor.ExecuteQuery(
                 _connection, 
-                QueryBuilder.SelectCount(TableName));
+                QueryBuilder.InsertInto<TModel>(TableName, PrimaryKey), 
+                QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey)) == QueryBuilder.Single;
 
-            return valueModel.Value;
-        }
+        public bool UpdateFirst(TModel model, Expression<Func<TModel, object>> whereExpression = null) =>
+            Update(model, whereExpression, QueryBuilder.Single) == QueryBuilder.Single;
 
-        public bool Add(TModel model)
-        {
-            int successful = QueryExecutor.ExecuteQuery(
-                _connection,
-                QueryBuilder.InsertInto<TModel>(TableName, PrimaryKey),
-                QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey));
-
-            return successful == 1;
-        }
-
-        // Update
-        
-        public bool Update(TModel model, Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit)
-        {
-            int successful = QueryExecutor.ExecuteQuery(
+        public int Update(TModel model, Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit) =>
+            QueryExecutor.ExecuteQuery(
                 _connection,
                 QueryBuilder.UpdateItem<TModel>(TableName, PrimaryKey, whereExpression, limit),
                 QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey));
 
-            return successful == 1;
-        }
+        public int Remove(Expression<Func<TModel, object>> whereExpression = null, int limit = QueryBuilder.NoLimit) =>
+            QueryExecutor.ExecuteQuery(_connection, QueryBuilder.Delete<TModel>(TableName, whereExpression, limit));
 
+        public bool RemoveFirst(Expression<Func<TModel, object>> whereExpression = null) =>
+            Remove(whereExpression, QueryBuilder.Single) == QueryBuilder.Single;
 
-        // Delete
-
+        public int Count() => QueryExecutor.GetItemWithQuery<SingleIntModel>(_connection, QueryBuilder.SelectCount(TableName)).Value;
 
     }
 }
