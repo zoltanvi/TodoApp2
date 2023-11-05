@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows.Input;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
     public class TaskReminderPageViewModel : BaseViewModel
     {
         private readonly OverlayPageService _overlayPageService;
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
 
         /// <summary>
         /// The task to show the notification for.
@@ -33,7 +35,7 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskReminderPageViewModel(TaskViewModel reminderTask, OverlayPageService overlayPageService, IDatabase database)
+        public TaskReminderPageViewModel(TaskViewModel reminderTask, OverlayPageService overlayPageService, IAppContext context)
         {
             if (reminderTask == null)
             {
@@ -41,21 +43,21 @@ namespace TodoApp2.Core
             }
 
             _overlayPageService = overlayPageService;
-            _database = database;
+            _context = context;
 
             EditReminderCommand = new RelayCommand(EditReminder);
             ClosePageCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeIsOn);
             _overlayPageService.SetBackgroundClickedAction(ClosePage);
 
-            ReminderTask = _database.GetTask(reminderTask.Id);
+            ReminderTask = _context.Tasks.First(x => x.Id == reminderTask.Id).Map();
         }
 
         private void ChangeIsOn()
         {
             // ReminderTask.IsReminderOn is modified with the toggle button,
             // so we persist the modification
-            _database.UpdateTask(ReminderTask);
+            _context.Tasks.UpdateFirst(ReminderTask.Map());
         }
 
         private void EditReminder()

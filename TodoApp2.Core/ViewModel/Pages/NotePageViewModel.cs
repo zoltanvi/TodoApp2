@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Threading;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
@@ -7,7 +8,6 @@ namespace TodoApp2.Core
     {
         private AppViewModel _appViewModel;
         private NoteListService _noteListService;
-        private IDatabase _database;
         private DispatcherTimer _timer;
         private bool _saved;
         private bool _initialized = false;
@@ -20,12 +20,10 @@ namespace TodoApp2.Core
 
         public NotePageViewModel(
             AppViewModel appViewModel, 
-            NoteListService noteListService, 
-            IDatabase database)
+            NoteListService noteListService)
         {
             _appViewModel = appViewModel;
             _noteListService = noteListService;
-            _database = database;
             _timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 2) };
             _timer.Tick += TimerOnTick;
 

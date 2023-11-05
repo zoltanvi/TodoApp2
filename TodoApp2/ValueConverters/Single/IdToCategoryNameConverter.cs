@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using TodoApp2.Core;
+using TodoApp2.Core.Mappings;
 
 namespace TodoApp2
 {
@@ -30,7 +31,7 @@ namespace TodoApp2
                 }
                 else
                 {
-                    CategoryViewModel category = IoC.Database.GetCategory(id);
+                    CategoryViewModel category = IoC.Context.Categories.First(x => x.Id == id).Map();
                     if (category != null && !string.IsNullOrEmpty(category.Name))
                     {
                         _idNamePairCache.Add(id, category.Name);

@@ -63,6 +63,7 @@
     <Compile Include="DbConnection.cs" />
     <Compile Include="DbContext.cs" />
     <Compile Include="DbSet.cs" />
+    <Compile Include="IDbSet.cs" />
     <Compile Include="Model\DbSetModelBuilder.cs" />
     <Compile Include="DbSetMapping.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\BaseDbSetModelBuilder.cs" />
     <Compile Include="Query\QueryParameterBuilder.cs" />
+    <Compile Include="Query\ValueToQueryValueHelper.cs" />
     <Compile Include="Query\WhereBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,7 +97,9 @@
       <Name>TodoApp2.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TodoApp2.Core;
+using TodoApp2.Persistence;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using Thickness = System.Windows.Thickness;
 
@@ -22,7 +23,7 @@ namespace TodoApp2
         private readonly ThemeManager _themeManager;
 
         private readonly AppViewModel _appViewModel;
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
         private readonly DragDropMediator _dragDropMediator;
         private readonly DispatcherTimer _timer;
         private bool _closing;
@@ -99,11 +100,11 @@ namespace TodoApp2
         public Rect OuterClipRect => new Rect(0, 0, MyWidth + OuterMargin, MyHeight + OuterMargin);
         #endregion Workaround
 
-        public WindowViewModel(Window window, AppViewModel applicationViewModel, IDatabase database)
+        public WindowViewModel(Window window, AppViewModel applicationViewModel, IAppContext context)
         {
             _window = window;
             _appViewModel = applicationViewModel;
-            _database = database;
+            _context = context;
             IoC.AppSettings.CommonSettings.PropertyChanged += CommonSettings_PropertyChanged;
 
             _themeManager = new ThemeManager();
@@ -282,7 +283,7 @@ namespace TodoApp2
         private void OnWindowClosed(object sender, EventArgs e)
         {
             // Dispose the database
-            _database.Dispose();
+            _context.Dispose();
         }
 
         private void OnIsDockedChanged(object sender, DockChangeEventArgs e)

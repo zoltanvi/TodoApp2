@@ -7,12 +7,14 @@ using TodoApp2.Entity.Query;
 
 namespace TodoApp2.Entity
 {
-    public class DbSet<TModel>
+    public class DbSet<TModel> : IDbSet<TModel>
         where TModel : class, new()
     {
         private DbConnection _connection;
         private string _primaryKey;
         private string PrimaryKey => _primaryKey ?? (_primaryKey = DbSetMapping.ModelBuilder.GetPrimaryKeyName());
+
+        public bool IsEmpty => Count() == 0;
 
         internal string TableName;
         internal DbSetMapping<TModel> DbSetMapping;
@@ -98,6 +100,5 @@ namespace TodoApp2.Entity
             Remove(whereExpression, QueryBuilder.Single) == QueryBuilder.Single;
 
         public int Count() => QueryExecutor.GetItemWithQuery<SingleIntModel>(_connection, QueryBuilder.SelectCount(TableName)).Value;
-
     }
 }

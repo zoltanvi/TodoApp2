@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Threading.Tasks;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Core.Reordering;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
@@ -14,7 +17,7 @@ namespace TodoApp2.Core
     {
         private readonly CategoryListService _categoryListService;
         private readonly AppViewModel _appViewModel;
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
         private Reorderer _reorderer;
         private bool _categoryChangeInProgress;
         private int _lastRemovedId = int.MinValue;
@@ -27,22 +30,30 @@ namespace TodoApp2.Core
         /// </summary>
         public ObservableCollection<TaskViewModel> TaskPageItems { get; }
 
-        public TaskListService(IDatabase database, CategoryListService categoryListService, AppViewModel applicationViewModel)
+        public TaskListService(IAppContext context, CategoryListService categoryListService, AppViewModel applicationViewModel)
         {
-            _database = database;
+            _context = context;
             _categoryListService = categoryListService;
             _appViewModel = applicationViewModel;
             _reorderer = new Reorderer();
+
             // Query the items with the current category
-            List<TaskViewModel> items = _database.GetActiveTasks(ActiveCategory);
+
+            List<TaskViewModel> items = new List<TaskViewModel>();
+
+            if (ActiveCategory != null)
+            {
+                items = _context.Tasks
+                    .Where(x => x.CategoryId == ActiveCategory.Id && !x.Trashed)
+                    .OrderBy(x => x.ListOrder)
+                    .Map();
+            }
 
             // Fill the actual list with the queried items
             TaskPageItems = new ObservableCollection<TaskViewModel>(items);
 
             // Subscribe to the collection changed event for synchronizing with database
             TaskPageItems.CollectionChanged += OnTaskPageItemsChanged;
-
-            _database.TaskChanged += OnClientDatabaseTaskChanged;
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
@@ -61,15 +72,29 @@ namespace TodoApp2.Core
                 int endInsertIndex = TaskPageItems.Count - CountDoneItemsFromBackwards();
 
                 // Insert the task at the end of the list
-                task = _database.CreateTask(taskContent, activeCategoryId, endInsertIndex);
+                task = CreateTask(taskContent, activeCategoryId, endInsertIndex);
                 TaskPageItems.Insert(endInsertIndex, task);
             }
             else
             {
                 // Insert the task at the beginning of the list
-                task = _database.CreateTask(taskContent, activeCategoryId, pinnedItemsCount);
+                task = CreateTask(taskContent, activeCategoryId, pinnedItemsCount);
                 TaskPageItems.Insert(pinnedItemsCount, task);
             }
+
+            return task;
+        }
+
+        private TaskViewModel CreateTask(string taskContent, int categoryId, int position)
+        {
+            TaskViewModel task = new TaskViewModel
+            {
+                CategoryId = categoryId,
+                Content = taskContent,
+                CreationDate = DateTime.Now.Ticks,
+                ModificationDate = DateTime.Now.Ticks,
+                ListOrder = ReorderingHelperTemp.GetTaskListOrder(_context, true) - GlobalConstants.ListOrderInterval
+            };
 
             return task;
         }
@@ -90,7 +115,7 @@ namespace TodoApp2.Core
         {
             TaskViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
             taskToUpdate?.CopyProperties(task);
-            _database.UpdateTask(task);
+            _context.Tasks.UpdateFirst(task.Map());
         }
 
         /// <inheritdoc cref="Core.Database.ReorderTask"/>
@@ -115,7 +140,7 @@ namespace TodoApp2.Core
                     TaskPageItems.Move(oldIndex, newPosition);
                 }
 
-                _database.ReorderTask(task, newPosition);
+                ReorderingHelperTemp.ReorderTask(_context, task, newPosition);
             }
         }
 
@@ -126,13 +151,15 @@ namespace TodoApp2.Core
 
         public void PersistTaskList()
         {
-            _database.UpdateTasks(TaskPageItems);
+            _context.Tasks.UpdateRange(TaskPageItems.Map(), x => x.Id);
         }
 
-        /// <inheritdoc cref="Database.GetActiveTasksAsync"/>
-        public async Task<List<TaskViewModel>> GetActiveTaskItemsAsync(CategoryViewModel category)
+        public List<TaskViewModel> GetActiveTaskItems(CategoryViewModel category)
         {
-            return await _database.GetActiveTasksAsync(category);
+            return _context.Tasks
+            .Where(x => x.CategoryId == category.Id && !x.Trashed)
+            .OrderBy(x => x.ListOrder)
+            .Map();
         }
 
         /// <summary>
@@ -159,7 +186,11 @@ namespace TodoApp2.Core
         {
             if (task != null)
             {
-                List<TaskViewModel> categoryTasks = _database.GetActiveTasks(category);
+                var categoryTasks = _context.Tasks
+                    .Where(x => x.CategoryId == category.Id && !x.Trashed)
+                    .OrderBy(x => x.ListOrder)
+                    .Map();
+
                 newIndex = GetReorderIndex(newIndex, task, categoryTasks);
             }
 
@@ -194,14 +225,15 @@ namespace TodoApp2.Core
             PersistTaskList();
         }
 
-        private void OnClientDatabaseTaskChanged(object sender, TaskChangedEventArgs e)
-        {
-            TaskViewModel modifiedItem = TaskPageItems.FirstOrDefault(item => item.Id == e.Task.Id);
+        // TODO: Update the tasks through this service only!
+        //private void OnClientDatabaseTaskChanged(object sender, TaskChangedEventArgs e)
+        //{
+        //    TaskViewModel modifiedItem = TaskPageItems.FirstOrDefault(item => item.Id == e.Task.Id);
+        //    modifiedItem?.CopyProperties(e.Task);
+        //}
 
-            modifiedItem?.CopyProperties(e.Task);
-        }
 
-        private async Task OnCategoryChanged()
+        private void OnCategoryChanged(object obj)
         {
             _categoryChangeInProgress = true;
 
@@ -209,7 +241,7 @@ namespace TodoApp2.Core
             TaskPageItems.Clear();
 
             // Query the items with the current category
-            List<TaskViewModel> filteredItems = await GetActiveTaskItemsAsync(ActiveCategory);
+            List<TaskViewModel> filteredItems = GetActiveTaskItems(ActiveCategory);
 
             // Clear the list to prevent showing items from multiple categories.
             // This can happen if the user changes category again while the query runs
@@ -289,42 +321,42 @@ namespace TodoApp2.Core
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                {
-                    if (e.NewItems.Count > 0)
                     {
-                        TaskViewModel newItem = (TaskViewModel)e.NewItems[0];
-
-                        // If the newly added item is the same as the last deleted one,
-                        // then this was a drag and drop reorder
-                        if (newItem.Id == _lastRemovedId)
+                        if (e.NewItems.Count > 0)
                         {
+                            TaskViewModel newItem = (TaskViewModel)e.NewItems[0];
+
+                            // If the newly added item is the same as the last deleted one,
+                            // then this was a drag and drop reorder
+                            if (newItem.Id == _lastRemovedId)
+                            {
+                                ReorderTask(newItem, e.NewStartingIndex);
+                            }
+
+                            _lastRemovedId = int.MinValue;
+                        }
+                        break;
+                    }
+                case NotifyCollectionChangedAction.Remove:
+                    {
+                        if (e.OldItems.Count > 0)
+                        {
+                            TaskViewModel last = (TaskViewModel)e.OldItems[0];
+
+                            _lastRemovedId = last.Id;
+                        }
+                        break;
+                    }
+                case NotifyCollectionChangedAction.Move:
+                    {
+                        if (e.NewItems.Count > 0)
+                        {
+                            TaskViewModel newItem = (TaskViewModel)e.NewItems[0];
+
                             ReorderTask(newItem, e.NewStartingIndex);
                         }
-
-                        _lastRemovedId = int.MinValue;
+                        break;
                     }
-                    break;
-                }
-                case NotifyCollectionChangedAction.Remove:
-                {
-                    if (e.OldItems.Count > 0)
-                    {
-                        TaskViewModel last = (TaskViewModel)e.OldItems[0];
-
-                        _lastRemovedId = last.Id;
-                    }
-                    break;
-                }
-                case NotifyCollectionChangedAction.Move:
-                {
-                    if (e.NewItems.Count > 0)
-                    {
-                        TaskViewModel newItem = (TaskViewModel)e.NewItems[0];
-
-                        ReorderTask(newItem, e.NewStartingIndex);
-                    }
-                    break;
-                }
             }
         }
 

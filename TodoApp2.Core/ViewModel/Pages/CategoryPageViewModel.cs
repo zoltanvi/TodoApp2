@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Windows.Input;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Core.Reordering;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
     public class CategoryPageViewModel : BaseViewModel
     {
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
         private readonly AppViewModel _application;
         private readonly OverlayPageService _overlayPageService;
         private readonly CategoryListService _categoryListService;
@@ -40,13 +45,13 @@ namespace TodoApp2.Core
 
         public CategoryPageViewModel(
             AppViewModel applicationViewModel,
-            IDatabase database,
+            IAppContext context,
             OverlayPageService overlayPageService,
             CategoryListService categoryListService,
             MessageService messageService)
         {
             _application = applicationViewModel;
-            _database = database;
+            _context = context;
             _overlayPageService = overlayPageService;
             _categoryListService = categoryListService;
             _messageService = messageService;
@@ -69,32 +74,32 @@ namespace TodoApp2.Core
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                {
-                    if (e.NewItems.Count > 0)
                     {
-                        var newItem = (CategoryViewModel)e.NewItems[0];
-
-                        // If the newly added item is the same as the last deleted one,
-                        // then this was a drag and drop reorder
-                        if (newItem.Id == _lastRemovedId)
+                        if (e.NewItems.Count > 0)
                         {
-                            _database.ReorderCategory(newItem, e.NewStartingIndex);
+                            var newItem = (CategoryViewModel)e.NewItems[0];
+
+                            // If the newly added item is the same as the last deleted one,
+                            // then this was a drag and drop reorder
+                            if (newItem.Id == _lastRemovedId)
+                            {
+                                ReorderingHelperTemp.ReorderCategory(_context, newItem, e.NewStartingIndex);
+                            }
+
+                            _lastRemovedId = int.MinValue;
                         }
-
-                        _lastRemovedId = int.MinValue;
+                        break;
                     }
-                    break;
-                }
                 case NotifyCollectionChangedAction.Remove:
-                {
-                    if (e.OldItems.Count > 0)
                     {
-                        var last = (CategoryViewModel)e.OldItems[0];
+                        if (e.OldItems.Count > 0)
+                        {
+                            var last = (CategoryViewModel)e.OldItems[0];
 
-                        _lastRemovedId = last.Id;
+                            _lastRemovedId = last.Id;
+                        }
+                        break;
                     }
-                    break;
-                }
             }
         }
 
@@ -115,25 +120,56 @@ namespace TodoApp2.Core
                 Name = PendingAddNewCategoryText
             };
 
-            // Untrash category if it existed before
-            CategoryViewModel existingCategory = _database.GetCategory(PendingAddNewCategoryText);
+            // Untrash category if exists
+            var existingCategory = _context.Categories
+                .First(x => x.Name.Equals(
+                    PendingAddNewCategoryText,
+                    StringComparison.InvariantCultureIgnoreCase)).Map();
 
             if (existingCategory != null && existingCategory.Trashed)
             {
-                _database.UntrashCategory(existingCategory);
-                Items.Add(existingCategory);
+                UntrashCategory(existingCategory);
             }
-            // Persist into database if the category is not existed before
-            // Database.AddCategory call can't be optimized because the database gives the ID to the category
-            else if (_database.AddCategoryIfNotExists(categoryToAdd))
+            else
             {
-                // Add the category into the ViewModel list
-                // only if it is currently added to the database
-                Items.Add(categoryToAdd);
+                AddNewCategory();
             }
 
             // Reset the input TextBox text
             PendingAddNewCategoryText = string.Empty;
+        }
+
+        private void AddNewCategory()
+        {
+            var activeItems = _context.Categories
+                .Where(x => !x.Trashed)
+                .OrderByDescending(x => x.ListOrder);
+
+            var lastListOrder = activeItems.Any()
+                ? activeItems.First().Map().ListOrder
+                : GlobalConstants.DefaultListOrder;
+
+            CategoryViewModel categoryToAdd = new CategoryViewModel
+            {
+                Name = PendingAddNewCategoryText,
+                ListOrder = lastListOrder + GlobalConstants.ListOrderInterval
+            };
+
+            Items.Add(categoryToAdd);
+            _context.Categories.Add(categoryToAdd.Map());
+        }
+
+        private void UntrashCategory(CategoryViewModel category)
+        {
+            // First, persist trashed property
+            category.Trashed = false;
+            _context.Categories.Update(category.Map());
+
+            Items.Add(category);
+            ReorderingHelperTemp.ReorderCategory(_context, category, Items.Count - 1);
+
+            // Second, persist list order
+            _context.Categories.Update(category.Map());
         }
 
         private void TrashCategory(object obj)
@@ -141,11 +177,13 @@ namespace TodoApp2.Core
             if (obj is CategoryViewModel category)
             {
                 // At least one category is required
-                if (_database.GetValidCategories().Count > 1)
+                if (_context.Categories.Where(x => !x.Trashed).Count > 1)
                 {
-                    _database.TrashCategory(category);
+                    category.Trashed = true;
+                    category.ListOrder = long.MinValue;
 
                     Items.Remove(category);
+                    _context.Categories.Update(category.Map());
 
                     // Only if the current category was the deleted one, select a new category
                     if (category == ActiveCategory)

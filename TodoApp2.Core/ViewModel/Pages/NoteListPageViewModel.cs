@@ -1,13 +1,17 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Core.Reordering;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
     public class NoteListPageViewModel : BaseViewModel
     {
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
         private readonly AppViewModel _appViewModel;
         private readonly OverlayPageService _overlayPageService;
         private readonly NoteListService _noteListService;
@@ -40,13 +44,13 @@ namespace TodoApp2.Core
 
         public NoteListPageViewModel(
             AppViewModel applicationViewModel,
-            IDatabase database,
+            IAppContext context,
             OverlayPageService overlayPageService,
             NoteListService noteListService,
             MessageService messageService)
         {
             _appViewModel = applicationViewModel;
-            _database = database;
+            _context = context;
             _overlayPageService = overlayPageService;
             _noteListService = noteListService;
             _messageService = messageService;
@@ -69,32 +73,32 @@ namespace TodoApp2.Core
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                {
-                    if (e.NewItems.Count > 0)
                     {
-                        var newItem = (NoteViewModel)e.NewItems[0];
-
-                        // If the newly added item is the same as the last deleted one,
-                        // then this was a drag and drop reorder
-                        if (newItem.Id == _lastRemovedId)
+                        if (e.NewItems.Count > 0)
                         {
-                            _database.ReorderNote(newItem, e.NewStartingIndex);
+                            var newItem = (NoteViewModel)e.NewItems[0];
+
+                            // If the newly added item is the same as the last deleted one,
+                            // then this was a drag and drop reorder
+                            if (newItem.Id == _lastRemovedId)
+                            {
+                                ReorderingHelperTemp.ReorderNote(_context, newItem, e.NewStartingIndex);
+                            }
+
+                            _lastRemovedId = int.MinValue;
                         }
-
-                        _lastRemovedId = int.MinValue;
+                        break;
                     }
-                    break;
-                }
                 case NotifyCollectionChangedAction.Remove:
-                {
-                    if (e.OldItems.Count > 0)
                     {
-                        var last = (NoteViewModel)e.OldItems[0];
+                        if (e.OldItems.Count > 0)
+                        {
+                            var last = (NoteViewModel)e.OldItems[0];
 
-                        _lastRemovedId = last.Id;
+                            _lastRemovedId = last.Id;
+                        }
+                        break;
                     }
-                    break;
-                }
             }
         }
 
@@ -109,12 +113,34 @@ namespace TodoApp2.Core
                 return;
             }
 
-            NoteViewModel note = _database.CreateNote(PendingAddNewNoteText);
-
-            Items.Add(note);
+            CreateNote();
 
             // Reset the input TextBox text
             PendingAddNewNoteText = string.Empty;
+        }
+
+        private void CreateNote()
+        {
+            var activeItems = _context.Notes
+            .Where(x => !x.Trashed)
+            .OrderByDescending(x => x.ListOrder);
+
+            var lastListOrder = activeItems.Any()
+                ? activeItems.First().Map().ListOrder
+                : GlobalConstants.DefaultListOrder;
+
+            NoteViewModel note = new NoteViewModel
+            {
+                Title = PendingAddNewNoteText,
+                Content = string.Empty,
+                CreationDate = DateTime.Now.Ticks,
+                ModificationDate = DateTime.Now.Ticks,
+                Trashed = false,
+                ListOrder = lastListOrder + GlobalConstants.ListOrderInterval
+            };
+
+            Items.Add(note);
+            _context.Notes.Add(note.Map());
         }
 
         private void TrashNote(object obj)
@@ -125,11 +151,11 @@ namespace TodoApp2.Core
 
                 Items.Remove(note);
 
-                _database.UpdateNote(note);
+                _context.Notes.Update(note.Map());
 
                 if (ActiveNote.Id == note.Id)
                 {
-                    ActiveNote = _database.GetValidNotes().FirstOrDefault();
+                    ActiveNote = _context.Notes.First(x => !x.Trashed).Map();
                 }
             }
         }

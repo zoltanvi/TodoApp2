@@ -5,19 +5,22 @@ namespace TodoApp2.Core
 {
     public class Reorderer
     {
+        private const long DefaultListOrder = GlobalConstants.DefaultListOrder;
+        private const long ListOrderInterval = GlobalConstants.ListOrderInterval;
+
         /// <summary>
         /// Re-initializes the ListOrder property of each item in the list according to it's order in the list
         /// </summary>
         /// <param name="itemList"></param>
         public void ResetListOrders(IEnumerable<IReorderable> itemList)
         {
-            long current = DataAccessLayer.DefaultListOrder;
+            long current = DefaultListOrder;
 
             // Update the ListOrder property of the IReorderable items
             foreach (var item in itemList)
             {
                 item.ListOrder = current;
-                current += DataAccessLayer.ListOrderInterval;
+                current += ListOrderInterval;
             }
         }
 
@@ -41,7 +44,7 @@ namespace TodoApp2.Core
             // If there is no other item besides the itemToReorder, set the default ListOrder
             if (orderedItems.Count == 0)
             {
-                itemToReorder.ListOrder = DataAccessLayer.DefaultListOrder;
+                itemToReorder.ListOrder = DefaultListOrder;
                 return;
             }
 
@@ -81,7 +84,7 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public long GetNextListOrder(long currentListOrder)
         {
-            return currentListOrder + DataAccessLayer.ListOrderInterval;
+            return currentListOrder + ListOrderInterval;
         }
 
         /// <summary>
@@ -91,7 +94,7 @@ namespace TodoApp2.Core
         /// <returns></returns>
         public long GetPreviousListOrder(long currentListOrder)
         {
-            return currentListOrder - DataAccessLayer.ListOrderInterval;
+            return currentListOrder - ListOrderInterval;
         }
 
     }

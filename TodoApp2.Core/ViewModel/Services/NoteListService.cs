@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
     public class NoteListService : BaseViewModel
     {
         private AppViewModel _appViewModel;
-        private IDatabase _database;
+        private IAppContext _context;
         private NoteViewModel _activeNote;
 
         public ObservableCollection<NoteViewModel> Items { get; set; }
@@ -24,20 +25,23 @@ namespace TodoApp2.Core
             }
         }
 
-        public NoteListService(AppViewModel appViewModel, IDatabase database)
+        public NoteListService(AppViewModel appViewModel, IAppContext context)
         {
             _appViewModel = appViewModel;
-            _database = database;
+            _context = context;
 
-            List<NoteViewModel> notes = _database.GetValidNotes();
+            var notes = _context.Notes.Where(x => !x.Trashed).OrderBy(x => x.ListOrder).Map();
             Items = new ObservableCollection<NoteViewModel>(notes);
 
-            _activeNote = _database.GetNote(IoC.AppSettings.SessionSettings.ActiveNoteId);
+            _activeNote = _context.Notes.First(x => x.Id == IoC.AppSettings.SessionSettings.ActiveNoteId).Map();
         }
 
         public void SaveNoteContent()
         {
-            _database.UpdateNote(ActiveNote);
+            if (ActiveNote != null && _context.Notes.First(x => x.Id == ActiveNote.Id) != null)
+            {
+                _context.Notes.UpdateFirst(ActiveNote.Map());
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Task = TodoApp2.Persistence.Models.Task;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Task = TodoApp2.Persistence.Models.Task;
 
 namespace TodoApp2.Core.Mappings
 {
@@ -6,6 +8,8 @@ namespace TodoApp2.Core.Mappings
     {
         public static Task Map(this TaskViewModel vm)
         {
+            if (vm == null) return null;
+
             return new Task
             {
                 Id = vm.Id,
@@ -27,6 +31,8 @@ namespace TodoApp2.Core.Mappings
 
         public static TaskViewModel Map(this Task task)
         {
+            if (task == null) return null;
+
             return new TaskViewModel
             {
                 Id = task.Id,
@@ -45,5 +51,10 @@ namespace TodoApp2.Core.Mappings
                 IsReminderOn = task.IsReminderOn
             };
         }
+        public static List<Task> Map(this IEnumerable<TaskViewModel> vmList) =>
+            vmList.Select(x => x.Map()).ToList();
+
+        public static List<TaskViewModel> Map(this IEnumerable<Task> modelList) =>
+            modelList.Select(x => x.Map()).ToList();
     }
 }

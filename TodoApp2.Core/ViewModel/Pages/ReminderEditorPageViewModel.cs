@@ -2,6 +2,9 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using TodoApp2.Common;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
@@ -9,7 +12,7 @@ namespace TodoApp2.Core
     {
         private bool _closed;
 
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
         private readonly ReminderNotificationService _notificationService;
         private readonly OverlayPageService _overlayPageService;
 
@@ -45,16 +48,19 @@ namespace TodoApp2.Core
         {
         }
 
-        public ReminderEditorPageViewModel(TaskViewModel reminderTask, OverlayPageService overlayPageService,
-            IDatabase database, ReminderNotificationService notificationService)
+        public ReminderEditorPageViewModel(
+            TaskViewModel reminderTask,
+            OverlayPageService overlayPageService,
+            IAppContext context,
+            ReminderNotificationService notificationService)
         {
-            if (reminderTask == null)
-            {
-                throw new ArgumentNullException(nameof(reminderTask));
-            }
+            ThrowHelper.ThrowIfNull(reminderTask);
+            ThrowHelper.ThrowIfNull(overlayPageService);
+            ThrowHelper.ThrowIfNull(context);
+            ThrowHelper.ThrowIfNull(notificationService);
 
-            _database = database;
             _overlayPageService = overlayPageService;
+            _context = context;
             _notificationService = notificationService;
 
             SetReminderCommand = new RelayCommand(SetReminder);
@@ -65,7 +71,7 @@ namespace TodoApp2.Core
 
             TimePickerViewModel = new TimePickerViewModel();
 
-            ReminderTask = _database.GetTask(reminderTask.Id);
+            ReminderTask = _context.Tasks.First(x => x.Id == reminderTask.Id).Map();
 
             ResetReminderProperties();
 
@@ -91,7 +97,7 @@ namespace TodoApp2.Core
             ResetReminderProperties();
             IsReminderOn = false;
 
-            _database.UpdateTask(ReminderTask);
+            _context.Tasks.UpdateFirst(ReminderTask.Map());
 
             _notificationService.DeleteReminder(ReminderTask);
         }
@@ -118,7 +124,7 @@ namespace TodoApp2.Core
             DateTime reminderDate = SelectedDate.Date + new TimeSpan(TimePickerViewModel.Hour, TimePickerViewModel.Minute, 0);
             ReminderTask.ReminderDate = reminderDate.Ticks;
 
-            _database.UpdateTask(ReminderTask);
+            _context.Tasks.UpdateFirst(ReminderTask.Map());
         }
 
         private void ResetReminderProperties()
@@ -143,25 +149,20 @@ namespace TodoApp2.Core
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch (e.PropertyName)
+            if (e.PropertyName == nameof(SelectedDateString))
             {
-                case nameof(SelectedDateString):
-                {
-                    IsSelectedDateStringValid = false;
+                IsSelectedDateStringValid = false;
 
-                    if (SelectedDateString.ConvertToDate(out DateTime selectedDate))
-                    {
-                        SelectedDate = selectedDate;
-                        IsSelectedDateStringValid = true;
-                    }
-                    break;
-                }
-                case nameof(SelectedDate):
+                if (SelectedDateString.ConvertToDate(out DateTime selectedDate))
                 {
-                    SelectedDateString = SelectedDate.ConvertToString();
+                    SelectedDate = selectedDate;
                     IsSelectedDateStringValid = true;
-                    break;
                 }
+            }
+            else if (e.PropertyName == nameof(SelectedDate))
+            {
+                SelectedDateString = SelectedDate.ConvertToString();
+                IsSelectedDateStringValid = true;
             }
         }
 

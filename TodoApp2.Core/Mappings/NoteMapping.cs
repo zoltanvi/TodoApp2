@@ -1,4 +1,6 @@
-﻿using TodoApp2.Persistence.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Core.Mappings
 {
@@ -6,6 +8,8 @@ namespace TodoApp2.Core.Mappings
     {
         public static Note Map(this NoteViewModel vm)
         {
+            if (vm == null) return null;
+
             return new Note
             {
                 Id = vm.Id,
@@ -20,6 +24,8 @@ namespace TodoApp2.Core.Mappings
 
         public static NoteViewModel Map(this Note note)
         {
+            if (note == null) return null;
+
             return new NoteViewModel
             {
                 Id = note.Id,
@@ -31,5 +37,12 @@ namespace TodoApp2.Core.Mappings
                 Trashed = note.Trashed
             };
         }
+
+
+        public static List<Note> Map(this IEnumerable<NoteViewModel> vmList) => 
+            vmList.Select(x => x.Map()).ToList();
+
+        public static List<NoteViewModel> Map(this IEnumerable<Note> modelList) => 
+            modelList.Select(x => x.Map()).ToList();
     }
 }

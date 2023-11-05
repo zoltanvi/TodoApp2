@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
@@ -13,7 +15,7 @@ namespace TodoApp2.Core
         private string _contentRollback = string.Empty;
         private bool _isDone;
 
-        private IDatabase Database => IoC.Database;
+        private IAppContext Context => IoC.Context;
 
         public string Content
         {
@@ -96,7 +98,7 @@ namespace TodoApp2.Core
             {
                 //Modifications are accepted, update task
                 ModificationDate = DateTime.Now.Ticks;
-                Database.UpdateTask(this);
+                Context.Tasks.Update(this.Map());
             }
 
             TextEditorViewModel.IsEditMode = false;
@@ -122,7 +124,7 @@ namespace TodoApp2.Core
         private void SetColor()
         {
             // Combobox changes the Color and BorderColor properties directly, we just need to persist it
-            Database.UpdateTask(this);
+            Context.Tasks.Update(this.Map());
         }
 
         public override bool Equals(object obj)
