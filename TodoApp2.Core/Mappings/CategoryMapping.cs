@@ -1,11 +1,15 @@
-﻿using TodoApp2.Persistence.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Core.Mappings
 {
-    internal static class CategoryMapping
+    public static class CategoryMapping
     {
         public static Category Map(this CategoryViewModel vm)
         {
+            if (vm == null) return null;
+
             return new Category
             {
                 Id = vm.Id,
@@ -17,6 +21,8 @@ namespace TodoApp2.Core.Mappings
 
         public static CategoryViewModel Map(this Category category)
         {
+            if (category == null) return null;
+
             return new CategoryViewModel
             {
                 Id = category.Id,
@@ -26,5 +32,10 @@ namespace TodoApp2.Core.Mappings
             };
         }
 
+        public static List<Category> Map(this IEnumerable<CategoryViewModel> vmList) => 
+            vmList.Select(x => x.Map()).ToList();
+
+        public static List<CategoryViewModel> Map(this IEnumerable<Category> modelList) => 
+            modelList.Select(x => x.Map()).ToList();
     }
 }

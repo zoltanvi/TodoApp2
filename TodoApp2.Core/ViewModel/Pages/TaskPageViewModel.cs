@@ -254,8 +254,7 @@ namespace TodoApp2.Core
             var result = CommandObject.NotHandled;
             if (commandObject.CommandResult is TaskViewModel task)
             {
-                List<TaskViewModel> taskList =
-                    Task.Run(() => _taskListService.GetActiveTaskItemsAsync(ActiveCategory)).Result;
+                List<TaskViewModel> taskList = _taskListService.GetActiveTaskItems(ActiveCategory);
 
                 int pinnedItemCount = taskList.Count(i => i.Pinned);
                 int position = task.Pinned ? 0 : pinnedItemCount;
@@ -451,12 +450,12 @@ namespace TodoApp2.Core
             }
         }
 
-        private async void Unpin(object obj)
+        private void Unpin(object obj)
         {
             if (obj is TaskViewModel task)
             {
                 // 1. Get the tasks in the category
-                var taskList = await _taskListService.GetActiveTaskItemsAsync(ActiveCategory);
+                var taskList = _taskListService.GetActiveTaskItems(ActiveCategory);
 
                 // 2. Count all pinned items. The currently pinned item is in this list.
                 int pinnedItemCount = taskList.Count(i => i.Pinned);
@@ -468,7 +467,6 @@ namespace TodoApp2.Core
                 _taskListService.ReorderTask(task, pinnedItemCount - 1, true);
             }
         }
-
 
         private void MoveToBottom(object obj)
         {

@@ -12,7 +12,7 @@ namespace TodoApp2
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new WindowViewModel(this, IoC.AppViewModel, IoC.Database);
+            DataContext = new WindowViewModel(this, IoC.AppViewModel, IoC.Context);
             _gridResizer = new GridResizer(Grid, Resizer, this);
         }
     }

@@ -92,18 +92,7 @@
     <Compile Include="Configuration\Settings\ThemeSettings.cs" />
     <Compile Include="Configuration\Settings\WindowSettings.cs" />
     <Compile Include="Constants\GlobalConstants.cs" />
-    <Compile Include="Database\CategoryChangedEventArgs.cs" />
-    <Compile Include="Database\DataAccess\BaseDataAccess.cs" />
-    <Compile Include="Database\DataAccess\CategoryDataAccess.cs" />
-    <Compile Include="Database\DataAccess\CompatibilityDataAccess.cs" />
-    <Compile Include="Database\DataAccess\NoteDataAccess.cs" />
-    <Compile Include="Database\DataAccess\SettingsDataAccess.cs" />
-    <Compile Include="Database\DataAccess\TaskDataAccess.cs" />
-    <Compile Include="Database\Database.cs" />
-    <Compile Include="Database\DataAccess\DataAccessLayer.cs" />
-    <Compile Include="Database\IDatabase.cs" />
-    <Compile Include="Database\ListOrder\Reorderer.cs" />
-    <Compile Include="Database\TaskChangedEventArgs.cs" />
+    <Compile Include="Reordering\Reorderer.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\FontFamily.cs" />
     <Compile Include="DataModels\HorizontalAlignment.cs" />
@@ -112,12 +101,12 @@
     <Compile Include="DataModels\Thickness.cs" />
     <Compile Include="EventHandling\NotifiableObject.cs" />
     <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
+    <Compile Include="Helpers\DefaultItemsCreator.cs" />
     <Compile Include="Helpers\StringDateConverterExtender.cs" />
     <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
     <Compile Include="ListProviders\EnumValuesListProvider.cs" />
     <Compile Include="Mappings\CategoryMapping.cs" />
     <Compile Include="Mappings\NoteMapping.cs" />
-    <Compile Include="Mappings\SettingMapping.cs" />
     <Compile Include="Mappings\TaskMapping.cs" />
     <Compile Include="Mediator\AsyncEventArgs.cs" />
     <Compile Include="DataModels\Setting.cs" />
@@ -130,6 +119,7 @@
     <Compile Include="Mediator\ViewModelMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyChange\IPropertyChangeNotifier.cs" />
+    <Compile Include="Reordering\ReorderingHelperTemp.cs" />
     <Compile Include="Services\AutoRunService.cs" />
     <Compile Include="Services\DebugLogger.cs" />
     <Compile Include="Services\IAsyncActionService.cs" />
@@ -170,7 +160,7 @@
     <Compile Include="Commands\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModel\Pages\CategoryPageViewModel.cs" />
     <Compile Include="ViewModel\Items\CategoryViewModel.cs" />
-    <Compile Include="Database\ListOrder\IReorderable.cs" />
+    <Compile Include="Reordering\IReorderable.cs" />
     <Compile Include="ViewModel\Pages\NotificationPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\ReminderEditorPageViewModel.cs" />
     <Compile Include="ViewModel\Services\CategoryListService.cs" />
@@ -191,6 +181,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj">
+      <Project>{0851FB41-96EC-4786-99AB-0C74966CF386}</Project>
+      <Name>TodoApp2.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj">
       <Project>{87F2A88A-7848-44ED-8F4F-89B12EBBC129}</Project>
       <Name>TodoApp2.Entity</Name>
@@ -204,6 +198,7 @@
       <Name>TodoApp2.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

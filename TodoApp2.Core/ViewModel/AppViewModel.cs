@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
-using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 using TodoApp2.Persistence.Models;
 
@@ -79,7 +77,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The database location.
         /// </summary>
-        public string DatabaseLocation => DataAccessLayer.DatabasePath;
+        public string DatabaseLocation => "TODO: wire appContext path here";
 
         /// <summary>
         /// The value change triggers the animation
@@ -115,15 +113,6 @@ namespace TodoApp2.Core
         public void OpenSettingsPage()
         {
             MainPage = ApplicationPage.Settings;
-
-            //if (MainPage == ApplicationPage.Settings)
-            //{
-            //    UpdateMainPage();
-            //}
-            //else
-            //{
-            //    MainPage = ApplicationPage.Settings;
-            //}
         }
 
         /// <summary>

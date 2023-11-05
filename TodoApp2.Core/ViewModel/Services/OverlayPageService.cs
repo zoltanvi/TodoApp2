@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
     public class OverlayPageService : BaseViewModel, IOverlayPageService
     {
         private readonly AppViewModel _appViewModel;
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
 
         public ReminderNotificationService ReminderNotificationService { get; set; }
 
@@ -21,10 +22,10 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand BackgroundClickedCommand { get; private set; }
 
-        public OverlayPageService(AppViewModel applicationViewModel, IDatabase database)
+        public OverlayPageService(AppViewModel applicationViewModel, IAppContext context)
         {
             _appViewModel = applicationViewModel;
-            _database = database;
+            _context = context;
         }
 
         public void SetBackgroundClickedAction(Action action)
@@ -64,10 +65,10 @@ namespace TodoApp2.Core
                 switch (page)
                 {
                     case ApplicationPage.TaskReminder:
-                        viewModel = new TaskReminderPageViewModel(task, this, _database);
+                        viewModel = new TaskReminderPageViewModel(task, this, _context);
                         break;
                     case ApplicationPage.ReminderEditor:
-                        viewModel = new ReminderEditorPageViewModel(task, this, _database, ReminderNotificationService);
+                        viewModel = new ReminderEditorPageViewModel(task, this, _context, ReminderNotificationService);
                         break;
                     case ApplicationPage.Notification:
                         viewModel = new NotificationPageViewModel(task, this);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using TodoApp2.Core;
+using TodoApp2.Persistence;
 
 namespace TodoApp2
 {
@@ -18,7 +19,7 @@ namespace TodoApp2
         {
             private readonly TaskListService _taskListService;
             private readonly AppViewModel _appViewModel;
-            private readonly IDatabase _database;
+            private readonly IAppContext _context;
             private readonly OverlayPageService _overlayPageService;
             private readonly CategoryListService _categoryListService;
             private readonly NoteListService _noteListService;
@@ -38,7 +39,7 @@ namespace TodoApp2
             {
                 _taskListService = IoC.TaskListService;
                 _appViewModel = IoC.AppViewModel;
-                _database = IoC.Database;
+                _context = IoC.Context;
                 _overlayPageService = IoC.OverlayPageService;
                 _categoryListService = IoC.CategoryListService;
                 _noteListService = IoC.NoteListService;
@@ -109,7 +110,7 @@ namespace TodoApp2
                     {
                         CategoryPageViewModel categoryPageViewModel = new CategoryPageViewModel(
                             _appViewModel,
-                            _database,
+                            _context,
                             _overlayPageService,
                             _categoryListService,
                             _messageService);
@@ -123,7 +124,7 @@ namespace TodoApp2
                     {
                         NoteListPageViewModel notePageViewModel = new NoteListPageViewModel(
                             _appViewModel,
-                            _database,
+                            _context,
                             _overlayPageService,
                             _noteListService,
                             _messageService);
@@ -137,8 +138,7 @@ namespace TodoApp2
                     {
                         NotePageViewModel notePageViewModel = new NotePageViewModel(
                             _appViewModel,
-                            _noteListService,
-                            _database);
+                            _noteListService);
 
                         viewModel = notePageViewModel;
                         page = new NotePage(notePageViewModel);

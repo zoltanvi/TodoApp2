@@ -2,17 +2,18 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using TodoApp2.Core.Mappings;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
     /// <summary>
     /// Service to hold the category list and the currently selected category.
-    /// Because this is a service, it can be accessed from multiple ViewModels.
     /// </summary>
     public class CategoryListService : BaseViewModel
     {
         private readonly AppViewModel _appViewModel;
-        private readonly IDatabase _database;
+        private readonly IAppContext _context;
         private CategoryViewModel _activeCategory;
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace TodoApp2.Core
                 if (!string.IsNullOrWhiteSpace(value) && ActiveCategory.Name != value)
                 {
                     ActiveCategory.Name = value;
-                    _database.UpdateCategory(ActiveCategory);
+                    _context.Categories.UpdateFirst(ActiveCategory.Map());
                 }
             }
         }
@@ -46,18 +47,17 @@ namespace TodoApp2.Core
             {
                 _activeCategory = value;
                 IoC.AppSettings.SessionSettings.ActiveCategoryId = value?.Id ?? -1;
+                _appViewModel.SaveApplicationSettings();
             }
         }
 
-        public CategoryListService(AppViewModel applicationViewModel, IDatabase database)
+        public CategoryListService(AppViewModel applicationViewModel, IAppContext context)
         {
             _appViewModel = applicationViewModel;
-            _database = database;
-            _activeCategory = _database.GetCategory(IoC.AppSettings.SessionSettings.ActiveCategoryId);
+            _context = context;
+            _activeCategory = _context.Categories.First(x => x.Id == IoC.AppSettings.SessionSettings.ActiveCategoryId).Map();
 
-            _database.CategoryChanged += OnDatabaseCategoryChanged;
-
-            List<CategoryViewModel> categories = _database.GetValidCategories();
+            var categories = _context.Categories.Where(x => !x.Trashed).OrderBy(x => x.ListOrder).Map();
             Items = new ObservableCollection<CategoryViewModel>(categories);
             Items.CollectionChanged += OnItemsChanged;
         }
@@ -68,18 +68,7 @@ namespace TodoApp2.Core
             OnPropertyChanged(nameof(InactiveCategories));
         }
 
-        private void OnDatabaseCategoryChanged(object sender, CategoryChangedEventArgs e)
-        {
-            // Update the category in the app settings
-            ActiveCategory = e.ChangedCategory;
-
-            // Update the category in the items list
-            CategoryViewModel modifiedItem = Items.FirstOrDefault(item => item.Id == e.ChangedCategory.Id);
-            modifiedItem.Name = e.ChangedCategory.Name;
-            _appViewModel.SaveApplicationSettings();
-        }
-
-        public CategoryViewModel GetCategory(int id) => _database.GetCategory(id);
+        public CategoryViewModel GetCategory(int id) => _context.Categories.First(x => x.Id == id).Map();
 
         protected override void OnDispose()
         {

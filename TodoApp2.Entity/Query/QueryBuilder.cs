@@ -21,13 +21,13 @@ namespace TodoApp2.Entity.Query
         public static string SelectAll<TModel>(string tableName, Expression<Func<TModel, object>> whereExpression, int limit)
             where TModel : class, new()
         {
-            return QueryBuilder.SelectAll(tableName, WhereBuilder.EqualsExpression(whereExpression), limit);
+            return QueryBuilder.SelectAll(tableName, WhereBuilder.ExpressionToString(whereExpression), limit);
         }
 
         public static string UpdateItem<TModel>(string tableName, string primaryKeyName, Expression<Func<TModel, object>> whereExpression, int limit)
             where TModel : class, new()
         {
-            return UpdateItem<TModel>(tableName, primaryKeyName, WhereBuilder.EqualsExpression(whereExpression), limit);
+            return UpdateItem<TModel>(tableName, primaryKeyName, WhereBuilder.ExpressionToString(whereExpression), limit);
         }
 
         internal static string UpdateItemFromModel<TModel>(string tableName, string primaryKeyName, TModel model, Expression<Func<TModel, object>> sourceProperty)
@@ -39,7 +39,7 @@ namespace TodoApp2.Entity.Query
         public static string Delete<TModel>(string tableName, Expression<Func<TModel, object>> whereExpression, int limit)
             where TModel : class, new()
         {
-            return Delete(tableName, WhereBuilder.EqualsExpression(whereExpression), limit);
+            return Delete(tableName, WhereBuilder.ExpressionToString(whereExpression), limit);
         }
 
         public static string CreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
@@ -120,6 +120,25 @@ namespace TodoApp2.Entity.Query
             return sb.ToString();
         }
 
+        public static string Delete(string tableName, string whereSqlCondition, int limit = NoLimit)
+        {
+            string query = $"DELETE FROM {tableName} \n";
+
+            if (!string.IsNullOrWhiteSpace(whereSqlCondition))
+            {
+                query += $"WHERE {whereSqlCondition} \n";
+            }
+
+            if (limit != NoLimit)
+            {
+                if (limit < Single) throw new ArgumentOutOfRangeException("Can't delete less than 1 item!");
+
+                query += $"LIMIT {limit}";
+            }
+
+            return query;
+        }
+
         private static string UpdateItem<TModel>(string tableName, string primaryKeyName, string whereSqlCondition = null, int limit = NoLimit)
             where TModel : class, new()
         {
@@ -173,23 +192,14 @@ namespace TodoApp2.Entity.Query
             return query;
         }
 
-        public static string Delete(string tableName, string whereSqlCondition, int limit = NoLimit)
+        private static void AppendWhere(StringBuilder sb, string condition, ref bool exists)
         {
-            string query = $"DELETE FROM {tableName} \n";
-
-            if (!string.IsNullOrWhiteSpace(whereSqlCondition))
+            if (!string.IsNullOrWhiteSpace(condition))
             {
-                query += $"WHERE {whereSqlCondition} \n";
+                exists = true;
+                sb.Append(exists ? $"AND {condition} \n" : $"WHERE {condition} \n");
             }
-
-            if (limit != NoLimit)
-            {
-                if (limit < Single) throw new ArgumentOutOfRangeException("Can't delete less than 1 item!");
-
-                query += $"LIMIT {limit}";
-            }
-
-            return query;
         }
+        
     }
 }

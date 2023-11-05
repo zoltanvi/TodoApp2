@@ -1,4 +1,5 @@
-﻿using TodoApp2.Persistence;
+﻿using TodoApp2.Core.Helpers;
+using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
@@ -7,9 +8,10 @@ namespace TodoApp2.Core
     /// </summary>
     public static class IoC
     {
+        private static ReminderNotificationService _reminderNotificationService;
+        private static TaskScheduler2 _taskScheduler;
         private static ZoomingListener _zoomingListener;
         public static IAppContext Context { get; private set; }
-        public static IDatabase Database { get; private set; }
         public static IAsyncActionService AsyncActionService { get; set; }
         public static AppSettings AppSettings { get; set; }
         public static AppViewModel AppViewModel { get; private set; }
@@ -32,7 +34,6 @@ namespace TodoApp2.Core
         public static void PreSetup()
         {
             Context = DataAccess.GetAppContext();
-            Database = new Database();
             AutoRunService = new AutoRunService();
             MessageService = new MessageService();
             AppSettings = new AppSettings();
@@ -52,25 +53,23 @@ namespace TodoApp2.Core
 
             UndoManager = new UndoManager();
             AppViewModel = new AppViewModel(Context, UIScaler);
-            OverlayPageService = new OverlayPageService(AppViewModel, Database);
-            
-            // Create default categories + help tasks
-            Database.AddDefaultRecords();
+            OverlayPageService = new OverlayPageService(AppViewModel, Context);
+
+            // Create default categories + example tasks
+            DefaultItemsCreator.CreateDefaults(Context);
 
             // This dependency must be set here. Workaround to avoid circular dependencies
             AppViewModel.OverlayPageService = OverlayPageService;
 
-            TaskScheduler2 taskScheduler2 = new TaskScheduler2();
-            
-            ReminderNotificationService reminderNotificationService = 
-                new ReminderNotificationService(Database, taskScheduler2, OverlayPageService);
+            _taskScheduler = new TaskScheduler2();
+            _reminderNotificationService = new ReminderNotificationService(Context, _taskScheduler, OverlayPageService);
             
             // This dependency must be set here. Workaround to avoid circular dependencies
-            OverlayPageService.ReminderNotificationService = reminderNotificationService;
+            OverlayPageService.ReminderNotificationService = _reminderNotificationService;
 
-            CategoryListService = new CategoryListService(AppViewModel, Database);
-            NoteListService = new NoteListService(AppViewModel, Database);
-            TaskListService = new TaskListService(Database, CategoryListService, AppViewModel);
+            CategoryListService = new CategoryListService(AppViewModel, Context);
+            NoteListService = new NoteListService(AppViewModel, Context);
+            TaskListService = new TaskListService(Context, CategoryListService, AppViewModel);
 
             OneEditorOpenService = new OneEditorOpenService();
         }

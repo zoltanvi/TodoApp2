@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Entity", "TodoApp2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Common", "TodoApp2.Common\TodoApp2.Common.csproj", "{0851FB41-96EC-4786-99AB-0C74966CF386}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity.Tests", "Entity.Tests\Entity.Tests.csproj", "{1DD1396F-7E38-49AB-9043-155C8E92876B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{0851FB41-96EC-4786-99AB-0C74966CF386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0851FB41-96EC-4786-99AB-0C74966CF386}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0851FB41-96EC-4786-99AB-0C74966CF386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DD1396F-7E38-49AB-9043-155C8E92876B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DD1396F-7E38-49AB-9043-155C8E92876B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DD1396F-7E38-49AB-9043-155C8E92876B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DD1396F-7E38-49AB-9043-155C8E92876B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
