@@ -1,6 +1,8 @@
-﻿namespace TodoApp2.Persistence.Models
+﻿using TodoApp2.Entity.Model;
+
+namespace TodoApp2.Persistence.Models
 {
-    public class Note
+    public class Note : EntityModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

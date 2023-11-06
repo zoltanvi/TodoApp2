@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TodoApp2.Common;
 using Task = TodoApp2.Persistence.Models.Task;
 
 namespace TodoApp2.Core.Mappings
@@ -15,7 +16,7 @@ namespace TodoApp2.Core.Mappings
                 Id = vm.Id,
                 CategoryId = vm.CategoryId,
                 Content = vm.Content,
-                ListOrder = vm.ListOrder.ToString(GlobalConstants.ListOrderFormat),
+                ListOrder = vm.ListOrder.FormatListOrder(),
                 Pinned = vm.Pinned,
                 IsDone = vm.IsDone,
                 CreationDate = vm.CreationDate,
@@ -38,7 +39,7 @@ namespace TodoApp2.Core.Mappings
                 Id = task.Id,
                 CategoryId = task.CategoryId,
                 Content = task.Content,
-                ListOrder = long.Parse(task.ListOrder),
+                ListOrder = ListOrderParsingHelper.ParseListOrder(task.ListOrder),
                 Pinned = task.Pinned,
                 IsDone = task.IsDone,
                 CreationDate = task.CreationDate,

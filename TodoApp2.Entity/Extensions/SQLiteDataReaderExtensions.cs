@@ -2,13 +2,14 @@
 using System.Data.SQLite;
 using System.Linq;
 using System.Reflection;
+using TodoApp2.Entity.Model;
 
 namespace TodoApp2.Entity.Extensions
 {
     public static class SQLiteDataReaderExtensions
     {
         public static TModel ReadProperties<TModel>(this SQLiteDataReader reader)
-            where TModel : class, new()
+            where TModel : EntityModel, new()
         {
             Type modelType = typeof(TModel);
             TModel result = new TModel();

@@ -1,4 +1,5 @@
-﻿using TodoApp2.Entity;
+﻿using TodoApp2.Common;
+using TodoApp2.Entity;
 using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Persistence.TableMappings
@@ -10,7 +11,7 @@ namespace TodoApp2.Persistence.TableMappings
             ModelBuilder
                 .Property(x => x.Id, isPrimaryKey: true)
                 .Property(x => x.Title)
-                .Property(x => x.ListOrder, defaultValue: Constants.DefaultListOrder)
+                .Property(x => x.ListOrder, defaultValue: CommonConstants.DefaultListOrderString)
                 .Property(x => x.Content)
                 .Property(x => x.CreationDate)
                 .Property(x => x.ModificationDate)

@@ -6,7 +6,7 @@ using TodoApp2.Entity.Query;
 namespace TodoApp2.Entity
 {
     public class DbSetMapping<TModel>
-        where TModel : class, new()
+        where TModel : EntityModel
     {
         protected internal DbSetModelBuilder<TModel> ModelBuilder { get; }
         

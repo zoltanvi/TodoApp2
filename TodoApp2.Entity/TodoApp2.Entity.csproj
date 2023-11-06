@@ -68,6 +68,7 @@
     <Compile Include="DbSetMapping.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Info\SingleIntModel.cs" />
+    <Compile Include="Model\EntityModel.cs" />
     <Compile Include="Query\QueryBuilder.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\SQLiteDataReaderExtensions.cs" />

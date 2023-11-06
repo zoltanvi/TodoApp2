@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TodoApp2.Common;
 using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Core.Mappings
@@ -14,7 +15,7 @@ namespace TodoApp2.Core.Mappings
             {
                 Id = vm.Id,
                 Title = vm.Title,
-                ListOrder = vm.ListOrder.ToString(GlobalConstants.ListOrderFormat),
+                ListOrder = vm.ListOrder.FormatListOrder(),
                 Content = vm.Content,
                 CreationDate = vm.CreationDate,
                 ModificationDate = vm.ModificationDate,
@@ -30,7 +31,7 @@ namespace TodoApp2.Core.Mappings
             {
                 Id = note.Id,
                 Title = note.Title,
-                ListOrder = long.Parse(note.ListOrder),
+                ListOrder = ListOrderParsingHelper.ParseListOrder(note.ListOrder),
                 Content = note.Content,
                 CreationDate = note.CreationDate,
                 ModificationDate = note.ModificationDate,

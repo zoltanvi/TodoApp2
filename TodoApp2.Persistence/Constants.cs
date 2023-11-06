@@ -2,7 +2,6 @@
 {
     internal static class Constants
     {
-        public static string DefaultListOrder { get; } = (long.MaxValue / 2).ToString();
         public const string Transparent = "Transparent";
         public const string Zero = "0";
 

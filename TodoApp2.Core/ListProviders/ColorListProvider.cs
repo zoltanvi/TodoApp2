@@ -10,7 +10,7 @@ namespace TodoApp2.Core
         {
             Items = new List<string>
             {
-                GlobalConstants.ColorName.Transparent,
+                CoreConstants.ColorName.Transparent,
                 "#FFFFFF",
                 "#F5F5F5",
                 "#E0E0E0",

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Windows.Input;
+using TodoApp2.Common;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Core.Reordering;
 using TodoApp2.Persistence;
@@ -122,7 +121,8 @@ namespace TodoApp2.Core
 
             // Untrash category if exists
             var existingCategory = _context.Categories
-                .First(x => x.Name.Equals(
+                .GetAll()
+                .FirstOrDefault(x => x.Name.Equals(
                     PendingAddNewCategoryText,
                     StringComparison.InvariantCultureIgnoreCase)).Map();
 
@@ -147,12 +147,12 @@ namespace TodoApp2.Core
 
             var lastListOrder = activeItems.Any()
                 ? activeItems.First().Map().ListOrder
-                : GlobalConstants.DefaultListOrder;
+                : CommonConstants.DefaultListOrder;
 
             CategoryViewModel categoryToAdd = new CategoryViewModel
             {
                 Name = PendingAddNewCategoryText,
-                ListOrder = lastListOrder + GlobalConstants.ListOrderInterval
+                ListOrder = lastListOrder + CommonConstants.ListOrderInterval
             };
 
             Items.Add(categoryToAdd);
@@ -163,13 +163,13 @@ namespace TodoApp2.Core
         {
             // First, persist trashed property
             category.Trashed = false;
-            _context.Categories.Update(category.Map());
+            _context.Categories.UpdateFirst(category.Map());
 
             Items.Add(category);
             ReorderingHelperTemp.ReorderCategory(_context, category, Items.Count - 1);
 
             // Second, persist list order
-            _context.Categories.Update(category.Map());
+            _context.Categories.UpdateFirst(category.Map());
         }
 
         private void TrashCategory(object obj)
@@ -180,10 +180,10 @@ namespace TodoApp2.Core
                 if (_context.Categories.Where(x => !x.Trashed).Count > 1)
                 {
                     category.Trashed = true;
-                    category.ListOrder = long.MinValue;
+                    category.ListOrder = CommonConstants.InvalidListOrder;
 
                     Items.Remove(category);
-                    _context.Categories.Update(category.Map());
+                    _context.Categories.UpdateFirst(category.Map());
 
                     // Only if the current category was the deleted one, select a new category
                     if (category == ActiveCategory)

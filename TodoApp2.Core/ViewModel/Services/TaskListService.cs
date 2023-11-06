@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using TodoApp2.Common;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Core.Reordering;
 using TodoApp2.Persistence;
@@ -82,6 +83,8 @@ namespace TodoApp2.Core
                 TaskPageItems.Insert(pinnedItemsCount, task);
             }
 
+            _context.Tasks.Add(task.Map());
+
             return task;
         }
 
@@ -93,7 +96,7 @@ namespace TodoApp2.Core
                 Content = taskContent,
                 CreationDate = DateTime.Now.Ticks,
                 ModificationDate = DateTime.Now.Ticks,
-                ListOrder = ReorderingHelperTemp.GetTaskListOrder(_context, true) - GlobalConstants.ListOrderInterval
+                ListOrder = ReorderingHelperTemp.GetTaskListOrder(_context, true) - CommonConstants.ListOrderInterval
             };
 
             return task;

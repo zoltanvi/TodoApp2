@@ -69,6 +69,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj">
+      <Project>{0851fb41-96ec-4786-99ab-0c74966cf386}</Project>
+      <Name>TodoApp2.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj">
       <Project>{87f2a88a-7848-44ed-8f4f-89b12ebbc129}</Project>
       <Name>TodoApp2.Entity</Name>

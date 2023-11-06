@@ -91,7 +91,8 @@
     <Compile Include="Configuration\Settings\TextEditorQuickActionSettings.cs" />
     <Compile Include="Configuration\Settings\ThemeSettings.cs" />
     <Compile Include="Configuration\Settings\WindowSettings.cs" />
-    <Compile Include="Constants\GlobalConstants.cs" />
+    <Compile Include="Constants\CoreConstants.cs" />
+    <Compile Include="Mappings\ListOrderParsingHelper.cs" />
     <Compile Include="Reordering\Reorderer.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\FontFamily.cs" />

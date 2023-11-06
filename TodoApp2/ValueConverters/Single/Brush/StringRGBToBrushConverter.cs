@@ -23,14 +23,14 @@ namespace TodoApp2
             {
                 if (string.IsNullOrEmpty(colorString))
                 {
-                    colorString = GlobalConstants.ColorName.Transparent;
+                    colorString = CoreConstants.ColorName.Transparent;
                 }
 
                 // Remove the leading # character
                 colorString = colorString.TrimStart('#');
 
                 // Prefixes the input string with a # character, except if it is "Transparent"
-                string inputColor = (colorString == GlobalConstants.ColorName.Transparent ? string.Empty : "#") + colorString;
+                string inputColor = (colorString == CoreConstants.ColorName.Transparent ? string.Empty : "#") + colorString;
                 return (SolidColorBrush)_brushConverter.ConvertFrom(inputColor);
             }
 

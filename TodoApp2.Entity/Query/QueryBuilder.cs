@@ -18,28 +18,61 @@ namespace TodoApp2.Entity.Query
         public static string DropTable(string tableName) => $"DROP TABLE IF EXISTS {tableName} ;";
         public static string SelectCount(string tableName) => $"SELECT COUNT(*) AS Value FROM {tableName} ;";
 
-        public static string SelectAll<TModel>(string tableName, Expression<Func<TModel, object>> whereExpression, int limit)
-            where TModel : class, new()
+        public static string SelectAll<TModel>(
+            string tableName,
+            Expression<Func<TModel, object>> whereExpression,
+            int limit)
+            where TModel : EntityModel
         {
-            return QueryBuilder.SelectAll(tableName, WhereBuilder.ExpressionToString(whereExpression), limit);
+            var expression = WhereBuilder.ExpressionToString(whereExpression);
+
+            return QueryBuilder.SelectAll(tableName, expression, limit);
         }
 
-        public static string UpdateItem<TModel>(string tableName, string primaryKeyName, Expression<Func<TModel, object>> whereExpression, int limit)
-            where TModel : class, new()
+        public static string UpdateItem<TModel>(
+            string tableName, 
+            string primaryKeyName, 
+            Expression<Func<TModel, object>> whereExpression, 
+            int limit)
+            where TModel : EntityModel
         {
-            return UpdateItem<TModel>(tableName, primaryKeyName, WhereBuilder.ExpressionToString(whereExpression), limit);
+            var expression = WhereBuilder.ExpressionToString(whereExpression);
+            
+            return UpdateItem<TModel>(tableName, primaryKeyName, expression, limit);
         }
 
-        internal static string UpdateItemFromModel<TModel>(string tableName, string primaryKeyName, TModel model, Expression<Func<TModel, object>> sourceProperty)
-            where TModel : class, new()
+        internal static string UpdateItemFromModel<TModel>(
+            string tableName, 
+            string primaryKeyName, 
+            TModel model, 
+            Expression<Func<TModel, object>> sourceProperty)
+            where TModel : EntityModel
         {
-            return UpdateItem<TModel>(tableName, primaryKeyName, WhereBuilder.EqualsWithModelExpression(sourceProperty, model), Single);
+            var expression = WhereBuilder.EqualsWithModelExpression(sourceProperty, model);
+            
+            return UpdateItem<TModel>(tableName, primaryKeyName, expression, Single);
         }
 
-        public static string Delete<TModel>(string tableName, Expression<Func<TModel, object>> whereExpression, int limit)
-            where TModel : class, new()
+        internal static string UpdateItemWherePrimaryKeyMatches<TModel>(
+            string tableName, 
+            string primaryKeyName, 
+            TModel model)
+            where TModel : EntityModel
         {
-            return Delete(tableName, WhereBuilder.ExpressionToString(whereExpression), limit);
+            var expression = WhereBuilder.EqualsWithPrimaryKey(model, primaryKeyName);
+            
+            return UpdateItem<TModel>(tableName, primaryKeyName, expression, Single);
+        }
+
+        public static string Delete<TModel>(
+            string tableName,
+            Expression<Func<TModel, object>> whereExpression, 
+            int limit)
+            where TModel : EntityModel
+        {
+            var expression = WhereBuilder.ExpressionToString(whereExpression);
+
+            return Delete(tableName, expression, limit);
         }
 
         public static string CreateIfNotExists(BaseDbSetModelBuilder modelBuilder)
@@ -91,10 +124,16 @@ namespace TodoApp2.Entity.Query
             return sb.ToString();
         }
 
-        public static string InsertInto<TModel>(string tableName, string primaryKeyName)
-            where TModel : class, new()
+        public static string InsertInto<TModel>(
+            string tableName, 
+            string primaryKeyName, 
+            bool writeAllProperties = false)
+            where TModel : EntityModel
         {
             var modelType = typeof(TModel);
+
+            // Prevent filtering out the primary key property if it is true
+            if (writeAllProperties) primaryKeyName = null;
             var properties = modelType.GetPublicPropertiesWithExclusion(primaryKeyName);
 
             StringBuilder sb = new StringBuilder($"INSERT INTO {tableName} (\n");
@@ -120,7 +159,10 @@ namespace TodoApp2.Entity.Query
             return sb.ToString();
         }
 
-        public static string Delete(string tableName, string whereSqlCondition, int limit = NoLimit)
+        public static string Delete(
+            string tableName, 
+            string whereSqlCondition, 
+            int limit = NoLimit)
         {
             string query = $"DELETE FROM {tableName} \n";
 
@@ -139,8 +181,12 @@ namespace TodoApp2.Entity.Query
             return query;
         }
 
-        private static string UpdateItem<TModel>(string tableName, string primaryKeyName, string whereSqlCondition = null, int limit = NoLimit)
-            where TModel : class, new()
+        private static string UpdateItem<TModel>(
+            string tableName, 
+            string primaryKeyName, 
+            string whereSqlCondition = null, 
+            int limit = NoLimit)
+            where TModel : EntityModel
         {
             var modelType = typeof(TModel);
             var properties = modelType.GetPublicPropertiesWithExclusion(primaryKeyName);
@@ -173,7 +219,10 @@ namespace TodoApp2.Entity.Query
             return sb.ToString();
         }
 
-        private static string SelectAll(string tableName, string whereSqlCondition = null, int limit = NoLimit)
+        private static string SelectAll(
+            string tableName, 
+            string whereSqlCondition = null, 
+            int limit = NoLimit)
         {
             string query = $"SELECT * FROM {tableName} \n";
 
@@ -200,6 +249,5 @@ namespace TodoApp2.Entity.Query
                 sb.Append(exists ? $"AND {condition} \n" : $"WHERE {condition} \n");
             }
         }
-        
     }
 }

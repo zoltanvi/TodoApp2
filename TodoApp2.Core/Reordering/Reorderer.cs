@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using TodoApp2.Common;
 
 namespace TodoApp2.Core
 {
     public class Reorderer
     {
-        private const long DefaultListOrder = GlobalConstants.DefaultListOrder;
-        private const long ListOrderInterval = GlobalConstants.ListOrderInterval;
+        private const long DefaultListOrder = CommonConstants.DefaultListOrder;
+        private const long ListOrderInterval = CommonConstants.ListOrderInterval;
 
         /// <summary>
         /// Re-initializes the ListOrder property of each item in the list according to it's order in the list

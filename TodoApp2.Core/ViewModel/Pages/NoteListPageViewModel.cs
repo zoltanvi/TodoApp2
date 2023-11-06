@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
+using TodoApp2.Common;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Core.Reordering;
 using TodoApp2.Persistence;
@@ -127,7 +128,7 @@ namespace TodoApp2.Core
 
             var lastListOrder = activeItems.Any()
                 ? activeItems.First().Map().ListOrder
-                : GlobalConstants.DefaultListOrder;
+                : CommonConstants.DefaultListOrder;
 
             NoteViewModel note = new NoteViewModel
             {
@@ -136,7 +137,7 @@ namespace TodoApp2.Core
                 CreationDate = DateTime.Now.Ticks,
                 ModificationDate = DateTime.Now.Ticks,
                 Trashed = false,
-                ListOrder = lastListOrder + GlobalConstants.ListOrderInterval
+                ListOrder = lastListOrder + CommonConstants.ListOrderInterval
             };
 
             Items.Add(note);
@@ -151,7 +152,7 @@ namespace TodoApp2.Core
 
                 Items.Remove(note);
 
-                _context.Notes.Update(note.Map());
+                _context.Notes.UpdateFirst(note.Map());
 
                 if (ActiveNote.Id == note.Id)
                 {

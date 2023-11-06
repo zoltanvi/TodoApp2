@@ -7,7 +7,7 @@ using TodoApp2.Entity.Info;
 namespace TodoApp2.Entity.Model
 {
     public class DbSetModelBuilder<TModel> : BaseDbSetModelBuilder
-        where TModel : class, new()
+        where TModel : EntityModel
     {
         internal override string TableName { get; }
 
