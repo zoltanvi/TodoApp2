@@ -245,7 +245,7 @@ namespace TodoApp2.Core
 
             if (settingsToAdd.Any())
             {
-                _context.Settings.AddRange(settingsToAdd);
+                _context.Settings.AddRange(settingsToAdd, writeAllProperties: true);
             }
 
             if (settingsToUpdate.Any())

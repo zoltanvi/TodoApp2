@@ -21,7 +21,7 @@ namespace TodoApp2.Entity.Migration
         }
 
         public MigrationBuilder AddProperty<TModel>(Expression<Func<TModel, object>> sourceProperty, string defaultValue = null)
-            where TModel : class, new()
+            where TModel : EntityModel
         {
             var info = new PropInfo();
             info.DefaultValue = defaultValue;
@@ -35,7 +35,7 @@ namespace TodoApp2.Entity.Migration
         }
 
         public DbSetModelBuilder<TModel> AddModel<TModel>(string modelName = null)
-            where TModel : class, new()
+            where TModel : EntityModel
         {
             var tableName = modelName ?? typeof(TModel).Name;
             var modelBuilder = new DbSetModelBuilder<TModel>(tableName);
@@ -47,7 +47,7 @@ namespace TodoApp2.Entity.Migration
         }
 
         public void RemoveModel<TModel>()
-            where TModel : class, new()
+            where TModel : EntityModel
         {
             ModelRemovers.Add(typeof(TModel).Name);
             BuildSteps.Add(BuildStep.RemoveModel);

@@ -4,13 +4,42 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Text;
 using TodoApp2.Entity.Extensions;
+using TodoApp2.Entity.Model;
 
 namespace TodoApp2.Entity.Query
 {
     internal static class WhereBuilder
     {
-        public static string ExpressionToString<TModel>(Expression<Func<TModel, object>> whereExpression)
-            where TModel : class, new()
+        public static string EqualsWithModelExpression<TModel>(
+            Expression<Func<TModel, object>> sourceProperty,
+            TModel model)
+            where TModel : EntityModel
+        {
+            sourceProperty.Body.GetNameAndType(out string propertyName, out Type type);
+
+            var modelType = typeof(TModel);
+            var property = modelType.GetPublicProperty(propertyName);
+            var propertyValue = property.GetValue(model);
+
+            string whereCondition = $"{propertyName} = {ValueToQueryValueHelper.FormatValue(propertyValue, type)}";
+            return whereCondition;
+        }
+
+        public static string EqualsWithPrimaryKey<TModel>(TModel model, string primaryKeyName)
+            where TModel : EntityModel
+        {
+            var modelType = typeof(TModel);
+            var property = modelType.GetPublicProperty(primaryKeyName);
+            var propertyValue = property.GetValue(model);
+            var propertyType = propertyValue.GetType();
+
+            string whereCondition = $"{primaryKeyName} = {ValueToQueryValueHelper.FormatValue(propertyValue, propertyType)}";
+            return whereCondition;
+        }
+
+        public static string ExpressionToString<TModel>(
+            Expression<Func<TModel, object>> whereExpression)
+            where TModel : EntityModel
         {
             if (whereExpression == null) return null;
 
@@ -29,21 +58,10 @@ namespace TodoApp2.Entity.Query
             return sb.ToString();
         }
 
-        public static string EqualsWithModelExpression<TModel>(Expression<Func<TModel, object>> sourceProperty, TModel model)
-            where TModel : class, new()
-        {
-            sourceProperty.Body.GetNameAndType(out string propertyName, out Type type);
-
-            var modelType = typeof(TModel);
-            var property = modelType.GetPublicProperty(propertyName);
-            var propertyValue = property.GetValue(model);
-
-            string whereCondition = $"{propertyName} = {ValueToQueryValueHelper.FormatValue(propertyValue, type)}";
-            return whereCondition;
-        }
-
-        private static void AnalyzeExpression<TModel>(Expression expression, StringBuilder sb)
-            where TModel : class, new()
+        private static void AnalyzeExpression<TModel>(
+            Expression expression,
+            StringBuilder sb)
+            where TModel : EntityModel
         {
             switch (expression)
             {
@@ -65,7 +83,10 @@ namespace TodoApp2.Entity.Query
                         {
                             var compiledExpression = Expression.Lambda(me).Compile();
                             object propertyValue = compiledExpression.DynamicInvoke();
-                            sb.Append(propertyValue);
+                            var propertyType = propertyValue.GetType();
+
+                            var formattedValue = ValueToQueryValueHelper.FormatValue(propertyValue, propertyType);
+                            sb.Append(formattedValue);
                         }
                         catch (Exception)
                         {
@@ -85,8 +106,10 @@ namespace TodoApp2.Entity.Query
             }
         }
 
-        private static void AnalyzeBinaryExpression<TModel>(BinaryExpression expression, StringBuilder sb)
-            where TModel : class, new()
+        private static void AnalyzeBinaryExpression<TModel>(
+            BinaryExpression expression,
+            StringBuilder sb)
+            where TModel : EntityModel
         {
             var nodeType = expression.NodeType;
 

@@ -1,6 +1,8 @@
-﻿namespace Entity.Tests.Mocks
+﻿using TodoApp2.Entity.Model;
+
+namespace Entity.Tests.Mocks
 {
-    public class NoteMock
+    public class NoteMock : EntityModel
     {
         public string someStringField = "asd";
         public int someIntField = 23;

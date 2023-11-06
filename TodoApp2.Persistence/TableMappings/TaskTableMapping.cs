@@ -1,4 +1,5 @@
-﻿using TodoApp2.Entity;
+﻿using TodoApp2.Common;
+using TodoApp2.Entity;
 using TodoApp2.Persistence.Models;
 using Task = TodoApp2.Persistence.Models.Task;
 
@@ -12,7 +13,7 @@ namespace TodoApp2.Persistence.TableMappings
                 .Property(x => x.Id, isPrimaryKey: true)
                 .Property(x => x.CategoryId)
                 .Property(x => x.Content)
-                .Property(x => x.ListOrder, defaultValue: Constants.DefaultListOrder)
+                .Property(x => x.ListOrder, defaultValue: CommonConstants.DefaultListOrderString)
                 .Property(x => x.Pinned, defaultValue: Constants.Zero)
                 .Property(x => x.IsDone, defaultValue: Constants.Zero)
                 .Property(x => x.CreationDate)

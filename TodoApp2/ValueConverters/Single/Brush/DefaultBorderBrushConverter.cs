@@ -16,7 +16,7 @@ namespace TodoApp2
         {
             if (value is string brushName)
             {
-                if (brushName == GlobalConstants.ColorName.Transparent)
+                if (brushName == CoreConstants.ColorName.Transparent)
                 {
                     return (SolidColorBrush)Application.Current.TryFindResource(DefaultResourceName);
                 }

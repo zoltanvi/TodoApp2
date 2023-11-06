@@ -8,8 +8,8 @@ namespace TodoApp2
 {
     public class SingletonEditorColorPicker : Button
     {
-        public static readonly DependencyProperty SelectedColorStringProperty = DependencyProperty.Register(nameof(SelectedColorString), typeof(string), typeof(SingletonEditorColorPicker), new PropertyMetadata(GlobalConstants.ColorName.Transparent));
-        public static readonly DependencyProperty AppliedColorStringProperty = DependencyProperty.Register(nameof(AppliedColorString), typeof(string), typeof(SingletonEditorColorPicker), new PropertyMetadata(GlobalConstants.ColorName.Transparent));
+        public static readonly DependencyProperty SelectedColorStringProperty = DependencyProperty.Register(nameof(SelectedColorString), typeof(string), typeof(SingletonEditorColorPicker), new PropertyMetadata(CoreConstants.ColorName.Transparent));
+        public static readonly DependencyProperty AppliedColorStringProperty = DependencyProperty.Register(nameof(AppliedColorString), typeof(string), typeof(SingletonEditorColorPicker), new PropertyMetadata(CoreConstants.ColorName.Transparent));
 
         private SingletonPopup _popup;
 

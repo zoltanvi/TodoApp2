@@ -1,11 +1,7 @@
 ﻿namespace TodoApp2.Core
 {
-    public struct GlobalConstants
+    public struct CoreConstants
     {
-        public const string ListOrderFormat = "D19";
-        public const long ListOrderInterval = 1_000_000_000_000;
-        public const long DefaultListOrder = long.MaxValue / 2;
-
         public struct ColorName
         {
             public const string Transparent = "Transparent";

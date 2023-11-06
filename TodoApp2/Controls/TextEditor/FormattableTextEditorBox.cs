@@ -182,7 +182,7 @@ namespace TodoApp2
         {
             object currentFontFamily = Selection.GetPropertyValue(TextElement.FontFamilyProperty);
 
-            if (currentFontFamily is MediaFontFamily fontFamily && fontFamily.Source == GlobalConstants.FontFamily.Consolas)
+            if (currentFontFamily is MediaFontFamily fontFamily && fontFamily.Source == CoreConstants.FontFamily.Consolas)
             {
                 MediaFontFamily defaultFontFamily = EnumToFontFamilyConverter.Instance.Convert(IoC.AppSettings.TaskSettings.FontFamily);
 
@@ -308,7 +308,7 @@ namespace TodoApp2
         private void UpdateSelectionColor()
         {
             object foreground = Selection.GetPropertyValue(TextElement.ForegroundProperty);
-            string color = GlobalConstants.ColorName.Transparent;
+            string color = CoreConstants.ColorName.Transparent;
 
             if (foreground != DependencyProperty.UnsetValue)
             {

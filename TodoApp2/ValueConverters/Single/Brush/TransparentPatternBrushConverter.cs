@@ -14,9 +14,9 @@ namespace TodoApp2
         {
             if (value == null ||
                 value is string brushName &&
-                (brushName == GlobalConstants.ColorName.Transparent || string.IsNullOrEmpty(brushName)))
+                (brushName == CoreConstants.ColorName.Transparent || string.IsNullOrEmpty(brushName)))
             {
-                return (LinearGradientBrush)Application.Current.TryFindResource(GlobalConstants.BrushName.TransparentPatternBrush); ;
+                return (LinearGradientBrush)Application.Current.TryFindResource(CoreConstants.BrushName.TransparentPatternBrush); ;
             }
             else if (value is Brush)
             {

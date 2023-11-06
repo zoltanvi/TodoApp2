@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TodoApp2.Common;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 using TodoApp2.Persistence.Models;
@@ -94,7 +95,7 @@ namespace TodoApp2.Core.Reordering
         {
             var activeItems = context.Tasks.Where(x => !x.Trashed);
 
-            if (activeItems.Count == 0) return GlobalConstants.DefaultListOrder;
+            if (activeItems.Count == 0) return CommonConstants.DefaultListOrder;
 
             if (first)
             {

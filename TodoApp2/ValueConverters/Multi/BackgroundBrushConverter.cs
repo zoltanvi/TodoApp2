@@ -23,7 +23,7 @@ namespace TodoApp2
             _path = new Path
             {
                 Data = Geometry.Parse("M 0 8 L 8 0"),
-                Stroke = (Brush)Application.Current.TryFindResource(GlobalConstants.BrushName.Surface3),
+                Stroke = (Brush)Application.Current.TryFindResource(CoreConstants.BrushName.Surface3),
                 StrokeEndLineCap = PenLineCap.Square,
             };
 
@@ -49,12 +49,12 @@ namespace TodoApp2
 
                 if (isDone)
                 {
-                    _path.Stroke = (Brush)Application.Current.TryFindResource(GlobalConstants.BrushName.Surface3);
+                    _path.Stroke = (Brush)Application.Current.TryFindResource(CoreConstants.BrushName.Surface3);
                     return _hatchBrush;
                 }
                 else
                 {
-                    return Application.Current.TryFindResource(GlobalConstants.BrushName.TaskBgBrush);
+                    return Application.Current.TryFindResource(CoreConstants.BrushName.TaskBgBrush);
                 }
             }
 

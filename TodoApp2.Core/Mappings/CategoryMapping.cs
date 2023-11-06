@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TodoApp2.Common;
 using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Core.Mappings
@@ -14,7 +15,7 @@ namespace TodoApp2.Core.Mappings
             {
                 Id = vm.Id,
                 Name = vm.Name,
-                ListOrder = vm.ListOrder.ToString(GlobalConstants.ListOrderFormat),
+                ListOrder = vm.ListOrder.FormatListOrder(),
                 Trashed = vm.Trashed
             };
         }
@@ -27,7 +28,7 @@ namespace TodoApp2.Core.Mappings
             {
                 Id = category.Id,
                 Name = category.Name,
-                ListOrder = long.Parse(category.ListOrder),
+                ListOrder = ListOrderParsingHelper.ParseListOrder(category.ListOrder),
                 Trashed = category.Trashed
             };
         }

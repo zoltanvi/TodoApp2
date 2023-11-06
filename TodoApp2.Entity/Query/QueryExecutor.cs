@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
 using TodoApp2.Entity.Extensions;
+using TodoApp2.Entity.Model;
 
 namespace TodoApp2.Entity.Query
 {
@@ -51,7 +52,7 @@ namespace TodoApp2.Entity.Query
         }
 
         public static TModel GetItemWithQuery<TModel>(DbConnection connection, string query)
-            where TModel : class, new()
+            where TModel : EntityModel, new()
         {
             TModel item = null;
 
@@ -73,7 +74,7 @@ namespace TodoApp2.Entity.Query
         }
 
         public static List<TModel> GetItemsWithQuery<TModel>(DbConnection connection, string query)
-            where TModel : class, new()
+            where TModel : EntityModel, new()
         {
             List<TModel> items = new List<TModel>();
 

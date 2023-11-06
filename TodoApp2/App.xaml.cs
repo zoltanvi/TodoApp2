@@ -59,7 +59,7 @@ namespace TodoApp2
             // Load async service
             IAsyncActionService asyncActionService = AsyncActionService.Instance;
             IoC.AsyncActionService = asyncActionService;
-            
+
             // Setup IoC. It can take some time
             IoC.Setup();
 
@@ -78,8 +78,11 @@ namespace TodoApp2
         private SplashScreen ShowSplashScreenForTheme()
         {
             SplashScreen splashScreen = new SplashScreen($"Images/Splash.png");
+
+#if !DEBUG
             splashScreen.Show(false, true);
-            
+#endif
+
             return splashScreen;
         }
 

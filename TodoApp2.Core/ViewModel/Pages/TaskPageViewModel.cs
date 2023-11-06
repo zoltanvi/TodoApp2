@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TodoApp2.Common;
 
 namespace TodoApp2.Core
 {
@@ -207,7 +208,7 @@ namespace TodoApp2.Core
                 task.Trashed = true;
 
                 // Indicate that it is an invalid order
-                task.ListOrder = long.MinValue;
+                task.ListOrder = CommonConstants.InvalidListOrder;
 
                 // Persist modifications
                 _taskListService.UpdateTask(task);
@@ -243,7 +244,7 @@ namespace TodoApp2.Core
             if (commandObject != null && commandObject.CommandResult is TaskViewModel task)
             {
                 task.Trashed = true;
-                task.ListOrder = long.MinValue;
+                task.ListOrder = CommonConstants.InvalidListOrder;
                 _taskListService.UpdateTask(task);
                 _taskListService.RemoveTaskFromMemory(task);
             }
@@ -336,7 +337,7 @@ namespace TodoApp2.Core
                 item.Trashed = true;
 
                 // Indicate that it is an invalid order
-                item.ListOrder = long.MinValue;
+                item.ListOrder = CommonConstants.InvalidListOrder;
             }
 
             _taskListService.PersistTaskList();
@@ -351,7 +352,7 @@ namespace TodoApp2.Core
         {
             foreach (TaskViewModel item in Items)
             {
-                item.Color = GlobalConstants.ColorName.Transparent;
+                item.Color = CoreConstants.ColorName.Transparent;
             }
 
             _taskListService.PersistTaskList();
@@ -361,7 +362,7 @@ namespace TodoApp2.Core
         {
             foreach (TaskViewModel item in Items)
             {
-                item.BorderColor = GlobalConstants.ColorName.Transparent;
+                item.BorderColor = CoreConstants.ColorName.Transparent;
             }
 
             _taskListService.PersistTaskList();
@@ -371,7 +372,7 @@ namespace TodoApp2.Core
         {
             foreach (TaskViewModel item in Items)
             {
-                item.BackgroundColor = GlobalConstants.ColorName.Transparent;
+                item.BackgroundColor = CoreConstants.ColorName.Transparent;
             }
 
             _taskListService.PersistTaskList();
@@ -381,9 +382,9 @@ namespace TodoApp2.Core
         {
             foreach (TaskViewModel item in Items)
             {
-                item.Color = GlobalConstants.ColorName.Transparent;
-                item.BackgroundColor = GlobalConstants.ColorName.Transparent;
-                item.BorderColor = GlobalConstants.ColorName.Transparent;
+                item.Color = CoreConstants.ColorName.Transparent;
+                item.BackgroundColor = CoreConstants.ColorName.Transparent;
+                item.BorderColor = CoreConstants.ColorName.Transparent;
             }
 
             _taskListService.PersistTaskList();

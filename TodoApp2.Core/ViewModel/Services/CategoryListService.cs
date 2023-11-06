@@ -55,7 +55,12 @@ namespace TodoApp2.Core
         {
             _appViewModel = applicationViewModel;
             _context = context;
+
             _activeCategory = _context.Categories.First(x => x.Id == IoC.AppSettings.SessionSettings.ActiveCategoryId).Map();
+            if (_activeCategory == null)
+            {
+                _activeCategory = _context.Categories.First().Map();
+            }
 
             var categories = _context.Categories.Where(x => !x.Trashed).OrderBy(x => x.ListOrder).Map();
             Items = new ObservableCollection<CategoryViewModel>(categories);

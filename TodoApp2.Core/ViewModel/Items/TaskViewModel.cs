@@ -98,7 +98,7 @@ namespace TodoApp2.Core
             {
                 //Modifications are accepted, update task
                 ModificationDate = DateTime.Now.Ticks;
-                Context.Tasks.Update(this.Map());
+                Context.Tasks.UpdateFirst(this.Map());
             }
 
             TextEditorViewModel.IsEditMode = false;
@@ -124,7 +124,7 @@ namespace TodoApp2.Core
         private void SetColor()
         {
             // Combobox changes the Color and BorderColor properties directly, we just need to persist it
-            Context.Tasks.Update(this.Map());
+            Context.Tasks.UpdateFirst(this.Map());
         }
 
         public override bool Equals(object obj)
