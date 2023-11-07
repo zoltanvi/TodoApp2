@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core.Extensions
 {
-    public static class StringDateConverterExtender
+    public static class StringDateExtensions
     {
         /// <summary>
         /// Converts the <see cref="string"/> into a <see cref="DateTime"/>. 

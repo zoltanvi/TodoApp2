@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core.Extensions
 {
-    public static class CollectionExtender
+    public static class CollectionExtensions
     {
         /// <summary>Adds the elements of the specified collection to the end of the <see cref="ICollection{T}"/>.</summary>
         /// <param name="currentCollection">The collection to expand.</param>

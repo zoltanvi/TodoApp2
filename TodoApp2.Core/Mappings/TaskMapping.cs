@@ -52,10 +52,10 @@ namespace TodoApp2.Core.Mappings
                 IsReminderOn = task.IsReminderOn
             };
         }
-        public static List<Task> Map(this IEnumerable<TaskViewModel> vmList) =>
+        public static List<Task> MapList(this IEnumerable<TaskViewModel> vmList) =>
             vmList.Select(x => x.Map()).ToList();
 
-        public static List<TaskViewModel> Map(this IEnumerable<Task> modelList) =>
+        public static List<TaskViewModel> MapList(this IEnumerable<Task> modelList) =>
             modelList.Select(x => x.Map()).ToList();
     }
 }

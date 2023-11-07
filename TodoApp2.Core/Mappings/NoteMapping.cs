@@ -40,10 +40,10 @@ namespace TodoApp2.Core.Mappings
         }
 
 
-        public static List<Note> Map(this IEnumerable<NoteViewModel> vmList) => 
+        public static List<Note> MapList(this IEnumerable<NoteViewModel> vmList) => 
             vmList.Select(x => x.Map()).ToList();
 
-        public static List<NoteViewModel> Map(this IEnumerable<Note> modelList) => 
+        public static List<NoteViewModel> MapList(this IEnumerable<Note> modelList) => 
             modelList.Select(x => x.Map()).ToList();
     }
 }

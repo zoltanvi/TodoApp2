@@ -62,7 +62,7 @@ namespace TodoApp2.Entity
             return item;
         }
 
-        public bool Add(
+        public bool AddSimple(
             TModel model,
             bool writeAllProperties = false)
         {
@@ -70,6 +70,23 @@ namespace TodoApp2.Entity
             var parameters = QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey, writeAllProperties);
             var result = QueryExecutor.ExecuteQuery(_connection, query, parameters);
             return result == QueryBuilder.Single;
+        }
+
+        public TModel Add(
+            TModel model,
+            bool writeAllProperties = false)
+        {
+            string query = QueryBuilder.InsertInto<TModel>(TableName, PrimaryKey, writeAllProperties);
+            var parameters = QueryParameterBuilder.ModelParameters<TModel>(model, PrimaryKey, writeAllProperties);
+            var result = QueryExecutor.ExecuteQuery(_connection, query, parameters);
+
+            if (result != QueryBuilder.Single) return null;
+
+            // query the inserted item from the db and return it
+            var lastInsertRowId = _connection.InternalConnection.LastInsertRowId;
+            string query2 = QueryBuilder.SelectItemWithLastInsertRowId(TableName, lastInsertRowId);
+            var item = QueryExecutor.GetItemWithQuery<TModel>(_connection, query2);
+            return item;
         }
 
         public void AddRange(
@@ -80,7 +97,7 @@ namespace TodoApp2.Entity
             {
                 foreach (TModel model in models)
                 {
-                    Add(model, writeAllProperties);
+                    AddSimple(model, writeAllProperties);
                 }
 
                 transaction.Commit();

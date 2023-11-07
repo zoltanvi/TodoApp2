@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 using TodoApp2.Common;
+using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Core.Reordering;
 using TodoApp2.Persistence;
@@ -124,7 +125,7 @@ namespace TodoApp2.Core
         {
             var activeItems = _context.Notes
             .Where(x => !x.Trashed)
-            .OrderByDescending(x => x.ListOrder);
+            .OrderByDescendingListOrder();
 
             var lastListOrder = activeItems.Any()
                 ? activeItems.First().Map().ListOrder
@@ -140,8 +141,8 @@ namespace TodoApp2.Core
                 ListOrder = lastListOrder + CommonConstants.ListOrderInterval
             };
 
-            Items.Add(note);
-            _context.Notes.Add(note.Map());
+            var addedItem = _context.Notes.Add(note.Map());
+            Items.Add(addedItem.Map());
         }
 
         private void TrashNote(object obj)

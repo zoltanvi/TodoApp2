@@ -2,7 +2,6 @@
 using TodoApp2.Common;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
-using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Core.Helpers
 {
@@ -21,13 +20,13 @@ namespace TodoApp2.Core.Helpers
         {
             if (_context.Categories.IsEmpty)
             {
-                _context.Categories.Add(new CategoryViewModel
+                _context.Categories.AddSimple(new CategoryViewModel
                 {
                     Name = "Today",
                     ListOrder = CommonConstants.DefaultListOrder
                 }.Map());
 
-                _context.Tasks.Add(new TaskViewModel
+                _context.Tasks.AddSimple(new TaskViewModel
                 {
                     CategoryId = _context.Categories.First().Id,
                     Content = CreateContentXml("This is a sample task."),
@@ -39,7 +38,7 @@ namespace TodoApp2.Core.Helpers
                     BackgroundColor = CoreConstants.ColorName.Transparent
                 }.Map());
 
-                _context.Tasks.Add(new TaskViewModel
+                _context.Tasks.AddSimple(new TaskViewModel
                 {
                     CategoryId = _context.Categories.First().Id,
                     Content = CreateContentXml("This is a task that has been finished."),
@@ -52,7 +51,7 @@ namespace TodoApp2.Core.Helpers
                     BackgroundColor = CoreConstants.ColorName.Transparent
                 }.Map());
 
-                _context.Notes.Add(new NoteViewModel
+                _context.Notes.AddSimple(new NoteViewModel
                 {
                     Title = "Empty note",
                     ListOrder = CommonConstants.DefaultListOrder,

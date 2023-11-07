@@ -1,21 +1,47 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
+using TodoApp2.Common;
 
 namespace TodoApp2.Persistence
 {
     public static class DataAccess
     {
-        public const string DatabaseName = "000.db";
         private static IAppContext Context;
-        private static string AppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private static string ConnectionString => $"Data Source={DatabasePath};";
-        public static string DatabasePath => Path.Combine(AppDataFolder, DatabaseName);
 
-        private static string GetConnectionString()
+        public static string DatabasePath { get; set; }
+        public static IAppContext GetAppContext() => Context ?? (Context = new AppContext($"Data Source={DatabasePath};"));
+
+        static DataAccess()
         {
-            return $"Data Source={DatabasePath};";
+            string directory = ConfigurationManager.AppSettings[Constants.ConfigKeys.DatabaseDirectoryPath];
+            string filename = ConfigurationManager.AppSettings[Constants.ConfigKeys.DatabaseFileName];
+            string filenameWithExtension = $"{filename}.{Constants.DatabaseFileExtension}";
+
+            ValidatePath(directory);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            if (!FileUtils.IsFileNameValid(filenameWithExtension))
+            {
+                throw new ApplicationException($"{Constants.ConfigKeys.DatabaseFileName} is not a valid filename!");
+            }
+
+            DatabasePath = Path.Combine(directory, filenameWithExtension);
         }
 
-        public static IAppContext GetAppContext() => Context ?? (Context = new AppContext(ConnectionString));
+        private static void ValidatePath(string directory)
+        {
+            // Throws exception if the path is invalid
+            Path.GetFullPath(directory);
+
+            if (!Path.IsPathRooted(directory))
+            {
+                throw new ApplicationException($"{Constants.ConfigKeys.DatabaseDirectoryPath} must be a valid absolute path!");
+            }
+        }
     }
 }

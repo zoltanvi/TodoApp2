@@ -33,10 +33,10 @@ namespace TodoApp2.Core.Mappings
             };
         }
 
-        public static List<Category> Map(this IEnumerable<CategoryViewModel> vmList) => 
+        public static List<Category> MapList(this IEnumerable<CategoryViewModel> vmList) => 
             vmList.Select(x => x.Map()).ToList();
 
-        public static List<CategoryViewModel> Map(this IEnumerable<Category> modelList) => 
+        public static List<CategoryViewModel> MapList(this IEnumerable<Category> modelList) => 
             modelList.Select(x => x.Map()).ToList();
     }
 }

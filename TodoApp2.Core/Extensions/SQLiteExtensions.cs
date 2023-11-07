@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.SQLite;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core.Extensions
 {
-    public static class SQLiteExtender
+    public static class SQLiteExtensions
     {
         public static int SafeGetInt(this SQLiteDataReader reader, string columnName)
         {
