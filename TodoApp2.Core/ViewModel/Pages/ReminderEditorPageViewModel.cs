@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using TodoApp2.Common;
+using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 

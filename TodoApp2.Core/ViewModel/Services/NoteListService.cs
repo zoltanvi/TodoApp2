@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
+using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 
@@ -30,7 +30,11 @@ namespace TodoApp2.Core
             _appViewModel = appViewModel;
             _context = context;
 
-            var notes = _context.Notes.Where(x => !x.Trashed).OrderBy(x => x.ListOrder).Map();
+            var notes = _context.Notes
+                .Where(x => !x.Trashed)
+                .OrderByListOrder()
+                .MapList();
+
             Items = new ObservableCollection<NoteViewModel>(notes);
 
             _activeNote = _context.Notes.First(x => x.Id == IoC.AppSettings.SessionSettings.ActiveNoteId).Map();

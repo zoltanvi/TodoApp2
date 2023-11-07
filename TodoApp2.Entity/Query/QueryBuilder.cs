@@ -29,6 +29,26 @@ namespace TodoApp2.Entity.Query
             return QueryBuilder.SelectAll(tableName, expression, limit);
         }
 
+        public static string SelectItemWithLastInsertRowId(
+            string tableName, 
+            long rowId)
+        {
+            var expression = $"rowid = {rowId}";
+
+            return SelectAll(tableName, expression, Single);
+        }
+
+        public static string SelectItemWithPrimaryKey<TModel>(
+            string tableName,
+            string primaryKeyName,
+            TModel model)
+            where TModel : EntityModel
+        {
+            var expression = WhereBuilder.EqualsWithPrimaryKey(model, primaryKeyName);
+            
+            return SelectAll(tableName, expression, Single);
+        }
+
         public static string UpdateItem<TModel>(
             string tableName, 
             string primaryKeyName, 
@@ -41,7 +61,7 @@ namespace TodoApp2.Entity.Query
             return UpdateItem<TModel>(tableName, primaryKeyName, expression, limit);
         }
 
-        internal static string UpdateItemFromModel<TModel>(
+        public static string UpdateItemFromModel<TModel>(
             string tableName, 
             string primaryKeyName, 
             TModel model, 
@@ -53,7 +73,7 @@ namespace TodoApp2.Entity.Query
             return UpdateItem<TModel>(tableName, primaryKeyName, expression, Single);
         }
 
-        internal static string UpdateItemWherePrimaryKeyMatches<TModel>(
+        public static string UpdateItemWherePrimaryKeyMatches<TModel>(
             string tableName, 
             string primaryKeyName, 
             TModel model)

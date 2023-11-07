@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TodoApp2.Core;
+using TodoApp2.Core.Extensions;
 using TodoApp2.Persistence;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using Thickness = System.Windows.Thickness;

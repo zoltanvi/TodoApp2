@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core.Extensions
 {
-    public static class ReflectionHelper
+    public static class ReflectionExtensions
     {
         public static T GetFieldValue<T>(this object obj, string fieldName)
         {

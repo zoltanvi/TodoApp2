@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 
@@ -28,7 +27,9 @@ namespace TodoApp2.Core
 
             Mediator.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
 
-            var taskList = _context.Tasks.Where(x => x.IsReminderOn && !x.Trashed && x.ReminderDate != 0).Map();
+            var taskList = _context.Tasks
+                .Where(x => x.IsReminderOn && !x.Trashed && x.ReminderDate != 0)
+                .MapList();
 
             foreach (TaskViewModel task in taskList)
             {
