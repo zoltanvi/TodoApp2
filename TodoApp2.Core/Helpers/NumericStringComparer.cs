@@ -27,6 +27,12 @@ namespace TodoApp2.Core.Helpers
                 return 1; // x is positive, y is negative
             }
 
+            // The order is reversed in case of negative numbers
+            if (x.StartsWith("-") && y.StartsWith("-"))
+            {
+                return x.CompareTo(y) * -1;
+            }
+
             // Both are positive or negative; compare based on length
             if (x.Length < y.Length)
             {
