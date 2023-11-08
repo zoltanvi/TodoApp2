@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using TodoApp2.Common;
 using TodoApp2.Core.Extensions;
-using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
@@ -14,8 +13,6 @@ namespace TodoApp2.Core
         private bool _closed;
 
         private readonly IAppContext _context;
-        private readonly ReminderNotificationService _notificationService;
-        private readonly OverlayPageService _overlayPageService;
 
         public TimePickerViewModel TimePickerViewModel { get; set; }
 
@@ -49,30 +46,21 @@ namespace TodoApp2.Core
         {
         }
 
-        public ReminderEditorPageViewModel(
-            TaskViewModel reminderTask,
-            OverlayPageService overlayPageService,
-            IAppContext context,
-            ReminderNotificationService notificationService)
+        public ReminderEditorPageViewModel(IAppContext context, TaskViewModel reminderTask)
         {
             ThrowHelper.ThrowIfNull(reminderTask);
-            ThrowHelper.ThrowIfNull(overlayPageService);
             ThrowHelper.ThrowIfNull(context);
-            ThrowHelper.ThrowIfNull(notificationService);
 
-            _overlayPageService = overlayPageService;
             _context = context;
-            _notificationService = notificationService;
+            ReminderTask = reminderTask;
 
             SetReminderCommand = new RelayCommand(SetReminder);
             ResetReminderCommand = new RelayCommand(ResetReminder);
             CloseReminderCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeReminder);
-            _overlayPageService.SetBackgroundClickedAction(ClosePage);
+            IoC.OverlayPageService.SetBackgroundClickedAction(ClosePage);
 
             TimePickerViewModel = new TimePickerViewModel();
-
-            ReminderTask = _context.Tasks.First(x => x.Id == reminderTask.Id).Map();
 
             ResetReminderProperties();
 
@@ -84,10 +72,10 @@ namespace TodoApp2.Core
         private void SetReminder()
         {
             IsReminderOn = true;
+            SetReminderDate();
+            IoC.TaskListService.UpdateTask(ReminderTask);
 
-            UpdateTaskReminder();
-
-            _notificationService.SetReminder(ReminderTask);
+            IoC.ReminderNotificationService.SetReminder(ReminderTask);
 
             ClosePage();
         }
@@ -98,14 +86,15 @@ namespace TodoApp2.Core
             ResetReminderProperties();
             IsReminderOn = false;
 
-            _context.Tasks.UpdateFirst(ReminderTask.Map());
-
-            _notificationService.DeleteReminder(ReminderTask);
+            IoC.TaskListService.UpdateTask(ReminderTask);
+            IoC.ReminderNotificationService.DeleteReminder(ReminderTask);
         }
 
         private void ChangeReminder()
         {
-            UpdateTaskReminder();
+            SetReminderDate();
+
+            IoC.TaskListService.UpdateTask(ReminderTask);
         }
 
         private void ClosePage()
@@ -116,16 +105,14 @@ namespace TodoApp2.Core
 
                 PropertyChanged -= OnViewModelPropertyChanged;
 
-                _overlayPageService.ClosePage();
+                IoC.OverlayPageService.ClosePage();
             }
         }
 
-        private void UpdateTaskReminder()
+        private void SetReminderDate()
         {
             DateTime reminderDate = SelectedDate.Date + new TimeSpan(TimePickerViewModel.Hour, TimePickerViewModel.Minute, 0);
             ReminderTask.ReminderDate = reminderDate.Ticks;
-
-            _context.Tasks.UpdateFirst(ReminderTask.Map());
         }
 
         private void ResetReminderProperties()

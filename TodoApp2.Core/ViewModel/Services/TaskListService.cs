@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using TodoApp2.Common;
 using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Core.Reordering;
@@ -21,6 +23,7 @@ namespace TodoApp2.Core
         private readonly IAppContext _context;
         private Reorderer _reorderer;
         private bool _categoryChangeInProgress;
+        private bool _updateInProgress;
         private int _lastRemovedId = int.MinValue;
 
         private CategoryViewModel ActiveCategory => _categoryListService.ActiveCategory;
@@ -31,14 +34,17 @@ namespace TodoApp2.Core
         /// </summary>
         public ObservableCollection<TaskViewModel> TaskPageItems { get; }
 
-        public TaskListService(IAppContext context, CategoryListService categoryListService, AppViewModel applicationViewModel)
+        public TaskListService(IAppContext context, AppViewModel appViewModel, CategoryListService categoryListService)
         {
+            ThrowHelper.ThrowIfNull(context);
+            ThrowHelper.ThrowIfNull(appViewModel);
+            ThrowHelper.ThrowIfNull(categoryListService);
+
             _context = context;
             _categoryListService = categoryListService;
-            _appViewModel = applicationViewModel;
-            _reorderer = new Reorderer();
+            _appViewModel = appViewModel;
 
-            // Query the items with the current category
+            _reorderer = new Reorderer();
 
             List<TaskViewModel> items = new List<TaskViewModel>();
 
@@ -75,9 +81,9 @@ namespace TodoApp2.Core
 
             // Sets the correct ListOrder on the task
             _reorderer.ReorderItem(
-                TaskPageItems.Cast<IReorderable>().ToList(), 
-                task, 
-                correctedInsertionIndex, 
+                TaskPageItems.Cast<IReorderable>().ToList(),
+                task,
+                correctedInsertionIndex,
                 UpdateListOrder);
 
             var addedItem = _context.Tasks.Add(task.Map());
@@ -118,10 +124,29 @@ namespace TodoApp2.Core
 
         public void UpdateTask(TaskViewModel task)
         {
-            if (task.Trashed) TaskPageItems.Remove(task);
-            if (task.CategoryId != ActiveCategory.Id) TaskPageItems.Remove(task);
+            _updateInProgress = true;
+
+            if (task.Trashed || (ActiveCategory != null && task.CategoryId != ActiveCategory.Id))
+            {
+                TaskPageItems.Remove(task);
+            }
 
             _context.Tasks.UpdateFirst(task.Map());
+
+            // Update task in collection
+            var pageTask = TaskPageItems.FirstOrDefault(x => x.Id == task.Id);
+            if (pageTask != null && !ReferenceEquals(task, pageTask))
+            {
+                var index = TaskPageItems.IndexOf(pageTask);
+                var updatedTask = _context.Tasks.First(x => x.Id == task.Id);
+
+                if (updatedTask == null) throw new ApplicationException($"Couldn't update task with ID [{task.Id}].");
+
+                TaskPageItems.RemoveAt(index);
+                TaskPageItems.Insert(index, updatedTask.Map());
+            }
+
+            _updateInProgress = false;
         }
 
         /// <inheritdoc cref="Core.Database.ReorderTask"/>
@@ -134,7 +159,7 @@ namespace TodoApp2.Core
         {
             newPosition = newPosition == -1 ? 0 : newPosition;
 
-            if (task != null)
+            if (task != null && ActiveCategory != null)
             {
                 if (changeInCollection)
                 {
@@ -156,7 +181,7 @@ namespace TodoApp2.Core
         public void PersistTaskList()
         {
             _context.Tasks.UpdateRange(TaskPageItems.MapList(), x => x.Id);
-            
+
             foreach (var item in TaskPageItems.Where(x => x.Trashed).ToList())
             {
                 TaskPageItems.Remove(item);
@@ -268,9 +293,9 @@ namespace TodoApp2.Core
         }
 
         private int GetReorderIndex(
-            int newIndex, 
+            int newIndex,
             TaskViewModel task,
-            IEnumerable<TaskViewModel> taskList, 
+            IEnumerable<TaskViewModel> taskList,
             bool insertion = false)
         {
             if (task != null)
@@ -320,56 +345,43 @@ namespace TodoApp2.Core
         /// <param name="e"></param>
         private void OnTaskPageItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_categoryChangeInProgress && !TaskPageSettings.ForceTaskOrderByState)
+            if (_updateInProgress || (_categoryChangeInProgress && !TaskPageSettings.ForceTaskOrderByState))
             {
                 return;
             }
 
-            switch (e.Action)
+            if (e.Action == NotifyCollectionChangedAction.Add && HasNewItems())
             {
-                case NotifyCollectionChangedAction.Add:
+                var newItem = GetNewTask();
+
+                // If the newly added item is the same as the last deleted one,
+                // then this was a drag and drop reorder
+                if (newItem.Id == _lastRemovedId)
                 {
-                    if (e.NewItems.Count > 0)
-                    {
-                        TaskViewModel newItem = (TaskViewModel)e.NewItems[0];
-
-                        // If the newly added item is the same as the last deleted one,
-                        // then this was a drag and drop reorder
-                        if (newItem.Id == _lastRemovedId)
-                        {
-                            ReorderTask(newItem, e.NewStartingIndex);
-                        }
-
-                        _lastRemovedId = int.MinValue;
-                    }
-                    break;
+                    ReorderTask(newItem, e.NewStartingIndex);
                 }
-                case NotifyCollectionChangedAction.Remove:
-                {
-                    if (e.OldItems.Count > 0)
-                    {
-                        TaskViewModel last = (TaskViewModel)e.OldItems[0];
 
-                        _lastRemovedId = last.Id;
-                    }
-                    break;
-                }
-                case NotifyCollectionChangedAction.Move:
-                {
-                    if (e.NewItems.Count > 0)
-                    {
-                        TaskViewModel newItem = (TaskViewModel)e.NewItems[0];
-
-                        ReorderTask(newItem, e.NewStartingIndex);
-                    }
-                    break;
-                }
+                _lastRemovedId = int.MinValue;
             }
+            else if (e.Action == NotifyCollectionChangedAction.Remove && HasOldItems())
+            {
+                _lastRemovedId = GetOldTask().Id;
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Move && HasNewItems())
+            {
+                ReorderTask(GetNewTask(), e.NewStartingIndex);
+            }
+
+            TaskViewModel GetNewTask() => Get(e.NewItems);
+            TaskViewModel GetOldTask() => Get(e.OldItems);
+            TaskViewModel Get(IList list) => (list.Count > 0) ? (TaskViewModel)list[0] : null;
+            bool HasNewItems() => HasItems(e.NewItems);
+            bool HasOldItems() => HasItems(e.OldItems);
+            bool HasItems(IList list) => list.Count > 0;
         }
 
         private void UpdateListOrder(IEnumerable<IReorderable> taskList) =>
             _context.Tasks.UpdateRange(taskList.Cast<TaskViewModel>().MapList(), x => x.Id);
-
 
         private void CountTasks(
             IEnumerable<TaskViewModel> taskList,

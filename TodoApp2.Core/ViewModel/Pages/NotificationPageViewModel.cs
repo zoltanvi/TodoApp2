@@ -1,11 +1,11 @@
 ﻿using System.Windows.Input;
+using TodoApp2.Common;
 
 namespace TodoApp2.Core
 {
     public class NotificationPageViewModel : BaseViewModel
     {
         private bool _closed;
-        private readonly OverlayPageService _overlayPageService;
 
         /// <summary>
         /// The task to show the notification for.
@@ -21,12 +21,14 @@ namespace TodoApp2.Core
         {
         }
 
-        public NotificationPageViewModel(TaskViewModel notificationTask, OverlayPageService overlayPageService)
+        public NotificationPageViewModel(TaskViewModel notificationTask)
         {
+            ThrowHelper.ThrowIfNull(notificationTask);
+
             NotificationTask = notificationTask;
-            _overlayPageService = overlayPageService;
 
             CloseNotificationCommand = new RelayCommand(CloseNotification);
+            
             // Commented out: The user cannot accidentaly close the notification
             //_overlayPageService.SetBackgroundClickedAction(CloseNotification);
         }
@@ -37,7 +39,7 @@ namespace TodoApp2.Core
             {
                 _closed = true;
 
-                _overlayPageService.ClosePage();
+                IoC.OverlayPageService.ClosePage();
 
                 Mediator.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
             }

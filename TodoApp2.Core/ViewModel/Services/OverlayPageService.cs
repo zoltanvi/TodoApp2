@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Input;
+using TodoApp2.Common;
 using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
@@ -22,10 +22,13 @@ namespace TodoApp2.Core
         /// </summary>
         public ICommand BackgroundClickedCommand { get; private set; }
 
-        public OverlayPageService(AppViewModel applicationViewModel, IAppContext context)
+        public OverlayPageService(IAppContext context, AppViewModel appViewModel)
         {
-            _appViewModel = applicationViewModel;
+            ThrowHelper.ThrowIfNull(context);
+            ThrowHelper.ThrowIfNull(appViewModel);
+
             _context = context;
+            _appViewModel = appViewModel;
         }
 
         public void SetBackgroundClickedAction(Action action)
@@ -33,7 +36,7 @@ namespace TodoApp2.Core
             BackgroundClickedCommand = new RelayCommand(action);
         }
 
-        // TODO: Remove side menu handling from here
+        // TODO: Rework overlay page
         public void CloseSideMenu()
         {
             _appViewModel.SideMenuVisible = false;
@@ -51,49 +54,6 @@ namespace TodoApp2.Core
 
                 BackgroundClickedCommand?.Execute(null);
             }
-        }
-
-        public void OpenPage(ApplicationPage page, TaskViewModel task = null)
-        {
-            BaseViewModel viewModel = null;
-            bool validPage = page == ApplicationPage.TaskReminder ||
-                             page == ApplicationPage.ReminderEditor ||
-                             page == ApplicationPage.Notification;
-
-            if (validPage)
-            {
-                switch (page)
-                {
-                    case ApplicationPage.TaskReminder:
-                        viewModel = new TaskReminderPageViewModel(task, this, _context);
-                        break;
-                    case ApplicationPage.ReminderEditor:
-                        viewModel = new ReminderEditorPageViewModel(task, this, _context, ReminderNotificationService);
-                        break;
-                    case ApplicationPage.Notification:
-                        viewModel = new NotificationPageViewModel(task, this);
-                        break;
-                }
-
-                _appViewModel.SideMenuVisible = false;
-                OpenOverlayPage(page, viewModel);
-            }
-            else
-            {
-                Debugger.Break();
-            }
-        }
-
-        /// <summary>
-        /// Shows the overlay page with the given page.
-        /// </summary>
-        /// <param name="page">The page to show on the overlay page.</param>
-        /// <param name="viewModel">The view model of the page.</param>
-        private void OpenOverlayPage(ApplicationPage page, BaseViewModel viewModel)
-        {
-            _appViewModel.GoToOverlayPage(page, true, viewModel);
-
-            OverlayBackgroundVisible = true;
         }
     }
 }
