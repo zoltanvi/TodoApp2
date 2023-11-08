@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using TodoApp2.Common;
 using TodoApp2.Persistence;
 using TodoApp2.Persistence.Models;
 
@@ -17,8 +18,6 @@ namespace TodoApp2.Core
         private readonly IAppContext _context;
 
         private SessionSettings SessionSettings => IoC.AppSettings.SessionSettings;
-
-        public IOverlayPageService OverlayPageService { get; set; }
 
         /// <summary>
         /// The sliding side menu content page
@@ -86,6 +85,9 @@ namespace TodoApp2.Core
 
         public AppViewModel(IAppContext context, IUIScaler uiScaler)
         {
+            ThrowHelper.ThrowIfNull(context);
+            ThrowHelper.ThrowIfNull(uiScaler);
+
             _context = context;
             _uiScaler = uiScaler;
 
@@ -149,35 +151,29 @@ namespace TodoApp2.Core
             }
         }
 
-        /// <summary>
-        /// Navigates the overlay page to the specified page
-        /// </summary>
-        /// <param name="page">The page to go to</param>
-        /// <param name="visible">Shows the page if true</param>
-        /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
-        public void GoToOverlayPage(ApplicationPage page, bool visible = true, IBaseViewModel viewModel = null)
+        public void OpenPage(ApplicationPage page, TaskViewModel task)
         {
-            // Always hide side menu if we are changing pages
+            BaseViewModel viewModel = null;
+
+            switch (page)
+            {
+                case ApplicationPage.TaskReminder:
+                    viewModel = new TaskReminderPageViewModel(_context, task);
+                    break;
+                case ApplicationPage.ReminderEditor:
+                    viewModel = new ReminderEditorPageViewModel(_context, task);
+                    break;
+                case ApplicationPage.Notification:
+                    viewModel = new NotificationPageViewModel(task);
+                    break;
+                default:
+                    throw new ApplicationException("Invalid page.");
+            }
+
             SideMenuVisible = false;
 
-            // Set the view model
-            OverlayPageViewModel = viewModel;
-
-            // See if page has changed
-            bool different = OverlayPage != page;
-
-            // Set the current overlay page
-            OverlayPage = page;
-
-            // Show or hide the page
-            OverlayPageVisible = visible;
-
-            // If the page hasn't changed, fire off notification
-            // So pages still update if just the view model has changed
-            if (!different)
-            {
-                OnPropertyChanged(nameof(OverlayPage));
-            }
+            GoToOverlayPage(page, true, viewModel);
+            IoC.OverlayPageService.OverlayBackgroundVisible = true;
         }
 
         /// <summary>
@@ -251,6 +247,37 @@ namespace TodoApp2.Core
             if (settingsToUpdate.Any())
             {
                 _context.Settings.UpdateRange(settingsToUpdate, x => x.Key);
+            }
+        }
+
+        /// <summary>
+        /// Navigates the overlay page to the specified page
+        /// </summary>
+        /// <param name="page">The page to go to</param>
+        /// <param name="visible">Shows the page if true</param>
+        /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
+        private void GoToOverlayPage(ApplicationPage page, bool visible = true, IBaseViewModel viewModel = null)
+        {
+            // Always hide side menu if we are changing pages
+            SideMenuVisible = false;
+
+            // Set the view model
+            OverlayPageViewModel = viewModel;
+
+            // See if page has changed
+            bool different = OverlayPage != page;
+
+            // Set the current overlay page
+            OverlayPage = page;
+
+            // Show or hide the page
+            OverlayPageVisible = visible;
+
+            // If the page hasn't changed, fire off notification
+            // So pages still update if just the view model has changed
+            if (!different)
+            {
+                OnPropertyChanged(nameof(OverlayPage));
             }
         }
     }

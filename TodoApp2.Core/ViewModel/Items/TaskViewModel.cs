@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
-using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
@@ -79,7 +78,7 @@ namespace TodoApp2.Core
             {
                 //Modifications are accepted, update task
                 ModificationDate = DateTime.Now.Ticks;
-                Context.Tasks.UpdateFirst(this.Map());
+                IoC.TaskListService.UpdateTask(this);
             }
 
             TextEditorViewModel.IsEditMode = false;
@@ -99,13 +98,13 @@ namespace TodoApp2.Core
 
         private void OpenReminder()
         {
-            IoC.OverlayPageService.OpenPage(ApplicationPage.TaskReminder, this);
+            IoC.AppViewModel.OpenPage(ApplicationPage.TaskReminder, this);
         }
 
         private void SetColor()
         {
             // Combobox changes the Color and BorderColor properties directly, we just need to persist it
-            Context.Tasks.UpdateFirst(this.Map());
+            IoC.TaskListService.UpdateTask(this);
         }
 
         public override bool Equals(object obj)

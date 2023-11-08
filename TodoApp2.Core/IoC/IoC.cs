@@ -8,7 +8,6 @@ namespace TodoApp2.Core
     /// </summary>
     public static class IoC
     {
-        private static ReminderNotificationService _reminderNotificationService;
         private static TaskScheduler2 _taskScheduler;
         private static ZoomingListener _zoomingListener;
         public static IAppContext Context { get; private set; }
@@ -27,6 +26,7 @@ namespace TodoApp2.Core
         public static MediaPlayerService MediaPlayerService { get; private set; }
         public static IThemeManagerService ThemeManagerService { get; set; }
         public static ThemeChangeNotifier ThemeChangeNotifier { get; private set; }
+        public static ReminderNotificationService ReminderNotificationService { get; private set; }
 
         /// <summary>
         /// Sets up the essential services, modules and the AppSettings
@@ -53,24 +53,19 @@ namespace TodoApp2.Core
 
             UndoManager = new UndoManager();
             AppViewModel = new AppViewModel(Context, UIScaler);
-            OverlayPageService = new OverlayPageService(AppViewModel, Context);
+            OverlayPageService = new OverlayPageService(Context, AppViewModel);
 
             // Create default categories + example tasks
             DefaultItemsCreator.CreateDefaults(Context);
-
-            // This dependency must be set here. Workaround to avoid circular dependencies
-            AppViewModel.OverlayPageService = OverlayPageService;
+            
+            CategoryListService = new CategoryListService(Context, AppViewModel);
+            TaskListService = new TaskListService(Context, AppViewModel, CategoryListService);
+            NoteListService = new NoteListService(Context, AppViewModel);
 
             _taskScheduler = new TaskScheduler2();
-            _reminderNotificationService = new ReminderNotificationService(Context, _taskScheduler, OverlayPageService);
+
+            ReminderNotificationService = new ReminderNotificationService(Context, _taskScheduler, TaskListService);
             
-            // This dependency must be set here. Workaround to avoid circular dependencies
-            OverlayPageService.ReminderNotificationService = _reminderNotificationService;
-
-            CategoryListService = new CategoryListService(AppViewModel, Context);
-            NoteListService = new NoteListService(AppViewModel, Context);
-            TaskListService = new TaskListService(Context, CategoryListService, AppViewModel);
-
             OneEditorOpenService = new OneEditorOpenService();
         }
     }

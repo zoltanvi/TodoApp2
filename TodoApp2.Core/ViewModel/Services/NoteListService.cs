@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using TodoApp2.Common;
 using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
@@ -25,8 +26,11 @@ namespace TodoApp2.Core
             }
         }
 
-        public NoteListService(AppViewModel appViewModel, IAppContext context)
+        public NoteListService(IAppContext context, AppViewModel appViewModel)
         {
+            ThrowHelper.ThrowIfNull(context);
+            ThrowHelper.ThrowIfNull(appViewModel);
+
             _appViewModel = appViewModel;
             _context = context;
 

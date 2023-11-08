@@ -1,13 +1,11 @@
-﻿using System;
-using System.Windows.Input;
-using TodoApp2.Core.Mappings;
+﻿using System.Windows.Input;
+using TodoApp2.Common;
 using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
     public class TaskReminderPageViewModel : BaseViewModel
     {
-        private readonly OverlayPageService _overlayPageService;
         private readonly IAppContext _context;
 
         /// <summary>
@@ -35,39 +33,35 @@ namespace TodoApp2.Core
         {
         }
 
-        public TaskReminderPageViewModel(TaskViewModel reminderTask, OverlayPageService overlayPageService, IAppContext context)
+        public TaskReminderPageViewModel(IAppContext context, TaskViewModel reminderTask)
         {
-            if (reminderTask == null)
-            {
-                throw new ArgumentNullException(nameof(reminderTask));
-            }
-
-            _overlayPageService = overlayPageService;
+            ThrowHelper.ThrowIfNull(context);
+            ThrowHelper.ThrowIfNull(reminderTask);
+            
             _context = context;
+            ReminderTask = reminderTask;
 
             EditReminderCommand = new RelayCommand(EditReminder);
             ClosePageCommand = new RelayCommand(ClosePage);
             ChangeIsReminderOn = new RelayCommand(ChangeIsOn);
-            _overlayPageService.SetBackgroundClickedAction(ClosePage);
-
-            ReminderTask = _context.Tasks.First(x => x.Id == reminderTask.Id).Map();
+            IoC.OverlayPageService.SetBackgroundClickedAction(ClosePage);
         }
 
         private void ChangeIsOn()
         {
             // ReminderTask.IsReminderOn is modified with the toggle button,
             // so we persist the modification
-            _context.Tasks.UpdateFirst(ReminderTask.Map());
+            IoC.TaskListService.UpdateTask(ReminderTask);
         }
 
         private void EditReminder()
         {
-            _overlayPageService.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
+            IoC.AppViewModel.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
         }
 
         private void ClosePage()
         {
-            _overlayPageService.ClosePage();
+            IoC.OverlayPageService.ClosePage();
         }
     }
 }

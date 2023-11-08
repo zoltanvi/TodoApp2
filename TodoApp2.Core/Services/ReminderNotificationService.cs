@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TodoApp2.Common;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 
@@ -12,14 +13,21 @@ namespace TodoApp2.Core
         private readonly Queue<TaskViewModel> _notificationQueue;
         private readonly IAppContext _context;
         private readonly TaskScheduler2 _taskScheduler;
-        private readonly OverlayPageService _overlayPageService;
+        private readonly TaskListService _taskListService;
         private Dictionary<TaskViewModel, DateTime> _scheduledTasks;
 
-        public ReminderNotificationService(IAppContext context, TaskScheduler2 taskScheduler, OverlayPageService overlayPageService)
+        public ReminderNotificationService(
+            IAppContext context, 
+            TaskScheduler2 taskScheduler, 
+            TaskListService taskListService)
         {
+            ThrowHelper.ThrowIfNull(context);
+            ThrowHelper.ThrowIfNull(taskScheduler);
+            ThrowHelper.ThrowIfNull(taskListService);
+
             _context = context;
             _taskScheduler = taskScheduler;
-            _overlayPageService = overlayPageService;
+            _taskListService = taskListService;
 
             _scheduledTasks = new Dictionary<TaskViewModel, DateTime>();
             _notificationQueue = new Queue<TaskViewModel>();
@@ -67,7 +75,8 @@ namespace TodoApp2.Core
                 else
                 {
                     task.IsReminderOn = false;
-                    _context.Tasks.UpdateFirst(task.Map());
+
+                    _taskListService.UpdateTask(task);
                 }
             }
         }
@@ -84,10 +93,9 @@ namespace TodoApp2.Core
         {
             _scheduledTasks.Remove(task);
 
-            TaskViewModel dbTask = _context.Tasks.First(x => x.Id == task.Id).Map();
-            if (dbTask.IsReminderOn)
+            if (task.IsReminderOn)
             {
-                _notificationQueue.Enqueue(dbTask);
+                _notificationQueue.Enqueue(task);
             }
 
             OpenNextNotification();
@@ -110,6 +118,8 @@ namespace TodoApp2.Core
 
                 if (_notificationQueue.Count > 0)
                 {
+                    // Always get the task from the database here,
+                    // because it may be inconsistent with the queued instance
                     TaskViewModel notificationTask = _notificationQueue.Dequeue();
                     notificationTask = _context.Tasks.First(x => x.Id == notificationTask.Id).Map();
 
@@ -119,9 +129,9 @@ namespace TodoApp2.Core
                     }
 
                     notificationTask.IsReminderOn = false;
-                    _context.Tasks.UpdateFirst(notificationTask.Map());
+                    _taskListService.UpdateTask(notificationTask);
 
-                    _overlayPageService.OpenPage(ApplicationPage.Notification, notificationTask);
+                    IoC.AppViewModel.OpenPage(ApplicationPage.Notification, notificationTask);
                     Mediator.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
                 }
             }

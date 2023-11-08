@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using TodoApp2.Common;
 using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Core.Reordering;
@@ -54,9 +55,12 @@ namespace TodoApp2.Core
             }
         }
 
-        public CategoryListService(AppViewModel applicationViewModel, IAppContext context)
+        public CategoryListService(IAppContext context, AppViewModel appViewModel)
         {
-            _appViewModel = applicationViewModel;
+            ThrowHelper.ThrowIfNull(context);
+            ThrowHelper.ThrowIfNull(appViewModel);
+
+            _appViewModel = appViewModel;
             _context = context;
 
             _activeCategory = _context.Categories
