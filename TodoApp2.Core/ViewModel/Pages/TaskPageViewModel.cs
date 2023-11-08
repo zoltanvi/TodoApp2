@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TodoApp2.Common;
 
@@ -204,19 +203,15 @@ namespace TodoApp2.Core
             {
                 int oldPosition = _taskListService.TaskPageItems.IndexOf(task);
 
-                // Set Trashed property to true so it won't be listed in the active list
                 task.Trashed = true;
-
-                // Indicate that it is an invalid order
                 task.ListOrder = CommonConstants.InvalidListOrder;
-
-                // Persist modifications
+                
                 _taskListService.UpdateTask(task);
 
-                // Remove from the list
-                _taskListService.RemoveTaskFromMemory(task);
-
-                result = new CommandObject(true, new Tuple<int, TaskViewModel>(oldPosition, task), null,
+                result = new CommandObject(
+                    true, 
+                    new Tuple<int, TaskViewModel>(oldPosition, task), 
+                    null,
                     "Task deleted.");
             }
 
@@ -245,8 +240,8 @@ namespace TodoApp2.Core
             {
                 task.Trashed = true;
                 task.ListOrder = CommonConstants.InvalidListOrder;
+                
                 _taskListService.UpdateTask(task);
-                _taskListService.RemoveTaskFromMemory(task);
             }
         }
 
@@ -311,41 +306,25 @@ namespace TodoApp2.Core
         }
 
         /// <inheritdoc cref="DeleteAllCommand"/>
-        private void TrashAll()
-        {
-            TrashTasks(Items);
-        }
+        private void TrashAll() => TrashTasks(Items);
 
         /// <inheritdoc cref="DeleteDoneCommand"/>
-        private void TrashDone()
-        {
-            TrashTasks(Items.Where(i => i.IsDone));
-        }
+        private void TrashDone() => TrashTasks(Items.Where(i => i.IsDone));
 
         /// <summary>
         /// Trashes every item from the <paramref name="taskList"/>.
-        /// Only persists the items 
         /// </summary>
-        /// <param name="taskList"></param>
         private void TrashTasks(IEnumerable<TaskViewModel> taskList)
         {
             var items = new List<TaskViewModel>(taskList);
 
             foreach (TaskViewModel item in items)
             {
-                // Set Trashed property to true so it won't be listed in the active list
                 item.Trashed = true;
-
-                // Indicate that it is an invalid order
                 item.ListOrder = CommonConstants.InvalidListOrder;
             }
 
             _taskListService.PersistTaskList();
-
-            foreach (TaskViewModel item in items)
-            {
-                _taskListService.RemoveTaskFromMemory(item);
-            }
         }
 
         private void ResetColors()
@@ -393,7 +372,6 @@ namespace TodoApp2.Core
         /// <summary>
         /// Moves a task into another category
         /// </summary>
-        /// <param name="obj"></param>
         private void MoveToCategory(object obj)
         {
             if (obj is List<object> parameters && parameters.Count == 2)
@@ -404,15 +382,11 @@ namespace TodoApp2.Core
                     // If the category is the same as the task is in, there is nothing to do
                     if (task.CategoryId != categoryToMoveTo.Id)
                     {
-                        //CategoryListItemViewModel newCategory = _categoryListService.GetCategory(categoryToMoveTo);
                         task.CategoryId = categoryToMoveTo.Id;
 
                         // Insert into the first correct position.
                         int newIndex = _taskListService.GetCorrectReorderIndex(0, task, categoryToMoveTo);
                         _taskListService.ReorderTask(task, newIndex);
-
-                        // Delete the item from the currently listed items
-                        _taskListService.RemoveTaskFromMemory(task);
                     }
                 }
             }
@@ -440,13 +414,10 @@ namespace TodoApp2.Core
         {
             if (obj is TaskViewModel task)
             {
-                // 1. Set task to pinned
                 task.Pinned = true;
-
-                // 2. A pinned task is not done yet.
                 task.IsDone = false;
 
-                // 3. Reorder task to the top of the list
+                // Reorder task to the top of the list
                 _taskListService.ReorderTask(task, 0, true);
             }
         }
@@ -455,44 +426,31 @@ namespace TodoApp2.Core
         {
             if (obj is TaskViewModel task)
             {
-                // 1. Get the tasks in the category
                 var taskList = _taskListService.GetActiveTaskItems(ActiveCategory);
-
-                // 2. Count all pinned items. The currently pinned item is in this list.
                 int pinnedItemCount = taskList.Count(i => i.Pinned);
 
-                // 3. Set task to not pinned
                 task.Pinned = false;
 
-                // 4. Reorder task below the already pinned tasks and above the not-pinned tasks
+                // Reorder task below the already pinned tasks and above the not-pinned tasks
                 _taskListService.ReorderTask(task, pinnedItemCount - 1, true);
             }
         }
 
-        private void MoveToBottom(object obj)
-        {
-            if (obj is TaskViewModel task)
-            {
-                MoveTaskToBottom(task);
-            }
-        }
-
-        private void MoveToTop(object obj)
-        {
-            if (obj is TaskViewModel task)
-            {
-                MoveTaskToTop(task);
-            }
-        }
-
+        private void MoveToBottom(object obj) => MoveTaskToBottom(obj as TaskViewModel);
+        
         private void MoveTaskToBottom(TaskViewModel task)
         {
+            if (task == null) return;
+
             int newIndex = _taskListService.GetCorrectReorderIndex(Items.Count - 1, task);
             _taskListService.ReorderTask(task, newIndex, true);
         }
+        private void MoveToTop(object obj) => MoveTaskToTop(obj as TaskViewModel);
 
         private void MoveTaskToTop(TaskViewModel task)
         {
+            if (task == null) return;
+
             int newIndex = _taskListService.GetCorrectReorderIndex(0, task);
             _taskListService.ReorderTask(task, newIndex, true);
         }
