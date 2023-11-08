@@ -34,7 +34,6 @@ namespace TodoApp2.Core.Reordering
             _reorderer.ReorderItem(filteredOrderedTasks, itemToReorder, newPosition, UpdateListOrder);
 
             context.Tasks.UpdateFirst(task.Map());
-            //TaskChanged?.Invoke(this, new TaskChangedEventArgs(task));
 
             void UpdateListOrder(IEnumerable<IReorderable> taskList) =>
                 context.Tasks.UpdateRange(taskList.Cast<TaskViewModel>().MapList(), x => x.Id);

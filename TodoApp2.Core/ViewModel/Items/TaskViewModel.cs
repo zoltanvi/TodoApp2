@@ -67,25 +67,6 @@ namespace TodoApp2.Core
             ColorChangedNotification = new NotifiableObject(SetColor);
         }
 
-        public void CopyProperties(TaskViewModel task)
-        {
-            Id = task.Id;
-            CategoryId = task.CategoryId;
-            Content = task.Content;
-            ListOrder = task.ListOrder;
-            IsDone = task.IsDone;
-            CreationDate = task.CreationDate;
-            ModificationDate = task.ModificationDate;
-            Color = task.Color;
-            BorderColor = task.BorderColor;
-            BackgroundColor = task.BackgroundColor;
-            Trashed = task.Trashed;
-            ReminderDate = task.ReminderDate;
-            IsReminderOn = task.IsReminderOn;
-            ColorPickerVisible = task.ColorPickerVisible;
-            TextEditorViewModel.IsEditMode = task.TextEditorViewModel.IsEditMode;
-        }
-
         public void UpdateContent()
         {
             if (TextEditorViewModel.IsContentEmpty)

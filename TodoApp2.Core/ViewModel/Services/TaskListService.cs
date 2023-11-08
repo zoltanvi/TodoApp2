@@ -118,8 +118,9 @@ namespace TodoApp2.Core
 
         public void UpdateTask(TaskViewModel task)
         {
-            TaskViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
-            taskToUpdate?.CopyProperties(task);
+            if (task.Trashed) TaskPageItems.Remove(task);
+            if (task.CategoryId != ActiveCategory.Id) TaskPageItems.Remove(task);
+
             _context.Tasks.UpdateFirst(task.Map());
         }
 
@@ -133,17 +134,15 @@ namespace TodoApp2.Core
         {
             newPosition = newPosition == -1 ? 0 : newPosition;
 
-            TaskViewModel taskToUpdate = TaskPageItems.FirstOrDefault(item => item.Id == task.Id);
-
-            if (taskToUpdate != null)
+            if (task != null)
             {
-                taskToUpdate.CopyProperties(task);
-
                 if (changeInCollection)
                 {
                     var oldIndex = TaskPageItems.IndexOf(task);
                     TaskPageItems.Move(oldIndex, newPosition);
                 }
+
+                if (task.CategoryId != ActiveCategory.Id) TaskPageItems.Remove(task);
 
                 ReorderingHelperTemp.ReorderTask(_context, task, newPosition);
             }
@@ -157,6 +156,11 @@ namespace TodoApp2.Core
         public void PersistTaskList()
         {
             _context.Tasks.UpdateRange(TaskPageItems.MapList(), x => x.Id);
+            
+            foreach (var item in TaskPageItems.Where(x => x.Trashed).ToList())
+            {
+                TaskPageItems.Remove(item);
+            }
         }
 
         public List<TaskViewModel> GetActiveTaskItems(CategoryViewModel category)
