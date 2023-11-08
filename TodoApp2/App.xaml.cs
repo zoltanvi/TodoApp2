@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -136,11 +137,19 @@ namespace TodoApp2
         // TODO: Implement more sophisticated logging
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            string message = $"\n\n{DateTime.Now.ToLongDateString()}\n" +
-                $"{DateTime.Now.ToLongTimeString()}\n" +
-                $"{e.Exception.Message}\n\n" +
-                $"{e.Exception.StackTrace}\n===========================";
-            File.AppendAllText(m_CrashReportPath, message);
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(DateTime.Now.ToLongDateString() + "  ");
+            sb.AppendLine(DateTime.Now.ToLongTimeString());
+            sb.AppendLine(e.Exception.Message);
+            sb.AppendLine();
+            sb.AppendLine(e.Exception.StackTrace);
+
+            var errorWindow = new ErrorWindow("An error occurred.", sb.ToString());
+            errorWindow.ShowDialog();
+
+            sb.AppendLine("======================================================");
+            File.AppendAllText(m_CrashReportPath, sb.ToString());
         }
     }
 }
