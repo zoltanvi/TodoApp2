@@ -77,7 +77,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// The database location.
         /// </summary>
-        public string DatabaseLocation => "TODO: wire appContext path here";
+        public string DatabaseLocation => DataAccess.DatabasePath;
 
         /// <summary>
         /// The value change triggers the animation

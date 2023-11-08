@@ -21,7 +21,7 @@ namespace TodoApp2.Core
             }
             catch (Exception ex)
             {
-                // Ignore for the time being
+                throw new ApplicationException("Can't open database location.");
             }
         }
     }
