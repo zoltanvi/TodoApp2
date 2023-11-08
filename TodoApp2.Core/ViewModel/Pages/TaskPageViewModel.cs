@@ -487,26 +487,12 @@ namespace TodoApp2.Core
 
         private void MoveTaskToBottom(TaskViewModel task)
         {
-            int newIndex = Items.Count - 1;
-
-            if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState && !task.IsDone)
-            {
-                for (int i = Items.Count - 1; i >= 0; i--)
-                {
-                    newIndex = i;
-                    if (Items[i].Equals(task) || !Items[i].IsDone)
-                    {
-                        break;
-                    }
-                }
-            }
-
+            int newIndex = _taskListService.GetCorrectReorderIndex(Items.Count - 1, task);
             _taskListService.ReorderTask(task, newIndex, true);
         }
 
         private void MoveTaskToTop(TaskViewModel task)
         {
-            // Get the valid index. E.g: A normal item cannot be above the pinned ones.
             int newIndex = _taskListService.GetCorrectReorderIndex(0, task);
             _taskListService.ReorderTask(task, newIndex, true);
         }
