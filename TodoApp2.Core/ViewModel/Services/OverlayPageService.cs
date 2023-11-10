@@ -10,8 +10,6 @@ namespace TodoApp2.Core
         private readonly AppViewModel _appViewModel;
         private readonly IAppContext _context;
 
-        public ReminderNotificationService ReminderNotificationService { get; set; }
-
         /// <summary>
         /// True if the overlay background should be shown
         /// </summary>
@@ -36,7 +34,6 @@ namespace TodoApp2.Core
             BackgroundClickedCommand = new RelayCommand(action);
         }
 
-        // TODO: Rework overlay page
         public void CloseSideMenu()
         {
             _appViewModel.SideMenuVisible = false;
