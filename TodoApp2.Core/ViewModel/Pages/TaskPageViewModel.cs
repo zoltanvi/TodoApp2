@@ -103,11 +103,6 @@ namespace TodoApp2.Core
         public ICommand ToggleTaskIsDoneCommand { get; }
 
         /// <summary>
-        /// Moves the task item into another category
-        /// </summary>
-        public ICommand MoveToCategoryCommand { get; }
-
-        /// <summary>
         /// Enters edit mode to change the category name
         /// </summary>
         public ICommand EditCategoryCommand { get; }
@@ -125,6 +120,13 @@ namespace TodoApp2.Core
         public ICommand SortByStateCommand { get; }
         public ICommand MoveToTopCommand { get; }
         public ICommand MoveToBottomCommand { get; }
+
+        public ICommand MoveToCategoryCommand { get; }
+        
+        public ICommand MoveAllToCategoryCommand { get; }
+        public ICommand MoveAllCompletedToCategoryCommand { get; }
+        public ICommand MoveAllIncompleteToCategoryCommand { get; }
+
 
         public TaskPageViewModel()
         {
@@ -155,6 +157,9 @@ namespace TodoApp2.Core
             TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
             ToggleTaskIsDoneCommand = new RelayParameterizedCommand(ToggleTaskIsDone);
             MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
+            MoveAllToCategoryCommand = new RelayParameterizedCommand(MoveAllToCategory);
+            MoveAllCompletedToCategoryCommand = new RelayParameterizedCommand(MoveAllCompletedToCategory);
+            MoveAllIncompleteToCategoryCommand = new RelayParameterizedCommand(MoveAllIncompleteToCategory);
 
             EditCategoryCommand = new RelayCommand(EditCategory);
             FinishCategoryEditCommand = new RelayCommand(FinishCategoryEdit);
@@ -367,6 +372,58 @@ namespace TodoApp2.Core
                         _taskListService.ReorderTask(task, newIndex);
                     }
                 }
+            }
+        }
+
+        private void MoveAllToCategory(object obj)
+        {
+            if (obj is CategoryViewModel categoryToMoveTo)
+            {
+                List<TaskViewModel> pageItems = _taskListService.TaskPageItems.ToList();
+                
+                MoveItemsToCategory(pageItems, categoryToMoveTo);
+            }
+        }
+
+        private void MoveAllCompletedToCategory(object obj)
+        {
+            if (obj is CategoryViewModel categoryToMoveTo)
+            {
+                List<TaskViewModel> pageItems = _taskListService.TaskPageItems
+                    .Where(x => x.IsDone)
+                    .ToList();
+
+                MoveItemsToCategory(pageItems, categoryToMoveTo);
+            }
+        }
+
+        private void MoveAllIncompleteToCategory(object obj)
+        {
+            if (obj is CategoryViewModel categoryToMoveTo)
+            {
+                List<TaskViewModel> pageItems = _taskListService.TaskPageItems
+                    .Where(x => !x.IsDone)
+                    .ToList();
+
+                MoveItemsToCategory(pageItems, categoryToMoveTo);
+            }
+        }
+
+        private void MoveItemsToCategory(List<TaskViewModel> taskList, CategoryViewModel categoryToMoveTo)
+        {
+            int newIndex = int.MinValue;
+
+            for (int i = taskList.Count - 1; i >= 0; i--)
+            {
+                taskList[i].CategoryId = categoryToMoveTo.Id;
+
+                // Get correct reorder index for the first item,
+                // then increment the newIndex for all following items
+                newIndex = newIndex == int.MinValue
+                    ? _taskListService.GetCorrectReorderIndex(0, taskList[i], categoryToMoveTo)
+                    : newIndex + 1;
+
+                _taskListService.ReorderTask(taskList[i], newIndex);
             }
         }
 
