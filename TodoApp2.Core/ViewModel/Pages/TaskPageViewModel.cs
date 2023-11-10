@@ -205,12 +205,12 @@ namespace TodoApp2.Core
 
                 task.Trashed = true;
                 task.ListOrder = CommonConstants.InvalidListOrder;
-                
+
                 _taskListService.UpdateTask(task);
 
                 result = new CommandObject(
-                    true, 
-                    new Tuple<int, TaskViewModel>(oldPosition, task), 
+                    true,
+                    new Tuple<int, TaskViewModel>(oldPosition, task),
                     null,
                     "Task deleted.");
             }
@@ -240,7 +240,7 @@ namespace TodoApp2.Core
             {
                 task.Trashed = true;
                 task.ListOrder = CommonConstants.InvalidListOrder;
-                
+
                 _taskListService.UpdateTask(task);
             }
         }
@@ -297,61 +297,41 @@ namespace TodoApp2.Core
         {
             if (obj is TaskViewModel task)
             {
-                // Toggle IsDone
                 task.IsDone = !task.IsDone;
-
-                // Modify order and persist task
                 ModifyTaskIsDone(task);
             }
         }
 
-        /// <inheritdoc cref="DeleteAllCommand"/>
         private void TrashAll() => TrashTasks(Items);
 
-        /// <inheritdoc cref="DeleteDoneCommand"/>
         private void TrashDone() => TrashTasks(Items.Where(i => i.IsDone));
 
-        /// <summary>
-        /// Trashes every item from the <paramref name="taskList"/>.
-        /// </summary>
         private void TrashTasks(IEnumerable<TaskViewModel> taskList)
         {
-            var items = new List<TaskViewModel>(taskList);
-
-            foreach (TaskViewModel item in items)
+            ForEachTask(x =>
             {
-                item.Trashed = true;
-                item.ListOrder = CommonConstants.InvalidListOrder;
-            }
-
-            _taskListService.PersistTaskList();
+                x.Trashed = true;
+                x.ListOrder = CommonConstants.InvalidListOrder;
+            },
+            taskList);
         }
 
-        private void ResetColors()
+        private void ResetColors() =>
+            ForEachTask(x => x.Color = CoreConstants.ColorName.Transparent);
+
+        private void ResetBorderColors() =>
+            ForEachTask(x => x.BorderColor = CoreConstants.ColorName.Transparent);
+
+        private void ResetBackgroundColors() =>
+            ForEachTask(x => x.BackgroundColor = CoreConstants.ColorName.Transparent);
+
+        private void ForEachTask(Action<TaskViewModel> action) => ForEachTask(action, Items);
+
+        private void ForEachTask(Action<TaskViewModel> action, IEnumerable<TaskViewModel> taskEnumerable)
         {
-            foreach (TaskViewModel item in Items)
+            foreach (TaskViewModel item in taskEnumerable)
             {
-                item.Color = CoreConstants.ColorName.Transparent;
-            }
-
-            _taskListService.PersistTaskList();
-        }
-
-        private void ResetBorderColors()
-        {
-            foreach (TaskViewModel item in Items)
-            {
-                item.BorderColor = CoreConstants.ColorName.Transparent;
-            }
-
-            _taskListService.PersistTaskList();
-        }
-
-        private void ResetBackgroundColors()
-        {
-            foreach (TaskViewModel item in Items)
-            {
-                item.BackgroundColor = CoreConstants.ColorName.Transparent;
+                action(item);
             }
 
             _taskListService.PersistTaskList();
@@ -359,14 +339,12 @@ namespace TodoApp2.Core
 
         private void ResetAllColors()
         {
-            foreach (TaskViewModel item in Items)
+            ForEachTask(x =>
             {
-                item.Color = CoreConstants.ColorName.Transparent;
-                item.BackgroundColor = CoreConstants.ColorName.Transparent;
-                item.BorderColor = CoreConstants.ColorName.Transparent;
-            }
-
-            _taskListService.PersistTaskList();
+                x.Color = CoreConstants.ColorName.Transparent;
+                x.BackgroundColor = CoreConstants.ColorName.Transparent;
+                x.BorderColor = CoreConstants.ColorName.Transparent;
+            });
         }
 
         /// <summary>
@@ -437,7 +415,7 @@ namespace TodoApp2.Core
         }
 
         private void MoveToBottom(object obj) => MoveTaskToBottom(obj as TaskViewModel);
-        
+
         private void MoveTaskToBottom(TaskViewModel task)
         {
             if (task == null) return;

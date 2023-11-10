@@ -35,7 +35,6 @@ namespace TodoApp2.Core
         {
             bool success = false;
 
-            // If the task has already expired, ignore it
             if (dateTime > DateTime.Now)
             {
                 // Start polling when there is at least 1 item to watch
