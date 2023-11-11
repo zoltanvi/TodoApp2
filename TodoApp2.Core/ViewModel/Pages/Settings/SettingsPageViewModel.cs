@@ -20,7 +20,7 @@ namespace TodoApp2.Core
             _appViewModel = applicationViewModel;
             GoBackCommand = new RelayCommand(() => _appViewModel.UpdateMainPage());
 
-            SwitchToPageCommand = new RelayParameterizedCommand(SwitchToPage);
+            SwitchToPageCommand = new RelayParameterizedCommand<object>(SwitchToPage);
         }
 
         private void SwitchToPage(object obj)
