@@ -112,7 +112,6 @@
     <Compile Include="Mappings\NoteMapping.cs" />
     <Compile Include="Mappings\TaskMapping.cs" />
     <Compile Include="Mediator\AsyncEventArgs.cs" />
-    <Compile Include="DataModels\Setting.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="Extensions\SQLiteExtensions.cs" />

@@ -39,12 +39,20 @@ namespace TodoApp2.Core
             {
                 Hour++;
             }
+            else
+            {
+                Hour = 0;
+            }
         }
         private void DecreaseHour()
         {
             if (Hour - 1 >= 0)
             {
                 Hour--;
+            }
+            else
+            {
+                Hour = 23;
             }
         }
         private void IncreaseMinute()
@@ -53,12 +61,20 @@ namespace TodoApp2.Core
             {
                 Minute++;
             }
+            else
+            {
+                Minute = 0;
+            }
         }
         private void DecreaseMinute()
         {
             if (Minute - 1 >= 0)
             {
                 Minute--;
+            }
+            else
+            {
+                Minute = 59;
             }
         }
     }
