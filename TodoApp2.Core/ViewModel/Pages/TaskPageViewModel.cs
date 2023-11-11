@@ -46,86 +46,36 @@ namespace TodoApp2.Core
         /// </summary>
         public bool IsCategoryInDisplayMode => !IsCategoryInEditMode;
 
-        /// <summary>
-        /// Adds a new task item
-        /// </summary>
         public ICommand AddTaskItemCommand { get; }
-
-        /// <summary>
-        /// Deletes the task item
-        /// </summary>
         public ICommand DeleteTaskItemCommand { get; }
-
-        /// <summary>
-        /// Deletes every task item from the current category
-        /// </summary>
         public ICommand DeleteAllCommand { get; }
-
-        /// <summary>
-        /// Deletes every DONE task item from the current category
-        /// </summary>
-        public ICommand DeleteDoneCommand { get; }
-
-        /// <summary>
-        /// Pins the task item
-        /// </summary>
+        public ICommand DeleteCompletedCommand { get; }
+        public ICommand DeleteIncompleteCommand { get; }
         public ICommand PinTaskItemCommand { get; }
-
-        /// <summary>
-        /// Unpins the task item
-        /// </summary>
         public ICommand UnpinTaskItemCommand { get; }
-
-        /// <summary>
-        /// Resets each task items color in the current category
-        /// </summary>
+        public ICommand ResetAllStatesCommand { get; }
         public ICommand ResetColorsCommand { get; }
-
-        /// <summary>
-        /// Resets each task items border color in the current category
-        /// </summary>
         public ICommand ResetBorderColorsCommand { get; }
-
-        /// <summary>
-        /// Resets each task items background color in the current category
-        /// </summary>
         public ICommand ResetBackgroundColorsCommand { get; }
         public ICommand ResetAllColorsCommand { get; }
-
-        /// <summary>
-        /// Saves the task item. The IsDone is modified by the checkbox itself.
-        /// </summary>
         public ICommand TaskIsDoneModifiedCommand { get; }
-
-        /// <summary>
-        /// Toggles the IsDone property on the task and saves it.
-        /// </summary>
         public ICommand ToggleTaskIsDoneCommand { get; }
-
-        /// <summary>
-        /// Enters edit mode to change the category name
-        /// </summary>
         public ICommand EditCategoryCommand { get; }
-
-        /// <summary>
-        /// Finishes edit mode and changes to display mode for the category name
-        /// </summary>
         public ICommand FinishCategoryEditCommand { get; }
-
-        /// <summary>
-        /// Executes when the Add new task textbox gains focus
-        /// </summary>
         public ICommand TextBoxFocusedCommand { get; }
-
         public ICommand SortByStateCommand { get; }
+        public ICommand SortByCreationDateCommand { get; }
+        public ICommand SortByCreationDateDescCommand { get; }
+        public ICommand SortByModificationDateCommand { get; }
+        public ICommand SortByModificationDateDescCommand { get; }
         public ICommand MoveToTopCommand { get; }
         public ICommand MoveToBottomCommand { get; }
-
         public ICommand MoveToCategoryCommand { get; }
-        
         public ICommand MoveAllToCategoryCommand { get; }
         public ICommand MoveAllCompletedToCategoryCommand { get; }
         public ICommand MoveAllIncompleteToCategoryCommand { get; }
+
+        public ICommand OpenPageTitleSettingsCommand { get; }
 
 
         public TaskPageViewModel()
@@ -145,33 +95,48 @@ namespace TodoApp2.Core
             AddTaskItemCommand = new UndoableCommand(DoAddTask, RedoAddTask, UndoAddTask);
             DeleteTaskItemCommand = new UndoableCommand(DoTrashTask, RedoTrashTask, UndoTrashTask);
 
-            DeleteDoneCommand = new RelayCommand(TrashDone);
-            PinTaskItemCommand = new RelayParameterizedCommand(Pin);
-            UnpinTaskItemCommand = new RelayParameterizedCommand(Unpin);
+            DeleteCompletedCommand = new RelayCommand(TrashCompleted);
+            DeleteIncompleteCommand = new RelayCommand(TrashIncomplete);
+            PinTaskItemCommand = new RelayParameterizedCommand<TaskViewModel>(Pin);
+            UnpinTaskItemCommand = new RelayParameterizedCommand<TaskViewModel>(Unpin);
             DeleteAllCommand = new RelayCommand(TrashAll);
+            ResetAllStatesCommand = new RelayCommand(ResetStates);
             ResetColorsCommand = new RelayCommand(ResetColors);
             ResetBorderColorsCommand = new RelayCommand(ResetBorderColors);
             ResetBackgroundColorsCommand = new RelayCommand(ResetBackgroundColors);
             ResetAllColorsCommand = new RelayCommand(ResetAllColors);
 
-            TaskIsDoneModifiedCommand = new RelayParameterizedCommand(ModifyTaskIsDone);
-            ToggleTaskIsDoneCommand = new RelayParameterizedCommand(ToggleTaskIsDone);
-            MoveToCategoryCommand = new RelayParameterizedCommand(MoveToCategory);
-            MoveAllToCategoryCommand = new RelayParameterizedCommand(MoveAllToCategory);
-            MoveAllCompletedToCategoryCommand = new RelayParameterizedCommand(MoveAllCompletedToCategory);
-            MoveAllIncompleteToCategoryCommand = new RelayParameterizedCommand(MoveAllIncompleteToCategory);
+            TaskIsDoneModifiedCommand = new RelayParameterizedCommand<TaskViewModel>(ModifyTaskIsDone);
+            ToggleTaskIsDoneCommand = new RelayParameterizedCommand<TaskViewModel>(ToggleTaskIsDone);
+            MoveToCategoryCommand = new RelayParameterizedCommand<List<object>>(MoveToCategory);
+            MoveAllToCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(MoveAllToCategory);
+            MoveAllCompletedToCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(MoveAllCompletedToCategory);
+            MoveAllIncompleteToCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(MoveAllIncompleteToCategory);
 
             EditCategoryCommand = new RelayCommand(EditCategory);
             FinishCategoryEditCommand = new RelayCommand(FinishCategoryEdit);
-
             TextBoxFocusedCommand = new RelayCommand(OnTextBoxFocused);
-            SortByStateCommand = new RelayCommand(_taskListService.SortTaskPageItems);
-            MoveToTopCommand = new RelayParameterizedCommand(MoveToTop);
-            MoveToBottomCommand = new RelayParameterizedCommand(MoveToBottom);
+            
+            SortByStateCommand = new RelayCommand(_taskListService.SortByState);
+            
+            SortByCreationDateCommand = new RelayCommand(_taskListService.SortByCreationDate);
+            SortByCreationDateDescCommand = new RelayCommand(_taskListService.SortByCreationDateDesc);
+
+            SortByModificationDateCommand = new RelayCommand(_taskListService.SortByModificationDate);
+            SortByModificationDateDescCommand = new RelayCommand(_taskListService.SortByModificationDateDesc);
+
+            MoveToTopCommand = new RelayParameterizedCommand<TaskViewModel>(MoveTaskToTop);
+            MoveToBottomCommand = new RelayParameterizedCommand<TaskViewModel>(MoveTaskToBottom);
+
+            OpenPageTitleSettingsCommand = new RelayCommand(OpenPageTitleSettings);
 
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
         }
 
+        private void OpenPageTitleSettings()
+        {
+            // TODO: Create a service that opens the appropriate page
+        }
 
         private void OnTextBoxFocused()
         {
@@ -268,48 +233,44 @@ namespace TodoApp2.Core
             return result;
         }
 
-        private void ModifyTaskIsDone(object obj)
+        private void ModifyTaskIsDone(TaskViewModel task)
         {
-            if (obj is TaskViewModel task)
+            if (task.IsDone)
             {
-                if (task.IsDone)
+                // A done item cannot be pinned.
+                task.Pinned = false;
+
+                if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState)
                 {
-                    // A done item cannot be pinned.
-                    task.Pinned = false;
-
-                    if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState)
-                    {
-                        MoveTaskToBottom(task);
-                    }
-
-                    IoC.MediaPlayerService.PlayClick();
-                }
-                else
-                {
-                    if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState)
-                    {
-                        MoveTaskToTop(task);
-                    }
-
-                    IoC.MediaPlayerService.PlayClickReverse();
+                    MoveTaskToBottom(task);
                 }
 
-                _taskListService.UpdateTask(task);
+                IoC.MediaPlayerService.PlayClick();
             }
+            else
+            {
+                if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState)
+                {
+                    MoveTaskToTop(task);
+                }
+
+                IoC.MediaPlayerService.PlayClickReverse();
+            }
+
+            _taskListService.UpdateTask(task);
         }
 
-        private void ToggleTaskIsDone(object obj)
+        private void ToggleTaskIsDone(TaskViewModel task)
         {
-            if (obj is TaskViewModel task)
-            {
-                task.IsDone = !task.IsDone;
-                ModifyTaskIsDone(task);
-            }
+            task.IsDone = !task.IsDone;
+            ModifyTaskIsDone(task);
         }
 
         private void TrashAll() => TrashTasks(Items);
 
-        private void TrashDone() => TrashTasks(Items.Where(i => i.IsDone));
+        private void TrashCompleted() => TrashTasks(Items.Where(i => i.IsDone));
+
+        private void TrashIncomplete() => TrashTasks(Items.Where(i => !i.IsDone));
 
         private void TrashTasks(IEnumerable<TaskViewModel> taskList)
         {
@@ -319,6 +280,15 @@ namespace TodoApp2.Core
                 x.ListOrder = CommonConstants.InvalidListOrder;
             },
             taskList);
+        }
+
+        private void ResetStates()
+        {
+            ForEachTask(x =>
+            {
+                x.Pinned = false;
+                x.IsDone = false;
+            });
         }
 
         private void ResetColors() =>
@@ -355,9 +325,9 @@ namespace TodoApp2.Core
         /// <summary>
         /// Moves a task into another category
         /// </summary>
-        private void MoveToCategory(object obj)
+        private void MoveToCategory(List<object> parameters)
         {
-            if (obj is List<object> parameters && parameters.Count == 2)
+            if (parameters.Count == 2)
             {
                 if (parameters[0] is TaskViewModel task &&
                     parameters[1] is CategoryViewModel categoryToMoveTo)
@@ -375,38 +345,29 @@ namespace TodoApp2.Core
             }
         }
 
-        private void MoveAllToCategory(object obj)
+        private void MoveAllToCategory(CategoryViewModel categoryToMoveTo)
         {
-            if (obj is CategoryViewModel categoryToMoveTo)
-            {
-                List<TaskViewModel> pageItems = _taskListService.TaskPageItems.ToList();
-                
-                MoveItemsToCategory(pageItems, categoryToMoveTo);
-            }
+            List<TaskViewModel> pageItems = _taskListService.TaskPageItems.ToList();
+
+            MoveItemsToCategory(pageItems, categoryToMoveTo);
         }
 
-        private void MoveAllCompletedToCategory(object obj)
+        private void MoveAllCompletedToCategory(CategoryViewModel categoryToMoveTo)
         {
-            if (obj is CategoryViewModel categoryToMoveTo)
-            {
-                List<TaskViewModel> pageItems = _taskListService.TaskPageItems
-                    .Where(x => x.IsDone)
-                    .ToList();
+            List<TaskViewModel> pageItems = _taskListService.TaskPageItems
+                .Where(x => x.IsDone)
+                .ToList();
 
-                MoveItemsToCategory(pageItems, categoryToMoveTo);
-            }
+            MoveItemsToCategory(pageItems, categoryToMoveTo);
         }
 
-        private void MoveAllIncompleteToCategory(object obj)
+        private void MoveAllIncompleteToCategory(CategoryViewModel categoryToMoveTo)
         {
-            if (obj is CategoryViewModel categoryToMoveTo)
-            {
-                List<TaskViewModel> pageItems = _taskListService.TaskPageItems
-                    .Where(x => !x.IsDone)
-                    .ToList();
+            List<TaskViewModel> pageItems = _taskListService.TaskPageItems
+                .Where(x => !x.IsDone)
+                .ToList();
 
-                MoveItemsToCategory(pageItems, categoryToMoveTo);
-            }
+            MoveItemsToCategory(pageItems, categoryToMoveTo);
         }
 
         private void MoveItemsToCategory(List<TaskViewModel> taskList, CategoryViewModel categoryToMoveTo)
@@ -445,47 +406,34 @@ namespace TodoApp2.Core
             IsCategoryInEditMode = false;
         }
 
-        private void Pin(object obj)
+        private void Pin(TaskViewModel task)
         {
-            if (obj is TaskViewModel task)
-            {
-                task.Pinned = true;
-                task.IsDone = false;
+            task.Pinned = true;
+            task.IsDone = false;
 
-                // Reorder task to the top of the list
-                _taskListService.ReorderTask(task, 0, true);
-            }
+            // Reorder task to the top of the list
+            _taskListService.ReorderTask(task, 0, true);
         }
 
-        private void Unpin(object obj)
+        private void Unpin(TaskViewModel task)
         {
-            if (obj is TaskViewModel task)
-            {
-                var taskList = _taskListService.GetActiveTaskItems(ActiveCategory);
-                int pinnedItemCount = taskList.Count(i => i.Pinned);
+            var taskList = _taskListService.GetActiveTaskItems(ActiveCategory);
+            int pinnedItemCount = taskList.Count(i => i.Pinned);
 
-                task.Pinned = false;
+            task.Pinned = false;
 
-                // Reorder task below the already pinned tasks and above the not-pinned tasks
-                _taskListService.ReorderTask(task, pinnedItemCount - 1, true);
-            }
+            // Reorder task below the already pinned tasks and above the not-pinned tasks
+            _taskListService.ReorderTask(task, pinnedItemCount - 1, true);
         }
-
-        private void MoveToBottom(object obj) => MoveTaskToBottom(obj as TaskViewModel);
 
         private void MoveTaskToBottom(TaskViewModel task)
         {
-            if (task == null) return;
-
             int newIndex = _taskListService.GetCorrectReorderIndex(Items.Count - 1, task);
             _taskListService.ReorderTask(task, newIndex, true);
         }
-        private void MoveToTop(object obj) => MoveTaskToTop(obj as TaskViewModel);
 
         private void MoveTaskToTop(TaskViewModel task)
         {
-            if (task == null) return;
-
             int newIndex = _taskListService.GetCorrectReorderIndex(0, task);
             _taskListService.ReorderTask(task, newIndex, true);
         }

@@ -231,17 +231,22 @@ namespace TodoApp2.Core
             return newIndex;
         }
 
-        public void SortTaskPageItems() => FixTaskPageItemsOrder(TaskPageItems);
+        public void SortByState() => SortItemsByState(TaskPageItems);
+
+        public void SortByCreationDate() => RebuildListOrders(TaskPageItems.OrderBy(x => x.CreationDate));
+        public void SortByCreationDateDesc() => RebuildListOrders(TaskPageItems.OrderByDescending(x => x.CreationDate));
+        public void SortByModificationDate() => RebuildListOrders(TaskPageItems.OrderBy(x => x.ModificationDate));
+        public void SortByModificationDateDesc() => RebuildListOrders(TaskPageItems.OrderByDescending(x => x.ModificationDate));
 
         private void TaskPageSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(TaskPageSettings.ForceTaskOrderByState) && TaskPageSettings.ForceTaskOrderByState)
             {
-                FixTaskPageItemsOrder(TaskPageItems);
+                SortItemsByState(TaskPageItems);
             }
         }
 
-        private void FixTaskPageItemsOrder(IEnumerable<TaskViewModel> originalTaskList)
+        private void SortItemsByState(IEnumerable<TaskViewModel> originalTaskList)
         {
             // Sort and reorder tasks
             List<TaskViewModel> originalList = originalTaskList.ToList();
@@ -254,6 +259,16 @@ namespace TodoApp2.Core
             TaskPageItems.AddRange(pinnedItems);
             TaskPageItems.AddRange(unfinishedItems);
             TaskPageItems.AddRange(finishedItems);
+
+            _reorderer.ResetListOrders(TaskPageItems);
+            PersistTaskList();
+        }
+
+        private void RebuildListOrders(IEnumerable<TaskViewModel> taskList)
+        {
+            var tempList = taskList.ToList();
+            TaskPageItems.Clear();
+            TaskPageItems.AddRange(tempList);
 
             _reorderer.ResetListOrders(TaskPageItems);
             PersistTaskList();
@@ -279,7 +294,7 @@ namespace TodoApp2.Core
             // Fill the actual list with the queried items
             if (TaskPageSettings.ForceTaskOrderByState)
             {
-                FixTaskPageItemsOrder(filteredItems);
+                SortItemsByState(filteredItems);
             }
             else
             {

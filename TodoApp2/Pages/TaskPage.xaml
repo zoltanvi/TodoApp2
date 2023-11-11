@@ -7,11 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TodoApp2"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="TaskPage"
-    d:DesignHeight="480"
-    d:DesignWidth="380"
-    x:TypeArguments="core:TaskPageViewModel"
-    mc:Ignorable="d">
+    Title="TaskPage" d:DesignHeight="480" d:DesignWidth="380"
+    x:TypeArguments="core:TaskPageViewModel" mc:Ignorable="d">
 
     <Border Background="{DynamicResource ApplicationBackgroundBrush}">
         <Grid>
@@ -24,8 +21,7 @@
 
             <Grid Grid.Row="0" Margin="5 10 5 10">
                 <Grid
-                    x:Name="CategoryNamePanel"
-                    Background="#00333333"
+                    x:Name="CategoryNamePanel" Background="#00333333"
                     Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}"
                     Style="{DynamicResource CurrentCategoryPanelStyle}">
                     <Grid.Visibility>
@@ -34,12 +30,23 @@
                                 <local:BoolToVisibilityAndConverter />
                             </MultiBinding.Converter>
                             <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
-                            <Binding
-                                Mode="OneWay"
-                                Path="IsCategoryInDisplayMode"
-                                UpdateSourceTrigger="PropertyChanged" />
+                            <Binding Mode="OneWay" Path="IsCategoryInDisplayMode" UpdateSourceTrigger="PropertyChanged" />
                         </MultiBinding>
                     </Grid.Visibility>
+
+                    <!--<Grid.ContextMenu>
+                        <ContextMenu>
+                            --><!--
+                                Command="{Binding Path=PlacementTarget.Tag.MoveToTopCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                                
+                                
+                                Command="{Binding SwitchToPageCommand}"
+                                CommandParameter="{x:Static core:ApplicationPage.ThemeSettings}"
+                            --><!--
+                            <MenuItem Header="Open page title settings" Icon="{StaticResource ctxIconMoveToTop}" />
+                        </ContextMenu>
+                    </Grid.ContextMenu>-->
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -63,10 +70,7 @@
                                         <local:BoolToVisibilityAndConverter />
                                     </MultiBinding.Converter>
                                     <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
-                                    <Binding
-                                        Mode="OneWay"
-                                        Path="IsCategoryInDisplayMode"
-                                        UpdateSourceTrigger="PropertyChanged" />
+                                    <Binding Mode="OneWay" Path="IsCategoryInDisplayMode" UpdateSourceTrigger="PropertyChanged" />
                                 </MultiBinding>
                             </TextBlock.Visibility>
                         </TextBlock>
@@ -77,8 +81,7 @@
                         Command="{Binding EditCategoryCommand}"
                         Content="{DynamicResource SegoeIconEdit}"
                         Style="{DynamicResource ButtonIconHoverRectangleStyle}"
-                        ToolTip="Edit category name"
-                        Margin="0 2"
+                        ToolTip="Edit category name" Margin="0 2"
                         HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentInvertedConverter}}" />
                 </Grid>
 
@@ -91,9 +94,7 @@
                         </Grid.ColumnDefinitions>
 
                         <local:SubmitEscapeTextBox
-                            Grid.Column="0"
-                            Margin="-2 0 -2 0"
-                            Padding="-1 0 -1 0"
+                            Grid.Column="0" Margin="-2 0 -2 0" Padding="-1 0 -1 0"
                             Style="{DynamicResource PageTitleEditorTextBoxStyle}"
                             BorderThickness="1"
                             BorderBrush="{DynamicResource Tertiary}"
@@ -111,10 +112,7 @@
                                         <local:BoolToVisibilityAndConverter />
                                     </MultiBinding.Converter>
                                     <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
-                                    <Binding
-                                        Mode="OneWay"
-                                        Path="IsCategoryInEditMode"
-                                        UpdateSourceTrigger="PropertyChanged" />
+                                    <Binding Mode="OneWay" Path="IsCategoryInEditMode" UpdateSourceTrigger="PropertyChanged" />
                                 </MultiBinding>
                             </TextBox.Visibility>
 
@@ -138,8 +136,7 @@
                     Command="{Binding FinishCategoryEditCommand}"
                     Content="{DynamicResource SegoeIconSave}"
                     Style="{DynamicResource ButtonIconHoverRectangleStyle}"
-                    ToolTip="Save category name"
-                    Margin="15 2"
+                    ToolTip="Save category name" Margin="15 2"
                     HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentInvertedConverter}}" />
 
             </Grid>
@@ -161,14 +158,10 @@
             <!--  Bottom panel  -->
             <Border x:Name="BottomBorderPanel" Grid.Row="2">
                 <DockPanel>
-                    <Border
-                        Background="{DynamicResource Surface1}"
-                        CornerRadius="6"
-                        Margin="5">
+                    <Border Background="{DynamicResource Surface1}" CornerRadius="6" Margin="5">
                         <local:RichTextEditorControl
                             MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
-                            Padding="3 8"
-                            VerticalAlignment="Bottom"
+                            Padding="3 8" VerticalAlignment="Bottom"
                             DataContext="{Binding TextEditorViewModel}">
 
                             <Behaviors:Interaction.Triggers>

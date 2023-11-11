@@ -136,8 +136,18 @@
         <!--  ============================================================  -->
         <Separator />
 
-        <!--  Sort by state  -->
-        <MenuItem Command="{Binding Path=PlacementTarget.Tag.SortByStateCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="Sort by state" Icon="{StaticResource ctxIconSort}" />
+        <!--  Sort by  -->
+        <MenuItem Header="Sort by" Icon="{StaticResource ctxIconSort}">
+            <MenuItem Header="state" Command="{Binding Path=PlacementTarget.Tag.SortByStateCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            <MenuItem Header="creation date">
+                <MenuItem Header="ascending" Command="{Binding Path=PlacementTarget.Tag.SortByCreationDateCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                <MenuItem Header="descending" Command="{Binding Path=PlacementTarget.Tag.SortByCreationDateDescCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            </MenuItem>
+            <MenuItem Header="modification date">
+                <MenuItem Header="ascending" Command="{Binding Path=PlacementTarget.Tag.SortByModificationDateCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                <MenuItem Header="descending" Command="{Binding Path=PlacementTarget.Tag.SortByModificationDateDescCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+            </MenuItem>
+        </MenuItem>
 
         <!--  Move to top  -->
         <MenuItem
@@ -156,8 +166,8 @@
         <!--  ============================================================  -->
         <Separator />
 
-        <!--  Move item to  -->
-        <MenuItem Header="Move item to" ItemsSource="{Binding CategoryListService.InactiveCategories, Source={x:Static local:VML.Instance}}" Icon="{StaticResource ctxIconMoveTo}">
+        <!--  Move this item to  -->
+        <MenuItem Header="Move this item to" ItemsSource="{Binding CategoryListService.InactiveCategories, Source={x:Static local:VML.Instance}}" Icon="{StaticResource ctxIconMoveTo}">
             <MenuItem.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Header" Value="{Binding Name}" />
@@ -183,7 +193,7 @@
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding Name}" />
                         <Setter Property="Command" Value="{Binding Path=PlacementTarget.Tag.MoveAllToCategoryCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                        <Setter Property="CommandParameter" Value="{Binding}"/>
+                        <Setter Property="CommandParameter" Value="{Binding}" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
@@ -192,7 +202,7 @@
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding Name}" />
                         <Setter Property="Command" Value="{Binding Path=PlacementTarget.Tag.MoveAllCompletedToCategoryCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                        <Setter Property="CommandParameter" Value="{Binding}"/>
+                        <Setter Property="CommandParameter" Value="{Binding}" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
@@ -201,25 +211,27 @@
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding Name}" />
                         <Setter Property="Command" Value="{Binding Path=PlacementTarget.Tag.MoveAllIncompleteToCategoryCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                        <Setter Property="CommandParameter" Value="{Binding}"/>
+                        <Setter Property="CommandParameter" Value="{Binding}" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
         </MenuItem>
 
-        
-        <!--  Reset all ...  -->
-        <MenuItem Header="Reset all ..." Icon="{StaticResource ctxIconReset}">
-            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetAllColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="colors in category" />
-            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="marker colors in category" />
-            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBackgroundColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="background colors in category" />
-            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBorderColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="border colors in category" />
+
+        <!--  Reset all  -->
+        <MenuItem Header="Reset all" Icon="{StaticResource ctxIconReset}">
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetAllStatesCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="state" ToolTip="Resets completed and pinned states." />
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetAllColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="colors" />
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="marker colors" />
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBackgroundColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="background colors" />
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.ResetBorderColorsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="border colors" />
         </MenuItem>
 
-        <!--  Delete all ...  -->
-        <MenuItem Header="Delete all ..." Icon="{StaticResource ctxIconDelete1}">
-            <MenuItem Command="{Binding Path=PlacementTarget.Tag.DeleteAllCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="items in category" />
-            <MenuItem Command="{Binding Path=PlacementTarget.Tag.DeleteDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="completed items in category" />
+        <!--  Delete all  -->
+        <MenuItem Header="Delete all" Icon="{StaticResource ctxIconDelete1}">
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.DeleteAllCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="items" />
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.DeleteCompletedCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="completed items" />
+            <MenuItem Command="{Binding Path=PlacementTarget.Tag.DeleteIncompleteCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" Header="incomplete items" />
         </MenuItem>
 
         <!--  ============================================================  -->

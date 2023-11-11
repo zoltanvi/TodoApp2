@@ -58,8 +58,8 @@ namespace TodoApp2.Core
             _messageService = messageService;
 
             AddNoteCommand = new RelayCommand(AddNote);
-            DeleteNoteCommand = new RelayParameterizedCommand(TrashNote);
-            OpenNoteCommand = new RelayParameterizedCommand(OpenNote);
+            DeleteNoteCommand = new RelayParameterizedCommand<NoteViewModel>(TrashNote);
+            OpenNoteCommand = new RelayParameterizedCommand<NoteViewModel>(SetActiveNote);
             OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
             OpenCategoryPageCommand = new RelayCommand(OpenCategoryPage);
 
@@ -75,32 +75,32 @@ namespace TodoApp2.Core
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
+                {
+                    if (e.NewItems.Count > 0)
                     {
-                        if (e.NewItems.Count > 0)
+                        var newItem = (NoteViewModel)e.NewItems[0];
+
+                        // If the newly added item is the same as the last deleted one,
+                        // then this was a drag and drop reorder
+                        if (newItem.Id == _lastRemovedId)
                         {
-                            var newItem = (NoteViewModel)e.NewItems[0];
-
-                            // If the newly added item is the same as the last deleted one,
-                            // then this was a drag and drop reorder
-                            if (newItem.Id == _lastRemovedId)
-                            {
-                                ReorderingHelperTemp.ReorderNote(_context, newItem, e.NewStartingIndex);
-                            }
-
-                            _lastRemovedId = int.MinValue;
+                            ReorderingHelperTemp.ReorderNote(_context, newItem, e.NewStartingIndex);
                         }
-                        break;
+
+                        _lastRemovedId = int.MinValue;
                     }
+                    break;
+                }
                 case NotifyCollectionChangedAction.Remove:
+                {
+                    if (e.OldItems.Count > 0)
                     {
-                        if (e.OldItems.Count > 0)
-                        {
-                            var last = (NoteViewModel)e.OldItems[0];
+                        var last = (NoteViewModel)e.OldItems[0];
 
-                            _lastRemovedId = last.Id;
-                        }
-                        break;
+                        _lastRemovedId = last.Id;
                     }
+                    break;
+                }
             }
         }
 
@@ -145,28 +145,17 @@ namespace TodoApp2.Core
             Items.Add(addedItem.Map());
         }
 
-        private void TrashNote(object obj)
+        private void TrashNote(NoteViewModel note)
         {
-            if (obj is NoteViewModel note)
+            note.Trashed = true;
+
+            Items.Remove(note);
+
+            _context.Notes.UpdateFirst(note.Map());
+
+            if (ActiveNote.Id == note.Id)
             {
-                note.Trashed = true;
-
-                Items.Remove(note);
-
-                _context.Notes.UpdateFirst(note.Map());
-
-                if (ActiveNote.Id == note.Id)
-                {
-                    ActiveNote = _context.Notes.First(x => !x.Trashed).Map();
-                }
-            }
-        }
-
-        private void OpenNote(object obj)
-        {
-            if (obj is NoteViewModel note)
-            {
-                SetActiveNote(note);
+                ActiveNote = _context.Notes.First(x => !x.Trashed).Map();
             }
         }
 

@@ -55,8 +55,8 @@ namespace TodoApp2.Core
             _messageService = messageService;
 
             AddCategoryCommand = new RelayCommand(AddCategory);
-            DeleteCategoryCommand = new RelayParameterizedCommand(TrashCategory);
-            ChangeCategoryCommand = new RelayParameterizedCommand(ChangeCategory);
+            DeleteCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(TrashCategory);
+            ChangeCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(ChangeCategory);
             OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
             OpenNoteListPageCommand = new RelayCommand(OpenNoteListPage);
 
@@ -134,40 +134,34 @@ namespace TodoApp2.Core
             _context.Categories.UpdateFirst(category.Map());
         }
 
-        private void TrashCategory(object obj)
+        private void TrashCategory(CategoryViewModel category)
         {
-            if (obj is CategoryViewModel category)
+            // At least one category is required
+            if (_context.Categories.Where(x => !x.Trashed).Count > 1)
             {
-                // At least one category is required
-                if (_context.Categories.Where(x => !x.Trashed).Count > 1)
-                {
-                    category.Trashed = true;
-                    category.ListOrder = CommonConstants.InvalidListOrder;
+                category.Trashed = true;
+                category.ListOrder = CommonConstants.InvalidListOrder;
 
-                    Items.Remove(category);
-                    _context.Categories.UpdateFirst(category.Map());
+                Items.Remove(category);
+                _context.Categories.UpdateFirst(category.Map());
 
-                    // Only if the current category was the deleted one, select a new category
-                    if (category == ActiveCategory)
-                    {
-                        CategoryViewModel firstItem = Items.FirstOrDefault();
-                        SetActiveCategory(firstItem);
-                    }
-                }
-                else
+                // Only if the current category was the deleted one, select a new category
+                if (category == ActiveCategory)
                 {
-                    _messageService.ShowError("Cannot delete last category.");
+                    CategoryViewModel firstItem = Items.FirstOrDefault();
+                    SetActiveCategory(firstItem);
                 }
+            }
+            else
+            {
+                _messageService.ShowError("Cannot delete last category.");
             }
         }
 
-        private void ChangeCategory(object obj)
+        private void ChangeCategory(CategoryViewModel category)
         {
-            if (obj is CategoryViewModel category)
-            {
-                IoC.UndoManager.ClearHistory();
-                SetActiveCategory(category);
-            }
+            IoC.UndoManager.ClearHistory();
+            SetActiveCategory(category);
         }
 
         /// <summary>
