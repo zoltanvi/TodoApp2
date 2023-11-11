@@ -9,15 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Core", "TodoApp2.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Material", "TodoApp2.Material\TodoApp2.Material.csproj", "{F6ECBF99-F92F-4578-8737-5A2D458F0453}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3EC4135D-AA5A-410D-AC85-BF0FAE64D1A2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Persistence", "TodoApp2.Persistence\TodoApp2.Persistence.csproj", "{F3AF67E4-5AA8-4634-8212-CD4168FCC124}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Entity", "TodoApp2.Entity\TodoApp2.Entity.csproj", "{87F2A88A-7848-44ED-8F4F-89B12EBBC129}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Common", "TodoApp2.Common\TodoApp2.Common.csproj", "{0851FB41-96EC-4786-99AB-0C74966CF386}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity.Tests", "Entity.Tests\Entity.Tests.csproj", "{1DD1396F-7E38-49AB-9043-155C8E92876B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity.Tests", "Entity.Tests\Entity.Tests.csproj", "{1DD1396F-7E38-49AB-9043-155C8E92876B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
