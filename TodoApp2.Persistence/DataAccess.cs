@@ -18,6 +18,11 @@ namespace TodoApp2.Persistence
             string filename = ConfigurationManager.AppSettings[Constants.ConfigKeys.DatabaseFileName];
             string filenameWithExtension = $"{filename}.{Constants.DatabaseFileExtension}";
 
+            if (string.IsNullOrWhiteSpace(directory))
+            {
+                directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            }
+
             ValidatePath(directory);
 
             if (!Directory.Exists(directory))
