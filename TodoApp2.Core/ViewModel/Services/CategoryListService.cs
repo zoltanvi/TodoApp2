@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -19,6 +21,7 @@ namespace TodoApp2.Core
         private readonly IAppContext _context;
         private CategoryViewModel _activeCategory;
         private int _lastRemovedId = int.MinValue;
+        private bool _updateInProgress;
 
         /// <summary>
         /// The category list items
@@ -39,7 +42,7 @@ namespace TodoApp2.Core
                 if (!string.IsNullOrWhiteSpace(value) && ActiveCategory.Name != value)
                 {
                     ActiveCategory.Name = value;
-                    _context.Categories.UpdateFirst(ActiveCategory.Map());
+                    UpdateCategory(ActiveCategory);
                 }
             }
         }
@@ -83,6 +86,33 @@ namespace TodoApp2.Core
 
         public CategoryViewModel GetCategory(int id) => _context.Categories.First(x => x.Id == id).Map();
 
+        public void UpdateCategory(CategoryViewModel category)
+        {
+            _updateInProgress = true;
+
+            if (category.Trashed)
+            {
+                Items.Remove(category);
+            }
+
+            _context.Categories.UpdateFirst(category.Map());
+
+            // Update category in collection
+            var pageItem = Items.FirstOrDefault(x => x.Id == category.Id);
+            if (pageItem != null && !ReferenceEquals(category, pageItem))
+            {
+                var index = Items.IndexOf(pageItem);
+                var updatedItem = _context.Categories.First(x => x.Id == category.Id);
+
+                if (updatedItem == null) throw new ApplicationException($"Couldn't update category with ID [{category.Id}].");
+
+                Items.RemoveAt(index);
+                Items.Insert(index, updatedItem.Map());
+            }
+
+            _updateInProgress = false;
+        }
+
         protected override void OnDispose()
         {
             Items.CollectionChanged -= ItemsOnCollectionChanged;
@@ -90,39 +120,34 @@ namespace TodoApp2.Core
 
         private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (_updateInProgress) return;
+            
+            if (e.Action == NotifyCollectionChangedAction.Add && HasNewItems())
+            {
+                var newItem = (CategoryViewModel)e.NewItems[0];
+
+                // If the newly added item is the same as the last deleted one,
+                // then this was a drag and drop reorder
+                if (newItem.Id == _lastRemovedId)
+                {
+                    ReorderingHelperTemp.ReorderCategory(_context, newItem, e.NewStartingIndex);
+                }
+
+                _lastRemovedId = int.MinValue;
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove && HasOldItems())
+            {
+                var last = (CategoryViewModel)e.OldItems[0];
+
+                _lastRemovedId = last.Id;
+            }
+
             // Trigger update to refresh move to category items context menu
             OnPropertyChanged(nameof(InactiveCategories));
 
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                {
-                    if (e.NewItems.Count > 0)
-                    {
-                        var newItem = (CategoryViewModel)e.NewItems[0];
-
-                        // If the newly added item is the same as the last deleted one,
-                        // then this was a drag and drop reorder
-                        if (newItem.Id == _lastRemovedId)
-                        {
-                            ReorderingHelperTemp.ReorderCategory(_context, newItem, e.NewStartingIndex);
-                        }
-
-                        _lastRemovedId = int.MinValue;
-                    }
-                    break;
-                }
-                case NotifyCollectionChangedAction.Remove:
-                {
-                    if (e.OldItems.Count > 0)
-                    {
-                        var last = (CategoryViewModel)e.OldItems[0];
-
-                        _lastRemovedId = last.Id;
-                    }
-                    break;
-                }
-            }
+            bool HasNewItems() => HasItems(e.NewItems);
+            bool HasOldItems() => HasItems(e.OldItems);
+            bool HasItems(IList list) => list.Count > 0;
         }
     }
 }
