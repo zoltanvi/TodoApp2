@@ -72,6 +72,7 @@
                     Background="Transparent"
                     DocumentContent="{Binding DocumentContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     EnterAction="{Binding EnterAction}"
+                    EmptyContentUpArrowAction="{Binding OnQuickEditRequestedAction}"
                     Focusable="{Binding Focusable}"
                     Foreground="{DynamicResource OnBackground}"
                     IsReadOnly="{Binding ElementName=RichTextEditorUC, Path=IsReadOnly}"

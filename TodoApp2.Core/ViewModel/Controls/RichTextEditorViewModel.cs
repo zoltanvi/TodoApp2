@@ -36,6 +36,7 @@ namespace TodoApp2.Core
         public string TextColor { get; set; } = CoreConstants.ColorName.Transparent;
         public double TextOpacity { get; set; } = 1.0;
         public Action EnterAction { get; set; }
+        public Action OnQuickEditRequestedAction { get; set; }
         public ICommand LostFocusCommand { get; }
 
         public RichTextEditorViewModel(bool focusOnEditMode, bool enterActionOnLostFocus, bool toolbarCloseOnLostFocus, bool acceptsTab)

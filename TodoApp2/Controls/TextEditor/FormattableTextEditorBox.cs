@@ -23,6 +23,7 @@ namespace TodoApp2
         public static readonly DependencyProperty IsFormattedPasteEnabledProperty = DependencyProperty.Register(nameof(IsFormattedPasteEnabled), typeof(bool), typeof(FormattableTextEditorBox), new PropertyMetadata(true));
 
         public static readonly DependencyProperty EnterActionProperty = DependencyProperty.Register(nameof(EnterAction), typeof(Action), typeof(FormattableTextEditorBox), new PropertyMetadata());
+        public static readonly DependencyProperty EmptyContentUpArrowActionProperty = DependencyProperty.Register(nameof(EmptyContentUpArrowAction), typeof(Action), typeof(FormattableTextEditorBox), new PropertyMetadata());
 
         public event EventHandler StatePropertyChanged;
 
@@ -68,6 +69,12 @@ namespace TodoApp2
         {
             get { return (Action)GetValue(EnterActionProperty); }
             set { SetValue(EnterActionProperty, value); }
+        }
+
+        public Action EmptyContentUpArrowAction
+        {
+            get { return (Action)GetValue(EmptyContentUpArrowActionProperty); }
+            set { SetValue(EmptyContentUpArrowActionProperty, value); }
         }
 
         public ICommand SetBoldCommand { get; set; }
@@ -142,6 +149,7 @@ namespace TodoApp2
 
         private void FormattableTextEditorBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            bool keyArrowUp = e.Key == Key.Up;
             bool keyL = e.Key == Key.L;
             bool keyN = e.Key == Key.N;
             bool enter = e.Key == Key.Enter;
@@ -175,6 +183,12 @@ namespace TodoApp2
             {
                 e.Handled = true;
                 CtrlShiftEnterAction?.Invoke();
+            }
+
+            if (keyArrowUp && IsEmpty)
+            {
+                e.Handled = true;
+                EmptyContentUpArrowAction?.Invoke();
             }
         }
 

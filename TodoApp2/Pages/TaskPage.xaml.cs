@@ -21,6 +21,8 @@ namespace TodoApp2
             {
                 mainWindow.Closing += MainWindowOnClosing;
             }
+
+            ViewModel.ScrollIntoViewAction = MyTaskListControl.ScrollToItem;
         }
 
         /// <summary>

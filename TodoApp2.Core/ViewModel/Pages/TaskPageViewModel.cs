@@ -15,12 +15,15 @@ namespace TodoApp2.Core
         private readonly AppViewModel _applicationViewModel;
         private readonly TaskListService _taskListService;
         private readonly CategoryListService _categoryListService;
+        private int _lastAddedTaskId;
 
         private CategoryViewModel ActiveCategory => _categoryListService.ActiveCategory;
 
         private ObservableCollection<TaskViewModel> Items => _taskListService.TaskPageItems;
 
         public RichTextEditorViewModel TextEditorViewModel { get; }
+
+        public Action<int> ScrollIntoViewAction { get; set; }
 
         /// <summary>
         /// The content for the textbox to rename the current category
@@ -91,6 +94,7 @@ namespace TodoApp2.Core
             TextEditorViewModel = new RichTextEditorViewModel(false, false, true, true);
             TextEditorViewModel.WatermarkText = "Add new task";
             TextEditorViewModel.EnterAction = CreateTaskItem;
+            TextEditorViewModel.OnQuickEditRequestedAction = OnQuickEditRequested;
 
             AddTaskItemCommand = new UndoableCommand(DoAddTask, RedoAddTask, UndoAddTask);
             DeleteTaskItemCommand = new UndoableCommand(DoTrashTask, RedoTrashTask, UndoTrashTask);
@@ -171,7 +175,7 @@ namespace TodoApp2.Core
 
             if (commandObject?.CommandArgument is TaskViewModel task)
             {
-                int oldPosition = _taskListService.TaskPageItems.IndexOf(task);
+                int oldPosition = Items.IndexOf(task);
 
                 task.Trashed = true;
                 task.ListOrder = CommonConstants.InvalidListOrder;
@@ -188,6 +192,19 @@ namespace TodoApp2.Core
             return result;
         }
 
+        private void OnQuickEditRequested()
+        {
+            var lastAddedTask = Items.FirstOrDefault(x => x.Id == _lastAddedTaskId);
+
+            if (lastAddedTask != null)
+            {
+                int index = Items.IndexOf(lastAddedTask);
+
+                lastAddedTask.EditItemCommand.Execute(null);
+                ScrollIntoViewAction?.Invoke(index);
+            }
+        }
+
         private CommandObject DoAddTask(CommandObject arg)
         {
             if (TextEditorViewModel.IsContentEmpty)
@@ -197,6 +214,9 @@ namespace TodoApp2.Core
 
             // Add task to list and persist it
             TaskViewModel task = _taskListService.AddNewTask(AddTaskTextBoxContent);
+            
+            // save its ID for quick edit
+            _lastAddedTaskId = task.Id;
 
             // Reset the input TextBox text
             AddTaskTextBoxContent = string.Empty;
@@ -347,14 +367,14 @@ namespace TodoApp2.Core
 
         private void MoveAllToCategory(CategoryViewModel categoryToMoveTo)
         {
-            List<TaskViewModel> pageItems = _taskListService.TaskPageItems.ToList();
+            List<TaskViewModel> pageItems = Items.ToList();
 
             MoveItemsToCategory(pageItems, categoryToMoveTo);
         }
 
         private void MoveAllCompletedToCategory(CategoryViewModel categoryToMoveTo)
         {
-            List<TaskViewModel> pageItems = _taskListService.TaskPageItems
+            List<TaskViewModel> pageItems = Items
                 .Where(x => x.IsDone)
                 .ToList();
 
@@ -363,7 +383,7 @@ namespace TodoApp2.Core
 
         private void MoveAllIncompleteToCategory(CategoryViewModel categoryToMoveTo)
         {
-            List<TaskViewModel> pageItems = _taskListService.TaskPageItems
+            List<TaskViewModel> pageItems = Items
                 .Where(x => !x.IsDone)
                 .ToList();
 

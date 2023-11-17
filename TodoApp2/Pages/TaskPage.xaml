@@ -160,6 +160,7 @@
                 <DockPanel>
                     <Border Background="{DynamicResource Surface1}" CornerRadius="6" Margin="5">
                         <local:RichTextEditorControl
+                            x:Name="BottomTextEditor"
                             MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
                             Padding="3 8" VerticalAlignment="Bottom"
                             DataContext="{Binding TextEditorViewModel}">

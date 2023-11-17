@@ -34,6 +34,11 @@
                 <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
 
                 <local:ShortcutItemControl
+                    Description="Edit last added item"
+                    Key1="Up arrow"
+                    />
+
+                <local:ShortcutItemControl
                     Description="Bold"
                     Key1="Ctrl"
                     Key2="B" />
