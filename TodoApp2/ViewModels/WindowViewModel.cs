@@ -177,6 +177,7 @@ namespace TodoApp2
             }
         }
 
+        // Global hotkeys for the window
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
             Key key = e.Key;
@@ -201,6 +202,12 @@ namespace TodoApp2
                 else if (key == Key.Add)
                 {
                     UIScaler.ZoomIn();
+                } 
+                else if (key == Key.E)
+                {
+                    // Ctrl + E
+                    // Set focus on task page bottom text editor
+                    Mediator.NotifyClients(ViewModelMessages.FocusBottomTextEditor);
                 }
 
                 if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))

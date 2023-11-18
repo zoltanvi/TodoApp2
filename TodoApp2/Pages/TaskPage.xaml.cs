@@ -25,6 +25,12 @@ namespace TodoApp2
 
             ViewModel.ScrollIntoViewAction = MyTaskListControl.ScrollToItem;
             IoC.OneEditorOpenService.OnEditModeEnd = FocusBottomTextEditor;
+            Mediator.Register(OnFocusRequested, ViewModelMessages.FocusBottomTextEditor);
+        }
+
+        private void OnFocusRequested(object obj)
+        {
+            BottomTextEditor.SetFocus();
         }
 
         private void FocusBottomTextEditor()
@@ -42,5 +48,6 @@ namespace TodoApp2
         {
             _taskListService.PersistTaskList();
         }
+
     }
 }

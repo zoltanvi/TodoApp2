@@ -44,5 +44,10 @@
         /// Ctrl + Shift + L has been pressed in a RichTextBox
         /// </summary>
         NextThemeWithHotkeyRequested,
+
+        /// <summary>
+        /// Task page's bottom text editor should be focused
+        /// </summary>
+        FocusBottomTextEditor,
     }
 }
