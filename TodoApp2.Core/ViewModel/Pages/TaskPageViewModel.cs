@@ -15,7 +15,6 @@ namespace TodoApp2.Core
         private readonly AppViewModel _applicationViewModel;
         private readonly TaskListService _taskListService;
         private readonly CategoryListService _categoryListService;
-        private int _lastAddedTaskId;
 
         private CategoryViewModel ActiveCategory => _categoryListService.ActiveCategory;
 
@@ -194,7 +193,7 @@ namespace TodoApp2.Core
 
         private void OnQuickEditRequested()
         {
-            var lastAddedTask = Items.FirstOrDefault(x => x.Id == _lastAddedTaskId);
+            var lastAddedTask = Items.FirstOrDefault(x => x.Id == IoC.OneEditorOpenService.LastEditedTaskId);
 
             if (lastAddedTask != null)
             {
@@ -216,7 +215,7 @@ namespace TodoApp2.Core
             TaskViewModel task = _taskListService.AddNewTask(AddTaskTextBoxContent);
             
             // save its ID for quick edit
-            _lastAddedTaskId = task.Id;
+            IoC.OneEditorOpenService.LastEditedTaskId = task.Id;
 
             // Reset the input TextBox text
             AddTaskTextBoxContent = string.Empty;

@@ -7,6 +7,7 @@ namespace TodoApp2.Core
         private TaskViewModel _editorOpenTask;
 
         public Action OnEditModeEnd { get; set; }
+        public int LastEditedTaskId { get; set; }
 
         public void DisplayMode(TaskViewModel taskListItemViewModel)
         {
@@ -26,6 +27,11 @@ namespace TodoApp2.Core
             }
 
             _editorOpenTask = taskListItemViewModel;
+            
+            if (_editorOpenTask != null)
+            {
+                LastEditedTaskId = taskListItemViewModel.Id;
+            }
         }
     }
 }
