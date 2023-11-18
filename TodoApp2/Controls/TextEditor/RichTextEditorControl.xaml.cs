@@ -34,6 +34,11 @@ namespace TodoApp2
             PART_TextEditor.CtrlShiftEnterAction = ToggleEditorOpen;
         }
 
+        public void SetFocus()
+        {
+            PART_TextEditor.Focus();
+        }
+
         private void IsEditorOpenToggle_Checked(object sender, RoutedEventArgs e)
         {
             if (ToolBarPanel.Children.Count == 0)

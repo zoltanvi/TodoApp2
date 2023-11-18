@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using TodoApp2.Core;
 
@@ -23,6 +24,12 @@ namespace TodoApp2
             }
 
             ViewModel.ScrollIntoViewAction = MyTaskListControl.ScrollToItem;
+            IoC.OneEditorOpenService.OnEditModeEnd = FocusBottomTextEditor;
+        }
+
+        private void FocusBottomTextEditor()
+        {
+            BottomTextEditor.SetFocus();
         }
 
         /// <summary>

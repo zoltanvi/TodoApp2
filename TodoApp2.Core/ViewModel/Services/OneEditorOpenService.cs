@@ -1,14 +1,19 @@
-﻿namespace TodoApp2.Core
+﻿using System;
+
+namespace TodoApp2.Core
 {
     public class OneEditorOpenService : BaseViewModel
     {
         private TaskViewModel _editorOpenTask;
+
+        public Action OnEditModeEnd { get; set; }
 
         public void DisplayMode(TaskViewModel taskListItemViewModel)
         {
             if (_editorOpenTask == taskListItemViewModel)
             {
                 _editorOpenTask = null;
+                OnEditModeEnd?.Invoke();
             }
         }
 

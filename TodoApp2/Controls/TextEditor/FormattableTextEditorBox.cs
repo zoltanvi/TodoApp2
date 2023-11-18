@@ -163,9 +163,16 @@ namespace TodoApp2
                 {
                     UpdateContent();
 
+                    var wasEmpty = IsEmpty;
+
                     EnterAction?.Invoke();
 
                     e.Handled = true;
+
+                    if (escape && wasEmpty)
+                    {
+                        Keyboard.ClearFocus();
+                    }
                 }
             }
 
