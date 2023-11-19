@@ -8,7 +8,7 @@ namespace TodoApp2.Core
         private const int UndoMessageDuration = 1500;
 
         private Guid _timer;
-        private bool _initialized = false;
+        private bool _initialized;
 
         public bool MessageLineVisible { get; private set; }
         public bool UndoButtonVisible { get; private set; }

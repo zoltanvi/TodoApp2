@@ -16,10 +16,10 @@ namespace TodoApp2.Core
         {
             _messageActionDictionary = new MultiDictionary<ViewModelMessages, Action<object>>();
             _messageFunctionDictionary = new MultiDictionary<ViewModelMessages, Func<Task>>();
-            _asyncEvent += OnAsyncEvent;
+            _asyncEvent += OnAsyncEventAsync;
         }
 
-        private async void OnAsyncEvent(object sender, AsyncEventArgs e)
+        private async void OnAsyncEventAsync(object sender, AsyncEventArgs e)
         {
             await e.Func();
         }

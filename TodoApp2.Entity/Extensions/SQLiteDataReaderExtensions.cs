@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SQLite;
-using System.Linq;
 using System.Reflection;
 using TodoApp2.Entity.Model;
 
@@ -48,17 +47,6 @@ namespace TodoApp2.Entity.Extensions
             }
 
             throw new NullReferenceException($"The record is null in the {columnName} column!");
-        }
-
-        private static int? SafeGetNullableInt(this SQLiteDataReader reader, string columnName)
-        {
-            var ordinal = reader.GetOrdinal(columnName);
-            if (!reader.IsDBNull(ordinal))
-            {
-                return reader.GetInt32(ordinal);
-            }
-
-            return null;
         }
 
         private static long SafeGetLong(this SQLiteDataReader reader, string columnName)

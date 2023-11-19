@@ -4,7 +4,7 @@ namespace TodoApp2
 {
     public static class MaterialColorHelper
     {
-        public static string DecimalToHex(uint argb) => "#" + argb.ToString("X8");
+        public static string DecimalToHex(uint argb) => $"#{argb:X8}";
 
         public static uint HexToDecimal(string hexString)
         {

@@ -75,12 +75,6 @@ namespace TodoApp2.Core
                 return;
             }
 
-            // Create the new category instance
-            CategoryViewModel categoryToAdd = new CategoryViewModel
-            {
-                Name = PendingAddNewCategoryText
-            };
-
             // Untrash category if exists
             var existingCategory = _context.Categories
                 .GetAll()

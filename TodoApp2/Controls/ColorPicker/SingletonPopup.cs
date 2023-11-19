@@ -9,7 +9,7 @@ namespace TodoApp2
     {
         public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(string), typeof(SingletonPopup), new PropertyMetadata());
 
-        private Action _selectedColorChangedAction = null;
+        private Action _selectedColorChangedAction;
 
         public string SelectedColor
         {

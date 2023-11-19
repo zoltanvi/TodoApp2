@@ -395,19 +395,6 @@ namespace TodoApp2
         }
 
         /// <summary>
-        /// Gets the current mouse position on the screen
-        /// </summary>
-        /// <returns></returns>
-        private Point GetMousePosition()
-        {
-            // Position of the mouse relative to the window
-            var position = Mouse.GetPosition(_window);
-
-            // Adds the window position so its a "ToScreen"
-            return new Point(position.X + _window.Left, position.Y + _window.Top);
-        }
-
-        /// <summary>
         /// If the window resizes to a special position (docked or maximized)
         /// this will update all required property change events to set the borders and radius values
         /// </summary>

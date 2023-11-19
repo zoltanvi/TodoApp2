@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
-using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
@@ -13,8 +12,6 @@ namespace TodoApp2.Core
     {
         private string _contentRollback = string.Empty;
         private bool _isDone;
-
-        private IAppContext Context => IoC.Context;
 
         public string Content
         {

@@ -74,7 +74,6 @@
     <Compile Include="Extensions\SQLiteDataReaderExtensions.cs" />
     <Compile Include="Query\QueryExecutor.cs" />
     <Compile Include="Info\DbVersionModel.cs" />
-    <Compile Include="Info\TableExistsModel.cs" />
     <Compile Include="Migration\BuildStep.cs" />
     <Compile Include="Migration\DbMigration.cs" />
     <Compile Include="Migration\MigrationBuilder.cs" />

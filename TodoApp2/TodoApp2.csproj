@@ -145,7 +145,6 @@
     <Compile Include="Controls\ClickSelectTextBox.cs" />
     <Compile Include="Controls\ColorPicker\SingletonEditorColorPicker.cs" />
     <Compile Include="Controls\ColorPicker\SingletonPopup.cs" />
-    <Compile Include="Controls\CustomScrollViewer.cs" />
     <Compile Include="Controls\FontSizeSliderControl.xaml.cs">
       <DependentUpon>FontSizeSliderControl.xaml</DependentUpon>
     </Compile>
@@ -199,7 +198,6 @@
     <Compile Include="Helpers\FlowDocumentHelper.cs" />
     <Compile Include="Helpers\MaterialColorHelper.cs" />
     <Compile Include="Helpers\SizeObserver.cs" />
-    <Compile Include="Helpers\TextBoxHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Pages\NoteListPage.xaml.cs">
       <DependentUpon>NoteListPage.xaml</DependentUpon>

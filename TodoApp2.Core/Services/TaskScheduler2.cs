@@ -12,7 +12,7 @@ namespace TodoApp2.Core
         private DispatcherTimer _pollingTimer;
         private OrderedDictionary _taskDictionary;
         private Dictionary<TaskViewModel, DateTime> _taskDictionaryReversed;
-        private int _nextId = 0;
+        private int _nextId;
         private int NextId => _nextId++;
 
         /// <summary>

@@ -423,24 +423,5 @@ namespace TodoApp2.Core
                 }
             }
         }
-
-        /// <summary>
-        /// Counts the done tasks in the list which are at the end of the list.
-        /// </summary>
-        private int CountDoneItemsFromBackwards()
-        {
-            int count = 0;
-            for (int i = TaskPageItems.Count - 1; i >= 0; i--)
-            {
-                if (!TaskPageItems[i].IsDone)
-                {
-                    break;
-                }
-
-                count++;
-            }
-
-            return count;
-        }
     }
 }

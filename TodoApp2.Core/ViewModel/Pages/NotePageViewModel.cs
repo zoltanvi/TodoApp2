@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Threading;
-using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
 {
@@ -10,7 +9,7 @@ namespace TodoApp2.Core
         private NoteListService _noteListService;
         private DispatcherTimer _timer;
         private bool _saved;
-        private bool _initialized = false;
+        private bool _initialized;
 
         public NotePageViewModel()
         {

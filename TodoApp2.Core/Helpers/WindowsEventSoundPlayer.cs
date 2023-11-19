@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Media;
-using Microsoft.Win32;
 
 namespace TodoApp2.Core
 {
@@ -14,9 +14,8 @@ namespace TodoApp2.Core
         public static void PlayNotificationSound(EventSounds eventSound)
         {
             bool found = false;
-            string registryKey = @"AppEvents\Schemes\Apps\.Default\" +
-                                 Enum.GetName(typeof(EventSounds), eventSound) +
-                                 @"\.Current";
+            string registryKey = $@"AppEvents\Schemes\Apps\.Default\{(Enum.GetName(typeof(EventSounds), eventSound))}\.Current";
+            
             try
             {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey(registryKey))
