@@ -95,22 +95,38 @@ namespace TodoApp2
 
             await DoAnimation(element, storyboard =>
             {
-                storyboard.AddFadeIn(seconds);
+                storyboard.AddFadeIn(seconds, 0.9f);
             }, seconds);
 
             //element.Visibility = Visibility.Visible;
             //element.ShowElement();
         }
 
+        public static async Task DimInAsync(this FrameworkElement element, float seconds = 0.3f, double from = 0.0, double to = 1.0)
+        {
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddFadeIn(seconds, 0.9f, from, to);
+            }, seconds);
+        }
+
         public static async Task FadeOutAsync(this FrameworkElement element, float seconds = 0.3f)
         {
             await DoAnimation(element, storyboard =>
             {
-                storyboard.AddFadeOut(seconds);
+                storyboard.AddFadeOut(seconds, 0.9f);
             }, seconds);
 
             element.Visibility = Visibility.Collapsed;
             //element.HideElement();
+        }
+
+        public static async Task DimOutAsync(this FrameworkElement element, float seconds = 0.3f, double from = 1.0, double to = 0.0)
+        {
+            await DoAnimation(element, storyboard =>
+            {
+                storyboard.AddFadeOut(seconds, 0.9f, from, to);
+            }, seconds);
         }
 
         /// <summary>

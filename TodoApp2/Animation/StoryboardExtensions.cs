@@ -17,13 +17,13 @@ namespace TodoApp2
             storyboard.Children.Clear();
         }
 
-        public static void AddFadeIn(this Storyboard storyBoard, float seconds, float decelerationRatio = 0.9f)
+        public static void AddFadeIn(this Storyboard storyBoard, float seconds, float decelerationRatio = 0.9f, double from = 0.0, double to = 1.0)
         {
             var animation = new DoubleAnimation
             {
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
-                From = 0.0,
-                To = 1.0,
+                From = from,
+                To = to,
                 DecelerationRatio = decelerationRatio
             };
 
@@ -32,13 +32,13 @@ namespace TodoApp2
             storyBoard.Children.Add(animation);
         }
 
-        public static void AddFadeOut(this Storyboard storyBoard, float seconds, float decelerationRatio = 0.9f)
+        public static void AddFadeOut(this Storyboard storyBoard, float seconds, float decelerationRatio = 0.9f, double from = 1.0, double to = 0.0)
         {
             var animation = new DoubleAnimation
             {
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
-                From = 1.0,
-                To = 0.0,
+                From = from,
+                To = to,
                 DecelerationRatio = decelerationRatio
             };
 

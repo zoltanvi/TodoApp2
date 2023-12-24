@@ -15,6 +15,8 @@
     AllowsTransparency="True"
     AutomationProperties.AutomationId="TodoApp2Window"
     WindowStartupLocation="CenterScreen"
+    Deactivated="AppWindow_Deactivated"
+    Activated="AppWindow_Activated"
     WindowStyle="None"
     mc:Ignorable="d">
 
@@ -34,7 +36,7 @@
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--  Outer border with the drop shadow margin  -->
 
-                        <Border Padding="{Binding IsMaximizedOrDocked, Converter={StaticResource boolToBorderThicknessConverter}}" Background="#01000000">
+                        <Border Padding="{Binding IsMaximizedOrDocked, Converter={StaticResource boolToBorderThicknessConverter}}" Background="#01000000" >
                             <Border.Effect>
                                 <DropShadowEffect
                                     ShadowDepth="0"
@@ -89,7 +91,9 @@
                                         BorderBrush="{Binding AppSettings.CommonSettings.AppBorderColor, 
                                         Source={x:Static local:VML.Instance}, 
                                         Converter={StaticResource appBorderBrushConverter}}"
-                                        BorderThickness="1">
+                                        BorderThickness="0.4"
+                                        Opacity="1"
+                                        local:AnimateDimInProperty.Value="{Binding Active}">
 
                                         <Border.CornerRadius>
                                             <MultiBinding>

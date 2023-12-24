@@ -91,6 +91,11 @@ namespace TodoApp2
             set => _trayIconModule.IsEnabled = value;
         }
 
+        /// <summary>
+        /// Represents whether the window is active or not.
+        /// </summary>
+        public bool Active { get; set; }
+
         #region Workaround
         // WORKAROUND properties for MultiBinding bug
         // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
@@ -99,6 +104,7 @@ namespace TodoApp2
         public int OuterMargin { get; set; } = 2 * ResizeBorderSize;
         public Rect ClipRect => new Rect(0, 0, MyWidth, MyHeight);
         public Rect OuterClipRect => new Rect(0, 0, MyWidth + OuterMargin, MyHeight + OuterMargin);
+
         #endregion Workaround
 
         public WindowViewModel(Window window, AppViewModel applicationViewModel, IAppContext context)
