@@ -28,6 +28,8 @@ namespace TodoApp2
         private readonly DragDropMediator _dragDropMediator;
         private readonly DispatcherTimer _timer;
         private bool _closing;
+        private bool _timeInitialized;
+        private DateTime _initialTime;
 
         /// <summary>
         /// The last known dock position
@@ -154,10 +156,37 @@ namespace TodoApp2
 
             _dragDropMediator = new DragDropMediator();
 
-            _timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 1) };
+            _timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 0, 0, 10) };
             CurrentTime = DateTime.Now.Ticks;
-            _timer.Tick += TimerOnTick;
+            _timer.Tick += TimerOnTickInitializer;
             _timer.Start();
+        }
+
+        private void TimerOnTickInitializer(object sender, EventArgs e)
+        {
+            if (!_timeInitialized)
+            {
+                _timeInitialized = true;
+                _initialTime = DateTime.Now;
+            }
+            else
+            {
+
+                if (_initialTime.Second != DateTime.Now.Second)
+                {
+                    // Accuracy set to 10 ms. Now switch to tick every seconds.
+                    _timer.Tick -= TimerOnTickInitializer;
+                    CurrentTime = DateTime.Now.Ticks;
+
+                    _timer.Interval = new TimeSpan(0, 0, 1);
+                    _timer.Tick += TimerOnTick;
+                }
+            }
+        }
+
+        private void TimerOnTick(object sender, EventArgs e)
+        {
+            CurrentTime = DateTime.Now.Ticks;
         }
 
         private void CommonSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -393,11 +422,6 @@ namespace TodoApp2
 
             _appViewModel.SaveApplicationSettings();
             _closing = true;
-        }
-
-        private void TimerOnTick(object sender, EventArgs e)
-        {
-            CurrentTime = DateTime.Now.Ticks;
         }
 
         /// <summary>
