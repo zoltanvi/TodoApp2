@@ -213,8 +213,8 @@
                                                             Name="MinimizeWindow"
                                                             Command="{Binding MinimizeCommand}"
                                                             Style="{DynamicResource ButtonTitleBarStyle}">
-                                                            <Viewbox Width="11" Height="11" >
-                                                                <Path Data="M 3 3 L 10 3 Z" 
+                                                            <Viewbox Width="11" Height="12" >
+                                                                <Path Data="M -1 1 L 11 1 M 0 0 Z" 
                                                                     Stroke="{DynamicResource OnSurface}" 
                                                                     StrokeThickness="0.8" />
                                                             </Viewbox>
