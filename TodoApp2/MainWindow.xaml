@@ -144,13 +144,36 @@
 
 
                                                     <!--  Side menu button  -->
-                                                    <Button
+                                                    <!--<Button
                                                         Name="SideMenuButton"
                                                         Grid.Column="0"
                                                         Command="{Binding ToggleSideMenuCommand}"
                                                         AutomationProperties.AutomationId="SideMenuButton"
                                                         Content="{DynamicResource SegoeIconMenu}"
-                                                        Style="{DynamicResource ButtonTitleBarStyle}" />
+                                                        Style="{DynamicResource ButtonTitleBarStyle}" 
+                                                        Foreground="Transparent">
+                                                    </Button>-->
+
+                                                    <Button 
+                                                        Grid.Column="0"
+                                                        Command="{Binding ToggleSideMenuCommand}"
+                                                        AutomationProperties.AutomationId="SideMenuButton"
+                                                        Style="{DynamicResource ButtonTitleBarStyle}">
+                                                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="1"/>
+                                                                <RowDefinition Height="3"/>
+                                                                <RowDefinition Height="1"/>
+                                                                <RowDefinition Height="3"/>
+                                                                <RowDefinition Height="1"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Row="0" Background="{DynamicResource OnSurface}" Width="16" Height="2" />
+                                                            <Border Grid.Row="2" Background="{DynamicResource OnSurface}" Width="16" Height="2" />
+                                                            <Border Grid.Row="4" Background="{DynamicResource OnSurface}" Width="16" Height="2" />
+                                                            
+                                                        </Grid>
+                                                    </Button>
 
                                                     <Label
                                                         Content="{DynamicResource SegoeIconSave}"
