@@ -16,6 +16,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
 
@@ -155,8 +156,21 @@
             <!--  Task list  -->
             <local:TaskListControl x:Name="MyTaskListControl" Grid.Row="1" />
 
+            <!-- Progress bar -->
+            <Grid Grid.Row="2" Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
+                <Border Margin="4 0">
+                    <local:TaskProgressBar
+                        Visibility="{Binding AppSettings.TaskPageSettings.ProgressBar, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                        Progress="{Binding TaskListService.ActiveCategoryFinishedTaskCount, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged}"
+                        MaxProgress="{Binding TaskListService.ActiveCategoryItemCount, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged}"
+                        NumbersVisible="{Binding AppSettings.TaskPageSettings.NumberOnProgressBar, Source={x:Static local:VML.Instance}}"
+                        />
+                </Border>
+                
+            </Grid>
+            
             <!--  Bottom panel  -->
-            <Border x:Name="BottomBorderPanel" Grid.Row="2">
+            <Border x:Name="BottomBorderPanel" Grid.Row="3">
                 <DockPanel>
                     <Border Background="{DynamicResource Surface1}" CornerRadius="6" Margin="5">
                         <local:RichTextEditorControl

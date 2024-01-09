@@ -40,8 +40,7 @@ namespace TodoApp2.Core
         private const double OriginalColorPickerWidth = 56;
         private const double OriginalColorPickerItemSize = 21;
         private const double OriginalTextEditorToggleWidth = 15;
-        private const double OriginalThemeItemWidth = 140;
-        private const double OriginalThemeItemHeight = 108;
+        private const double OriginalTaskProgressBarHeight = 5;
 
         private const int ColorPickerColumns = 9;
 
@@ -66,9 +65,7 @@ namespace TodoApp2.Core
         public double SliderThumbWidth => 15;
         public double ScrollbarWidth => 16;
         public double NotePageBoxWidth => 17 * ScaleValue;
-
-        public double ThemeItemWidth => OriginalThemeItemWidth * ScaleValue;
-        public double ThemeItemHeight => OriginalThemeItemHeight * ScaleValue;
+        public double TaskProgressBarHeight => OriginalTaskProgressBarHeight * ScaleValue;
 
         public static UIScaler Instance { get; } = new UIScaler();
 

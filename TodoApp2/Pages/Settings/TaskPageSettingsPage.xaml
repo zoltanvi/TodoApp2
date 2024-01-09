@@ -70,6 +70,17 @@
                     Description="Allow pasting formatted text"
                     IsChecked="{Binding AppSettings.TaskPageSettings.FormattedPasteEnabled, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
+                <!--  Allow pasting formatted text  -->
+                <local:ToggleButtonSettingControl
+                     Icon="{DynamicResource SegoeIconProgress}"
+                     Description="Progress bar"
+                     IsChecked="{Binding AppSettings.TaskPageSettings.ProgressBar, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+
+                <local:ToggleButtonSettingControl
+                     Icon="{DynamicResource SegoeIconNumberTen}"
+                     Description="Numbers next to progress bar"
+                     IsChecked="{Binding AppSettings.TaskPageSettings.NumberOnProgressBar, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+
             </StackPanel>
 
         </Grid>

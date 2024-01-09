@@ -9,5 +9,7 @@
         public bool PlaySoundOnTaskIsDoneChange { get; set; } = true;
         public bool TaskListMargin { get; set; } = true;
         public bool FormattedPasteEnabled { get; set; } = true;
+        public bool ProgressBar { get; set; }
+        public bool NumberOnProgressBar { get; set; } = true;
     }
 }

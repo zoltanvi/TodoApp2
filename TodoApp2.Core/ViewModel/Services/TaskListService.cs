@@ -34,6 +34,9 @@ namespace TodoApp2.Core
         /// </summary>
         public ObservableCollection<TaskViewModel> TaskPageItems { get; }
 
+        public int ActiveCategoryFinishedTaskCount { get; set; }
+        public int ActiveCategoryItemCount { get; set; }
+
         public TaskListService(IAppContext context, AppViewModel appViewModel, CategoryListService categoryListService)
         {
             ThrowHelper.ThrowIfNull(context);
@@ -58,6 +61,7 @@ namespace TodoApp2.Core
 
             // Fill the actual list with the queried items
             TaskPageItems = new ObservableCollection<TaskViewModel>(items);
+            RecalculateProgress();
 
             // Subscribe to the collection changed event for synchronizing with database
             TaskPageItems.CollectionChanged += OnTaskPageItemsChanged;
@@ -90,6 +94,7 @@ namespace TodoApp2.Core
             var createdTask = addedItem.Map();
 
             TaskPageItems.Insert(correctedInsertionIndex, createdTask);
+            RecalculateProgress();
 
             return createdTask;
         }
@@ -118,6 +123,7 @@ namespace TodoApp2.Core
             TaskPageItems.Insert(0, task);
 
             ReorderTask(task, oldPosition, true);
+            RecalculateProgress();
 
             return task;
         }
@@ -146,6 +152,8 @@ namespace TodoApp2.Core
                 TaskPageItems.Insert(index, updatedTask.Map());
             }
 
+            RecalculateProgress();
+
             _updateInProgress = false;
         }
 
@@ -173,11 +181,6 @@ namespace TodoApp2.Core
             }
         }
 
-        public void RemoveTaskFromMemory(TaskViewModel task)
-        {
-            TaskPageItems.Remove(task);
-        }
-
         public void PersistTaskList()
         {
             _context.Tasks.UpdateRange(TaskPageItems.MapList(), x => x.Id);
@@ -186,6 +189,8 @@ namespace TodoApp2.Core
             {
                 TaskPageItems.Remove(item);
             }
+
+            RecalculateProgress();
         }
 
         public List<TaskViewModel> GetActiveTaskItems(CategoryViewModel category)
@@ -304,6 +309,7 @@ namespace TodoApp2.Core
                 //IoC.AsyncActionService.InvokeAsync(AddItem);
             }
 
+            RecalculateProgress();
             _categoryChangeInProgress = false;
         }
 
@@ -422,6 +428,12 @@ namespace TodoApp2.Core
                     pinnedItemsCount++;
                 }
             }
+        }
+
+        private void RecalculateProgress()
+        {
+            ActiveCategoryItemCount = TaskPageItems.Count(i => !i.Trashed);
+            ActiveCategoryFinishedTaskCount = TaskPageItems.Count(x => !x.Trashed && x.IsDone);
         }
     }
 }

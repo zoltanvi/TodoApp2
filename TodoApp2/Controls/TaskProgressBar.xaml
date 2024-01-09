@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="TodoApp2.TaskProgressBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TodoApp2"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="MyTaskProgressBar">
+    
+    <UserControl.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="{DynamicResource OnTertiary}"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid Margin="2 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ProgressBar Style="{DynamicResource TaskProgressBarStyle}" 
+                 Grid.Column="0"
+                 Minimum="0"
+                 Maximum="{Binding MaxProgress, ElementName=MyTaskProgressBar}"
+                 Value="{Binding Progress, ElementName=MyTaskProgressBar}"
+                 Margin="0"/>
+
+            <!--In-between border-->
+            <Border Grid.Column="1" 
+                    Width="8" 
+                    Visibility="{Binding NumbersVisible, ElementName=MyTaskProgressBar, Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Border Grid.Column="2" 
+                    Background="{DynamicResource Tertiary}" 
+                    CornerRadius="10" 
+                    Visibility="{Binding NumbersVisible, ElementName=MyTaskProgressBar, Converter={StaticResource boolToVisibilityConverter}}" >
+                
+                <StackPanel Orientation="Horizontal" Margin="6 0">
+                    <Label Content="{Binding ElementName=MyTaskProgressBar, Path=Progress}" />
+                    <Label Content="/" />
+                    <Label Content="{Binding ElementName=MyTaskProgressBar, Path=MaxProgress}" />
+                </StackPanel>
+                
+                <Border.LayoutTransform>
+                    <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
+                </Border.LayoutTransform>
+            </Border>
+
+        </Grid>
+    </Grid>
+</UserControl>

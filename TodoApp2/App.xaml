@@ -27,6 +27,7 @@
                 <ResourceDictionary Source="Styles/ListBoxes.xaml" />
                 <ResourceDictionary Source="Styles/CustomControls.xaml" />
                 <ResourceDictionary Source="Styles/Sliders.xaml" />
+                <ResourceDictionary Source="Styles/ProgressBars.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

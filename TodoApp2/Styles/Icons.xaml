@@ -86,6 +86,9 @@
     <system:String x:Key="SegoeIconResetAll">&#xE777;</system:String>
     <system:String x:Key="SegoeIconClock">&#xE121;</system:String>
     <system:String x:Key="SegoeIconList">&#xE292;</system:String>
-    
+
+    <system:String x:Key="SegoeIconProgress">&#xE9E9;</system:String>
+    <system:String x:Key="SegoeIconNumberTen">&#xF14F;</system:String>
+
 
 </ResourceDictionary>
