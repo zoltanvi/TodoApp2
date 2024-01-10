@@ -98,17 +98,36 @@
                     Opacity="0.3" />
 
                 <!--  Task Checkbox  -->
-                <CheckBox
-                    Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsEnabled="{Binding TextEditorViewModel.IsDisplayMode}"
-                    Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
-                    CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
-                    IsChecked="{Binding IsDone}"
-                    Style="{DynamicResource TaskCheckBoxStyle}"
-                    Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
-                    Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+                <Grid Grid.Column="1" >
+                    <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                        <CheckBox
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsEnabled="{Binding TextEditorViewModel.IsDisplayMode}"
+                            Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
+                            CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
+                            IsChecked="{Binding IsDone}"
+                            Style="{DynamicResource TaskCheckBoxStyle}"
+                            Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
+                            Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                    </Border>
+
+                    <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                        <CheckBox
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsEnabled="{Binding TextEditorViewModel.IsDisplayMode}"
+                            Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TaskListControl}}}"
+                            CommandParameter="{Binding DataContext, ElementName=TaskListItemUC}"
+                            IsChecked="{Binding IsDone}"
+                            Style="{DynamicResource TaskCheckBoxSquareStyle}"
+                            Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
+                            Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                    </Border>
+                </Grid>
+                
 
                 <!--  Clock and Pin icon  -->
                 <Border

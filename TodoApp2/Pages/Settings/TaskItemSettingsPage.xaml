@@ -112,6 +112,14 @@
                     Description="Modification date visible"
                     IsChecked="{Binding AppSettings.TaskSettings.ModificationDateVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
+                <!--  Circular checkbox  -->
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCheckbox}"
+                    Description="Circular checkbox"
+                    ToolTip="Enabled: Circle, Disabled: Rounded square"
+                    IsChecked="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+
+
                 <!--  Color bar thickness  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
                     <Grid>

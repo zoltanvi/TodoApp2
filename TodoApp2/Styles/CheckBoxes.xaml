@@ -5,6 +5,7 @@
 
     <Style x:Key="TaskCheckBoxStyle" TargetType="{x:Type CheckBox}">
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
@@ -43,6 +44,71 @@
                                 BorderBrush="{DynamicResource SurfaceVariant}"
                                 BorderThickness="1.5"
                                 CornerRadius="30" />
+                        </Grid>
+
+                        <Grid.LayoutTransform>
+                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" />
+                        </Grid.LayoutTransform>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="checkMarkIcon" Property="Opacity" Value="1" />
+                            <Setter TargetName="checkMarkBorder" Property="BorderBrush" Value="{DynamicResource OutlineVariant}" />
+                            <Setter TargetName="checkMarkIcon" Property="Fill" Value="{DynamicResource OutlineVariant}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="checkMarkIcon" Property="Opacity" Value="1" />
+                            <Setter TargetName="checkMarkIcon" Property="Fill" Value="{DynamicResource OutlineVariant}" />
+                            <!--<Setter TargetName="checkMarkParentBorder" Property="Background" Value="{DynamicResource OutlineVariant}" />-->
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TaskCheckBoxSquareStyle" TargetType="{x:Type CheckBox}">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid
+                        x:Name="templateRoot"
+                        Background="Transparent"
+                        SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid x:Name="checkMarkParentGrid">
+                            <Border
+                            x:Name="checkMarkParentBorder"
+                            Width="20"
+                            Height="20"
+                            Margin="0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            CornerRadius="8">
+                                <Path
+                                x:Name="checkMarkIcon"
+                                Margin="4"
+                                Data="m5.265 10.823 1.58-1.963 1.986 1.534 3.837-4.626 2.031 1.67-5.597 6.274z"
+                                Fill="{TemplateBinding Foreground}"
+                                Opacity="0"
+                                Stretch="Uniform" />
+                            </Border>
+                            <Border
+                                x:Name="checkMarkBorder"
+                                Width="20"
+                                Height="20"
+                                Margin="0"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                BorderBrush="{DynamicResource SurfaceVariant}"
+                                BorderThickness="1.5"
+                                CornerRadius="4" />
                         </Grid>
 
                         <Grid.LayoutTransform>
