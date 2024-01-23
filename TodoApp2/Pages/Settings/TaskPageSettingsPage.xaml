@@ -52,6 +52,12 @@
                     ToolTip="If turned off: Save task on Ctrl + Enter"
                     IsChecked="{Binding AppSettings.TaskPageSettings.SaveOnEnter, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
+                <!-- Add task button visible -->
+                <local:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconSend}"
+                    Description="Add task button visible"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.SendButtonVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+
                 <!--  Play sound for completed tasks  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBell}"

@@ -37,14 +37,16 @@
 
                     <!--<Grid.ContextMenu>
                         <ContextMenu>
-                            --><!--
-                                Command="{Binding Path=PlacementTarget.Tag.MoveToTopCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                                CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                                
-                                
-                                Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.ThemeSettings}"
-                            --><!--
+                    -->
+                    <!--
+                        Command="{Binding Path=PlacementTarget.Tag.MoveToTopCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                        CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                        
+                        
+                        Command="{Binding SwitchToPageCommand}"
+                        CommandParameter="{x:Static core:ApplicationPage.ThemeSettings}"
+                    -->
+                    <!--
                             <MenuItem Header="Open page title settings" Icon="{StaticResource ctxIconMoveToTop}" />
                         </ContextMenu>
                     </Grid.ContextMenu>-->
@@ -156,36 +158,54 @@
             <!--  Task list  -->
             <local:TaskListControl x:Name="MyTaskListControl" Grid.Row="1" />
 
-            <!-- Progress bar -->
+            <!--  Progress bar  -->
             <Grid Grid.Row="2" Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
                 <Border Margin="4 0">
                     <local:TaskProgressBar
                         Visibility="{Binding AppSettings.TaskPageSettings.ProgressBar, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                         Progress="{Binding TaskListService.ActiveCategoryFinishedTaskCount, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged}"
                         MaxProgress="{Binding TaskListService.ActiveCategoryItemCount, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged}"
-                        NumbersVisible="{Binding AppSettings.TaskPageSettings.NumberOnProgressBar, Source={x:Static local:VML.Instance}}"
-                        />
+                        NumbersVisible="{Binding AppSettings.TaskPageSettings.NumberOnProgressBar, Source={x:Static local:VML.Instance}}" />
                 </Border>
-                
+
             </Grid>
-            
+
             <!--  Bottom panel  -->
             <Border x:Name="BottomBorderPanel" Grid.Row="3">
                 <DockPanel>
                     <Border Background="{DynamicResource Surface1}" CornerRadius="6" Margin="5">
-                        <local:RichTextEditorControl
-                            x:Name="BottomTextEditor"
-                            MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
-                            Padding="3 8" VerticalAlignment="Bottom"
-                            DataContext="{Binding TextEditorViewModel}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="GotFocus">
-                                    <Behaviors:InvokeCommandAction Command="{Binding DataContext.TextBoxFocusedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}}" />
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
+                            <local:RichTextEditorControl
+                                Grid.Row="0" x:Name="BottomTextEditor"
+                                MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
+                                Padding="3 8" VerticalAlignment="Bottom"
+                                DataContext="{Binding TextEditorViewModel}">
 
-                        </local:RichTextEditorControl>
+                                <Behaviors:Interaction.Triggers>
+                                    <Behaviors:EventTrigger EventName="GotFocus">
+                                        <Behaviors:InvokeCommandAction Command="{Binding DataContext.TextBoxFocusedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}}" />
+                                    </Behaviors:EventTrigger>
+                                </Behaviors:Interaction.Triggers>
+
+                            </local:RichTextEditorControl>
+
+                            <Border Grid.Row="1" Visibility="{Binding AppSettings.TaskPageSettings.SendButtonVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                                <Button
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource ButtonIconHoverStyle}"
+                                    Background="{DynamicResource Surface3}"
+                                    Padding="5" Cursor="Hand" ToolTip="Add task"
+                                    Visibility="{Binding TextEditorViewModel.IsContentEmpty, Converter={StaticResource boolToVisibilityNegatedConverter}}"
+                                    Content="{StaticResource SegoeIconSend}"
+                                    Command="{Binding AddTaskItemCommand}"
+                                    />
+                            </Border>
+                        </Grid>
                     </Border>
 
                 </DockPanel>
