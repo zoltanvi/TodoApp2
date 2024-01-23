@@ -76,7 +76,7 @@ namespace TodoApp2.Core
         public ICommand MoveAllToCategoryCommand { get; }
         public ICommand MoveAllCompletedToCategoryCommand { get; }
         public ICommand MoveAllIncompleteToCategoryCommand { get; }
-
+        public ICommand SplitLinesCommand { get; }
         public ICommand OpenPageTitleSettingsCommand { get; }
 
 
@@ -116,6 +116,8 @@ namespace TodoApp2.Core
             MoveAllCompletedToCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(MoveAllCompletedToCategory);
             MoveAllIncompleteToCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(MoveAllIncompleteToCategory);
 
+            SplitLinesCommand = new RelayParameterizedCommand<TaskViewModel>(SplitLines);
+
             EditCategoryCommand = new RelayCommand(EditCategory);
             FinishCategoryEditCommand = new RelayCommand(FinishCategoryEdit);
             TextBoxFocusedCommand = new RelayCommand(OnTextBoxFocused);
@@ -134,6 +136,16 @@ namespace TodoApp2.Core
             OpenPageTitleSettingsCommand = new RelayCommand(OpenPageTitleSettings);
 
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+        }
+
+        private void SplitLines(TaskViewModel model)
+        {
+            var splitContents = IoC.TaskContentSplitterService.SplitTaskContent(model.Content);
+
+            for (int i = splitContents.Count - 1; i >= 0; i--)
+            {
+                TaskViewModel task = _taskListService.AddNewTask(splitContents[i]);
+            }
         }
 
         private void OpenPageTitleSettings()

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using TodoApp2.Core;
+using TodoApp2.Services;
 
 namespace TodoApp2
 {
@@ -60,6 +61,9 @@ namespace TodoApp2
             // Load async service
             IAsyncActionService asyncActionService = AsyncActionService.Instance;
             IoC.AsyncActionService = asyncActionService;
+
+            // Load task content splitter service
+            IoC.TaskContentSplitterService = TaskContentSplitterService.Instance;
 
             // Setup IoC. It can take some time
             IoC.Setup();

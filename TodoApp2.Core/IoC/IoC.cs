@@ -1,4 +1,5 @@
 ﻿using TodoApp2.Core.Helpers;
+using TodoApp2.Core.Services;
 using TodoApp2.Persistence;
 
 namespace TodoApp2.Core
@@ -12,6 +13,7 @@ namespace TodoApp2.Core
         private static ZoomingListener _zoomingListener;
         public static IAppContext Context { get; private set; }
         public static IAsyncActionService AsyncActionService { get; set; }
+        public static ITaskContentSplitterService TaskContentSplitterService { get; set; }
         public static AppSettings AppSettings { get; set; }
         public static AppViewModel AppViewModel { get; private set; }
         public static OverlayPageService OverlayPageService { get; private set; }

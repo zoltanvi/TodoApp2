@@ -108,6 +108,7 @@
     <Compile Include="Services\AutoRunService.cs" />
     <Compile Include="Services\DebugLogger.cs" />
     <Compile Include="Services\IAsyncActionService.cs" />
+    <Compile Include="Services\ITaskContentSplitterService.cs" />
     <Compile Include="Services\IThemeManagerService.cs" />
     <Compile Include="Services\MediaPlayerService.cs" />
     <Compile Include="Services\TaskScheduler2.cs" />

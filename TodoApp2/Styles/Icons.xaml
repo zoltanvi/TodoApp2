@@ -45,6 +45,8 @@
     <system:String x:Key="SegoeIconDeleteX">&#xEDAE;</system:String>
     <system:String x:Key="SegoeIconMonospace">&#xEDE5;</system:String>
 
+    <system:String x:Key="SegoeIconTasks">&#xE71D;</system:String>
+
     <system:String x:Key="SegoeIconChevronUp">&#xE70E;</system:String>
     <system:String x:Key="SegoeIconChevronDown">&#xE70D;</system:String>
     <system:String x:Key="SegoeIconChevronLeft">&#xE76B;</system:String>

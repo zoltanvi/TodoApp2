@@ -49,6 +49,15 @@
         <!--  ============================================================  -->
         <Separator />
 
+        <!-- Create task from each line -->
+        <MenuItem 
+            Command="{Binding Path=PlacementTarget.Tag.SplitLinesCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" 
+            CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+            Header="Create task from each line" 
+            Icon="{StaticResource ctxIconTasks}" />
+
+        <Separator />
+
         <MenuItem
             Header="Colors" HorizontalAlignment="Center" IsEnabled="False"
             Foreground="{DynamicResource OnSurface}" />

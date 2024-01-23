@@ -449,6 +449,11 @@
         Style="{StaticResource ContextMenuIconStyle}" />
 
     <Label
+        x:Key="ctxIconTasks"
+        Content="{StaticResource SegoeIconTasks}"
+        Style="{StaticResource ContextMenuIconStyle}" />
+    
+    <Label
         x:Key="ctxIconColor1"
         Content="{StaticResource SegoeIconPalette}"
         Style="{StaticResource ContextMenuIconStyle}" />
