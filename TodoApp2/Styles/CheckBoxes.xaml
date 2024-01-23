@@ -41,7 +41,7 @@
                                 Margin="0"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                BorderBrush="{DynamicResource SurfaceVariant}"
+                                BorderBrush="{DynamicResource OutlineVariant}"
                                 BorderThickness="1.5"
                                 CornerRadius="30" />
                         </Grid>
@@ -106,7 +106,7 @@
                                 Margin="0"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                BorderBrush="{DynamicResource SurfaceVariant}"
+                                BorderBrush="{DynamicResource OutlineVariant}"
                                 BorderThickness="1.5"
                                 CornerRadius="4" />
                         </Grid>
