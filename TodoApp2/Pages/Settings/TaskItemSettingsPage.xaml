@@ -6,49 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
     xmlns:local="clr-namespace:TodoApp2"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:TypeArguments="core:TaskItemSettingsPageViewModel"
     Title="TaskItemSettingsPage">
-    <local:BasePage.Resources>
-        <ObjectDataProvider
-            x:Key="ThemeDataProvider"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="core:Theme" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-
-        <ObjectDataProvider
-            x:Key="ThicknessDataProvider"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="core:Thickness" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-
-        <ObjectDataProvider
-            x:Key="FontFamilyDataProvider"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="core:FontFamily" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-
-        <ObjectDataProvider
-            x:Key="TaskSpacingDataProvider"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="core:TaskSpacing" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </local:BasePage.Resources>
 
     <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
         <Grid>

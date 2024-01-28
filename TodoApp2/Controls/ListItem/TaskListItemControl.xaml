@@ -99,7 +99,7 @@
 
                 <!--  Task Checkbox  -->
 
-                <Grid Grid.Column="1" >
+                <Grid Grid.Column="1">
                     <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
                         <CheckBox
                             HorizontalAlignment="Center"
@@ -127,7 +127,7 @@
                             Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
                     </Border>
                 </Grid>
-                
+
 
                 <!--  Clock and Pin icon  -->
                 <Border
@@ -249,7 +249,7 @@
                                 TagTitle="Created: "
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.TaskSettings.CreationDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                TagColor="Geekblue" >
+                                TagColor="Geekblue">
                                 <local:TagControl.TagBody>
                                     <MultiBinding>
                                         <MultiBinding.Converter>
@@ -265,7 +265,7 @@
                                 TagTitle="Modified: "
                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
                                 Visibility="{Binding AppSettings.TaskSettings.ModificationDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
-                                TagColor="Purple" >
+                                TagColor="Purple">
                                 <local:TagControl.TagBody>
                                     <MultiBinding>
                                         <MultiBinding.Converter>
@@ -374,7 +374,7 @@
                                     Content="{DynamicResource SegoeIconDateTime}"
                                     Style="{DynamicResource ButtonQuickActionStyle}"
                                     IsEnabled="{Binding IsQuickActionsEnabled}"
-                                    Visibility="{Binding AppSettings.TaskQuickActionSettings.ReminderEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" >
+                                    Visibility="{Binding AppSettings.TaskQuickActionSettings.ReminderEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
                                     <Button.ToolTip>
                                         <MultiBinding>
                                             <MultiBinding.Converter>

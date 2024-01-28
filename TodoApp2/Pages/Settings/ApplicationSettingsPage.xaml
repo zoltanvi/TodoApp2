@@ -5,24 +5,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:local="clr-namespace:TodoApp2"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:TypeArguments="core:ApplicationSettingsPageViewModel"
     Title="ApplicationSettingsPage">
-
-    <local:BasePage.Resources>
-        <ObjectDataProvider
-            x:Key="TitleBarHeightDataProvider"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="core:TitleBarHeight" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </local:BasePage.Resources>
 
     <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
         <Grid>

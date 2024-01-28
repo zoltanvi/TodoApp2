@@ -84,4 +84,5 @@
 
     <local:TitleBarHeightConverter x:Key="titleBarHeightConverter" />
     <local:TitleBarHeightToGridLengthConverter x:Key="TitleBarHeightToGridLengthConverter" />
+    
 </ResourceDictionary>

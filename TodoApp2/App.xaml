@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Resources/FeatureFlags.xaml" />
                 <ResourceDictionary Source="Resources/Version.xaml" />
                 <ResourceDictionary Source="Resources/ValueConverters.xaml" />
+                <ResourceDictionary Source="Resources/DataProviders.xaml" />
                 <ResourceDictionary Source="Themes/BaseTheme.xaml" />
                 <ResourceDictionary Source="Themes/DarkTheme.xaml" />
                 <ResourceDictionary Source="Styles/Icons.xaml" />
