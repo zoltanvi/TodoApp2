@@ -51,7 +51,7 @@ namespace TodoApp2.Core
             
             _zoomingListener = new ZoomingListener(UIScaler, AppSettings);
             ThemeChangeNotifier = new ThemeChangeNotifier();
-            ThemeChangeNotifier.AddRecipient(AppSettings.CommonSettings, nameof(CommonSettings.AppBorderColor));
+            ThemeChangeNotifier.AddRecipient(AppSettings.AppWindowSettings, nameof(AppWindowSettings.AppBorderColor));
 
             UndoManager = new UndoManager();
             AppViewModel = new AppViewModel(Context, UIScaler);

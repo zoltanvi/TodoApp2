@@ -175,7 +175,7 @@ namespace TodoApp2.Core
                     IoC.CategoryListService.ActiveCategory = null;
                 }
 
-                if (IoC.AppSettings.CommonSettings.CloseSideMenuOnCategoryChange)
+                if (IoC.AppSettings.AppWindowSettings.CloseSideMenuOnCategoryChange)
                 {
                     Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
                 }

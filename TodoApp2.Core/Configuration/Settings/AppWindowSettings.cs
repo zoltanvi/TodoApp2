@@ -1,6 +1,6 @@
 ﻿namespace TodoApp2.Core
 {
-    public class CommonSettings : SettingsBase
+    public class AppWindowSettings : SettingsBase
     {
         public bool AlwaysOnTop { get; set; }
         public bool AutoStart { get; set; }
@@ -8,5 +8,10 @@
         public bool ExitToTray { get; set; }
         public bool CloseSideMenuOnCategoryChange { get; set; } = true;
         public string AppBorderColor { get; set; } = "#BDBDBD";
+
+        public double WindowMinimumWidth { get; set; } = 220;
+        public double WindowMinimumHeight { get; set; } = 200;
+        public int ResizeBorderSize { get; set; } = 9;
+        public TitleBarHeight TitleBarHeight { get; set; } = TitleBarHeight.Normal;
     }
 }

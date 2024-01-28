@@ -16,7 +16,7 @@ namespace TodoApp2
     /// </summary>
     public class WindowViewModel : BaseViewModel
     {
-        private const int ResizeBorderSize = 9;
+        //private const int ResizeBorderSize = 9;
 
         private readonly Window _window;
         private readonly WindowResizer _resizer;
@@ -36,7 +36,7 @@ namespace TodoApp2
         /// </summary>
         private WindowDockPosition _dockPosition = WindowDockPosition.Undocked;
 
-        private CommonSettings CommonSettings => IoC.AppSettings.CommonSettings;
+        private AppWindowSettings AppWindowSettings => IoC.AppSettings.AppWindowSettings;
         private WindowSettings WindowSettings => IoC.AppSettings.WindowSettings;
 
         public ICommand MinimizeCommand { get; }
@@ -58,29 +58,21 @@ namespace TodoApp2
         /// <summary>
         /// The size of the resize border around the window
         /// </summary>
-        public int ResizeBorder => _window.WindowState == WindowState.Maximized ? 0 : ResizeBorderSize;
+        public int ResizeBorder => _window.WindowState == WindowState.Maximized
+            ? 0
+            : IoC.AppSettings.AppWindowSettings.ResizeBorderSize;
 
         /// <summary>
         /// The size of the resize border around the window, taking into account the outer margin
         /// </summary>
         public Thickness ResizeBorderThickness => new Thickness(ResizeBorder);
 
-        /// <summary>
-        /// The height of the title bar / caption of the window
-        /// </summary>
-        public int TitleBarHeight { get; set; } = 32;
-
-        /// <summary>
-        /// The height of the TitleBar of the window
-        /// </summary>
-        public GridLength TitleBarGridHeight => new GridLength(TitleBarHeight);
-
         public bool IsDocked { get; set; }
         public bool IsMaximized { get; set; }
         public bool IsMaximizedOrDocked { get; set; }
 
         /// <summary>
-        /// <see cref="CommonSettings.RoundedWindowCorners"/> and this property both must be true 
+        /// <see cref="AppWindowSettings.RoundedWindowCorners"/> and this property both must be true 
         /// for the rounded corners to work.
         /// </summary>
         public bool IsRoundedCornersAllowed { get; set; }
@@ -103,7 +95,7 @@ namespace TodoApp2
         // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
         public double MyWidth { get; set; }
         public double MyHeight { get; set; }
-        public int OuterMargin { get; set; } = 2 * ResizeBorderSize;
+        public int OuterMargin => 2 * IoC.AppSettings.AppWindowSettings.ResizeBorderSize;
         public Rect ClipRect => new Rect(0, 0, MyWidth, MyHeight);
         public Rect OuterClipRect => new Rect(0, 0, MyWidth + OuterMargin, MyHeight + OuterMargin);
 
@@ -114,7 +106,7 @@ namespace TodoApp2
             _window = window;
             _appViewModel = applicationViewModel;
             _context = context;
-            IoC.AppSettings.CommonSettings.PropertyChanged += CommonSettings_PropertyChanged;
+            IoC.AppSettings.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
 
             _themeManager = new ThemeManager();
 
@@ -146,7 +138,7 @@ namespace TodoApp2
             _resizer.IsDockedChanged += OnIsDockedChanged;
 
             _trayIconModule = new TrayIconModule(_window);
-            _trayIconModule.IsEnabled = CommonSettings.ExitToTray;
+            _trayIconModule.IsEnabled = AppWindowSettings.ExitToTray;
 
             // Listen out for requests to flash the application window
             Mediator.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
@@ -191,9 +183,9 @@ namespace TodoApp2
 
         private void CommonSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CommonSettings.ExitToTray))
+            if (e.PropertyName == nameof(AppWindowSettings.ExitToTray))
             {
-                _trayIconModule.IsEnabled = CommonSettings.ExitToTray;
+                _trayIconModule.IsEnabled = AppWindowSettings.ExitToTray;
             }
         }
 
@@ -311,7 +303,7 @@ namespace TodoApp2
             _window.Topmost = true;  // important
             _window.Topmost = false; // important
             _window.Focus();         // important
-            _window.Topmost = CommonSettings.AlwaysOnTop;
+            _window.Topmost = AppWindowSettings.AlwaysOnTop;
 
             // Flash the window 3 times
             _window.FlashWindow(3);
@@ -348,7 +340,7 @@ namespace TodoApp2
             if (!_closing)
             {
                 Window window = (Window)sender;
-                bool isAlwaysOnTop = CommonSettings.AlwaysOnTop;
+                bool isAlwaysOnTop = AppWindowSettings.AlwaysOnTop;
                 window.Topmost = isAlwaysOnTop;
                 if (isAlwaysOnTop)
                 {

@@ -2,7 +2,7 @@
 {
     public class AppSettings : SettingsBase
     {
-        public CommonSettings CommonSettings { get; set; } = new CommonSettings();
+        public AppWindowSettings AppWindowSettings { get; set; } = new AppWindowSettings();
         public ThemeSettings ThemeSettings { get; set; } = new ThemeSettings();
         public PageTitleSettings PageTitleSettings { get; set; } = new PageTitleSettings();
         public TaskPageSettings TaskPageSettings { get; set; } = new TaskPageSettings();

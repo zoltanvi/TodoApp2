@@ -6,7 +6,7 @@ namespace TodoApp2.Core
     {
         private readonly AppViewModel _appViewModel;
 
-        public ApplicationPage ActiveSettingsPage { get; set; } = ApplicationPage.ApplicationSettings;
+        public ApplicationPage ActiveSettingsPage { get; set; } = ApplicationPage.AppWindowSettings;
 
         public ICommand GoBackCommand { get; }
         public ICommand SwitchToPageCommand { get; }

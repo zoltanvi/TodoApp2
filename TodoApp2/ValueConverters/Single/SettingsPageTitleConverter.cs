@@ -9,7 +9,7 @@ namespace TodoApp2
     {
         private Dictionary<ApplicationPage, string> _pageTitles = new Dictionary<ApplicationPage, string>
         {
-            { ApplicationPage.ApplicationSettings, "Application settings" },
+            { ApplicationPage.AppWindowSettings, "Application settings" },
             { ApplicationPage.ThemeSettings, "Themes" },
             { ApplicationPage.PageTitleSettings, "Page title settings" },
             { ApplicationPage.TaskPageSettings, "Task page settings" },

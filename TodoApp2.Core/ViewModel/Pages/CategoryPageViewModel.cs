@@ -176,7 +176,7 @@ namespace TodoApp2.Core
                     IoC.NoteListService.ActiveNote = null;
                 }
 
-                if (IoC.AppSettings.CommonSettings.CloseSideMenuOnCategoryChange)
+                if (IoC.AppSettings.AppWindowSettings.CloseSideMenuOnCategoryChange)
                 {
                     Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
                 }

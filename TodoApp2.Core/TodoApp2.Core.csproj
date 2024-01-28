@@ -64,7 +64,7 @@
     <Compile Include="Configuration\Settings\AppSettings.cs" />
     <Compile Include="Configuration\SettingsBase.cs" />
     <Compile Include="Configuration\AppSettingsExtensions.cs" />
-    <Compile Include="Configuration\Settings\CommonSettings.cs" />
+    <Compile Include="Configuration\Settings\AppWindowSettings.cs" />
     <Compile Include="Configuration\Settings\DateTimeSettings.cs" />
     <Compile Include="Configuration\Settings\NoteSettings.cs" />
     <Compile Include="Configuration\Settings\PageTitleSettings.cs" />
@@ -76,6 +76,7 @@
     <Compile Include="Configuration\Settings\ThemeSettings.cs" />
     <Compile Include="Configuration\Settings\WindowSettings.cs" />
     <Compile Include="Constants\CoreConstants.cs" />
+    <Compile Include="DataModels\TitleBarHeight.cs" />
     <Compile Include="Extensions\ListOrderEnumerableExtensions.cs" />
     <Compile Include="Helpers\NumericStringComparer.cs" />
     <Compile Include="Mappings\ListOrderParsingHelper.cs" />

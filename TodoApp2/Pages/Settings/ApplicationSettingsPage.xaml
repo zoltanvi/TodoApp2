@@ -5,12 +5,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:local="clr-namespace:TodoApp2"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:TypeArguments="core:ApplicationSettingsPageViewModel"
     Title="ApplicationSettingsPage">
+
+    <local:BasePage.Resources>
+        <ObjectDataProvider
+            x:Key="TitleBarHeightDataProvider"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="core:TitleBarHeight" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </local:BasePage.Resources>
 
     <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
         <Grid>
@@ -29,31 +41,31 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlwaysOnTop}"
                     Description="Always on top"
-                    IsChecked="{Binding AppSettings.CommonSettings.AlwaysOnTop, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.AlwaysOnTop, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Auto start app with Windows  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRepeat}"
                     Description="Auto start app with Windows"
-                    IsChecked="{Binding AppSettings.CommonSettings.AutoStart, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.AutoStart, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Rounded window corners  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRoundedCorners}"
                     Description="Rounded window corners"
-                    IsChecked="{Binding AppSettings.CommonSettings.RoundedWindowCorners, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.RoundedWindowCorners, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Exit button minimizes to tray  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMinimizeToTray}"
                     Description="Exit button minimizes to tray"
-                    IsChecked="{Binding AppSettings.CommonSettings.ExitToTray, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.ExitToTray, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  Close side menu on category change  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMinimizeToTray}"
                     Description="Close side menu on category change"
-                    IsChecked="{Binding AppSettings.CommonSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
 
                 <!--  App border color  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
@@ -78,13 +90,45 @@
                             HorizontalAlignment="Right">
 
                             <local:SingletonColorPicker
-                                SelectedColorString="{Binding AppSettings.CommonSettings.AppBorderColor, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
+                                SelectedColorString="{Binding AppSettings.AppWindowSettings.AppBorderColor, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
                                 Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
                         </Border>
 
                     </Grid>
                 </Border>
+
+                <!--  TitleBarHeight  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="{DynamicResource SegoeIconPalette}"
+                            Style="{DynamicResource SettingsIconLabelStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Title bar height" />
+                        <ComboBox
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            ItemsSource="{Binding Source={StaticResource TitleBarHeightDataProvider}}"
+                            SelectedItem="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
 
                 <!--  Database location  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
@@ -104,8 +148,7 @@
                             Margin="0 0 10 0"
                             Padding="5"
                             ToolTip="Open database location in explorer"
-                            Command="{Binding OpenDbLocationCommand}"
-                            />
+                            Command="{Binding OpenDbLocationCommand}" />
 
                         <!--<Label
                             Grid.Column="0"

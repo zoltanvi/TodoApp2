@@ -44,8 +44,9 @@ namespace TodoApp2
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-EN");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-EN");
-            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
-                        XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+            FrameworkElement.LanguageProperty.OverrideMetadata(
+                typeof(FrameworkElement), 
+                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             // Setup the essential services and modules for the application
             IoC.PreSetup();
@@ -78,6 +79,8 @@ namespace TodoApp2
 
             // The main window is open, so close the splash screen 
             splashScreen.Close(TimeSpan.Zero);
+
+            //var devSettingsWindow = new DevSettingsWindow();
         }
 
         private SplashScreen ShowSplashScreenForTheme()

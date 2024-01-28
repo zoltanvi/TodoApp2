@@ -49,7 +49,7 @@
                                     <MultiBinding.Converter>
                                         <local:RoundedCornersMultiConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="AppSettings.CommonSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
+                                    <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
                                     <Binding Path="IsRoundedCornersAllowed" />
                                 </MultiBinding>
                             </Border.CornerRadius>
@@ -70,7 +70,7 @@
                                         <MultiBinding.Converter>
                                             <local:RoundedCornersMultiConverter />
                                         </MultiBinding.Converter>
-                                        <Binding Path="AppSettings.CommonSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
+                                        <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
                                         <Binding Path="IsRoundedCornersAllowed" />
                                     </MultiBinding>
                                 </Border.CornerRadius>
@@ -88,7 +88,7 @@
                                     <!--  Outer dragging border  -->
                                     <Border
                                         Panel.ZIndex="2"
-                                        BorderBrush="{Binding AppSettings.CommonSettings.AppBorderColor, 
+                                        BorderBrush="{Binding AppSettings.AppWindowSettings.AppBorderColor, 
                                         Source={x:Static local:VML.Instance}, 
                                         Converter={StaticResource appBorderBrushConverter}}"
                                         BorderThickness="0.4"
@@ -100,7 +100,7 @@
                                                 <MultiBinding.Converter>
                                                     <local:RoundedCornersMultiConverter />
                                                 </MultiBinding.Converter>
-                                                <Binding Path="AppSettings.CommonSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
+                                                <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
                                                 <Binding Path="IsRoundedCornersAllowed" />
                                             </MultiBinding>
                                         </Border.CornerRadius>
@@ -114,7 +114,7 @@
                                                 <MultiBinding.Converter>
                                                     <local:RoundedCornersMultiConverter />
                                                 </MultiBinding.Converter>
-                                                <Binding Path="AppSettings.CommonSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
+                                                <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
                                                 <Binding Path="IsRoundedCornersAllowed" />
                                             </MultiBinding>
                                         </Border.CornerRadius>
@@ -123,7 +123,7 @@
                                             <Grid.RowDefinitions>
 
                                                 <!--  Title Bar  -->
-                                                <RowDefinition Height="{Binding TitleBarGridHeight, FallbackValue=35}" />
+                                                <RowDefinition Height="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={x:Static local:VML.Instance}, Converter={StaticResource TitleBarHeightToGridLengthConverter}}" />
                                                 <!--  Window Content  -->
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
@@ -276,7 +276,7 @@
 
     <WindowChrome.WindowChrome>
         <WindowChrome
-            CaptionHeight="{Binding TitleBarHeight}"
+            CaptionHeight="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={x:Static local:VML.Instance}, Converter={StaticResource titleBarHeightConverter}}"
             GlassFrameThickness="0"
             CornerRadius="0"
             ResizeBorderThickness="{Binding ResizeBorderThickness}" />

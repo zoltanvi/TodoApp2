@@ -58,7 +58,6 @@
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
-
                     <Border
                         Grid.Row="0"
                         Background="{DynamicResource Surface1}"
@@ -78,8 +77,8 @@
                                 <StackPanel Orientation="Vertical" Grid.Row="0">
                                 <local:SettingsCategoryButton
                                     Command="{Binding SwitchToPageCommand}"
-                                    CommandParameter="{x:Static core:ApplicationPage.ApplicationSettings}"
-                                    Id="{x:Static core:ApplicationPage.ApplicationSettings}"
+                                    CommandParameter="{x:Static core:ApplicationPage.AppWindowSettings}"
+                                    Id="{x:Static core:ApplicationPage.AppWindowSettings}"
                                     Content="APPLICATION"
                                     Style="{StaticResource SettingsCategoryButtonStyle}"
                                     SelectedPage="{Binding ActiveSettingsPage}" />

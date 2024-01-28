@@ -82,4 +82,6 @@
     <local:DoubleToGridLengthConverter x:Key="doubleToGridLengthConverter" />
     <local:IdToCategoryNameConverter x:Key="idToCategoryNameConverter" />
 
+    <local:TitleBarHeightConverter x:Key="titleBarHeightConverter" />
+    <local:TitleBarHeightToGridLengthConverter x:Key="TitleBarHeightToGridLengthConverter" />
 </ResourceDictionary>

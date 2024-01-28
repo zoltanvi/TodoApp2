@@ -94,7 +94,7 @@ namespace TodoApp2.Core
             // Load the application settings to update the ActiveCategoryId before querying the tasks
             LoadAppSettingsOnce();
 
-            AppSettings.CommonSettings.PropertyChanged += CommonSettings_PropertyChanged;
+            AppSettings.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace TodoApp2.Core
             IoC.AppSettings.PopulateAppSettingsFromList(settingList);
 
             // Must be set to always check the registry on startup
-            IoC.AutoRunService.RunAtStartup = AppSettings.CommonSettings.AutoStart;
+            IoC.AutoRunService.RunAtStartup = AppSettings.AppWindowSettings.AutoStart;
         }
 
         public void SaveApplicationSettings()
@@ -215,9 +215,9 @@ namespace TodoApp2.Core
 
         private void CommonSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CommonSettings.AutoStart))
+            if (e.PropertyName == nameof(AppWindowSettings.AutoStart))
             {
-                IoC.AutoRunService.RunAtStartup = AppSettings.CommonSettings.AutoStart;
+                IoC.AutoRunService.RunAtStartup = AppSettings.AppWindowSettings.AutoStart;
             }
         }
 

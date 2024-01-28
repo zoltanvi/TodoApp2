@@ -303,8 +303,13 @@
     <Compile Include="ValueConverters\Single\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\Multi\BackgroundBrushConverter.cs" />
     <Compile Include="ValueConverters\Single\Brush\StringRGBToBrushConverter.cs" />
+    <Compile Include="ValueConverters\Single\TitleBarHeightConverter.cs" />
+    <Compile Include="ViewModels\DevSettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
+    <Compile Include="Window\DevSettingsWindow.xaml.cs">
+      <DependentUpon>DevSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>
@@ -539,6 +544,10 @@
     <Page Include="Styles\Texts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\DevSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\ErrorWindow.xaml">
       <SubType>Designer</SubType>
