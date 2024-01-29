@@ -11,6 +11,7 @@ namespace TodoApp2
     public partial class TaskPage : BasePage<TaskPageViewModel>
     {
         private readonly TaskListService _taskListService;
+        private GridResizerVertical _gridResizer;
 
         public TaskPage(TaskPageViewModel viewModel, TaskListService taskListService) : base(viewModel)
         {
@@ -22,6 +23,8 @@ namespace TodoApp2
             {
                 mainWindow.Closing += MainWindowOnClosing;
             }
+
+            _gridResizer = new GridResizerVertical(PageGrid, Resizer, Application.Current.MainWindow);
 
             ViewModel.ScrollIntoViewAction = MyTaskListControl.ScrollToItem;
             IoC.OneEditorOpenService.OnEditModeEnd = FocusBottomTextEditor;

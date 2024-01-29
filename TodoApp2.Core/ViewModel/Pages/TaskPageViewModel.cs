@@ -48,6 +48,8 @@ namespace TodoApp2.Core
         /// </summary>
         public bool IsCategoryInDisplayMode => !IsCategoryInEditMode;
 
+        public bool IsBottomPanelOpen { get; set; } = true;
+
         public ICommand AddTaskItemCommand { get; }
         public ICommand DeleteTaskItemCommand { get; }
         public ICommand DeleteAllCommand { get; }
@@ -79,6 +81,7 @@ namespace TodoApp2.Core
         public ICommand SplitLinesCommand { get; }
         public ICommand OpenPageTitleSettingsCommand { get; }
 
+        public ICommand ToggleBottomPanelOpenState { get; }
 
         public TaskPageViewModel()
         {
@@ -134,6 +137,8 @@ namespace TodoApp2.Core
             MoveToBottomCommand = new RelayParameterizedCommand<TaskViewModel>(MoveTaskToBottom);
 
             OpenPageTitleSettingsCommand = new RelayCommand(OpenPageTitleSettings);
+
+            ToggleBottomPanelOpenState = new RelayCommand(() => IsBottomPanelOpen = !IsBottomPanelOpen);
 
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
         }

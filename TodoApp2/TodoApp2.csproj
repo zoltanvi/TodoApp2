@@ -315,6 +315,10 @@
     </Compile>
     <Compile Include="Window\FlashWindow.cs" />
     <Compile Include="Window\GridResizer.cs" />
+    <Compile Include="Window\GridResizerDebugWindow.xaml.cs">
+      <DependentUpon>GridResizerDebugWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\GridResizerVertical.cs" />
     <Compile Include="Window\TrayIconModule.cs" />
     <Compile Include="Window\WindowResizer.cs" />
     <Page Include="Controls\ContextMenu\TaskListItemContextMenu.xaml">
@@ -554,6 +558,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\ErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\GridResizerDebugWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
