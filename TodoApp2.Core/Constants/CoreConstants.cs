@@ -2,6 +2,8 @@
 {
     public struct CoreConstants
     {
+        public const string CurrentVersion = "CurrentVersion";
+
         public struct ColorName
         {
             public const string Transparent = "Transparent";

@@ -80,7 +80,11 @@ namespace TodoApp2
             // The main window is open, so close the splash screen 
             splashScreen.Close(TimeSpan.Zero);
 
-            //var devSettingsWindow = new DevSettingsWindow();
+#if DEBUG
+            var devSettingsWindow = new DevSettingsWindow();
+            var version = (string)Application.Current.TryFindResource(CoreConstants.CurrentVersion);
+            Application.Current.Resources[CoreConstants.CurrentVersion] = $"{version}_Debug";
+#endif
         }
 
         private SplashScreen ShowSplashScreenForTheme()

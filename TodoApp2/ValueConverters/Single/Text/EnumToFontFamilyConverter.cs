@@ -24,54 +24,36 @@ namespace TodoApp2
             {
                 _initialized = true;
                 AddDefaultFontFamily(FontFamily.Calibri, CoreConstants.FontFamily.Calibri);
-            
-                AddFontFamily(FontFamily.CascadiaMonoLight);
-                AddFontFamily(FontFamily.CascadiaMonoRegular);
-                AddFontFamily(FontFamily.CascadiaMonoBold);
-
                 AddDefaultFontFamily(FontFamily.Consolas, CoreConstants.FontFamily.Consolas);
-
-                AddFontFamily(FontFamily.CormorantLight);
-                AddFontFamily(FontFamily.CormorantRegular);
-                AddFontFamily(FontFamily.CormorantBold);
-
                 AddDefaultFontFamily(FontFamily.CourierNew, CoreConstants.FontFamily.CourierNew);
 
                 AddFontFamily(FontFamily.FiraSansLight);
                 AddFontFamily(FontFamily.FiraSansRegular);
-                AddFontFamily(FontFamily.FiraSansBold);
 
                 AddFontFamily(FontFamily.InterLight);
                 AddFontFamily(FontFamily.InterRegular);
-                AddFontFamily(FontFamily.InterBold);
 
                 AddFontFamily(FontFamily.MontserratAlternatesLight);
                 AddFontFamily(FontFamily.MontserratAlternatesRegular);
-                AddFontFamily(FontFamily.MontserratAlternatesBold);
 
                 AddFontFamily(FontFamily.MontserratLight);
                 AddFontFamily(FontFamily.MontserratRegular);
-                AddFontFamily(FontFamily.MontserratBold);
 
                 AddFontFamily(FontFamily.NotoSansLight);
                 AddFontFamily(FontFamily.NotoSansRegular);
-                AddFontFamily(FontFamily.NotoSansBold);
 
-                AddFontFamily(FontFamily.SCE_PS3);
+                AddFontFamily(FontFamily.OpenSansLight);
+                AddFontFamily(FontFamily.OpenSans);
+
 
                 AddDefaultFontFamily(FontFamily.SegoeUILight, CoreConstants.FontFamily.SegoeUILight);
                 AddDefaultFontFamily(FontFamily.SegoeUI, CoreConstants.FontFamily.SegoeUI);
                 AddDefaultFontFamily(FontFamily.SegoeUIBold, CoreConstants.FontFamily.SegoeUIBold);
 
-                AddFontFamily(FontFamily.SourceCodeProRegular);
-                AddFontFamily(FontFamily.SourceCodeProBold);
-
-                AddDefaultFontFamily(FontFamily.Tahoma, CoreConstants.FontFamily.Tahoma);
                 AddDefaultFontFamily(FontFamily.TimesNewRoman, CoreConstants.FontFamily.TimesNewRoman);
 
                 AddFontFamily(FontFamily.UbuntuLight);
                 AddFontFamily(FontFamily.UbuntuRegular);
-                AddFontFamily(FontFamily.UbuntuBold);
 
                 AddDefaultFontFamily(FontFamily.Verdana, CoreConstants.FontFamily.Verdana);
             }

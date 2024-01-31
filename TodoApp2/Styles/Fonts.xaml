@@ -5,58 +5,37 @@
     <FontFamily x:Key="UIFont">Segoe UI</FontFamily>
     <FontFamily x:Key="UIBoldFont">Segoe UI Bold</FontFamily>
     <FontFamily x:Key="UIMonospaceFont">Consolas</FontFamily>
-    <FontFamily x:Key="IconFontOld">pack://application;,,,/Fonts/#Segoe MDL2 Assets</FontFamily>
     <FontFamily x:Key="IconFont">pack://application;,,,/Fonts/#Segoe Fluent Icons</FontFamily>
 
     <!--  ================================================================================================  -->
 
     <!--  Calibri,  -->
-
-    <FontFamily x:Key="CascadiaMonoLight">pack://application;,,,/Fonts/CascadiaMono/#Cascadia Mono Light</FontFamily>
-    <FontFamily x:Key="CascadiaMonoRegular">pack://application;,,,/Fonts/CascadiaMono/#Cascadia Mono Regular</FontFamily>
-    <FontFamily x:Key="CascadiaMonoBold">pack://application;,,,/Fonts/CascadiaMono/#Cascadia Mono Bold</FontFamily>
-
     <!--  Consolas,  -->
-
-    <FontFamily x:Key="CormorantLight">pack://application;,,,/Fonts/Cormorant/#Cormorant Light</FontFamily>
-    <FontFamily x:Key="CormorantRegular">pack://application;,,,/Fonts/Cormorant/#Cormorant Regular</FontFamily>
-    <FontFamily x:Key="CormorantBold">pack://application;,,,/Fonts/Cormorant/#Cormorant Bold</FontFamily>
-
     <!--  CourierNew,  -->
 
     <FontFamily x:Key="FiraSansLight">pack://application;,,,/Fonts/FiraSans/#Fira Sans ExtraLight</FontFamily>
     <FontFamily x:Key="FiraSansRegular">pack://application;,,,/Fonts/FiraSans/#Fira Sans Regular</FontFamily>
-    <FontFamily x:Key="FiraSansBold">pack://application;,,,/Fonts/FiraSans/#Fira Sans Bold</FontFamily>
 
     <FontFamily x:Key="InterLight">pack://application;,,,/Fonts/Inter/#Inter ExtraLight</FontFamily>
     <FontFamily x:Key="InterRegular">pack://application;,,,/Fonts/Inter/#Inter Regular</FontFamily>
-    <FontFamily x:Key="InterBold">pack://application;,,,/Fonts/Inter/#Inter Bold</FontFamily>
 
     <FontFamily x:Key="MontserratAlternatesLight">pack://application;,,,/Fonts/MontserratAlternates/#Montserrat Alternates ExtraLight</FontFamily>
     <FontFamily x:Key="MontserratAlternatesRegular">pack://application;,,,/Fonts/MontserratAlternates/#Montserrat Alternates Regular</FontFamily>
-    <FontFamily x:Key="MontserratAlternatesBold">pack://application;,,,/Fonts/MontserratAlternates/#Montserrat Alternates Bold</FontFamily>
 
     <FontFamily x:Key="MontserratLight">pack://application;,,,/Fonts/Montserrat/#Montserrat ExtraLight</FontFamily>
     <FontFamily x:Key="MontserratRegular">pack://application;,,,/Fonts/Montserrat/#Montserrat Regular</FontFamily>
-    <FontFamily x:Key="MontserratBold">pack://application;,,,/Fonts/Montserrat/#Montserrat Bold</FontFamily>
 
     <FontFamily x:Key="NotoSansLight">pack://application;,,,/Fonts/NotoSans/#Noto Sans Light</FontFamily>
     <FontFamily x:Key="NotoSansRegular">pack://application;,,,/Fonts/NotoSans/#Noto Sans Regular</FontFamily>
-    <FontFamily x:Key="NotoSansBold">pack://application;,,,/Fonts/NotoSans/#Noto Sans Bold</FontFamily>
 
-    <FontFamily x:Key="SCE_PS3">pack://application;,,,/Fonts/#SCE-PS3 Rodin LATIN Regular</FontFamily>
+    <FontFamily x:Key="OpenSansLight">pack://application;,,,/Fonts/OpenSans/#Open Sans Light</FontFamily>
+    <FontFamily x:Key="OpenSans">pack://application;,,,/Fonts/OpenSans/#Open Sans</FontFamily>
 
     <!--  SegoeUI,  -->
-
-    <FontFamily x:Key="SourceCodeProRegular">pack://application;,,,/Fonts/SourceCodePro/#Source Code Pro Regular</FontFamily>
-    <FontFamily x:Key="SourceCodeProBold">pack://application;,,,/Fonts/SourceCodePro/#Source Code Pro Bold</FontFamily>
-
-    <!--  Tahoma,  -->
     <!--  TimesNewRoman,  -->
 
     <FontFamily x:Key="UbuntuLight">pack://application;,,,/Fonts/Ubuntu/#Ubuntu Light</FontFamily>
     <FontFamily x:Key="UbuntuRegular">pack://application;,,,/Fonts/Ubuntu/#Ubuntu Regular</FontFamily>
-    <FontFamily x:Key="UbuntuBold">pack://application;,,,/Fonts/Ubuntu/#Ubuntu Bold</FontFamily>
 
     <!--  Verdana,  -->
 
