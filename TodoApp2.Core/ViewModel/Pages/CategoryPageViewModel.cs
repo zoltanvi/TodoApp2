@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -16,8 +17,8 @@ namespace TodoApp2.Core
         private readonly AppViewModel _application;
         private readonly OverlayPageService _overlayPageService;
         private readonly CategoryListService _categoryListService;
+        private readonly TaskListService _taskListService;
         private readonly MessageService _messageService;
-
 
         /// <summary>
         /// The name of the current category being added
@@ -28,6 +29,7 @@ namespace TodoApp2.Core
         public ICommand ChangeCategoryCommand { get; }
         public ICommand OpenSettingsPageCommand { get; }
         public ICommand OpenNoteListPageCommand { get; }
+        public ICommand OpenRecycleBinPageCommand { get; }
 
         private ObservableCollection<CategoryViewModel> Items => _categoryListService.Items;
 
@@ -46,12 +48,14 @@ namespace TodoApp2.Core
             IAppContext context,
             OverlayPageService overlayPageService,
             CategoryListService categoryListService,
+            TaskListService taskListService,
             MessageService messageService)
         {
             _application = applicationViewModel;
             _context = context;
             _overlayPageService = overlayPageService;
             _categoryListService = categoryListService;
+            _taskListService = taskListService;
             _messageService = messageService;
 
             AddCategoryCommand = new RelayCommand(AddCategory);
@@ -59,6 +63,7 @@ namespace TodoApp2.Core
             ChangeCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(ChangeCategory);
             OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
             OpenNoteListPageCommand = new RelayCommand(OpenNoteListPage);
+            OpenRecycleBinPageCommand = new RelayCommand(OpenRecycleBinPage);
 
             // Load the application settings to update the ActiveCategory
             _application.LoadAppSettingsOnce();
@@ -67,7 +72,7 @@ namespace TodoApp2.Core
         private void AddCategory()
         {
             // Remove trailing and leading whitespaces
-            PendingAddNewCategoryText = PendingAddNewCategoryText.Trim();
+            PendingAddNewCategoryText = PendingAddNewCategoryText?.Trim();
 
             // If the text is empty or only whitespace, refuse
             if (string.IsNullOrWhiteSpace(PendingAddNewCategoryText))
@@ -121,6 +126,12 @@ namespace TodoApp2.Core
             category.Trashed = false;
             _context.Categories.UpdateFirst(category.Map());
 
+            var tasksInCategory = _context.Tasks
+                    .Where(x => x.CategoryId == category.Id)
+                    .MapList();
+
+            SetTrashedOnTasks(tasksInCategory, false);
+
             Items.Add(category);
             ReorderingHelperTemp.ReorderCategory(_context, category, Items.Count - 1);
 
@@ -131,13 +142,21 @@ namespace TodoApp2.Core
         private void TrashCategory(CategoryViewModel category)
         {
             // At least one category is required
-            if (_context.Categories.Where(x => !x.Trashed).Count > 1)
+            if (_context.Categories.Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId).Count > 1)
             {
                 category.Trashed = true;
                 category.ListOrder = CommonConstants.InvalidListOrder;
 
+                var tasksInCategory = _context.Tasks
+                    .Where(x => x.CategoryId == category.Id)
+                    .MapList();
+
+                SetTrashedOnTasks(tasksInCategory, true);
+
                 Items.Remove(category);
                 _context.Categories.UpdateFirst(category.Map());
+
+                Mediator.NotifyClients(ViewModelMessages.CategoryDeleted);
 
                 // Only if the current category was the deleted one, select a new category
                 if (category == ActiveCategory)
@@ -150,6 +169,26 @@ namespace TodoApp2.Core
             {
                 _messageService.ShowError("Cannot delete last category.");
             }
+        }
+
+        private void SetTrashedOnTasks(IEnumerable<TaskViewModel> taskList, bool trashed)
+        {
+            ForEachTask(x =>
+            {
+                x.Trashed = trashed;
+                x.TrashedDate = DateTime.Now.Ticks;
+            },
+            taskList);
+        }
+
+        private void ForEachTask(Action<TaskViewModel> action, IEnumerable<TaskViewModel> taskEnumerable)
+        {
+            foreach (TaskViewModel item in taskEnumerable)
+            {
+                action(item);
+            }
+
+            _taskListService.PersistTaskList(taskEnumerable);
         }
 
         private void ChangeCategory(CategoryViewModel category)
@@ -181,9 +220,17 @@ namespace TodoApp2.Core
                     Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
                 }
 
-                // Change to task page if it wasn't active
-                if (_application.MainPage != ApplicationPage.Task)
+                if (category.Id == CommonConstants.RecycleBinCategoryId)
                 {
+                    if (_application.MainPage != ApplicationPage.RecycleBin)
+                    {
+                        // Change to recycle bin page
+                        _application.MainPage = ApplicationPage.RecycleBin;
+                    }
+                } 
+                else if (_application.MainPage != ApplicationPage.Task)
+                {
+                    // Change to task page if it wasn't active
                     _application.MainPage = ApplicationPage.Task;
                 }
             }
@@ -205,6 +252,15 @@ namespace TodoApp2.Core
         private void OpenNoteListPage()
         {
             _application.SideMenuPage = ApplicationPage.NoteList;
+        }
+
+        private void OpenRecycleBinPage()
+        {
+            var recycleBinCategory = _context.Categories
+                .First(x => x.Id == CommonConstants.RecycleBinCategoryId)
+                .Map();
+
+            SetActiveCategory(recycleBinCategory);
         }
     }
 }

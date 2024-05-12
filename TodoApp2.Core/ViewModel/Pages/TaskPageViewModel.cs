@@ -170,6 +170,7 @@ namespace TodoApp2.Core
             if (commandObject?.CommandResult is Tuple<int, TaskViewModel> tuple)
             {
                 tuple.Item2.Trashed = false;
+                tuple.Item2.TrashedDate = 0;
 
                 _taskListService.UntrashExistingTask(tuple.Item2, tuple.Item1);
             }
@@ -194,6 +195,7 @@ namespace TodoApp2.Core
                 int oldPosition = Items.IndexOf(task);
 
                 task.Trashed = true;
+                task.TrashedDate = DateTime.Now.Ticks;
                 task.ListOrder = CommonConstants.InvalidListOrder;
 
                 _taskListService.UpdateTask(task);
@@ -313,6 +315,7 @@ namespace TodoApp2.Core
             ForEachTask(x =>
             {
                 x.Trashed = true;
+                x.TrashedDate = DateTime.Now.Ticks;
                 x.ListOrder = CommonConstants.InvalidListOrder;
             },
             taskList);

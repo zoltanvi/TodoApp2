@@ -25,6 +25,7 @@ namespace TodoApp2.Core.Mappings
                 BorderColor = vm.BorderColor,
                 BackgroundColor = vm.BackgroundColor,
                 Trashed = vm.Trashed,
+                TrashedDate = vm.TrashedDate,
                 ReminderDate = vm.ReminderDate,
                 IsReminderOn = vm.IsReminderOn
             };
@@ -48,6 +49,7 @@ namespace TodoApp2.Core.Mappings
                 BorderColor = task.BorderColor,
                 BackgroundColor = task.BackgroundColor,
                 Trashed = task.Trashed,
+                TrashedDate = task.TrashedDate,
                 ReminderDate = task.ReminderDate,
                 IsReminderOn = task.IsReminderOn
             };

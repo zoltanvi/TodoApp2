@@ -38,6 +38,7 @@ namespace TodoApp2.Core
         public string Color { get; set; }
         public string BorderColor { get; set; }
         public string BackgroundColor { get; set; }
+        public long TrashedDate { get; set; }
         public bool Trashed { get; set; }
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }

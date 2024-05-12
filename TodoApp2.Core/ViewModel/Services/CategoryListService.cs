@@ -23,6 +23,8 @@ namespace TodoApp2.Core
         private int _lastRemovedId = int.MinValue;
         private bool _updateInProgress;
 
+        public int RecycleBinCategoryId => CommonConstants.RecycleBinCategoryId;
+
         /// <summary>
         /// The category list items
         /// </summary>
@@ -76,7 +78,7 @@ namespace TodoApp2.Core
             }
 
             var categories = _context.Categories
-                .Where(x => !x.Trashed)
+                .Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId)
                 .OrderByListOrder()
                 .MapList();
 
@@ -148,6 +150,31 @@ namespace TodoApp2.Core
             bool HasNewItems() => HasItems(e.NewItems);
             bool HasOldItems() => HasItems(e.OldItems);
             bool HasItems(IList list) => list.Count > 0;
+        }
+
+        public void RestoreCategoryIfNeeded(int categoryId)
+        {
+            var existingCategory = GetCategory(categoryId);
+
+            // Untrash category if exists
+
+            if (existingCategory != null && existingCategory.Trashed)
+            {
+                UntrashCategory(existingCategory);
+            }
+        }
+
+        private void UntrashCategory(CategoryViewModel category)
+        {
+            // First, persist trashed property
+            category.Trashed = false;
+            _context.Categories.UpdateFirst(category.Map());
+
+            Items.Add(category);
+            ReorderingHelperTemp.ReorderCategory(_context, category, Items.Count - 1);
+
+            // Second, persist list order
+            _context.Categories.UpdateFirst(category.Map());
         }
     }
 }

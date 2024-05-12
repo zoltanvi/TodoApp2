@@ -12,7 +12,7 @@
     x:TypeArguments="core:CategoryPageViewModel"
     mc:Ignorable="d">
 
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
@@ -28,6 +28,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -46,16 +47,16 @@
                     <!--  CATEGORIES  -->
                     <Button
                         Grid.Column="0"
+                        Margin="25 5 0 0"
+                        HorizontalAlignment="Left"
                         Command="{Binding OpenNoteListPageCommand}"
-                        Style="{DynamicResource ButtonBaseStyle}"
-                        Foreground="{DynamicResource Primary}"
-                        ToolTip="Click to switch to NOTES"
                         Content="CATEGORIES"
                         Cursor="Hand"
+                        FontFamily="{DynamicResource UIBoldFont}"
                         FontSize="{Binding UIScaler.FontSize.Regular}"
-                        HorizontalAlignment="Left"
-                        Margin="25 5 0 0"
-                        FontFamily="{DynamicResource UIBoldFont}" />
+                        Foreground="{DynamicResource Primary}"
+                        Style="{DynamicResource ButtonBaseStyle}"
+                        ToolTip="Click to switch to NOTES" />
 
                     <!--  Settings button  -->
                     <Button
@@ -72,6 +73,105 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2" />
+
+                <!-- RECYCLE BIN BUTTON -->
+                <Button
+                    Grid.Row="2"
+                    Padding="0 2 10 2"
+                    Command="{Binding Path=OpenRecycleBinPageCommand}"
+                    ToolTip="Open recycle bin page">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource ButtonHoverStyle}" TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border
+                                            Margin="0 2 4 2"
+                                            Padding="{TemplateBinding Padding}"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Label
+                                                    Margin="6 0"
+                                                    Padding="0"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Content="{DynamicResource SegoeIconTrash}"
+                                                    FontSize="{Binding UIScaler.FontSize.Small}"
+                                                    Style="{DynamicResource IconLabelStyle}" />
+
+                                                <ContentPresenter
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center" />
+                                               
+                                            </Grid>
+                                        </Border>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource SecondaryContainer}" />
+                                </Trigger>
+
+                                <DataTrigger Value="True">
+                                    <DataTrigger.Binding>
+                                        <MultiBinding>
+                                            <MultiBinding.Converter>
+                                                <local:EqualityConverter />
+                                            </MultiBinding.Converter>
+                                            <Binding Path="CategoryListService.RecycleBinCategoryId" Source="{x:Static local:VML.Instance}" />
+                                            <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
+                                        </MultiBinding>
+                                    </DataTrigger.Binding>
+                                    <Setter Property="Background" Value="{DynamicResource PrimaryContainer}" />
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <TextBlock
+                        FontSize="{Binding UIScaler.FontSize.Medium}"
+                        Text="Recycle bin">
+
+                        <TextBlock.Style>
+                            <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
+                                    </Trigger>
+
+                                    <DataTrigger Value="True">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding>
+                                                <MultiBinding.Converter>
+                                                    <local:EqualityConverter />
+                                                </MultiBinding.Converter>
+                                                <Binding Path="CategoryListService.RecycleBinCategoryId" Source="{x:Static local:VML.Instance}" />
+                                                <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+                                        <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
+
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Button>
+
             </Grid>
 
         </Border>
@@ -79,8 +179,8 @@
         <!--  ADD NEW CATEGORY  -->
         <Border
             Grid.Row="1"
-            Background="{DynamicResource Surface1}"
             Margin="0 5 0 0"
+            Background="{DynamicResource Surface1}"
             BorderThickness="0 0 0 0"
             CornerRadius="6">
 

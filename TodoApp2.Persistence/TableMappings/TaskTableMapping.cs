@@ -22,6 +22,7 @@ namespace TodoApp2.Persistence.TableMappings
                 .Property(x => x.BorderColor, defaultValue: Constants.Transparent)
                 .Property(x => x.BackgroundColor, defaultValue: Constants.Transparent)
                 .Property(x => x.Trashed, defaultValue: Constants.Zero)
+                .Property(x => x.TrashedDate, defaultValue: Constants.Zero)
                 .Property(x => x.ReminderDate, defaultValue: Constants.Zero)
                 .Property(x => x.IsReminderOn, defaultValue: Constants.Zero)
                 .ForeignKey<Category>(task => task.CategoryId, category => category.Id);

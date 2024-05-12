@@ -119,6 +119,12 @@
     <Compile Include="AttachedProperties\MarginUpdater.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\PutCaretAtTheEndRTBBehavior.cs" />
+    <Compile Include="Controls\ListItem\RecycleBinItemControl.xaml.cs">
+      <DependentUpon>RecycleBinItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\List\RecycleBinListControl.xaml.cs">
+      <DependentUpon>RecycleBinListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\SettingsCategoryButton.cs" />
     <Compile Include="Controls\Settings\ShortcutItemControl.xaml.cs">
       <DependentUpon>ShortcutItemControl.xaml</DependentUpon>
@@ -222,6 +228,9 @@
     <Compile Include="Pages\Settings\ApplicationSettingsPage.xaml.cs">
       <DependentUpon>ApplicationSettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\RecycleBinPage.xaml.cs">
+      <DependentUpon>RecycleBinPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\AsyncActionService.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\GenericBasePage.cs" />
@@ -321,6 +330,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ListItem\RecycleBinItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\List\NoteListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -340,6 +353,10 @@
     <Page Include="Controls\FontSizeSliderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\List\RecycleBinListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\OverlayBackgroundControl.xaml">
       <SubType>Designer</SubType>
@@ -444,6 +461,10 @@
     <Page Include="Pages\Settings\ApplicationSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RecycleBinPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\TaskReminderPage.xaml">
       <Generator>MSBuild:Compile</Generator>

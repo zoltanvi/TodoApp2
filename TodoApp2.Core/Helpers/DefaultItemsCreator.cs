@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using TodoApp2.Common;
+using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 
@@ -16,6 +18,7 @@ namespace TodoApp2.Core.Helpers
             _context = context;
 
             CreateDefaultCategoryIfNotExists();
+            CreateRecycleBinCategoryIfNotExists();
         }
 
         private static void CreateDefaultCategoryIfNotExists()
@@ -60,6 +63,26 @@ namespace TodoApp2.Core.Helpers
                     CreationDate = DateTime.Now.Ticks,
                     ModificationDate = DateTime.Now.Ticks
                 }.Map());
+            }
+        }
+
+        private static void CreateRecycleBinCategoryIfNotExists()
+        {
+            if (_context.Categories.Where(x => x.Id == CommonConstants.RecycleBinCategoryId).Count == 0)
+            {
+                var firstListOrder = _context.Categories
+                    .Where(x => x.Id != CommonConstants.RecycleBinCategoryId)
+                    .OrderByListOrder()
+                    .First()
+                    .Map().ListOrder;
+
+                _context.Categories.AddSimple(new CategoryViewModel
+                {
+                    Id = CommonConstants.RecycleBinCategoryId,
+                    Name = CommonConstants.RecycleBinCategoryName,
+                    ListOrder = firstListOrder - CommonConstants.ListOrderInterval
+                }.Map(), 
+                writeAllProperties: true);
             }
         }
 

@@ -28,6 +28,11 @@
         Settings,
 
         /// <summary>
+        /// The recycle bin page
+        /// </summary>
+        RecycleBin,
+
+        /// <summary>
         /// The task reminder page (where the reminder(s) can be added / removed / activated / deactivated)
         /// </summary>
         TaskReminder,

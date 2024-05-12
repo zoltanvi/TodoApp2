@@ -1,0 +1,60 @@
+﻿<UserControl
+    x:Class="TodoApp2.RecycleBinListControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:TodoApp2"
+    mc:Ignorable="d"
+    d:DesignHeight="350"
+    d:DesignWidth="380">
+    <Grid Background="Transparent">
+
+        <ListView
+            x:Name="TaskListListView"
+            ItemsSource="{Binding TaskListService.RecycleBinItems, Source={x:Static local:VML.Instance}}"
+            BorderThickness="0"
+            Background="Transparent"
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            SelectionMode="Single"
+            ScrollViewer.CanContentScroll="True"
+            VirtualizingPanel.ScrollUnit="Pixel"
+            VirtualizingPanel.IsVirtualizing="True"
+            VirtualizingPanel.IsContainerVirtualizable="True"
+            VirtualizingPanel.VirtualizationMode="Recycling"
+            Template="{DynamicResource TaskListControlTemplate}">
+
+            <!--  Enabling virtualization is really important  -->
+            <!--  https://stackoverflow.com/questions/3724593/why-setting-scrollviewer-cancontentscroll-to-false-disable-virtualization  -->
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <!--  Task Item  -->
+                    <!--  Tag property is set because the context menu data binding is tricky  -->
+                    <local:RecycleBinItemControl Tag="{Binding DataContext, ElementName=TaskListListView}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

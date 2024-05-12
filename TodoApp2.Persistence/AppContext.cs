@@ -34,6 +34,7 @@ namespace TodoApp2.Persistence
             AddMigration(new DbMigration3());
             AddMigration(new DbMigration4());
             AddMigration(new DbMigration5());
+            AddMigration(new DbMigration6());
         }
     }
 }

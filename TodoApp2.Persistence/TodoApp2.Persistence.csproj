@@ -52,6 +52,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="IAppContext.cs" />
+    <Compile Include="Migrations\DbMigration6.cs" />
     <Compile Include="Migrations\DbMigration5.cs" />
     <Compile Include="Migrations\DbMigration4.cs" />
     <Compile Include="Migrations\DbMigration3.cs" />

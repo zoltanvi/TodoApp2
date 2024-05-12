@@ -119,6 +119,7 @@
     <Compile Include="ViewModel\Controls\TimePickerViewModel.cs" />
     <Compile Include="ViewModel\Items\NoteViewModel.cs" />
     <Compile Include="ViewModel\Pages\NoteListPageViewModel.cs" />
+    <Compile Include="ViewModel\Pages\RecycleBinPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\DateTimeSettingsPageViewModel.cs" />
     <Compile Include="ViewModel\Pages\Settings\PageTitleSettingsPageViewModel.cs" />

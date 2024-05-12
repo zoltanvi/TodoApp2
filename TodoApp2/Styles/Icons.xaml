@@ -44,6 +44,7 @@
     <system:String x:Key="SegoeIconMargin">&#xE1C0;</system:String>
     <system:String x:Key="SegoeIconDeleteX">&#xEDAE;</system:String>
     <system:String x:Key="SegoeIconMonospace">&#xEDE5;</system:String>
+    <system:String x:Key="SegoeIconRestore">&#xE777;</system:String>
 
     <system:String x:Key="SegoeIconTasks">&#xE71D;</system:String>
 

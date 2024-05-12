@@ -96,7 +96,7 @@ namespace TodoApp2
                 {
                     case ApplicationPage.Task:
                     {
-                        TaskPageViewModel taskPageViewModel = new TaskPageViewModel(
+                        var taskPageViewModel = new TaskPageViewModel(
                             _appViewModel,
                             _taskListService,
                             _categoryListService);
@@ -108,11 +108,12 @@ namespace TodoApp2
                     }
                     case ApplicationPage.Category:
                     {
-                        CategoryPageViewModel categoryPageViewModel = new CategoryPageViewModel(
+                        var categoryPageViewModel = new CategoryPageViewModel(
                             _appViewModel,
                             _context,
                             _overlayPageService,
                             _categoryListService,
+                            _taskListService,
                             _messageService);
 
                         viewModel = categoryPageViewModel;
@@ -122,7 +123,7 @@ namespace TodoApp2
                     }
                     case ApplicationPage.NoteList:
                     {
-                        NoteListPageViewModel notePageViewModel = new NoteListPageViewModel(
+                        var notePageViewModel = new NoteListPageViewModel(
                             _appViewModel,
                             _context,
                             _overlayPageService,
@@ -136,12 +137,24 @@ namespace TodoApp2
                     }
                     case ApplicationPage.Note:
                     {
-                        NotePageViewModel notePageViewModel = new NotePageViewModel(
+                        var notePageViewModel = new NotePageViewModel(
                             _appViewModel,
                             _noteListService);
 
                         viewModel = notePageViewModel;
                         page = new NotePage(notePageViewModel);
+
+                        break;
+                    }
+                    case ApplicationPage.RecycleBin:
+                    {
+                        var recycleBinPageViewModel = new RecycleBinPageViewModel(
+                            _appViewModel, 
+                            _taskListService,
+                            _categoryListService);
+                        
+                        viewModel = recycleBinPageViewModel;
+                        page = new RecycleBinPage(recycleBinPageViewModel);
 
                         break;
                     }

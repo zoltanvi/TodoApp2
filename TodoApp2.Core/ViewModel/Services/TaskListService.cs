@@ -34,6 +34,11 @@ namespace TodoApp2.Core
         /// </summary>
         public ObservableCollection<TaskViewModel> TaskPageItems { get; }
 
+        /// <summary>
+        /// The trashed task items
+        /// </summary>
+        public ObservableCollection<TaskViewModel> RecycleBinItems { get; }
+
         public int ActiveCategoryFinishedTaskCount { get; set; }
         public int ActiveCategoryItemCount { get; set; }
 
@@ -49,18 +54,8 @@ namespace TodoApp2.Core
 
             _reorderer = new Reorderer();
 
-            List<TaskViewModel> items = new List<TaskViewModel>();
-
-            if (ActiveCategory != null)
-            {
-                items = _context.Tasks
-                    .Where(x => x.CategoryId == ActiveCategory.Id && !x.Trashed)
-                    .OrderByListOrder()
-                    .MapList();
-            }
-
             // Fill the actual list with the queried items
-            TaskPageItems = new ObservableCollection<TaskViewModel>(items);
+            TaskPageItems = new ObservableCollection<TaskViewModel>(GetActiveTaskItems());
             RecalculateProgress();
 
             // Subscribe to the collection changed event for synchronizing with database
@@ -68,8 +63,13 @@ namespace TodoApp2.Core
 
             // Subscribe to the category changed event to filter the list when it happens
             Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+            
+            // Update recycle bin if a category is deleted
+            Mediator.Register(OnCategoryDeleted, ViewModelMessages.CategoryDeleted);
 
             TaskPageSettings.PropertyChanged += TaskPageSettings_PropertyChanged;
+
+            RecycleBinItems = new ObservableCollection<TaskViewModel>(GetRecycleBinItems());
         }
 
         public TaskViewModel AddNewTask(string taskContent)
@@ -113,6 +113,15 @@ namespace TodoApp2.Core
             };
 
             return task;
+        }
+
+        public void RestoreTrashedTask(TaskViewModel task, int oldPosition)
+        {
+            task.Trashed = false;
+
+            ReorderTask(task, oldPosition, false);
+
+            RecycleBinItems.Remove(task);
         }
 
         public TaskViewModel UntrashExistingTask(TaskViewModel task, int oldPosition)
@@ -179,6 +188,11 @@ namespace TodoApp2.Core
 
                 ReorderingHelperTemp.ReorderTask(_context, task, newPosition);
             }
+        }
+
+        public void PersistTaskList(IEnumerable<TaskViewModel> taskList)
+        {
+            _context.Tasks.UpdateRange(taskList.MapList(), x => x.Id);
         }
 
         public void PersistTaskList()
@@ -285,16 +299,21 @@ namespace TodoApp2.Core
 
             // Clear the list first to prevent inconsistent data on UI while the items are loading
             TaskPageItems.Clear();
+            RecycleBinItems.Clear();
 
             // Query the items with the current category
-            List<TaskViewModel> filteredItems = GetActiveTaskItems(ActiveCategory);
+            List<TaskViewModel> filteredItems = GetActiveTaskItems();
+            List<TaskViewModel> trashedItems = GetRecycleBinItems();
 
             // Clear the list to prevent showing items from multiple categories.
             // This can happen if the user changes category again while the query runs
             TaskPageItems.Clear();
+            RecycleBinItems.Clear();
 
             // Abort the previous task list loading
             IoC.AsyncActionService.AbortRunningActions();
+
+            RecycleBinItems.AddRange(trashedItems);
 
             // Fill the actual list with the queried items
             if (TaskPageSettings.ForceTaskOrderByState)
@@ -311,6 +330,21 @@ namespace TodoApp2.Core
 
             RecalculateProgress();
             _categoryChangeInProgress = false;
+        }
+
+        private void OnCategoryDeleted(object obj)
+        {
+            // Clear the list first to prevent inconsistent data on UI while the items are loading
+            RecycleBinItems.Clear();
+
+            // Query the items with the current category
+            List<TaskViewModel> trashedItems = GetRecycleBinItems();
+
+            // Clear the list to prevent showing items from multiple categories.
+            // This can happen if the user changes category again while the query runs
+            RecycleBinItems.Clear();
+
+            RecycleBinItems.AddRange(trashedItems);
         }
 
         private int GetReorderIndex(
@@ -434,6 +468,32 @@ namespace TodoApp2.Core
         {
             ActiveCategoryItemCount = TaskPageItems.Count(i => !i.Trashed);
             ActiveCategoryFinishedTaskCount = TaskPageItems.Count(x => !x.Trashed && x.IsDone);
+        }
+
+        private List<TaskViewModel> GetActiveTaskItems()
+        {
+            if (ActiveCategory?.Id != CommonConstants.RecycleBinCategoryId)
+            {
+                return _context.Tasks
+                .Where(x => x.CategoryId == ActiveCategory.Id && !x.Trashed)
+                .OrderByListOrder()
+                .MapList();
+            }
+
+            return new List<TaskViewModel>();
+        }
+
+        private List<TaskViewModel> GetRecycleBinItems()
+        {
+            if (ActiveCategory?.Id == CommonConstants.RecycleBinCategoryId)
+            {
+                return _context.Tasks
+                    .Where(x => x.Trashed)
+                    .OrderByDescending(x => x.TrashedDate)
+                    .MapList();
+            }
+
+            return new List<TaskViewModel>();
         }
     }
 }

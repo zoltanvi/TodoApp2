@@ -16,6 +16,7 @@ namespace TodoApp2.Persistence.Models
         public string BorderColor { get; set; }
         public string BackgroundColor { get; set; }
         public bool Trashed { get; set; }
+        public long TrashedDate { get; set; }
         public long ReminderDate { get; set; }
         public bool IsReminderOn { get; set; }
     }

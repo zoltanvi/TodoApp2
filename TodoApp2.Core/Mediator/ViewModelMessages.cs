@@ -11,6 +11,11 @@
         CategoryChanged,
 
         /// <summary>
+        /// A category has been deleted
+        /// </summary>
+        CategoryDeleted,
+
+        /// <summary>
         /// The application should flash (orange in windows taskbar)
         /// </summary>
         WindowFlashRequested,

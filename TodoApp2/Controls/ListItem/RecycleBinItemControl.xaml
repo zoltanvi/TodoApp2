@@ -1,0 +1,331 @@
+﻿<UserControl
+    x:Class="TodoApp2.RecycleBinItemControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="RecycleBinItemUC"
+    d:DesignHeight="60"
+    d:DesignWidth="350"
+    mc:Ignorable="d">
+
+    <Grid Background="Transparent" Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
+
+        <!--  COLOR BAR  -->
+        <!--  CornerRadius="{Binding Path=AppSettings.IsColorBarRounded, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">  -->
+        <Border
+            Margin="4 2"
+            Panel.ZIndex="1000"
+            HorizontalAlignment="Left"
+            AutomationProperties.AutomationId="TaskListItemColorBar"
+            Background="{Binding Color, Converter={StaticResource stringRGBToBrushConverter}}"
+            CornerRadius="3 0 0 3">
+            <Border.Width>
+                <MultiBinding>
+                    <MultiBinding.Converter>
+                        <local:ColorBarBorderWidthMultiValueConverter />
+                    </MultiBinding.Converter>
+                    <Binding Path="AppSettings.TaskSettings.ColorBarThickness" Source="{x:Static local:VML.Instance}" />
+                    <Binding Path="UIScaler.ScaleValue" />
+                </MultiBinding>
+            </Border.Width>
+        </Border>
+
+        <!--  ITEM BORDER  -->
+        <Border
+            Margin="4 2"
+            BorderBrush="{Binding BorderColor, Converter={StaticResource taskBorderBrushConverter}}"
+            BorderThickness="1"
+            CornerRadius="3"
+            Visibility="{Binding AppSettings.TaskSettings.BorderVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+        <!--  Editor indicator  -->
+        <Border
+            Margin="2 0"
+            BorderThickness="1.5"
+            CornerRadius="3"
+            BorderBrush="{DynamicResource Tertiary}"
+            Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityConverter}}" />
+
+
+        <Border
+            x:Name="TaskListItemBackground"
+            Margin="4 2"
+            BorderBrush="Transparent"
+            BorderThickness="1"
+            CornerRadius="3">
+            <Border.Background>
+                <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="IsDone" />
+                    <Binding Path="AppSettings.TaskSettings.BackgroundVisible" Source="{x:Static local:VML.Instance}" />
+                </MultiBinding>
+            </Border.Background>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <!--  Color bar column  -->
+                    <ColumnDefinition>
+                        <ColumnDefinition.Width>
+                            <MultiBinding>
+                                <MultiBinding.Converter>
+                                    <local:ColorBarGridWidthMultiValueConverter />
+                                </MultiBinding.Converter>
+                                <Binding Path="AppSettings.TaskSettings.ColorBarThickness" Source="{x:Static local:VML.Instance}" />
+                                <Binding Path="UIScaler.ScaleValue" />
+                            </MultiBinding>
+                        </ColumnDefinition.Width>
+                    </ColumnDefinition>
+
+                    <!--  Checkbox column  -->
+                    <ColumnDefinition Width="auto" />
+                    <!--  Main content column, also the hidden buttons column  -->
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  ITEM BACKGROUND  -->
+                <Border
+                    Grid.ColumnSpan="3"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    CornerRadius="3"
+                    Background="{Binding BackgroundColor, Converter={StaticResource stringRGBToBrushConverter}}"
+                    Opacity="0.3" />
+
+                <!--  Task Checkbox  -->
+
+                <Grid Grid.Column="1">
+                    <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                        <CheckBox
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsEnabled="{Binding TextEditorViewModel.IsDisplayMode}"
+                            Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:RecycleBinListControl}}}"
+                            CommandParameter="{Binding DataContext, ElementName=RecycleBinItemUC}"
+                            IsChecked="{Binding IsDone}"
+                            Style="{DynamicResource TaskCheckBoxStyle}"
+                            Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
+                            Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                    </Border>
+
+                    <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                        <CheckBox
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsEnabled="{Binding TextEditorViewModel.IsDisplayMode}"
+                            Command="{Binding Path=DataContext.TaskIsDoneModifiedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:RecycleBinListControl}}}"
+                            CommandParameter="{Binding DataContext, ElementName=RecycleBinItemUC}"
+                            IsChecked="{Binding IsDone}"
+                            Style="{DynamicResource TaskCheckBoxSquareStyle}"
+                            Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
+                            Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                    </Border>
+                </Grid>
+
+
+                <!--  Clock and Pin icon  -->
+                <Border
+                    Grid.Column="2"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    Background="Transparent">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  CLOCK ICON  -->
+                        <Border
+                            Grid.Column="0"
+                            Margin="0"
+                            HorizontalAlignment="Right"
+                            Visibility="Collapsed"
+                            Background="Transparent">
+                            <!--<Border.Visibility>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:BoolToVisibilityAndConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="IsReminderOn" />
+                                    <Binding Path="TextEditorViewModel.IsDisplayMode" />
+                                </MultiBinding>
+                            </Border.Visibility>-->
+
+                            <Grid>
+                                <Label
+                                    Padding="2"
+                                    Content="{DynamicResource SegoeIconClock}"
+                                    FontFamily="{StaticResource IconFont}"
+                                    Foreground="{DynamicResource Tertiary}" />
+                                <Grid.LayoutTransform>
+                                    <!--  -1 to mirror it  -->
+                                    <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
+                                </Grid.LayoutTransform>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+
+                </Border>
+
+
+                <!--  Main content  -->
+                <Border Grid.Column="2" Margin="{Binding AppSettings.TaskSettings.Spacing, Source={x:Static local:VML.Instance}, Converter={StaticResource taskSpacingToMarginConverter}}">
+                    <Grid Margin="0 2 10 2">
+                        <Grid.RowDefinitions>
+                            <!--  Task description row  -->
+                            <RowDefinition Height="*" />
+                            <!--  Timestamp row  -->
+                            <RowDefinition Height="Auto" />
+                            <!--  Category row  -->
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!--  Task description  -->
+                        <local:RichTextEditorControl Grid.Row="0" DataContext="{Binding TextEditorViewModel}" />
+
+                        <!--  Catch double click to change to edit mode  -->
+                        <Border
+                            Grid.Row="0"
+                            Background="Transparent"
+                            Visibility="{Binding TextEditorViewModel.IsEditMode, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                            <Border.InputBindings>
+                                <MouseBinding Command="{Binding EditItemCommand}" Gesture="LeftDoubleClick" />
+                                <MouseBinding
+                                    Command="{Binding Path=DataContext.ToggleTaskIsDoneCommand, RelativeSource={RelativeSource AncestorType={x:Type local:RecycleBinListControl}}}"
+                                    CommandParameter="{Binding DataContext, ElementName=RecycleBinItemUC}"
+                                    Gesture="MiddleDoubleClick" />
+                            </Border.InputBindings>
+                        </Border>
+
+                        <WrapPanel
+                            Grid.Row="1"
+                            Margin="1 0"
+                            Orientation="Horizontal">
+
+                            <local:TagControl
+                                TagTitle="Category: "
+                                Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
+                                TagColor="Gold"
+                                TagBody="{Binding CategoryId, Converter={StaticResource categoryIdToCategoryNameConverter}}">
+                            </local:TagControl>
+
+                            <local:TagControl
+                                 TagTitle="Deleted: "
+                                 Opacity="{Binding IsDone, Converter={StaticResource boolToTaskOpacityConverter}}"
+                                 TagColor="Volcano">
+                                <local:TagControl.TagBody>
+                                    <MultiBinding>
+                                        <MultiBinding.Converter>
+                                            <local:CurrentDateTimeFormatMultiConverter />
+                                        </MultiBinding.Converter>
+                                        <Binding Path="TrashedDate" />
+                                        <Binding Path="AppSettings.DateTimeSettings.TaskCreationDateFormat" Source="{x:Static local:VML.Instance}" />
+                                    </MultiBinding>
+                                </local:TagControl.TagBody>
+                            </local:TagControl>
+
+                        </WrapPanel>
+
+                    </Grid>
+                </Border>
+
+
+                <!--  Hidden buttons  -->
+                <Border
+                    x:Name="HoverButtonBorder"
+                    Grid.Column="2"
+                    Padding="0"
+                    HorizontalAlignment="Right"
+                    AutomationProperties.AutomationId="TaskListItemHiddenPanel"
+                    Background="Transparent"
+                    IsEnabled="{Binding AppSettings.TaskQuickActionSettings.Enabled, Source={x:Static local:VML.Instance}}"
+                    Opacity="0">
+                    <Border.Visibility>
+                        <MultiBinding>
+                            <MultiBinding.Converter>
+                                <local:BoolToVisibilityAndConverter />
+                            </MultiBinding.Converter>
+                            <Binding Path="AppSettings.TaskQuickActionSettings.AnyEnabled" Source="{x:Static local:VML.Instance}" />
+                            <Binding
+                                Mode="OneWay"
+                                Path="TextEditorViewModel.IsDisplayMode"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </MultiBinding>
+                    </Border.Visibility>
+
+                    <Border.Triggers>
+                        <EventTrigger RoutedEvent="Border.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="HoverButtonBorder"
+                                        Storyboard.TargetProperty="(Opacity)"
+                                        From="0"
+                                        To="1"
+                                        Duration="0:0:0.10" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <EventTrigger RoutedEvent="Border.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="HoverButtonBorder"
+                                        Storyboard.TargetProperty="(Opacity)"
+                                        From="1"
+                                        To="0"
+                                        Duration="0:0:0.05" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Border.Triggers>
+
+                    <Behaviors:Interaction.Triggers>
+                        <Behaviors:EventTrigger EventName="MouseEnter">
+                            <Behaviors:InvokeCommandAction Command="{Binding EnableQuickActionsCommand}" />
+                        </Behaviors:EventTrigger>
+
+                        <Behaviors:EventTrigger EventName="MouseLeave">
+                            <Behaviors:InvokeCommandAction Command="{Binding DisableQuickActionsCommand}" />
+                        </Behaviors:EventTrigger>
+                    </Behaviors:Interaction.Triggers>
+
+                    <!--  HOVER PANEL  -->
+                    <Border
+                        Padding="10 0"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource Surface1}"
+                        BorderBrush="{DynamicResource SurfaceVariant}"
+                        BorderThickness="1 0 0 0"
+                        CornerRadius="0 2 2 0">
+
+                        <StackPanel Orientation="Horizontal">
+                            <!--  Trash button  -->
+                            <Button
+                                AutomationProperties.AutomationId="TaskListItemTrashBinButton"
+                                Command="{Binding Path=DataContext.RestoreTaskItemCommand, RelativeSource={RelativeSource AncestorType={x:Type local:RecycleBinListControl}}}"
+                                CommandParameter="{Binding DataContext, ElementName=RecycleBinItemUC}"
+                                Content="{DynamicResource SegoeIconRestore}"
+                                Cursor="Hand"
+                                Style="{DynamicResource ButtonQuickActionRedStyle}"
+                                Margin="4 0 0 0"
+                                IsEnabled="{Binding IsQuickActionsEnabled}"
+                                ToolTip="Restore task"
+                                Visibility="{Binding AppSettings.TaskQuickActionSettings.TrashEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+
+                        </StackPanel>
+
+                    </Border>
+                </Border>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

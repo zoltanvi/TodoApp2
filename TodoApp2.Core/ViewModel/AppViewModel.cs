@@ -102,11 +102,18 @@ namespace TodoApp2.Core
         /// </summary>
         public void UpdateMainPage()
         {
-            // The ActiveCategoryId and the ActiveNoteId must be mutually exclusive,
-            // meaning that one or the other is set to -1 at all times, but never both at once.
-            MainPage = SessionSettings.ActiveCategoryId != -1
-                ? ApplicationPage.Task
-                : ApplicationPage.Note;
+            if (SessionSettings.ActiveCategoryId == CommonConstants.RecycleBinCategoryId)
+            {
+                MainPage = ApplicationPage.RecycleBin;
+            }
+            else
+            {
+                // The ActiveCategoryId and the ActiveNoteId must be mutually exclusive,
+                // meaning that one or the other is set to -1 at all times, but never both at once.
+                MainPage = SessionSettings.ActiveCategoryId != -1
+                    ? ApplicationPage.Task
+                    : ApplicationPage.Note;
+            }
         }
 
         /// <summary>

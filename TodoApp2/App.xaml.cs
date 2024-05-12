@@ -81,7 +81,7 @@ namespace TodoApp2
             splashScreen.Close(TimeSpan.Zero);
 
 #if DEBUG
-            var devSettingsWindow = new DevSettingsWindow();
+            //var devSettingsWindow = new DevSettingsWindow();
             var version = (string)Application.Current.TryFindResource(CoreConstants.CurrentVersion);
             Application.Current.Resources[CoreConstants.CurrentVersion] = $"{version}_Debug";
 #endif
