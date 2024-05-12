@@ -1,198 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE97F324-618B-4EA9-B00D-2A805D47861E}</ProjectGuid>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TodoApp2.Core</RootNamespace>
-    <AssemblyName>TodoApp2.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <AssemblyTitle>TodoApp2.Core</AssemblyTitle>
+    <Product>TodoApp2.Core</Product>
+    <Copyright>Copyright ©  2020</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PropertyChanged, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertyChanged.Fody.4.1.0\lib\net40\PropertyChanged.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Commands\DynamicRelayCommand.cs" />
-    <Compile Include="Commands\Undo\CommandObject.cs" />
-    <Compile Include="Commands\Undo\IUndoableCommand.cs" />
-    <Compile Include="Commands\Undo\UndoableCommand.cs" />
-    <Compile Include="Commands\Undo\UndoItem.cs" />
-    <Compile Include="Commands\Undo\UndoManager.cs" />
-    <Compile Include="Configuration\Settings\AppSettings.cs" />
-    <Compile Include="Configuration\SettingsBase.cs" />
-    <Compile Include="Configuration\AppSettingsExtensions.cs" />
-    <Compile Include="Configuration\Settings\AppWindowSettings.cs" />
-    <Compile Include="Configuration\Settings\DateTimeSettings.cs" />
-    <Compile Include="Configuration\Settings\NoteSettings.cs" />
-    <Compile Include="Configuration\Settings\PageTitleSettings.cs" />
-    <Compile Include="Configuration\Settings\SessionSettings.cs" />
-    <Compile Include="Configuration\Settings\TaskPageSettings.cs" />
-    <Compile Include="Configuration\Settings\TaskQuickActionSettings.cs" />
-    <Compile Include="Configuration\Settings\TaskSettings.cs" />
-    <Compile Include="Configuration\Settings\TextEditorQuickActionSettings.cs" />
-    <Compile Include="Configuration\Settings\ThemeSettings.cs" />
-    <Compile Include="Configuration\Settings\WindowSettings.cs" />
-    <Compile Include="Constants\CoreConstants.cs" />
-    <Compile Include="DataModels\TitleBarHeight.cs" />
-    <Compile Include="Extensions\ListOrderEnumerableExtensions.cs" />
-    <Compile Include="Helpers\NumericStringComparer.cs" />
-    <Compile Include="Mappings\ListOrderParsingHelper.cs" />
-    <Compile Include="Reordering\Reorderer.cs" />
-    <Compile Include="DataModels\ApplicationPage.cs" />
-    <Compile Include="DataModels\FontFamily.cs" />
-    <Compile Include="DataModels\HorizontalAlignment.cs" />
-    <Compile Include="DataModels\MessageType.cs" />
-    <Compile Include="DataModels\TaskSpacing.cs" />
-    <Compile Include="DataModels\Thickness.cs" />
-    <Compile Include="EventHandling\NotifiableObject.cs" />
-    <Compile Include="EventHandling\PropertyChangedWeakEventManager.cs" />
-    <Compile Include="Helpers\DefaultItemsCreator.cs" />
-    <Compile Include="Extensions\StringDateExtensions.cs" />
-    <Compile Include="Helpers\WindowsEventSoundPlayer.cs" />
-    <Compile Include="ListProviders\EnumValuesListProvider.cs" />
-    <Compile Include="Mappings\CategoryMapping.cs" />
-    <Compile Include="Mappings\NoteMapping.cs" />
-    <Compile Include="Mappings\TaskMapping.cs" />
-    <Compile Include="Mediator\AsyncEventArgs.cs" />
-    <Compile Include="Extensions\CollectionExtensions.cs" />
-    <Compile Include="Extensions\ReflectionExtensions.cs" />
-    <Compile Include="IoC\IoC.cs" />
-    <Compile Include="Mediator\Mediator.cs" />
-    <Compile Include="Mediator\MultiDictionary.cs" />
-    <Compile Include="Mediator\ViewModelMessages.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyChange\IPropertyChangeNotifier.cs" />
-    <Compile Include="Reordering\ReorderingHelperTemp.cs" />
-    <Compile Include="Services\AutoRunService.cs" />
-    <Compile Include="Services\DebugLogger.cs" />
-    <Compile Include="Services\IAsyncActionService.cs" />
-    <Compile Include="Services\ITaskContentSplitterService.cs" />
-    <Compile Include="Services\IThemeManagerService.cs" />
-    <Compile Include="Services\MediaPlayerService.cs" />
-    <Compile Include="Services\TaskScheduler2.cs" />
-    <Compile Include="Services\TimerService.cs" />
-    <Compile Include="EventHandling\INotifiableObject.cs" />
-    <Compile Include="ViewModel\Controls\RichTextEditorViewModel.cs" />
-    <Compile Include="ViewModel\Controls\TimePickerViewModel.cs" />
-    <Compile Include="ViewModel\Items\NoteViewModel.cs" />
-    <Compile Include="ViewModel\Pages\NoteListPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\RecycleBinPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\NotePageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\DateTimeSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\PageTitleSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\ShortcutsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\TextEditorQuickActionsSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\NotePageSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\ApplicationSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\ThemeSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\TaskQuickActionsSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\TaskPageSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\Settings\TaskItemSettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Services\IUIScaler.cs" />
-    <Compile Include="ViewModel\Services\MessageService.cs" />
-    <Compile Include="ViewModel\Services\IOverlayPageService.cs" />
-    <Compile Include="ViewModel\Services\NoteListService.cs" />
-    <Compile Include="ViewModel\Services\OneEditorOpenService.cs" />
-    <Compile Include="ViewModel\Services\TaskListService.cs" />
-    <Compile Include="ViewModel\Pages\TaskReminderPageViewModel.cs" />
-    <Compile Include="ViewModel\Services\OverlayPageService.cs" />
-    <Compile Include="Services\ReminderNotificationService.cs" />
-    <Compile Include="Services\ScheduleItem.cs" />
-    <Compile Include="ViewModel\AppViewModel.cs" />
-    <Compile Include="ViewModel\Base\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Base\IBaseViewModel.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Commands\RelayParameterizedCommand.cs" />
-    <Compile Include="ViewModel\Pages\CategoryPageViewModel.cs" />
-    <Compile Include="ViewModel\Items\CategoryViewModel.cs" />
-    <Compile Include="Reordering\IReorderable.cs" />
-    <Compile Include="ViewModel\Pages\NotificationPageViewModel.cs" />
-    <Compile Include="ViewModel\Pages\ReminderEditorPageViewModel.cs" />
-    <Compile Include="ViewModel\Services\CategoryListService.cs" />
-    <Compile Include="ListProviders\ColorListProvider.cs" />
-    <Compile Include="ViewModel\Pages\Settings\SettingsPageViewModel.cs" />
-    <Compile Include="ViewModel\Items\TaskViewModel.cs" />
-    <Compile Include="ViewModel\Pages\TaskPageViewModel.cs" />
-    <Compile Include="ViewModel\Services\ThemeChangeNotifier.cs" />
-    <Compile Include="ViewModel\Services\UIScaler.cs" />
-    <Compile Include="ViewModel\Events\ZoomedEventArgs.cs" />
-    <Compile Include="ViewModel\Services\ZoomingListener.cs" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj">
-      <Project>{0851FB41-96EC-4786-99AB-0C74966CF386}</Project>
-      <Name>TodoApp2.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj">
-      <Project>{87F2A88A-7848-44ED-8F4F-89B12EBBC129}</Project>
-      <Name>TodoApp2.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj">
-      <Project>{f6ecbf99-f92f-4578-8737-5a2d458f0453}</Project>
-      <Name>TodoApp2.Material</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoApp2.Persistence\TodoApp2.Persistence.csproj">
-      <Project>{F3AF67E4-5AA8-4634-8212-CD4168FCC124}</Project>
-      <Name>TodoApp2.Persistence</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj" />
+    <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj" />
+    <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj" />
+    <ProjectReference Include="..\TodoApp2.Persistence\TodoApp2.Persistence.csproj" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.6.8.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.0\build\Fody.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.6.8.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.8.0\build\Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="6.8.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ViewModel\OverlayBackgroundViewModel.cs" />
+  </ItemGroup>
 </Project>

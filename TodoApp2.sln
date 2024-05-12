@@ -1,19 +1,19 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2", "TodoApp2\TodoApp2.csproj", "{5FD34D79-2321-498D-B367-F7C1A4FA07AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp2", "TodoApp2\TodoApp2.csproj", "{5FD34D79-2321-498D-B367-F7C1A4FA07AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Core", "TodoApp2.Core\TodoApp2.Core.csproj", "{AE97F324-618B-4EA9-B00D-2A805D47861E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp2.Core", "TodoApp2.Core\TodoApp2.Core.csproj", "{AE97F324-618B-4EA9-B00D-2A805D47861E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Material", "TodoApp2.Material\TodoApp2.Material.csproj", "{F6ECBF99-F92F-4578-8737-5A2D458F0453}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp2.Material", "TodoApp2.Material\TodoApp2.Material.csproj", "{F6ECBF99-F92F-4578-8737-5A2D458F0453}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Persistence", "TodoApp2.Persistence\TodoApp2.Persistence.csproj", "{F3AF67E4-5AA8-4634-8212-CD4168FCC124}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp2.Persistence", "TodoApp2.Persistence\TodoApp2.Persistence.csproj", "{F3AF67E4-5AA8-4634-8212-CD4168FCC124}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Entity", "TodoApp2.Entity\TodoApp2.Entity.csproj", "{87F2A88A-7848-44ED-8F4F-89B12EBBC129}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp2.Entity", "TodoApp2.Entity\TodoApp2.Entity.csproj", "{87F2A88A-7848-44ED-8F4F-89B12EBBC129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp2.Common", "TodoApp2.Common\TodoApp2.Common.csproj", "{0851FB41-96EC-4786-99AB-0C74966CF386}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp2.Common", "TodoApp2.Common\TodoApp2.Common.csproj", "{0851FB41-96EC-4786-99AB-0C74966CF386}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity.Tests", "Entity.Tests\Entity.Tests.csproj", "{1DD1396F-7E38-49AB-9043-155C8E92876B}"
 EndProject

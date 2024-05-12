@@ -1,22 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5FD34D79-2321-498D-B367-F7C1A4FA07AD}</ProjectGuid>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TodoApp2</RootNamespace>
-    <AssemblyName>TodoApp2</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -32,28 +17,14 @@
     <ApplicationVersion>2.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>true</Prefer32Bit>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -62,546 +33,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ColorPicker, Version=3.4.1.0, Culture=neutral, PublicKeyToken=1c61eec504ce2276, processorArchitecture=MSIL">
-      <HintPath>..\packages\PixiEditor.ColorPicker.3.4.1\lib\net451\ColorPicker.dll</HintPath>
-    </Reference>
-    <Reference Include="GongSolutions.WPF.DragDrop, Version=3.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
-      <HintPath>..\packages\gong-wpf-dragdrop.3.2.1\lib\net48\GongSolutions.WPF.DragDrop.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.AvalonEdit, Version=6.3.0.90, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
-      <HintPath>..\packages\AvalonEdit.6.3.0.90\lib\net462\ICSharpCode.AvalonEdit.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.77\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationFramework.Aero2" />
-    <Reference Include="PropertyChanged, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertyChanged.Fody.4.1.0\lib\net40\PropertyChanged.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Animation2\SaveIconAnimator.cs" />
-    <Compile Include="Animation\AnimateBaseProperty.cs" />
-    <Compile Include="Animation\PageAnimation.cs" />
-    <Compile Include="Animation\FrameworkElementAnimations.cs" />
-    <Compile Include="Animation\PageAnimations.cs" />
-    <Compile Include="Animation\StoryboardExtensions.cs" />
-    <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
-    <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
-    <Compile Include="AttachedProperties\FocusSetter.cs" />
-    <Compile Include="AttachedProperties\MarginUpdater.cs" />
-    <Compile Include="AttachedProperties\NoFrameHistory.cs" />
-    <Compile Include="AttachedProperties\PutCaretAtTheEndRTBBehavior.cs" />
-    <Compile Include="Controls\ListItem\RecycleBinItemControl.xaml.cs">
-      <DependentUpon>RecycleBinItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\List\RecycleBinListControl.xaml.cs">
-      <DependentUpon>RecycleBinListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Settings\SettingsCategoryButton.cs" />
-    <Compile Include="Controls\Settings\ShortcutItemControl.xaml.cs">
-      <DependentUpon>ShortcutItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Settings\ShortcutKey.cs" />
-    <Compile Include="Controls\Settings\ShortcutSeparator.cs" />
-    <Compile Include="Controls\SubmitEscapeTextBox.cs" />
-    <Compile Include="Controls\TagControl.cs" />
-    <Compile Include="Controls\TaskProgressBar.xaml.cs">
-      <DependentUpon>TaskProgressBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TextEditor\SingletonToolbar.cs" />
-    <Compile Include="Controls\TextEditor\BasicTextEditorBox.cs" />
-    <Compile Include="Controls\ClickSelectTextBox.cs" />
-    <Compile Include="Controls\ColorPicker\SingletonEditorColorPicker.cs" />
-    <Compile Include="Controls\ColorPicker\SingletonPopup.cs" />
-    <Compile Include="Controls\FontSizeSliderControl.xaml.cs">
-      <DependentUpon>FontSizeSliderControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListItem\NoteListItemControl.xaml.cs">
-      <DependentUpon>NoteListItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\List\NoteListControl.xaml.cs">
-      <DependentUpon>NoteListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TextEditor\RichTextEditorControl.xaml.cs">
-      <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\List\CategoryListControl.xaml.cs">
-      <DependentUpon>CategoryListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListItem\CategoryListItemControl.xaml.cs">
-      <DependentUpon>CategoryListItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\OverlayBackgroundControl.xaml.cs">
-      <DependentUpon>OverlayBackgroundControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PageHost.xaml.cs">
-      <DependentUpon>PageHost.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Settings\ToggleButtonSettingControl.xaml.cs">
-      <DependentUpon>ToggleButtonSettingControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SideMenuControl.xaml.cs">
-      <DependentUpon>SideMenuControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\List\TaskListControl.xaml.cs">
-      <DependentUpon>TaskListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListItem\TaskListItemControl.xaml.cs">
-      <DependentUpon>TaskListItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TextEditor\FormattableTextEditorBox.cs" />
-    <Compile Include="Controls\ColorPicker\SingletonColorPicker.cs" />
-    <Compile Include="Controls\TimePickerControl.xaml.cs">
-      <DependentUpon>TimePickerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TimePickerTextBox.cs" />
-    <Compile Include="Enums\ColorType.cs" />
-    <Compile Include="Enums\TagPresetColor.cs" />
-    <Compile Include="Helpers\BindingFix\PushBindingCollection.cs" />
-    <Compile Include="Helpers\BindingFix\PushBindingManager.cs" />
-    <Compile Include="Helpers\CustomDropHandler.cs" />
-    <Compile Include="Helpers\DragDropMediator.cs" />
-    <Compile Include="Helpers\BindingFix\FreezableBinding.cs" />
-    <Compile Include="Helpers\BindingFix\PushBinding.cs" />
-    <Compile Include="Helpers\FlowDocumentHelper.cs" />
-    <Compile Include="Helpers\MaterialColorHelper.cs" />
-    <Compile Include="Helpers\SizeObserver.cs" />
-    <Compile Include="Helpers\ThemeManager.cs" />
-    <Compile Include="Pages\NoteListPage.xaml.cs">
-      <DependentUpon>NoteListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\DateTimeSettingsPage.xaml.cs">
-      <DependentUpon>DateTimeSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\PageTitleSettingsPage.xaml.cs">
-      <DependentUpon>PageTitleSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\ShortcutsPage.xaml.cs">
-      <DependentUpon>ShortcutsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml.cs">
-      <DependentUpon>TextEditorQuickActionsSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\NotePageSettingsPage.xaml.cs">
-      <DependentUpon>NotePageSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\TaskItemSettingsPage.xaml.cs">
-      <DependentUpon>TaskItemSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\TaskPageSettingsPage.xaml.cs">
-      <DependentUpon>TaskPageSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\TaskQuickActionsSettingsPage.xaml.cs">
-      <DependentUpon>TaskQuickActionsSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\ThemeSettingsPage.xaml.cs">
-      <DependentUpon>ThemeSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\ApplicationSettingsPage.xaml.cs">
-      <DependentUpon>ApplicationSettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\RecycleBinPage.xaml.cs">
-      <DependentUpon>RecycleBinPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Services\AsyncActionService.cs" />
-    <Compile Include="Pages\BasePage.cs" />
-    <Compile Include="Pages\GenericBasePage.cs" />
-    <Compile Include="Pages\NotePage.xaml.cs">
-      <DependentUpon>NotePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\NotificationPage.xaml.cs">
-      <DependentUpon>NotificationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\TaskReminderPage.xaml.cs">
-      <DependentUpon>TaskReminderPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ReminderEditorPage.xaml.cs">
-      <DependentUpon>ReminderEditorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\CategoryPage.xaml.cs">
-      <DependentUpon>CategoryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\TaskPage.xaml.cs">
-      <DependentUpon>TaskPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\ApplicationPageHelper.cs" />
-    <Compile Include="Services\PopupService.cs" />
-    <Compile Include="Services\MaterialThemeManagerService.cs" />
-    <Compile Include="Services\TaskContentSplitterService.cs" />
-    <Compile Include="Services\ToolbarService.cs" />
-    <Compile Include="ValueConverters\CategoryIdToCategoryNameConverter.cs" />
-    <Compile Include="ValueConverters\Multi\BaseMultiValueConverter.cs" />
-    <Compile Include="ValueConverters\Multi\BoolToVisibilityMultiValueConverter.cs" />
-    <Compile Include="ValueConverters\Multi\ColorBarBorderWidthMultiValueConverter.cs" />
-    <Compile Include="ValueConverters\Multi\ColorBarGridWidthMultiValueConverter.cs" />
-    <Compile Include="ValueConverters\Multi\CornerRadiusConverter.cs" />
-    <Compile Include="ValueConverters\Multi\CurrentDateTimeFormatMultiConverter.cs" />
-    <Compile Include="ValueConverters\Multi\RoundedCornersMultiConverter.cs" />
-    <Compile Include="ValueConverters\Single\BaseValueConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\StringToForegroundBrushConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\TagColorConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\TransparentPatternBrushConverter.cs" />
-    <Compile Include="ValueConverters\Single\DebugConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolNegatedConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToThicknessConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\AppBorderBrushConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\DefaultBorderBrushConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\MessageTypeToBrushConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\StringToDynamicBrushConverterBase.cs" />
-    <Compile Include="ValueConverters\Single\Brush\TaskBorderBrushConverter.cs" />
-    <Compile Include="ValueConverters\Single\DoubleToGridLengthConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BaseBoolValueConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToCornerRadiusConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToDoubleConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToResourceConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToBorderThicknessConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToScrollBarVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToTextWrappingConverter.cs" />
-    <Compile Include="ValueConverters\Single\CamelCaseConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToVisibilityHiddenConverter.cs" />
-    <Compile Include="ValueConverters\Single\HorizontalAlignmentConverter.cs" />
-    <Compile Include="ValueConverters\Single\IdToCategoryNameConverter.cs" />
-    <Compile Include="ValueConverters\Single\IntTo2DigitTextConverter.cs" />
-    <Compile Include="ValueConverters\Multi\LeftMarginConverter.cs" />
-    <Compile Include="ValueConverters\Single\SettingsPageTitleConverter.cs" />
-    <Compile Include="ValueConverters\Single\SingleCornerRadiusConverter.cs" />
-    <Compile Include="ValueConverters\Single\TaskCheckboxMarginConverter.cs" />
-    <Compile Include="ValueConverters\Single\TaskSpacingToDoubleConverter.cs" />
-    <Compile Include="ValueConverters\Single\TaskSpacingToMarginConverter.cs" />
-    <Compile Include="ValueConverters\Single\Text\DateTimeFormatDisplayConverter.cs" />
-    <Compile Include="ValueConverters\Single\Text\EnumToFontFamilyConverter.cs" />
-    <Compile Include="ValueConverters\Multi\EqualityConverter.cs" />
-    <Compile Include="ValueConverters\Single\Text\FontSizeScaler.cs" />
-    <Compile Include="ValueConverters\Single\Brush\SolidColorBrushToStringConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\StringToColorConverter.cs" />
-    <Compile Include="ValueConverters\Single\Text\StringToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\Single\ThicknessToDoubleConverter.cs" />
-    <Compile Include="ValueConverters\Single\FromBool\BoolToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\Multi\TaskContextMenuCommandParameterConverter.cs" />
-    <Compile Include="ValueConverters\Single\ApplicationPageValueConverter.cs" />
-    <Compile Include="ValueConverters\Multi\BackgroundBrushConverter.cs" />
-    <Compile Include="ValueConverters\Single\Brush\StringRGBToBrushConverter.cs" />
-    <Compile Include="ValueConverters\Single\TitleBarHeightConverter.cs" />
-    <Compile Include="ViewModels\DevSettingsWindowViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="ViewModels\WindowViewModel.cs" />
-    <Compile Include="Window\DevSettingsWindow.xaml.cs">
-      <DependentUpon>DevSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Window\ErrorWindow.xaml.cs">
-      <DependentUpon>ErrorWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Window\FlashWindow.cs" />
-    <Compile Include="Window\GridResizer.cs" />
-    <Compile Include="Window\TrayIconModule.cs" />
-    <Compile Include="Window\WindowResizer.cs" />
-    <Page Include="Controls\ContextMenu\TaskListItemContextMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ListItem\RecycleBinItemControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\List\NoteListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\List\CategoryListControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ListItem\NoteListItemControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ListItem\CategoryListItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\FontSizeSliderControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\List\RecycleBinListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\OverlayBackgroundControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PageHost.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Settings\ShortcutItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TaskProgressBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TextEditor\RichTextEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Settings\ToggleButtonSettingControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SideMenuControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\List\TaskListControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ListItem\TaskListItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TimePickerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Pages\NoteListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\NotePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\NotificationPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Settings\DateTimeSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Settings\PageTitleSettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Settings\ShortcutsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Settings\TextEditorQuickActionsSettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Settings\NotePageSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Settings\TaskItemSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Settings\TaskPageSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Settings\TaskQuickActionsSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Settings\ThemeSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Settings\ApplicationSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\RecycleBinPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\TaskReminderPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\ReminderEditorPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Settings\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\CategoryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\TaskPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\DataProviders.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\FeatureFlags.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\ValueConverters.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Version.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\ColorPickers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\ComboBoxes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\ProgressBars.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\LightTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\DarkTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\ContextMenus.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\CustomControls.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\CheckBoxes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Icons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Panels.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Sliders.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\BaseTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Fonts.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Buttons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\ListBoxes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\ScrollBars.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Texts.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Window\DevSettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window\ErrorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <Resource Include="Fonts\Ubuntu\Ubuntu-Regular.ttf" />
     <Resource Include="Fonts\Ubuntu\Ubuntu-Light.ttf" />
     <Resource Include="Fonts\Inter\Inter-ExtraLight.ttf" />
     <Resource Include="Fonts\Inter\Inter-Regular.ttf" />
-    <None Include="app.manifest" />
     <Resource Include="Fonts\FiraSans\FiraSans-ExtraLight.ttf" />
     <Resource Include="Fonts\FiraSans\FiraSans-Regular.ttf" />
     <Resource Include="Fonts\MontserratAlternates\MontserratAlternates-ExtraLight.ttf" />
@@ -613,14 +48,6 @@
     <Resource Include="Fonts\SegoeIcons.ttf" />
     <Resource Include="Fonts\OpenSans\OpenSans-Light.ttf" />
     <Resource Include="Fonts\OpenSans\OpenSans-Regular.ttf" />
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
@@ -635,22 +62,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TodoApp2.Core\TodoApp2.Core.csproj">
-      <Project>{ae97f324-618b-4ea9-b00d-2a805d47861e}</Project>
-      <Name>TodoApp2.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj">
-      <Project>{87f2a88a-7848-44ed-8f4f-89b12ebbc129}</Project>
-      <Name>TodoApp2.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj">
-      <Project>{f6ecbf99-f92f-4578-8737-5a2d458f0453}</Project>
-      <Name>TodoApp2.Material</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoApp2.Persistence\TodoApp2.Persistence.csproj">
-      <Project>{f3af67e4-5aa8-4634-8212-cd4168fcc124}</Project>
-      <Name>TodoApp2.Persistence</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\TodoApp2.Core\TodoApp2.Core.csproj" />
+    <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj" />
+    <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj" />
+    <ProjectReference Include="..\TodoApp2.Persistence\TodoApp2.Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon.ico" />
@@ -672,15 +87,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.6.8.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.8.0\build\Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props'))" />
-    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
-  </Target>
-  <Import Project="..\packages\Fody.6.8.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.0\build\Fody.targets')" />
-  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
+    <PackageReference Include="Fody" Version="6.8.0" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="PixiEditor.ColorPicker" Version="3.4.1" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ValueConverters\TicksToDateFormatConverter.cs" />
+  </ItemGroup>
 </Project>

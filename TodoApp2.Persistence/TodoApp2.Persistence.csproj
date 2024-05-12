@@ -1,85 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F3AF67E4-5AA8-4634-8212-CD4168FCC124}</ProjectGuid>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TodoApp2.Persistence</RootNamespace>
-    <AssemblyName>TodoApp2.Persistence</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>TodoApp2.Persistence</AssemblyTitle>
+    <Product>TodoApp2.Persistence</Product>
+    <Copyright>Copyright ©  2023</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj" />
+    <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppContext.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="DataAccess.cs" />
-    <Compile Include="IAppContext.cs" />
-    <Compile Include="Migrations\DbMigration6.cs" />
-    <Compile Include="Migrations\DbMigration5.cs" />
-    <Compile Include="Migrations\DbMigration4.cs" />
-    <Compile Include="Migrations\DbMigration3.cs" />
-    <Compile Include="Migrations\DbMigration2.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Note.cs" />
-    <Compile Include="Models\Setting.cs" />
-    <Compile Include="Models\Task.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableMappings\CategoryTableMapping.cs" />
-    <Compile Include="TableMappings\NoteTableMapping.cs" />
-    <Compile Include="TableMappings\SettingsTableMapping.cs" />
-    <Compile Include="TableMappings\TaskTableMapping.cs" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj">
-      <Project>{0851fb41-96ec-4786-99ab-0c74966cf386}</Project>
-      <Name>TodoApp2.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj">
-      <Project>{87f2a88a-7848-44ed-8f4f-89b12ebbc129}</Project>
-      <Name>TodoApp2.Entity</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

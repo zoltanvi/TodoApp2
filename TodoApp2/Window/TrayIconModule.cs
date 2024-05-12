@@ -11,7 +11,7 @@ namespace TodoApp2
         private NotifyIcon _notifyIcon;
         private bool _enabled;
         private bool _visible;
-        private ContextMenu _contextMenu;
+        private ContextMenuStrip _contextMenuStrip;
         private WindowState _previousWindowState;
 
         public bool IsEnabled
@@ -83,17 +83,17 @@ namespace TodoApp2
 
         private void CreateContextMenu()
         {
-            _contextMenu = new ContextMenu();
+            _contextMenuStrip = new ContextMenuStrip();
 
-            MenuItem[] menuItems = new MenuItem[]
+            ToolStripMenuItem[] menuItems = new ToolStripMenuItem[]
             {
-                new MenuItem("Show", OnShowClicked),
-                new MenuItem("Exit", OnExitClicked),
+                new ToolStripMenuItem("Show", null, OnShowClicked),
+                new ToolStripMenuItem("Exit", null, OnExitClicked),
             };
 
-            _contextMenu.MenuItems.AddRange(menuItems);
+            _contextMenuStrip.Items.AddRange(menuItems);
 
-            _notifyIcon.ContextMenu = _contextMenu;
+            _notifyIcon.ContextMenuStrip = _contextMenuStrip;
         }
 
         private void OnShowClicked(object sender, EventArgs e)
@@ -110,6 +110,7 @@ namespace TodoApp2
         public void Dispose()
         {
             _notifyIcon.Dispose();
+            _contextMenuStrip.Dispose();
         }
     }
 }
