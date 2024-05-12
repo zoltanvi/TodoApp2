@@ -70,17 +70,11 @@ namespace TodoApp2.Core.Helpers
         {
             if (_context.Categories.Where(x => x.Id == CommonConstants.RecycleBinCategoryId).Count == 0)
             {
-                var firstListOrder = _context.Categories
-                    .Where(x => x.Id != CommonConstants.RecycleBinCategoryId)
-                    .OrderByListOrder()
-                    .First()
-                    .Map().ListOrder;
-
                 _context.Categories.AddSimple(new CategoryViewModel
                 {
                     Id = CommonConstants.RecycleBinCategoryId,
                     Name = CommonConstants.RecycleBinCategoryName,
-                    ListOrder = firstListOrder - CommonConstants.ListOrderInterval
+                    ListOrder = CommonConstants.MaxListOrder
                 }.Map(), 
                 writeAllProperties: true);
             }

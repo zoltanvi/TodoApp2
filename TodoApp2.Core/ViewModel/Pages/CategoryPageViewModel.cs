@@ -103,7 +103,7 @@ namespace TodoApp2.Core
         private void AddNewCategory()
         {
             var activeItems = _context.Categories
-                .Where(x => !x.Trashed)
+                .Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId)
                 .OrderByDescendingListOrder();
 
             var lastListOrder = activeItems.Any()

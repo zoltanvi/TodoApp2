@@ -42,7 +42,7 @@ namespace TodoApp2.Core.Reordering
         public static void ReorderCategory(IAppContext context, CategoryViewModel category, int newPosition)
         {
             var activeCategories = context.Categories
-                .Where(x => !x.Trashed)
+                .Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId)
                 .OrderByListOrder()
                 .MapList();
 
