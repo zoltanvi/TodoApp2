@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using TodoApp2.Common;
 using TodoApp2.Persistence;
 
@@ -35,8 +36,8 @@ namespace TodoApp2.Core
 
         public TaskReminderPageViewModel(IAppContext context, TaskViewModel reminderTask)
         {
-            ThrowHelper.ThrowIfNull(context);
-            ThrowHelper.ThrowIfNull(reminderTask);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(reminderTask);
             
             _context = context;
             ReminderTask = reminderTask;

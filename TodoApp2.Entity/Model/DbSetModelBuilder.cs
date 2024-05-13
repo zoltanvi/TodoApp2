@@ -13,7 +13,8 @@ namespace TodoApp2.Entity.Model
 
         internal DbSetModelBuilder(string tableName)
         {
-            tableName.ThrowIfEmpty();
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(tableName);
+
             TableName = tableName;
         }
 

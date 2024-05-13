@@ -13,7 +13,7 @@ namespace TodoApp2.Core.Helpers
 
         public static void CreateDefaults(IAppContext context)
         {
-            ThrowHelper.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(context);
 
             _context = context;
 

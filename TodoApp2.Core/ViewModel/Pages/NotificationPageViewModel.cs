@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using TodoApp2.Common;
 
 namespace TodoApp2.Core
@@ -23,7 +24,7 @@ namespace TodoApp2.Core
 
         public NotificationPageViewModel(TaskViewModel notificationTask)
         {
-            ThrowHelper.ThrowIfNull(notificationTask);
+            ArgumentNullException.ThrowIfNull(notificationTask);
 
             NotificationTask = notificationTask;
 

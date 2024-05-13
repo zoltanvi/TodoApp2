@@ -48,8 +48,8 @@ namespace TodoApp2.Core
 
         public ReminderEditorPageViewModel(IAppContext context, TaskViewModel reminderTask)
         {
-            ThrowHelper.ThrowIfNull(reminderTask);
-            ThrowHelper.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(reminderTask);
+            ArgumentNullException.ThrowIfNull(context);
 
             _context = context;
             ReminderTask = reminderTask;

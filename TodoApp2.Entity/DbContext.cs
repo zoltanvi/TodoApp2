@@ -24,7 +24,8 @@ namespace TodoApp2.Entity
 
         public DbContext(string connectionString)
         {
-            connectionString.ThrowIfEmpty();
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(connectionString);
+
             _connectionString = connectionString;
 
             Initialize();
@@ -50,7 +51,7 @@ namespace TodoApp2.Entity
 
         public void AddMigration(DbMigration migration)
         {
-            ThrowHelper.ThrowIfNull(migration);
+            ArgumentNullException.ThrowIfNull(migration);
 
             if (Migrations.Any(x => x.Version == migration.Version))
             {

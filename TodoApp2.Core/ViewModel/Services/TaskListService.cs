@@ -44,9 +44,9 @@ namespace TodoApp2.Core
 
         public TaskListService(IAppContext context, AppViewModel appViewModel, CategoryListService categoryListService)
         {
-            ThrowHelper.ThrowIfNull(context);
-            ThrowHelper.ThrowIfNull(appViewModel);
-            ThrowHelper.ThrowIfNull(categoryListService);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(appViewModel);
+            ArgumentNullException.ThrowIfNull(categoryListService);
 
             _context = context;
             _categoryListService = categoryListService;

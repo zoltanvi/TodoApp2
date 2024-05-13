@@ -55,7 +55,8 @@ namespace TodoApp2.Entity.Migration
 
         public void RemoveModel(string modelName)
         {
-            modelName.ThrowIfEmpty();
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(modelName);
+
             ModelRemovers.Add(modelName);
             BuildSteps.Add(BuildStep.RemoveModel);
         }

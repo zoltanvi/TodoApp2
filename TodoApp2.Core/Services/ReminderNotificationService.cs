@@ -21,9 +21,9 @@ namespace TodoApp2.Core
             TaskScheduler2 taskScheduler, 
             TaskListService taskListService)
         {
-            ThrowHelper.ThrowIfNull(context);
-            ThrowHelper.ThrowIfNull(taskScheduler);
-            ThrowHelper.ThrowIfNull(taskListService);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(taskScheduler);
+            ArgumentNullException.ThrowIfNull(taskListService);
 
             _context = context;
             _taskScheduler = taskScheduler;

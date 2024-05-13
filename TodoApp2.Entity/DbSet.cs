@@ -27,8 +27,8 @@ namespace TodoApp2.Entity
         /// <param name="dbSetMapping">The db set mapping.</param>
         public DbSet(DbConnection connection, DbSetMapping<TModel> dbSetMapping)
         {
-            ThrowHelper.ThrowIfNull(connection);
-            ThrowHelper.ThrowIfNull(dbSetMapping);
+            ArgumentNullException.ThrowIfNull(connection);
+            ArgumentNullException.ThrowIfNull(dbSetMapping);
 
             _connection = connection;
             DbSetMapping = dbSetMapping;

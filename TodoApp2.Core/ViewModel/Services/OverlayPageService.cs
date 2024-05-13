@@ -22,8 +22,8 @@ namespace TodoApp2.Core
 
         public OverlayPageService(IAppContext context, AppViewModel appViewModel)
         {
-            ThrowHelper.ThrowIfNull(context);
-            ThrowHelper.ThrowIfNull(appViewModel);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(appViewModel);
 
             _context = context;
             _appViewModel = appViewModel;

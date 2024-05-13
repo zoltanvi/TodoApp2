@@ -14,7 +14,7 @@ namespace TodoApp2.Entity
 
         public DbSetMapping(string tableName)
         {
-            ThrowHelper.ThrowIfNull(tableName);
+            ArgumentNullException.ThrowIfNull(tableName);
             TableName = tableName;
             ModelBuilder = new DbSetModelBuilder<TModel>(TableName);
         }
@@ -29,7 +29,7 @@ namespace TodoApp2.Entity
 
         internal void CreateIfNotExists(DbConnection connection)
         {
-            ThrowHelper.ThrowIfNull(connection);
+            ArgumentNullException.ThrowIfNull(connection);
             string query = QueryBuilder.CreateIfNotExists(ModelBuilder);
             QueryExecutor.ExecuteQuery(connection, query);
         }

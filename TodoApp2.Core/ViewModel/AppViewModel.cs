@@ -85,8 +85,8 @@ namespace TodoApp2.Core
 
         public AppViewModel(IAppContext context, IUIScaler uiScaler)
         {
-            ThrowHelper.ThrowIfNull(context);
-            ThrowHelper.ThrowIfNull(uiScaler);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(uiScaler);
 
             _context = context;
             _uiScaler = uiScaler;

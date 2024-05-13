@@ -1,4 +1,5 @@
-﻿using TodoApp2.Common;
+﻿using System;
+using TodoApp2.Common;
 
 namespace TodoApp2.Core
 {
@@ -9,8 +10,8 @@ namespace TodoApp2.Core
 
         public ZoomingListener(UIScaler uiScaler, AppSettings appSettings)
         {
-            ThrowHelper.ThrowIfNull(uiScaler);
-            ThrowHelper.ThrowIfNull(appSettings);
+            ArgumentNullException.ThrowIfNull(uiScaler);
+            ArgumentNullException.ThrowIfNull(appSettings);
 
             _uiScaler = uiScaler;
             _appSettings = appSettings;

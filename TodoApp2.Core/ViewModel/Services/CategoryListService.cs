@@ -62,8 +62,8 @@ namespace TodoApp2.Core
 
         public CategoryListService(IAppContext context, AppViewModel appViewModel)
         {
-            ThrowHelper.ThrowIfNull(context);
-            ThrowHelper.ThrowIfNull(appViewModel);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(appViewModel);
 
             _appViewModel = appViewModel;
             _context = context;
