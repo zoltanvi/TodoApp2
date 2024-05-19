@@ -62,6 +62,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
+    <ProjectReference Include="..\Modules.Migrations\Modules.Migrations.csproj" />
+    <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
     <ProjectReference Include="..\TodoApp2.Core\TodoApp2.Core.csproj" />
     <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj" />
     <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj" />
@@ -92,6 +95,12 @@
     <PackageReference Include="Fody" Version="6.8.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="PixiEditor.ColorPicker" Version="3.4.1" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />

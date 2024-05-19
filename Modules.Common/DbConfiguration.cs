@@ -1,0 +1,63 @@
+﻿using System.Configuration;
+
+namespace Modules.Common
+{
+    public static class DbConfiguration
+    {
+        public static string DatabasePath { get; }
+
+        public static string ConnectionString => $"Data Source={DatabasePath};";
+
+        static DbConfiguration()
+        {
+            string directory = ConfigurationManager.AppSettings[Constants.ConfigKeys.DatabaseDirectoryPath];
+            string filename = ConfigurationManager.AppSettings[Constants.ConfigKeys.DatabaseFileName];
+            filename = "TodoApp_EF_core";
+            string filenameWithExtension = $"{filename}.{Constants.DatabaseFileExtension}";
+
+            if (string.IsNullOrWhiteSpace(directory))
+            {
+                directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            }
+
+            ValidatePath(directory);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            if (!IsFileNameValid(filenameWithExtension))
+            {
+                throw new ApplicationException($"{Constants.ConfigKeys.DatabaseFileName} is not a valid filename!");
+            }
+
+            DatabasePath = Path.Combine(directory, filenameWithExtension);
+        }
+
+        private static void ValidatePath(string directory)
+        {
+            // Throws exception if the path is invalid
+            Path.GetFullPath(directory);
+
+            if (!Path.IsPathRooted(directory))
+            {
+                throw new ApplicationException($"{Constants.ConfigKeys.DatabaseDirectoryPath} must be a valid absolute path!");
+            }
+        }
+
+        private static bool IsFileNameValid(string fileName)
+        {
+            char[] invalidChars = Path.GetInvalidFileNameChars();
+            foreach (char invalidChar in invalidChars)
+            {
+                if (fileName.Contains(invalidChar))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+}

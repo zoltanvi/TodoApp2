@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Modules.Migrations;
+using Modules.Settings.Repositories;
+using System;
 using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
@@ -17,6 +21,8 @@ namespace TodoApp2
     /// </summary>
     public partial class App : Application
     {
+        private IHost _host;
+
         private const string PipeName = "TodoApp2Pipe";
         private const string ShowRunningAppWindowMessage = "ShowRunningApp";
 
@@ -24,6 +30,27 @@ namespace TodoApp2
         private static Mutex _instanceMutex;
 
         private string m_CrashReportPath;
+
+        public App()
+        {
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    ConfigureServices(services);
+                })
+                .Build();
+
+            var migrationService = _host.Services.GetService<IMigrationService>();
+            migrationService.Run();
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<SettingDbContext>();
+
+            services.AddScoped<ISettingsRepository, SettingsRepository>();
+            services.AddScoped<IMigrationService, MigrationService>();
+        }
 
         /// <summary>
         /// Custom startup so we load our IoC immediately before anything else
@@ -45,7 +72,7 @@ namespace TodoApp2
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-EN");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-EN");
             FrameworkElement.LanguageProperty.OverrideMetadata(
-                typeof(FrameworkElement), 
+                typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             // Setup the essential services and modules for the application
@@ -67,7 +94,7 @@ namespace TodoApp2
             IoC.TaskContentSplitterService = TaskContentSplitterService.Instance;
 
             // Setup IoC. It can take some time
-            IoC.Setup();
+            IoC.Setup(_host.Services);
 
             // Load theme manager service
             IThemeManagerService themeManagerService = MaterialThemeManagerService.Get(IoC.AppSettings);

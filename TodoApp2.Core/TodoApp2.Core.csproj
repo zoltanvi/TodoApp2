@@ -21,6 +21,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
     <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj" />
     <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj" />
     <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj" />

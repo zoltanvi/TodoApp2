@@ -1,4 +1,7 @@
-﻿using TodoApp2.Core.Helpers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Settings.Repositories;
+using System;
+using TodoApp2.Core.Helpers;
 using TodoApp2.Core.Services;
 using TodoApp2.Persistence;
 
@@ -44,7 +47,7 @@ namespace TodoApp2.Core
         /// <summary>
         /// Sets up the necessary services, binds all information required
         /// </summary>
-        public static void Setup()
+        public static void Setup(IServiceProvider serviceProvider)
         {
             MediaPlayerService = new MediaPlayerService();
             UIScaler = UIScaler.Instance;
@@ -54,7 +57,7 @@ namespace TodoApp2.Core
             ThemeChangeNotifier.AddRecipient(AppSettings.AppWindowSettings, nameof(AppWindowSettings.AppBorderColor));
 
             UndoManager = new UndoManager();
-            AppViewModel = new AppViewModel(Context, UIScaler);
+            AppViewModel = new AppViewModel(Context, UIScaler, serviceProvider.GetService<ISettingsRepository>());
             OverlayPageService = new OverlayPageService(Context, AppViewModel);
 
             // Create default categories + example tasks

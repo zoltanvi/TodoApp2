@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Modules.Settings.Repositories.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using TodoApp2.Persistence.Models;
 
 namespace TodoApp2.Core
 {
@@ -43,7 +43,7 @@ namespace TodoApp2.Core
                                 ? ((double)propValue).ToString(CultureInfo.InvariantCulture)  
                                 : propValue.ToString();
 
-                            settings.Add(new Setting(propPath, propValueString));
+                            settings.Add(new Setting { Key = propPath, Value = propValueString });
                         }
                         else
                         {

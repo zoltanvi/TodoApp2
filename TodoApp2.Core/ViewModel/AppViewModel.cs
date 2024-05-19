@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Modules.Settings.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using TodoApp2.Common;
 using TodoApp2.Persistence;
-using TodoApp2.Persistence.Models;
+using Setting = Modules.Settings.Repositories.Models.Setting;
 
 namespace TodoApp2.Core
 {
@@ -15,6 +16,7 @@ namespace TodoApp2.Core
     {
         private bool _appSettingsLoadedFirstTime;
         private IUIScaler _uiScaler;
+        private ISettingsRepository _settingsRepository;
         private readonly IAppContext _context;
 
         private SessionSettings SessionSettings => IoC.AppSettings.SessionSettings;
@@ -83,13 +85,14 @@ namespace TodoApp2.Core
         /// </summary>
         public bool SaveIconVisible { get; set; }
 
-        public AppViewModel(IAppContext context, IUIScaler uiScaler)
+        public AppViewModel(IAppContext context, IUIScaler uiScaler, ISettingsRepository settingsRepository)
         {
             ArgumentNullException.ThrowIfNull(context);
             ArgumentNullException.ThrowIfNull(uiScaler);
 
             _context = context;
             _uiScaler = uiScaler;
+            _settingsRepository = settingsRepository;
 
             // Load the application settings to update the ActiveCategoryId before querying the tasks
             LoadAppSettingsOnce();
@@ -207,8 +210,9 @@ namespace TodoApp2.Core
 
         public void LoadApplicationSettings()
         {
-            List<Setting> settingList = _context.Settings.GetAll();
-            IoC.AppSettings.PopulateAppSettingsFromList(settingList);
+            var settings = _settingsRepository.GetAllSettings();
+            //List<Setting> settingList = _context.Settings.GetAll();
+            IoC.AppSettings.PopulateAppSettingsFromList(settings);
 
             // Must be set to always check the registry on startup
             IoC.AutoRunService.RunAtStartup = AppSettings.AppWindowSettings.AutoStart;
@@ -216,7 +220,7 @@ namespace TodoApp2.Core
 
         public void SaveApplicationSettings()
         {
-            List<Setting> settingList = IoC.AppSettings.CreateListFromAppSettings();
+            var settingList = IoC.AppSettings.CreateListFromAppSettings();
             UpdateSettings(settingList);
         }
 
@@ -234,7 +238,8 @@ namespace TodoApp2.Core
         /// </summary>
         private void UpdateSettings(List<Setting> settings)
         {
-            List<Setting> existingSettings = _context.Settings.GetAll();
+            //List<Setting> existingSettings = _context.Settings.GetAll();
+            var existingSettings = _settingsRepository.GetAllSettings();
 
             Dictionary<string, Setting> existingSettingsMap =
                 existingSettings.ToDictionary(settingsModel => settingsModel.Key);
@@ -248,12 +253,14 @@ namespace TodoApp2.Core
 
             if (settingsToAdd.Any())
             {
-                _context.Settings.AddRange(settingsToAdd, writeAllProperties: true);
+                _settingsRepository.AddSettings(settingsToAdd);
+                //_context.Settings.AddRange(settingsToAdd, writeAllProperties: true);
             }
 
             if (settingsToUpdate.Any())
             {
-                _context.Settings.UpdateRange(settingsToUpdate, x => x.Key);
+                _settingsRepository.UpdateSettings(settingsToUpdate);
+                //_context.Settings.UpdateRange(settingsToUpdate, x => x.Key);
             }
         }
 
