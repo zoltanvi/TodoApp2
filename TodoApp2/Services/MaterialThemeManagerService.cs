@@ -9,7 +9,6 @@ namespace TodoApp2
 {
     public class MaterialThemeManagerService : IThemeManagerService
     {
-        internal static IThemeManagerService Get(AppSettings appSettings) => _instance ?? (_instance = new MaterialThemeManagerService(appSettings));
         private static IThemeManagerService _instance;
         private AppSettings _appSettings;
 
@@ -17,7 +16,7 @@ namespace TodoApp2
         private uint SeedColor { get; set; }
         public Scheme<string> CurrentScheme { get; set; }
 
-        private MaterialThemeManagerService(AppSettings appSettings)
+        public MaterialThemeManagerService(AppSettings appSettings)
         {
             _appSettings = appSettings;
             _appSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;

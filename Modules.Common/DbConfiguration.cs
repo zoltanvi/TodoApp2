@@ -5,14 +5,15 @@ namespace Modules.Common
     public static class DbConfiguration
     {
         public static string DatabasePath { get; }
+        public static string DatabasePathOld { get; }
 
+        public static string ConnectionStringOld => $"Data Source={DatabasePathOld};";
         public static string ConnectionString => $"Data Source={DatabasePath};";
 
         static DbConfiguration()
         {
             string directory = ConfigurationManager.AppSettings[Constants.ConfigKeys.DatabaseDirectoryPath];
             string filename = ConfigurationManager.AppSettings[Constants.ConfigKeys.DatabaseFileName];
-            filename = "TodoApp_EF_core";
             string filenameWithExtension = $"{filename}.{Constants.DatabaseFileExtension}";
 
             if (string.IsNullOrWhiteSpace(directory))
@@ -32,7 +33,8 @@ namespace Modules.Common
                 throw new ApplicationException($"{Constants.ConfigKeys.DatabaseFileName} is not a valid filename!");
             }
 
-            DatabasePath = Path.Combine(directory, filenameWithExtension);
+            DatabasePathOld = Path.Combine(directory, filenameWithExtension);
+            DatabasePath = Path.Combine(directory, $"TodoApp_EF_core.{Constants.DatabaseFileExtension}");
         }
 
         private static void ValidatePath(string directory)

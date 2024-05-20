@@ -12,8 +12,6 @@ namespace TodoApp2.Core
     /// </summary>
     public static class IoC
     {
-        private static TaskScheduler2 _taskScheduler;
-        private static ZoomingListener _zoomingListener;
         public static IAppContext Context { get; private set; }
         public static IAsyncActionService AsyncActionService { get; set; }
         public static ITaskContentSplitterService TaskContentSplitterService { get; set; }
@@ -38,7 +36,7 @@ namespace TodoApp2.Core
         /// </summary>
         public static void PreSetup()
         {
-            Context = DataAccess.GetAppContext();
+            //Context = DataAccess.GetAppContext();
             AutoRunService = new AutoRunService();
             MessageService = new MessageService();
             AppSettings = new AppSettings();
@@ -49,29 +47,30 @@ namespace TodoApp2.Core
         /// </summary>
         public static void Setup(IServiceProvider serviceProvider)
         {
-            MediaPlayerService = new MediaPlayerService();
+            Context = serviceProvider.GetService<IAppContext>();
+            MediaPlayerService = serviceProvider.GetService<MediaPlayerService>();
             UIScaler = UIScaler.Instance;
-            
-            _zoomingListener = new ZoomingListener(UIScaler, AppSettings);
-            ThemeChangeNotifier = new ThemeChangeNotifier();
+
+            ThemeChangeNotifier = serviceProvider.GetService<ThemeChangeNotifier>();
             ThemeChangeNotifier.AddRecipient(AppSettings.AppWindowSettings, nameof(AppWindowSettings.AppBorderColor));
 
-            UndoManager = new UndoManager();
-            AppViewModel = new AppViewModel(Context, UIScaler, serviceProvider.GetService<ISettingsRepository>());
-            OverlayPageService = new OverlayPageService(Context, AppViewModel);
+            UndoManager = serviceProvider.GetService<UndoManager>();
+            AppViewModel = serviceProvider.GetService<AppViewModel>();
+
+            OverlayPageService = serviceProvider.GetService<OverlayPageService>();
 
             // Create default categories + example tasks
             DefaultItemsCreator.CreateDefaults(Context);
-            
-            CategoryListService = new CategoryListService(Context, AppViewModel);
-            TaskListService = new TaskListService(Context, AppViewModel, CategoryListService);
-            NoteListService = new NoteListService(Context, AppViewModel);
 
-            _taskScheduler = new TaskScheduler2();
+            CategoryListService = serviceProvider.GetService<CategoryListService>();
+            TaskListService = serviceProvider.GetService<TaskListService>();
+            NoteListService = serviceProvider.GetService<NoteListService>();
 
-            ReminderNotificationService = new ReminderNotificationService(Context, _taskScheduler, TaskListService);
-            
-            OneEditorOpenService = new OneEditorOpenService();
+            ReminderNotificationService = serviceProvider.GetService<ReminderNotificationService>();
+
+            OneEditorOpenService = serviceProvider.GetService<OneEditorOpenService>();
+
+            ThemeManagerService = serviceProvider.GetService<IThemeManagerService>();
         }
     }
 }

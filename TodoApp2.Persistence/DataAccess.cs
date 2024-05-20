@@ -10,7 +10,7 @@ namespace TodoApp2.Persistence
         private static IAppContext Context;
 
         public static string DatabasePath { get; set; }
-        public static IAppContext GetAppContext() => Context ?? (Context = new AppContext($"Data Source={DatabasePath};"));
+        //public static IAppContext GetAppContext() => Context ?? (Context = new AppContext($"Data Source={DatabasePath};"));
 
         static DataAccess()
         {

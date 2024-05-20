@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Modules.Common;
 using Modules.Migrations;
 using Modules.Settings.Repositories;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using TodoApp2.Core;
+using TodoApp2.Persistence;
 using TodoApp2.Services;
 
 namespace TodoApp2
@@ -46,9 +48,45 @@ namespace TodoApp2
 
         private void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SettingDbContext>();
-
+            services.AddScoped<MainWindow>();
+            services.AddScoped<IAppContext, Persistence.AppContext>(provider =>
+            {
+                return new Persistence.AppContext(DbConfiguration.ConnectionStringOld);
+            });
+            services.AddScoped<IUIScaler, UIScaler>();
             services.AddScoped<ISettingsRepository, SettingsRepository>();
+            services.AddScoped<AppViewModel>();
+            services.AddScoped<MainWindowViewModel>(provider =>
+            {
+                var appViewModel = provider.GetRequiredService<AppViewModel>();
+                var dbContext = provider.GetRequiredService<IAppContext>();
+                return new MainWindowViewModel(appViewModel, dbContext);
+            });
+
+            services.AddSingleton<IThemeManagerService, MaterialThemeManagerService>();
+            services.AddSingleton<AppSettings>(provider =>
+            {
+                return IoC.AppSettings;
+            });
+            services.AddScoped<UndoManager>();
+            services.AddScoped<MediaPlayerService>();
+            services.AddScoped<ZoomingListener>();
+            services.AddSingleton<UIScaler>(provider =>
+            {
+                return UIScaler.Instance;
+            });
+            services.AddScoped<ThemeChangeNotifier>();
+            services.AddScoped<OverlayPageService>();
+
+            services.AddScoped<CategoryListService>();
+            services.AddScoped<TaskListService>();
+            services.AddScoped<NoteListService>();
+            services.AddScoped<TaskScheduler2>();
+            services.AddScoped<ReminderNotificationService>();
+            services.AddScoped<OneEditorOpenService>();
+            
+
+            services.AddDbContext<SettingDbContext>();
             services.AddScoped<IMigrationService, MigrationService>();
         }
 
@@ -97,12 +135,15 @@ namespace TodoApp2
             IoC.Setup(_host.Services);
 
             // Load theme manager service
-            IThemeManagerService themeManagerService = MaterialThemeManagerService.Get(IoC.AppSettings);
-            IoC.ThemeManagerService = themeManagerService;
+            //IThemeManagerService themeManagerService = MaterialThemeManagerService.Get(IoC.AppSettings);
+            //IoC.ThemeManagerService = themeManagerService;
 
             // Show the main window
-            Current.MainWindow = new MainWindow();
-            Current.MainWindow.Show();
+            //Current.MainWindow = new MainWindow();
+            //Current.MainWindow.Show();
+            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+            Current.MainWindow = mainWindow;
 
             // The main window is open, so close the splash screen 
             splashScreen.Close(TimeSpan.Zero);
@@ -152,7 +193,7 @@ namespace TodoApp2
                         {
                             Current.Dispatcher.Invoke(() =>
                             {
-                                if (Current.MainWindow.DataContext is WindowViewModel windowViewModel)
+                                if (Current.MainWindow.DataContext is MainWindowViewModel windowViewModel)
                                 {
                                     windowViewModel.ShowWindowRequested();
                                 }

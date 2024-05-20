@@ -85,7 +85,7 @@ namespace TodoApp2.Core
         /// </summary>
         public bool SaveIconVisible { get; set; }
 
-        public AppViewModel(IAppContext context, IUIScaler uiScaler, ISettingsRepository settingsRepository)
+        public AppViewModel(IAppContext context, UIScaler uiScaler, ISettingsRepository settingsRepository)
         {
             ArgumentNullException.ThrowIfNull(context);
             ArgumentNullException.ThrowIfNull(uiScaler);

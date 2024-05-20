@@ -11,21 +11,25 @@ namespace TodoApp2
     {
         private GridResizer _gridResizer;
 
-        public MainWindow()
+        public MainWindow(MainWindowViewModel viewModel)
         {
+            ArgumentNullException.ThrowIfNull(viewModel);
+
             InitializeComponent();
-            DataContext = new WindowViewModel(this, IoC.AppViewModel, IoC.Context);
+            DataContext = viewModel;
+            viewModel.Window = this;
+            //DataContext = new MainWindowViewModel(this, IoC.AppViewModel, IoC.Context);
             _gridResizer = new GridResizer(Grid, Resizer, this);
         }
 
         private void AppWindow_Deactivated(object sender, EventArgs e)
         {
-            (DataContext as WindowViewModel).Active = false;
+            (DataContext as MainWindowViewModel).Active = false;
         }
 
         private void AppWindow_Activated(object sender, EventArgs e)
         {
-            (DataContext as WindowViewModel).Active = true;
+            (DataContext as MainWindowViewModel).Active = true;
         }
     }
 }
