@@ -15,8 +15,6 @@
     AllowsTransparency="True"
     AutomationProperties.AutomationId="TodoApp2Window"
     WindowStartupLocation="CenterScreen"
-    Deactivated="AppWindow_Deactivated"
-    Activated="AppWindow_Activated"
     WindowStyle="None"
     mc:Ignorable="d">
 
