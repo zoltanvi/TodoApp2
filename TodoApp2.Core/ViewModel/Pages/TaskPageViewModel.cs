@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -331,13 +332,13 @@ public class TaskPageViewModel : BaseViewModel
     }
 
     private void ResetColors() =>
-        ForEachTask(x => x.Color = CoreConstants.ColorName.Transparent);
+        ForEachTask(x => x.Color = Constants.ColorName.Transparent);
 
     private void ResetBorderColors() =>
-        ForEachTask(x => x.BorderColor = CoreConstants.ColorName.Transparent);
+        ForEachTask(x => x.BorderColor = Constants.ColorName.Transparent);
 
     private void ResetBackgroundColors() =>
-        ForEachTask(x => x.BackgroundColor = CoreConstants.ColorName.Transparent);
+        ForEachTask(x => x.BackgroundColor = Constants.ColorName.Transparent);
 
     private void ForEachTask(Action<TaskViewModel> action) => ForEachTask(action, Items);
 
@@ -355,9 +356,9 @@ public class TaskPageViewModel : BaseViewModel
     {
         ForEachTask(x =>
         {
-            x.Color = CoreConstants.ColorName.Transparent;
-            x.BackgroundColor = CoreConstants.ColorName.Transparent;
-            x.BorderColor = CoreConstants.ColorName.Transparent;
+            x.Color = Constants.ColorName.Transparent;
+            x.BackgroundColor = Constants.ColorName.Transparent;
+            x.BorderColor = Constants.ColorName.Transparent;
         });
     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Globalization;
 using System.Windows.Media;
 using TodoApp2.Core;
@@ -23,14 +24,14 @@ public class StringRGBToBrushConverter : BaseValueConverter
         {
             if (string.IsNullOrEmpty(colorString))
             {
-                colorString = CoreConstants.ColorName.Transparent;
+                colorString = Constants.ColorName.Transparent;
             }
 
             // Remove the leading # character
             colorString = colorString.TrimStart('#');
 
             // Prefixes the input string with a # character, except if it is "Transparent"
-            string inputColor = (colorString == CoreConstants.ColorName.Transparent ? string.Empty : "#") + colorString;
+            string inputColor = (colorString == Constants.ColorName.Transparent ? string.Empty : "#") + colorString;
             return (SolidColorBrush)_brushConverter.ConvertFrom(inputColor);
         }
 

@@ -1,4 +1,4 @@
-﻿namespace TodoApp2.Core;
+﻿namespace Modules.Settings.ViewModels;
 
 public sealed class AppSettings : SettingsBase
 {

@@ -4,6 +4,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:material="clr-namespace:TodoApp2.Material;assembly=TodoApp2.Material"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:dataModels="clr-namespace:Modules.Common.DataModels;assembly=Modules.Common.DataModels"
     xmlns:local="clr-namespace:TodoApp2">
 
     <ObjectDataProvider
@@ -11,7 +12,7 @@
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="core:TitleBarHeight" />
+            <x:Type TypeName="dataModels:TitleBarHeight" />
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
@@ -20,7 +21,7 @@
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="core:FontFamily" />
+            <x:Type TypeName="dataModels:FontFamily" />
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
@@ -29,16 +30,7 @@
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="core:HorizontalAlignment" />
-        </ObjectDataProvider.MethodParameters>
-    </ObjectDataProvider>
-
-    <ObjectDataProvider
-        x:Key="ThemeDataProvider"
-        MethodName="GetValues"
-        ObjectType="{x:Type sys:Enum}">
-        <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="core:Theme" />
+            <x:Type TypeName="dataModels:HorizontalAlignment" />
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
@@ -47,7 +39,7 @@
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="core:Thickness" />
+            <x:Type TypeName="dataModels:Thickness" />
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
@@ -56,7 +48,7 @@
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="core:TaskSpacing" />
+            <x:Type TypeName="dataModels:TaskSpacing" />
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
@@ -65,7 +57,7 @@
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="material:ThemeStyle" />
+            <x:Type TypeName="dataModels:MaterialThemeStyle" />
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 

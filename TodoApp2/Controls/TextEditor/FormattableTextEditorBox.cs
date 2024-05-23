@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Documents;
@@ -203,7 +204,7 @@ public class FormattableTextEditorBox : BasicTextEditorBox
     {
         var currentFontFamily = Selection.GetPropertyValue(TextElement.FontFamilyProperty);
 
-        if (currentFontFamily is MediaFontFamily fontFamily && fontFamily.Source == CoreConstants.FontFamily.Consolas)
+        if (currentFontFamily is MediaFontFamily fontFamily && fontFamily.Source == Constants.FontFamily.Consolas)
         {
             MediaFontFamily defaultFontFamily = EnumToFontFamilyConverter.Instance.Convert(IoC.AppSettings.TaskSettings.FontFamily);
 
@@ -329,7 +330,7 @@ public class FormattableTextEditorBox : BasicTextEditorBox
     private void UpdateSelectionColor()
     {
         var foreground = Selection.GetPropertyValue(TextElement.ForegroundProperty);
-        var color = CoreConstants.ColorName.Transparent;
+        var color = Constants.ColorName.Transparent;
 
         if (foreground != DependencyProperty.UnsetValue)
         {
@@ -413,7 +414,7 @@ public class FormattableTextEditorBox : BasicTextEditorBox
         }
         else
         {
-            var defaultColor = (SolidColorBrush)Application.Current.TryFindResource(CoreConstants.BrushName.ForegroundBrush);
+            var defaultColor = (SolidColorBrush)Application.Current.TryFindResource(Constants.BrushName.ForegroundBrush);
             Selection.ApplyPropertyValue(TextElement.ForegroundProperty, defaultColor);
         }
     }

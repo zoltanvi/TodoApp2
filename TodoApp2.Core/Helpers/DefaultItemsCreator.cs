@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Linq;
 using TodoApp2.Common;
 using TodoApp2.Core.Extensions;
@@ -39,8 +40,8 @@ internal static class DefaultItemsCreator
                 CreationDate = DateTime.Now.Ticks,
                 ModificationDate = DateTime.Now.Ticks,
                 Color = "#00ACC1",
-                BorderColor = CoreConstants.ColorName.Transparent,
-                BackgroundColor = CoreConstants.ColorName.Transparent
+                BorderColor = Constants.ColorName.Transparent,
+                BackgroundColor = Constants.ColorName.Transparent
             }.Map());
 
             _context.Tasks.AddSimple(new TaskViewModel
@@ -51,9 +52,9 @@ internal static class DefaultItemsCreator
                 ListOrder = CommonConstants.DefaultListOrder + CommonConstants.ListOrderInterval,
                 CreationDate = DateTime.Now.Ticks,
                 ModificationDate = DateTime.Now.Ticks,
-                Color = CoreConstants.ColorName.Transparent,
-                BorderColor = CoreConstants.ColorName.Transparent,
-                BackgroundColor = CoreConstants.ColorName.Transparent
+                Color = Constants.ColorName.Transparent,
+                BorderColor = Constants.ColorName.Transparent,
+                BackgroundColor = Constants.ColorName.Transparent
             }.Map());
 
             _context.Notes.AddSimple(new NoteViewModel

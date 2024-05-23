@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Modules.Common;
+using Modules.Settings.ViewModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -107,9 +109,9 @@ public class TaskListService : BaseViewModel
             Content = taskContent,
             CreationDate = DateTime.Now.Ticks,
             ModificationDate = DateTime.Now.Ticks,
-            Color = CoreConstants.ColorName.Transparent,
-            BorderColor = CoreConstants.ColorName.Transparent,
-            BackgroundColor = CoreConstants.ColorName.Transparent,
+            Color = Constants.ColorName.Transparent,
+            BorderColor = Constants.ColorName.Transparent,
+            BackgroundColor = Constants.ColorName.Transparent,
         };
 
         return task;

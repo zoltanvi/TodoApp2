@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Settings.ViewModels;
 using System;
 using TodoApp2.Core.Helpers;
 using TodoApp2.Core.Services;

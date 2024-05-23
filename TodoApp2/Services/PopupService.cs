@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Modules.Common;
+using System.Windows;
 using TodoApp2.Core;
 
 namespace TodoApp2.Services;
@@ -15,7 +16,7 @@ public class PopupService
     {
         if (_cachedPopup == null)
         {
-            _cachedPopup = Application.Current.TryFindResource(CoreConstants.ResourceNames.ColorPickerPopup) as SingletonPopup;
+            _cachedPopup = Application.Current.TryFindResource(Constants.ResourceNames.ColorPickerPopup) as SingletonPopup;
         }
 
         return _cachedPopup;

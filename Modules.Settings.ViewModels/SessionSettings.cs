@@ -1,6 +1,6 @@
 ﻿using Modules.Common.DataModels;
 
-namespace TodoApp2.Core;
+namespace Modules.Settings.ViewModels;
 
 public class SessionSettings : SettingsBase
 {

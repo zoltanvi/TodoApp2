@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Modules.Common;
+using System.Collections.Generic;
 
 namespace TodoApp2.Core;
 
@@ -10,7 +11,7 @@ public class ColorListProvider
     {
         Items = new List<string>
         {
-            CoreConstants.ColorName.Transparent,
+            Constants.ColorName.Transparent,
             "#FFFFFF",
             "#F5F5F5",
             "#E0E0E0",

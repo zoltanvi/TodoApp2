@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Modules.Common;
+using Modules.Common.Database;
 using Modules.Settings.Repositories.Models;
 
 namespace Modules.Settings.Repositories

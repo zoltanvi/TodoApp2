@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Modules.Common;
+using Modules.Common.Database;
 using Modules.Migrations;
 using Modules.Settings.Repositories;
+using Modules.Settings.Services;
+using Modules.Settings.ViewModels;
 using System;
 using System.Globalization;
 using System.IO;
@@ -64,6 +67,7 @@ public partial class App : Application
         {
             return IoC.AppSettings;
         });
+        services.AddScoped<IAppSettingsService, AppSettingsService>();
         services.AddScoped<UndoManager>();
         services.AddScoped<MediaPlayerService>();
         services.AddScoped<ZoomingListener>();
@@ -148,8 +152,8 @@ public partial class App : Application
 
 #if DEBUG
         //var devSettingsWindow = new DevSettingsWindow();
-        var version = (string)Application.Current.TryFindResource(CoreConstants.CurrentVersion);
-        Application.Current.Resources[CoreConstants.CurrentVersion] = $"{version}_Debug";
+        var version = (string)Application.Current.TryFindResource(Constants.CurrentVersion);
+        Application.Current.Resources[Constants.CurrentVersion] = $"{version}_Debug";
 #endif
     }
 

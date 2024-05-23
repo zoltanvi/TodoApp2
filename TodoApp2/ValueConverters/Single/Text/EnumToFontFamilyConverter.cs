@@ -1,4 +1,5 @@
-﻿using Modules.Common.DataModels;
+﻿using Modules.Common;
+using Modules.Common.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,7 +15,7 @@ namespace TodoApp2;
 public class EnumToFontFamilyConverter : BaseValueConverter
 {
     private static bool _initialized = false;
-    private static readonly MediaFontFamily DefaultFontFamily = new MediaFontFamily(CoreConstants.FontFamily.SegoeUI);
+    private static readonly MediaFontFamily DefaultFontFamily = new MediaFontFamily(Constants.FontFamily.SegoeUI);
     private static readonly Dictionary<FontFamily, MediaFontFamily> FontFamilies = new Dictionary<FontFamily, MediaFontFamily>();
 
     public static EnumToFontFamilyConverter Instance { get; } = new EnumToFontFamilyConverter();
@@ -24,9 +25,9 @@ public class EnumToFontFamilyConverter : BaseValueConverter
         if (!_initialized)
         {
             _initialized = true;
-            AddDefaultFontFamily(FontFamily.Calibri, CoreConstants.FontFamily.Calibri);
-            AddDefaultFontFamily(FontFamily.Consolas, CoreConstants.FontFamily.Consolas);
-            AddDefaultFontFamily(FontFamily.CourierNew, CoreConstants.FontFamily.CourierNew);
+            AddDefaultFontFamily(FontFamily.Calibri, Constants.FontFamily.Calibri);
+            AddDefaultFontFamily(FontFamily.Consolas, Constants.FontFamily.Consolas);
+            AddDefaultFontFamily(FontFamily.CourierNew, Constants.FontFamily.CourierNew);
 
             AddFontFamily(FontFamily.FiraSansLight);
             AddFontFamily(FontFamily.FiraSansRegular);
@@ -47,16 +48,16 @@ public class EnumToFontFamilyConverter : BaseValueConverter
             AddFontFamily(FontFamily.OpenSans);
 
 
-            AddDefaultFontFamily(FontFamily.SegoeUILight, CoreConstants.FontFamily.SegoeUILight);
-            AddDefaultFontFamily(FontFamily.SegoeUI, CoreConstants.FontFamily.SegoeUI);
-            AddDefaultFontFamily(FontFamily.SegoeUIBold, CoreConstants.FontFamily.SegoeUIBold);
+            AddDefaultFontFamily(FontFamily.SegoeUILight, Constants.FontFamily.SegoeUILight);
+            AddDefaultFontFamily(FontFamily.SegoeUI, Constants.FontFamily.SegoeUI);
+            AddDefaultFontFamily(FontFamily.SegoeUIBold, Constants.FontFamily.SegoeUIBold);
 
-            AddDefaultFontFamily(FontFamily.TimesNewRoman, CoreConstants.FontFamily.TimesNewRoman);
+            AddDefaultFontFamily(FontFamily.TimesNewRoman, Constants.FontFamily.TimesNewRoman);
 
             AddFontFamily(FontFamily.UbuntuLight);
             AddFontFamily(FontFamily.UbuntuRegular);
 
-            AddDefaultFontFamily(FontFamily.Verdana, CoreConstants.FontFamily.Verdana);
+            AddDefaultFontFamily(FontFamily.Verdana, Constants.FontFamily.Verdana);
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using PropertyChanged;
 using System.ComponentModel;
 
-namespace TodoApp2.Core;
+namespace Modules.Common.DataBinding;
 
 /// <summary>
 /// Provides a method to trigger a property changed event.

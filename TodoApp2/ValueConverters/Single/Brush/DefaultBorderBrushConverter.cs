@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
@@ -16,7 +17,7 @@ internal abstract class DefaultBorderBrushConverter : BaseValueConverter
     {
         if (value is string brushName)
         {
-            if (brushName == CoreConstants.ColorName.Transparent)
+            if (brushName == Constants.ColorName.Transparent)
             {
                 return (SolidColorBrush)Application.Current.TryFindResource(DefaultResourceName);
             }

@@ -1,24 +1,66 @@
-﻿using Modules.Settings.Repositories.Models;
-using System;
-using System.Collections.Generic;
+﻿using Modules.Settings.Repositories;
+using Modules.Settings.Repositories.Models;
+using Modules.Settings.ViewModels;
 using System.Globalization;
 using System.Reflection;
 
-namespace TodoApp2.Core;
+namespace Modules.Settings.Services;
 
-public static class AppSettingsExtensions
+public sealed class AppSettingsService : IAppSettingsService
 {
-    public static void PopulateAppSettingsFromList(this AppSettings appSettings, List<Setting> settingsList)
+    ISettingsRepository _settingsRepository;
+
+    public AppSettingsService(ISettingsRepository settingsRepository)
     {
-        foreach (var setting in settingsList)
+        ArgumentNullException.ThrowIfNull(settingsRepository);
+
+        _settingsRepository = settingsRepository;   
+    }
+
+    public void UpdateAppSettingsFromDatabase(AppSettings appSettings)
+    {
+        var settings = _settingsRepository.GetAllSettings();
+
+        foreach (var setting in settings)
         {
             SetPropertyValue(appSettings, setting.Key, setting.Value);
         }
     }
 
-    public static List<Setting> CreateListFromAppSettings(this AppSettings appSettings)
+    public void UpdateDatabaseFromAppSettings(AppSettings appSettings)
     {
-        return CreateSettingsList(appSettings, string.Empty);
+        var settingList = CreateSettingsList(appSettings, string.Empty);
+     
+        UpdateSettings(settingList);
+    }
+
+    /// <summary>
+    /// Updates all settings entry in the database if exists,
+    /// adds the entry if it not exists.
+    /// </summary>
+    private void UpdateSettings(List<Setting> settings)
+    {
+        var existingSettings = _settingsRepository.GetAllSettings();
+
+        Dictionary<string, Setting> existingSettingsMap =
+            existingSettings.ToDictionary(settingsModel => settingsModel.Key);
+
+        IEnumerable<Setting> settingsToUpdate = settings
+            .Where(s => existingSettingsMap.ContainsKey(s.Key))
+            .Where(s => s.Value != existingSettingsMap[s.Key].Value);
+
+        IEnumerable<Setting> settingsToAdd = settings
+            .Where(s => !existingSettingsMap.ContainsKey(s.Key));
+
+        if (settingsToAdd.Any())
+        {
+            _settingsRepository.AddSettings(settingsToAdd);
+        }
+
+        if (settingsToUpdate.Any())
+        {
+            _settingsRepository.UpdateSettings(settingsToUpdate);
+        }
     }
 
     private static List<Setting> CreateSettingsList(object obj, string currentPath)
@@ -33,14 +75,14 @@ public static class AppSettingsExtensions
 
                 if (propValue != null)
                 {
-                    string propPath = string.IsNullOrEmpty(currentPath) ? prop.Name : $"{currentPath}.{prop.Name}";
+                    var propPath = string.IsNullOrEmpty(currentPath) ? prop.Name : $"{currentPath}.{prop.Name}";
 
                     if (prop.PropertyType.IsPrimitive || prop.PropertyType == typeof(string) || prop.PropertyType.IsEnum)
                     {
                         var isDouble = prop.PropertyType == typeof(double);
-                        
-                        var propValueString = isDouble 
-                            ? ((double)propValue).ToString(CultureInfo.InvariantCulture)  
+
+                        var propValueString = isDouble
+                            ? ((double)propValue).ToString(CultureInfo.InvariantCulture)
                             : propValue.ToString();
 
                         settings.Add(new Setting { Key = propPath, Value = propValueString });
@@ -58,12 +100,12 @@ public static class AppSettingsExtensions
 
     private static void SetPropertyValue(object obj, string path, string value)
     {
-        string[] parts = path.Split('.');
-        object currentObj = obj;
+        var parts = path.Split('.');
+        var currentObj = obj;
 
-        for (int i = 0; i < parts.Length; i++)
+        for (var i = 0; i < parts.Length; i++)
         {
-            string part = parts[i];
+            var part = parts[i];
             PropertyInfo propInfo = currentObj.GetType().GetProperty(part);
 
             if (propInfo == null)
@@ -79,7 +121,7 @@ public static class AppSettingsExtensions
                 // Last part of the path - set the value
                 Type propType = propInfo.PropertyType;
 
-                TryConvert(value, propType, out object typedValue);
+                TryConvert(value, propType, out var typedValue);
 
                 //object typedValue = Convert.ChangeType(value, propType);
                 propInfo.SetValue(currentObj, typedValue);
@@ -87,7 +129,7 @@ public static class AppSettingsExtensions
             else
             {
                 // Not the last part - check for null and create an instance if necessary
-                object propValue = propInfo.GetValue(currentObj);
+                var propValue = propInfo.GetValue(currentObj);
                 if (propValue == null)
                 {
                     propValue = Activator.CreateInstance(propInfo.PropertyType);
@@ -109,7 +151,7 @@ public static class AppSettingsExtensions
         }
         else if (propType.IsEnum)
         {
-            object enumValue = Enum.Parse(propType, value);
+            var enumValue = Enum.Parse(propType, value);
 
             if (Enum.IsDefined(propType, enumValue))
             {
@@ -128,8 +170,8 @@ public static class AppSettingsExtensions
         else if (propType == typeof(int) && int.TryParse(value, out var intValue))
         {
             result = intValue;
-        } 
-        else if(propType == typeof(bool) && bool.TryParse(value, out var boolValue))
+        }
+        else if (propType == typeof(bool) && bool.TryParse(value, out var boolValue))
         {
             result = boolValue;
         }

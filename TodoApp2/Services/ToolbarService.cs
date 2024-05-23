@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using static TodoApp2.Core.CoreConstants;
+﻿using Modules.Common;
+using System.Windows;
 
 namespace TodoApp2.Services;
 
@@ -15,7 +15,7 @@ public class ToolbarService
     {
         if (_cachedToolbar == null)
         {
-            _cachedToolbar = Application.Current.TryFindResource(ResourceNames.TextEditorToolbar) as SingletonToolbar;
+            _cachedToolbar = Application.Current.TryFindResource(Constants.ResourceNames.TextEditorToolbar) as SingletonToolbar;
         }
 
         return _cachedToolbar;

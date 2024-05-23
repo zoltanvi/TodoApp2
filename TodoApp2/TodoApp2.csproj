@@ -65,6 +65,7 @@
     <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
     <ProjectReference Include="..\Modules.Migrations\Modules.Migrations.csproj" />
     <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
+    <ProjectReference Include="..\Modules.Settings.Services\Modules.Settings.Services.csproj" />
     <ProjectReference Include="..\TodoApp2.Core\TodoApp2.Core.csproj" />
     <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj" />
     <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj" />

@@ -1,4 +1,5 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
@@ -23,7 +24,7 @@ public class BackgroundBrushConverter : BaseMultiValueConverter<BackgroundBrushC
         _path = new Path
         {
             Data = Geometry.Parse("M 0 8 L 8 0"),
-            Stroke = (Brush)Application.Current.TryFindResource(CoreConstants.BrushName.Surface3),
+            Stroke = (Brush)Application.Current.TryFindResource(Constants.BrushName.Surface3),
             StrokeEndLineCap = PenLineCap.Square,
         };
 
@@ -49,12 +50,12 @@ public class BackgroundBrushConverter : BaseMultiValueConverter<BackgroundBrushC
 
             if (isDone)
             {
-                _path.Stroke = (Brush)Application.Current.TryFindResource(CoreConstants.BrushName.Surface3);
+                _path.Stroke = (Brush)Application.Current.TryFindResource(Constants.BrushName.Surface3);
                 return _hatchBrush;
             }
             else
             {
-                return Application.Current.TryFindResource(CoreConstants.BrushName.TaskBgBrush);
+                return Application.Current.TryFindResource(Constants.BrushName.TaskBgBrush);
             }
         }
 

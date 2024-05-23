@@ -1,5 +1,7 @@
 ﻿using Modules.Common.DataModels;
 using Modules.Settings.Repositories;
+using Modules.Settings.Services;
+using Modules.Settings.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +20,7 @@ public class AppViewModel : BaseViewModel
     private bool _appSettingsLoadedFirstTime;
     private IUIScaler _uiScaler;
     private ISettingsRepository _settingsRepository;
+    private IAppSettingsService _settingsPopulator;
     private readonly IAppContext _context;
 
     private SessionSettings SessionSettings => IoC.AppSettings.SessionSettings;
@@ -86,14 +89,21 @@ public class AppViewModel : BaseViewModel
     /// </summary>
     public bool SaveIconVisible { get; set; }
 
-    public AppViewModel(IAppContext context, UIScaler uiScaler, ISettingsRepository settingsRepository)
+    public AppViewModel(
+        IAppContext context, 
+        UIScaler uiScaler, 
+        ISettingsRepository settingsRepository,
+        IAppSettingsService settingsPopulator)
     {
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(uiScaler);
+        ArgumentNullException.ThrowIfNull(settingsRepository);
+        ArgumentNullException.ThrowIfNull(settingsPopulator);
 
         _context = context;
         _uiScaler = uiScaler;
         _settingsRepository = settingsRepository;
+        _settingsPopulator = settingsPopulator;
 
         // Load the application settings to update the ActiveCategoryId before querying the tasks
         LoadAppSettingsOnce();
@@ -205,24 +215,16 @@ public class AppViewModel : BaseViewModel
         {
             _appSettingsLoadedFirstTime = true;
 
-            LoadApplicationSettings();
+            _settingsPopulator.UpdateAppSettingsFromDatabase(IoC.AppSettings);
+
+            // Must be set to always check the registry on startup
+            IoC.AutoRunService.RunAtStartup = AppSettings.AppWindowSettings.AutoStart;
         }
-    }
-
-    public void LoadApplicationSettings()
-    {
-        var settings = _settingsRepository.GetAllSettings();
-        //List<Setting> settingList = _context.Settings.GetAll();
-        IoC.AppSettings.PopulateAppSettingsFromList(settings);
-
-        // Must be set to always check the registry on startup
-        IoC.AutoRunService.RunAtStartup = AppSettings.AppWindowSettings.AutoStart;
     }
 
     public void SaveApplicationSettings()
     {
-        var settingList = IoC.AppSettings.CreateListFromAppSettings();
-        UpdateSettings(settingList);
+        _settingsPopulator.UpdateDatabaseFromAppSettings(IoC.AppSettings);
     }
 
     private void CommonSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -230,38 +232,6 @@ public class AppViewModel : BaseViewModel
         if (e.PropertyName == nameof(AppWindowSettings.AutoStart))
         {
             IoC.AutoRunService.RunAtStartup = AppSettings.AppWindowSettings.AutoStart;
-        }
-    }
-
-    /// <summary>
-    /// Updates all settings entry in the database if exists,
-    /// adds the entry if it not exists.
-    /// </summary>
-    private void UpdateSettings(List<Setting> settings)
-    {
-        //List<Setting> existingSettings = _context.Settings.GetAll();
-        var existingSettings = _settingsRepository.GetAllSettings();
-
-        Dictionary<string, Setting> existingSettingsMap =
-            existingSettings.ToDictionary(settingsModel => settingsModel.Key);
-
-        IEnumerable<Setting> settingsToUpdate = settings
-            .Where(s => existingSettingsMap.ContainsKey(s.Key))
-            .Where(s => s.Value != existingSettingsMap[s.Key].Value);
-
-        IEnumerable<Setting> settingsToAdd = settings
-            .Where(s => !existingSettingsMap.ContainsKey(s.Key));
-
-        if (settingsToAdd.Any())
-        {
-            _settingsRepository.AddSettings(settingsToAdd);
-            //_context.Settings.AddRange(settingsToAdd, writeAllProperties: true);
-        }
-
-        if (settingsToUpdate.Any())
-        {
-            _settingsRepository.UpdateSettings(settingsToUpdate);
-            //_context.Settings.UpdateRange(settingsToUpdate, x => x.Key);
         }
     }
 

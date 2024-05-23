@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Modules.Common;
+using System.Windows;
 using System.Windows.Controls;
 using TodoApp2.Core;
 using MediaFontFamily = System.Windows.Media.FontFamily;
@@ -15,7 +16,7 @@ namespace TodoApp2
         public static readonly DependencyProperty MinProperty = DependencyProperty.Register(nameof(Min), typeof(double), typeof(FontSizeSliderControl), new PropertyMetadata());
         public static readonly DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max), typeof(double), typeof(FontSizeSliderControl), new PropertyMetadata());
         public static readonly DependencyProperty StepsProperty = DependencyProperty.Register(nameof(Steps), typeof(double), typeof(FontSizeSliderControl), new PropertyMetadata());
-        public static readonly DependencyProperty SampleFontFamilyProperty = DependencyProperty.Register(nameof(SampleFontFamily), typeof(MediaFontFamily), typeof(FontSizeSliderControl), new PropertyMetadata(new MediaFontFamily(CoreConstants.FontFamily.SegoeUI)));
+        public static readonly DependencyProperty SampleFontFamilyProperty = DependencyProperty.Register(nameof(SampleFontFamily), typeof(MediaFontFamily), typeof(FontSizeSliderControl), new PropertyMetadata(new MediaFontFamily(Constants.FontFamily.SegoeUI)));
 
         public double PreviewFontSize
         {

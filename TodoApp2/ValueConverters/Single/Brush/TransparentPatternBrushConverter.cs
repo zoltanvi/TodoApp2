@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
@@ -14,9 +15,9 @@ public class TransparentPatternBrushConverter : BaseValueConverter
     {
         if (value == null ||
             value is string brushName &&
-            (brushName == CoreConstants.ColorName.Transparent || string.IsNullOrEmpty(brushName)))
+            (brushName == Constants.ColorName.Transparent || string.IsNullOrEmpty(brushName)))
         {
-            return (LinearGradientBrush)Application.Current.TryFindResource(CoreConstants.BrushName.TransparentPatternBrush);
+            return (LinearGradientBrush)Application.Current.TryFindResource(Constants.BrushName.TransparentPatternBrush);
         }
         else if (value is Brush)
         {

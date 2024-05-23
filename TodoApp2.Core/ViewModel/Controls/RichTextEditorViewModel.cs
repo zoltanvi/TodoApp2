@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Windows.Input;
 
 namespace TodoApp2.Core;
@@ -33,7 +34,7 @@ public class RichTextEditorViewModel : BaseViewModel
     public string DocumentContent { get; set; }
     public bool IsToolbarOpen { get; set; }
     public bool IsDisplayMode => !IsEditMode;
-    public string TextColor { get; set; } = CoreConstants.ColorName.Transparent;
+    public string TextColor { get; set; } = Constants.ColorName.Transparent;
     public double TextOpacity { get; set; } = 1.0;
     public Action EnterAction { get; set; }
     public Action OnQuickEditRequestedAction { get; set; }

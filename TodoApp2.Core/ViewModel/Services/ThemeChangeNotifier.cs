@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Modules.Common.DataBinding;
+using System.Collections.Generic;
 
 namespace TodoApp2.Core;
 
 public class ThemeChangeNotifier
 {
     private List<KeyValuePair<IPropertyChangeNotifier, string>> _recipients;
+
     public ThemeChangeNotifier()
     {
         _recipients = new List<KeyValuePair<IPropertyChangeNotifier, string>>();

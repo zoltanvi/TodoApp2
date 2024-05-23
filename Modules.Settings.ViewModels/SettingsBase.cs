@@ -1,7 +1,8 @@
-﻿using PropertyChanged;
+﻿using Modules.Common.DataBinding;
+using PropertyChanged;
 using System.ComponentModel;
 
-namespace TodoApp2.Core;
+namespace Modules.Settings.ViewModels;
 
 [AddINotifyPropertyChangedInterface]
 public abstract class SettingsBase : IPropertyChangeNotifier

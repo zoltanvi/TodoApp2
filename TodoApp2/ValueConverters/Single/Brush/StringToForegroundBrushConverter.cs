@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common;
+using System;
 using System.Globalization;
 using System.Windows;
 using TodoApp2.Core;
@@ -11,9 +12,9 @@ public class StringToForegroundBrushConverter : BaseValueConverter
 
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value == null || (value is string colorCode && colorCode == CoreConstants.ColorName.Transparent))
+        if (value == null || (value is string colorCode && colorCode == Constants.ColorName.Transparent))
         {
-            return Application.Current.TryFindResource(CoreConstants.BrushName.ForegroundBrush);
+            return Application.Current.TryFindResource(Constants.BrushName.ForegroundBrush);
         }
 
         return _converter.Convert(value, targetType, parameter, culture);

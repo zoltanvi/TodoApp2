@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Modules.Common
+namespace Modules.Common.Database
 {
     public static class DbConfiguration
     {

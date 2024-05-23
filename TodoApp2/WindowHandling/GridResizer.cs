@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Settings.ViewModels;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
