@@ -1,28 +1,27 @@
 ﻿using System;
-using System.Windows.Input;
 using System.Diagnostics;
+using System.Windows.Input;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+public class ApplicationSettingsPageViewModel : BaseViewModel
 {
-    public class ApplicationSettingsPageViewModel : BaseViewModel
+    public ICommand OpenDbLocationCommand { get; set; }
+
+    public ApplicationSettingsPageViewModel()
     {
-        public ICommand OpenDbLocationCommand { get; set; }
+        OpenDbLocationCommand = new RelayCommand(OpenDbLocation);
+    }
 
-        public ApplicationSettingsPageViewModel()
+    private void OpenDbLocation()
+    {
+        try
         {
-            OpenDbLocationCommand = new RelayCommand(OpenDbLocation);
+            Process.Start("explorer.exe", $@"/select,""{IoC.AppViewModel.DatabaseLocation}""");
         }
-
-        private void OpenDbLocation()
+        catch (Exception ex)
         {
-            try
-            {
-                Process.Start("explorer.exe", $@"/select,""{IoC.AppViewModel.DatabaseLocation}""");
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Can't open database location.");
-            }
+            throw new ApplicationException("Can't open database location.");
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System.Windows.Input;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+public interface IUndoableCommand : ICommand
 {
-    public interface IUndoableCommand : ICommand
-    {
-    }
 }

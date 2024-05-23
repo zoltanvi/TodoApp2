@@ -1,9 +1,8 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public class TaskPageSettingsPageViewModel : BaseViewModel
 {
-    public class TaskPageSettingsPageViewModel : BaseViewModel
+    public TaskPageSettingsPageViewModel()
     {
-        public TaskPageSettingsPageViewModel()
-        {
-        }
     }
 }

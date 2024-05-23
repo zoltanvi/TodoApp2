@@ -1,7 +1,6 @@
-﻿namespace TodoApp2
+﻿namespace TodoApp2;
+
+internal class TaskBorderBrushConverter : DefaultBorderBrushConverter
 {
-    internal class TaskBorderBrushConverter : DefaultBorderBrushConverter
-    {
-        protected override string DefaultResourceName { get; } = "OutlineVariant";
-    }
+    protected override string DefaultResourceName { get; } = "OutlineVariant";
 }

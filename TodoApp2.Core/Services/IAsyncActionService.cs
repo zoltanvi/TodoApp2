@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace TodoApp2.Core
-{
-    public interface IAsyncActionService
-    {
-        void InvokeAsync(Action action);
+namespace TodoApp2.Core;
 
-        void AbortRunningActions();
-    }
+public interface IAsyncActionService
+{
+    void InvokeAsync(Action action);
+
+    void AbortRunningActions();
 }

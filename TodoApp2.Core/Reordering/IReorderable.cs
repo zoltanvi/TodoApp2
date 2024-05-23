@@ -1,7 +1,6 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public interface IReorderable
 {
-    public interface IReorderable
-    {
-        long ListOrder { get; set; }
-    }
+    long ListOrder { get; set; }
 }

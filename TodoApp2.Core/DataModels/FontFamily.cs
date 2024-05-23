@@ -1,38 +1,37 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public enum FontFamily
 {
-    public enum FontFamily
-    {
-        Calibri,
-        Consolas,
-        CourierNew,
-        
-        FiraSansLight,
-        FiraSansRegular,
-        
-        InterLight,
-        InterRegular,
-        
-        MontserratAlternatesLight,
-        MontserratAlternatesRegular,
-        
-        MontserratLight,
-        MontserratRegular,
-        
-        NotoSansLight,
-        NotoSansRegular,
-        
-        OpenSansLight,
-        OpenSans,
+    Calibri,
+    Consolas,
+    CourierNew,
+    
+    FiraSansLight,
+    FiraSansRegular,
+    
+    InterLight,
+    InterRegular,
+    
+    MontserratAlternatesLight,
+    MontserratAlternatesRegular,
+    
+    MontserratLight,
+    MontserratRegular,
+    
+    NotoSansLight,
+    NotoSansRegular,
+    
+    OpenSansLight,
+    OpenSans,
 
-        SegoeUILight,
-        SegoeUI,
-        SegoeUIBold,
+    SegoeUILight,
+    SegoeUI,
+    SegoeUIBold,
 
-        TimesNewRoman,
-        
-        UbuntuLight,
-        UbuntuRegular,
+    TimesNewRoman,
+    
+    UbuntuLight,
+    UbuntuRegular,
 
-        Verdana,
-    }
+    Verdana,
 }

@@ -9,258 +9,257 @@ using TodoApp2.Core.Mappings;
 using TodoApp2.Core.Reordering;
 using TodoApp2.Persistence;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+public class CategoryPageViewModel : BaseViewModel
 {
-    public class CategoryPageViewModel : BaseViewModel
+    private readonly IAppContext _context;
+    private readonly AppViewModel _application;
+    private readonly OverlayPageService _overlayPageService;
+    private readonly CategoryListService _categoryListService;
+    private readonly TaskListService _taskListService;
+    private readonly MessageService _messageService;
+
+    /// <summary>
+    /// The name of the current category being added
+    /// </summary>
+    public string PendingAddNewCategoryText { get; set; }
+    public ICommand AddCategoryCommand { get; }
+    public ICommand DeleteCategoryCommand { get; }
+    public ICommand ChangeCategoryCommand { get; }
+    public ICommand OpenSettingsPageCommand { get; }
+    public ICommand OpenNoteListPageCommand { get; }
+    public ICommand OpenRecycleBinPageCommand { get; }
+
+    private ObservableCollection<CategoryViewModel> Items => _categoryListService.Items;
+
+    private CategoryViewModel ActiveCategory
     {
-        private readonly IAppContext _context;
-        private readonly AppViewModel _application;
-        private readonly OverlayPageService _overlayPageService;
-        private readonly CategoryListService _categoryListService;
-        private readonly TaskListService _taskListService;
-        private readonly MessageService _messageService;
+        get => _categoryListService.ActiveCategory;
+        set => _categoryListService.ActiveCategory = value;
+    }
 
-        /// <summary>
-        /// The name of the current category being added
-        /// </summary>
-        public string PendingAddNewCategoryText { get; set; }
-        public ICommand AddCategoryCommand { get; }
-        public ICommand DeleteCategoryCommand { get; }
-        public ICommand ChangeCategoryCommand { get; }
-        public ICommand OpenSettingsPageCommand { get; }
-        public ICommand OpenNoteListPageCommand { get; }
-        public ICommand OpenRecycleBinPageCommand { get; }
+    public CategoryPageViewModel()
+    {
+    }
 
-        private ObservableCollection<CategoryViewModel> Items => _categoryListService.Items;
+    public CategoryPageViewModel(
+        AppViewModel applicationViewModel,
+        IAppContext context,
+        OverlayPageService overlayPageService,
+        CategoryListService categoryListService,
+        TaskListService taskListService,
+        MessageService messageService)
+    {
+        _application = applicationViewModel;
+        _context = context;
+        _overlayPageService = overlayPageService;
+        _categoryListService = categoryListService;
+        _taskListService = taskListService;
+        _messageService = messageService;
 
-        private CategoryViewModel ActiveCategory
+        AddCategoryCommand = new RelayCommand(AddCategory);
+        DeleteCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(TrashCategory);
+        ChangeCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(ChangeCategory);
+        OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
+        OpenNoteListPageCommand = new RelayCommand(OpenNoteListPage);
+        OpenRecycleBinPageCommand = new RelayCommand(OpenRecycleBinPage);
+
+        // Load the application settings to update the ActiveCategory
+        _application.LoadAppSettingsOnce();
+    }
+
+    private void AddCategory()
+    {
+        // Remove trailing and leading whitespaces
+        PendingAddNewCategoryText = PendingAddNewCategoryText?.Trim();
+
+        // If the text is empty or only whitespace, refuse
+        if (string.IsNullOrWhiteSpace(PendingAddNewCategoryText))
         {
-            get => _categoryListService.ActiveCategory;
-            set => _categoryListService.ActiveCategory = value;
+            return;
         }
 
-        public CategoryPageViewModel()
+        // Untrash category if exists
+        var existingCategory = _context.Categories
+            .GetAll()
+            .FirstOrDefault(x => x.Name.Equals(
+                PendingAddNewCategoryText,
+                StringComparison.InvariantCultureIgnoreCase)).Map();
+
+        if (existingCategory != null && existingCategory.Trashed)
         {
+            UntrashCategory(existingCategory);
+        }
+        else
+        {
+            AddNewCategory();
         }
 
-        public CategoryPageViewModel(
-            AppViewModel applicationViewModel,
-            IAppContext context,
-            OverlayPageService overlayPageService,
-            CategoryListService categoryListService,
-            TaskListService taskListService,
-            MessageService messageService)
+        // Reset the input TextBox text
+        PendingAddNewCategoryText = string.Empty;
+    }
+
+    private void AddNewCategory()
+    {
+        var activeItems = _context.Categories
+            .Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId)
+            .OrderByDescendingListOrder();
+
+        var lastListOrder = activeItems.Any()
+            ? activeItems.First().Map().ListOrder
+            : CommonConstants.DefaultListOrder;
+
+        CategoryViewModel categoryToAdd = new CategoryViewModel
         {
-            _application = applicationViewModel;
-            _context = context;
-            _overlayPageService = overlayPageService;
-            _categoryListService = categoryListService;
-            _taskListService = taskListService;
-            _messageService = messageService;
+            Name = PendingAddNewCategoryText,
+            ListOrder = lastListOrder + CommonConstants.ListOrderInterval
+        };
 
-            AddCategoryCommand = new RelayCommand(AddCategory);
-            DeleteCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(TrashCategory);
-            ChangeCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(ChangeCategory);
-            OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
-            OpenNoteListPageCommand = new RelayCommand(OpenNoteListPage);
-            OpenRecycleBinPageCommand = new RelayCommand(OpenRecycleBinPage);
+        var newItem = _context.Categories.Add(categoryToAdd.Map());
+        Items.Add(newItem.Map());
+    }
 
-            // Load the application settings to update the ActiveCategory
-            _application.LoadAppSettingsOnce();
-        }
+    private void UntrashCategory(CategoryViewModel category)
+    {
+        // First, persist trashed property
+        category.Trashed = false;
+        _context.Categories.UpdateFirst(category.Map());
 
-        private void AddCategory()
+        var tasksInCategory = _context.Tasks
+                .Where(x => x.CategoryId == category.Id)
+                .MapList();
+
+        SetTrashedOnTasks(tasksInCategory, false);
+
+        Items.Add(category);
+        ReorderingHelperTemp.ReorderCategory(_context, category, Items.Count - 1);
+
+        // Second, persist list order
+        _context.Categories.UpdateFirst(category.Map());
+    }
+
+    private void TrashCategory(CategoryViewModel category)
+    {
+        // At least one category is required
+        if (_context.Categories.Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId).Count > 1)
         {
-            // Remove trailing and leading whitespaces
-            PendingAddNewCategoryText = PendingAddNewCategoryText?.Trim();
-
-            // If the text is empty or only whitespace, refuse
-            if (string.IsNullOrWhiteSpace(PendingAddNewCategoryText))
-            {
-                return;
-            }
-
-            // Untrash category if exists
-            var existingCategory = _context.Categories
-                .GetAll()
-                .FirstOrDefault(x => x.Name.Equals(
-                    PendingAddNewCategoryText,
-                    StringComparison.InvariantCultureIgnoreCase)).Map();
-
-            if (existingCategory != null && existingCategory.Trashed)
-            {
-                UntrashCategory(existingCategory);
-            }
-            else
-            {
-                AddNewCategory();
-            }
-
-            // Reset the input TextBox text
-            PendingAddNewCategoryText = string.Empty;
-        }
-
-        private void AddNewCategory()
-        {
-            var activeItems = _context.Categories
-                .Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId)
-                .OrderByDescendingListOrder();
-
-            var lastListOrder = activeItems.Any()
-                ? activeItems.First().Map().ListOrder
-                : CommonConstants.DefaultListOrder;
-
-            CategoryViewModel categoryToAdd = new CategoryViewModel
-            {
-                Name = PendingAddNewCategoryText,
-                ListOrder = lastListOrder + CommonConstants.ListOrderInterval
-            };
-
-            var newItem = _context.Categories.Add(categoryToAdd.Map());
-            Items.Add(newItem.Map());
-        }
-
-        private void UntrashCategory(CategoryViewModel category)
-        {
-            // First, persist trashed property
-            category.Trashed = false;
-            _context.Categories.UpdateFirst(category.Map());
+            category.Trashed = true;
+            category.ListOrder = CommonConstants.InvalidListOrder;
 
             var tasksInCategory = _context.Tasks
-                    .Where(x => x.CategoryId == category.Id)
-                    .MapList();
+                .Where(x => x.CategoryId == category.Id)
+                .MapList();
 
-            SetTrashedOnTasks(tasksInCategory, false);
+            SetTrashedOnTasks(tasksInCategory, true);
 
-            Items.Add(category);
-            ReorderingHelperTemp.ReorderCategory(_context, category, Items.Count - 1);
-
-            // Second, persist list order
+            Items.Remove(category);
             _context.Categories.UpdateFirst(category.Map());
-        }
 
-        private void TrashCategory(CategoryViewModel category)
-        {
-            // At least one category is required
-            if (_context.Categories.Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId).Count > 1)
+            Mediator.NotifyClients(ViewModelMessages.CategoryDeleted);
+
+            // Only if the current category was the deleted one, select a new category
+            if (category == ActiveCategory)
             {
-                category.Trashed = true;
-                category.ListOrder = CommonConstants.InvalidListOrder;
-
-                var tasksInCategory = _context.Tasks
-                    .Where(x => x.CategoryId == category.Id)
-                    .MapList();
-
-                SetTrashedOnTasks(tasksInCategory, true);
-
-                Items.Remove(category);
-                _context.Categories.UpdateFirst(category.Map());
-
-                Mediator.NotifyClients(ViewModelMessages.CategoryDeleted);
-
-                // Only if the current category was the deleted one, select a new category
-                if (category == ActiveCategory)
-                {
-                    CategoryViewModel firstItem = Items.FirstOrDefault();
-                    SetActiveCategory(firstItem);
-                }
-            }
-            else
-            {
-                _messageService.ShowError("Cannot delete last category.");
+                CategoryViewModel firstItem = Items.FirstOrDefault();
+                SetActiveCategory(firstItem);
             }
         }
-
-        private void SetTrashedOnTasks(IEnumerable<TaskViewModel> taskList, bool trashed)
+        else
         {
-            ForEachTask(x =>
-            {
-                x.Trashed = trashed;
-                x.TrashedDate = DateTime.Now.Ticks;
-            },
-            taskList);
+            _messageService.ShowError("Cannot delete last category.");
+        }
+    }
+
+    private void SetTrashedOnTasks(IEnumerable<TaskViewModel> taskList, bool trashed)
+    {
+        ForEachTask(x =>
+        {
+            x.Trashed = trashed;
+            x.TrashedDate = DateTime.Now.Ticks;
+        },
+        taskList);
+    }
+
+    private void ForEachTask(Action<TaskViewModel> action, IEnumerable<TaskViewModel> taskEnumerable)
+    {
+        foreach (TaskViewModel item in taskEnumerable)
+        {
+            action(item);
         }
 
-        private void ForEachTask(Action<TaskViewModel> action, IEnumerable<TaskViewModel> taskEnumerable)
+        _taskListService.PersistTaskList(taskEnumerable);
+    }
+
+    private void ChangeCategory(CategoryViewModel category)
+    {
+        IoC.UndoManager.ClearHistory();
+        SetActiveCategory(category);
+    }
+
+    /// <summary>
+    /// Sets the current category to the specified one.
+    /// Ensures that always only one IsSelected property is set to true.
+    /// </summary>
+    /// <param name="category"></param>
+    private void SetActiveCategory(CategoryViewModel category)
+    {
+        if (!string.IsNullOrEmpty(category?.Name))
         {
-            foreach (TaskViewModel item in taskEnumerable)
+            if (ActiveCategory != category)
             {
-                action(item);
+                ActiveCategory = category;
+
+                // Notify clients about the category change
+                Mediator.NotifyClients(ViewModelMessages.CategoryChanged);
+                IoC.NoteListService.ActiveNote = null;
             }
 
-            _taskListService.PersistTaskList(taskEnumerable);
-        }
-
-        private void ChangeCategory(CategoryViewModel category)
-        {
-            IoC.UndoManager.ClearHistory();
-            SetActiveCategory(category);
-        }
-
-        /// <summary>
-        /// Sets the current category to the specified one.
-        /// Ensures that always only one IsSelected property is set to true.
-        /// </summary>
-        /// <param name="category"></param>
-        private void SetActiveCategory(CategoryViewModel category)
-        {
-            if (!string.IsNullOrEmpty(category?.Name))
+            if (IoC.AppSettings.AppWindowSettings.CloseSideMenuOnCategoryChange)
             {
-                if (ActiveCategory != category)
-                {
-                    ActiveCategory = category;
+                Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
+            }
 
-                    // Notify clients about the category change
-                    Mediator.NotifyClients(ViewModelMessages.CategoryChanged);
-                    IoC.NoteListService.ActiveNote = null;
-                }
-
-                if (IoC.AppSettings.AppWindowSettings.CloseSideMenuOnCategoryChange)
+            if (category.Id == CommonConstants.RecycleBinCategoryId)
+            {
+                if (_application.MainPage != ApplicationPage.RecycleBin)
                 {
-                    Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
+                    // Change to recycle bin page
+                    _application.MainPage = ApplicationPage.RecycleBin;
                 }
-
-                if (category.Id == CommonConstants.RecycleBinCategoryId)
-                {
-                    if (_application.MainPage != ApplicationPage.RecycleBin)
-                    {
-                        // Change to recycle bin page
-                        _application.MainPage = ApplicationPage.RecycleBin;
-                    }
-                } 
-                else if (_application.MainPage != ApplicationPage.Task)
-                {
-                    // Change to task page if it wasn't active
-                    _application.MainPage = ApplicationPage.Task;
-                }
+            } 
+            else if (_application.MainPage != ApplicationPage.Task)
+            {
+                // Change to task page if it wasn't active
+                _application.MainPage = ApplicationPage.Task;
             }
         }
+    }
 
-        /// <summary>
-        /// Opens the settings page
-        /// </summary>
-        private void OpenSettingsPage()
-        {
-            _application.OpenSettingsPage();
+    /// <summary>
+    /// Opens the settings page
+    /// </summary>
+    private void OpenSettingsPage()
+    {
+        _application.OpenSettingsPage();
 
-            Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
-        }
+        Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
+    }
 
-        /// <summary>
-        /// Opens the note page
-        /// </summary>
-        private void OpenNoteListPage()
-        {
-            _application.SideMenuPage = ApplicationPage.NoteList;
-        }
+    /// <summary>
+    /// Opens the note page
+    /// </summary>
+    private void OpenNoteListPage()
+    {
+        _application.SideMenuPage = ApplicationPage.NoteList;
+    }
 
-        private void OpenRecycleBinPage()
-        {
-            var recycleBinCategory = _context.Categories
-                .First(x => x.Id == CommonConstants.RecycleBinCategoryId)
-                .Map();
+    private void OpenRecycleBinPage()
+    {
+        var recycleBinCategory = _context.Categories
+            .First(x => x.Id == CommonConstants.RecycleBinCategoryId)
+            .Map();
 
-            SetActiveCategory(recycleBinCategory);
-        }
+        SetActiveCategory(recycleBinCategory);
     }
 }

@@ -1,34 +1,33 @@
 ﻿using System.Windows.Input;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+public class SettingsPageViewModel : BaseViewModel
 {
-    public class SettingsPageViewModel : BaseViewModel
+    private readonly AppViewModel _appViewModel;
+
+    public ApplicationPage ActiveSettingsPage { get; set; } = ApplicationPage.AppWindowSettings;
+
+    public ICommand GoBackCommand { get; }
+    public ICommand SwitchToPageCommand { get; }
+
+    public SettingsPageViewModel()
     {
-        private readonly AppViewModel _appViewModel;
+    }
 
-        public ApplicationPage ActiveSettingsPage { get; set; } = ApplicationPage.AppWindowSettings;
+    public SettingsPageViewModel(AppViewModel applicationViewModel)
+    {
+        _appViewModel = applicationViewModel;
+        GoBackCommand = new RelayCommand(() => _appViewModel.UpdateMainPage());
 
-        public ICommand GoBackCommand { get; }
-        public ICommand SwitchToPageCommand { get; }
+        SwitchToPageCommand = new RelayParameterizedCommand<object>(SwitchToPage);
+    }
 
-        public SettingsPageViewModel()
+    private void SwitchToPage(object obj)
+    {
+        if (obj is ApplicationPage page)
         {
-        }
-
-        public SettingsPageViewModel(AppViewModel applicationViewModel)
-        {
-            _appViewModel = applicationViewModel;
-            GoBackCommand = new RelayCommand(() => _appViewModel.UpdateMainPage());
-
-            SwitchToPageCommand = new RelayParameterizedCommand<object>(SwitchToPage);
-        }
-
-        private void SwitchToPage(object obj)
-        {
-            if (obj is ApplicationPage page)
-            {
-                ActiveSettingsPage = page;
-            }
+            ActiveSettingsPage = page;
         }
     }
 }

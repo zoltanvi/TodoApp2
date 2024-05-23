@@ -2,42 +2,41 @@
 using System;
 using System.Media;
 
-namespace TodoApp2.Core
-{
-    public enum EventSounds
-    {
-        MailBeep,
-    }
+namespace TodoApp2.Core;
 
-    public static class WindowsEventSoundPlayer
+public enum EventSounds
+{
+    MailBeep,
+}
+
+public static class WindowsEventSoundPlayer
+{
+    public static void PlayNotificationSound(EventSounds eventSound)
     {
-        public static void PlayNotificationSound(EventSounds eventSound)
+        bool found = false;
+        string registryKey = $@"AppEvents\Schemes\Apps\.Default\{(Enum.GetName(typeof(EventSounds), eventSound))}\.Current";
+        
+        try
         {
-            bool found = false;
-            string registryKey = $@"AppEvents\Schemes\Apps\.Default\{(Enum.GetName(typeof(EventSounds), eventSound))}\.Current";
-            
-            try
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(registryKey))
             {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(registryKey))
+                if (key != null)
                 {
-                    if (key != null)
+                    object o = key.GetValue(null); // pass null to get (Default)
+                    if (o != null)
                     {
-                        object o = key.GetValue(null); // pass null to get (Default)
-                        if (o != null)
-                        {
-                            SoundPlayer theSound = new SoundPlayer((string)o);
-                            theSound.Play();
-                            found = true;
-                        }
+                        SoundPlayer theSound = new SoundPlayer((string)o);
+                        theSound.Play();
+                        found = true;
                     }
                 }
             }
-            catch { }
+        }
+        catch { }
 
-            if (!found)
-            {
-                SystemSounds.Beep.Play();
-            }
+        if (!found)
+        {
+            SystemSounds.Beep.Play();
         }
     }
 }

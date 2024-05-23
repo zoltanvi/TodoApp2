@@ -1,13 +1,12 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+/// <summary>
+/// Provides a way to bind viewmodel action to controls that can be invoked from the controls.
+/// </summary>
+public interface INotifiableObject
 {
     /// <summary>
-    /// Provides a way to bind viewmodel action to controls that can be invoked from the controls.
+    /// The notification callback that is invoked from the control.
     /// </summary>
-    public interface INotifiableObject
-    {
-        /// <summary>
-        /// The notification callback that is invoked from the control.
-        /// </summary>
-        void Notify();
-    }
+    void Notify();
 }

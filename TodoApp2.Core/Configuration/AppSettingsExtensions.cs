@@ -4,139 +4,138 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+public static class AppSettingsExtensions
 {
-    public static class AppSettingsExtensions
+    public static void PopulateAppSettingsFromList(this AppSettings appSettings, List<Setting> settingsList)
     {
-        public static void PopulateAppSettingsFromList(this AppSettings appSettings, List<Setting> settingsList)
+        foreach (var setting in settingsList)
         {
-            foreach (var setting in settingsList)
-            {
-                SetPropertyValue(appSettings, setting.Key, setting.Value);
-            }
+            SetPropertyValue(appSettings, setting.Key, setting.Value);
         }
+    }
 
-        public static List<Setting> CreateListFromAppSettings(this AppSettings appSettings)
+    public static List<Setting> CreateListFromAppSettings(this AppSettings appSettings)
+    {
+        return CreateSettingsList(appSettings, string.Empty);
+    }
+
+    private static List<Setting> CreateSettingsList(object obj, string currentPath)
+    {
+        var settings = new List<Setting>();
+
+        foreach (var prop in obj.GetType().GetProperties())
         {
-            return CreateSettingsList(appSettings, string.Empty);
-        }
-
-        private static List<Setting> CreateSettingsList(object obj, string currentPath)
-        {
-            var settings = new List<Setting>();
-
-            foreach (var prop in obj.GetType().GetProperties())
+            if (prop.CanRead && prop.CanWrite) // Check if the property has both a getter and a setter
             {
-                if (prop.CanRead && prop.CanWrite) // Check if the property has both a getter and a setter
+                var propValue = prop.GetValue(obj);
+
+                if (propValue != null)
                 {
-                    var propValue = prop.GetValue(obj);
+                    string propPath = string.IsNullOrEmpty(currentPath) ? prop.Name : $"{currentPath}.{prop.Name}";
 
-                    if (propValue != null)
+                    if (prop.PropertyType.IsPrimitive || prop.PropertyType == typeof(string) || prop.PropertyType.IsEnum)
                     {
-                        string propPath = string.IsNullOrEmpty(currentPath) ? prop.Name : $"{currentPath}.{prop.Name}";
+                        var isDouble = prop.PropertyType == typeof(double);
+                        
+                        var propValueString = isDouble 
+                            ? ((double)propValue).ToString(CultureInfo.InvariantCulture)  
+                            : propValue.ToString();
 
-                        if (prop.PropertyType.IsPrimitive || prop.PropertyType == typeof(string) || prop.PropertyType.IsEnum)
-                        {
-                            var isDouble = prop.PropertyType == typeof(double);
-                            
-                            var propValueString = isDouble 
-                                ? ((double)propValue).ToString(CultureInfo.InvariantCulture)  
-                                : propValue.ToString();
-
-                            settings.Add(new Setting { Key = propPath, Value = propValueString });
-                        }
-                        else
-                        {
-                            settings.AddRange(CreateSettingsList(propValue, propPath));
-                        }
+                        settings.Add(new Setting { Key = propPath, Value = propValueString });
+                    }
+                    else
+                    {
+                        settings.AddRange(CreateSettingsList(propValue, propPath));
                     }
                 }
             }
-
-            return settings;
         }
 
-        private static void SetPropertyValue(object obj, string path, string value)
+        return settings;
+    }
+
+    private static void SetPropertyValue(object obj, string path, string value)
+    {
+        string[] parts = path.Split('.');
+        object currentObj = obj;
+
+        for (int i = 0; i < parts.Length; i++)
         {
-            string[] parts = path.Split('.');
-            object currentObj = obj;
+            string part = parts[i];
+            PropertyInfo propInfo = currentObj.GetType().GetProperty(part);
 
-            for (int i = 0; i < parts.Length; i++)
+            if (propInfo == null)
             {
-                string part = parts[i];
-                PropertyInfo propInfo = currentObj.GetType().GetProperty(part);
-
-                if (propInfo == null)
-                {
 #if DEBUG
-                    //throw new ArgumentException($"Property '{part}' not found in {currentObj.GetType().Name}");
+                //throw new ArgumentException($"Property '{part}' not found in {currentObj.GetType().Name}");
 #endif
-                    continue;
-                }
+                continue;
+            }
 
-                if (i == parts.Length - 1)
+            if (i == parts.Length - 1)
+            {
+                // Last part of the path - set the value
+                Type propType = propInfo.PropertyType;
+
+                TryConvert(value, propType, out object typedValue);
+
+                //object typedValue = Convert.ChangeType(value, propType);
+                propInfo.SetValue(currentObj, typedValue);
+            }
+            else
+            {
+                // Not the last part - check for null and create an instance if necessary
+                object propValue = propInfo.GetValue(currentObj);
+                if (propValue == null)
                 {
-                    // Last part of the path - set the value
-                    Type propType = propInfo.PropertyType;
-
-                    TryConvert(value, propType, out object typedValue);
-
-                    //object typedValue = Convert.ChangeType(value, propType);
-                    propInfo.SetValue(currentObj, typedValue);
+                    propValue = Activator.CreateInstance(propInfo.PropertyType);
+                    propInfo.SetValue(currentObj, propValue);
                 }
-                else
-                {
-                    // Not the last part - check for null and create an instance if necessary
-                    object propValue = propInfo.GetValue(currentObj);
-                    if (propValue == null)
-                    {
-                        propValue = Activator.CreateInstance(propInfo.PropertyType);
-                        propInfo.SetValue(currentObj, propValue);
-                    }
 
-                    currentObj = propValue;
-                }
+                currentObj = propValue;
             }
         }
+    }
 
-        private static void TryConvert(string value, Type propType, out object result)
+    private static void TryConvert(string value, Type propType, out object result)
+    {
+        result = null;
+
+        if (propType == typeof(string))
         {
-            result = null;
+            result = value;
+        }
+        else if (propType.IsEnum)
+        {
+            object enumValue = Enum.Parse(propType, value);
 
-            if (propType == typeof(string))
+            if (Enum.IsDefined(propType, enumValue))
             {
-                result = value;
-            }
-            else if (propType.IsEnum)
-            {
-                object enumValue = Enum.Parse(propType, value);
-
-                if (Enum.IsDefined(propType, enumValue))
-                {
-                    result = enumValue;
-                }
-                else
-                {
-                    throw new ArgumentException($"Cannot convert unknown datatype. The datatype: [{propType.Name}].");
-                }
-            }
-            else if (propType == typeof(double) &&
-                double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var doubleValue))
-            {
-                result = doubleValue;
-            }
-            else if (propType == typeof(int) && int.TryParse(value, out var intValue))
-            {
-                result = intValue;
-            } 
-            else if(propType == typeof(bool) && bool.TryParse(value, out var boolValue))
-            {
-                result = boolValue;
+                result = enumValue;
             }
             else
             {
                 throw new ArgumentException($"Cannot convert unknown datatype. The datatype: [{propType.Name}].");
             }
+        }
+        else if (propType == typeof(double) &&
+            double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var doubleValue))
+        {
+            result = doubleValue;
+        }
+        else if (propType == typeof(int) && int.TryParse(value, out var intValue))
+        {
+            result = intValue;
+        } 
+        else if(propType == typeof(bool) && bool.TryParse(value, out var boolValue))
+        {
+            result = boolValue;
+        }
+        else
+        {
+            throw new ArgumentException($"Cannot convert unknown datatype. The datatype: [{propType.Name}].");
         }
     }
 }

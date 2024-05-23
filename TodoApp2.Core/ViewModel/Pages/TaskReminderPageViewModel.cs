@@ -1,68 +1,66 @@
 ﻿using System;
 using System.Windows.Input;
-using TodoApp2.Common;
 using TodoApp2.Persistence;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+public class TaskReminderPageViewModel : BaseViewModel
 {
-    public class TaskReminderPageViewModel : BaseViewModel
+    private readonly IAppContext _context;
+
+    /// <summary>
+    /// The task to show the notification for.
+    /// </summary>
+    public TaskViewModel ReminderTask { get; }
+
+    public long ReminderDateTime => ReminderTask?.ReminderDate ?? 0;
+
+    public bool IsReminderOnToggle => ReminderDateTime > 0;
+
+    public bool HasValidReminderTime => ReminderDateTime != 0; 
+
+    public bool IsReminderOn
     {
-        private readonly IAppContext _context;
+        get => ReminderTask.IsReminderOn;
+        set => ReminderTask.IsReminderOn = value;
+    }
 
-        /// <summary>
-        /// The task to show the notification for.
-        /// </summary>
-        public TaskViewModel ReminderTask { get; }
+    public ICommand ClosePageCommand { get; }
+    public ICommand EditReminderCommand { get; }
+    public ICommand ChangeIsReminderOn { get; }
 
-        public long ReminderDateTime => ReminderTask?.ReminderDate ?? 0;
+    public TaskReminderPageViewModel()
+    {
+    }
 
-        public bool IsReminderOnToggle => ReminderDateTime > 0;
+    public TaskReminderPageViewModel(IAppContext context, TaskViewModel reminderTask)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(reminderTask);
+        
+        _context = context;
+        ReminderTask = reminderTask;
 
-        public bool HasValidReminderTime => ReminderDateTime != 0; 
+        EditReminderCommand = new RelayCommand(EditReminder);
+        ClosePageCommand = new RelayCommand(ClosePage);
+        ChangeIsReminderOn = new RelayCommand(ChangeIsOn);
+        IoC.OverlayPageService.SetBackgroundClickedAction(ClosePage);
+    }
 
-        public bool IsReminderOn
-        {
-            get => ReminderTask.IsReminderOn;
-            set => ReminderTask.IsReminderOn = value;
-        }
+    private void ChangeIsOn()
+    {
+        // ReminderTask.IsReminderOn is modified with the toggle button,
+        // so we persist the modification
+        IoC.TaskListService.UpdateTask(ReminderTask);
+    }
 
-        public ICommand ClosePageCommand { get; }
-        public ICommand EditReminderCommand { get; }
-        public ICommand ChangeIsReminderOn { get; }
+    private void EditReminder()
+    {
+        IoC.AppViewModel.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
+    }
 
-        public TaskReminderPageViewModel()
-        {
-        }
-
-        public TaskReminderPageViewModel(IAppContext context, TaskViewModel reminderTask)
-        {
-            ArgumentNullException.ThrowIfNull(context);
-            ArgumentNullException.ThrowIfNull(reminderTask);
-            
-            _context = context;
-            ReminderTask = reminderTask;
-
-            EditReminderCommand = new RelayCommand(EditReminder);
-            ClosePageCommand = new RelayCommand(ClosePage);
-            ChangeIsReminderOn = new RelayCommand(ChangeIsOn);
-            IoC.OverlayPageService.SetBackgroundClickedAction(ClosePage);
-        }
-
-        private void ChangeIsOn()
-        {
-            // ReminderTask.IsReminderOn is modified with the toggle button,
-            // so we persist the modification
-            IoC.TaskListService.UpdateTask(ReminderTask);
-        }
-
-        private void EditReminder()
-        {
-            IoC.AppViewModel.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
-        }
-
-        private void ClosePage()
-        {
-            IoC.OverlayPageService.ClosePage();
-        }
+    private void ClosePage()
+    {
+        IoC.OverlayPageService.ClosePage();
     }
 }

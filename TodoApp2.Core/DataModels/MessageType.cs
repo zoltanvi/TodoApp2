@@ -1,11 +1,10 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public enum MessageType
 {
-    public enum MessageType
-    {
-        Invalid,
-        Info,
-        Warning,
-        Error,
-        Success
-    }
+    Invalid,
+    Info,
+    Warning,
+    Error,
+    Success
 }

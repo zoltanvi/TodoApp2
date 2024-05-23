@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+public class ThemeChangeNotifier
 {
-    public class ThemeChangeNotifier
+    private List<KeyValuePair<IPropertyChangeNotifier, string>> _recipients;
+    public ThemeChangeNotifier()
     {
-        private List<KeyValuePair<IPropertyChangeNotifier, string>> _recipients;
-        public ThemeChangeNotifier()
-        {
-            _recipients = new List<KeyValuePair<IPropertyChangeNotifier, string>>();
-            Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
-        }
+        _recipients = new List<KeyValuePair<IPropertyChangeNotifier, string>>();
+        Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+    }
 
-        public void AddRecipient(IPropertyChangeNotifier recipient, string propertyName)
-        {
-            _recipients.Add(new KeyValuePair<IPropertyChangeNotifier, string>(recipient, propertyName));
-        }
+    public void AddRecipient(IPropertyChangeNotifier recipient, string propertyName)
+    {
+        _recipients.Add(new KeyValuePair<IPropertyChangeNotifier, string>(recipient, propertyName));
+    }
 
-        private void OnThemeChanged(object obj)
+    private void OnThemeChanged(object obj)
+    {
+        foreach (var recipient in _recipients)
         {
-            foreach (var recipient in _recipients)
-            {
-                recipient.Key?.OnPropertyChanged(recipient.Value);
-            }
+            recipient.Key?.OnPropertyChanged(recipient.Value);
         }
     }
 }

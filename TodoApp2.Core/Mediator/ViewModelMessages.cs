@@ -1,58 +1,57 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+/// <summary>
+/// Defines the available message types for the mediator and it's clients
+/// </summary>
+public enum ViewModelMessages
 {
     /// <summary>
-    /// Defines the available message types for the mediator and it's clients
+    /// The selected category changed
     /// </summary>
-    public enum ViewModelMessages
-    {
-        /// <summary>
-        /// The selected category changed
-        /// </summary>
-        CategoryChanged,
+    CategoryChanged,
 
-        /// <summary>
-        /// A category has been deleted
-        /// </summary>
-        CategoryDeleted,
+    /// <summary>
+    /// A category has been deleted
+    /// </summary>
+    CategoryDeleted,
 
-        /// <summary>
-        /// The application should flash (orange in windows taskbar)
-        /// </summary>
-        WindowFlashRequested,
+    /// <summary>
+    /// The application should flash (orange in windows taskbar)
+    /// </summary>
+    WindowFlashRequested,
 
-        /// <summary>
-        /// The opened notification closed
-        /// </summary>
-        NotificationClosed,
+    /// <summary>
+    /// The opened notification closed
+    /// </summary>
+    NotificationClosed,
 
-        /// <summary>
-        /// The Application theme changed
-        /// </summary>
-        ThemeChanged,
+    /// <summary>
+    /// The Application theme changed
+    /// </summary>
+    ThemeChanged,
 
-        /// <summary>
-        /// The selected note changed
-        /// </summary>
-        NoteChanged,
+    /// <summary>
+    /// The selected note changed
+    /// </summary>
+    NoteChanged,
 
-        /// <summary>
-        /// The navigator button (top left on the title bar) has been clicked
-        /// </summary>
-        SideMenuButtonClicked,
+    /// <summary>
+    /// The navigator button (top left on the title bar) has been clicked
+    /// </summary>
+    SideMenuButtonClicked,
 
-        /// <summary>
-        /// Closing of the side menu has been requested
-        /// </summary>
-        SideMenuCloseRequested,
+    /// <summary>
+    /// Closing of the side menu has been requested
+    /// </summary>
+    SideMenuCloseRequested,
 
-        /// <summary>
-        /// Ctrl + Shift + L has been pressed in a RichTextBox
-        /// </summary>
-        NextThemeWithHotkeyRequested,
+    /// <summary>
+    /// Ctrl + Shift + L has been pressed in a RichTextBox
+    /// </summary>
+    NextThemeWithHotkeyRequested,
 
-        /// <summary>
-        /// Task page's bottom text editor should be focused
-        /// </summary>
-        FocusBottomTextEditor,
-    }
+    /// <summary>
+    /// Task page's bottom text editor should be focused
+    /// </summary>
+    FocusBottomTextEditor,
 }

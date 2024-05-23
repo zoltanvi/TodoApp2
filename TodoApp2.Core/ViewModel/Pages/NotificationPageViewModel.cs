@@ -2,48 +2,47 @@
 using System.Windows.Input;
 using TodoApp2.Common;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+public class NotificationPageViewModel : BaseViewModel
 {
-    public class NotificationPageViewModel : BaseViewModel
+    private bool _closed;
+
+    /// <summary>
+    /// The task to show the notification for.
+    /// </summary>
+    public TaskViewModel NotificationTask { get; }
+
+    /// <summary>
+    /// Closes the notification page
+    /// </summary>
+    public ICommand CloseNotificationCommand { get; }
+
+    public NotificationPageViewModel()
     {
-        private bool _closed;
+    }
 
-        /// <summary>
-        /// The task to show the notification for.
-        /// </summary>
-        public TaskViewModel NotificationTask { get; }
+    public NotificationPageViewModel(TaskViewModel notificationTask)
+    {
+        ArgumentNullException.ThrowIfNull(notificationTask);
 
-        /// <summary>
-        /// Closes the notification page
-        /// </summary>
-        public ICommand CloseNotificationCommand { get; }
+        NotificationTask = notificationTask;
 
-        public NotificationPageViewModel()
+        CloseNotificationCommand = new RelayCommand(CloseNotification);
+        
+        // Commented out: The user cannot accidentaly close the notification
+        //_overlayPageService.SetBackgroundClickedAction(CloseNotification);
+    }
+
+    private void CloseNotification()
+    {
+        if (!_closed)
         {
-        }
+            _closed = true;
 
-        public NotificationPageViewModel(TaskViewModel notificationTask)
-        {
-            ArgumentNullException.ThrowIfNull(notificationTask);
+            IoC.OverlayPageService.ClosePage();
 
-            NotificationTask = notificationTask;
-
-            CloseNotificationCommand = new RelayCommand(CloseNotification);
-            
-            // Commented out: The user cannot accidentaly close the notification
-            //_overlayPageService.SetBackgroundClickedAction(CloseNotification);
-        }
-
-        private void CloseNotification()
-        {
-            if (!_closed)
-            {
-                _closed = true;
-
-                IoC.OverlayPageService.ClosePage();
-
-                Mediator.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
-            }
+            Mediator.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
         }
     }
 }

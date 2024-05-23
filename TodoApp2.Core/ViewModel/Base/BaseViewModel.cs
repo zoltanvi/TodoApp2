@@ -1,35 +1,33 @@
-﻿using System;
+﻿using PropertyChanged;
 using System.ComponentModel;
-using PropertyChanged;
 
-namespace TodoApp2.Core
+namespace TodoApp2.Core;
+
+/// <summary>
+/// A base view model that fires Property Changed events as needed
+/// </summary>
+[AddINotifyPropertyChangedInterface]
+public abstract class BaseViewModel : IBaseViewModel
 {
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public UIScaler UIScaler { get; } = UIScaler.Instance;
+
     /// <summary>
-    /// A base view model that fires Property Changed events as needed
+    /// Call this to fire a <see cref="PropertyChanged"/> event
     /// </summary>
-    [AddINotifyPropertyChangedInterface]
-    public abstract class BaseViewModel : IBaseViewModel
+    /// <param name="name"></param>
+    public void OnPropertyChanged(string name)
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
 
-        public UIScaler UIScaler { get; } = UIScaler.Instance;
+    public void Dispose()
+    {
+        OnDispose();
+    }
 
-        /// <summary>
-        /// Call this to fire a <see cref="PropertyChanged"/> event
-        /// </summary>
-        /// <param name="name"></param>
-        public void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        public void Dispose()
-        {
-            OnDispose();
-        }
-
-        protected virtual void OnDispose()
-        {
-        }
+    protected virtual void OnDispose()
+    {
     }
 }

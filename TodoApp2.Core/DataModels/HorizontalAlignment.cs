@@ -1,9 +1,8 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public enum HorizontalAlignment
 {
-    public enum HorizontalAlignment
-    {
-        Left,
-        Center,
-        Right
-    }
+    Left,
+    Center,
+    Right
 }

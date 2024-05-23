@@ -1,9 +1,8 @@
-﻿namespace TodoApp2
-{
-    internal class BoolNegatedConverter: BaseBoolValueConverter<bool>
-    {
-        protected override bool PositiveValue { get; } = false;
+﻿namespace TodoApp2;
 
-        protected override bool NegativeValue { get; } = true;
-    }
+internal class BoolNegatedConverter: BaseBoolValueConverter<bool>
+{
+    protected override bool PositiveValue { get; } = false;
+
+    protected override bool NegativeValue { get; } = true;
 }

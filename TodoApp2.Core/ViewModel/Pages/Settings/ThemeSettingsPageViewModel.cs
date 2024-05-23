@@ -1,6 +1,5 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public class ThemeSettingsPageViewModel : BaseViewModel
 {
-    public class ThemeSettingsPageViewModel : BaseViewModel
-    {
-    }
 }

@@ -2,39 +2,38 @@
 using System.Globalization;
 using System.Windows.Media;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+public class DebugConverter : BaseValueConverter
 {
-    public class DebugConverter : BaseValueConverter
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            // This converter is only used for debugging
-            return value;
-            //return (Color)ColorConverter.ConvertFromString((string)value);
-        }
-
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-
-            //if (value is Color color)
-            //{
-            //    return color.ToString();
-            //}
-
-            //return value;
-        }
+        // This converter is only used for debugging
+        return value;
+        //return (Color)ColorConverter.ConvertFromString((string)value);
     }
 
-    public class DebugMultiConverter : BaseMultiValueConverter<DebugMultiConverter>
+    public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            int valueCount = values.Length;
+        return value;
 
-            string stringValues = string.Join(", ", values);
+        //if (value is Color color)
+        //{
+        //    return color.ToString();
+        //}
 
-            return values[4];
-        }
+        //return value;
+    }
+}
+
+public class DebugMultiConverter : BaseMultiValueConverter<DebugMultiConverter>
+{
+    public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        int valueCount = values.Length;
+
+        string stringValues = string.Join(", ", values);
+
+        return values[4];
     }
 }

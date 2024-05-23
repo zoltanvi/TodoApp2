@@ -1,13 +1,12 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public enum TaskSpacing
 {
-    public enum TaskSpacing
-    {
-        Compact,
+    Compact,
 
-        Normal,
+    Normal,
 
-        Comfortable,
+    Comfortable,
 
-        Spacious
-    }
+    Spacious
 }

@@ -1,16 +1,15 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public class ShortcutsPageViewModel : BaseViewModel
 {
-    public class ShortcutsPageViewModel : BaseViewModel
+    private readonly AppViewModel _appViewModel;
+
+    public ShortcutsPageViewModel()
     {
-        private readonly AppViewModel _appViewModel;
+    }
 
-        public ShortcutsPageViewModel()
-        {
-        }
-
-        public ShortcutsPageViewModel(AppViewModel applicationViewModel)
-        {
-            _appViewModel = applicationViewModel;
-        }
+    public ShortcutsPageViewModel(AppViewModel applicationViewModel)
+    {
+        _appViewModel = applicationViewModel;
     }
 }

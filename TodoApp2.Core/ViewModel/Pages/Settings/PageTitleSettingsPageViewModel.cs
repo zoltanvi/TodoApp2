@@ -1,9 +1,8 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public class PageTitleSettingsPageViewModel : BaseViewModel
 {
-    public class PageTitleSettingsPageViewModel : BaseViewModel
+    public PageTitleSettingsPageViewModel()
     {
-        public PageTitleSettingsPageViewModel()
-        {
-        }
     }
 }

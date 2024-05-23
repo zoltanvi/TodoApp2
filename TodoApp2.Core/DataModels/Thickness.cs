@@ -1,17 +1,16 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public enum Thickness
 {
-    public enum Thickness
-    {
-        VeryThin,
+    VeryThin,
 
-        Thin,
+    Thin,
 
-        Medium,
+    Medium,
 
-        Thick,
+    Thick,
 
-        ExtraThick,
+    ExtraThick,
 
-        ExtremelyThick
-    }
+    ExtremelyThick
 }

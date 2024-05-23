@@ -1,9 +1,8 @@
-﻿namespace TodoApp2.Core
+﻿namespace TodoApp2.Core;
+
+public class TaskQuickActionsSettingsPageViewModel : BaseViewModel
 {
-    public class TaskQuickActionsSettingsPageViewModel : BaseViewModel
+    public TaskQuickActionsSettingsPageViewModel()
     {
-        public TaskQuickActionsSettingsPageViewModel()
-        {
-        }
     }
 }

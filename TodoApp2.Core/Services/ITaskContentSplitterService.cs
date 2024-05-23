@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace TodoApp2.Core.Services
+namespace TodoApp2.Core.Services;
+
+public interface ITaskContentSplitterService
 {
-    public interface ITaskContentSplitterService
-    {
-        List<string> SplitTaskContent(string content);
-    }
+    List<string> SplitTaskContent(string content);
 }

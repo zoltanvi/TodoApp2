@@ -2,17 +2,16 @@
 using System.Globalization;
 using TodoApp2.Core;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+/// <summary>
+/// A helper to scale the font sizes with the scale value.
+/// </summary>
+public class FontSizeScaler : BaseValueConverter
 {
-    /// <summary>
-    /// A helper to scale the font sizes with the scale value.
-    /// </summary>
-    public class FontSizeScaler : BaseValueConverter
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            double val = ((double)value) * UIScaler.StaticScaleValue;
-            return val;
-        }
+        double val = ((double)value) * UIScaler.StaticScaleValue;
+        return val;
     }
 }
