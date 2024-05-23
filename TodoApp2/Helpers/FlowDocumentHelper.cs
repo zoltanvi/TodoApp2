@@ -5,144 +5,143 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Xml;
 
-namespace TodoApp2.Helpers
+namespace TodoApp2.Helpers;
+
+/// <summary>
+/// Helper class for <see cref="FlowDocument"/> serialization and deserialization into and from XML.
+/// </summary>
+public static class FlowDocumentHelper
 {
-    /// <summary>
-    /// Helper class for <see cref="FlowDocument"/> serialization and deserialization into and from XML.
-    /// </summary>
-    public static class FlowDocumentHelper
+    public static string EmptySerializedDocument { get; } = XamlWriter.Save(new FlowDocument());
+    public static IEnumerable<Block> EmptyFlowDocumentBlocks { get; } = new FlowDocument().Blocks;
+
+    public static string SerializeDocument(FlowDocument document)
     {
-        public static string EmptySerializedDocument { get; } = XamlWriter.Save(new FlowDocument());
-        public static IEnumerable<Block> EmptyFlowDocumentBlocks { get; } = new FlowDocument().Blocks;
+        int index = 0;
+        List<string> documentItems = GetDocumentItems(document);
+        string fixedResult = EmptySerializedDocument;
 
-        public static string SerializeDocument(FlowDocument document)
+        if (documentItems.Count > 0)
         {
-            int index = 0;
-            List<string> documentItems = GetDocumentItems(document);
-            string fixedResult = EmptySerializedDocument;
+            string result = XamlWriter.Save(document);
 
-            if (documentItems.Count > 0)
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(result);
+
+            foreach (XmlElement xmlElement in xmlDoc.DocumentElement.ChildNodes)
             {
-                string result = XamlWriter.Save(document);
-
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(result);
-
-                foreach (XmlElement xmlElement in xmlDoc.DocumentElement.ChildNodes)
+                if (xmlElement != null)
                 {
-                    if (xmlElement != null)
+                    foreach (XmlNode xmlNode in xmlElement)
                     {
-                        foreach (XmlNode xmlNode in xmlElement)
+                        if (IsValidNode(xmlNode))
                         {
-                            if (IsValidNode(xmlNode))
-                            {
-                                string item = documentItems[index++];
+                            string item = documentItems[index++];
 
-                                // Fix the serialization bug that comes from XamlWriter.Save()
-                                if (xmlNode.InnerText != item)
-                                {
-                                    xmlNode.InnerText = item;
-                                }
+                            // Fix the serialization bug that comes from XamlWriter.Save()
+                            if (xmlNode.InnerText != item)
+                            {
+                                xmlNode.InnerText = item;
                             }
                         }
                     }
                 }
-
-                fixedResult = xmlDoc.OuterXml;
             }
 
-            return fixedResult;
+            fixedResult = xmlDoc.OuterXml;
         }
 
-        public static FlowDocument DeserializeDocument(string xml)
+        return fixedResult;
+    }
+
+    public static FlowDocument DeserializeDocument(string xml)
+    {
+        FlowDocument document = null;
+        using (XmlReader xmlReader = XmlReader.Create(new StringReader(xml)))
         {
-            FlowDocument document = null;
-            using (XmlReader xmlReader = XmlReader.Create(new StringReader(xml)))
+            if (XamlReader.Load(xmlReader) is FlowDocument flowDocument)
             {
-                if (XamlReader.Load(xmlReader) is FlowDocument flowDocument)
-                {
-                    document = flowDocument;
-                }
+                document = flowDocument;
             }
-            return document;
         }
+        return document;
+    }
 
-        public static List<string> GetDocumentItems(FlowDocument document)
+    public static List<string> GetDocumentItems(FlowDocument document)
+    {
+        List<string> documentItems = new List<string>();
+
+        foreach (Block block in document.Blocks)
         {
-            List<string> documentItems = new List<string>();
-
-            foreach (Block block in document.Blocks)
+            if (block is Paragraph paragraph)
             {
-                if (block is Paragraph paragraph)
-                {
-                    AddInlines(documentItems, paragraph);
-                } 
-                else if(block is System.Windows.Documents.List list)
-                {
-                    AddListItems(documentItems, list);
-                }
+                AddInlines(documentItems, paragraph);
+            } 
+            else if(block is System.Windows.Documents.List list)
+            {
+                AddListItems(documentItems, list);
             }
-
-            return documentItems;
         }
 
-        private static void AddListItems(List<string> documentItems, System.Windows.Documents.List list)
+        return documentItems;
+    }
+
+    private static void AddListItems(List<string> documentItems, System.Windows.Documents.List list)
+    {
+        foreach (ListItem listItem in list.ListItems)
         {
-            foreach (ListItem listItem in list.ListItems)
-            {
-                AddListItem(documentItems, listItem);
-            }
+            AddListItem(documentItems, listItem);
         }
+    }
 
-        private static void AddListItem(List<string> documentItems, ListItem listItem)
+    private static void AddListItem(List<string> documentItems, ListItem listItem)
+    {
+        foreach (Block block in listItem.Blocks)
         {
-            foreach (Block block in listItem.Blocks)
+            if (block is Paragraph paragraph)
             {
-                if (block is Paragraph paragraph)
-                {
-                    AddInlines(documentItems, paragraph);
-                }
-                else if (block is System.Windows.Documents.List list)
-                {
-                    AddListItems(documentItems, list);
-                }
+                AddInlines(documentItems, paragraph);
+            }
+            else if (block is System.Windows.Documents.List list)
+            {
+                AddListItems(documentItems, list);
             }
         }
+    }
 
-        private static void AddInlines(List<string> documentItems, Paragraph paragraph)
+    private static void AddInlines(List<string> documentItems, Paragraph paragraph)
+    {
+        foreach (Inline inline in paragraph.Inlines)
         {
-            foreach (Inline inline in paragraph.Inlines)
-            {
-                AddInline(documentItems, inline);
-            }
+            AddInline(documentItems, inline);
         }
+    }
 
-        private static void AddInlines(List<string> documentItems, Span span)
+    private static void AddInlines(List<string> documentItems, Span span)
+    {
+        foreach (Inline inline in span.Inlines)
         {
-            foreach (Inline inline in span.Inlines)
-            {
-                AddInline(documentItems, inline);
-            }
+            AddInline(documentItems, inline);
         }
+    }
 
-        private static void AddInline(List<string> documentItems, Inline inline)
+    private static void AddInline(List<string> documentItems, Inline inline)
+    {
+        if (inline is Run run && !string.IsNullOrEmpty(run.Text))
         {
-            if (inline is Run run && !string.IsNullOrEmpty(run.Text))
-            {
-                documentItems.Add(run.Text);
-            }
-            else if (inline is Span span)
-            {
-                AddInlines(documentItems, span);
-            }
+            documentItems.Add(run.Text);
         }
+        else if (inline is Span span)
+        {
+            AddInlines(documentItems, span);
+        }
+    }
 
-        private static bool IsValidNode(XmlNode xmlNode)
-        {
-            return !string.IsNullOrEmpty(xmlNode.InnerText) &&
-                   (xmlNode.Name == "Run" ||
-                   xmlNode.Name == "Span" ||
-                   xmlNode.Name == "#text");
-        }
+    private static bool IsValidNode(XmlNode xmlNode)
+    {
+        return !string.IsNullOrEmpty(xmlNode.InnerText) &&
+               (xmlNode.Name == "Run" ||
+               xmlNode.Name == "Span" ||
+               xmlNode.Name == "#text");
     }
 }

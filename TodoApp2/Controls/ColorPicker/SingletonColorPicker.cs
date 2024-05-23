@@ -2,67 +2,67 @@
 using System.Windows;
 using System.Windows.Controls;
 using TodoApp2.Core;
+using TodoApp2.Services;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+public class SingletonColorPicker : Button
 {
-    public class SingletonColorPicker : Button
+    public static readonly DependencyProperty SelectedColorStringProperty = DependencyProperty.Register(nameof(SelectedColorString), typeof(string), typeof(SingletonColorPicker), new PropertyMetadata());
+    public static readonly DependencyProperty ColorChangedNotificationProperty = DependencyProperty.Register(nameof(ColorChangedNotification), typeof(INotifiableObject), typeof(SingletonColorPicker));
+
+    private SingletonPopup _popup;
+
+    public string SelectedColorString
     {
-        public static readonly DependencyProperty SelectedColorStringProperty = DependencyProperty.Register(nameof(SelectedColorString), typeof(string), typeof(SingletonColorPicker), new PropertyMetadata());
-        public static readonly DependencyProperty ColorChangedNotificationProperty = DependencyProperty.Register(nameof(ColorChangedNotification), typeof(INotifiableObject), typeof(SingletonColorPicker));
+        get => (string)GetValue(SelectedColorStringProperty);
+        set => SetValue(SelectedColorStringProperty, value);
+    }
 
-        private SingletonPopup _popup;
+    public INotifiableObject ColorChangedNotification
+    {
+        get { return (INotifiableObject)GetValue(ColorChangedNotificationProperty); }
+        set { SetValue(ColorChangedNotificationProperty, value); }
+    }
 
-        public string SelectedColorString
+    protected override void OnClick()
+    {
+        base.OnClick();
+
+        if (_popup == null)
         {
-            get => (string)GetValue(SelectedColorStringProperty);
-            set => SetValue(SelectedColorStringProperty, value);
+            _popup = PopupService.Popup;
         }
 
-        public INotifiableObject ColorChangedNotification
-        {
-            get { return (INotifiableObject)GetValue(ColorChangedNotificationProperty); }
-            set { SetValue(ColorChangedNotificationProperty, value); }
-        }
+        _popup.IsOpen = false;
 
-        protected override void OnClick()
-        {
-            base.OnClick();
+        // First register to clear previous registration if there is any
+        _popup.RegisterSelectedColorChangeEvent(OnPopupSelectedColorChanged);
+        _popup.SelectedColor = SelectedColorString;
 
-            if (_popup == null)
-            {
-                _popup = PopupService.Popup;
-            }
+        _popup.Closed += OnPopupClosed;
+        _popup.LostFocus += OnPopupLostFocus;
 
-            _popup.IsOpen = false;
+        _popup.PlacementTarget = this;
+        _popup.IsOpen = true;
+    }
 
-            // First register to clear previous registration if there is any
-            _popup.RegisterSelectedColorChangeEvent(OnPopupSelectedColorChanged);
-            _popup.SelectedColor = SelectedColorString;
+    private void OnPopupLostFocus(object sender, RoutedEventArgs e)
+    {
+        OnPopupClosed(sender, EventArgs.Empty);
+        _popup.LostFocus -= OnPopupLostFocus;
+    }
 
-            _popup.Closed += OnPopupClosed;
-            _popup.LostFocus += OnPopupLostFocus;
+    private void OnPopupSelectedColorChanged()
+    {
+        SelectedColorString = _popup.SelectedColor;
+        _popup.IsOpen = false;
+    }
 
-            _popup.PlacementTarget = this;
-            _popup.IsOpen = true;
-        }
-
-        private void OnPopupLostFocus(object sender, RoutedEventArgs e)
-        {
-            OnPopupClosed(sender, EventArgs.Empty);
-            _popup.LostFocus -= OnPopupLostFocus;
-        }
-
-        private void OnPopupSelectedColorChanged()
-        {
-            SelectedColorString = _popup.SelectedColor;
-            _popup.IsOpen = false;
-        }
-
-        private void OnPopupClosed(object sender, EventArgs e)
-        {
-            IsEnabled = true;
-            _popup.Closed -= OnPopupClosed;
-            ColorChangedNotification?.Notify();
-        }
+    private void OnPopupClosed(object sender, EventArgs e)
+    {
+        IsEnabled = true;
+        _popup.Closed -= OnPopupClosed;
+        ColorChangedNotification?.Notify();
     }
 }

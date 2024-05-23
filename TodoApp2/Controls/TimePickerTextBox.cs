@@ -2,46 +2,45 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+internal class TimePickerTextBox : ClickSelectTextBox
 {
-    internal class TimePickerTextBox : ClickSelectTextBox
+    private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+
+    public TimePickerTextBox()
     {
-        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        DataObject.AddPastingHandler(this, TextBoxPasting);
+    }
 
-        public TimePickerTextBox()
+    protected override void OnPreviewTextInput(TextCompositionEventArgs e)
+    {
+        if (!IsTextAllowed(e.Text))
         {
-            DataObject.AddPastingHandler(this, TextBoxPasting);
+            e.Handled = true;
         }
 
-        protected override void OnPreviewTextInput(TextCompositionEventArgs e)
-        {
-            if (!IsTextAllowed(e.Text))
-            {
-                e.Handled = true;
-            }
+        base.OnPreviewTextInput(e);
+    }
 
-            base.OnPreviewTextInput(e);
-        }
-
-        private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
+    private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
+    {
+        if (e.DataObject.GetDataPresent(typeof(string)))
         {
-            if (e.DataObject.GetDataPresent(typeof(string)))
-            {
-                string text = (string)e.DataObject.GetData(typeof(string));
-                if (!IsTextAllowed(text))
-                {
-                    e.CancelCommand();
-                }
-            }
-            else
+            string text = (string)e.DataObject.GetData(typeof(string));
+            if (!IsTextAllowed(text))
             {
                 e.CancelCommand();
             }
         }
-
-        private static bool IsTextAllowed(string text)
+        else
         {
-            return !_regex.IsMatch(text);
+            e.CancelCommand();
         }
+    }
+
+    private static bool IsTextAllowed(string text)
+    {
+        return !_regex.IsMatch(text);
     }
 }

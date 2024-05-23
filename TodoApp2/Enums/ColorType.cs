@@ -1,9 +1,8 @@
-﻿namespace TodoApp2
+﻿namespace TodoApp2;
+
+public enum ColorType
 {
-    public enum ColorType
-    {
-        Foreground,
-        Background,
-        Border
-    }
+    Foreground,
+    Background,
+    Border
 }

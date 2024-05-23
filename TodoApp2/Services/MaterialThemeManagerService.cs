@@ -5,59 +5,58 @@ using System.Windows.Media;
 using TodoApp2.Core;
 using TodoApp2.Material;
 
-namespace TodoApp2
+namespace TodoApp2.Services;
+
+public class MaterialThemeManagerService : IThemeManagerService
 {
-    public class MaterialThemeManagerService : IThemeManagerService
+    private static IThemeManagerService _instance;
+    private AppSettings _appSettings;
+
+    private ThemeSettings ThemeSettings => _appSettings.ThemeSettings;
+    private uint SeedColor { get; set; }
+    public Scheme<string> CurrentScheme { get; set; }
+
+    public MaterialThemeManagerService(AppSettings appSettings)
     {
-        private static IThemeManagerService _instance;
-        private AppSettings _appSettings;
+        _appSettings = appSettings;
+        _appSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
 
-        private ThemeSettings ThemeSettings => _appSettings.ThemeSettings;
-        private uint SeedColor { get; set; }
-        public Scheme<string> CurrentScheme { get; set; }
+        UpdateTheme();
+    }
 
-        public MaterialThemeManagerService(AppSettings appSettings)
+    private void ThemeSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        UpdateTheme();
+    }
+
+    private void UpdateTheme()
+    {
+        SeedColor = MaterialColorHelper.HexToDecimal(ThemeSettings.SeedColor);
+        var corePalette = CorePalette.Of(SeedColor, ThemeSettings.ThemeStyle);
+
+        if (ThemeSettings.DarkMode)
         {
-            _appSettings = appSettings;
-            _appSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
-            
-            UpdateTheme();
+            Scheme<uint> darkScheme = new DarkSchemeMapper().Map(corePalette);
+            CurrentScheme = darkScheme.Convert(x => MaterialColorHelper.DecimalToHex(x));
+        }
+        else
+        {
+            Scheme<uint> lightScheme = new LightSchemeMapper().Map(corePalette);
+            CurrentScheme = lightScheme.Convert(x => MaterialColorHelper.DecimalToHex(x));
         }
 
-        private void ThemeSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        UpdateResources();
+    }
+
+    private void UpdateResources()
+    {
+        ResourceDictionary currentResources = Application.Current.Resources;
+
+        foreach (KeyValuePair<string, string> item in CurrentScheme.Enumerate())
         {
-            UpdateTheme();
-        }
-
-        private void UpdateTheme()
-        {
-            SeedColor = MaterialColorHelper.HexToDecimal(ThemeSettings.SeedColor);
-            CorePalette corePalette = CorePalette.Of(SeedColor, ThemeSettings.ThemeStyle);
-
-            if (ThemeSettings.DarkMode)
+            if (currentResources.Contains(item.Key))
             {
-                Scheme<uint> darkScheme = new DarkSchemeMapper().Map(corePalette);
-                CurrentScheme = darkScheme.Convert(x => MaterialColorHelper.DecimalToHex(x));
-            }
-            else
-            {
-                Scheme<uint> lightScheme = new LightSchemeMapper().Map(corePalette);
-                CurrentScheme = lightScheme.Convert(x => MaterialColorHelper.DecimalToHex(x));
-            }
-
-            UpdateResources();
-        }
-
-        private void UpdateResources()
-        {
-            ResourceDictionary currentResources = Application.Current.Resources;
-
-            foreach (KeyValuePair<string, string> item in CurrentScheme.Enumerate())
-            {
-                if (currentResources.Contains(item.Key))
-                {
-                    currentResources[item.Key] = new SolidColorBrush(MaterialColorHelper.HexToColor(item.Value));
-                }
+                currentResources[item.Key] = new SolidColorBrush(MaterialColorHelper.HexToColor(item.Value));
             }
         }
     }

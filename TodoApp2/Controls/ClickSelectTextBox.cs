@@ -3,48 +3,47 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+public class ClickSelectTextBox : TextBox
 {
-    public class ClickSelectTextBox : TextBox
+    public ClickSelectTextBox()
     {
-        public ClickSelectTextBox()
+        AddHandler(PreviewMouseLeftButtonDownEvent,
+          new MouseButtonEventHandler(SelectivelyIgnoreMouseButton), true);
+        AddHandler(GotKeyboardFocusEvent,
+          new RoutedEventHandler(SelectAllText), true);
+        AddHandler(MouseDoubleClickEvent,
+          new RoutedEventHandler(SelectAllText), true);
+    }
+
+    private static void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+    {
+        // Find the TextBox
+        DependencyObject parent = e.OriginalSource as UIElement;
+        while (parent != null && !(parent is TextBox))
         {
-            AddHandler(PreviewMouseLeftButtonDownEvent,
-              new MouseButtonEventHandler(SelectivelyIgnoreMouseButton), true);
-            AddHandler(GotKeyboardFocusEvent,
-              new RoutedEventHandler(SelectAllText), true);
-            AddHandler(MouseDoubleClickEvent,
-              new RoutedEventHandler(SelectAllText), true);
+            parent = VisualTreeHelper.GetParent(parent);
         }
 
-        private static void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+        if (parent != null)
         {
-            // Find the TextBox
-            DependencyObject parent = e.OriginalSource as UIElement;
-            while (parent != null && !(parent is TextBox))
+            var textBox = (TextBox)parent;
+            if (!textBox.IsKeyboardFocusWithin)
             {
-                parent = VisualTreeHelper.GetParent(parent);
-            }
-
-            if (parent != null)
-            {
-                var textBox = (TextBox)parent;
-                if (!textBox.IsKeyboardFocusWithin)
-                {
-                    // If the text box is not yet focussed, give it the focus and
-                    // stop further processing of this click event.
-                    textBox.Focus();
-                    e.Handled = true;
-                }
+                // If the text box is not yet focussed, give it the focus and
+                // stop further processing of this click event.
+                textBox.Focus();
+                e.Handled = true;
             }
         }
+    }
 
-        private static void SelectAllText(object sender, RoutedEventArgs e)
+    private static void SelectAllText(object sender, RoutedEventArgs e)
+    {
+        if (e.OriginalSource is TextBox textBox)
         {
-            if (e.OriginalSource is TextBox textBox)
-            {
-                textBox.SelectAll();
-            }
+            textBox.SelectAll();
         }
     }
 }

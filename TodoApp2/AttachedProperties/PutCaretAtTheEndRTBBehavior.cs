@@ -2,37 +2,36 @@
 using System.Windows.Controls;
 using Microsoft.Xaml.Behaviors;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+internal class PutCaretAtTheEndRTBBehavior : Behavior<UIElement>
 {
-    internal class PutCaretAtTheEndRTBBehavior : Behavior<UIElement>
+    private RichTextBox _richTextBox;
+
+    protected override void OnAttached()
     {
-        private RichTextBox _richTextBox;
+        base.OnAttached();
 
-        protected override void OnAttached()
+
+        if (AssociatedObject is RichTextBox richTextBox)
         {
-            base.OnAttached();
+            _richTextBox = richTextBox;
+            _richTextBox.GotFocus += RichTextBox_GotFocus;
+        }
+    }
 
-
-            if (AssociatedObject is RichTextBox richTextBox)
-            {
-                _richTextBox = richTextBox;
-                _richTextBox.GotFocus += RichTextBox_GotFocus;
-            }
+    protected override void OnDetaching()
+    {
+        if (_richTextBox != null)
+        {
+            _richTextBox.GotFocus -= RichTextBox_GotFocus;
         }
 
-        protected override void OnDetaching()
-        {
-            if (_richTextBox != null)
-            {
-                _richTextBox.GotFocus -= RichTextBox_GotFocus;
-            }
+        base.OnDetaching();
+    }
 
-            base.OnDetaching();
-        }
-
-        private void RichTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            _richTextBox.CaretPosition = _richTextBox.Document.ContentEnd;
-        }
+    private void RichTextBox_GotFocus(object sender, RoutedEventArgs e)
+    {
+        _richTextBox.CaretPosition = _richTextBox.Document.ContentEnd;
     }
 }

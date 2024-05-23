@@ -6,7 +6,7 @@ using TodoApp2.Services.Window;
 
 namespace TodoApp2;
 
-internal class TrayIconModule : IDisposable
+public sealed class TrayIconModule : IDisposable
 {
     private IWindowService _windowService;
     private NotifyIcon _notifyIcon;

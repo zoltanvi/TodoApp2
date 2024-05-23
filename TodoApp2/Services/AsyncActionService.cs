@@ -4,33 +4,32 @@ using System.Windows;
 using System.Windows.Threading;
 using TodoApp2.Core;
 
-namespace TodoApp2
+namespace TodoApp2.Services;
+
+public class AsyncActionService : IAsyncActionService
 {
-    public class AsyncActionService : IAsyncActionService
+    private static IAsyncActionService _instance;
+    private static List<DispatcherOperation> _operations = new List<DispatcherOperation>();
+
+    public static IAsyncActionService Instance => _instance ?? (_instance = new AsyncActionService());
+
+    private AsyncActionService() { }
+
+
+    public void InvokeAsync(Action action)
     {
-        private static IAsyncActionService _instance;
-        private static List<DispatcherOperation> _operations = new List<DispatcherOperation>();
+        DispatcherOperation currentOperation = Application.Current.Dispatcher.BeginInvoke(action, DispatcherPriority.Background);
 
-        public static IAsyncActionService Instance => _instance ?? (_instance = new AsyncActionService());
+        _operations.Add(currentOperation);
+    }
 
-        private AsyncActionService() { }
-
-
-        public void InvokeAsync(Action action)
+    public void AbortRunningActions()
+    {
+        foreach (DispatcherOperation operation in _operations)
         {
-            DispatcherOperation currentOperation = Application.Current.Dispatcher.BeginInvoke(action, DispatcherPriority.Background);
-
-            _operations.Add(currentOperation);
+            operation.Abort();
         }
 
-        public void AbortRunningActions()
-        {
-            foreach (DispatcherOperation operation in _operations)
-            {
-                operation.Abort();
-            }
-
-            _operations.Clear();
-        }
+        _operations.Clear();
     }
 }

@@ -1,23 +1,22 @@
-﻿namespace TodoApp2
+﻿namespace TodoApp2;
+
+/// <summary>
+/// Styles of page animations for appearing/disappearing
+/// </summary>
+public enum PageAnimation
 {
     /// <summary>
-    /// Styles of page animations for appearing/disappearing
+    /// No animation takes place
     /// </summary>
-    public enum PageAnimation
-    {
-        /// <summary>
-        /// No animation takes place
-        /// </summary>
-        None,
+    None,
 
-        /// <summary>
-        /// The page fades in
-        /// </summary>
-        FadeIn,
+    /// <summary>
+    /// The page fades in
+    /// </summary>
+    FadeIn,
 
-        /// <summary>
-        /// The page fades out
-        /// </summary>
-        FadeOut,
-    }
+    /// <summary>
+    /// The page fades out
+    /// </summary>
+    FadeOut,
 }

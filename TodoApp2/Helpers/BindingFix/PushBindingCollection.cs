@@ -2,33 +2,32 @@
 using System.Windows;
 using PropertyChanged;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+/// <summary>
+/// Helper class to solve a WPF bug: bind to a read-only dependency property
+/// </summary>
+[DoNotNotify]
+public class PushBindingCollection : FreezableCollection<PushBinding>
 {
-    /// <summary>
-    /// Helper class to solve a WPF bug: bind to a read-only dependency property
-    /// </summary>
-    [DoNotNotify]
-    public class PushBindingCollection : FreezableCollection<PushBinding>
+    public PushBindingCollection() { }
+
+    public PushBindingCollection(DependencyObject targetObject)
     {
-        public PushBindingCollection() { }
+        TargetObject = targetObject;
+        ((INotifyCollectionChanged)this).CollectionChanged += CollectionChanged;
+    }
 
-        public PushBindingCollection(DependencyObject targetObject)
+    void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action == NotifyCollectionChangedAction.Add)
         {
-            TargetObject = targetObject;
-            ((INotifyCollectionChanged)this).CollectionChanged += CollectionChanged;
-        }
-
-        void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Add)
+            foreach (PushBinding pushBinding in e.NewItems)
             {
-                foreach (PushBinding pushBinding in e.NewItems)
-                {
-                    pushBinding.SetupTargetBinding(TargetObject);
-                }
+                pushBinding.SetupTargetBinding(TargetObject);
             }
         }
-
-        public DependencyObject TargetObject { get; private set; }
     }
+
+    public DependencyObject TargetObject { get; private set; }
 }

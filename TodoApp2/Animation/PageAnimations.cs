@@ -4,44 +4,43 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+/// <summary>
+/// Helpers to animate pages in specific ways
+/// </summary>
+public static class PageAnimations
 {
-    /// <summary>
-    /// Helpers to animate pages in specific ways
-    /// </summary>
-    public static class PageAnimations
+    public static async Task FadeIn(this Page page, float seconds)
     {
-        public static async Task FadeIn(this Page page, float seconds)
-        {
-            // Create the storyboard
-            Storyboard sb = new Storyboard();
+        // Create the storyboard
+        Storyboard sb = new Storyboard();
 
-            // Add fade in animation
-            sb.AddFadeIn(seconds);
+        // Add fade in animation
+        sb.AddFadeIn(seconds);
 
-            // Start animating
-            sb.Begin(page);
+        // Start animating
+        sb.Begin(page);
 
-            // Make page visible
-            page.Visibility = Visibility.Visible;
+        // Make page visible
+        page.Visibility = Visibility.Visible;
 
-            // Wait for it to finish
-            await Task.Delay(TimeSpan.FromSeconds(seconds));
-        }
+        // Wait for it to finish
+        await Task.Delay(TimeSpan.FromSeconds(seconds));
+    }
 
-        public static async Task FadeOut(this Page page, float seconds)
-        {
-            // Create the storyboard
-            Storyboard sb = new Storyboard();
+    public static async Task FadeOut(this Page page, float seconds)
+    {
+        // Create the storyboard
+        Storyboard sb = new Storyboard();
 
-            // Add fade out animation
-            sb.AddFadeOut(seconds);
+        // Add fade out animation
+        sb.AddFadeOut(seconds);
 
-            // Start animating
-            sb.Begin(page);
+        // Start animating
+        sb.Begin(page);
 
-            // Wait for it to finish
-            await Task.Delay(TimeSpan.FromSeconds(seconds));
-        }
+        // Wait for it to finish
+        await Task.Delay(TimeSpan.FromSeconds(seconds));
     }
 }

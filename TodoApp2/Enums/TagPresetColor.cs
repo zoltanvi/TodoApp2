@@ -1,17 +1,16 @@
-﻿namespace TodoApp2
+﻿namespace TodoApp2;
+
+public enum TagPresetColor
 {
-    public enum TagPresetColor
-    {
-        Magenta,
-        Red,
-        Volcano,
-        Orange,
-        Gold,
-        Lime,
-        Green,
-        Cyan,
-        Blue,
-        Geekblue,
-        Purple
-    }
+    Magenta,
+    Red,
+    Volcano,
+    Orange,
+    Gold,
+    Lime,
+    Green,
+    Cyan,
+    Blue,
+    Geekblue,
+    Purple
 }

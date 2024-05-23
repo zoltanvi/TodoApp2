@@ -5,113 +5,112 @@ using System.Windows.Markup;
 using System.Xml;
 using TodoApp2.Core.Services;
 
-namespace TodoApp2.Services
+namespace TodoApp2.Services;
+
+public class TaskContentSplitterService : ITaskContentSplitterService
 {
-    public class TaskContentSplitterService : ITaskContentSplitterService
+    private const string Paragraph = "Paragraph";
+    private const string LineBreak = "LineBreak";
+
+    private static ITaskContentSplitterService _instance;
+    public static ITaskContentSplitterService Instance => _instance ?? (_instance = new TaskContentSplitterService());
+
+    private string _emptyDocumentXml;
+
+    private TaskContentSplitterService()
     {
-        private const string Paragraph = "Paragraph";
-        private const string LineBreak = "LineBreak";
+        _emptyDocumentXml = XamlWriter.Save(new FlowDocument());
+    }
 
-        private static ITaskContentSplitterService _instance;
-        public static ITaskContentSplitterService Instance => _instance ?? (_instance = new TaskContentSplitterService());
+    public List<string> SplitTaskContent(string content)
+    {
+        var paragraphList = GetParagraphsFromDocumentContent(content);
+        List<string> contents = new List<string>();
 
-        private string _emptyDocumentXml;
-
-        private TaskContentSplitterService()
-        {
-            _emptyDocumentXml = XamlWriter.Save(new FlowDocument());
-        }
-
-        public List<string> SplitTaskContent(string content)
-        {
-            var paragraphList = GetParagraphsFromDocumentContent(content);
-            List<string> contents = new List<string>();
-
-            foreach (XmlNode paragraph in paragraphList)
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(_emptyDocumentXml);
-
-                var importedNode = doc.ImportNode(paragraph, true);
-                doc.DocumentElement.AppendChild(importedNode);
-
-                contents.Add(doc.OuterXml);
-            }
-
-            return contents;
-        }
-
-        public List<XmlNode> GetParagraphsFromDocumentContent(string xml)
+        foreach (XmlNode paragraph in paragraphList)
         {
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
+            doc.LoadXml(_emptyDocumentXml);
 
-            var list = new List<XmlNode>();
+            var importedNode = doc.ImportNode(paragraph, true);
+            doc.DocumentElement.AppendChild(importedNode);
 
-            foreach (XmlNode node in doc.ChildNodes)
-            {
-                AddNodes(list, node, doc);
-            }
-
-            return list;
+            contents.Add(doc.OuterXml);
         }
 
-        private void AddNodes(List<XmlNode> list, XmlNode node, XmlDocument doc)
+        return contents;
+    }
+
+    public List<XmlNode> GetParagraphsFromDocumentContent(string xml)
+    {
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(xml);
+
+        var list = new List<XmlNode>();
+
+        foreach (XmlNode node in doc.ChildNodes)
         {
-            var childNodes = GetChildNodes(node);
-            bool hasBlock = childNodes.Any(x => x.Name == LineBreak || x.Name == Paragraph);
+            AddNodes(list, node, doc);
+        }
 
-            if (node.Name == Paragraph && hasBlock)
+        return list;
+    }
+
+    private void AddNodes(List<XmlNode> list, XmlNode node, XmlDocument doc)
+    {
+        var childNodes = GetChildNodes(node);
+        bool hasBlock = childNodes.Any(x => x.Name == LineBreak || x.Name == Paragraph);
+
+        if (node.Name == Paragraph && hasBlock)
+        {
+            var paragraph = CreateNewParagraph(doc);
+
+            for (int i = 0; i < childNodes.Count; i++)
             {
-                var paragraph = CreateNewParagraph(doc);
-
-                for (int i = 0; i < childNodes.Count; i++)
+                if (childNodes[i].Name == LineBreak)
                 {
-                    if (childNodes[i].Name == LineBreak)
+                    list.Add(paragraph);
+
+                    paragraph = CreateNewParagraph(doc);
+                }
+                else
+                {
+                    paragraph.AppendChild(childNodes[i]);
+
+                    if (i == childNodes.Count - 1)
                     {
                         list.Add(paragraph);
-                        
-                        paragraph = CreateNewParagraph(doc);
-                    }
-                    else
-                    {
-                        paragraph.AppendChild(childNodes[i]);
-
-                        if (i == childNodes.Count - 1)
-                        {
-                            list.Add(paragraph);
-                        }
                     }
                 }
             }
-            else if (node.Name == Paragraph)
-            {
-                list.Add(node);
-            }
-            else
-            {
-                foreach (XmlNode childNode in node)
-                {
-                    AddNodes(list, childNode, doc);
-                }
-            }
         }
-
-        private XmlElement CreateNewParagraph(XmlDocument doc)
+        else if (node.Name == Paragraph)
         {
-            var paragraph = doc.CreateElement(Paragraph);
-            paragraph.SetAttribute("xmlns", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
-            return paragraph;
+            list.Add(node);
         }
-
-        private List<XmlNode> GetChildNodes(XmlNode node)
+        else
         {
-            List<XmlNode> nodes = new List<XmlNode>();
-            foreach (XmlNode child in node.ChildNodes)
+            foreach (XmlNode childNode in node)
             {
-                nodes.Add(child);
+                AddNodes(list, childNode, doc);
             }
-            return nodes;
         }
+    }
+
+    private XmlElement CreateNewParagraph(XmlDocument doc)
+    {
+        var paragraph = doc.CreateElement(Paragraph);
+        paragraph.SetAttribute("xmlns", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
+        return paragraph;
+    }
+
+    private List<XmlNode> GetChildNodes(XmlNode node)
+    {
+        List<XmlNode> nodes = new List<XmlNode>();
+        foreach (XmlNode child in node.ChildNodes)
+        {
+            nodes.Add(child);
+        }
+        return nodes;
     }
 }

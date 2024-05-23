@@ -1,8 +1,7 @@
 ﻿using System.Windows.Controls;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+public class ShortcutKey : Label
 {
-    public class ShortcutKey : Label
-    {
-    }
 }

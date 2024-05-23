@@ -1,86 +1,85 @@
 ﻿using System.Windows;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+// Workaround for a framework dependent bug with MultiBinding.
+// Source: https://gist.github.com/huoxudong125/56a2e1fe5b1916a01064668a3397a57f
+public static class SizeObserver
 {
-    // Workaround for a framework dependent bug with MultiBinding.
-    // Source: https://gist.github.com/huoxudong125/56a2e1fe5b1916a01064668a3397a57f
-    public static class SizeObserver
+    public static readonly DependencyProperty ObserveProperty = DependencyProperty.RegisterAttached(
+        "Observe",
+        typeof(bool),
+        typeof(SizeObserver),
+        new FrameworkPropertyMetadata(OnObserveChanged));
+
+    public static readonly DependencyProperty ObservedWidthProperty = DependencyProperty.RegisterAttached(
+        "ObservedWidth",
+        typeof(double),
+        typeof(SizeObserver));
+
+    public static readonly DependencyProperty ObservedHeightProperty = DependencyProperty.RegisterAttached(
+        "ObservedHeight",
+        typeof(double),
+        typeof(SizeObserver));
+
+    public static bool GetObserve(FrameworkElement frameworkElement)
     {
-        public static readonly DependencyProperty ObserveProperty = DependencyProperty.RegisterAttached(
-            "Observe",
-            typeof(bool),
-            typeof(SizeObserver),
-            new FrameworkPropertyMetadata(OnObserveChanged));
+        return (bool)frameworkElement.GetValue(ObserveProperty);
+    }
 
-        public static readonly DependencyProperty ObservedWidthProperty = DependencyProperty.RegisterAttached(
-            "ObservedWidth",
-            typeof(double),
-            typeof(SizeObserver));
+    public static void SetObserve(FrameworkElement frameworkElement, bool observe)
+    {
+        frameworkElement.SetValue(ObserveProperty, observe);
+    }
 
-        public static readonly DependencyProperty ObservedHeightProperty = DependencyProperty.RegisterAttached(
-            "ObservedHeight",
-            typeof(double),
-            typeof(SizeObserver));
+    public static double GetObservedWidth(FrameworkElement frameworkElement)
+    {
+        return (double)frameworkElement.GetValue(ObservedWidthProperty);
+    }
 
-        public static bool GetObserve(FrameworkElement frameworkElement)
+    public static void SetObservedWidth(FrameworkElement frameworkElement, double observedWidth)
+    {
+        frameworkElement.SetValue(ObservedWidthProperty, observedWidth);
+    }
+
+    public static double GetObservedHeight(FrameworkElement frameworkElement)
+    {
+        return (double)frameworkElement.GetValue(ObservedHeightProperty);
+    }
+
+    public static void SetObservedHeight(FrameworkElement frameworkElement, double observedHeight)
+    {
+        frameworkElement.SetValue(ObservedHeightProperty, observedHeight);
+    }
+
+    private static void OnObserveChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+    {
+        var frameworkElement = (FrameworkElement)dependencyObject;
+
+        if ((bool)e.NewValue)
         {
-            return (bool)frameworkElement.GetValue(ObserveProperty);
+            frameworkElement.SizeChanged += OnFrameworkElementSizeChanged;
+            UpdateObservedSizesForFrameworkElement(frameworkElement);
         }
-
-        public static void SetObserve(FrameworkElement frameworkElement, bool observe)
+        else
         {
-            frameworkElement.SetValue(ObserveProperty, observe);
+            frameworkElement.SizeChanged -= OnFrameworkElementSizeChanged;
         }
+    }
 
-        public static double GetObservedWidth(FrameworkElement frameworkElement)
-        {
-            return (double)frameworkElement.GetValue(ObservedWidthProperty);
-        }
+    private static void OnFrameworkElementSizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        UpdateObservedSizesForFrameworkElement((FrameworkElement)sender);
+    }
 
-        public static void SetObservedWidth(FrameworkElement frameworkElement, double observedWidth)
-        {
-            frameworkElement.SetValue(ObservedWidthProperty, observedWidth);
-        }
+    private static void UpdateObservedSizesForFrameworkElement(FrameworkElement frameworkElement)
+    {
+        // WPF 4.0 onwards
+        frameworkElement.SetCurrentValue(ObservedWidthProperty, frameworkElement.ActualWidth);
+        frameworkElement.SetCurrentValue(ObservedHeightProperty, frameworkElement.ActualHeight);
 
-        public static double GetObservedHeight(FrameworkElement frameworkElement)
-        {
-            return (double)frameworkElement.GetValue(ObservedHeightProperty);
-        }
-
-        public static void SetObservedHeight(FrameworkElement frameworkElement, double observedHeight)
-        {
-            frameworkElement.SetValue(ObservedHeightProperty, observedHeight);
-        }
-
-        private static void OnObserveChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            var frameworkElement = (FrameworkElement)dependencyObject;
-
-            if ((bool)e.NewValue)
-            {
-                frameworkElement.SizeChanged += OnFrameworkElementSizeChanged;
-                UpdateObservedSizesForFrameworkElement(frameworkElement);
-            }
-            else
-            {
-                frameworkElement.SizeChanged -= OnFrameworkElementSizeChanged;
-            }
-        }
-
-        private static void OnFrameworkElementSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            UpdateObservedSizesForFrameworkElement((FrameworkElement)sender);
-        }
-
-        private static void UpdateObservedSizesForFrameworkElement(FrameworkElement frameworkElement)
-        {
-            // WPF 4.0 onwards
-            frameworkElement.SetCurrentValue(ObservedWidthProperty, frameworkElement.ActualWidth);
-            frameworkElement.SetCurrentValue(ObservedHeightProperty, frameworkElement.ActualHeight);
-
-            // WPF 3.5 and prior
-            ////SetObservedWidth(frameworkElement, frameworkElement.ActualWidth);
-            ////SetObservedHeight(frameworkElement, frameworkElement.ActualHeight);
-        }
+        // WPF 3.5 and prior
+        ////SetObservedWidth(frameworkElement, frameworkElement.ActualWidth);
+        ////SetObservedHeight(frameworkElement, frameworkElement.ActualHeight);
     }
 }

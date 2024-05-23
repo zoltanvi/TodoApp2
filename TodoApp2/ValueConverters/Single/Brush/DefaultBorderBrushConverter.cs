@@ -4,27 +4,26 @@ using System.Windows;
 using System.Windows.Media;
 using TodoApp2.Core;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+internal abstract class DefaultBorderBrushConverter : BaseValueConverter
 {
-    internal abstract class DefaultBorderBrushConverter : BaseValueConverter
+    private readonly StringRGBToBrushConverter _converter = new StringRGBToBrushConverter();
+
+    protected abstract string DefaultResourceName { get; }
+
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        private readonly StringRGBToBrushConverter _converter = new StringRGBToBrushConverter();
-
-        protected abstract string DefaultResourceName { get; }
-
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if (value is string brushName)
         {
-            if (value is string brushName)
+            if (brushName == CoreConstants.ColorName.Transparent)
             {
-                if (brushName == CoreConstants.ColorName.Transparent)
-                {
-                    return (SolidColorBrush)Application.Current.TryFindResource(DefaultResourceName);
-                }
-
-                return _converter.Convert(value, targetType, parameter, culture);
+                return (SolidColorBrush)Application.Current.TryFindResource(DefaultResourceName);
             }
 
-            return null;
+            return _converter.Convert(value, targetType, parameter, culture);
         }
+
+        return null;
     }
 }

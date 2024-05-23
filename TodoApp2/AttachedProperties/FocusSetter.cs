@@ -1,21 +1,20 @@
 ﻿using System.Windows;
 
-namespace TodoApp2
-{
-    /// <summary>
-    /// The <see cref="FocusSetter"/> attached property for setting focus on a <see cref="UIElement"/> when requested
-    /// </summary>
-    public class FocusSetter : BaseAttachedProperty<FocusSetter, bool>
-    {
-        public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            bool oldValue = (bool)e.OldValue;
-            bool newValue = (bool)e.NewValue;
+namespace TodoApp2;
 
-            if (sender is UIElement uiElement && !oldValue && newValue)
-            {
-                uiElement.Focus();
-            }
+/// <summary>
+/// The <see cref="FocusSetter"/> attached property for setting focus on a <see cref="UIElement"/> when requested
+/// </summary>
+public class FocusSetter : BaseAttachedProperty<FocusSetter, bool>
+{
+    public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+    {
+        bool oldValue = (bool)e.OldValue;
+        bool newValue = (bool)e.NewValue;
+
+        if (sender is UIElement uiElement && !oldValue && newValue)
+        {
+            uiElement.Focus();
         }
     }
 }

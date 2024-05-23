@@ -5,72 +5,71 @@ using System.Windows;
 using System.Windows.Media;
 using TodoApp2.Core;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+/// <summary>
+/// Responsible for switching between the dark and light resource dictionary, based on the DarkMode setting.
+/// </summary>
+public class ThemeManager
 {
-    /// <summary>
-    /// Responsible for switching between the dark and light resource dictionary, based on the DarkMode setting.
-    /// </summary>
-    public class ThemeManager
+    private const string DarkTheme = "pack://application:,,,/TodoApp2;component/Themes/DarkTheme.xaml";
+    private const string LightTheme = "pack://application:,,,/TodoApp2;component/Themes/LightTheme.xaml";
+
+    public ThemeManager()
     {
-        private const string DarkTheme = "pack://application:,,,/TodoApp2;component/Themes/DarkTheme.xaml";
-        private const string LightTheme = "pack://application:,,,/TodoApp2;component/Themes/LightTheme.xaml";
+        IoC.AppSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
 
-        public ThemeManager()
+        CheckAndSwitchLightAndDark();
+    }
+
+    private void ThemeSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(ThemeSettings.DarkMode)) return;
+
+        CheckAndSwitchLightAndDark();
+    }
+
+    private void CheckAndSwitchLightAndDark()
+    {
+        if (IoC.AppSettings.ThemeSettings.DarkMode)
         {
-            IoC.AppSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
-
-            CheckAndSwitchLightAndDark();
+            ChangeTheme(from: LightTheme, to: DarkTheme);
+        }
+        else
+        {
+            ChangeTheme(from: DarkTheme, to: LightTheme);
         }
 
-        private void ThemeSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName != nameof(ThemeSettings.DarkMode)) return;
+        Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
+    }
 
-            CheckAndSwitchLightAndDark();
-        }
+    private void ChangeTheme(string from, string to)
+    {
+        Uri oldUri = new Uri(from, UriKind.RelativeOrAbsolute);
+        Uri newUri = new Uri(to, UriKind.RelativeOrAbsolute);
 
-        private void CheckAndSwitchLightAndDark()
+        // The Application resources contains all resources that are used
+        SearchAndReplaceAll(Application.Current.Resources, oldUri, newUri);
+    }
+
+    private void SearchAndReplaceAll(ResourceDictionary rootDictionary, Uri oldDictionary, Uri newDictionary)
+    {
+        if (rootDictionary.MergedDictionaries.Count > 0)
         {
-            if (IoC.AppSettings.ThemeSettings.DarkMode)
+            ResourceDictionary foundDictionary = rootDictionary.MergedDictionaries
+                .FirstOrDefault(i => oldDictionary.AbsoluteUri.EndsWith(i.Source.OriginalString));
+
+            if (foundDictionary != null)
             {
-                ChangeTheme(from: LightTheme, to: DarkTheme);
+                ResourceDictionary newRes = new ResourceDictionary() { Source = newDictionary };
+                int index = rootDictionary.MergedDictionaries.IndexOf(foundDictionary);
+                rootDictionary.MergedDictionaries.RemoveAt(index);
+                rootDictionary.MergedDictionaries.Insert(index, newRes);
             }
-            else
+
+            foreach (ResourceDictionary item in rootDictionary.MergedDictionaries)
             {
-                ChangeTheme(from: DarkTheme, to: LightTheme);
-            }
-
-            Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
-        }
-
-        private void ChangeTheme(string from, string to)
-        {
-            Uri oldUri = new Uri(from, UriKind.RelativeOrAbsolute);
-            Uri newUri = new Uri(to, UriKind.RelativeOrAbsolute);
-
-            // The Application resources contains all resources that are used
-            SearchAndReplaceAll(Application.Current.Resources, oldUri, newUri);
-        }
-
-        private void SearchAndReplaceAll(ResourceDictionary rootDictionary, Uri oldDictionary, Uri newDictionary)
-        {
-            if (rootDictionary.MergedDictionaries.Count > 0)
-            {
-                ResourceDictionary foundDictionary = rootDictionary.MergedDictionaries
-                    .FirstOrDefault(i => oldDictionary.AbsoluteUri.EndsWith(i.Source.OriginalString));
-
-                if (foundDictionary != null)
-                {
-                    ResourceDictionary newRes = new ResourceDictionary() { Source = newDictionary };
-                    int index = rootDictionary.MergedDictionaries.IndexOf(foundDictionary);
-                    rootDictionary.MergedDictionaries.RemoveAt(index);
-                    rootDictionary.MergedDictionaries.Insert(index, newRes);
-                }
-
-                foreach (ResourceDictionary item in rootDictionary.MergedDictionaries)
-                {
-                    SearchAndReplaceAll(item, oldDictionary, newDictionary);
-                }
+                SearchAndReplaceAll(item, oldDictionary, newDictionary);
             }
         }
     }

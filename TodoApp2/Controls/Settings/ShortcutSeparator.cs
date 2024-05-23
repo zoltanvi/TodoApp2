@@ -1,12 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace TodoApp2
+namespace TodoApp2;
+
+public class ShortcutSeparator : Label
 {
-    public class ShortcutSeparator : Label
+    public ShortcutSeparator()
     {
-        public ShortcutSeparator()
-        {
-            Content = "+";
-        }
+        Content = "+";
     }
 }

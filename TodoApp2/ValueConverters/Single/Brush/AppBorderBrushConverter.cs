@@ -1,7 +1,6 @@
-﻿namespace TodoApp2
+﻿namespace TodoApp2;
+
+internal class AppBorderBrushConverter : DefaultBorderBrushConverter
 {
-    internal class AppBorderBrushConverter : DefaultBorderBrushConverter
-    {
-        protected override string DefaultResourceName { get; } = "SurfaceDim";
-    }
+    protected override string DefaultResourceName { get; } = "SurfaceDim";
 }

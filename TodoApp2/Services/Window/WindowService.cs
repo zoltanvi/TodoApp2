@@ -3,6 +3,7 @@ using System;
 using System.Windows;
 using TodoApp2.Core;
 using TodoApp2.Core.Extensions;
+using TodoApp2.WindowHandling;
 using TodoApp2.WindowHandling.Resizing;
 
 namespace TodoApp2.Services.Window;

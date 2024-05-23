@@ -7,7 +7,7 @@ using System.Windows.Input;
 using TodoApp2.Core;
 using Window = System.Windows.Window;
 
-namespace TodoApp2;
+namespace TodoApp2.WindowHandling;
 
 public class GridResizer
 {
@@ -33,7 +33,7 @@ public class GridResizer
         get => _grid.ColumnDefinitions[0].ActualWidth;
         set
         {
-            double clampedValue = value;
+            var clampedValue = value;
 
             // Snap below snapping width
             if (clampedValue <= SnappingWidth)
@@ -150,8 +150,8 @@ public class GridResizer
 
     private void Instance_Zoomed(object sender, ZoomedEventArgs e)
     {
-        double originalWidth = LeftColumnWidth / e.OldScaleValue;
-        double newWidth = originalWidth * e.NewScaleValue;
+        var originalWidth = LeftColumnWidth / e.OldScaleValue;
+        var newWidth = originalWidth * e.NewScaleValue;
         LeftColumnWidth = newWidth;
     }
 
@@ -210,7 +210,7 @@ public class GridResizer
 
     private void WindowSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        bool widthShrank = e.WidthChanged && e.PreviousSize.Width > e.NewSize.Width;
+        var widthShrank = e.WidthChanged && e.PreviousSize.Width > e.NewSize.Width;
         if (widthShrank)
         {
             // if side menu is too wide
@@ -241,7 +241,7 @@ public class GridResizer
     {
         if (_isDraggingEnabled)
         {
-            double newWidth = LeftColumnWidth + e.HorizontalChange;
+            var newWidth = LeftColumnWidth + e.HorizontalChange;
             LeftColumnWidth = newWidth;
             _isDragging = true;
         }
@@ -262,7 +262,7 @@ public class GridResizer
     {
         if (_isDragging && _isDraggingEnabled)
         {
-            double newWidth = e.GetPosition(_grid).X;
+            var newWidth = e.GetPosition(_grid).X;
             LeftColumnWidth = newWidth;
         }
     }

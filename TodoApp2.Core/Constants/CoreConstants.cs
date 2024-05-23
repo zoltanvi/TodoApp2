@@ -30,5 +30,11 @@
             public const string TimesNewRoman = "Times New Roman";
             public const string Verdana = "Verdana";
         }
+
+        public struct ResourceNames
+        {
+            public const string TextEditorToolbar = "TextEditorToolbar";
+            public const string ColorPickerPopup = "ColorPickerPopup";
+        }
     }
 }
