@@ -1,4 +1,6 @@
-﻿namespace TodoApp2.Core;
+﻿using Modules.Common.DataModels;
+
+namespace TodoApp2.Core;
 
 public class SessionSettings : SettingsBase
 {

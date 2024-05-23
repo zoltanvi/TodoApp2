@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Modules.Common.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
-using TodoApp2.Core;
 
 namespace TodoApp2;
 

@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:TodoApp2"
-    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
+    xmlns:dataModels="clr-namespace:Modules.Common.DataModels;assembly=Modules.Common.DataModels"
     mc:Ignorable="d"
     Title="Dev Settings"
     Height="400"
@@ -43,64 +43,64 @@
                         <StackPanel Orientation="Vertical" Grid.Row="0">
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.AppWindowSettings}"
-                                Id="{x:Static core:ApplicationPage.AppWindowSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.AppWindowSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.AppWindowSettings}"
                                 Content="APPLICATION"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.ThemeSettings}"
-                                Id="{x:Static core:ApplicationPage.ThemeSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.ThemeSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.ThemeSettings}"
                                 Content="THEME"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.PageTitleSettings}"
-                                Id="{x:Static core:ApplicationPage.PageTitleSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.PageTitleSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.PageTitleSettings}"
                                 Content="PAGE TITLE"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.TaskPageSettings}"
-                                Id="{x:Static core:ApplicationPage.TaskPageSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.TaskPageSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.TaskPageSettings}"
                                 Content="TASK PAGE"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.TaskItemSettings}"
-                                Id="{x:Static core:ApplicationPage.TaskItemSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.TaskItemSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.TaskItemSettings}"
                                 Content="TASKS"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.TaskQuickActionsSettings}"
-                                Id="{x:Static core:ApplicationPage.TaskQuickActionsSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.TaskQuickActionsSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.TaskQuickActionsSettings}"
                                 Content="QUICK ACTIONS"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.TextEditorQuickActionsSettings}"
-                                Id="{x:Static core:ApplicationPage.TextEditorQuickActionsSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.TextEditorQuickActionsSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.TextEditorQuickActionsSettings}"
                                 Content="EDITOR"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.NotePageSettings}"
-                                Id="{x:Static core:ApplicationPage.NotePageSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.NotePageSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.NotePageSettings}"
                                 Content="NOTES"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />
                             <local:SettingsCategoryButton
                                 Command="{Binding SwitchToPageCommand}"
-                                CommandParameter="{x:Static core:ApplicationPage.DateTimeSettings}"
-                                Id="{x:Static core:ApplicationPage.DateTimeSettings}"
+                                CommandParameter="{x:Static dataModels:ApplicationPage.DateTimeSettings}"
+                                Id="{x:Static dataModels:ApplicationPage.DateTimeSettings}"
                                 Content="DATE TIME"
                                 Style="{StaticResource SettingsCategoryButtonStyle}"
                                 SelectedPage="{Binding ActiveSettingsPage}" />

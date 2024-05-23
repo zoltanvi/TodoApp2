@@ -1,12 +1,9 @@
-﻿namespace TodoApp2.Core;
+﻿namespace Modules.Common.DataModels;
 
 public enum TaskSpacing
 {
     Compact,
-
     Normal,
-
     Comfortable,
-
     Spacious
 }

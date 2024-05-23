@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Modules.Common.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using TodoApp2.Core;
 
 namespace TodoApp2;
 

@@ -1,4 +1,4 @@
-﻿namespace TodoApp2.Core;
+﻿namespace Modules.Common.DataModels;
 
 public enum MessageType
 {

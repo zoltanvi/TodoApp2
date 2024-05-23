@@ -1,4 +1,5 @@
-﻿using Modules.Settings.Repositories;
+﻿using Modules.Common.DataModels;
+using Modules.Settings.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

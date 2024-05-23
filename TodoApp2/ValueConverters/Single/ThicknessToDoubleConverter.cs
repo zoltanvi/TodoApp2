@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Modules.Common.DataModels;
+using System;
 using System.Globalization;
-using TodoApp2.Core;
 
 namespace TodoApp2;
 
 /// <summary>
-/// A converter that takes in a <see cref="TodoApp2.Core.Thickness"/> and converts it to a <see cref="double"/>
+/// A converter that takes in a <see cref="Modules.Common.DataModels.Thickness"/> and converts it to a <see cref="double"/>
 /// </summary>
 public class ThicknessToDoubleConverter : BaseValueConverter
 {

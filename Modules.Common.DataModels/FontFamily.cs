@@ -1,26 +1,26 @@
-﻿namespace TodoApp2.Core;
+﻿namespace Modules.Common.DataModels;
 
 public enum FontFamily
 {
     Calibri,
     Consolas,
     CourierNew,
-    
+
     FiraSansLight,
     FiraSansRegular,
-    
+
     InterLight,
     InterRegular,
-    
+
     MontserratAlternatesLight,
     MontserratAlternatesRegular,
-    
+
     MontserratLight,
     MontserratRegular,
-    
+
     NotoSansLight,
     NotoSansRegular,
-    
+
     OpenSansLight,
     OpenSans,
 
@@ -29,7 +29,7 @@ public enum FontFamily
     SegoeUIBold,
 
     TimesNewRoman,
-    
+
     UbuntuLight,
     UbuntuRegular,
 

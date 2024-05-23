@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common.DataModels;
+using System;
 using System.Collections.Generic;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;

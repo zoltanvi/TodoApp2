@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Modules.Common.DataModels;
+using System.Windows;
 using System.Windows.Controls;
 using TodoApp2.Core;
 

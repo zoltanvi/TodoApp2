@@ -48,7 +48,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Common", "Modules.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", "{444E2DE3-5389-42CF-8D7F-E715176F0D08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Migrations", "Modules.Migrations\Modules.Migrations.csproj", "{6C8B2025-7E2D-455E-B2AA-7500292586D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Migrations", "Modules.Migrations\Modules.Migrations.csproj", "{6C8B2025-7E2D-455E-B2AA-7500292586D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Common.DataModels", "Modules.Common.DataModels\Modules.Common.DataModels.csproj", "{B9ACB567-963C-42A8-A536-EFA2B3125CD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,6 +114,10 @@ Global
 		{6C8B2025-7E2D-455E-B2AA-7500292586D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C8B2025-7E2D-455E-B2AA-7500292586D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C8B2025-7E2D-455E-B2AA-7500292586D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9ACB567-963C-42A8-A536-EFA2B3125CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9ACB567-963C-42A8-A536-EFA2B3125CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9ACB567-963C-42A8-A536-EFA2B3125CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9ACB567-963C-42A8-A536-EFA2B3125CD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +145,7 @@ Global
 		{1D2DF16F-3D3D-4729-84DD-EBAEDC70D5A6} = {CE6CB7B1-19E8-4BF7-B73E-2D5A66CDE8C0}
 		{444E2DE3-5389-42CF-8D7F-E715176F0D08} = {57E89F7E-CF62-4F2F-8E89-C7210F4121A7}
 		{6C8B2025-7E2D-455E-B2AA-7500292586D8} = {444E2DE3-5389-42CF-8D7F-E715176F0D08}
+		{B9ACB567-963C-42A8-A536-EFA2B3125CD6} = {CE6CB7B1-19E8-4BF7-B73E-2D5A66CDE8C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA7E44B-8BE8-480C-A752-37C50B7F39DF}

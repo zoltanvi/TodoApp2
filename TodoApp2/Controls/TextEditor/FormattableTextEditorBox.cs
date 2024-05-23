@@ -7,7 +7,7 @@ using System.Windows.Media;
 using TodoApp2.Core;
 using MediaFontFamily = System.Windows.Media.FontFamily;
 
-namespace TodoApp2.Controls.TextEditor;
+namespace TodoApp2;
 
 public class FormattableTextEditorBox : BasicTextEditorBox
 {
@@ -214,7 +214,7 @@ public class FormattableTextEditorBox : BasicTextEditorBox
         }
         else
         {
-            MediaFontFamily consolas = EnumToFontFamilyConverter.Instance.Convert(Core.FontFamily.Consolas);
+            MediaFontFamily consolas = EnumToFontFamilyConverter.Instance.Convert(Modules.Common.DataModels.FontFamily.Consolas);
 
             if (consolas != null)
             {
