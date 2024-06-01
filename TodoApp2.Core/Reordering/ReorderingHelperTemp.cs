@@ -63,29 +63,4 @@ internal static class ReorderingHelperTemp
         void UpdateListOrder(IEnumerable<IReorderable> categoryList) =>
           context.Categories.UpdateRange(categoryList.Cast<CategoryViewModel>().MapList(), x => x.Id);
     }
-
-    public static void ReorderNote(IAppContext context, NoteViewModel note, int newPosition)
-    {
-        var activeNotes = context.Notes
-            .Where(x => !x.Trashed)
-            .OrderByListOrder()
-            .MapList();
-
-        // Get all categories except the reordered one that are not trashed
-        List<IReorderable> orderedNotes =
-            activeNotes.Where(c => c.Id != note.Id).Cast<IReorderable>().ToList();
-
-        IReorderable itemToReorder = note as IReorderable;
-
-        _reorderer.ReorderItem(
-            orderedNotes,
-            itemToReorder,
-            newPosition,
-            UpdateListOrder);
-
-        context.Notes.UpdateFirst(note.Map());
-
-        void UpdateListOrder(IEnumerable<IReorderable> noteList) =>
-          context.Notes.UpdateRange(noteList.Cast<NoteViewModel>().MapList(), x => x.Id);
-    }
 }

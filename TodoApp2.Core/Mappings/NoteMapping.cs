@@ -15,7 +15,7 @@ internal static class NoteMapping
         {
             Id = vm.Id,
             Title = vm.Title,
-            ListOrder = vm.ListOrder.FormatListOrder(),
+            ListOrder = vm.ListOrder,
             Content = vm.Content,
             CreationDate = vm.CreationDate,
             ModificationDate = vm.ModificationDate,
@@ -31,7 +31,7 @@ internal static class NoteMapping
         {
             Id = note.Id,
             Title = note.Title,
-            ListOrder = ListOrderParsingHelper.ParseListOrder(note.ListOrder),
+            ListOrder = note.ListOrder,
             Content = note.Content,
             CreationDate = note.CreationDate,
             ModificationDate = note.ModificationDate,

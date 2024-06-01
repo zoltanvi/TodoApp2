@@ -5,7 +5,7 @@
         public const int RecycleBinCategoryId = -1000;
         public const long InvalidListOrder = -9000000000000000000L;
         public const long MaxListOrder = 9000000000000000000L;
-        public const long DefaultListOrder = 0;
+        public const int DefaultListOrder = 0;
         public const long ListOrderInterval = 1_000_000_000_000;
         public const string ListOrderFormat = "D19";
         public const string RecycleBinCategoryName = "Recycle bin";

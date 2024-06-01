@@ -1,6 +1,7 @@
 ﻿using Modules.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
@@ -37,7 +38,7 @@ public class NoteListService : BaseViewModel
 
         var notes = _context.Notes
             .Where(x => !x.Trashed)
-            .OrderByListOrder()
+            .OrderBy(x => x.ListOrder)
             .MapList();
 
         Items = new ObservableCollection<NoteViewModel>(notes);

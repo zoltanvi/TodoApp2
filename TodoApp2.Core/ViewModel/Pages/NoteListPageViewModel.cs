@@ -86,7 +86,13 @@ public class NoteListPageViewModel : BaseViewModel
                     // then this was a drag and drop reorder
                     if (newItem.Id == _lastRemovedId)
                     {
-                        ReorderingHelperTemp.ReorderNote(_context, newItem, e.NewStartingIndex);
+                        for (int i = 0; i < _noteListService.Items.Count; i++)
+                        {
+                            _noteListService.Items[i].ListOrder = i;
+                        }
+
+                        _context.Notes.UpdateRange(_noteListService.Items.MapList(), x => x.Id);
+
                     }
 
                     _lastRemovedId = int.MinValue;
@@ -127,7 +133,7 @@ public class NoteListPageViewModel : BaseViewModel
     {
         var activeItems = _context.Notes
         .Where(x => !x.Trashed)
-        .OrderByDescendingListOrder();
+        .OrderByDescending(x => x.ListOrder);
 
         var lastListOrder = activeItems.Any()
             ? activeItems.First().Map().ListOrder
@@ -140,7 +146,7 @@ public class NoteListPageViewModel : BaseViewModel
             CreationDate = DateTime.Now.Ticks,
             ModificationDate = DateTime.Now.Ticks,
             Trashed = false,
-            ListOrder = lastListOrder + CommonConstants.ListOrderInterval
+            ListOrder = lastListOrder + 1
         };
 
         var addedItem = _context.Notes.Add(note.Map());

@@ -26,14 +26,4 @@ internal static class ListOrderEnumerableExtensions
     {
         return source.OrderByDescending(x => x.ListOrder, new NumericStringComparer());
     }
-
-    public static IEnumerable<Note> OrderByListOrder(this IEnumerable<Note> source)
-    {
-        return source.OrderBy(x => x.ListOrder, new NumericStringComparer());
-    }
-
-    public static IEnumerable<Note> OrderByDescendingListOrder(this IEnumerable<Note> source)
-    {
-        return source.OrderByDescending(x => x.ListOrder, new NumericStringComparer());
-    }
 }
