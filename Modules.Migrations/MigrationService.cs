@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Modules.Notes.Repositories;
 using Modules.Settings.Repositories;
 
 namespace Modules.Migrations
@@ -6,15 +7,23 @@ namespace Modules.Migrations
     public class MigrationService : IMigrationService
     {
         private SettingDbContext _settingContext;
+        private NotesDbContext _notesContext;
 
-        public MigrationService(SettingDbContext settingDbContext)
+        public MigrationService(
+            SettingDbContext settingsContext,
+            NotesDbContext notesContext)
         {
-            _settingContext = settingDbContext;
+            ArgumentNullException.ThrowIfNull(settingsContext);
+            ArgumentNullException.ThrowIfNull(notesContext);
+
+            _settingContext = settingsContext;
+            _notesContext = notesContext;
         }
 
         public void Run()
         {
             RunMigrations(_settingContext);
+            RunMigrations(_notesContext);
         }
 
         private void RunMigrations(DbContext dbContext)

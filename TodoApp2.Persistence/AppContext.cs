@@ -12,7 +12,6 @@ namespace TodoApp2.Persistence
     public class AppContext : DbContext, IAppContext
     {
         public DbSet<Category> Categories { get; private set; }
-        public DbSet<Note> Notes { get; private set; }
         public DbSet<Task> Tasks { get; private set; }
 
         public AppContext(string connectionString) : base(connectionString)
@@ -22,14 +21,12 @@ namespace TodoApp2.Persistence
         public override void CreateDbSets()
         {
             Categories = new DbSet<Category>(Connection, new CategoryTableMapping());
-            Notes = new DbSet<Note>(Connection, new NoteTableMapping());
             Tasks = new DbSet<Task>(Connection, new TaskTableMapping());
         }
 
         public override void AddMigrations()
         {
             AddMigration(new DbMigration2());
-            AddMigration(new DbMigration3());
             AddMigration(new DbMigration4());
             AddMigration(new DbMigration6());
         }

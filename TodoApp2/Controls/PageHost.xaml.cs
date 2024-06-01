@@ -1,8 +1,8 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Common.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using TodoApp2.Core;
 
 namespace TodoApp2
 {

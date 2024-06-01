@@ -1,5 +1,4 @@
-﻿using Modules.Settings.ViewModels;
-using TodoApp2.Core;
+﻿using TodoApp2.Core;
 
 namespace TodoApp2;
 
@@ -16,7 +15,6 @@ public class VML
     public static NoteListService NoteListService => IoC.NoteListService;
     public static TaskListService TaskListService => IoC.TaskListService;
     public static MessageService MessageService => IoC.MessageService;
-    public static UIScaler UIScaler => IoC.UIScaler;
     public static ColorListProvider ColorListProvider { get; } = new ColorListProvider();
     public static CustomDropHandler CustomDropHandler { get; } = new CustomDropHandler();
 }

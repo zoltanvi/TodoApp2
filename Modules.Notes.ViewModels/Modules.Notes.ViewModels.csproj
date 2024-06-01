@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modules.Notes.Repositories\Modules.Notes.Repositories.csproj" />
-    <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
+    <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
   </ItemGroup>
 
 </Project>

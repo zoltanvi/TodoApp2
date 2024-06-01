@@ -1,4 +1,5 @@
-﻿using Modules.Settings.ViewModels;
+﻿using Modules.Common.ViewModel;
+using Modules.Settings.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;

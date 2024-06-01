@@ -1,8 +1,8 @@
 ﻿using Modules.Common;
+using Modules.Notes.Repositories;
+using Modules.Notes.Repositories.Models;
 using System;
-using System.Linq;
 using TodoApp2.Common;
-using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Persistence;
 
@@ -11,12 +11,15 @@ namespace TodoApp2.Core.Helpers;
 internal static class DefaultItemsCreator
 {
     private static IAppContext _context;
+    private static NotesRepository _noteRepository;
 
-    public static void CreateDefaults(IAppContext context)
+    public static void CreateDefaults(IAppContext context, NotesRepository noteRepository)
     {
         ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(noteRepository);
 
         _context = context;
+        _noteRepository = noteRepository;
 
         CreateDefaultCategoryIfNotExists();
         CreateRecycleBinCategoryIfNotExists();
@@ -57,13 +60,12 @@ internal static class DefaultItemsCreator
                 BackgroundColor = Constants.ColorName.Transparent
             }.Map());
 
-            _context.Notes.AddSimple(new NoteViewModel
+            _noteRepository.AddNote(new Note
             {
                 Title = "Empty note",
-                ListOrder = CommonConstants.DefaultListOrder,
-                CreationDate = DateTime.Now.Ticks,
-                ModificationDate = DateTime.Now.Ticks
-            }.Map());
+                CreationDate = DateTime.Now,
+                ModificationDate = DateTime.Now
+            });
         }
     }
 
@@ -76,7 +78,7 @@ internal static class DefaultItemsCreator
                 Id = CommonConstants.RecycleBinCategoryId,
                 Name = CommonConstants.RecycleBinCategoryName,
                 ListOrder = CommonConstants.MaxListOrder
-            }.Map(), 
+            }.Map(),
             writeAllProperties: true);
         }
     }

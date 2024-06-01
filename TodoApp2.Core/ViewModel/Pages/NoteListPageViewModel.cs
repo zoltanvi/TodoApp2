@@ -1,4 +1,8 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Common.ViewModel;
+using Modules.Notes.Repositories;
+using Modules.Notes.Repositories.Models;
+using Modules.Notes.ViewModels;
 using Modules.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -6,22 +10,55 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 using TodoApp2.Common;
-using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
-using TodoApp2.Core.Reordering;
-using TodoApp2.Persistence;
 
 namespace TodoApp2.Core;
 
 public class NoteListPageViewModel : BaseViewModel
 {
-    private readonly IAppContext _context;
+    private readonly NotesRepository _notesRepository;
     private readonly AppViewModel _appViewModel;
     private readonly OverlayPageService _overlayPageService;
     private readonly NoteListService _noteListService;
     private readonly MessageService _messageService;
 
     private int _lastRemovedId = int.MinValue;
+
+    public NoteListPageViewModel()
+    {
+    }
+
+    public NoteListPageViewModel(
+        AppViewModel applicationViewModel,
+        NotesRepository notesRepository,
+        OverlayPageService overlayPageService,
+        NoteListService noteListService,
+        MessageService messageService)
+    {
+        ArgumentNullException.ThrowIfNull(applicationViewModel);
+        ArgumentNullException.ThrowIfNull(notesRepository);
+        ArgumentNullException.ThrowIfNull(overlayPageService);
+        ArgumentNullException.ThrowIfNull(noteListService);
+        ArgumentNullException.ThrowIfNull(messageService);
+        
+        _appViewModel = applicationViewModel;
+        _notesRepository = notesRepository;
+        _overlayPageService = overlayPageService;
+        _noteListService = noteListService;
+        _messageService = messageService;
+
+        AddNoteCommand = new RelayCommand(AddNote);
+        DeleteNoteCommand = new RelayParameterizedCommand<NoteViewModel>(TrashNote);
+        OpenNoteCommand = new RelayParameterizedCommand<NoteViewModel>(SetActiveNote);
+        OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
+        OpenCategoryPageCommand = new RelayCommand(OpenCategoryPage);
+
+        // Subscribe to the collection changed event for synchronizing with database
+        _noteListService.Items.CollectionChanged += ItemsOnCollectionChanged;
+
+        // Load the application settings to update the ActiveNote
+        _appViewModel.LoadAppSettingsOnce();
+    }
 
     /// <summary>
     /// The Title of the current note being added
@@ -42,35 +79,6 @@ public class NoteListPageViewModel : BaseViewModel
         set => _noteListService.ActiveNote = value;
     }
 
-    public NoteListPageViewModel()
-    {
-    }
-
-    public NoteListPageViewModel(
-        AppViewModel applicationViewModel,
-        IAppContext context,
-        OverlayPageService overlayPageService,
-        NoteListService noteListService,
-        MessageService messageService)
-    {
-        _appViewModel = applicationViewModel;
-        _context = context;
-        _overlayPageService = overlayPageService;
-        _noteListService = noteListService;
-        _messageService = messageService;
-
-        AddNoteCommand = new RelayCommand(AddNote);
-        DeleteNoteCommand = new RelayParameterizedCommand<NoteViewModel>(TrashNote);
-        OpenNoteCommand = new RelayParameterizedCommand<NoteViewModel>(SetActiveNote);
-        OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
-        OpenCategoryPageCommand = new RelayCommand(OpenCategoryPage);
-
-        // Subscribe to the collection changed event for synchronizing with database
-        _noteListService.Items.CollectionChanged += ItemsOnCollectionChanged;
-
-        // Load the application settings to update the ActiveNote
-        _appViewModel.LoadAppSettingsOnce();
-    }
 
     private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
@@ -91,8 +99,8 @@ public class NoteListPageViewModel : BaseViewModel
                             _noteListService.Items[i].ListOrder = i;
                         }
 
-                        _context.Notes.UpdateRange(_noteListService.Items.MapList(), x => x.Id);
-
+                        var list = _noteListService.Items.MapList();
+                        _notesRepository.UpdateNoteList(list);
                     }
 
                     _lastRemovedId = int.MinValue;
@@ -131,39 +139,35 @@ public class NoteListPageViewModel : BaseViewModel
 
     private void CreateNote()
     {
-        var activeItems = _context.Notes
-        .Where(x => !x.Trashed)
-        .OrderByDescending(x => x.ListOrder);
+        var notes = _notesRepository.GetActiveNotes();
 
-        var lastListOrder = activeItems.Any()
-            ? activeItems.First().Map().ListOrder
+        var lastListOrder = notes.Any()
+            ? notes.Last().ListOrder
             : CommonConstants.DefaultListOrder;
 
-        NoteViewModel note = new NoteViewModel
+        var note = new Note
         {
             Title = PendingAddNewNoteText,
             Content = string.Empty,
-            CreationDate = DateTime.Now.Ticks,
-            ModificationDate = DateTime.Now.Ticks,
-            Trashed = false,
+            CreationDate = DateTime.Now,
+            ModificationDate = DateTime.Now,
+            IsDeleted = false,
             ListOrder = lastListOrder + 1
         };
 
-        var addedItem = _context.Notes.Add(note.Map());
-        Items.Add(addedItem.Map());
+        note = _notesRepository.AddNote(note);
+
+        Items.Add(note.MapToViewModel());
     }
 
     private void TrashNote(NoteViewModel note)
     {
-        note.Trashed = true;
-
+        _notesRepository.DeleteNote(note.Map());
         Items.Remove(note);
-
-        _context.Notes.UpdateFirst(note.Map());
-
-        if (ActiveNote.Id == note.Id)
+        
+        if (ActiveNote?.Id == note.Id)
         {
-            ActiveNote = _context.Notes.First(x => !x.Trashed).Map();
+            ActiveNote = Items.FirstOrDefault();
         }
     }
 

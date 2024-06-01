@@ -1,4 +1,4 @@
-﻿using TodoApp2.Core;
+﻿using Modules.Common.ViewModel;
 
 namespace TodoApp2;
 

@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using TodoApp2.Core;
+﻿using Modules.Common.ViewModel;
+using System.Windows;
 
 namespace TodoApp2;
 

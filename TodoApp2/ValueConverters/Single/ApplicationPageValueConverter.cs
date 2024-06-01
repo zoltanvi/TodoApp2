@@ -1,4 +1,7 @@
-﻿using Modules.Common.DataModels;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Common.DataModels;
+using Modules.Common.ViewModel;
+using Modules.Notes.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -126,7 +129,7 @@ public class ApplicationPageValueConverter : BaseValueConverter
                 {
                     var notePageViewModel = new NoteListPageViewModel(
                         _appViewModel,
-                        _context,
+                        IoC.ServiceProvider.GetService<NotesRepository>(),
                         _overlayPageService,
                         _noteListService,
                         _messageService);

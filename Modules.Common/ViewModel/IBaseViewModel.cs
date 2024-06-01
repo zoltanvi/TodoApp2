@@ -1,7 +1,6 @@
 ﻿using Modules.Common.DataBinding;
-using System;
 
-namespace TodoApp2.Core;
+namespace Modules.Common.ViewModel;
 
 /// <summary>
 /// Marker interface for view models.

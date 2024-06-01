@@ -1,17 +1,18 @@
-﻿using Modules.Settings.ViewModels;
+﻿using Modules.Common.ViewModel;
+using Modules.Notes.Repositories;
+using Modules.Notes.ViewModels;
+using Modules.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
-using TodoApp2.Persistence;
 
 namespace TodoApp2.Core;
 
 public class NoteListService : BaseViewModel
 {
     private AppViewModel _appViewModel;
-    private IAppContext _context;
+    private NotesRepository _notesRepository;
     private NoteViewModel _activeNote;
 
     public ObservableCollection<NoteViewModel> Items { get; set; }
@@ -28,29 +29,26 @@ public class NoteListService : BaseViewModel
         }
     }
 
-    public NoteListService(IAppContext context, AppViewModel appViewModel)
+    public NoteListService(NotesRepository notesRepository, AppViewModel appViewModel)
     {
-        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(notesRepository);
         ArgumentNullException.ThrowIfNull(appViewModel);
 
         _appViewModel = appViewModel;
-        _context = context;
+        _notesRepository = notesRepository;
 
-        var notes = _context.Notes
-            .Where(x => !x.Trashed)
-            .OrderBy(x => x.ListOrder)
-            .MapList();
+        var notes = _notesRepository.GetActiveNotes();
 
-        Items = new ObservableCollection<NoteViewModel>(notes);
+        Items = new ObservableCollection<NoteViewModel>(notes.MapToViewModelList());
 
-        _activeNote = _context.Notes.First(x => x.Id == AppSettings.Instance.SessionSettings.ActiveNoteId).Map();
+        _activeNote = Items.FirstOrDefault(x => x.Id == AppSettings.Instance.SessionSettings.ActiveNoteId);
     }
 
     public void SaveNoteContent()
     {
-        if (ActiveNote != null && _context.Notes.First(x => x.Id == ActiveNote.Id) != null)
+        if (ActiveNote != null)
         {
-            _context.Notes.UpdateFirst(ActiveNote.Map());
+            _notesRepository.UpdateNoteContent(ActiveNote.Map());
         }
     }
 }

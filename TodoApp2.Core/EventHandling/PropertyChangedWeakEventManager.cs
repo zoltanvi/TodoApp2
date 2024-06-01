@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common.ViewModel;
+using System;
 using System.ComponentModel;
 using System.Windows;
 

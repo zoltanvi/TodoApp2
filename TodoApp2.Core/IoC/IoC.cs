@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Notes.Repositories;
 using Modules.Settings.ViewModels;
 using System;
 using TodoApp2.Core.Helpers;
@@ -12,6 +13,7 @@ namespace TodoApp2.Core;
 /// </summary>
 public static class IoC
 {
+    public static IServiceProvider ServiceProvider { get; set; }
     public static IAppContext Context { get; private set; }
     public static IAsyncActionService AsyncActionService { get; set; }
     public static ITaskContentSplitterService TaskContentSplitterService { get; set; }
@@ -58,7 +60,7 @@ public static class IoC
         OverlayPageService = serviceProvider.GetService<OverlayPageService>();
 
         // Create default categories + example tasks
-        DefaultItemsCreator.CreateDefaults(Context);
+        DefaultItemsCreator.CreateDefaults(Context, serviceProvider.GetService<NotesRepository>());
 
         CategoryListService = serviceProvider.GetService<CategoryListService>();
         TaskListService = serviceProvider.GetService<TaskListService>();

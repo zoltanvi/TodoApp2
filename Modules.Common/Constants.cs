@@ -6,6 +6,7 @@
         public const string Zero = "0";
         public const string DatabaseFileExtension = "db";
         public const string CurrentVersion = "CurrentVersion";
+        public const string SortableDateFormat = "yyyy-MM-dd_HH:mm:ss.ffffff";
 
         public struct ColorName
         {

@@ -10,8 +10,6 @@
         {
             public const string Task = "Task";
             public const string Category = "Category";
-            public const string Note = "Note";
-            public const string Setting = "Setting";
         }
 
         // Keys in the App.config

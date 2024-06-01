@@ -1,4 +1,5 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Common.ViewModel;
 using Modules.Settings.Repositories;
 using Modules.Settings.Services;
 using Modules.Settings.ViewModels;

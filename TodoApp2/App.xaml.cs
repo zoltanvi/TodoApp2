@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Modules.Common;
 using Modules.Common.Database;
 using Modules.Migrations;
+using Modules.Notes.Repositories;
 using Modules.Settings.Repositories;
 using Modules.Settings.Services;
 using Modules.Settings.ViewModels;
@@ -48,6 +49,8 @@ public partial class App : Application
 
         var migrationService = _host.Services.GetService<IMigrationService>();
         migrationService.Run();
+
+        IoC.ServiceProvider = _host.Services;
     }
 
     private void ConfigureServices(IServiceCollection services)
@@ -58,7 +61,6 @@ public partial class App : Application
             return new Persistence.AppContext(DbConfiguration.ConnectionStringOld);
         });
         services.AddScoped<IUIScaler, UIScaler>();
-        services.AddScoped<ISettingsRepository, SettingsRepository>();
         services.AddScoped<AppViewModel>();
         services.AddScoped<MainWindowViewModel>();
         services.AddScoped<IWindowService, WindowService>();
@@ -89,8 +91,19 @@ public partial class App : Application
         services.AddScoped<ReminderNotificationService>();
         services.AddScoped<OneEditorOpenService>();
 
+        AddDatabases(services);
+    }
+
+    private void AddDatabases(IServiceCollection services)
+    {
         services.AddDbContext<SettingDbContext>();
+        services.AddDbContext<NotesDbContext>();
+        
         services.AddScoped<IMigrationService, MigrationService>();
+
+        services.AddScoped<ISettingsRepository, SettingsRepository>();
+        //services.AddScoped<INotesRepository, NotesRepository>();
+        services.AddScoped<NotesRepository>();
     }
 
     /// <summary>
