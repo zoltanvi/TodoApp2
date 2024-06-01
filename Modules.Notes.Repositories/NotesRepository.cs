@@ -48,6 +48,7 @@ public class NotesRepository
         ArgumentNullException.ThrowIfNull(dbNote);
 
         dbNote.Content = updatedNote.Content;
+        dbNote.ModificationDate = DateTime.Now;
 
         _context.SaveChanges();
     }
