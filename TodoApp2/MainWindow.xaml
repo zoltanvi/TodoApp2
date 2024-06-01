@@ -47,7 +47,7 @@
                                     <MultiBinding.Converter>
                                         <local:RoundedCornersMultiConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
+                                    <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{StaticResource AppSettings}" />
                                     <Binding Path="IsRoundedCornersAllowed" />
                                 </MultiBinding>
                             </Border.CornerRadius>
@@ -68,7 +68,7 @@
                                         <MultiBinding.Converter>
                                             <local:RoundedCornersMultiConverter />
                                         </MultiBinding.Converter>
-                                        <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
+                                        <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{StaticResource AppSettings}" />
                                         <Binding Path="IsRoundedCornersAllowed" />
                                     </MultiBinding>
                                 </Border.CornerRadius>
@@ -87,7 +87,7 @@
                                     <Border
                                         Panel.ZIndex="2"
                                         BorderBrush="{Binding AppSettings.AppWindowSettings.AppBorderColor, 
-                                        Source={x:Static local:VML.Instance}, 
+                                        Source={StaticResource AppSettings}, 
                                         Converter={StaticResource appBorderBrushConverter}}"
                                         BorderThickness="0.4"
                                         Opacity="1"
@@ -98,7 +98,7 @@
                                                 <MultiBinding.Converter>
                                                     <local:RoundedCornersMultiConverter />
                                                 </MultiBinding.Converter>
-                                                <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
+                                                <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{StaticResource AppSettings}" />
                                                 <Binding Path="IsRoundedCornersAllowed" />
                                             </MultiBinding>
                                         </Border.CornerRadius>
@@ -112,7 +112,7 @@
                                                 <MultiBinding.Converter>
                                                     <local:RoundedCornersMultiConverter />
                                                 </MultiBinding.Converter>
-                                                <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{x:Static local:VML.Instance}" />
+                                                <Binding Path="AppSettings.AppWindowSettings.RoundedWindowCorners" Source="{StaticResource AppSettings}" />
                                                 <Binding Path="IsRoundedCornersAllowed" />
                                             </MultiBinding>
                                         </Border.CornerRadius>
@@ -121,7 +121,7 @@
                                             <Grid.RowDefinitions>
 
                                                 <!--  Title Bar  -->
-                                                <RowDefinition Height="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={x:Static local:VML.Instance}, Converter={StaticResource TitleBarHeightToGridLengthConverter}}" />
+                                                <RowDefinition Height="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={StaticResource AppSettings}, Converter={StaticResource TitleBarHeightToGridLengthConverter}}" />
                                                 <!--  Window Content  -->
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
@@ -183,7 +183,7 @@
                                                                 Margin="0 2"
                                                                 Padding="5 0">
                                                                 <Label
-                                                                    Visibility="{Binding AppSettings.DateTimeSettings.TitleBarDateVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                                                                    Visibility="{Binding AppSettings.DateTimeSettings.TitleBarDateVisible, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}"
                                                                     Margin="0"
                                                                     Padding="0"
                                                                     Foreground="{DynamicResource OnSurface}"
@@ -195,7 +195,7 @@
                                                                                 <local:CurrentDateTimeFormatMultiConverter />
                                                                             </MultiBinding.Converter>
                                                                             <Binding Path="CurrentTime" />
-                                                                            <Binding Path="AppSettings.DateTimeSettings.TitleBarDateFormat" Source="{x:Static local:VML.Instance}" />
+                                                                            <Binding Path="AppSettings.DateTimeSettings.TitleBarDateFormat" Source="{StaticResource AppSettings}" />
                                                                         </MultiBinding>
                                                                     </Label.Content>
                                                                 </Label>
@@ -274,7 +274,7 @@
 
     <WindowChrome.WindowChrome>
         <WindowChrome
-            CaptionHeight="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={x:Static local:VML.Instance}, Converter={StaticResource titleBarHeightConverter}}"
+            CaptionHeight="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={StaticResource AppSettings}, Converter={StaticResource titleBarHeightConverter}}"
             GlassFrameThickness="0"
             CornerRadius="0"
             ResizeBorderThickness="{Binding ResizeBorderThickness}" />
@@ -395,7 +395,7 @@
                     MaxHeight="100"
                     CornerRadius="4"
                     SnapsToDevicePixels="True"
-                    BorderThickness="{Binding UIScaler.ScaleValue}"
+                    BorderThickness="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}"
                     BorderBrush="{Binding MessageService.MessageType, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageBorderConverter}}"
                     Background="{Binding MessageService.MessageType, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource messageBackgroundConverter}}">
                     <!--<Border.Effect>
@@ -416,7 +416,7 @@
                             Grid.Column="0"
                             DockPanel.Dock="Left"
                             TextWrapping="Wrap"
-                            FontSize="{Binding UIScaler.FontSize.Regular}"
+                            FontSize="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}"
                             FontFamily="{DynamicResource UIFont}"
                             FontWeight="Bold"
                             Text="{Binding MessageService.Message, Source={x:Static local:VML.Instance}}"

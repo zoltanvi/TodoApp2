@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Settings.ViewModels;
+using System;
 using System.Collections.ObjectModel;
 using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
@@ -21,7 +22,7 @@ public class NoteListService : BaseViewModel
         {
             SaveNoteContent();
             _activeNote = value;
-            IoC.AppSettings.SessionSettings.ActiveNoteId = value?.Id ?? -1;
+            AppSettings.Instance.SessionSettings.ActiveNoteId = value?.Id ?? -1;
             Mediator.NotifyClients(ViewModelMessages.NoteChanged);
         }
     }
@@ -41,7 +42,7 @@ public class NoteListService : BaseViewModel
 
         Items = new ObservableCollection<NoteViewModel>(notes);
 
-        _activeNote = _context.Notes.First(x => x.Id == IoC.AppSettings.SessionSettings.ActiveNoteId).Map();
+        _activeNote = _context.Notes.First(x => x.Id == AppSettings.Instance.SessionSettings.ActiveNoteId).Map();
     }
 
     public void SaveNoteContent()

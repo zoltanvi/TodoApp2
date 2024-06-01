@@ -1,4 +1,5 @@
 ﻿using Modules.Common;
+using Modules.Settings.ViewModels;
 using System;
 using System.Windows.Input;
 
@@ -13,7 +14,7 @@ public class RichTextEditorViewModel : BaseViewModel
     public bool Focusable { get; set; }
     public bool NeedFocus { get; set; }
     public bool AcceptsTab { get; set; }
-    public bool IsFormattedPasteEnabled => IoC.AppSettings.TaskPageSettings.FormattedPasteEnabled;
+    public bool IsFormattedPasteEnabled => AppSettings.Instance.TaskPageSettings.FormattedPasteEnabled;
     public string WatermarkText { get; set; }
     public bool IsEditMode
     {

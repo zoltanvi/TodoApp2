@@ -36,10 +36,10 @@
             <Grid
                 Grid.Row="0"
                 Margin="5 0"
-                Visibility="{Binding AppSettings.PageTitleSettings.Visible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                Visibility="{Binding AppSettings.PageTitleSettings.Visible, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}">
                 <Grid
                     x:Name="CategoryNamePanel"
-                    Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}"
+                    Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={StaticResource AppSettings}, Converter={StaticResource taskPageTitleMarginConverter}}"
                     Background="#00333333"
                     Style="{DynamicResource CurrentCategoryPanelStyle}">
                     <Grid.Visibility>
@@ -47,7 +47,7 @@
                             <MultiBinding.Converter>
                                 <local:BoolToVisibilityAndConverter />
                             </MultiBinding.Converter>
-                            <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
+                            <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{StaticResource AppSettings}" />
                             <Binding
                                 Mode="OneWay"
                                 Path="IsCategoryInDisplayMode"
@@ -81,9 +81,9 @@
                         <TextBlock
                             Grid.Column="0"
                             Margin="0 1"
-                            HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentConverter}}"
-                            FontFamily="{Binding Path=AppSettings.PageTitleSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
+                            HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={StaticResource AppSettings}, Converter={StaticResource horizontalAlignmentConverter}}"
+                            FontFamily="{Binding AppSettings.PageTitleSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={StaticResource AppSettings}, Converter={StaticResource fontSizeScaler}}"
                             Foreground="{DynamicResource Primary}"
                             Style="{DynamicResource PageTitleTextBlockStyle}"
                             Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:VML.Instance}}">
@@ -92,7 +92,7 @@
                                     <MultiBinding.Converter>
                                         <local:BoolToVisibilityAndConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
+                                    <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{StaticResource AppSettings}" />
                                     <Binding
                                         Mode="OneWay"
                                         Path="IsCategoryInDisplayMode"
@@ -104,7 +104,7 @@
 
                     <Button
                         Margin="0 2"
-                        HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentInvertedConverter}}"
+                        HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={StaticResource AppSettings}, Converter={StaticResource horizontalAlignmentInvertedConverter}}"
                         Command="{Binding EditCategoryCommand}"
                         Content="{DynamicResource SegoeIconEdit}"
                         Style="{DynamicResource ButtonIconHoverRectangleStyle}"
@@ -113,7 +113,7 @@
                 </Grid>
 
                 <!--  CURRENT CATEGORY EDITOR TEXTBOX  -->
-                <Border Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}">
+                <Border Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={StaticResource AppSettings}, Converter={StaticResource taskPageTitleMarginConverter}}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -124,13 +124,13 @@
                             Grid.Column="0"
                             Margin="-2 0 -2 0"
                             Padding="-1 0 -1 0"
-                            HorizontalContentAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentConverter}}"
+                            HorizontalContentAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={StaticResource AppSettings}, Converter={StaticResource horizontalAlignmentConverter}}"
                             BorderBrush="{DynamicResource Tertiary}"
                             BorderThickness="1"
                             EnterPressedCommand="{Binding FinishCategoryEditCommand}"
                             EscapePressedCommand="{Binding FinishCategoryEditCommand}"
-                            FontFamily="{Binding Path=AppSettings.PageTitleSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
+                            FontFamily="{Binding AppSettings.PageTitleSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={StaticResource AppSettings}, Converter={StaticResource fontSizeScaler}}"
                             Foreground="{DynamicResource Secondary}"
                             Style="{DynamicResource PageTitleEditorTextBoxStyle}"
                             Text="{Binding RenameCategoryContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -140,7 +140,7 @@
                                     <MultiBinding.Converter>
                                         <local:BoolToVisibilityAndConverter />
                                     </MultiBinding.Converter>
-                                    <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{x:Static local:VML.Instance}" />
+                                    <Binding Path="AppSettings.PageTitleSettings.Visible" Source="{StaticResource AppSettings}" />
                                     <Binding
                                         Mode="OneWay"
                                         Path="IsCategoryInEditMode"
@@ -165,7 +165,7 @@
 
                 <Button
                     Margin="15 2"
-                    HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentInvertedConverter}}"
+                    HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={StaticResource AppSettings}, Converter={StaticResource horizontalAlignmentInvertedConverter}}"
                     Command="{Binding FinishCategoryEditCommand}"
                     Content="{DynamicResource SegoeIconSave}"
                     Style="{DynamicResource ButtonIconHoverRectangleStyle}"
@@ -189,13 +189,13 @@
             <local:TaskListControl x:Name="MyTaskListControl" Grid.Row="1" />
 
             <!--  Progress bar  -->
-            <Grid Grid.Row="2" Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
+            <Grid Grid.Row="2" Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={StaticResource AppSettings}, Converter={StaticResource taskListItemMarginConverter}}">
                 <Border Margin="4 0">
                     <local:TaskProgressBar
                         MaxProgress="{Binding TaskListService.ActiveCategoryItemCount, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged}"
-                        NumbersVisible="{Binding AppSettings.TaskPageSettings.NumberOnProgressBar, Source={x:Static local:VML.Instance}}"
+                        NumbersVisible="{Binding AppSettings.TaskPageSettings.NumberOnProgressBar, Source={StaticResource AppSettings}}"
                         Progress="{Binding TaskListService.ActiveCategoryFinishedTaskCount, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged}"
-                        Visibility="{Binding AppSettings.TaskPageSettings.ProgressBar, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                        Visibility="{Binding AppSettings.TaskPageSettings.ProgressBar, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
                 </Border>
 
             </Grid>
@@ -289,7 +289,7 @@
                         <local:RichTextEditorControl
                             x:Name="BottomTextEditor"
                             Grid.Row="0"
-                            MaxHeight="{Binding UIScaler.TextBoxMaxHeight}"
+                            MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={StaticResource UIScaler}}"
                             Padding="3 8"
                             VerticalAlignment="Bottom"
                             DataContext="{Binding TextEditorViewModel}">
@@ -302,7 +302,7 @@
 
                         </local:RichTextEditorControl>
 
-                        <Border Grid.Row="1" Visibility="{Binding AppSettings.TaskPageSettings.SendButtonVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                        <Border Grid.Row="1" Visibility="{Binding AppSettings.TaskPageSettings.SendButtonVisible, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}">
                             <Button
                                 Padding="5"
                                 HorizontalAlignment="Right"

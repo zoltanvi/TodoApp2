@@ -58,7 +58,7 @@
         x:Key="SettingsCategoryButtonStyle"
         BasedOn="{StaticResource ButtonHoverStyle}"
         TargetType="{x:Type local:SettingsCategoryButton}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}" />
         <Setter Property="Margin" Value="3 4" />
         <Setter Property="Padding" Value="3 2" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
@@ -104,7 +104,7 @@
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
         <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}" />
     </Style>
 
 
@@ -124,7 +124,7 @@
         x:Key="TextEditorButtonStyle"
         BasedOn="{StaticResource ButtonIconStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource OnSurface}" />
         <Setter Property="Margin" Value="0 0" />
@@ -266,7 +266,7 @@
         <Setter Property="Opacity" Value="0.4" />
         <Setter Property="Margin" Value="0 5 0 0" />
         <Setter Property="Padding" Value="6" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.RegularIcon, Source={StaticResource UIScaler}}" />
 
     </Style>
 
@@ -294,7 +294,7 @@
         TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource Surface3}" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="MaxHeight" Value="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="MaxHeight" Value="{Binding UIScaler.ColorPickerHeight, Source={StaticResource UIScaler}}" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
@@ -342,7 +342,7 @@
         x:Key="ButtonInnerWindowStyle"
         BasedOn="{StaticResource ButtonIconHoverSideMenuStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Smaller, Source={StaticResource UIScaler}}" />
         <Setter Property="FontWeight" Value="Light" />
         <!--<Setter Property="Width" Value="30" />-->
     </Style>
@@ -352,7 +352,7 @@
         x:Key="ReminderButtonStyle"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={StaticResource UIScaler}}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -554,7 +554,7 @@
                             Opacity="0" />
 
                         <Grid.LayoutTransform>
-                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" />
+                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}" ScaleY="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}" />
                         </Grid.LayoutTransform>
                     </Grid>
 
@@ -596,7 +596,7 @@
         <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Opacity" Value="0.6" />
         <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="Background" Value="{DynamicResource Surface3}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -693,7 +693,7 @@
         x:Key="TimePickerLabelStyle"
         BasedOn="{StaticResource BaseLabelClearTypeStyle}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}" />
         <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -704,7 +704,7 @@
     <Style x:Key="ClickableTextToggleButtonStyle" TargetType="ToggleButton">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Large, Source={StaticResource UIScaler}}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontFamily" Value="{DynamicResource UIFont}" />
         <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />

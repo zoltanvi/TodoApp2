@@ -11,7 +11,6 @@ public class VML
     public static VML Instance { get; } = new VML();
 
     public static AppViewModel ApplicationViewModel => IoC.AppViewModel;
-    public static AppSettings AppSettings => IoC.AppSettings;
     public static OverlayPageService OverlayPageService => IoC.OverlayPageService;
     public static CategoryListService CategoryListService => IoC.CategoryListService;
     public static NoteListService NoteListService => IoC.NoteListService;

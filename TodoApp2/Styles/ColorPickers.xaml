@@ -77,7 +77,7 @@
 
                                 <Border
                                     x:Name="PART_border"
-                                    Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                                    Width="{Binding UIScaler.ColorPickerItemSize, Source={StaticResource UIScaler}}"
                                     Height="{Binding ActualWidth, ElementName=PART_border}"
                                     Margin="3"
                                     Background="{Binding Path=., Converter={StaticResource stringRGBToBrushConverter}}"
@@ -141,8 +141,8 @@
                                     Background="Transparent">
                                     <Border
                                         x:Name="PART_selectedColorBorder"
-                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
-                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={StaticResource UIScaler}}"
+                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={StaticResource UIScaler}}"
                                         Background="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
                                         CornerRadius="4"
                                         BorderBrush="{DynamicResource Outline}"
@@ -214,8 +214,8 @@
                                     CornerRadius="4">
                                     <Border
                                         x:Name="PART_selectedColorBorder"
-                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
-                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={x:Static local:VML.Instance}}"
+                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={StaticResource UIScaler}}"
+                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={StaticResource UIScaler}}"
                                         Background="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
                                         CornerRadius="4"
                                         Tag="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}"

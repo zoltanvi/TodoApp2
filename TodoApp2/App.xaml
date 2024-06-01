@@ -6,8 +6,10 @@
     x:Name="TodoApp2Application">
     <Application.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <!--  Order is important  -->
+                <ResourceDictionary Source="Resources/BindingProxies.xaml" />
                 <ResourceDictionary Source="Resources/FeatureFlags.xaml" />
                 <ResourceDictionary Source="Resources/Version.xaml" />
                 <ResourceDictionary Source="Resources/ValueConverters.xaml" />

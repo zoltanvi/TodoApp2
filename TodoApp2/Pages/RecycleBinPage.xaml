@@ -27,10 +27,10 @@
             <Grid
                 Grid.Row="0"
                 Margin="5 0"
-                Visibility="{Binding AppSettings.PageTitleSettings.Visible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                Visibility="{Binding AppSettings.PageTitleSettings.Visible, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}">
                 <Grid
                     x:Name="CategoryNamePanel"
-                    Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskPageTitleMarginConverter}}"
+                    Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={StaticResource AppSettings}, Converter={StaticResource taskPageTitleMarginConverter}}"
                     Background="#00333333"
                     Style="{DynamicResource CurrentCategoryPanelStyle}">
                     <Grid>
@@ -43,9 +43,9 @@
                         <TextBlock
                             Grid.Column="0"
                             Margin="0 1"
-                            HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={x:Static local:VML.Instance}, Converter={StaticResource horizontalAlignmentConverter}}"
-                            FontFamily="{Binding Path=AppSettings.PageTitleSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                            FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
+                            HorizontalAlignment="{Binding AppSettings.PageTitleSettings.HorizontalAlignment, Source={StaticResource AppSettings}, Converter={StaticResource horizontalAlignmentConverter}}"
+                            FontFamily="{Binding AppSettings.PageTitleSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={StaticResource AppSettings}, Converter={StaticResource fontSizeScaler}}"
                             Foreground="{DynamicResource Primary}"
                             Style="{DynamicResource PageTitleTextBlockStyle}"
                             Text="Recycle bin">

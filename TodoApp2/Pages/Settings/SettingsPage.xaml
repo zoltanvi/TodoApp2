@@ -161,7 +161,7 @@
                                 Padding="0 2"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                FontSize="{Binding UIScaler.FontSize.Regular}"
+                                FontSize="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}"
                                 Foreground="{DynamicResource OnPrimaryContainer}"
                                 Text="{DynamicResource CurrentVersion}" />
                         </Border>

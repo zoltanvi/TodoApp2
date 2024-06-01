@@ -28,8 +28,8 @@ public class MainWindowViewModel : BaseViewModel
     private bool _timeInitialized;
     private DateTime _initialTime;
 
-    private AppWindowSettings AppWindowSettings => IoC.AppSettings.AppWindowSettings;
-    private WindowSettings WindowSettings => IoC.AppSettings.WindowSettings;
+    private AppWindowSettings AppWindowSettings => AppSettings.Instance.AppWindowSettings;
+    private WindowSettings WindowSettings => AppSettings.Instance.WindowSettings;
 
     public ICommand MinimizeCommand { get; }
     public ICommand MaximizeCommand { get; }
@@ -46,7 +46,7 @@ public class MainWindowViewModel : BaseViewModel
     public Thickness InnerContentPadding => new Thickness(ContentPadding);
 
     // The size of the resize border around the window
-    public int ResizeBorder => IsMaximized ? 0 : IoC.AppSettings.AppWindowSettings.ResizeBorderSize;
+    public int ResizeBorder => IsMaximized ? 0 : AppSettings.Instance.AppWindowSettings.ResizeBorderSize;
 
     // The size of the resize border around the window, taking into account the outer margin
     public Thickness ResizeBorderThickness => new Thickness(ResizeBorder);
@@ -68,7 +68,7 @@ public class MainWindowViewModel : BaseViewModel
     // See: https://stackoverflow.com/questions/22536645/what-hardware-platform-difference-could-cause-an-xaml-wpf-multibinding-to-checkb
     public double MyWidth { get; set; }
     public double MyHeight { get; set; }
-    public int OuterMargin => 2 * IoC.AppSettings.AppWindowSettings.ResizeBorderSize;
+    public int OuterMargin => 2 * AppSettings.Instance.AppWindowSettings.ResizeBorderSize;
     public Rect ClipRect => new Rect(0, 0, MyWidth, MyHeight);
     public Rect OuterClipRect => new Rect(0, 0, MyWidth + OuterMargin, MyHeight + OuterMargin);
 
@@ -83,7 +83,7 @@ public class MainWindowViewModel : BaseViewModel
         _windowService = windowService;
         _appViewModel = applicationViewModel;
         _context = context;
-        IoC.AppSettings.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
+        AppSettings.Instance.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
 
         _themeManager = new ThemeManager();
 
@@ -194,11 +194,11 @@ public class MainWindowViewModel : BaseViewModel
             }
             else if (key == Key.Subtract)
             {
-                UIScaler.ZoomOut();
+                UIScaler.Instance.ZoomOut();
             }
             else if (key == Key.Add)
             {
-                UIScaler.ZoomIn();
+                UIScaler.Instance.ZoomIn();
             }
             else if (key == Key.E)
             {

@@ -193,7 +193,7 @@
     <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={x:Static local:VML.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}" />
         <Style.Triggers>
             <Trigger Property="Role" Value="TopLevelHeader">
                 <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelHeaderTemplateKey}}" />

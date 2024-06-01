@@ -30,77 +30,77 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBold}"
                     Description="Bold button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Bold, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Bold, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconItalic}"
                     Description="Italic button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Italic, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Italic, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconUnderlined}"
                     Description="Underlined button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Underlined, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Underlined, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSize}"
                     Description="Header1 button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Large, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Large, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSize}"
                     Description="Medium font button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Medium, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Medium, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSize}"
                     Description="Small font button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Small, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Small, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlignLeft}"
                     Description="Align left button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.AlignLeft, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.AlignLeft, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlignCenter}"
                     Description="Align center button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.AlignCenter, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.AlignCenter, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlignRight}"
                     Description="Align right button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.AlignRight, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.AlignRight, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlignJustify}"
                     Description="Justify button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.AlignJustify, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.AlignJustify, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSizeIncrease}"
                     Description="Increase font size button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Increase, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Increase, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconFontSizeDecrease}"
                     Description="Decrease font size button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Decrease, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Decrease, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMonospace}"
                     Description="Monospace font button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Monospace, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Monospace, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconDeleteFormatting}"
                     Description="Reset all formatting button"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Reset, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.Reset, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconPalette}"
                     Description="Text color picker"
-                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.TextColor, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TextEditorQuickActionSettings.TextColor, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
             </StackPanel>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Settings.ViewModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -55,7 +56,7 @@ public class CategoryListService : BaseViewModel
         set
         {
             _activeCategory = value;
-            IoC.AppSettings.SessionSettings.ActiveCategoryId = value?.Id ?? -1;
+            AppSettings.Instance.SessionSettings.ActiveCategoryId = value?.Id ?? -1;
             _appViewModel.SaveApplicationSettings();
         }
     }
@@ -69,7 +70,7 @@ public class CategoryListService : BaseViewModel
         _context = context;
 
         _activeCategory = _context.Categories
-            .First(x => x.Id == IoC.AppSettings.SessionSettings.ActiveCategoryId)
+            .First(x => x.Id == AppSettings.Instance.SessionSettings.ActiveCategoryId)
             .Map();
 
         if (_activeCategory == null)

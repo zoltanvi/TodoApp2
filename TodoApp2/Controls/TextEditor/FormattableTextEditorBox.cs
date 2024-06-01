@@ -1,4 +1,5 @@
 ﻿using Modules.Common;
+using Modules.Settings.ViewModels;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -160,7 +161,7 @@ public class FormattableTextEditorBox : BasicTextEditorBox
 
         if (escape || enter && !shiftPressed)
         {
-            if (IoC.AppSettings.TaskPageSettings.SaveOnEnter || ctrlPressed && enter)
+            if (AppSettings.Instance.TaskPageSettings.SaveOnEnter || ctrlPressed && enter)
             {
                 UpdateContent();
 
@@ -206,7 +207,7 @@ public class FormattableTextEditorBox : BasicTextEditorBox
 
         if (currentFontFamily is MediaFontFamily fontFamily && fontFamily.Source == Constants.FontFamily.Consolas)
         {
-            MediaFontFamily defaultFontFamily = EnumToFontFamilyConverter.Instance.Convert(IoC.AppSettings.TaskSettings.FontFamily);
+            MediaFontFamily defaultFontFamily = EnumToFontFamilyConverter.Instance.Convert(AppSettings.Instance.TaskSettings.FontFamily);
 
             if (defaultFontFamily != null)
             {

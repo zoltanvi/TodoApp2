@@ -53,7 +53,7 @@
                         ToolTip="Click to switch to CATEGORIES"
                         Content="NOTES"
                         Cursor="Hand"
-                        FontSize="{Binding UIScaler.FontSize.Regular}"
+                        FontSize="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}"
                         HorizontalAlignment="Left"
                         Margin="25 5 0 0"
                         FontFamily="{DynamicResource UIBoldFont}" />

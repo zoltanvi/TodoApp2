@@ -17,7 +17,7 @@
         <Grid Visibility="{Binding IsNoteExists, Converter={StaticResource boolToVisibilityNegatedConverter}}">
             <Label
                 Style="{StaticResource BaseLabelClearTypeStyle}"
-                FontSize="{Binding UIScaler.FontSize.Huge}"
+                FontSize="{Binding UIScaler.FontSize.Huge, Source={StaticResource UIScaler}}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Content="Select a note to edit" />
@@ -27,9 +27,9 @@
             <avalonEdit:TextEditor
                 xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                 Name="textEditor"
-                WordWrap="{Binding AppSettings.NoteSettings.WordWrap, Source={x:Static local:VML.Instance}, UpdateSourceTrigger=PropertyChanged}"
-                FontFamily="{Binding Path=AppSettings.NoteSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                FontSize="{Binding Path=AppSettings.TaskSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
+                WordWrap="{Binding AppSettings.NoteSettings.WordWrap, Source={StaticResource AppSettings}, UpdateSourceTrigger=PropertyChanged}"
+                FontFamily="{Binding AppSettings.NoteSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
+                FontSize="{Binding AppSettings.TaskSettings.FontSize, Source={StaticResource AppSettings}, Converter={StaticResource fontSizeScaler}}"
                 TextChanged="textEditor_TextChanged"
                 Background="Transparent"
                 Foreground="{DynamicResource OnBackground}"
@@ -48,11 +48,11 @@
             <Border
                 Background="{DynamicResource Background}"
                 BorderBrush="black"
-                Visibility="{Binding AppSettings.NoteSettings.WordWrap, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
+                Visibility="{Binding AppSettings.NoteSettings.WordWrap, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Width="{Binding UIScaler.NotePageBoxWidth}"
-                Height="{Binding UIScaler.NotePageBoxWidth}" />
+                Width="{Binding UIScaler.NotePageBoxWidth, Source={StaticResource UIScaler}}"
+                Height="{Binding UIScaler.NotePageBoxWidth, Source={StaticResource UIScaler}}" />
         </Grid>
 
     </Grid>

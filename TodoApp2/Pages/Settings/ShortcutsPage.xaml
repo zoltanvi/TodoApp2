@@ -29,9 +29,9 @@
                 <Label
                     Content="Text editor shortcuts"
                     Style="{DynamicResource BaseLabelClearTypeStyle}"
-                    FontSize="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
+                    FontSize="{Binding UIScaler.FontSize.Large, Source={StaticResource UIScaler}}" />
                 
-                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
 
                 <local:ShortcutItemControl
                     Description="Edit last added item"
@@ -53,7 +53,7 @@
                     Key1="Ctrl"
                     Key2="I" />
 
-                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
 
                 <local:ShortcutItemControl
                     Description="Remove format (selection)"
@@ -65,7 +65,7 @@
                     Key1="Ctrl"
                     Key2="H" />
 
-                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
 
                 <local:ShortcutItemControl
                     Description="Align left"
@@ -88,7 +88,7 @@
                     Key1="Ctrl"
                     Key2="J" />
 
-                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
 
 
                 <local:ShortcutItemControl
@@ -101,7 +101,7 @@
                     Key1="Ctrl"
                     Key2="]" />
 
-                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
 
 
                 <local:ShortcutItemControl
@@ -115,7 +115,7 @@
                     Key2="Shift"
                     Key3="=" />
 
-                <Border Height="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}" />
 
                 <local:ShortcutItemControl
                     Description="Toggle editor toolbar"
@@ -123,13 +123,13 @@
                     Key2="Shift"
                     Key3="Enter" />
 
-                <Border Height="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}" />
 
                 <Label
                     Content="Global shortcuts"
                     Style="{DynamicResource BaseLabelClearTypeStyle}"
-                    FontSize="{Binding UIScaler.FontSize.Large, Source={x:Static local:VML.Instance}}" />
-                <Border Height="{Binding UIScaler.FontSize.Smaller, Source={x:Static local:VML.Instance}}" />
+                    FontSize="{Binding UIScaler.FontSize.Large, Source={StaticResource UIScaler}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smaller, Source={StaticResource UIScaler}}" />
 
 
                 <!--<local:ShortcutItemControl
@@ -144,7 +144,7 @@
                     Key2="Alt"
                     Key3="L" />
 
-                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />-->
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />-->
 
 
                 <local:ShortcutItemControl
@@ -157,7 +157,7 @@
                     Key1="Ctrl"
                     Key2="Y" />
 
-                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={x:Static local:VML.Instance}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
 
                 <local:ShortcutItemControl
                     Description="Zoom in"

@@ -127,7 +127,7 @@
                                     <local:CurrentDateTimeFormatMultiConverter />
                                 </MultiBinding.Converter>
                                 <Binding Path="NotificationTask.ReminderDate" />
-                                <Binding Path="AppSettings.DateTimeSettings.ReminderDateFormat" Source="{x:Static local:VML.Instance}" />
+                                <Binding Path="AppSettings.DateTimeSettings.ReminderDateFormat" Source="{StaticResource AppSettings}" />
                             </MultiBinding>
                         </Label.Content>
                     </Label>
@@ -140,7 +140,7 @@
                     Padding="10"
                     VerticalAlignment="Bottom"
                     IsReadOnly="True"
-                    MaxHeight="{Binding UIScaler.TextBoxMaxHeight}" />
+                    MaxHeight="{Binding UIScaler.TextBoxMaxHeight, Source={StaticResource UIScaler}}" />
             </Grid>
         </Border>
     </Grid>

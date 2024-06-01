@@ -19,11 +19,10 @@ public class AppViewModel : BaseViewModel
 {
     private bool _appSettingsLoadedFirstTime;
     private IUIScaler _uiScaler;
-    private ISettingsRepository _settingsRepository;
     private IAppSettingsService _settingsPopulator;
     private readonly IAppContext _context;
 
-    private SessionSettings SessionSettings => IoC.AppSettings.SessionSettings;
+    private SessionSettings SessionSettings => AppSettings.Instance.SessionSettings;
 
     /// <summary>
     /// The sliding side menu content page
@@ -71,15 +70,6 @@ public class AppViewModel : BaseViewModel
     public bool OverlayPageVisible { get; set; }
 
     /// <summary>
-    /// The settings for the whole application
-    /// </summary>
-    public AppSettings AppSettings
-    {
-        get => IoC.AppSettings;
-        set => IoC.AppSettings = value;
-    }
-
-    /// <summary>
     /// The database location.
     /// </summary>
     public string DatabaseLocation => DataAccess.DatabasePath;
@@ -92,23 +82,20 @@ public class AppViewModel : BaseViewModel
     public AppViewModel(
         IAppContext context, 
         UIScaler uiScaler, 
-        ISettingsRepository settingsRepository,
         IAppSettingsService settingsPopulator)
     {
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(uiScaler);
-        ArgumentNullException.ThrowIfNull(settingsRepository);
         ArgumentNullException.ThrowIfNull(settingsPopulator);
 
         _context = context;
         _uiScaler = uiScaler;
-        _settingsRepository = settingsRepository;
         _settingsPopulator = settingsPopulator;
 
         // Load the application settings to update the ActiveCategoryId before querying the tasks
         LoadAppSettingsOnce();
 
-        AppSettings.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
+        AppSettings.Instance.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
     }
 
     /// <summary>
@@ -215,23 +202,23 @@ public class AppViewModel : BaseViewModel
         {
             _appSettingsLoadedFirstTime = true;
 
-            _settingsPopulator.UpdateAppSettingsFromDatabase(IoC.AppSettings);
+            _settingsPopulator.UpdateAppSettingsFromDatabase(AppSettings.Instance);
 
             // Must be set to always check the registry on startup
-            IoC.AutoRunService.RunAtStartup = AppSettings.AppWindowSettings.AutoStart;
+            IoC.AutoRunService.RunAtStartup = AppSettings.Instance.AppWindowSettings.AutoStart;
         }
     }
 
     public void SaveApplicationSettings()
     {
-        _settingsPopulator.UpdateDatabaseFromAppSettings(IoC.AppSettings);
+        _settingsPopulator.UpdateDatabaseFromAppSettings(AppSettings.Instance);
     }
 
     private void CommonSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(AppWindowSettings.AutoStart))
         {
-            IoC.AutoRunService.RunAtStartup = AppSettings.AppWindowSettings.AutoStart;
+            IoC.AutoRunService.RunAtStartup = AppSettings.Instance.AppWindowSettings.AutoStart;
         }
     }
 

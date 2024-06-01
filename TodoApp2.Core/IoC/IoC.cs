@@ -15,7 +15,6 @@ public static class IoC
     public static IAppContext Context { get; private set; }
     public static IAsyncActionService AsyncActionService { get; set; }
     public static ITaskContentSplitterService TaskContentSplitterService { get; set; }
-    public static AppSettings AppSettings { get; set; }
     public static AppViewModel AppViewModel { get; private set; }
     public static OverlayPageService OverlayPageService { get; private set; }
     public static CategoryListService CategoryListService { get; private set; }
@@ -39,7 +38,6 @@ public static class IoC
         //Context = DataAccess.GetAppContext();
         AutoRunService = new AutoRunService();
         MessageService = new MessageService();
-        AppSettings = new AppSettings();
     }
 
     /// <summary>
@@ -52,7 +50,7 @@ public static class IoC
         UIScaler = UIScaler.Instance;
 
         ThemeChangeNotifier = serviceProvider.GetService<ThemeChangeNotifier>();
-        ThemeChangeNotifier.AddRecipient(AppSettings.AppWindowSettings, nameof(AppWindowSettings.AppBorderColor));
+        ThemeChangeNotifier.AddRecipient(AppSettings.Instance.AppWindowSettings, nameof(AppWindowSettings.AppBorderColor));
 
         UndoManager = serviceProvider.GetService<UndoManager>();
         AppViewModel = serviceProvider.GetService<AppViewModel>();

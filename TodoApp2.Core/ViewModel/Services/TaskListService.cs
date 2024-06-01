@@ -29,7 +29,7 @@ public class TaskListService : BaseViewModel
     private int _lastRemovedId = int.MinValue;
 
     private CategoryViewModel ActiveCategory => _categoryListService.ActiveCategory;
-    private TaskPageSettings TaskPageSettings => IoC.AppSettings.TaskPageSettings;
+    private TaskPageSettings TaskPageSettings => AppSettings.Instance.TaskPageSettings;
 
     /// <summary>
     /// The task list items

@@ -1,4 +1,5 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Settings.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -54,7 +55,7 @@ public class TaskViewModel : BaseViewModel, IReorderable
 
     public TaskViewModel()
     {
-        bool exitEditOnFocusLost = IoC.AppSettings.TaskPageSettings.ExitEditOnFocusLost;
+        bool exitEditOnFocusLost = AppSettings.Instance.TaskPageSettings.ExitEditOnFocusLost;
         OpenReminderCommand = new RelayCommand(OpenReminder);
         EditItemCommand = new RelayCommand(EditItem);
         TextEditorViewModel = new RichTextEditorViewModel(true, exitEditOnFocusLost, false, true);

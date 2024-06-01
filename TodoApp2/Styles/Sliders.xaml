@@ -58,7 +58,7 @@
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="2"
-                    Height="{Binding UIScaler.SliderHeight, Source={x:Static local:VML.Instance}}"
+                    Height="{Binding UIScaler.SliderHeight, Source={StaticResource UIScaler}}"
                     Margin="0 0"
                     Grid.Row="1"
                     VerticalAlignment="center">
@@ -81,11 +81,11 @@
                         <Thumb
                             x:Name="Thumb"
                             Focusable="False"
-                            Height="{Binding UIScaler.SliderThumbHeight, Source={x:Static local:VML.Instance}}"
+                            Height="{Binding UIScaler.SliderThumbHeight, Source={StaticResource UIScaler}}"
                             OverridesDefaultStyle="True"
                             Template="{StaticResource SliderThumbHorizontalDefault}"
                             VerticalAlignment="Center"
-                            Width="{Binding UIScaler.SliderThumbWidth, Source={x:Static local:VML.Instance}}" />
+                            Width="{Binding UIScaler.SliderThumbWidth, Source={StaticResource UIScaler}}" />
                     </Track.Thumb>
                 </Track>
             </Grid>

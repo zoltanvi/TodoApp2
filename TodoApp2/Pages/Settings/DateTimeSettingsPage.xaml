@@ -25,7 +25,7 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCalendar}"
                     Description="Window title bar date visible"
-                    IsChecked="{Binding AppSettings.DateTimeSettings.TitleBarDateVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.DateTimeSettings.TitleBarDateVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Title bar date format  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
@@ -46,9 +46,9 @@
                         <ComboBox
                             Grid.Column="2"
                             HorizontalAlignment="Right"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                             ItemsSource="{Binding TitleBarDateFormats}"
-                            SelectedItem="{Binding AppSettings.DateTimeSettings.TitleBarDateFormat, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.DateTimeSettings.TitleBarDateFormat, Source={StaticResource AppSettings}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource dateTimeFormatDisplayConverter}}" />
@@ -78,9 +78,9 @@
                         <ComboBox
                             Grid.Column="2"
                             HorizontalAlignment="Right"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                             ItemsSource="{Binding ReminderDateFormats}"
-                            SelectedItem="{Binding AppSettings.DateTimeSettings.ReminderDateFormat, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.DateTimeSettings.ReminderDateFormat, Source={StaticResource AppSettings}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource dateTimeFormatDisplayConverter}}" />
@@ -110,9 +110,9 @@
                         <ComboBox
                             Grid.Column="2"
                             HorizontalAlignment="Right"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                             ItemsSource="{Binding TaskCreationDateFormats}"
-                            SelectedItem="{Binding AppSettings.DateTimeSettings.TaskCreationDateFormat, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.DateTimeSettings.TaskCreationDateFormat, Source={StaticResource AppSettings}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource dateTimeFormatDisplayConverter}}" />

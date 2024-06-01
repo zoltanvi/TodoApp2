@@ -7,7 +7,7 @@
         <Setter Property="Background" Value="{DynamicResource Surface2}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Outline}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Height" Value="{Binding UIScaler.TaskProgressBarHeight, Source={x:Static local:VML.Instance}}"/>
+        <Setter Property="Height" Value="{Binding UIScaler.TaskProgressBarHeight, Source={StaticResource UIScaler}}"/>
 
         <Setter Property="Template">
             <Setter.Value>

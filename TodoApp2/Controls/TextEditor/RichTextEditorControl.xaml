@@ -109,7 +109,7 @@
             <Border
                 Grid.RowSpan="2"
                 Grid.Column="1"
-                Width="{Binding UIScaler.TextEditorToggleWidth}"
+                Width="{Binding UIScaler.TextEditorToggleWidth, Source={StaticResource UIScaler}}"
                 HorizontalAlignment="right"
                 IsEnabled="{Binding ElementName=RichTextEditorUC, Path=IsReadOnly, Converter={StaticResource boolNegatedConverter}}">
 
@@ -139,8 +139,8 @@
                 Margin="2 0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                FontSize="{Binding AppSettings.TaskSettings.FontSize, Source={x:Static local:VML.Instance}, Converter={StaticResource fontSizeScaler}}"
+                FontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
+                FontSize="{Binding AppSettings.TaskSettings.FontSize, Source={StaticResource AppSettings}, Converter={StaticResource fontSizeScaler}}"
                 Foreground="{DynamicResource Outline}"
                 IsHitTestVisible="False"
                 Text="{Binding WatermarkText}"

@@ -27,7 +27,7 @@ public class GridResizer
     private double GridHalfWidth => _grid.ActualWidth / 2;
     private double MaxColumnWidth => GridHalfWidth < MinColumnWidth ? MinColumnWidth : GridHalfWidth;
     private double SnappingWidth => UnscaledSnappingWidth * UIScaler.Instance.ScaleValue;
-    private SessionSettings SessionSettings => IoC.AppSettings.SessionSettings;
+    private SessionSettings SessionSettings => AppSettings.Instance.SessionSettings;
 
     private double LeftColumnWidth
     {

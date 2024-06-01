@@ -59,23 +59,23 @@ public class DevSettingsWindowViewModel : BaseViewModel
         switch (page)
         {
             case ApplicationPage.NotePageSettings:
-            return IoC.AppSettings.NoteSettings;
+            return AppSettings.Instance.NoteSettings;
             case ApplicationPage.TaskItemSettings:
-            return IoC.AppSettings.TaskSettings;
+            return AppSettings.Instance.TaskSettings;
             case ApplicationPage.TaskPageSettings:
-            return IoC.AppSettings.TaskPageSettings;
+            return AppSettings.Instance.TaskPageSettings;
             case ApplicationPage.TaskQuickActionsSettings:
-            return IoC.AppSettings.TaskQuickActionSettings;
+            return AppSettings.Instance.TaskQuickActionSettings;
             case ApplicationPage.TextEditorQuickActionsSettings:
-            return IoC.AppSettings.TextEditorQuickActionSettings;
+            return AppSettings.Instance.TextEditorQuickActionSettings;
             case ApplicationPage.ThemeSettings:
-            return IoC.AppSettings.ThemeSettings;
+            return AppSettings.Instance.ThemeSettings;
             case ApplicationPage.AppWindowSettings:
-            return IoC.AppSettings.AppWindowSettings;
+            return AppSettings.Instance.AppWindowSettings;
             case ApplicationPage.PageTitleSettings:
-            return IoC.AppSettings.PageTitleSettings;
+            return AppSettings.Instance.PageTitleSettings;
             case ApplicationPage.DateTimeSettings:
-            return IoC.AppSettings.DateTimeSettings;
+            return AppSettings.Instance.DateTimeSettings;
             default:
             throw new ArgumentException("Setting missing in DevSettingsViewModel");
         }

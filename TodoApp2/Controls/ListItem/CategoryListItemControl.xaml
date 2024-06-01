@@ -48,7 +48,7 @@
                                     <Label
                                         Style="{DynamicResource IconLabelStyle}"
                                         Content="{DynamicResource SegoeIconList}"
-                                        FontSize="{Binding UIScaler.FontSize.Small}"
+                                        FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                                         Margin="6 0"
                                         Padding="0"
                                         VerticalAlignment="Center"
@@ -67,7 +67,7 @@
                                         CommandParameter="{Binding DataContext, ElementName=CategoryListItemUC}"
                                         Style="{StaticResource ButtonIconHoverCategoryDeleteStyle}"
                                         Content="{StaticResource SegoeIconDeleteX}"
-                                        FontSize="{Binding UIScaler.FontSize.Small}"
+                                        FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                                         Cursor="Hand" />
 
                                 </Grid>
@@ -109,7 +109,7 @@
 
         <TextBlock
             AutomationProperties.AutomationId="CategoryListItemText"
-            FontSize="{Binding UIScaler.FontSize.Medium}"
+            FontSize="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}"
             Text="{Binding Name}">
             
             <TextBlock.Style>

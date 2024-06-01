@@ -29,31 +29,31 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconAlwaysOnTop}"
                     Description="Always on top"
-                    IsChecked="{Binding AppSettings.AppWindowSettings.AlwaysOnTop, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.AlwaysOnTop, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Auto start app with Windows  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRepeat}"
                     Description="Auto start app with Windows"
-                    IsChecked="{Binding AppSettings.AppWindowSettings.AutoStart, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.AutoStart, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Rounded window corners  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconRoundedCorners}"
                     Description="Rounded window corners"
-                    IsChecked="{Binding AppSettings.AppWindowSettings.RoundedWindowCorners, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.RoundedWindowCorners, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Exit button minimizes to tray  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMinimizeToTray}"
                     Description="Exit button minimizes to tray"
-                    IsChecked="{Binding AppSettings.AppWindowSettings.ExitToTray, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.ExitToTray, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Close side menu on category change  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconMinimizeToTray}"
                     Description="Close side menu on category change"
-                    IsChecked="{Binding AppSettings.AppWindowSettings.CloseSideMenuOnCategoryChange, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.AppWindowSettings.CloseSideMenuOnCategoryChange, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  App border color  -->
                 <Border Style="{StaticResource SettingsItemStyle}">
@@ -78,9 +78,9 @@
                             HorizontalAlignment="Right">
 
                             <local:SingletonColorPicker
-                                SelectedColorString="{Binding AppSettings.AppWindowSettings.AppBorderColor, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
-                                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
-                                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}" />
+                                SelectedColorString="{Binding AppSettings.AppWindowSettings.AppBorderColor, Source={StaticResource AppSettings}, Mode=TwoWay}"
+                                Width="{Binding UIScaler.ColorPickerWidth, Source={StaticResource UIScaler}}"
+                                Height="{Binding UIScaler.ColorPickerHeight, Source={StaticResource UIScaler}}" />
                         </Border>
 
                     </Grid>
@@ -105,9 +105,9 @@
                         <ComboBox
                             Grid.Column="2"
                             HorizontalAlignment="Right"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                             ItemsSource="{Binding Source={StaticResource TitleBarHeightDataProvider}}"
-                            SelectedItem="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.AppWindowSettings.TitleBarHeight, Source={StaticResource AppSettings}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
@@ -132,7 +132,7 @@
                             Grid.Column="0"
                             Style="{DynamicResource ButtonIconHoverRectangleStyle}"
                             Content="{DynamicResource SegoeIconPath}"
-                            FontSize="{Binding UIScaler.FontSize.Regular, Source={x:Static local:VML.Instance}}"
+                            FontSize="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}"
                             Margin="0 0 10 0"
                             Padding="5"
                             ToolTip="Open database location in explorer"
@@ -162,7 +162,7 @@
                                 VerticalAlignment="Center"
                                 IsReadOnly="True"
                                 Margin="5 0"
-                                FontSize="{Binding UIScaler.FontSize.Small, Source={x:Static local:VML.Instance}}"
+                                FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                                 Text="{Binding ApplicationViewModel.DatabaseLocation, Source={x:Static local:VML.Instance}, Mode=OneWay}" />
                         </Border>
 

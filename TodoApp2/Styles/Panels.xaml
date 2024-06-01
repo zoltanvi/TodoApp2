@@ -33,7 +33,7 @@
                 IsChecked="{Binding IsSelectionBold, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
                 Style="{DynamicResource TextEditorToggleButtonStyle}"
                 ToolTip="Bold (Ctrl + B)"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Bold, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Bold, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
             <ToggleButton
                 Margin="2 0 0 2"
                 Command="{Binding SetItalicCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
@@ -41,7 +41,7 @@
                 IsChecked="{Binding IsSelectionItalic, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
                 Style="{DynamicResource TextEditorToggleButtonStyle}"
                 ToolTip="Italic (Ctrl + I)"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Italic, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Italic, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
             <ToggleButton
                 Margin="2 0 0 2"
                 Command="{Binding SetUnderlinedCommand, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
@@ -49,7 +49,7 @@
                 IsChecked="{Binding IsSelectionUnderlined, RelativeSource={RelativeSource AncestorType=local:SingletonToolbar}}"
                 Style="{DynamicResource TextEditorToggleButtonStyle}"
                 ToolTip="Underline (Ctrl + U)"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Underlined, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Underlined, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -59,7 +59,7 @@
                 FontWeight="Bold"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Large font"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Large, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Large, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -69,7 +69,7 @@
                 FontWeight="Bold"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Medium font size"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Medium, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Medium, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -79,7 +79,7 @@
                 FontWeight="Bold"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Small font size"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Small, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Small, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
 
             <Button
@@ -88,7 +88,7 @@
                 Content="{DynamicResource SegoeIconAlignLeft}"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Align left"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.AlignLeft, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.AlignLeft, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -96,7 +96,7 @@
                 Content="{DynamicResource SegoeIconAlignCenter}"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Align center"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.AlignCenter, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.AlignCenter, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
 
             <Button
@@ -105,7 +105,7 @@
                 Content="{DynamicResource SegoeIconAlignRight}"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Align right"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.AlignRight, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.AlignRight, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -113,7 +113,7 @@
                 Content="{DynamicResource SegoeIconAlignJustify}"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Justify"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.AlignJustify, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.AlignJustify, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -121,7 +121,7 @@
                 Content="{DynamicResource SegoeIconFontSizeIncrease}"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Increase font size (Ctrl + [OemCloseBrackets])"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Increase, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Increase, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -129,7 +129,7 @@
                 Content="{DynamicResource SegoeIconFontSizeDecrease}"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Decrease font size (Ctrl + [OemOpenBrackets])"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Decrease, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Decrease, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -137,7 +137,7 @@
                 Content="{DynamicResource SegoeIconMonospace}"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Toggle monospace font"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Monospace, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Monospace, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Button
                 Margin="2 0 0 2"
@@ -145,15 +145,15 @@
                 Content="{DynamicResource SegoeIconDeleteFormatting}"
                 Style="{DynamicResource TextEditorButtonStyle}"
                 ToolTip="Reset all formatting (Ctrl + H)"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Reset, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.Reset, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
             <local:SingletonEditorColorPicker
                 AppliedColorString="{Binding TextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
-                Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}"
+                Width="{Binding UIScaler.ColorPickerWidth, Source={StaticResource UIScaler}}"
+                Height="{Binding UIScaler.ColorPickerHeight, Source={StaticResource UIScaler}}"
                 Margin="2 0 0 2"
                 Focusable="False"
-                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.TextColor, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                Visibility="{Binding AppSettings.TextEditorQuickActionSettings.TextColor, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
         </StackPanel>
 
@@ -188,8 +188,8 @@
                                 Padding="0"
                                 Content="{TemplateBinding TagTitle}"
                                 FontWeight="Bold"
-                                FontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller}"
+                                FontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={StaticResource UIScaler}}"
                                 Foreground="{TemplateBinding TagColor,
                                                              Converter={StaticResource tagForegroundConverter}}" />
 
@@ -199,8 +199,8 @@
                                 HorizontalAlignment="Center"
                                 Padding="0"
                                 Content="{TemplateBinding TagBody}"
-                                FontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
-                                FontSize="{Binding UIScaler.FontSize.Smaller}"
+                                FontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
+                                FontSize="{Binding UIScaler.FontSize.Smaller, Source={StaticResource UIScaler}}"
                                 Foreground="{TemplateBinding TagColor,
                                                              Converter={StaticResource tagForegroundConverter}}" />
                         </StackPanel>

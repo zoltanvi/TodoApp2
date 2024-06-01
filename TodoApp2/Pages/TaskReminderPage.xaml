@@ -112,7 +112,7 @@
                                             <local:CurrentDateTimeFormatMultiConverter />
                                         </MultiBinding.Converter>
                                         <Binding Path="ReminderDateTime" />
-                                        <Binding Path="AppSettings.DateTimeSettings.ReminderDateFormat" Source="{x:Static local:VML.Instance}" />
+                                        <Binding Path="AppSettings.DateTimeSettings.ReminderDateFormat" Source="{StaticResource AppSettings}" />
                                     </MultiBinding>
                                 </Button.Content>
                             </Button>

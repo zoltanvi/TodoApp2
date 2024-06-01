@@ -1,9 +1,7 @@
 ﻿using Modules.Settings.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using TodoApp2.Core;
 
 namespace TodoApp2;
@@ -18,7 +16,7 @@ public class ThemeManager
 
     public ThemeManager()
     {
-        IoC.AppSettings.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
+        AppSettings.Instance.ThemeSettings.PropertyChanged += ThemeSettings_PropertyChanged;
 
         CheckAndSwitchLightAndDark();
     }
@@ -32,7 +30,7 @@ public class ThemeManager
 
     private void CheckAndSwitchLightAndDark()
     {
-        if (IoC.AppSettings.ThemeSettings.DarkMode)
+        if (AppSettings.Instance.ThemeSettings.DarkMode)
         {
             ChangeTheme(from: LightTheme, to: DarkTheme);
         }

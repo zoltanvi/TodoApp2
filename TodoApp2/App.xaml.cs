@@ -65,13 +65,17 @@ public partial class App : Application
         services.AddSingleton<IThemeManagerService, MaterialThemeManagerService>();
         services.AddSingleton<AppSettings>(provider =>
         {
-            return IoC.AppSettings;
+            return AppSettings.Instance;
         });
         services.AddScoped<IAppSettingsService, AppSettingsService>();
         services.AddScoped<UndoManager>();
         services.AddScoped<MediaPlayerService>();
         services.AddScoped<ZoomingListener>();
         services.AddSingleton<UIScaler>(provider =>
+        {
+            return UIScaler.Instance;
+        });
+        services.AddSingleton<IUIScaler>(provider =>
         {
             return UIScaler.Instance;
         });
@@ -84,7 +88,6 @@ public partial class App : Application
         services.AddScoped<TaskScheduler2>();
         services.AddScoped<ReminderNotificationService>();
         services.AddScoped<OneEditorOpenService>();
-
 
         services.AddDbContext<SettingDbContext>();
         services.AddScoped<IMigrationService, MigrationService>();
@@ -135,7 +138,7 @@ public partial class App : Application
         IoC.Setup(_host.Services);
 
         // Load theme manager service
-        //IThemeManagerService themeManagerService = MaterialThemeManagerService.Get(IoC.AppSettings);
+        //IThemeManagerService themeManagerService = MaterialThemeManagerService.Get(AppSettings.Instance);
         //IoC.ThemeManagerService = themeManagerService;
 
         // Show the main window

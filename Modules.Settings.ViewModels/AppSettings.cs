@@ -2,6 +2,9 @@
 
 public sealed class AppSettings : SettingsBase
 {
+    private static AppSettings _instance = new AppSettings();
+    public static AppSettings Instance => _instance;
+
     public AppWindowSettings AppWindowSettings { get; set; } = new AppWindowSettings();
     public ThemeSettings ThemeSettings { get; set; } = new ThemeSettings();
     public PageTitleSettings PageTitleSettings { get; set; } = new PageTitleSettings();
@@ -13,4 +16,6 @@ public sealed class AppSettings : SettingsBase
     public WindowSettings WindowSettings { get; set; } = new WindowSettings();
     public DateTimeSettings DateTimeSettings { get; set; } = new DateTimeSettings();
     public SessionSettings SessionSettings { get; set; } = new SessionSettings();
+
+    private AppSettings() { }
 }

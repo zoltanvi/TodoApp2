@@ -80,8 +80,8 @@
                             Grid.Column="3"
                             SelectedColorString="{Binding PlacementTarget.DataContext.Color, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             ColorChangedNotification="{Binding PlacementTarget.DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                            Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
-                            Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}"
+                            Width="{Binding UIScaler.ColorPickerWidth, Source={StaticResource UIScaler}}"
+                            Height="{Binding UIScaler.ColorPickerHeight, Source={StaticResource UIScaler}}"
                             Margin="4 0 0 0" ToolTip="Marker color" />
                     </Grid>
                 </ControlTemplate>
@@ -106,8 +106,8 @@
                             Grid.Column="3"
                             SelectedColorString="{Binding PlacementTarget.DataContext.BackgroundColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             ColorChangedNotification="{Binding PlacementTarget.DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                            Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
-                            Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}"
+                            Width="{Binding UIScaler.ColorPickerWidth, Source={StaticResource UIScaler}}"
+                            Height="{Binding UIScaler.ColorPickerHeight, Source={StaticResource UIScaler}}"
                             Margin="4 0 0 0" ToolTip="Background color" />
                     </Grid>
                 </ControlTemplate>
@@ -134,8 +134,8 @@
                             Grid.Column="3"
                             SelectedColorString="{Binding PlacementTarget.DataContext.BorderColor, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                             ColorChangedNotification="{Binding PlacementTarget.DataContext.ColorChangedNotification, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                            Width="{Binding UIScaler.ColorPickerWidth, Source={x:Static local:VML.Instance}}"
-                            Height="{Binding UIScaler.ColorPickerHeight, Source={x:Static local:VML.Instance}}"
+                            Width="{Binding UIScaler.ColorPickerWidth, Source={StaticResource UIScaler}}"
+                            Height="{Binding UIScaler.ColorPickerHeight, Source={StaticResource UIScaler}}"
                             Margin="4 0 0 0" ToolTip="Border color" />
                     </Grid>
                 </ControlTemplate>

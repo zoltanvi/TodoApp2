@@ -9,7 +9,7 @@ public class MediaPlayerService
     MediaPlayer _mediaPlayer;
     MediaPlayer _mediaPlayerReverse;
 
-    private TaskPageSettings TaskPageSettings => IoC.AppViewModel.AppSettings.TaskPageSettings;
+    private TaskPageSettings TaskPageSettings => AppSettings.Instance.TaskPageSettings;
 
     public MediaPlayerService()
     {

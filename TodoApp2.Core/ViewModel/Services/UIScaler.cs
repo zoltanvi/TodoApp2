@@ -4,32 +4,8 @@ namespace TodoApp2.Core;
 
 public class UIScaler : BaseViewModel, IUIScaler
 {
-    public class FontSizes : BaseViewModel
-    {
-        private const double OriginalSmallest = 10;
-        private const double OriginalSmaller = 12;
-        private const double OriginalSmall = 14;
-        private const double OriginalMedium = 16;
-        private const double OriginalRegular = 18;
-        private const double OriginalRegularIcon = 20;
-        private const double OriginalLarge = 22;
-        private const double OriginalLarger = 24;
-        private const double OriginalHuge = 28;
-        private const double OriginalLargeIcon = 30;
-        private const double OriginalGiant = 40;
-
-        public double Smallest => OriginalSmallest * StaticScaleValue;
-        public double Smaller => OriginalSmaller * StaticScaleValue;
-        public double Small => OriginalSmall * StaticScaleValue;
-        public double Medium => OriginalMedium * StaticScaleValue;
-        public double Regular => OriginalRegular * StaticScaleValue;
-        public double Large => OriginalLarge * StaticScaleValue;
-        public double Larger => OriginalLarger * StaticScaleValue;
-        public double Huge => OriginalHuge * StaticScaleValue;
-        public double Giant => OriginalGiant * StaticScaleValue;
-        public double RegularIcon => OriginalRegularIcon * StaticScaleValue;
-        public double LargeIcon => OriginalLargeIcon * StaticScaleValue;
-    }
+    private static UIScaler _instance = new UIScaler();
+    public static UIScaler Instance => _instance;
 
     private const double OriginalScalingPercent = 100;
     private const double OriginalSideMenuWidth = 220;
@@ -44,6 +20,8 @@ public class UIScaler : BaseViewModel, IUIScaler
     private const int ColorPickerColumns = 9;
 
     private double _scalingPercent = OriginalScalingPercent;
+    
+    private UIScaler() { }
 
     public static double StaticScaleValue { get; private set; } = 1;
     public double ScaleValue => StaticScaleValue;
@@ -66,11 +44,7 @@ public class UIScaler : BaseViewModel, IUIScaler
     public double NotePageBoxWidth => 17 * ScaleValue;
     public double TaskProgressBarHeight => OriginalTaskProgressBarHeight * ScaleValue;
 
-    public static UIScaler Instance { get; } = new UIScaler();
-
     public event EventHandler<ZoomedEventArgs> Zoomed;
-
-    private UIScaler() { }
 
     public void ZoomOut()
     {
@@ -88,7 +62,7 @@ public class UIScaler : BaseViewModel, IUIScaler
         bool zoomed = value != StaticScaleValue;
         var oldScaleValue = StaticScaleValue;
         StaticScaleValue = value;
-        _scalingPercent = StaticScaleValue * OriginalScalingPercent;
+        _scalingPercent = Math.Round(StaticScaleValue * OriginalScalingPercent, 3);
         OnPropertyChanged(string.Empty);
 
         if (zoomed)
@@ -118,4 +92,32 @@ public class UIScaler : BaseViewModel, IUIScaler
         SetScaling(_scalingPercent / OriginalScalingPercent);
         IoC.MessageService.ShowInfo($"{_scalingPercent} %");
     }
+
+    public class FontSizes : BaseViewModel
+    {
+        private const double OriginalSmallest = 10;
+        private const double OriginalSmaller = 12;
+        private const double OriginalSmall = 14;
+        private const double OriginalMedium = 16;
+        private const double OriginalRegular = 18;
+        private const double OriginalRegularIcon = 20;
+        private const double OriginalLarge = 22;
+        private const double OriginalLarger = 24;
+        private const double OriginalHuge = 28;
+        private const double OriginalLargeIcon = 30;
+        private const double OriginalGiant = 40;
+
+        public double Smallest => OriginalSmallest * StaticScaleValue;
+        public double Smaller => OriginalSmaller * StaticScaleValue;
+        public double Small => OriginalSmall * StaticScaleValue;
+        public double Medium => OriginalMedium * StaticScaleValue;
+        public double Regular => OriginalRegular * StaticScaleValue;
+        public double Large => OriginalLarge * StaticScaleValue;
+        public double Larger => OriginalLarger * StaticScaleValue;
+        public double Huge => OriginalHuge * StaticScaleValue;
+        public double Giant => OriginalGiant * StaticScaleValue;
+        public double RegularIcon => OriginalRegularIcon * StaticScaleValue;
+        public double LargeIcon => OriginalLargeIcon * StaticScaleValue;
+    }
+
 }

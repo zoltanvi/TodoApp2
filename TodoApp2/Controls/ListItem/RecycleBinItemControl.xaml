@@ -11,10 +11,10 @@
     d:DesignWidth="350"
     mc:Ignorable="d">
 
-    <Grid Background="Transparent" Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={x:Static local:VML.Instance}, Converter={StaticResource taskListItemMarginConverter}}">
+    <Grid Background="Transparent" Margin="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={StaticResource AppSettings}, Converter={StaticResource taskListItemMarginConverter}}">
 
         <!--  COLOR BAR  -->
-        <!--  CornerRadius="{Binding Path=AppSettings.IsColorBarRounded, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToCornerRadiusConverter}}">  -->
+        <!--  CornerRadius="{Binding Path=AppSettings.IsColorBarRounded, Source={StaticResource AppSettings}, Converter={StaticResource boolToCornerRadiusConverter}}">  -->
         <Border
             Margin="4 2"
             Panel.ZIndex="1000"
@@ -27,8 +27,8 @@
                     <MultiBinding.Converter>
                         <local:ColorBarBorderWidthMultiValueConverter />
                     </MultiBinding.Converter>
-                    <Binding Path="AppSettings.TaskSettings.ColorBarThickness" Source="{x:Static local:VML.Instance}" />
-                    <Binding Path="UIScaler.ScaleValue" />
+                    <Binding Path="AppSettings.TaskSettings.ColorBarThickness" Source="{StaticResource AppSettings}" />
+                    <Binding Path="UIScaler.ScaleValue" Source="{StaticResource UIScaler}" />
                 </MultiBinding>
             </Border.Width>
         </Border>
@@ -39,7 +39,7 @@
             BorderBrush="{Binding BorderColor, Converter={StaticResource taskBorderBrushConverter}}"
             BorderThickness="1"
             CornerRadius="3"
-            Visibility="{Binding AppSettings.TaskSettings.BorderVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+            Visibility="{Binding AppSettings.TaskSettings.BorderVisible, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
         <!--  Editor indicator  -->
         <Border
@@ -59,7 +59,7 @@
             <Border.Background>
                 <MultiBinding Converter="{local:BackgroundBrushConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding Path="IsDone" />
-                    <Binding Path="AppSettings.TaskSettings.BackgroundVisible" Source="{x:Static local:VML.Instance}" />
+                    <Binding Path="AppSettings.TaskSettings.BackgroundVisible" Source="{StaticResource AppSettings}" />
                 </MultiBinding>
             </Border.Background>
 
@@ -72,8 +72,8 @@
                                 <MultiBinding.Converter>
                                     <local:ColorBarGridWidthMultiValueConverter />
                                 </MultiBinding.Converter>
-                                <Binding Path="AppSettings.TaskSettings.ColorBarThickness" Source="{x:Static local:VML.Instance}" />
-                                <Binding Path="UIScaler.ScaleValue" />
+                                <Binding Path="AppSettings.TaskSettings.ColorBarThickness" Source="{StaticResource AppSettings}" />
+                                <Binding Path="UIScaler.ScaleValue" Source="{StaticResource UIScaler}" />
                             </MultiBinding>
                         </ColumnDefinition.Width>
                     </ColumnDefinition>
@@ -96,7 +96,7 @@
                 <!--  Task Checkbox  -->
 
                 <Grid Grid.Column="1">
-                    <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}">
+                    <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}">
                         <CheckBox
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -105,11 +105,11 @@
                             CommandParameter="{Binding DataContext, ElementName=RecycleBinItemUC}"
                             IsChecked="{Binding IsDone}"
                             Style="{DynamicResource TaskCheckBoxStyle}"
-                            Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
-                            Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                            Margin="{Binding UIScaler.TaskCheckBoxWidth, Source={StaticResource UIScaler}, Converter={StaticResource taskCheckboxMarginConverter}}"
+                            Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
                     </Border>
 
-                    <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}">
+                    <Border Visibility="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityNegatedConverter}}">
                         <CheckBox
                             Grid.Column="1"
                             HorizontalAlignment="Center"
@@ -119,8 +119,8 @@
                             CommandParameter="{Binding DataContext, ElementName=RecycleBinItemUC}"
                             IsChecked="{Binding IsDone}"
                             Style="{DynamicResource TaskCheckBoxSquareStyle}"
-                            Margin="{Binding UIScaler.TaskCheckBoxWidth, Converter={StaticResource taskCheckboxMarginConverter}}"
-                            Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                            Margin="{Binding UIScaler.TaskCheckBoxWidth, Source={StaticResource UIScaler}, Converter={StaticResource taskCheckboxMarginConverter}}"
+                            Visibility="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
                     </Border>
                 </Grid>
 
@@ -163,7 +163,7 @@
                                     Foreground="{DynamicResource Tertiary}" />
                                 <Grid.LayoutTransform>
                                     <!--  -1 to mirror it  -->
-                                    <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
+                                    <ScaleTransform ScaleX="{Binding Source={StaticResource UIScaler}, Path=UIScaler.ScaleValue}" ScaleY="{Binding Source={StaticResource UIScaler}, Path=UIScaler.ScaleValue}" />
                                 </Grid.LayoutTransform>
                             </Grid>
                         </Border>
@@ -174,7 +174,7 @@
 
 
                 <!--  Main content  -->
-                <Border Grid.Column="2" Margin="{Binding AppSettings.TaskSettings.Spacing, Source={x:Static local:VML.Instance}, Converter={StaticResource taskSpacingToMarginConverter}}">
+                <Border Grid.Column="2" Margin="{Binding AppSettings.TaskSettings.Spacing, Source={StaticResource AppSettings}, Converter={StaticResource taskSpacingToMarginConverter}}">
                     <Grid Margin="0 2 10 2">
                         <Grid.RowDefinitions>
                             <!--  Task description row  -->
@@ -224,7 +224,7 @@
                                             <local:CurrentDateTimeFormatMultiConverter />
                                         </MultiBinding.Converter>
                                         <Binding Path="TrashedDate" />
-                                        <Binding Path="AppSettings.DateTimeSettings.TaskCreationDateFormat" Source="{x:Static local:VML.Instance}" />
+                                        <Binding Path="AppSettings.DateTimeSettings.TaskCreationDateFormat" Source="{StaticResource AppSettings}" />
                                     </MultiBinding>
                                 </local:TagControl.TagBody>
                             </local:TagControl>
@@ -243,14 +243,14 @@
                     HorizontalAlignment="Right"
                     AutomationProperties.AutomationId="TaskListItemHiddenPanel"
                     Background="Transparent"
-                    IsEnabled="{Binding AppSettings.TaskQuickActionSettings.Enabled, Source={x:Static local:VML.Instance}}"
+                    IsEnabled="{Binding AppSettings.TaskQuickActionSettings.Enabled, Source={StaticResource AppSettings}}"
                     Opacity="0">
                     <Border.Visibility>
                         <MultiBinding>
                             <MultiBinding.Converter>
                                 <local:BoolToVisibilityAndConverter />
                             </MultiBinding.Converter>
-                            <Binding Path="AppSettings.TaskQuickActionSettings.AnyEnabled" Source="{x:Static local:VML.Instance}" />
+                            <Binding Path="AppSettings.TaskQuickActionSettings.AnyEnabled" Source="{StaticResource AppSettings}" />
                             <Binding
                                 Mode="OneWay"
                                 Path="TextEditorViewModel.IsDisplayMode"
@@ -317,7 +317,7 @@
                                 Margin="4 0 0 0"
                                 IsEnabled="{Binding IsQuickActionsEnabled}"
                                 ToolTip="Restore task"
-                                Visibility="{Binding AppSettings.TaskQuickActionSettings.TrashEnabled, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                Visibility="{Binding AppSettings.TaskQuickActionSettings.TrashEnabled, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                         </StackPanel>
 

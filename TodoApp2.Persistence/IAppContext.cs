@@ -7,7 +7,6 @@ namespace TodoApp2.Persistence
 {
     public interface IAppContext : IDisposable
     {
-        DbSet<Setting> Settings { get; }
         DbSet<Category> Categories { get; }
         DbSet<Note> Notes { get; }
         DbSet<Task> Tasks { get; }

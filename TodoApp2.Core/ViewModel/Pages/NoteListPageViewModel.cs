@@ -1,4 +1,5 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -176,7 +177,7 @@ public class NoteListPageViewModel : BaseViewModel
                 IoC.CategoryListService.ActiveCategory = null;
             }
 
-            if (IoC.AppSettings.AppWindowSettings.CloseSideMenuOnCategoryChange)
+            if (AppSettings.Instance.AppWindowSettings.CloseSideMenuOnCategoryChange)
             {
                 Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
             }

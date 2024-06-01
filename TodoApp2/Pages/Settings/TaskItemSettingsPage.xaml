@@ -44,9 +44,9 @@
                         <ComboBox
                             Grid.Column="2"
                             HorizontalAlignment="Right"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                             ItemsSource="{Binding Source={StaticResource TaskSpacingDataProvider}}"
-                            SelectedItem="{Binding AppSettings.TaskSettings.Spacing, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                            SelectedItem="{Binding AppSettings.TaskSettings.Spacing, Source={StaticResource AppSettings}, Mode=TwoWay}" />
                     </Grid>
                 </Border>
 
@@ -54,32 +54,32 @@
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBorderVisible}"
                     Description="Task border visible"
-                    IsChecked="{Binding AppSettings.TaskSettings.BorderVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskSettings.BorderVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Item background  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconBackgroundVisible}"
                     Description="Task background visible"
-                    IsChecked="{Binding AppSettings.TaskSettings.BackgroundVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskSettings.BackgroundVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Creation date  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCalendar}"
                     Description="Creation date visible"
-                    IsChecked="{Binding AppSettings.TaskSettings.CreationDateVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskSettings.CreationDateVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Modification date  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCalendar}"
                     Description="Modification date visible"
-                    IsChecked="{Binding AppSettings.TaskSettings.ModificationDateVisible, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskSettings.ModificationDateVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
                 <!--  Circular checkbox  -->
                 <local:ToggleButtonSettingControl
                     Icon="{DynamicResource SegoeIconCheckbox}"
                     Description="Circular checkbox"
                     ToolTip="Enabled: Circle, Disabled: Rounded square"
-                    IsChecked="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={x:Static local:VML.Instance}, Mode=TwoWay}" />
+                    IsChecked="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={StaticResource AppSettings}, Mode=TwoWay}" />
 
 
                 <!--  Color bar thickness  -->
@@ -101,9 +101,9 @@
                         <ComboBox
                             Grid.Column="2"
                             HorizontalAlignment="Right"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                             ItemsSource="{Binding Source={StaticResource ThicknessDataProvider}}"
-                            SelectedItem="{Binding AppSettings.TaskSettings.ColorBarThickness, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.TaskSettings.ColorBarThickness, Source={StaticResource AppSettings}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
@@ -132,9 +132,9 @@
                         <ComboBox
                             Grid.Column="2"
                             HorizontalAlignment="Right"
-                            FontSize="{Binding UIScaler.FontSize.Small}"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                             ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
-                            SelectedItem="{Binding AppSettings.TaskSettings.FontFamily, Source={x:Static local:VML.Instance}, Mode=TwoWay}">
+                            SelectedItem="{Binding AppSettings.TaskSettings.FontFamily, Source={StaticResource AppSettings}, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
@@ -149,8 +149,8 @@
                     <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
                         <local:FontSizeSliderControl
                             Description="Font size"
-                            PreviewFontSize="{Binding AppSettings.TaskSettings.FontSize, Source={x:Static local:VML.Instance}, Mode=TwoWay}"
-                            SampleFontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={x:Static local:VML.Instance}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            PreviewFontSize="{Binding AppSettings.TaskSettings.FontSize, Source={StaticResource AppSettings}, Mode=TwoWay}"
+                            SampleFontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
                             Min="10"
                             Max="40"
                             Steps="1" />

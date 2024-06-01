@@ -1,4 +1,5 @@
 ﻿using Modules.Common;
+using Modules.Settings.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -279,7 +280,7 @@ public class TaskPageViewModel : BaseViewModel
             // A done item cannot be pinned.
             task.Pinned = false;
 
-            if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState)
+            if (AppSettings.Instance.TaskPageSettings.ForceTaskOrderByState)
             {
                 MoveTaskToBottom(task);
             }
@@ -288,7 +289,7 @@ public class TaskPageViewModel : BaseViewModel
         }
         else
         {
-            if (IoC.AppSettings.TaskPageSettings.ForceTaskOrderByState)
+            if (AppSettings.Instance.TaskPageSettings.ForceTaskOrderByState)
             {
                 MoveTaskToTop(task);
             }

@@ -47,7 +47,7 @@
                         </Grid>
 
                         <Grid.LayoutTransform>
-                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" />
+                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}" ScaleY="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}" />
                         </Grid.LayoutTransform>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -112,7 +112,7 @@
                         </Grid>
 
                         <Grid.LayoutTransform>
-                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" ScaleY="{Binding UIScaler.ScaleValue, Source={x:Static local:VML.Instance}}" />
+                            <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}" ScaleY="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}" />
                         </Grid.LayoutTransform>
                     </Grid>
                     <ControlTemplate.Triggers>

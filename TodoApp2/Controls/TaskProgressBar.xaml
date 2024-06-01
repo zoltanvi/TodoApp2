@@ -48,7 +48,7 @@
                 </StackPanel>
                 
                 <Border.LayoutTransform>
-                    <ScaleTransform ScaleX="{Binding UIScaler.ScaleValue}" ScaleY="{Binding UIScaler.ScaleValue}" />
+                    <ScaleTransform ScaleX="{Binding Source={StaticResource UIScaler}, Path=UIScaler.ScaleValue}" ScaleY="{Binding Source={StaticResource UIScaler}, Path=UIScaler.ScaleValue}" />
                 </Border.LayoutTransform>
             </Border>
 

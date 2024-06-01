@@ -53,7 +53,7 @@
                         Content="CATEGORIES"
                         Cursor="Hand"
                         FontFamily="{DynamicResource UIBoldFont}"
-                        FontSize="{Binding UIScaler.FontSize.Regular}"
+                        FontSize="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}"
                         Foreground="{DynamicResource Primary}"
                         Style="{DynamicResource ButtonBaseStyle}"
                         ToolTip="Click to switch to NOTES" />
@@ -105,7 +105,7 @@
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
                                                     Content="{DynamicResource SegoeIconTrash}"
-                                                    FontSize="{Binding UIScaler.FontSize.Small}"
+                                                    FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
                                                     Style="{DynamicResource IconLabelStyle}" />
 
                                                 <ContentPresenter
@@ -142,7 +142,7 @@
                     </Button.Style>
 
                     <TextBlock
-                        FontSize="{Binding UIScaler.FontSize.Medium}"
+                        FontSize="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}"
                         Text="Recycle bin">
 
                         <TextBlock.Style>
