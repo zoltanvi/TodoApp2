@@ -1,12 +1,10 @@
 ﻿using Modules.Common.ViewModel;
-using PropertyChanged;
 using System;
 using System.Windows;
 using TodoApp2.Core.Extensions;
-using TodoApp2.WindowHandling;
 using TodoApp2.WindowHandling.Resizing;
 
-namespace TodoApp2.Services.Window;
+namespace TodoApp2.WindowHandling;
 
 public class WindowService : BaseViewModel, IWindowService
 {
@@ -62,7 +60,7 @@ public class WindowService : BaseViewModel, IWindowService
         {
             var left = _window.Left;
             // If the window is maximized, window.Left gives back incorrect value
-            if (_window.WindowState == System.Windows.WindowState.Maximized)
+            if (_window.WindowState == WindowState.Maximized)
             {
                 left = _window.GetFieldValue<double>("_actualLeft");
             }
@@ -79,7 +77,7 @@ public class WindowService : BaseViewModel, IWindowService
         {
             var top = _window.Top;
             // If the window is maximized, window.Top gives back incorrect value
-            if (_window.WindowState == System.Windows.WindowState.Maximized)
+            if (_window.WindowState == WindowState.Maximized)
             {
                 top = _window.GetFieldValue<double>("_actualLeft");
             }
@@ -162,8 +160,8 @@ public class WindowService : BaseViewModel, IWindowService
         UpdateRoundedCornersAllowed();
     }
 
-    public void Minimize() => _window.WindowState = System.Windows.WindowState.Minimized;
-    public void Maximize() => _window.WindowState ^= System.Windows.WindowState.Maximized;
+    public void Minimize() => _window.WindowState = WindowState.Minimized;
+    public void Maximize() => _window.WindowState ^= WindowState.Maximized;
 
     /// <summary>
     /// If the window resizes to a special position (docked or maximized)
@@ -171,8 +169,8 @@ public class WindowService : BaseViewModel, IWindowService
     /// </summary>
     private void WindowResized()
     {
-        IsMinimized = _window.WindowState == System.Windows.WindowState.Minimized;
-        IsMaximized = _window.WindowState == System.Windows.WindowState.Maximized;
+        IsMinimized = _window.WindowState == WindowState.Minimized;
+        IsMaximized = _window.WindowState == WindowState.Maximized;
         IsMaximizedOrDocked = IsMaximized || IsDocked;
 
         UpdateRoundedCornersAllowed();

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace TodoApp2.Services.Window;
+namespace TodoApp2.WindowHandling;
 public interface IWindowService
 {
     double Height { get; set; }

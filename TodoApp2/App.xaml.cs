@@ -19,7 +19,7 @@ using System.Windows.Markup;
 using TodoApp2.Core;
 using TodoApp2.Persistence;
 using TodoApp2.Services;
-using TodoApp2.Services.Window;
+using TodoApp2.WindowHandling;
 
 namespace TodoApp2;
 

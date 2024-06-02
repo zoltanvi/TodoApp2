@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using TodoApp2.Core;
 using TodoApp2.Persistence;
-using TodoApp2.Services.Window;
+using TodoApp2.WindowHandling;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using Thickness = System.Windows.Thickness;
 
