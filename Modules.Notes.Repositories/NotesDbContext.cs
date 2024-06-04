@@ -10,6 +10,8 @@ public class NotesDbContext : DbContext
 {
     public DbSet<Note> Notes { get; set; }
 
+    public DbSet<NotesDbInfo> NotesDbInfo { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite(DbConfiguration.ConnectionString);
@@ -47,6 +49,15 @@ public class NotesDbContext : DbContext
             entity
             .Property(e => e.IsDeleted)
             .IsRequired();
+        });
+
+        modelBuilder.Entity<NotesDbInfo>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity
+            .Property(e => e.Initialized)
+            .HasDefaultValue(false);
         });
     }
 }

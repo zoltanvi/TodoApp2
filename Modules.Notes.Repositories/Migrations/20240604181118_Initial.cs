@@ -27,6 +27,19 @@ namespace Modules.Notes.Repositories.Migrations
                 {
                     table.PrimaryKey("PK_Notes", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "NotesDbInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Initialized = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotesDbInfo", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -34,6 +47,9 @@ namespace Modules.Notes.Repositories.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Notes");
+
+            migrationBuilder.DropTable(
+                name: "NotesDbInfo");
         }
     }
 }

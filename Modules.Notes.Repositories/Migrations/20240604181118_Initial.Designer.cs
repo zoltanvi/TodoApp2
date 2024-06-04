@@ -10,7 +10,7 @@ using Modules.Notes.Repositories;
 namespace Modules.Notes.Repositories.Migrations
 {
     [DbContext(typeof(NotesDbContext))]
-    [Migration("20240526133026_Initial")]
+    [Migration("20240604181118_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -51,6 +51,22 @@ namespace Modules.Notes.Repositories.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("Modules.Notes.Repositories.Models.NotesDbInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Initialized")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NotesDbInfo");
                 });
 #pragma warning restore 612, 618
         }

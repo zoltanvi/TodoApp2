@@ -1,6 +1,7 @@
 ﻿using Modules.Notes.Repositories.Models;
 
 namespace Modules.Notes.Repositories;
+
 public interface INotesRepository
 {
     Note AddNote(Note note);

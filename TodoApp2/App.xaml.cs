@@ -128,9 +128,7 @@ public partial class App : Application
     private void AddDatabases(IServiceCollection services)
     {
         services.AddSettingsRepositories();
-        
-        services.AddDbContext<NotesDbContext>();
-        services.AddScoped<INotesRepository, NotesRepository>();
+        services.AddNotesRepositories();
 
         services.AddMigrationsService();
     }

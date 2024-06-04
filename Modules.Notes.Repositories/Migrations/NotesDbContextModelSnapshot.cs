@@ -49,6 +49,22 @@ namespace Modules.Notes.Repositories.Migrations
 
                     b.ToTable("Notes");
                 });
+
+            modelBuilder.Entity("Modules.Notes.Repositories.Models.NotesDbInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Initialized")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NotesDbInfo");
+                });
 #pragma warning restore 612, 618
         }
     }
