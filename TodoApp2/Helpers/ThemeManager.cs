@@ -1,8 +1,8 @@
-﻿using Modules.Settings.ViewModels;
+﻿using Modules.Common.OBSOLETE.Mediator;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Linq;
 using System.Windows;
-using TodoApp2.Core;
 
 namespace TodoApp2;
 

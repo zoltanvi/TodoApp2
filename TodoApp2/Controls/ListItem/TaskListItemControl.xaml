@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:commonControls="clr-namespace:Modules.Common.Views.Controls;assembly=Modules.Common.Views"
     xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:local="clr-namespace:TodoApp2"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -388,7 +389,7 @@
                             </Grid>
 
                             <!--  Marker color  -->
-                            <local:SingletonColorPicker
+                            <commonControls:SingletonColorPicker
                                 SelectedColorString="{Binding Color, Mode=TwoWay}"
                                 ColorChangedNotification="{Binding ColorChangedNotification, Mode=OneWay}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={StaticResource UIScaler}}"
@@ -399,7 +400,7 @@
                                 Visibility="{Binding AppSettings.TaskQuickActionSettings.ColorEnabled, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                             <!--  Background color picker  -->
-                            <local:SingletonColorPicker
+                            <commonControls:SingletonColorPicker
                                 SelectedColorString="{Binding BackgroundColor, Mode=TwoWay}"
                                 ColorChangedNotification="{Binding ColorChangedNotification, Mode=OneWay}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={StaticResource UIScaler}}"
@@ -410,7 +411,7 @@
                                 Visibility="{Binding AppSettings.TaskQuickActionSettings.BackgroundColorEnabled, Source={StaticResource AppSettings}, Converter={StaticResource boolToVisibilityConverter}}" />
 
                             <!--  BorderColor picker  -->
-                            <local:SingletonColorPicker
+                            <commonControls:SingletonColorPicker
                                 SelectedColorString="{Binding BorderColor, Mode=TwoWay}"
                                 ColorChangedNotification="{Binding ColorChangedNotification, Mode=OneWay}"
                                 Width="{Binding UIScaler.ColorPickerWidth, Source={StaticResource UIScaler}}"

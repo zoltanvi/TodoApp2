@@ -1,6 +1,7 @@
 ﻿using Modules.Common;
+using Modules.Common.DataBinding;
 using Modules.Common.ViewModel;
-using Modules.Settings.ViewModels;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Windows.Input;
 

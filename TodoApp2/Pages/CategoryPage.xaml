@@ -1,10 +1,12 @@
-﻿<local:BasePage
+﻿<commonPages:GenericBasePage
     x:Class="TodoApp2.CategoryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commonPages="clr-namespace:Modules.Common.Views.Pages;assembly=Modules.Common.Views"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TodoApp2"
+    xmlns:converters="clr-namespace:Modules.Common.Views.ValueConverters;assembly=Modules.Common.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Page1"
     d:DesignHeight="450"
@@ -74,7 +76,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="2" />
 
-                <!-- RECYCLE BIN BUTTON -->
+                <!--  RECYCLE BIN BUTTON  -->
                 <Button
                     Grid.Row="2"
                     Padding="0 2 10 2"
@@ -112,7 +114,7 @@
                                                     Grid.Column="1"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Center" />
-                                               
+
                                             </Grid>
                                         </Border>
 
@@ -128,7 +130,7 @@
                                     <DataTrigger.Binding>
                                         <MultiBinding>
                                             <MultiBinding.Converter>
-                                                <local:EqualityConverter />
+                                                <converters:EqualityConverter />
                                             </MultiBinding.Converter>
                                             <Binding Path="CategoryListService.RecycleBinCategoryId" Source="{x:Static local:VML.Instance}" />
                                             <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
@@ -141,9 +143,7 @@
                         </Style>
                     </Button.Style>
 
-                    <TextBlock
-                        FontSize="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}"
-                        Text="Recycle bin">
+                    <TextBlock FontSize="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}" Text="Recycle bin">
 
                         <TextBlock.Style>
                             <Style BasedOn="{StaticResource CategoryTextBlockStyle}" TargetType="TextBlock">
@@ -156,7 +156,7 @@
                                         <DataTrigger.Binding>
                                             <MultiBinding>
                                                 <MultiBinding.Converter>
-                                                    <local:EqualityConverter />
+                                                    <converters:EqualityConverter />
                                                 </MultiBinding.Converter>
                                                 <Binding Path="CategoryListService.RecycleBinCategoryId" Source="{x:Static local:VML.Instance}" />
                                                 <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
@@ -200,4 +200,4 @@
         </Border>
 
     </Grid>
-</local:BasePage>
+</commonPages:GenericBasePage>

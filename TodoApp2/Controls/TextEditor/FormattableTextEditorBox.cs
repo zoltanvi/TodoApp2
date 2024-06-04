@@ -1,5 +1,7 @@
 ﻿using Modules.Common;
-using Modules.Settings.ViewModels;
+using Modules.Common.DataBinding;
+using Modules.Common.OBSOLETE.Mediator;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Globalization;
 using System.Windows;

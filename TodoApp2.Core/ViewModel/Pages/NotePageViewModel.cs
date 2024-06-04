@@ -1,4 +1,5 @@
-﻿using Modules.Common.ViewModel;
+﻿using Modules.Common.OBSOLETE.Mediator;
+using Modules.Common.ViewModel;
 using System;
 using System.Windows.Threading;
 

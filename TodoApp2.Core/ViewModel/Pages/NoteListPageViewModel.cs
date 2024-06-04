@@ -1,9 +1,11 @@
-﻿using Modules.Common.DataModels;
+﻿using Modules.Common.DataBinding;
+using Modules.Common.DataModels;
+using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
 using Modules.Notes.Repositories;
 using Modules.Notes.Repositories.Models;
 using Modules.Notes.ViewModels;
-using Modules.Settings.ViewModels;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -16,7 +18,7 @@ namespace TodoApp2.Core;
 
 public class NoteListPageViewModel : BaseViewModel
 {
-    private readonly NotesRepository _notesRepository;
+    private readonly INotesRepository _notesRepository;
     private readonly AppViewModel _appViewModel;
     private readonly OverlayPageService _overlayPageService;
     private readonly NoteListService _noteListService;
@@ -30,7 +32,7 @@ public class NoteListPageViewModel : BaseViewModel
 
     public NoteListPageViewModel(
         AppViewModel applicationViewModel,
-        NotesRepository notesRepository,
+        INotesRepository notesRepository,
         OverlayPageService overlayPageService,
         NoteListService noteListService,
         MessageService messageService)
@@ -198,6 +200,7 @@ public class NoteListPageViewModel : BaseViewModel
             if (_appViewModel.MainPage != ApplicationPage.Note)
             {
                 _appViewModel.MainPage = ApplicationPage.Note;
+                _appViewModel.MainPageVisible = true;
             }
         }
     }
@@ -207,7 +210,7 @@ public class NoteListPageViewModel : BaseViewModel
     /// </summary>
     private void OpenSettingsPage()
     {
-        _appViewModel.OpenSettingsPage();
+        Mediator.NotifyClients(ViewModelMessages.OpenSettingsPage);
 
         Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
     }

@@ -1,4 +1,5 @@
-﻿using Modules.Settings.ViewModels;
+﻿using Modules.Common.OBSOLETE.Mediator;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Threading.Tasks;
 using System.Windows;

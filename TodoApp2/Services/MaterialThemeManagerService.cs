@@ -1,5 +1,5 @@
 ﻿using Modules.Common.DataModels;
-using Modules.Settings.ViewModels;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,6 +1,7 @@
 ﻿using Modules.Common;
+using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
-using Modules.Settings.ViewModels;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;

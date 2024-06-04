@@ -1,13 +1,18 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Modules.Common;
 using Modules.Common.Database;
+using Modules.Common.OBSOLETE.Mediator;
 using Modules.Migrations;
 using Modules.Notes.Repositories;
+using Modules.Settings.Contracts.ViewModels;
 using Modules.Settings.Repositories;
 using Modules.Settings.Services;
-using Modules.Settings.ViewModels;
+using Modules.Settings.Views;
+using Modules.Settings.Views.Pages;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
@@ -47,10 +52,30 @@ public partial class App : Application
             })
             .Build();
 
-        var migrationService = _host.Services.GetService<IMigrationService>();
-        migrationService.Run();
+        InitializeDatabase();
 
         IoC.ServiceProvider = _host.Services;
+
+        Mediator.Register(OpenSettingsPage, ViewModelMessages.OpenSettingsPage);
+    }
+
+    private void InitializeDatabase()
+    {
+        var migrationService = _host.Services.GetService<IMigrationService>();
+
+        var dbContextList = new List<DbContext>()
+        {
+            _host.Services.GetService<SettingDbContext>(),
+            _host.Services.GetService<NotesDbContext>()
+        };
+
+        migrationService.Run(dbContextList);
+    }
+
+    private void OpenSettingsPage(object obj)
+    {
+        VML.ApplicationViewModel.MainSettingsPage = _host.Services.GetService<SettingsPage>();
+        VML.ApplicationViewModel.MainPageVisible = false;
     }
 
     private void ConfigureServices(IServiceCollection services)
@@ -61,6 +86,7 @@ public partial class App : Application
             return new Persistence.AppContext(DbConfiguration.ConnectionStringOld);
         });
         services.AddScoped<IUIScaler, UIScaler>();
+       
         services.AddScoped<AppViewModel>();
         services.AddScoped<MainWindowViewModel>();
         services.AddScoped<IWindowService, WindowService>();
@@ -91,19 +117,22 @@ public partial class App : Application
         services.AddScoped<ReminderNotificationService>();
         services.AddScoped<OneEditorOpenService>();
 
+
+        services.AddScoped<SettingsPage>();
+        services.AddScoped<SettingsPageViewModel>();
+        services.AddSettingsViews();
+
         AddDatabases(services);
     }
 
     private void AddDatabases(IServiceCollection services)
     {
-        services.AddDbContext<SettingDbContext>();
-        services.AddDbContext<NotesDbContext>();
+        services.AddSettingsRepositories();
         
-        services.AddScoped<IMigrationService, MigrationService>();
+        services.AddDbContext<NotesDbContext>();
+        services.AddScoped<INotesRepository, NotesRepository>();
 
-        services.AddScoped<ISettingsRepository, SettingsRepository>();
-        //services.AddScoped<INotesRepository, NotesRepository>();
-        services.AddScoped<NotesRepository>();
+        services.AddMigrationsService();
     }
 
     /// <summary>
@@ -167,7 +196,6 @@ public partial class App : Application
         splashScreen.Close(TimeSpan.Zero);
 
 #if DEBUG
-        //var devSettingsWindow = new DevSettingsWindow();
         var version = (string)Application.Current.TryFindResource(Constants.CurrentVersion);
         Application.Current.Resources[Constants.CurrentVersion] = $"{version}_Debug";
 #endif

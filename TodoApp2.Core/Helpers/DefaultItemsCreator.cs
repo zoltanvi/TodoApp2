@@ -11,9 +11,9 @@ namespace TodoApp2.Core.Helpers;
 internal static class DefaultItemsCreator
 {
     private static IAppContext _context;
-    private static NotesRepository _noteRepository;
+    private static INotesRepository _noteRepository;
 
-    public static void CreateDefaults(IAppContext context, NotesRepository noteRepository)
+    public static void CreateDefaults(IAppContext context, INotesRepository noteRepository)
     {
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(noteRepository);

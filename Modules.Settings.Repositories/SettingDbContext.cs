@@ -1,26 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modules.Common.Database;
-using Modules.Settings.Repositories.Models;
+using Modules.Settings.Contracts.Models;
 
-namespace Modules.Settings.Repositories
+namespace Modules.Settings.Repositories;
+
+public class SettingDbContext : DbContext
 {
-    public class SettingDbContext : DbContext
+    public DbSet<Setting> Settings { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        public DbSet<Setting> Settings { get; set; }
+        optionsBuilder.UseSqlite(DbConfiguration.ConnectionString);
+    }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Setting>(entity =>
         {
-            optionsBuilder.UseSqlite(DbConfiguration.ConnectionString);
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Setting>(entity =>
-            {
-                entity.HasKey(e => e.Key);
-            });
-        }
+            entity.HasKey(e => e.Key);
+        });
     }
 }

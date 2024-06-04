@@ -1,0 +1,36 @@
+﻿<UserControl
+    x:Class="Modules.Settings.Views.Controls.ToggleButtonSettingControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
+    <Grid>
+        <Border Style="{StaticResource SettingsItemStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    x:Name="MyLabel"
+                    Grid.Column="0"
+                    Content="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    Style="{DynamicResource SettingsIconLabelStyle}" />
+                <TextBlock
+                    x:Name="MyTextBlock"
+                    Grid.Column="1"
+                    Style="{DynamicResource SettingsDescriptionStyle}"
+                    Text="{Binding Description, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                <ToggleButton
+                    x:Name="MyToggleButton"
+                    Grid.Column="2"
+                    IsChecked="{Binding IsChecked, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
+                    Style="{DynamicResource ToggleSideMenuStyle}" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

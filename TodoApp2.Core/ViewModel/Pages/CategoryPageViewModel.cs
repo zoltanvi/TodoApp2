@@ -1,6 +1,8 @@
-﻿using Modules.Common.DataModels;
+﻿using Modules.Common.DataBinding;
+using Modules.Common.DataModels;
+using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
-using Modules.Settings.ViewModels;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -229,12 +231,14 @@ public class CategoryPageViewModel : BaseViewModel
                 {
                     // Change to recycle bin page
                     _application.MainPage = ApplicationPage.RecycleBin;
+                    _application.MainPageVisible = true;
                 }
-            } 
+            }
             else if (_application.MainPage != ApplicationPage.Task)
             {
                 // Change to task page if it wasn't active
                 _application.MainPage = ApplicationPage.Task;
+                _application.MainPageVisible = true;
             }
         }
     }
@@ -244,7 +248,7 @@ public class CategoryPageViewModel : BaseViewModel
     /// </summary>
     private void OpenSettingsPage()
     {
-        _application.OpenSettingsPage();
+        Mediator.NotifyClients(ViewModelMessages.OpenSettingsPage);
 
         Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
     }

@@ -1,4 +1,5 @@
-﻿using Modules.Common.DataModels;
+﻿using Modules.Common.DataBinding;
+using Modules.Common.DataModels;
 using Modules.Common.ViewModel;
 using System;
 using System.Windows.Input;

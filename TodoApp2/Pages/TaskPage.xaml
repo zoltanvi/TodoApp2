@@ -1,8 +1,9 @@
-﻿<local:BasePage
+﻿<commonPages:GenericBasePage
     x:Class="TodoApp2.TaskPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:commonPages="clr-namespace:Modules.Common.Views.Pages;assembly=Modules.Common.Views"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TodoApp2"
@@ -321,4 +322,4 @@
             </Border>
         </Grid>
     </Border>
-</local:BasePage>
+</commonPages:GenericBasePage>

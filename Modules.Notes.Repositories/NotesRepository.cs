@@ -2,7 +2,7 @@
 
 namespace Modules.Notes.Repositories;
 
-public class NotesRepository
+public class NotesRepository : INotesRepository
 {
     private readonly NotesDbContext _context;
 

@@ -1,0 +1,168 @@
+﻿<commonPages:GenericBasePage
+    x:Class="Modules.Settings.Views.Pages.TaskItemSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attached="clr-namespace:Modules.Common.Views.AttachedProperties;assembly=Modules.Common.Views"
+    xmlns:commonControls="clr-namespace:Modules.Common.Views.Controls;assembly=Modules.Common.Views"
+    xmlns:commonPages="clr-namespace:Modules.Common.Views.Pages;assembly=Modules.Common.Views"
+    xmlns:controls="clr-namespace:Modules.Settings.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Modules.Settings.Views.Pages"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    d:DataContext="{d:DesignInstance Type=pages:TaskItemSettingsPageViewModel}"
+    x:TypeArguments="pages:TaskItemSettingsPageViewModel"
+    Title="TaskItemSettingsPage">
+
+    <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  ===========================================================  -->
+            <!--  Task item settings  -->
+
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+
+                <!--  Compact mode  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="{DynamicResource SegoeIconCompactMode}"
+                            Style="{DynamicResource SettingsIconLabelStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Spacing" />
+                        <ComboBox
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
+                            ItemsSource="{Binding Source={StaticResource TaskSpacingDataProvider}}"
+                            SelectedItem="{Binding AppSettings.TaskSettings.Spacing, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+                    </Grid>
+                </Border>
+
+                <!--  Item border  -->
+                <controls:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconBorderVisible}"
+                    Description="Task border visible"
+                    IsChecked="{Binding AppSettings.TaskSettings.BorderVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Item background  -->
+                <controls:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconBackgroundVisible}"
+                    Description="Task background visible"
+                    IsChecked="{Binding AppSettings.TaskSettings.BackgroundVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Creation date  -->
+                <controls:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCalendar}"
+                    Description="Creation date visible"
+                    IsChecked="{Binding AppSettings.TaskSettings.CreationDateVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Modification date  -->
+                <controls:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCalendar}"
+                    Description="Modification date visible"
+                    IsChecked="{Binding AppSettings.TaskSettings.ModificationDateVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Circular checkbox  -->
+                <controls:ToggleButtonSettingControl
+                    Icon="{DynamicResource SegoeIconCheckbox}"
+                    Description="Circular checkbox"
+                    ToolTip="Enabled: Circle, Disabled: Rounded square"
+                    IsChecked="{Binding AppSettings.TaskSettings.CircularCheckbox, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+
+                <!--  Color bar thickness  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="{DynamicResource SegoeIconColorBar}"
+                            Style="{DynamicResource SettingsIconLabelStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Color bar thickness" />
+                        <ComboBox
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
+                            ItemsSource="{Binding Source={StaticResource ThicknessDataProvider}}"
+                            SelectedItem="{Binding AppSettings.TaskSettings.ColorBarThickness, Source={StaticResource AppSettings}, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource camelCaseConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <!--  Font family  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="{DynamicResource SegoeIconFontFamily}"
+                            Style="{DynamicResource SettingsIconLabelStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{DynamicResource SettingsDescriptionStyle}"
+                            Text="Font family" />
+                        <ComboBox
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
+                            ItemsSource="{Binding Source={StaticResource FontFamilyDataProvider}}"
+                            SelectedItem="{Binding AppSettings.TaskSettings.FontFamily, Source={StaticResource AppSettings}, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontFamily="{Binding Path=., Converter={StaticResource enumToFontFamilyConverter}}" Text="{Binding Converter={StaticResource camelCaseConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <!--  Font size  -->
+                <Border Style="{StaticResource SettingsItemStyle}">
+                    <DockPanel Style="{StaticResource SettingsDockPanelStyle}">
+                        <controls:FontSizeSliderControl
+                            Description="Font size"
+                            PreviewFontSize="{Binding AppSettings.TaskSettings.FontSize, Source={StaticResource AppSettings}, Mode=TwoWay}"
+                            SampleFontFamily="{Binding AppSettings.TaskSettings.FontFamily, Source={StaticResource AppSettings}, Converter={StaticResource enumToFontFamilyConverter}}"
+                            Min="10"
+                            Max="40"
+                            Steps="1" />
+                    </DockPanel>
+                </Border>
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</commonPages:GenericBasePage>

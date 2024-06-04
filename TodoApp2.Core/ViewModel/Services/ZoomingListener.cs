@@ -1,4 +1,4 @@
-﻿using Modules.Settings.ViewModels;
+﻿using Modules.Settings.Contracts.ViewModels;
 using System;
 
 namespace TodoApp2.Core;

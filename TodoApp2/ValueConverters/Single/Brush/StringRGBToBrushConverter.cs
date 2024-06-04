@@ -1,4 +1,5 @@
 ﻿using Modules.Common;
+using Modules.Common.Views.ValueConverters;
 using System;
 using System.Globalization;
 using System.Windows.Media;

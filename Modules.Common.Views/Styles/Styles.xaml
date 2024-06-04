@@ -1,0 +1,386 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:commonControls="clr-namespace:Modules.Common.Views.Controls"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:converters="clr-namespace:Modules.Common.Views.ValueConverters">
+
+    <x:Array x:Key="colorList" Type="sys:String">
+
+        <sys:String>Transparent</sys:String>
+        <sys:String>#FFFFFF</sys:String>
+        <sys:String>#F5F5F5</sys:String>
+        <sys:String>#E0E0E0</sys:String>
+        <sys:String>#BDBDBD</sys:String>
+        <sys:String>#757575</sys:String>
+        <sys:String>#424242</sys:String>
+        <sys:String>#212121</sys:String>
+        <sys:String>#000000</sys:String>
+
+        <sys:String>#FFCDD2</sys:String>
+        <sys:String>#EF9A9A</sys:String>
+        <sys:String>#E57373</sys:String>
+        <sys:String>#EF5350</sys:String>
+        <sys:String>#F44336</sys:String>
+        <sys:String>#E53935</sys:String>
+        <sys:String>#D32F2F</sys:String>
+        <sys:String>#C62828</sys:String>
+        <sys:String>#B71C1C</sys:String>
+
+        <sys:String>#F8BBD0</sys:String>
+        <sys:String>#F48FB1</sys:String>
+        <sys:String>#F06292</sys:String>
+        <sys:String>#EC407A</sys:String>
+        <sys:String>#E91E63</sys:String>
+        <sys:String>#D81B60</sys:String>
+        <sys:String>#C2185B</sys:String>
+        <sys:String>#AD1457</sys:String>
+        <sys:String>#880E4F</sys:String>
+
+        <sys:String>#E1BEE7</sys:String>
+        <sys:String>#CE93D8</sys:String>
+        <sys:String>#BA68C8</sys:String>
+        <sys:String>#AB47BC</sys:String>
+        <sys:String>#9C27B0</sys:String>
+        <sys:String>#8E24AA</sys:String>
+        <sys:String>#7B1FA2</sys:String>
+        <sys:String>#6A1B9A</sys:String>
+        <sys:String>#4A148C</sys:String>
+
+        <sys:String>#D1C4E9</sys:String>
+        <sys:String>#B39DDB</sys:String>
+        <sys:String>#9575CD</sys:String>
+        <sys:String>#7E57C2</sys:String>
+        <sys:String>#673AB7</sys:String>
+        <sys:String>#5E35B1</sys:String>
+        <sys:String>#512DA8</sys:String>
+        <sys:String>#4527A0</sys:String>
+        <sys:String>#311B92</sys:String>
+
+        <sys:String>#C5CAE9</sys:String>
+        <sys:String>#9FA8DA</sys:String>
+        <sys:String>#7986CB</sys:String>
+        <sys:String>#5C6BC0</sys:String>
+        <sys:String>#3F51B5</sys:String>
+        <sys:String>#3949AB</sys:String>
+        <sys:String>#303F9F</sys:String>
+        <sys:String>#283593</sys:String>
+        <sys:String>#1A237E</sys:String>
+
+        <sys:String>#BBDEFB</sys:String>
+        <sys:String>#90CAF9</sys:String>
+        <sys:String>#64B5F6</sys:String>
+        <sys:String>#42A5F5</sys:String>
+        <sys:String>#2196F3</sys:String>
+        <sys:String>#1E88E5</sys:String>
+        <sys:String>#1976D2</sys:String>
+        <sys:String>#1565C0</sys:String>
+        <sys:String>#0D47A1</sys:String>
+
+        <sys:String>#B3E5FC</sys:String>
+        <sys:String>#81D4FA</sys:String>
+        <sys:String>#4FC3F7</sys:String>
+        <sys:String>#29B6F6</sys:String>
+        <sys:String>#03A9F4</sys:String>
+        <sys:String>#039BE5</sys:String>
+        <sys:String>#0288D1</sys:String>
+        <sys:String>#0277BD</sys:String>
+        <sys:String>#01579B</sys:String>
+
+        <sys:String>#B2EBF2</sys:String>
+        <sys:String>#80DEEA</sys:String>
+        <sys:String>#4DD0E1</sys:String>
+        <sys:String>#26C6DA</sys:String>
+        <sys:String>#00BCD4</sys:String>
+        <sys:String>#00ACC1</sys:String>
+        <sys:String>#0097A7</sys:String>
+        <sys:String>#00838F</sys:String>
+        <sys:String>#006064</sys:String>
+
+        <sys:String>#B2DFDB</sys:String>
+        <sys:String>#80CBC4</sys:String>
+        <sys:String>#4DB6AC</sys:String>
+        <sys:String>#26A69A</sys:String>
+        <sys:String>#009688</sys:String>
+        <sys:String>#00897B</sys:String>
+        <sys:String>#00796B</sys:String>
+        <sys:String>#00695C</sys:String>
+        <sys:String>#004D40</sys:String>
+
+        <sys:String>#C8E6C9</sys:String>
+        <sys:String>#A5D6A7</sys:String>
+        <sys:String>#81C784</sys:String>
+        <sys:String>#66BB6A</sys:String>
+        <sys:String>#4CAF50</sys:String>
+        <sys:String>#43A047</sys:String>
+        <sys:String>#388E3C</sys:String>
+        <sys:String>#2E7D32</sys:String>
+        <sys:String>#1B5E20</sys:String>
+
+        <sys:String>#DCEDC8</sys:String>
+        <sys:String>#C5E1A5</sys:String>
+        <sys:String>#AED581</sys:String>
+        <sys:String>#9CCC65</sys:String>
+        <sys:String>#8BC34A</sys:String>
+        <sys:String>#7CB342</sys:String>
+        <sys:String>#689F38</sys:String>
+        <sys:String>#558B2F</sys:String>
+        <sys:String>#33691E</sys:String>
+
+        <sys:String>#F0F4C3</sys:String>
+        <sys:String>#E6EE9C</sys:String>
+        <sys:String>#DCE775</sys:String>
+        <sys:String>#D4E157</sys:String>
+        <sys:String>#CDDC39</sys:String>
+        <sys:String>#C0CA33</sys:String>
+        <sys:String>#AFB42B</sys:String>
+        <sys:String>#9E9D24</sys:String>
+        <sys:String>#827717</sys:String>
+
+        <sys:String>#FFF9C4</sys:String>
+        <sys:String>#FFF59D</sys:String>
+        <sys:String>#FFF176</sys:String>
+        <sys:String>#FFEE58</sys:String>
+        <sys:String>#FFEB3B</sys:String>
+        <sys:String>#FDD835</sys:String>
+        <sys:String>#FBC02D</sys:String>
+        <sys:String>#F9A825</sys:String>
+        <sys:String>#F57F17</sys:String>
+
+        <sys:String>#FFECB3</sys:String>
+        <sys:String>#FFE082</sys:String>
+        <sys:String>#FFD54F</sys:String>
+        <sys:String>#FFCA28</sys:String>
+        <sys:String>#FFC107</sys:String>
+        <sys:String>#FFB300</sys:String>
+        <sys:String>#FFA000</sys:String>
+        <sys:String>#FF8F00</sys:String>
+        <sys:String>#FF6F00</sys:String>
+
+        <sys:String>#FFE0B2</sys:String>
+        <sys:String>#FFCC80</sys:String>
+        <sys:String>#FFB74D</sys:String>
+        <sys:String>#FFA726</sys:String>
+        <sys:String>#FF9800</sys:String>
+        <sys:String>#FB8C00</sys:String>
+        <sys:String>#F57C00</sys:String>
+        <sys:String>#EF6C00</sys:String>
+        <sys:String>#E65100</sys:String>
+
+        <sys:String>#FFCCBC</sys:String>
+        <sys:String>#FFAB91</sys:String>
+        <sys:String>#FF8A65</sys:String>
+        <sys:String>#FF7043</sys:String>
+        <sys:String>#FF5722</sys:String>
+        <sys:String>#F4511E</sys:String>
+        <sys:String>#E64A19</sys:String>
+        <sys:String>#D84315</sys:String>
+        <sys:String>#BF360C</sys:String>
+
+        <sys:String>#D7CCC8</sys:String>
+        <sys:String>#BCAAA4</sys:String>
+        <sys:String>#A1887F</sys:String>
+        <sys:String>#8D6E63</sys:String>
+        <sys:String>#795548</sys:String>
+        <sys:String>#6D4C41</sys:String>
+        <sys:String>#5D4037</sys:String>
+        <sys:String>#4E342E</sys:String>
+        <sys:String>#3E2723</sys:String>
+
+        <sys:String>#CFD8DC</sys:String>
+        <sys:String>#B0BEC5</sys:String>
+        <sys:String>#90A4AE</sys:String>
+        <sys:String>#78909C</sys:String>
+        <sys:String>#607D8B</sys:String>
+        <sys:String>#546E7A</sys:String>
+        <sys:String>#455A64</sys:String>
+        <sys:String>#37474F</sys:String>
+        <sys:String>#263238</sys:String>
+    </x:Array>
+
+    <commonControls:SingletonPopup
+        x:Key="ColorPickerPopup"
+        x:Name="ColorPickerPopup"
+        MaxHeight="400"
+        AllowsTransparency="True"
+        Focusable="False"
+        Placement="Right"
+        PopupAnimation="None"
+        StaysOpen="False">
+        <Grid x:Name="DropDown2" SnapsToDevicePixels="True">
+            <Border
+                x:Name="DropDownBorder2"
+                Background="{DynamicResource Surface2}"
+                BorderBrush="{DynamicResource Outline}"
+                BorderThickness="1"
+                CornerRadius="4" />
+
+            <ScrollViewer
+                Padding="0 0 26 0"
+                Focusable="False"
+                Style="{DynamicResource TodoAppScrollViewer}"
+                VerticalScrollBarVisibility="Auto">
+
+                <ItemsControl Margin="6 6 0 6" ItemsSource="{StaticResource colorList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="9" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid>
+                                <Border
+                                    Name="HighlightBorder"
+                                    Margin="1"
+                                    BorderBrush="{Binding ElementName=PART_border, Path=Background}"
+                                    BorderThickness="1"
+                                    CornerRadius="2"
+                                    Focusable="False"
+                                    Visibility="Collapsed">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:DataTrigger Value="True">
+                                            <Behaviors:DataTrigger.Binding>
+                                                <MultiBinding>
+                                                    <MultiBinding.Converter>
+                                                        <converters:EqualityConverter />
+                                                    </MultiBinding.Converter>
+                                                    <Binding Path="." />
+                                                    <Binding Path="SelectedColor" RelativeSource="{RelativeSource AncestorType=commonControls:SingletonPopup}" />
+                                                </MultiBinding>
+                                            </Behaviors:DataTrigger.Binding>
+                                            <Behaviors:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                                        </Behaviors:DataTrigger>
+
+                                        <Behaviors:DataTrigger Value="False">
+                                            <Behaviors:DataTrigger.Binding>
+                                                <MultiBinding>
+                                                    <MultiBinding.Converter>
+                                                        <converters:EqualityConverter />
+                                                    </MultiBinding.Converter>
+                                                    <Binding Path="." />
+                                                    <Binding Path="SelectedColor" RelativeSource="{RelativeSource AncestorType=commonControls:SingletonPopup}" />
+                                                </MultiBinding>
+                                            </Behaviors:DataTrigger.Binding>
+                                            <Behaviors:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                                        </Behaviors:DataTrigger>
+                                    </Behaviors:Interaction.Triggers>
+
+                                </Border>
+
+                                <Border
+                                    x:Name="PART_border"
+                                    Width="{Binding UIScaler.ColorPickerItemSize, Source={StaticResource UIScaler}}"
+                                    Height="{Binding ActualWidth, ElementName=PART_border}"
+                                    Margin="3"
+                                    Background="{Binding Path=., Converter={StaticResource stringRGBToBrushConverter}}"
+                                    BorderBrush="{DynamicResource SurfaceDim}"
+                                    BorderThickness="1"
+                                    CornerRadius="3"
+                                    Cursor="Hand"
+                                    Focusable="False"
+                                    ToolTip="{Binding}">
+
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                            <Behaviors:ChangePropertyAction
+                                                PropertyName="SelectedColor"
+                                                TargetObject="{Binding RelativeSource={RelativeSource AncestorType=commonControls:SingletonPopup}}"
+                                                Value="{Binding}" />
+                                        </Behaviors:EventTrigger>
+
+                                        <Behaviors:DataTrigger Binding="{Binding}" Value="Transparent">
+                                            <Behaviors:ChangePropertyAction PropertyName="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                                        </Behaviors:DataTrigger>
+                                        <Behaviors:DataTrigger Binding="{Binding}" Value="">
+                                            <Behaviors:ChangePropertyAction PropertyName="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                                        </Behaviors:DataTrigger>
+                                        <Behaviors:DataTrigger Binding="{Binding}" Value="{x:Null}">
+                                            <Behaviors:ChangePropertyAction PropertyName="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                                        </Behaviors:DataTrigger>
+
+                                    </Behaviors:Interaction.Triggers>
+                                </Border>
+                            </Grid>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </commonControls:SingletonPopup>
+
+    <Style TargetType="{x:Type commonControls:SingletonColorPicker}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        x:Name="border"
+                        Background="{DynamicResource Surface3}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="0"
+                        CornerRadius="4"
+                        SnapsToDevicePixels="true">
+                        <Grid Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0">
+                                <Border
+                                    Name="PaddingBorder"
+                                    Padding="3"
+                                    Background="Transparent">
+                                    <Border
+                                        x:Name="PART_selectedColorBorder"
+                                        Width="{Binding UIScaler.ColorPickerItemSize, Source={StaticResource UIScaler}}"
+                                        Height="{Binding UIScaler.ColorPickerItemSize, Source={StaticResource UIScaler}}"
+                                        Background="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource stringRGBToBrushConverter}}"
+                                        BorderBrush="{DynamicResource Outline}"
+                                        BorderThickness="0"
+                                        CornerRadius="4"
+                                        Tag="{Binding SelectedColorString, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                </Border>
+                            </Border>
+
+                            <Viewbox Grid.Column="1" VerticalAlignment="Center">
+                                <Label
+                                    x:Name="ArrowDown"
+                                    Margin="0"
+                                    Padding="10"
+                                    BorderThickness="0"
+                                    Content="{StaticResource SegoeIconChevronDown}"
+                                    Style="{DynamicResource IconLabelStyle}" />
+                            </Viewbox>
+
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Visibility="Visible" />
+                        </Grid>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Surface5}" />
+                        </Trigger>
+
+                        <DataTrigger Binding="{Binding ElementName=PART_selectedColorBorder, Path=Tag}" Value="Transparent">
+                            <Setter TargetName="PART_selectedColorBorder" Property="Background" Value="{DynamicResource TransparentPatternBrush}" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>

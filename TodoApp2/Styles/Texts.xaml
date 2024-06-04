@@ -343,80 +343,9 @@
         <Setter Property="Padding" Value="0" />
     </Style>
 
-    <Style TargetType="{x:Type local:ShortcutKey}">
-        <Setter Property="BorderThickness" Value="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource TagPurpleBorderBrush}" />
-        <Setter Property="Background" Value="{DynamicResource TagPurpleBgBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource TagPurpleBrush}" />
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:ShortcutKey}">
-                    <Border
-                        x:Name="border"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        MinWidth="{TemplateBinding MinWidth}"
-                        CornerRadius="4">
-                        <Label
-                            Content="{TemplateBinding Content}"
-                            Padding="0"
-                            Margin="10 2"
-                            Foreground="{TemplateBinding Foreground}"
-                            FontWeight="{TemplateBinding FontWeight}"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            HorizontalContentAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="Content" Value="Alt">
-                <Setter Property="BorderBrush" Value="{DynamicResource TagGreenBorderBrush}" />
-                <Setter Property="Background" Value="{DynamicResource TagGreenBgBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TagGreenBrush}" />
-            </Trigger>
-            <Trigger Property="Content" Value="Ctrl">
-                <Setter Property="BorderBrush" Value="{DynamicResource TagBlueBorderBrush}" />
-                <Setter Property="Background" Value="{DynamicResource TagBlueBgBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TagBlueBrush}" />
-            </Trigger>
-            <Trigger Property="Content" Value="Shift">
-                <Setter Property="BorderBrush" Value="{DynamicResource TagOrangeBorderBrush}" />
-                <Setter Property="Background" Value="{DynamicResource TagOrangeBgBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TagOrangeBrush}" />
-            </Trigger>
-            <Trigger Property="Content" Value="Space">
-                <Setter Property="BorderBrush" Value="{DynamicResource TagCyanBorderBrush}" />
-                <Setter Property="Background" Value="{DynamicResource TagCyanBgBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TagCyanBrush}" />
-            </Trigger>
+    
 
-            <Trigger Property="Content" Value="Mouse scroll UP">
-                <Setter Property="BorderBrush" Value="{DynamicResource TagMagentaBorderBrush}" />
-                <Setter Property="Background" Value="{DynamicResource TagMagentaBgBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TagMagentaBrush}" />
-            </Trigger>
-            <Trigger Property="Content" Value="Mouse scroll DOWN">
-                <Setter Property="BorderBrush" Value="{DynamicResource TagMagentaBorderBrush}" />
-                <Setter Property="Background" Value="{DynamicResource TagMagentaBgBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TagMagentaBrush}" />
-            </Trigger>
-
-        </Style.Triggers>
-    </Style>
-
-    <Style TargetType="{x:Type local:ShortcutSeparator}">
-        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}" />
-    </Style>
+   
 
     <Label
         x:Key="ctxIconCompleted"

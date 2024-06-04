@@ -1,7 +1,8 @@
-﻿using Modules.Common.ViewModel;
+﻿using Modules.Common.OBSOLETE.Mediator;
+using Modules.Common.ViewModel;
 using Modules.Notes.Repositories;
 using Modules.Notes.ViewModels;
-using Modules.Settings.ViewModels;
+using Modules.Settings.Contracts.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace TodoApp2.Core;
 public class NoteListService : BaseViewModel
 {
     private AppViewModel _appViewModel;
-    private NotesRepository _notesRepository;
+    private INotesRepository _notesRepository;
     private NoteViewModel _activeNote;
 
     public ObservableCollection<NoteViewModel> Items { get; set; }
@@ -29,7 +30,7 @@ public class NoteListService : BaseViewModel
         }
     }
 
-    public NoteListService(NotesRepository notesRepository, AppViewModel appViewModel)
+    public NoteListService(INotesRepository notesRepository, AppViewModel appViewModel)
     {
         ArgumentNullException.ThrowIfNull(notesRepository);
         ArgumentNullException.ThrowIfNull(appViewModel);

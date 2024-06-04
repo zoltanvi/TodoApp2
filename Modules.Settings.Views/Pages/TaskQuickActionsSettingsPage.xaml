@@ -1,0 +1,79 @@
+﻿<commonPages:GenericBasePage
+    x:Class="Modules.Settings.Views.Pages.TaskQuickActionsSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attached="clr-namespace:Modules.Common.Views.AttachedProperties;assembly=Modules.Common.Views"
+    xmlns:commonControls="clr-namespace:Modules.Common.Views.Controls;assembly=Modules.Common.Views"
+    xmlns:commonPages="clr-namespace:Modules.Common.Views.Pages;assembly=Modules.Common.Views"
+    xmlns:controls="clr-namespace:Modules.Settings.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Modules.Settings.Views.Pages"
+    Title="TaskQuickActionsSettingsPage"
+    d:DataContext="{d:DesignInstance Type=pages:TaskQuickActionsSettingsPageViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="pages:TaskQuickActionsSettingsPageViewModel"
+    mc:Ignorable="d">
+
+    <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  ===========================================================  -->
+            <!--  Task quick actions  -->
+
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+
+
+                <!--  Task Checkbox  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Checkbox"
+                    Icon="{DynamicResource SegoeIconCheckbox}"
+                    IsChecked="{Binding AppSettings.TaskQuickActionSettings.CheckboxEnabled, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Reminder button  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Reminder button"
+                    Icon="{DynamicResource SegoeIconDateTime}"
+                    IsChecked="{Binding AppSettings.TaskQuickActionSettings.ReminderEnabled, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Marker color button  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Marker color picker"
+                    Icon="{DynamicResource SegoeIconPalette}"
+                    IsChecked="{Binding AppSettings.TaskQuickActionSettings.ColorEnabled, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Background color button  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Background color picker"
+                    Icon="{DynamicResource SegoeIconPalette}"
+                    IsChecked="{Binding AppSettings.TaskQuickActionSettings.BackgroundColorEnabled, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  BorderColor button  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Border color picker"
+                    Icon="{DynamicResource SegoeIconPalette}"
+                    IsChecked="{Binding AppSettings.TaskQuickActionSettings.BorderColorEnabled, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Pin button  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Pin button"
+                    Icon="{DynamicResource SegoeIconPin}"
+                    IsChecked="{Binding AppSettings.TaskQuickActionSettings.PinEnabled, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Delete button  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Delete button"
+                    Icon="{DynamicResource SegoeIconTrash}"
+                    IsChecked="{Binding AppSettings.TaskQuickActionSettings.TrashEnabled, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</commonPages:GenericBasePage>

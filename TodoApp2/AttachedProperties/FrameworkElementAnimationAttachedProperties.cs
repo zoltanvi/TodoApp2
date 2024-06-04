@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modules.Common.Views.Animations;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;

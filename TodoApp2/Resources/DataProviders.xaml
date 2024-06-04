@@ -4,7 +4,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:material="clr-namespace:TodoApp2.Material;assembly=TodoApp2.Material"
     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
-    xmlns:dataModels="clr-namespace:Modules.Common.DataModels;assembly=Modules.Common.DataModels"
+    xmlns:dataModels="clr-namespace:Modules.Common.DataModels;assembly=Modules.Common"
     xmlns:local="clr-namespace:TodoApp2">
 
     <ObjectDataProvider

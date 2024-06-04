@@ -27,12 +27,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Modules.Common.DataModels\Modules.Common.DataModels.csproj" />
     <ProjectReference Include="..\Modules.Notes.Repositories\Modules.Notes.Repositories.csproj" />
     <ProjectReference Include="..\Modules.Notes.ViewModels\Modules.Notes.ViewModels.csproj" />
     <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
     <ProjectReference Include="..\Modules.Settings.Services\Modules.Settings.Services.csproj" />
-    <ProjectReference Include="..\Modules.Settings.ViewModels\Modules.Settings.ViewModels.csproj" />
     <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj" />
     <ProjectReference Include="..\TodoApp2.Entity\TodoApp2.Entity.csproj" />
     <ProjectReference Include="..\TodoApp2.Material\TodoApp2.Material.csproj" />
@@ -50,5 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ViewModel\OverlayBackgroundViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\Pages\Settings\" />
   </ItemGroup>
 </Project>

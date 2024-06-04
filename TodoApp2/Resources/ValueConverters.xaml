@@ -62,7 +62,6 @@
     
 
     <local:ApplicationPageValueConverter x:Key="applicationPageValueConverter" />
-    <local:SettingsPageTitleConverter x:Key="settingsPageTitleConverter" />
     <local:CamelCaseConverter x:Key="camelCaseConverter" />
     <local:SingleCornerRadiusConverter x:Key="singleCornerRadiusConverter" />
 

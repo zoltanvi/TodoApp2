@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Modules.Common.DataModels;
 using Modules.Common.ViewModel;
+using Modules.Common.Views.Pages;
+using Modules.Common.Views.ValueConverters;
 using Modules.Notes.Repositories;
+using Modules.Settings.Views.Pages;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -33,11 +36,6 @@ public class ApplicationPageValueConverter : BaseValueConverter
         public static ApplicationPageManager Instance => _Instance ?? (_Instance = new ApplicationPageManager());
 
         private readonly Dictionary<ApplicationPage, BaseViewModel> _viewModelDictionary;
-        private readonly Dictionary<ApplicationPage, Type> _viewModelTypesDefault;
-        private readonly Dictionary<ApplicationPage, Type> _pageTypesDefault;
-
-        private readonly Dictionary<ApplicationPage, Type> _viewModelTypesAppVm;
-        private readonly Dictionary<ApplicationPage, Type> _pageTypesAppVm;
 
         public ApplicationPageManager()
         {
@@ -50,43 +48,6 @@ public class ApplicationPageValueConverter : BaseValueConverter
             _messageService = IoC.MessageService;
 
             _viewModelDictionary = new Dictionary<ApplicationPage, BaseViewModel>();
-            _viewModelTypesDefault = new Dictionary<ApplicationPage, Type>
-            {
-                { ApplicationPage.NotePageSettings, typeof(NotePageSettingsPageViewModel)},
-                { ApplicationPage.TaskItemSettings, typeof(TaskItemSettingsPageViewModel)},
-                { ApplicationPage.PageTitleSettings, typeof(PageTitleSettingsPageViewModel)},
-                { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPageViewModel)},
-                { ApplicationPage.TaskPageSettings, typeof(TaskPageSettingsPageViewModel)},
-                { ApplicationPage.TaskQuickActionsSettings, typeof(TaskQuickActionsSettingsPageViewModel)},
-                { ApplicationPage.TextEditorQuickActionsSettings, typeof(TextEditorQuickActionsSettingsPageViewModel)},
-                { ApplicationPage.AppWindowSettings, typeof(ApplicationSettingsPageViewModel)},
-                { ApplicationPage.DateTimeSettings, typeof(DateTimeSettingsPageViewModel)},
-                { ApplicationPage.Shortcuts, typeof(ShortcutsPageViewModel)},
-            };
-
-            _pageTypesDefault = new Dictionary<ApplicationPage, Type>
-            {
-                { ApplicationPage.NotePageSettings, typeof(NotePageSettingsPage)},
-                { ApplicationPage.TaskItemSettings, typeof(TaskItemSettingsPage)},
-                { ApplicationPage.PageTitleSettings, typeof(PageTitleSettingsPage)},
-                { ApplicationPage.ThemeSettings, typeof(ThemeSettingsPage)},
-                { ApplicationPage.TaskPageSettings, typeof(TaskPageSettingsPage)},
-                { ApplicationPage.TaskQuickActionsSettings, typeof(TaskQuickActionsSettingsPage)},
-                { ApplicationPage.TextEditorQuickActionsSettings, typeof(TextEditorQuickActionsSettingsPage)},
-                { ApplicationPage.AppWindowSettings, typeof(ApplicationSettingsPage)},
-                { ApplicationPage.DateTimeSettings, typeof(DateTimeSettingsPage)},
-                { ApplicationPage.Shortcuts, typeof(ShortcutsPage)},
-            };
-
-            _viewModelTypesAppVm = new Dictionary<ApplicationPage, Type>
-            {
-                { ApplicationPage.Settings, typeof(SettingsPageViewModel)},
-            };
-
-            _pageTypesAppVm = new Dictionary<ApplicationPage, Type>
-            {
-                { ApplicationPage.Settings, typeof(SettingsPage)},
-            };
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -129,7 +90,7 @@ public class ApplicationPageValueConverter : BaseValueConverter
                 {
                     var notePageViewModel = new NoteListPageViewModel(
                         _appViewModel,
-                        IoC.ServiceProvider.GetService<NotesRepository>(),
+                        IoC.ServiceProvider.GetService<INotesRepository>(),
                         _overlayPageService,
                         _noteListService,
                         _messageService);
@@ -162,23 +123,6 @@ public class ApplicationPageValueConverter : BaseValueConverter
 
                     break;
                 }
-            }
-
-            if (_viewModelTypesDefault.ContainsKey(applicationPage))
-            {
-                var viewModelType = _viewModelTypesDefault[applicationPage];
-                var pageType = _pageTypesDefault[applicationPage];
-
-                viewModel = Activator.CreateInstance(viewModelType) as BaseViewModel;
-                page = Activator.CreateInstance(pageType, viewModel) as BasePage;
-            }
-            else if (_viewModelTypesAppVm.ContainsKey(applicationPage))
-            {
-                var viewModelType = _viewModelTypesAppVm[applicationPage];
-                var pageType = _pageTypesAppVm[applicationPage];
-
-                viewModel = Activator.CreateInstance(viewModelType, _appViewModel) as BaseViewModel;
-                page = Activator.CreateInstance(pageType, viewModel) as BasePage;
             }
 
             if (page != null)

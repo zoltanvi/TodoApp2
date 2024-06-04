@@ -1,0 +1,97 @@
+﻿<commonPages:GenericBasePage
+    x:Class="Modules.Settings.Views.Pages.TaskPageSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attached="clr-namespace:Modules.Common.Views.AttachedProperties;assembly=Modules.Common.Views"
+    xmlns:commonControls="clr-namespace:Modules.Common.Views.Controls;assembly=Modules.Common.Views"
+    xmlns:commonPages="clr-namespace:Modules.Common.Views.Pages;assembly=Modules.Common.Views"
+    xmlns:controls="clr-namespace:Modules.Settings.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Modules.Settings.Views.Pages"
+    Title="TaskPageSettingsPage"
+    d:DataContext="{d:DesignInstance Type=pages:TaskPageSettingsPageViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="pages:TaskPageSettingsPageViewModel"
+    mc:Ignorable="d">
+
+    <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  ===========================================================  -->
+            <!--  Task page settings  -->
+
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+
+                <!--  Insert new task to the end  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Insert new task at the bottom"
+                    Icon="{DynamicResource SegoeIconTaskOrder}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.InsertOrderReversed, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Move completed task to the end  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Force task order by state"
+                    Icon="{DynamicResource SegoeIconCheckList}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.ForceTaskOrderByState, Source={StaticResource AppSettings}, Mode=TwoWay}"
+                    ToolTip="The task order: 1. Pinned, 2. Active, 3. Finished" />
+
+                <!--  Exit edit mode on focus lost  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Exit edit mode on focus lost"
+                    Icon="{DynamicResource SegoeIconEdit}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.ExitEditOnFocusLost, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Save task on enter  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Save task on Enter"
+                    Icon="{DynamicResource SegoeIconSend}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.SaveOnEnter, Source={StaticResource AppSettings}, Mode=TwoWay}"
+                    ToolTip="If turned off: Save task on Ctrl + Enter" />
+
+                <!--  Add task button visible  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Add task button visible"
+                    Icon="{DynamicResource SegoeIconSend}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.SendButtonVisible, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Play sound for completed tasks  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Play sound for completed tasks"
+                    Icon="{DynamicResource SegoeIconBell}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.PlaySoundOnTaskIsDoneChange, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Margin for task list  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Margin for task list"
+                    Icon="{DynamicResource SegoeIconMargin}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.TaskListMargin, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Allow pasting formatted text  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Allow pasting formatted text"
+                    Icon="{DynamicResource SegoeIconPaste}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.FormattedPasteEnabled, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <!--  Allow pasting formatted text  -->
+                <controls:ToggleButtonSettingControl
+                    Description="Progress bar"
+                    Icon="{DynamicResource SegoeIconProgress}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.ProgressBar, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+                <controls:ToggleButtonSettingControl
+                    Description="Numbers next to progress bar"
+                    Icon="{DynamicResource SegoeIconNumberTen}"
+                    IsChecked="{Binding AppSettings.TaskPageSettings.NumberOnProgressBar, Source={StaticResource AppSettings}, Mode=TwoWay}" />
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</commonPages:GenericBasePage>

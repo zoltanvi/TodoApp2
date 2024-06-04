@@ -1,6 +1,6 @@
-﻿using Modules.Settings.Repositories;
-using Modules.Settings.Repositories.Models;
-using Modules.Settings.ViewModels;
+﻿using Modules.Settings.Contracts;
+using Modules.Settings.Contracts.Models;
+using Modules.Settings.Contracts.ViewModels;
 using System.Globalization;
 using System.Reflection;
 

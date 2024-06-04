@@ -54,50 +54,6 @@
         </Style.Triggers>
     </Style>
 
-    <Style
-        x:Key="SettingsCategoryButtonStyle"
-        BasedOn="{StaticResource ButtonHoverStyle}"
-        TargetType="{x:Type local:SettingsCategoryButton}">
-        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}" />
-        <Setter Property="Margin" Value="3 4" />
-        <Setter Property="Padding" Value="3 2" />
-        <Setter Property="HorizontalContentAlignment" Value="Right" />
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:SettingsCategoryButton}">
-                    <Border
-                        x:Name="border"
-                        Padding="{TemplateBinding Padding}"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="4"
-                        SnapsToDevicePixels="true">
-                        <ContentPresenter
-                            x:Name="contentPresenter"
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Focusable="False"
-                            RecognizesAccessKey="True"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SecondaryContainer}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SecondaryContainer}" />
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryContainer}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
     <Style
         x:Key="ButtonIconStyle"

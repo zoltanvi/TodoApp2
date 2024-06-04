@@ -1,29 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Modules.Notes.Repositories;
-using Modules.Settings.Repositories;
 
 namespace Modules.Migrations
 {
     public class MigrationService : IMigrationService
     {
-        private SettingDbContext _settingContext;
-        private NotesDbContext _notesContext;
-
-        public MigrationService(
-            SettingDbContext settingsContext,
-            NotesDbContext notesContext)
+        public void Run(IEnumerable<DbContext> contexts)
         {
-            ArgumentNullException.ThrowIfNull(settingsContext);
-            ArgumentNullException.ThrowIfNull(notesContext);
+            ArgumentNullException.ThrowIfNull(contexts);
 
-            _settingContext = settingsContext;
-            _notesContext = notesContext;
-        }
+            if (!contexts.Any())
+            {
+                throw new ArgumentNullException(nameof(contexts));
+            }
 
-        public void Run()
-        {
-            RunMigrations(_settingContext);
-            RunMigrations(_notesContext);
+            foreach (var context in contexts)
+            {
+                RunMigrations(context);
+            }
         }
 
         private void RunMigrations(DbContext dbContext)

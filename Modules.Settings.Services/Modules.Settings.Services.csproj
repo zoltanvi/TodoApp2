@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
-    <ProjectReference Include="..\Modules.Settings.ViewModels\Modules.Settings.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

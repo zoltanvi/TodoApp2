@@ -1,4 +1,6 @@
-﻿using Modules.Common.ViewModel;
+﻿using Modules.Common.DataBinding;
+using Modules.Common.OBSOLETE.Mediator;
+using Modules.Common.ViewModel;
 using System;
 using System.Windows.Input;
 using TodoApp2.Common;

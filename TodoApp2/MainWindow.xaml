@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:attached="clr-namespace:Modules.Common.Views.AttachedProperties;assembly=Modules.Common.Views"
     xmlns:local="clr-namespace:TodoApp2"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
@@ -305,7 +306,7 @@
 
                     <!--  Side menu page  -->
                     <Frame
-                        local:NoFrameHistory.Value="True"
+                        attached:NoFrameHistory.Value="True"
                         AutomationProperties.AutomationId="SideMenuPage"
                         Content="{Binding}"
                         DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:VML.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
@@ -314,12 +315,22 @@
 
             <!--  Current page  -->
             <Frame
+                Visibility="{Binding ApplicationViewModel.MainPageVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
                 Grid.Column="2"
                 Margin="-6 0 0 0"
-                local:NoFrameHistory.Value="True"
+                attached:NoFrameHistory.Value="True"
                 AutomationProperties.AutomationId="MainPageFrame"
                 Content="{Binding}"
                 DataContext="{Binding ApplicationViewModel.MainPage, Source={x:Static local:VML.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
+
+            <Frame
+               Visibility="{Binding ApplicationViewModel.MainPageVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
+               Grid.Column="2"
+               Margin="-6 0 0 0"
+               attached:NoFrameHistory.Value="True"
+               AutomationProperties.AutomationId="MainPageFrame"
+               Content="{Binding}"
+               DataContext="{Binding ApplicationViewModel.MainSettingsPage, Source={x:Static local:VML.Instance}}" />
 
             <!--  RESIZER HANDLE  -->
 

@@ -1,0 +1,189 @@
+﻿<commonPages:GenericBasePage
+    x:Class="Modules.Settings.Views.Pages.ShortcutsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attached="clr-namespace:Modules.Common.Views.AttachedProperties;assembly=Modules.Common.Views"
+    xmlns:commonControls="clr-namespace:Modules.Common.Views.Controls;assembly=Modules.Common.Views"
+    xmlns:commonPages="clr-namespace:Modules.Common.Views.Pages;assembly=Modules.Common.Views"
+    xmlns:controls="clr-namespace:Modules.Settings.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Modules.Settings.Views.Pages"
+    d:DataContext="{d:DesignInstance Type=pages:ShortcutsPageViewModel}"
+    Title="ShortcutsPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="pages:ShortcutsPageViewModel"
+    mc:Ignorable="d">
+
+    <ScrollViewer Style="{DynamicResource TodoAppScrollViewer}">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  ===========================================================  -->
+
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+
+                <Label
+                    Content="Text editor shortcuts"
+                    Style="{DynamicResource BaseLabelClearTypeStyle}"
+                    FontSize="{Binding UIScaler.FontSize.Large, Source={StaticResource UIScaler}}" />
+                
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
+
+                <controls:ShortcutItemControl
+                    Description="Edit last added item"
+                    Key1="Up arrow"
+                    />
+
+                <controls:ShortcutItemControl
+                    Description="Bold"
+                    Key1="Ctrl"
+                    Key2="B" />
+
+                <controls:ShortcutItemControl
+                    Description="Underlined"
+                    Key1="Ctrl"
+                    Key2="U" />
+
+                <controls:ShortcutItemControl
+                    Description="Italic"
+                    Key1="Ctrl"
+                    Key2="I" />
+
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
+
+                <controls:ShortcutItemControl
+                    Description="Remove format (selection)"
+                    Key1="Ctrl"
+                    Key2="Space" />
+
+                <controls:ShortcutItemControl
+                    Description="Remove format (all)"
+                    Key1="Ctrl"
+                    Key2="H" />
+
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
+
+                <controls:ShortcutItemControl
+                    Description="Align left"
+                    Key1="Ctrl"
+                    Key2="L" />
+
+                <controls:ShortcutItemControl
+                    Description="Align center"
+                    Key1="Ctrl"
+                    Key2="E" />
+
+                <controls:ShortcutItemControl
+                    Description="Align right"
+                    Key1="Ctrl"
+                    Key2="R" />
+
+
+                <controls:ShortcutItemControl
+                    Description="Justify"
+                    Key1="Ctrl"
+                    Key2="J" />
+
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
+
+
+                <controls:ShortcutItemControl
+                    Description="Decrease font size"
+                    Key1="Ctrl"
+                    Key2="[" />
+
+                <controls:ShortcutItemControl
+                    Description="Increase font size"
+                    Key1="Ctrl"
+                    Key2="]" />
+
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
+
+
+                <controls:ShortcutItemControl
+                    Description="Subscript"
+                    Key1="Ctrl"
+                    Key2="=" />
+
+                <controls:ShortcutItemControl
+                    Description="Superscript"
+                    Key1="Ctrl"
+                    Key2="Shift"
+                    Key3="=" />
+
+                <Border Height="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}" />
+
+                <controls:ShortcutItemControl
+                    Description="Toggle editor toolbar"
+                    Key1="Ctrl"
+                    Key2="Shift"
+                    Key3="Enter" />
+
+                <Border Height="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}" />
+
+                <Label
+                    Content="Global shortcuts"
+                    Style="{DynamicResource BaseLabelClearTypeStyle}"
+                    FontSize="{Binding UIScaler.FontSize.Large, Source={StaticResource UIScaler}}" />
+                <Border Height="{Binding UIScaler.FontSize.Smaller, Source={StaticResource UIScaler}}" />
+
+
+                <!--<local:ShortcutItemControl
+                    Description="Switch to previous theme"
+                    Key1="Ctrl"
+                    Key2="Alt"
+                    Key3="J" />
+
+                <local:ShortcutItemControl
+                    Description="Switch to next theme"
+                    Key1="Ctrl"
+                    Key2="Alt"
+                    Key3="L" />
+
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />-->
+
+
+                <controls:ShortcutItemControl
+                    Description="Undo (Add / Delete task)"
+                    Key1="Ctrl"
+                    Key2="Z" />
+
+                <controls:ShortcutItemControl
+                    Description="Redo (Add / Delete task)"
+                    Key1="Ctrl"
+                    Key2="Y" />
+
+                <Border Height="{Binding UIScaler.FontSize.Smallest, Source={StaticResource UIScaler}}" />
+
+                <controls:ShortcutItemControl
+                    Description="Zoom in"
+                    Key1="Ctrl"
+                    Key2="Mouse scroll UP" />
+
+                <controls:ShortcutItemControl
+                    Description="Zoom in"
+                    Key1="Ctrl"
+                    Key2="+" />
+
+                <controls:ShortcutItemControl
+                    Description="Zoom out"
+                    Key1="Ctrl"
+                    Key2="Mouse scroll DOWN" />
+
+                <controls:ShortcutItemControl
+                    Description="Zoom out"
+                    Key1="Ctrl"
+                    Key2="-" />
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+
+</commonPages:GenericBasePage>

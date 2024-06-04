@@ -2,11 +2,11 @@
                     xmlns:local="clr-namespace:TodoApp2"
                     xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
                     xmlns:settings="clr-namespace:Modules.Settings.Views;assembly=Modules.Settings.Views"
-                    xmlns:settingsViewModels="clr-namespace:Modules.Settings.ViewModels;assembly=Modules.Settings.ViewModels"
+                    xmlns:settingsContracts="clr-namespace:Modules.Settings.Contracts.ViewModels;assembly=Modules.Settings.Contracts"
                     xmlns:view="clr-namespace:TodoApp2.WindowHandling"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <settings:AppSettingsBindingProxy x:Key="AppSettings" AppSettings="{x:Static settingsViewModels:AppSettings.Instance}"/>
+    <settings:AppSettingsBindingProxy x:Key="AppSettings" AppSettings="{x:Static settingsContracts:AppSettings.Instance}"/>
     <view:UIScalerBindingProxy x:Key="UIScaler" UIScaler="{x:Static core:UIScaler.Instance}" />
 
 </ResourceDictionary>

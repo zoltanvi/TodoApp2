@@ -1,15 +1,12 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
-using Modules.Settings.Repositories;
+using Modules.Settings.Contracts.ViewModels;
 using Modules.Settings.Services;
-using Modules.Settings.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using TodoApp2.Common;
 using TodoApp2.Persistence;
-using Setting = Modules.Settings.Repositories.Models.Setting;
 
 namespace TodoApp2.Core;
 
@@ -21,7 +18,32 @@ public class AppViewModel : BaseViewModel
     private bool _appSettingsLoadedFirstTime;
     private IUIScaler _uiScaler;
     private IAppSettingsService _settingsPopulator;
+    private IServiceProvider _serviceProvider;
     private readonly IAppContext _context;
+
+    public AppViewModel(
+        IAppContext context,
+        UIScaler uiScaler,
+        IAppSettingsService settingsPopulator,
+        IServiceProvider serviceProvider)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(uiScaler);
+        ArgumentNullException.ThrowIfNull(settingsPopulator);
+        ArgumentNullException.ThrowIfNull(serviceProvider);
+
+        _context = context;
+        _uiScaler = uiScaler;
+        _settingsPopulator = settingsPopulator;
+        _serviceProvider = serviceProvider;
+
+        // Load the application settings to update the ActiveCategoryId before querying the tasks
+        LoadAppSettingsOnce();
+
+        AppSettings.Instance.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
+
+        Mediator.Register(OnUpdateMainPage, ViewModelMessages.UpdateMainPage);
+    }
 
     private SessionSettings SessionSettings => AppSettings.Instance.SessionSettings;
 
@@ -43,6 +65,12 @@ public class AppViewModel : BaseViewModel
     /// The current page of the application
     /// </summary>
     public ApplicationPage MainPage { get; set; }
+
+    // TODO: Remove
+    public bool MainPageVisible { get; set; } = true;
+
+    // TODO: Remove
+    public object MainSettingsPage { get; set; }
 
     /// <summary>
     /// The view model to use for the current page when the Page changes
@@ -80,23 +108,10 @@ public class AppViewModel : BaseViewModel
     /// </summary>
     public bool SaveIconVisible { get; set; }
 
-    public AppViewModel(
-        IAppContext context, 
-        UIScaler uiScaler, 
-        IAppSettingsService settingsPopulator)
+    // TODO: REMOVE
+    private void OnUpdateMainPage(object obj)
     {
-        ArgumentNullException.ThrowIfNull(context);
-        ArgumentNullException.ThrowIfNull(uiScaler);
-        ArgumentNullException.ThrowIfNull(settingsPopulator);
-
-        _context = context;
-        _uiScaler = uiScaler;
-        _settingsPopulator = settingsPopulator;
-
-        // Load the application settings to update the ActiveCategoryId before querying the tasks
-        LoadAppSettingsOnce();
-
-        AppSettings.Instance.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
+        UpdateMainPage();
     }
 
     /// <summary>
@@ -107,6 +122,7 @@ public class AppViewModel : BaseViewModel
         if (SessionSettings.ActiveCategoryId == CommonConstants.RecycleBinCategoryId)
         {
             MainPage = ApplicationPage.RecycleBin;
+            MainPageVisible = true;
         }
         else
         {
@@ -115,15 +131,8 @@ public class AppViewModel : BaseViewModel
             MainPage = SessionSettings.ActiveCategoryId != -1
                 ? ApplicationPage.Task
                 : ApplicationPage.Note;
+            MainPageVisible = true;
         }
-    }
-
-    /// <summary>
-    /// Changes the Main Page to the settings page.
-    /// </summary>
-    public void OpenSettingsPage()
-    {
-        MainPage = ApplicationPage.Settings;
     }
 
     /// <summary>
@@ -151,6 +160,7 @@ public class AppViewModel : BaseViewModel
         bool different = MainPage != page;
 
         MainPage = page;
+        MainPageVisible = true;
 
         // If the page hasn't changed, fire off notification
         // So pages still update if just the view model has changed

@@ -1,10 +1,12 @@
 ﻿using Modules.Common;
+using Modules.Common.DataBinding;
+using Modules.Common.Views.Controls;
+using Modules.Common.Views.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TodoApp2.Core;
-using TodoApp2.Services;
 
 namespace TodoApp2;
 

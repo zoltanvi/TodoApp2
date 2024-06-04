@@ -1,5 +1,6 @@
 ﻿using Modules.Common.DataModels;
 using Modules.Common.ViewModel;
+using Modules.Common.Views.Pages;
 using System;
 using System.Windows;
 using System.Windows.Controls;

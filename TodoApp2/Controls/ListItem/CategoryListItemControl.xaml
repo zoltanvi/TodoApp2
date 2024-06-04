@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:converters="clr-namespace:Modules.Common.Views.ValueConverters;assembly=Modules.Common.Views"
     xmlns:local="clr-namespace:TodoApp2"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="CategoryListItemUC"
@@ -94,7 +95,7 @@
                         <DataTrigger.Binding>
                             <MultiBinding>
                                 <MultiBinding.Converter>
-                                    <local:EqualityConverter />
+                                    <converters:EqualityConverter />
                                 </MultiBinding.Converter>
                                 <Binding Path="Id" />
                                 <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />
@@ -123,7 +124,7 @@
                             <DataTrigger.Binding>
                                 <MultiBinding>
                                     <MultiBinding.Converter>
-                                        <local:EqualityConverter />
+                                        <converters:EqualityConverter />
                                     </MultiBinding.Converter>
                                     <Binding Path="Id" />
                                     <Binding Path="CategoryListService.ActiveCategory.Id" Source="{x:Static local:VML.Instance}" />

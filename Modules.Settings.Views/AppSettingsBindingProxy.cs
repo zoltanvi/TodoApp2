@@ -1,4 +1,4 @@
-﻿using Modules.Settings.ViewModels;
+﻿using Modules.Settings.Contracts.ViewModels;
 using System.Windows;
 
 namespace Modules.Settings.Views;

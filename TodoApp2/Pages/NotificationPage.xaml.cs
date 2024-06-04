@@ -1,11 +1,12 @@
-﻿using TodoApp2.Core;
+﻿using Modules.Common.Views.Pages;
+using TodoApp2.Core;
 
 namespace TodoApp2
 {
     /// <summary>
     /// Interaction logic for NotificationPage.xaml
     /// </summary>
-    public partial class NotificationPage : BasePage<NotificationPageViewModel>
+    public partial class NotificationPage : GenericBasePage<NotificationPageViewModel>
     {
         public NotificationPage(NotificationPageViewModel specificViewModel) : base(specificViewModel)
         {

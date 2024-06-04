@@ -15,6 +15,5 @@ public class VML
     public static NoteListService NoteListService => IoC.NoteListService;
     public static TaskListService TaskListService => IoC.TaskListService;
     public static MessageService MessageService => IoC.MessageService;
-    public static ColorListProvider ColorListProvider { get; } = new ColorListProvider();
     public static CustomDropHandler CustomDropHandler { get; } = new CustomDropHandler();
 }

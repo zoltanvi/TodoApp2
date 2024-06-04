@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
+    <ProjectReference Include="..\Modules.Settings.Contracts\Modules.Settings.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Modules.Common.OBSOLETE.Mediator;
+using Modules.Common.Views.Pages;
+using System;
 using System.Windows.Input;
 using TodoApp2.Core;
 
@@ -7,7 +9,7 @@ namespace TodoApp2
     /// <summary>
     /// Interaction logic for NotePage.xaml
     /// </summary>
-    public partial class NotePage : BasePage<NotePageViewModel>
+    public partial class NotePage : GenericBasePage<NotePageViewModel>
     {
         public NotePage(NotePageViewModel specificViewModel) : base(specificViewModel)
         {

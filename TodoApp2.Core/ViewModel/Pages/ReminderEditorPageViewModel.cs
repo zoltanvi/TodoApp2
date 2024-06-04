@@ -1,4 +1,5 @@
-﻿using Modules.Common.ViewModel;
+﻿using Modules.Common.DataBinding;
+using Modules.Common.ViewModel;
 using System;
 using System.ComponentModel;
 using System.Windows;

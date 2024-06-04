@@ -1,0 +1,173 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commonControls="clr-namespace:Modules.Common.Views.Controls;assembly=Modules.Common.Views"
+    xmlns:controls="clr-namespace:Modules.Settings.Views.Controls"    >
+
+    <Style x:Key="ButtonBaseStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            FontStyle="{TemplateBinding FontStyle}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="{TemplateBinding Content}"
+                            TextOptions.TextFormattingMode="Display"
+                            TextOptions.TextHintingMode="Fixed"
+                            TextOptions.TextRenderingMode="ClearType" />
+                        <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="ButtonHoverStyle"
+        BasedOn="{StaticResource ButtonBaseStyle}"
+        TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainer}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Surface3}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="SettingsCategoryButtonStyle"
+        BasedOn="{StaticResource ButtonHoverStyle}"
+        TargetType="{x:Type controls:SettingsCategoryButton}">
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Medium, Source={StaticResource UIScaler}}" />
+        <Setter Property="Margin" Value="3 4" />
+        <Setter Property="Padding" Value="3 2" />
+        <Setter Property="HorizontalContentAlignment" Value="Right" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:SettingsCategoryButton}">
+                    <Border
+                        x:Name="border"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="4"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SecondaryContainer}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SecondaryContainer}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryContainer}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type controls:ShortcutKey}">
+        <Setter Property="BorderThickness" Value="{Binding UIScaler.ScaleValue, Source={StaticResource UIScaler}}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TagPurpleBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource TagPurpleBgBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TagPurpleBrush}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ShortcutKey}">
+                    <Border
+                    x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    CornerRadius="4">
+                        <Label
+                        Content="{TemplateBinding Content}"
+                        Padding="0"
+                        Margin="10 2"
+                        Foreground="{TemplateBinding Foreground}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Content" Value="Alt">
+                <Setter Property="BorderBrush" Value="{DynamicResource TagGreenBorderBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TagGreenBgBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TagGreenBrush}" />
+            </Trigger>
+            <Trigger Property="Content" Value="Ctrl">
+                <Setter Property="BorderBrush" Value="{DynamicResource TagBlueBorderBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TagBlueBgBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TagBlueBrush}" />
+            </Trigger>
+            <Trigger Property="Content" Value="Shift">
+                <Setter Property="BorderBrush" Value="{DynamicResource TagOrangeBorderBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TagOrangeBgBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TagOrangeBrush}" />
+            </Trigger>
+            <Trigger Property="Content" Value="Space">
+                <Setter Property="BorderBrush" Value="{DynamicResource TagCyanBorderBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TagCyanBgBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TagCyanBrush}" />
+            </Trigger>
+
+            <Trigger Property="Content" Value="Mouse scroll UP">
+                <Setter Property="BorderBrush" Value="{DynamicResource TagMagentaBorderBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TagMagentaBgBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TagMagentaBrush}" />
+            </Trigger>
+            <Trigger Property="Content" Value="Mouse scroll DOWN">
+                <Setter Property="BorderBrush" Value="{DynamicResource TagMagentaBorderBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TagMagentaBgBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TagMagentaBrush}" />
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type controls:ShortcutSeparator}">
+        <Setter Property="Foreground" Value="{DynamicResource OnBackground}" />
+        <Setter Property="FontSize" Value="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}" />
+    </Style>
+
+</ResourceDictionary>
