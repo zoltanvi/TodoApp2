@@ -19,9 +19,6 @@
                 <ResourceDictionary Source="Styles/Icons.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 
-                <ResourceDictionary Source="pack://application:,,,/Modules.Common.Views;component/Styles/Styles.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Modules.Settings.Views;component/Styles/Styles.xaml" />
-                
                 <ResourceDictionary Source="Styles/ComboBoxes.xaml" />
                 <ResourceDictionary Source="Styles/ColorPickers.xaml" />
                 <ResourceDictionary Source="Styles/Panels.xaml" />
@@ -35,6 +32,11 @@
                 <ResourceDictionary Source="Styles/CustomControls.xaml" />
                 <ResourceDictionary Source="Styles/Sliders.xaml" />
                 <ResourceDictionary Source="Styles/ProgressBars.xaml" />
+                
+                <ResourceDictionary Source="pack://application:,,,/Modules.Common.Views;component/Styles/Styles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Modules.Settings.Views;component/Styles/Styles.xaml" />
+                
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

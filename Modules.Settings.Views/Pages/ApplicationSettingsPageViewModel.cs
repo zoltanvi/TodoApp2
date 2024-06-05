@@ -19,7 +19,7 @@ public class ApplicationSettingsPageViewModel : BaseViewModel
     {
         try
         {
-            Process.Start("explorer.exe", $@"/select,""{DbConfiguration.DatabasePathOld}""");
+            Process.Start("explorer.exe", $@"/select,""{DbConfiguration.DatabasePath}""");
         }
         catch (Exception ex)
         {

@@ -167,7 +167,7 @@
                                 IsReadOnly="True"
                                 Margin="5 0"
                                 FontSize="{Binding UIScaler.FontSize.Small, Source={StaticResource UIScaler}}"
-                                Text="{x:Static database:DbConfiguration.ConnectionString}" />
+                                Text="{x:Static database:DbConfiguration.DatabasePath}" />
                         </Border>
 
                     </Grid>
