@@ -2,14 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Modules.Common;
-using Modules.Common.Database;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Migrations;
 using Modules.Notes.Repositories;
-using Modules.Settings.Contracts.ViewModels;
 using Modules.Settings.Repositories;
-using Modules.Settings.Services;
-using Modules.Settings.Views;
 using Modules.Settings.Views.Pages;
 using System;
 using System.Collections.Generic;
@@ -22,9 +18,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using TodoApp2.Core;
-using TodoApp2.Persistence;
+using TodoApp2.DefaultData;
 using TodoApp2.Services;
-using TodoApp2.WindowHandling;
 
 namespace TodoApp2;
 
@@ -43,94 +38,59 @@ public partial class App : Application
 
     private string m_CrashReportPath;
 
+    private IServiceProvider ServiceProvider => _host.Services;
+
     public App()
     {
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
-                ConfigureServices(services);
+                services.ConfigureAppServices();
             })
             .Build();
 
         InitializeDatabase();
+        CreateDefaultData();
 
-        IoC.ServiceProvider = _host.Services;
+        IoC.ServiceProvider = ServiceProvider;
 
         Mediator.Register(OpenSettingsPage, ViewModelMessages.OpenSettingsPage);
     }
 
     private void InitializeDatabase()
     {
-        var migrationService = _host.Services.GetService<IMigrationService>();
+        var migrationService = ServiceProvider.GetService<IMigrationService>();
 
         var dbContextList = new List<DbContext>()
         {
-            _host.Services.GetService<SettingDbContext>(),
-            _host.Services.GetService<NotesDbContext>()
+            ServiceProvider.GetService<SettingDbContext>(),
+            ServiceProvider.GetService<NotesDbContext>()
         };
 
         migrationService.Run(dbContextList);
     }
 
+    private void CreateMainWindow()
+    {
+        // Show the main window
+        var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+        var mainWindowViewModel = ServiceProvider.GetRequiredService<MainWindowViewModel>();
+        mainWindow.DataContext = mainWindowViewModel;
+        mainWindow.Show();
+        Current.MainWindow = mainWindow;
+    }
+
+    private void CreateDefaultData()
+    {
+        var defaultDataCreator = ServiceProvider.GetService<DefaultDataCreator>();
+
+        defaultDataCreator.CreateDefaultsIfNeeded();
+    }
+
     private void OpenSettingsPage(object obj)
     {
-        VML.ApplicationViewModel.MainSettingsPage = _host.Services.GetService<SettingsPage>();
+        VML.ApplicationViewModel.MainSettingsPage = ServiceProvider.GetService<SettingsPage>();
         VML.ApplicationViewModel.MainPageVisible = false;
-    }
-
-    private void ConfigureServices(IServiceCollection services)
-    {
-        services.AddScoped<MainWindow>();
-        services.AddScoped<IAppContext, Persistence.AppContext>(provider =>
-        {
-            return new Persistence.AppContext(DbConfiguration.ConnectionStringOld);
-        });
-        services.AddScoped<IUIScaler, UIScaler>();
-       
-        services.AddScoped<AppViewModel>();
-        services.AddScoped<MainWindowViewModel>();
-        services.AddScoped<IWindowService, WindowService>();
-        services.AddSingleton<IThemeManagerService, MaterialThemeManagerService>();
-        services.AddSingleton<AppSettings>(provider =>
-        {
-            return AppSettings.Instance;
-        });
-        services.AddScoped<IAppSettingsService, AppSettingsService>();
-        services.AddScoped<UndoManager>();
-        services.AddScoped<MediaPlayerService>();
-        services.AddScoped<ZoomingListener>();
-        services.AddSingleton<UIScaler>(provider =>
-        {
-            return UIScaler.Instance;
-        });
-        services.AddSingleton<IUIScaler>(provider =>
-        {
-            return UIScaler.Instance;
-        });
-        services.AddScoped<ThemeChangeNotifier>();
-        services.AddScoped<OverlayPageService>();
-
-        services.AddScoped<CategoryListService>();
-        services.AddScoped<TaskListService>();
-        services.AddScoped<NoteListService>();
-        services.AddScoped<TaskScheduler2>();
-        services.AddScoped<ReminderNotificationService>();
-        services.AddScoped<OneEditorOpenService>();
-
-
-        services.AddScoped<SettingsPage>();
-        services.AddScoped<SettingsPageViewModel>();
-        services.AddSettingsViews();
-
-        AddDatabases(services);
-    }
-
-    private void AddDatabases(IServiceCollection services)
-    {
-        services.AddSettingsRepositories();
-        services.AddNotesRepositories();
-
-        services.AddMigrationsService();
     }
 
     /// <summary>
@@ -175,20 +135,9 @@ public partial class App : Application
         IoC.TaskContentSplitterService = TaskContentSplitterService.Instance;
 
         // Setup IoC. It can take some time
-        IoC.Setup(_host.Services);
+        IoC.Setup(ServiceProvider);
 
-        // Load theme manager service
-        //IThemeManagerService themeManagerService = MaterialThemeManagerService.Get(AppSettings.Instance);
-        //IoC.ThemeManagerService = themeManagerService;
-
-        // Show the main window
-        //Current.MainWindow = new MainWindow();
-        //Current.MainWindow.Show();
-        var mainWindow = _host.Services.GetRequiredService<MainWindow>();
-        var mainWindowViewModel = _host.Services.GetRequiredService<MainWindowViewModel>();
-        mainWindow.DataContext = mainWindowViewModel;
-        mainWindow.Show();
-        Current.MainWindow = mainWindow;
+        CreateMainWindow();
 
         // The main window is open, so close the splash screen 
         splashScreen.Close(TimeSpan.Zero);

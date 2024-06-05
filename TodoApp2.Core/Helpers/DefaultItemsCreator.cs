@@ -1,6 +1,4 @@
 ﻿using Modules.Common;
-using Modules.Notes.Repositories;
-using Modules.Notes.Repositories.Models;
 using System;
 using TodoApp2.Common;
 using TodoApp2.Core.Mappings;
@@ -11,15 +9,12 @@ namespace TodoApp2.Core.Helpers;
 internal static class DefaultItemsCreator
 {
     private static IAppContext _context;
-    private static INotesRepository _noteRepository;
 
-    public static void CreateDefaults(IAppContext context, INotesRepository noteRepository)
+    public static void CreateDefaults(IAppContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
-        ArgumentNullException.ThrowIfNull(noteRepository);
 
         _context = context;
-        _noteRepository = noteRepository;
 
         CreateDefaultCategoryIfNotExists();
         CreateRecycleBinCategoryIfNotExists();
@@ -59,13 +54,6 @@ internal static class DefaultItemsCreator
                 BorderColor = Constants.ColorName.Transparent,
                 BackgroundColor = Constants.ColorName.Transparent
             }.Map());
-
-            _noteRepository.AddNote(new Note
-            {
-                Title = "Empty note",
-                CreationDate = DateTime.Now,
-                ModificationDate = DateTime.Now
-            });
         }
     }
 
