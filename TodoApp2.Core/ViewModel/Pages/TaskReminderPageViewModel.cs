@@ -32,9 +32,6 @@ public class TaskReminderPageViewModel : BaseViewModel
     public ICommand EditReminderCommand { get; }
     public ICommand ChangeIsReminderOn { get; }
 
-    public TaskReminderPageViewModel()
-    {
-    }
 
     public TaskReminderPageViewModel(IAppContext context, TaskViewModel reminderTask)
     {
@@ -59,7 +56,7 @@ public class TaskReminderPageViewModel : BaseViewModel
 
     private void EditReminder()
     {
-        IoC.AppViewModel.OpenPage(ApplicationPage.ReminderEditor, ReminderTask);
+        IoC.AppViewModel.OpenOverlayPage(ApplicationPage.ReminderEditor, ReminderTask);
     }
 
     private void ClosePage()

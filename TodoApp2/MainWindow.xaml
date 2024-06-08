@@ -300,37 +300,21 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--  Navigator menu panel  -->
             <Grid Grid.Column="0">
-                <local:SideMenuControl x:Name="SideMenu" AutomationProperties.AutomationId="SideMenuControl">
 
-                    <!--  Side menu page  -->
-                    <Frame
-                        attached:NoFrameHistory.Value="True"
-                        AutomationProperties.AutomationId="SideMenuPage"
-                        Content="{Binding}"
-                        DataContext="{Binding ApplicationViewModel.SideMenuPage, Source={x:Static local:VML.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
-                </local:SideMenuControl>
+                <!--  Side menu page  -->
+                <local:SideMenuControl x:Name="SideMenu" />
+
             </Grid>
 
             <!--  Current page  -->
             <Frame
-                Visibility="{Binding ApplicationViewModel.MainPageVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityConverter}}"
+                x:Name="MainFrame"
                 Grid.Column="2"
                 Margin="-6 0 0 0"
                 attached:NoFrameHistory.Value="True"
                 AutomationProperties.AutomationId="MainPageFrame"
-                Content="{Binding}"
-                DataContext="{Binding ApplicationViewModel.MainPage, Source={x:Static local:VML.Instance}, Converter={StaticResource applicationPageValueConverter}}" />
-
-            <Frame
-               Visibility="{Binding ApplicationViewModel.MainPageVisible, Source={x:Static local:VML.Instance}, Converter={StaticResource boolToVisibilityNegatedConverter}}"
-               Grid.Column="2"
-               Margin="-6 0 0 0"
-               attached:NoFrameHistory.Value="True"
-               AutomationProperties.AutomationId="MainPageFrame"
-               Content="{Binding}"
-               DataContext="{Binding ApplicationViewModel.MainSettingsPage, Source={x:Static local:VML.Instance}}" />
+                />
 
             <!--  RESIZER HANDLE  -->
 

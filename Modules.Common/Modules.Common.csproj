@@ -11,4 +11,8 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Common.Navigation\Modules.Common.Navigation.csproj" />
+  </ItemGroup>
+
 </Project>

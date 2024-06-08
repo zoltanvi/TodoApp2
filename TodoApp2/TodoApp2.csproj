@@ -33,6 +33,16 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Animation\**" />
+    <Compile Remove="Pages\Settings\**" />
+    <EmbeddedResource Remove="Animation\**" />
+    <EmbeddedResource Remove="Pages\Settings\**" />
+    <None Remove="Animation\**" />
+    <None Remove="Pages\Settings\**" />
+    <Page Remove="Animation\**" />
+    <Page Remove="Pages\Settings\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Fonts\Ubuntu\Ubuntu-Regular.ttf" />
     <Resource Include="Fonts\Ubuntu\Ubuntu-Light.ttf" />
     <Resource Include="Fonts\Inter\Inter-ExtraLight.ttf" />
@@ -62,6 +72,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Modules.Categories.Repositories\Modules.Categories.Repositories.csproj" />
     <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
     <ProjectReference Include="..\Modules.Migrations\Modules.Migrations.csproj" />
     <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
@@ -112,9 +123,5 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ValueConverters\TicksToDateFormatConverter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Animation\" />
-    <Folder Include="Pages\Settings\" />
   </ItemGroup>
 </Project>

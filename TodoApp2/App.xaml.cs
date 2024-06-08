@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Modules.Common;
 using Modules.Common.OBSOLETE.Mediator;
+using Modules.Common.Services.Navigation;
 using Modules.Migrations;
 using Modules.Notes.Repositories;
 using Modules.Settings.Repositories;
@@ -53,8 +54,6 @@ public partial class App : Application
         CreateDefaultData();
 
         IoC.ServiceProvider = ServiceProvider;
-
-        Mediator.Register(OpenSettingsPage, ViewModelMessages.OpenSettingsPage);
     }
 
     private void InitializeDatabase()
@@ -78,6 +77,19 @@ public partial class App : Application
         mainWindow.DataContext = mainWindowViewModel;
         mainWindow.Show();
         Current.MainWindow = mainWindow;
+
+        var mainPageNavigation = ServiceProvider.GetService<IMainPageNavigationService>();
+        mainPageNavigation.Initialize(mainWindow.MainFrame);
+
+        var sideMenuPageNavigation = ServiceProvider.GetService<ISideMenuPageNavigationService>();
+        sideMenuPageNavigation.Initialize(mainWindow.SideMenu.SideMenuFrame);
+
+        //var overlayPageNavigation = ServiceProvider.GetService<IOverlayPageNavigationService>();
+        //overlayPageNavigation.Initialize(mainWindow.OverlayFrame);
+
+        IoC.AppViewModel.UpdateMainPage();
+        IoC.AppViewModel.UpdateSideMenuPage();
+
     }
 
     private void CreateDefaultData()
@@ -85,12 +97,6 @@ public partial class App : Application
         var defaultDataCreator = ServiceProvider.GetService<DefaultDataCreator>();
 
         defaultDataCreator.CreateDefaultsIfNeeded();
-    }
-
-    private void OpenSettingsPage(object obj)
-    {
-        VML.ApplicationViewModel.MainSettingsPage = ServiceProvider.GetService<SettingsPage>();
-        VML.ApplicationViewModel.MainPageVisible = false;
     }
 
     /// <summary>

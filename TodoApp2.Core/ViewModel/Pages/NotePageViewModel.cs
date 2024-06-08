@@ -13,10 +13,6 @@ public class NotePageViewModel : BaseViewModel
     private bool _saved;
     private bool _initialized;
 
-    public NotePageViewModel()
-    {
-    }
-
     public bool IsNoteExists { get; private set; }
 
     public NotePageViewModel(

@@ -21,10 +21,6 @@ public class NotificationPageViewModel : BaseViewModel
     /// </summary>
     public ICommand CloseNotificationCommand { get; }
 
-    public NotificationPageViewModel()
-    {
-    }
-
     public NotificationPageViewModel(TaskViewModel notificationTask)
     {
         ArgumentNullException.ThrowIfNull(notificationTask);

@@ -88,10 +88,6 @@ public class TaskPageViewModel : BaseViewModel
 
     public ICommand ToggleBottomPanelOpenState { get; }
 
-    public TaskPageViewModel()
-    {
-    }
-
     public TaskPageViewModel(AppViewModel applicationViewModel, TaskListService taskListService, CategoryListService categoryListService)
     {
         _applicationViewModel = applicationViewModel;

@@ -38,7 +38,7 @@ public static class IoC
     public static void PreSetup()
     {
         AutoRunService = new AutoRunService();
-        MessageService = new MessageService();
+        MessageService = ServiceProvider.GetService<MessageService>();
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public static class IoC
         OverlayPageService = serviceProvider.GetService<OverlayPageService>();
 
         // Create default categories + example tasks
-        DefaultItemsCreator.CreateDefaults(Context, serviceProvider.GetService<INotesRepository>());
+        DefaultItemsCreator.CreateDefaults(Context);
 
         CategoryListService = serviceProvider.GetService<CategoryListService>();
         TaskListService = serviceProvider.GetService<TaskListService>();

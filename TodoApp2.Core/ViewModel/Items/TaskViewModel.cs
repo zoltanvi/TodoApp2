@@ -100,7 +100,7 @@ public class TaskViewModel : BaseViewModel, IReorderable
 
     private void OpenReminder()
     {
-        IoC.AppViewModel.OpenPage(ApplicationPage.TaskReminder, this);
+        IoC.AppViewModel.OpenOverlayPage(ApplicationPage.TaskReminder, this);
     }
 
     private void SetColor()

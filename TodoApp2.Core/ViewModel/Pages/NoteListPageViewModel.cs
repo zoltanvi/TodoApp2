@@ -1,6 +1,8 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.DataModels;
+using Modules.Common.Navigation;
 using Modules.Common.OBSOLETE.Mediator;
+using Modules.Common.Services.Navigation;
 using Modules.Common.ViewModel;
 using Modules.Notes.Repositories;
 using Modules.Notes.Repositories.Models;
@@ -23,19 +25,19 @@ public class NoteListPageViewModel : BaseViewModel
     private readonly OverlayPageService _overlayPageService;
     private readonly NoteListService _noteListService;
     private readonly MessageService _messageService;
+    private readonly IMainPageNavigationService _mainPageNavigationService;
+    private readonly ISideMenuPageNavigationService _sideMenuPageNavigationService;
 
     private int _lastRemovedId = int.MinValue;
-
-    public NoteListPageViewModel()
-    {
-    }
 
     public NoteListPageViewModel(
         AppViewModel applicationViewModel,
         INotesRepository notesRepository,
         OverlayPageService overlayPageService,
         NoteListService noteListService,
-        MessageService messageService)
+        MessageService messageService,
+        IMainPageNavigationService mainPageNavigationService,
+        ISideMenuPageNavigationService sideMenuPageNavigationService)
     {
         ArgumentNullException.ThrowIfNull(applicationViewModel);
         ArgumentNullException.ThrowIfNull(notesRepository);
@@ -48,6 +50,8 @@ public class NoteListPageViewModel : BaseViewModel
         _overlayPageService = overlayPageService;
         _noteListService = noteListService;
         _messageService = messageService;
+        _mainPageNavigationService = mainPageNavigationService;
+        _sideMenuPageNavigationService = sideMenuPageNavigationService;
 
         AddNoteCommand = new RelayCommand(AddNote);
         DeleteNoteCommand = new RelayParameterizedCommand<NoteViewModel>(TrashNote);
@@ -196,12 +200,7 @@ public class NoteListPageViewModel : BaseViewModel
 
             _overlayPageService.CloseSideMenu();
 
-            // Change to note page if it wasn't active
-            if (_appViewModel.MainPage != ApplicationPage.Note)
-            {
-                _appViewModel.MainPage = ApplicationPage.Note;
-                _appViewModel.MainPageVisible = true;
-            }
+            _mainPageNavigationService.NavigateTo<INoteEditorPage>();
         }
     }
 
@@ -220,7 +219,7 @@ public class NoteListPageViewModel : BaseViewModel
     /// </summary>
     private void OpenCategoryPage()
     {
-        _appViewModel.SideMenuPage = ApplicationPage.Category;
+        _sideMenuPageNavigationService.NavigateTo<ICategoryListPage>();
     }
 
     protected override void OnDispose()

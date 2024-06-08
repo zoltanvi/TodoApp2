@@ -132,7 +132,7 @@ public class ReminderNotificationService
                 notificationTask.IsReminderOn = false;
                 _taskListService.UpdateTask(notificationTask);
 
-                IoC.AppViewModel.OpenPage(ApplicationPage.Notification, notificationTask);
+                IoC.AppViewModel.OpenOverlayPage(ApplicationPage.Notification, notificationTask);
                 Mediator.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
             }
         }

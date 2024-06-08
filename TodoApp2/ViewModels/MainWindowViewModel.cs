@@ -116,9 +116,6 @@ public class MainWindowViewModel : BaseViewModel
         // Listen out for requests to flash the application window
         Mediator.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
 
-        _appViewModel.UpdateMainPage();
-        _appViewModel.UpdateSideMenuPage();
-
         _dragDropMediator = new DragDropMediator();
 
         _timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 0, 0, 10) };

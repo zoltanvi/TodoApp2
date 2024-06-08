@@ -43,10 +43,6 @@ public class ReminderEditorPageViewModel : BaseViewModel
     public ICommand ResetReminderCommand { get; }
     public ICommand ChangeIsReminderOn { get; }
 
-    public ReminderEditorPageViewModel()
-    {
-    }
-
     public ReminderEditorPageViewModel(IAppContext context, TaskViewModel reminderTask)
     {
         ArgumentNullException.ThrowIfNull(reminderTask);

@@ -7,6 +7,14 @@
         public const string DatabaseFileExtension = "db";
         public const string CurrentVersion = "CurrentVersion";
         public const string SortableDateFormat = "yyyy-MM-dd_HH:mm:ss.ffffff";
+        public const int RecycleBinCategoryId = -1000;
+        public const int DefaultListOrder = 0;
+
+        public struct CategoryName
+        {
+            public const string RecycleBin = "Recycle bin";
+            public const string Today = "Today";
+        }
 
         public struct ColorName
         {

@@ -1,4 +1,5 @@
-﻿using Modules.Common.OBSOLETE.Mediator;
+﻿using Modules.Common.Navigation;
+using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.Views.Pages;
 using System.ComponentModel;
 using System.Windows;
@@ -9,7 +10,7 @@ namespace TodoApp2
     /// <summary>
     /// Interaction logic for TaskPage.xaml
     /// </summary>
-    public partial class TaskPage : GenericBasePage<TaskPageViewModel>
+    public partial class TaskPage : GenericBasePage<TaskPageViewModel>, ITaskPage
     {
         private readonly TaskListService _taskListService;
 

@@ -15,10 +15,6 @@ public class RecycleBinPageViewModel : BaseViewModel
 
     public ICommand RestoreTaskItemCommand { get; }
 
-    public RecycleBinPageViewModel()
-    {
-    }
-
     public RecycleBinPageViewModel(AppViewModel appViewModel, TaskListService taskListService, CategoryListService categoryListService)
     {
         _appViewModel = appViewModel;

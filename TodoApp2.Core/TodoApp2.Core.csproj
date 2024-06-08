@@ -27,6 +27,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Modules.Common.Navigation\Modules.Common.Navigation.csproj" />
     <ProjectReference Include="..\Modules.Notes.Repositories\Modules.Notes.Repositories.csproj" />
     <ProjectReference Include="..\Modules.Notes.ViewModels\Modules.Notes.ViewModels.csproj" />
     <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />

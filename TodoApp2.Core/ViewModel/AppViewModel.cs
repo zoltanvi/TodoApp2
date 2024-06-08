@@ -1,5 +1,7 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Common.Navigation;
 using Modules.Common.OBSOLETE.Mediator;
+using Modules.Common.Services.Navigation;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
 using Modules.Settings.Services;
@@ -20,12 +22,16 @@ public class AppViewModel : BaseViewModel
     private IAppSettingsService _settingsPopulator;
     private IServiceProvider _serviceProvider;
     private readonly IAppContext _context;
+    private readonly IMainPageNavigationService _mainPageNavigationService;
+    private readonly ISideMenuPageNavigationService _sideMenuPageNavigationService;
 
     public AppViewModel(
         IAppContext context,
         UIScaler uiScaler,
         IAppSettingsService settingsPopulator,
-        IServiceProvider serviceProvider)
+        IServiceProvider serviceProvider,
+        IMainPageNavigationService mainPageNavigationService,
+        ISideMenuPageNavigationService sideMenuPageNavigationService)
     {
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(uiScaler);
@@ -36,6 +42,8 @@ public class AppViewModel : BaseViewModel
         _uiScaler = uiScaler;
         _settingsPopulator = settingsPopulator;
         _serviceProvider = serviceProvider;
+        _mainPageNavigationService = mainPageNavigationService;
+        _sideMenuPageNavigationService = sideMenuPageNavigationService;
 
         // Load the application settings to update the ActiveCategoryId before querying the tasks
         LoadAppSettingsOnce();
@@ -48,37 +56,9 @@ public class AppViewModel : BaseViewModel
     private SessionSettings SessionSettings => AppSettings.Instance.SessionSettings;
 
     /// <summary>
-    /// The sliding side menu content page
-    /// </summary>
-    public ApplicationPage SideMenuPage
-    {
-        get => SessionSettings.SideMenuPage;
-        set => SessionSettings.SideMenuPage = value;
-    }
-
-    /// <summary>
     /// True if the side menu should be shown
     /// </summary>
     public bool SideMenuVisible { get; set; }
-
-    /// <summary>
-    /// The current page of the application
-    /// </summary>
-    public ApplicationPage MainPage { get; set; }
-
-    // TODO: Remove
-    public bool MainPageVisible { get; set; } = true;
-
-    // TODO: Remove
-    public object MainSettingsPage { get; set; }
-
-    /// <summary>
-    /// The view model to use for the current page when the Page changes
-    /// NOTE: This is not a live up-to-date view model of the current page
-    ///       it is simply used to set the view model of the current page
-    ///       at the time it changes
-    /// </summary>
-    public IBaseViewModel MainPageViewModel { get; set; }
 
     /// <summary>
     /// The overlay panel content page
@@ -121,17 +101,17 @@ public class AppViewModel : BaseViewModel
     {
         if (SessionSettings.ActiveCategoryId == CommonConstants.RecycleBinCategoryId)
         {
-            MainPage = ApplicationPage.RecycleBin;
-            MainPageVisible = true;
+            _mainPageNavigationService.NavigateTo<IRecycleBinPage>();
         }
-        else
+        else if (SessionSettings.ActiveCategoryId != -1)
         {
             // The ActiveCategoryId and the ActiveNoteId must be mutually exclusive,
             // meaning that one or the other is set to -1 at all times, but never both at once.
-            MainPage = SessionSettings.ActiveCategoryId != -1
-                ? ApplicationPage.Task
-                : ApplicationPage.Note;
-            MainPageVisible = true;
+            _mainPageNavigationService.NavigateTo<ITaskPage>();
+        }
+        else
+        {
+            _mainPageNavigationService.NavigateTo<INoteEditorPage>();
         }
     }
 
@@ -142,51 +122,33 @@ public class AppViewModel : BaseViewModel
     {
         // The ActiveCategoryId and the ActiveNoteId must be mutually exclusive,
         // meaning that one or the other is set to -1 at all times, but never both at once.
-        SideMenuPage = SessionSettings.ActiveCategoryId != -1
-            ? ApplicationPage.Category
-            : ApplicationPage.NoteList;
-    }
-
-    /// <summary>
-    /// Navigates the main page to the specified page.
-    /// </summary>
-    /// <param name="page">The page to go to</param>
-    /// <param name="viewModel">The view model to set</param>
-    public void GoToPage(ApplicationPage page, IBaseViewModel viewModel = null)
-    {
-        MainPageViewModel = viewModel;
-
-        // See if page has changed
-        bool different = MainPage != page;
-
-        MainPage = page;
-        MainPageVisible = true;
-
-        // If the page hasn't changed, fire off notification
-        // So pages still update if just the view model has changed
-        if (!different)
+        if (SessionSettings.ActiveCategoryId != -1)
         {
-            //OnPropertyChanged(nameof(MainPage));
+            _sideMenuPageNavigationService.NavigateTo<ICategoryListPage>();
+        }
+        else
+        {
+            _sideMenuPageNavigationService.NavigateTo<INoteListPage>();
         }
     }
 
-    public void OpenPage(ApplicationPage page, TaskViewModel task)
+    public void OpenOverlayPage(ApplicationPage page, TaskViewModel task)
     {
         BaseViewModel viewModel = null;
 
         switch (page)
         {
             case ApplicationPage.TaskReminder:
-                viewModel = new TaskReminderPageViewModel(_context, task);
-                break;
+            viewModel = new TaskReminderPageViewModel(_context, task);
+            break;
             case ApplicationPage.ReminderEditor:
-                viewModel = new ReminderEditorPageViewModel(_context, task);
-                break;
+            viewModel = new ReminderEditorPageViewModel(_context, task);
+            break;
             case ApplicationPage.Notification:
-                viewModel = new NotificationPageViewModel(task);
-                break;
+            viewModel = new NotificationPageViewModel(task);
+            break;
             default:
-                throw new ApplicationException("Invalid page.");
+            throw new ApplicationException("Invalid page.");
         }
 
         SideMenuVisible = false;

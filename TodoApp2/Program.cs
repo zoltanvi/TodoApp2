@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Modules.Common.Database;
+using Modules.Common.Navigation;
+using Modules.Common.Services.Navigation;
+using Modules.Common.Views.Services.Navigation;
 using Modules.Notes.Repositories;
 using Modules.Settings.Contracts.ViewModels;
 using Modules.Settings.Repositories;
@@ -60,7 +63,12 @@ public static class Program
         services.AddScoped<SettingsPageViewModel>();
         services.AddSettingsViews();
 
+        services.AddSingleton<IMainPageNavigationService, MainPageNavigationService>();
+        services.AddSingleton<ISideMenuPageNavigationService, SideMenuPageNavigationService>();
+        services.AddSingleton<IOverlayPageNavigationService, OverlayPageNavigationService>();
+
         AddDatabases(services);
+        AddPages(services);
 
         return services;
     }
@@ -73,5 +81,24 @@ public static class Program
         services.AddNotesRepositories();
 
         services.AddMigrationsService();
+    }
+
+    private static void AddPages(IServiceCollection services)
+    {
+        services.AddScoped<ICategoryListPage, CategoryPage>();
+        services.AddScoped<INoteEditorPage, NotePage>();
+        services.AddScoped<INoteListPage, NoteListPage>();
+        services.AddScoped<IRecycleBinPage, RecycleBinPage>();
+        services.AddScoped<ISettingsPage, SettingsPage>();
+        services.AddScoped<ITaskPage, TaskPage>();
+
+        services.AddScoped<CategoryPageViewModel>();
+        services.AddScoped<NotePageViewModel>();
+        services.AddScoped<NoteListPageViewModel>();
+        services.AddScoped<RecycleBinPageViewModel>();
+        services.AddScoped<SettingsPageViewModel>();
+        services.AddScoped<TaskPageViewModel>();
+
+        services.AddSingleton<MessageService>();
     }
 }

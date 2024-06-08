@@ -55,5 +55,8 @@ public enum ViewModelMessages
     /// </summary>
     FocusBottomTextEditor,
     UpdateMainPage,
-    OpenSettingsPage,
+
+    LoadAppSettings,
+    SaveAppSettings,
+    OpenSettingsPage
 }

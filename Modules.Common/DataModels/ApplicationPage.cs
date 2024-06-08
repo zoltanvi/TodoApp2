@@ -11,27 +11,7 @@ public enum ApplicationPage
     /// might create unnecessary viewModel instances
     /// </summary>
     Invalid,
-
-    /// <summary>
-    /// The task page
-    /// </summary>
-    Task,
-
-    /// <summary>
-    /// The category page
-    /// </summary>
-    Category,
-
-    /// <summary>
-    /// The options page (opened by cog in the side menu page)
-    /// </summary>
-    Settings,
-
-    /// <summary>
-    /// The recycle bin page
-    /// </summary>
-    RecycleBin,
-
+ 
     /// <summary>
     /// The task reminder page (where the reminder(s) can be added / removed / activated / deactivated)
     /// </summary>
@@ -46,14 +26,4 @@ public enum ApplicationPage
     /// The notification page (pops up when a notification occurs)
     /// </summary>
     Notification,
-
-    /// <summary>
-    /// The note page
-    /// </summary>
-    Note,
-
-    /// <summary>
-    /// The note list page (side menu)
-    /// </summary>
-    NoteList,
 }

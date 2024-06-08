@@ -1,6 +1,8 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.DataModels;
+using Modules.Common.Navigation;
 using Modules.Common.OBSOLETE.Mediator;
+using Modules.Common.Services.Navigation;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
 using System;
@@ -24,6 +26,8 @@ public class CategoryPageViewModel : BaseViewModel
     private readonly CategoryListService _categoryListService;
     private readonly TaskListService _taskListService;
     private readonly MessageService _messageService;
+    private readonly IMainPageNavigationService _mainPageNavigationService;
+    private readonly ISideMenuPageNavigationService _sideMenuPageNavigationService;
 
     /// <summary>
     /// The name of the current category being added
@@ -44,17 +48,15 @@ public class CategoryPageViewModel : BaseViewModel
         set => _categoryListService.ActiveCategory = value;
     }
 
-    public CategoryPageViewModel()
-    {
-    }
-
     public CategoryPageViewModel(
         AppViewModel applicationViewModel,
         IAppContext context,
         OverlayPageService overlayPageService,
         CategoryListService categoryListService,
         TaskListService taskListService,
-        MessageService messageService)
+        MessageService messageService,
+        IMainPageNavigationService mainPageNavigationService,
+        ISideMenuPageNavigationService sideMenuPageNavigationService)
     {
         _application = applicationViewModel;
         _context = context;
@@ -62,6 +64,8 @@ public class CategoryPageViewModel : BaseViewModel
         _categoryListService = categoryListService;
         _taskListService = taskListService;
         _messageService = messageService;
+        _mainPageNavigationService = mainPageNavigationService;
+        _sideMenuPageNavigationService = sideMenuPageNavigationService;
 
         AddCategoryCommand = new RelayCommand(AddCategory);
         DeleteCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(TrashCategory);
@@ -227,18 +231,11 @@ public class CategoryPageViewModel : BaseViewModel
 
             if (category.Id == CommonConstants.RecycleBinCategoryId)
             {
-                if (_application.MainPage != ApplicationPage.RecycleBin)
-                {
-                    // Change to recycle bin page
-                    _application.MainPage = ApplicationPage.RecycleBin;
-                    _application.MainPageVisible = true;
-                }
+                _mainPageNavigationService.NavigateTo<IRecycleBinPage>();
             }
-            else if (_application.MainPage != ApplicationPage.Task)
+            else
             {
-                // Change to task page if it wasn't active
-                _application.MainPage = ApplicationPage.Task;
-                _application.MainPageVisible = true;
+                _mainPageNavigationService.NavigateTo<ITaskPage>();
             }
         }
     }
@@ -248,7 +245,7 @@ public class CategoryPageViewModel : BaseViewModel
     /// </summary>
     private void OpenSettingsPage()
     {
-        Mediator.NotifyClients(ViewModelMessages.OpenSettingsPage);
+        _mainPageNavigationService.NavigateTo<ISettingsPage>();
 
         Mediator.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
     }
@@ -258,7 +255,7 @@ public class CategoryPageViewModel : BaseViewModel
     /// </summary>
     private void OpenNoteListPage()
     {
-        _application.SideMenuPage = ApplicationPage.NoteList;
+        _sideMenuPageNavigationService.NavigateTo<INoteListPage>();
     }
 
     private void OpenRecycleBinPage()
