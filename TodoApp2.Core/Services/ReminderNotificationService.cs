@@ -1,4 +1,5 @@
 ﻿using Modules.Common.DataModels;
+using Modules.Common.Navigation;
 using Modules.Common.OBSOLETE.Mediator;
 using System;
 using System.Collections.Generic;
@@ -132,7 +133,7 @@ public class ReminderNotificationService
                 notificationTask.IsReminderOn = false;
                 _taskListService.UpdateTask(notificationTask);
 
-                IoC.AppViewModel.OpenOverlayPage(ApplicationPage.Notification, notificationTask);
+                IoC.AppViewModel.OpenOverlayPage<ITaskNotificationPage>(notificationTask);
                 Mediator.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
             }
         }

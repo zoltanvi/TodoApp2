@@ -16,6 +16,8 @@ public class OverlayPageService : BaseViewModel, IOverlayPageService
     /// </summary>
     public bool OverlayBackgroundVisible { get; set; }
 
+    public TaskViewModel Task { get; set; }
+
     /// <summary>
     /// A page content dependent command that executes when the overlay background is clicked.
     /// </summary>

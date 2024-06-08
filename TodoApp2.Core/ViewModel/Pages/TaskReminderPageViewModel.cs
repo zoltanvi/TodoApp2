@@ -1,5 +1,6 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.DataModels;
+using Modules.Common.Navigation;
 using Modules.Common.ViewModel;
 using System;
 using System.Windows.Input;
@@ -14,7 +15,7 @@ public class TaskReminderPageViewModel : BaseViewModel
     /// <summary>
     /// The task to show the notification for.
     /// </summary>
-    public TaskViewModel ReminderTask { get; }
+    public TaskViewModel ReminderTask => IoC.OverlayPageService.Task;
 
     public long ReminderDateTime => ReminderTask?.ReminderDate ?? 0;
 
@@ -33,13 +34,11 @@ public class TaskReminderPageViewModel : BaseViewModel
     public ICommand ChangeIsReminderOn { get; }
 
 
-    public TaskReminderPageViewModel(IAppContext context, TaskViewModel reminderTask)
+    public TaskReminderPageViewModel(IAppContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
-        ArgumentNullException.ThrowIfNull(reminderTask);
         
         _context = context;
-        ReminderTask = reminderTask;
 
         EditReminderCommand = new RelayCommand(EditReminder);
         ClosePageCommand = new RelayCommand(ClosePage);
@@ -56,7 +55,7 @@ public class TaskReminderPageViewModel : BaseViewModel
 
     private void EditReminder()
     {
-        IoC.AppViewModel.OpenOverlayPage(ApplicationPage.ReminderEditor, ReminderTask);
+        IoC.AppViewModel.OpenOverlayPage<ITaskReminderEditorPage>(ReminderTask);
     }
 
     private void ClosePage()

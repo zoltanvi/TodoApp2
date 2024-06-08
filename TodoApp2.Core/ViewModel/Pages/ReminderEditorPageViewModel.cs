@@ -20,7 +20,7 @@ public class ReminderEditorPageViewModel : BaseViewModel
     /// <summary>
     /// The task to show the notification for.
     /// </summary>
-    public TaskViewModel ReminderTask { get; }
+    public TaskViewModel ReminderTask => IoC.OverlayPageService.Task;
     public DateTime SelectedDate { get; set; }
     public string SelectedDateString { get; set; }
     public bool IsSelectedDateStringValid { get; set; }
@@ -43,13 +43,11 @@ public class ReminderEditorPageViewModel : BaseViewModel
     public ICommand ResetReminderCommand { get; }
     public ICommand ChangeIsReminderOn { get; }
 
-    public ReminderEditorPageViewModel(IAppContext context, TaskViewModel reminderTask)
+    public ReminderEditorPageViewModel(IAppContext context)
     {
-        ArgumentNullException.ThrowIfNull(reminderTask);
         ArgumentNullException.ThrowIfNull(context);
 
         _context = context;
-        ReminderTask = reminderTask;
 
         SetReminderCommand = new RelayCommand(SetReminder);
         ResetReminderCommand = new RelayCommand(ResetReminder);

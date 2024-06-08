@@ -24,6 +24,7 @@ public class AppViewModel : BaseViewModel
     private readonly IAppContext _context;
     private readonly IMainPageNavigationService _mainPageNavigationService;
     private readonly ISideMenuPageNavigationService _sideMenuPageNavigationService;
+    private readonly IOverlayPageNavigationService _overlayPageNavigationService;
 
     public AppViewModel(
         IAppContext context,
@@ -31,7 +32,8 @@ public class AppViewModel : BaseViewModel
         IAppSettingsService settingsPopulator,
         IServiceProvider serviceProvider,
         IMainPageNavigationService mainPageNavigationService,
-        ISideMenuPageNavigationService sideMenuPageNavigationService)
+        ISideMenuPageNavigationService sideMenuPageNavigationService,
+        IOverlayPageNavigationService overlayPageNavigationService)
     {
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(uiScaler);
@@ -44,6 +46,7 @@ public class AppViewModel : BaseViewModel
         _serviceProvider = serviceProvider;
         _mainPageNavigationService = mainPageNavigationService;
         _sideMenuPageNavigationService = sideMenuPageNavigationService;
+        _overlayPageNavigationService = overlayPageNavigationService;
 
         // Load the application settings to update the ActiveCategoryId before querying the tasks
         LoadAppSettingsOnce();
@@ -59,19 +62,6 @@ public class AppViewModel : BaseViewModel
     /// True if the side menu should be shown
     /// </summary>
     public bool SideMenuVisible { get; set; }
-
-    /// <summary>
-    /// The overlay panel content page
-    /// </summary>
-    public ApplicationPage OverlayPage { get; private set; }
-
-    /// <summary>
-    /// The view model to use for the current overlay page when the OverlayPage changes
-    /// NOTE: This is not a live up-to-date view model of the current page
-    ///       it is simply used to set the view model of the current page
-    ///       at the time it changes
-    /// </summary>
-    public IBaseViewModel OverlayPageViewModel { get; set; }
 
     /// <summary>
     /// True if the overlay page should be shown
@@ -132,29 +122,15 @@ public class AppViewModel : BaseViewModel
         }
     }
 
-    public void OpenOverlayPage(ApplicationPage page, TaskViewModel task)
+    public void OpenOverlayPage<T>(TaskViewModel task) where T : class, IPage
     {
-        BaseViewModel viewModel = null;
+        IoC.OverlayPageService.OverlayBackgroundVisible = true;
+        IoC.OverlayPageService.Task = task;
 
-        switch (page)
-        {
-            case ApplicationPage.TaskReminder:
-            viewModel = new TaskReminderPageViewModel(_context, task);
-            break;
-            case ApplicationPage.ReminderEditor:
-            viewModel = new ReminderEditorPageViewModel(_context, task);
-            break;
-            case ApplicationPage.Notification:
-            viewModel = new NotificationPageViewModel(task);
-            break;
-            default:
-            throw new ApplicationException("Invalid page.");
-        }
+        _overlayPageNavigationService.NavigateTo<T>();
 
         SideMenuVisible = false;
-
-        GoToOverlayPage(page, true, viewModel);
-        IoC.OverlayPageService.OverlayBackgroundVisible = true;
+        OverlayPageVisible = true;
     }
 
     /// <summary>
@@ -162,11 +138,8 @@ public class AppViewModel : BaseViewModel
     /// </summary>
     public void CloseOverlayPage()
     {
-        OverlayPage = ApplicationPage.Invalid;
-        if (OverlayPageViewModel is IDisposable viewModel)
-        {
-            viewModel.Dispose();
-        }
+        _overlayPageNavigationService.NavigateTo<IEmptyPage>();
+        IoC.OverlayPageService.Task = null;
     }
 
     public void LoadAppSettingsOnce()
@@ -192,37 +165,6 @@ public class AppViewModel : BaseViewModel
         if (e.PropertyName == nameof(AppWindowSettings.AutoStart))
         {
             IoC.AutoRunService.RunAtStartup = AppSettings.Instance.AppWindowSettings.AutoStart;
-        }
-    }
-
-    /// <summary>
-    /// Navigates the overlay page to the specified page
-    /// </summary>
-    /// <param name="page">The page to go to</param>
-    /// <param name="visible">Shows the page if true</param>
-    /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
-    private void GoToOverlayPage(ApplicationPage page, bool visible = true, IBaseViewModel viewModel = null)
-    {
-        // Always hide side menu if we are changing pages
-        SideMenuVisible = false;
-
-        // Set the view model
-        OverlayPageViewModel = viewModel;
-
-        // See if page has changed
-        bool different = OverlayPage != page;
-
-        // Set the current overlay page
-        OverlayPage = page;
-
-        // Show or hide the page
-        OverlayPageVisible = visible;
-
-        // If the page hasn't changed, fire off notification
-        // So pages still update if just the view model has changed
-        if (!different)
-        {
-            OnPropertyChanged(nameof(OverlayPage));
         }
     }
 }

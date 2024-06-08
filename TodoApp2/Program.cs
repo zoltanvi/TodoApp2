@@ -2,6 +2,7 @@
 using Modules.Common.Database;
 using Modules.Common.Navigation;
 using Modules.Common.Services.Navigation;
+using Modules.Common.Views.Pages;
 using Modules.Common.Views.Services.Navigation;
 using Modules.Notes.Repositories;
 using Modules.Settings.Contracts.ViewModels;
@@ -57,7 +58,7 @@ public static class Program
         services.AddScoped<TaskScheduler2>();
         services.AddScoped<ReminderNotificationService>();
         services.AddScoped<OneEditorOpenService>();
-
+        services.AddSingleton<MessageService>();
 
         services.AddScoped<SettingsPage>();
         services.AddScoped<SettingsPageViewModel>();
@@ -92,6 +93,11 @@ public static class Program
         services.AddScoped<ISettingsPage, SettingsPage>();
         services.AddScoped<ITaskPage, TaskPage>();
 
+        services.AddScoped<IEmptyPage, EmptyPage>();
+        services.AddScoped<ITaskNotificationPage, NotificationPage>();
+        services.AddScoped<ITaskReminderEditorPage, ReminderEditorPage>();
+        services.AddScoped<ITaskReminderPage, TaskReminderPage>();
+
         services.AddScoped<CategoryPageViewModel>();
         services.AddScoped<NotePageViewModel>();
         services.AddScoped<NoteListPageViewModel>();
@@ -99,6 +105,8 @@ public static class Program
         services.AddScoped<SettingsPageViewModel>();
         services.AddScoped<TaskPageViewModel>();
 
-        services.AddSingleton<MessageService>();
+        services.AddScoped<NotificationPageViewModel>();
+        services.AddScoped<ReminderEditorPageViewModel>();
+        services.AddScoped<TaskReminderPageViewModel>();
     }
 }

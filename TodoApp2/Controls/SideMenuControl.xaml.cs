@@ -17,11 +17,10 @@ namespace TodoApp2
             set { SetValue(SideMenuFrameProperty, value); }
         }
 
-
         public SideMenuControl()
         {
             InitializeComponent();
-            this.Loaded += SideMenuControl_Loaded;
+            Loaded += SideMenuControl_Loaded;
         }
 
         private void SideMenuControl_Loaded(object sender, RoutedEventArgs e)

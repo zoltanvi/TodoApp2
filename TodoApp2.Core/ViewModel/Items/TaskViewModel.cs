@@ -1,5 +1,6 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.DataModels;
+using Modules.Common.Navigation;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
 using System;
@@ -100,7 +101,7 @@ public class TaskViewModel : BaseViewModel, IReorderable
 
     private void OpenReminder()
     {
-        IoC.AppViewModel.OpenOverlayPage(ApplicationPage.TaskReminder, this);
+        IoC.AppViewModel.OpenOverlayPage<ITaskReminderPage>(this);
     }
 
     private void SetColor()

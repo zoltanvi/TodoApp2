@@ -1,9 +1,7 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
-using System;
 using System.Windows.Input;
-using TodoApp2.Common;
 
 namespace TodoApp2.Core;
 
@@ -14,19 +12,15 @@ public class NotificationPageViewModel : BaseViewModel
     /// <summary>
     /// The task to show the notification for.
     /// </summary>
-    public TaskViewModel NotificationTask { get; }
+    public TaskViewModel NotificationTask => IoC.OverlayPageService.Task;
 
     /// <summary>
     /// Closes the notification page
     /// </summary>
     public ICommand CloseNotificationCommand { get; }
 
-    public NotificationPageViewModel(TaskViewModel notificationTask)
+    public NotificationPageViewModel()
     {
-        ArgumentNullException.ThrowIfNull(notificationTask);
-
-        NotificationTask = notificationTask;
-
         CloseNotificationCommand = new RelayCommand(CloseNotification);
         
         // Commented out: The user cannot accidentaly close the notification

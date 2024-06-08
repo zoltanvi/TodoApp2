@@ -84,8 +84,8 @@ public partial class App : Application
         var sideMenuPageNavigation = ServiceProvider.GetService<ISideMenuPageNavigationService>();
         sideMenuPageNavigation.Initialize(mainWindow.SideMenu.SideMenuFrame);
 
-        //var overlayPageNavigation = ServiceProvider.GetService<IOverlayPageNavigationService>();
-        //overlayPageNavigation.Initialize(mainWindow.OverlayFrame);
+        var overlayPageNavigation = ServiceProvider.GetService<IOverlayPageNavigationService>();
+        overlayPageNavigation.Initialize(mainWindow.OverlayBackground.OverlayFrame);
 
         IoC.AppViewModel.UpdateMainPage();
         IoC.AppViewModel.UpdateSideMenuPage();

@@ -367,7 +367,7 @@
             </GridSplitter>
 
             <!--  Overlay background  -->
-            <local:OverlayBackgroundControl Grid.ColumnSpan="3" AutomationProperties.AutomationId="OverlayBackgroundControl" />
+            <local:OverlayBackgroundControl Grid.ColumnSpan="3" x:Name="OverlayBackground"/>
 
         </Grid>
 
