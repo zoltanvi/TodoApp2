@@ -25,7 +25,7 @@ namespace TodoApp2
 
             textEditor.PreviewKeyDown += OnTextEditorPreviewKeyDown;
 
-            Mediator.Register(OnNoteChanged, ViewModelMessages.NoteChanged);
+            MediatorOBSOLETE.Register(OnNoteChanged, ViewModelMessages.NoteChanged);
         }
 
         private void OnNoteChanged(object obj)

@@ -3,6 +3,7 @@ using Modules.Common.DataModels;
 using Modules.Common.Navigation;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
+using PropertyChanged;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -13,6 +14,7 @@ namespace TodoApp2.Core;
 /// A view model for each task list item on the task page
 /// </summary>
 [DebuggerDisplay("[id {Id}] [category {CategoryId}] [isDone {IsDone}] [trashed {Trashed}]")]
+[AddINotifyPropertyChangedInterface]
 public class TaskViewModel : BaseViewModel, IReorderable
 {
     private string _contentRollback = string.Empty;

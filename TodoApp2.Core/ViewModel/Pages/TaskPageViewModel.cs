@@ -1,8 +1,13 @@
-﻿using Modules.Common;
+﻿using MediatR;
+using Modules.Categories.Contracts.Cqrs.Commands;
+using Modules.Categories.Contracts.Cqrs.Queries;
+using Modules.Categories.Views.Controls;
+using Modules.Common;
 using Modules.Common.DataBinding;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,13 +20,12 @@ namespace TodoApp2.Core;
 /// <summary>
 /// A view model the task list item on the task page
 /// </summary>
+[AddINotifyPropertyChangedInterface]
 public class TaskPageViewModel : BaseViewModel
 {
     private readonly AppViewModel _applicationViewModel;
     private readonly TaskListService _taskListService;
-    private readonly CategoryListService _categoryListService;
-
-    private CategoryViewModel ActiveCategory => _categoryListService.ActiveCategory;
+    private readonly IMediator _mediator;
 
     private ObservableCollection<TaskViewModel> Items => _taskListService.TaskPageItems;
 
@@ -88,11 +92,11 @@ public class TaskPageViewModel : BaseViewModel
 
     public ICommand ToggleBottomPanelOpenState { get; }
 
-    public TaskPageViewModel(AppViewModel applicationViewModel, TaskListService taskListService, CategoryListService categoryListService)
+    public TaskPageViewModel(AppViewModel applicationViewModel, TaskListService taskListService, IMediator mediator)
     {
         _applicationViewModel = applicationViewModel;
         _taskListService = taskListService;
-        _categoryListService = categoryListService;
+        _mediator = mediator;
 
         TextEditorViewModel = new RichTextEditorViewModel(false, false, true, true);
         TextEditorViewModel.WatermarkText = "Add new task";
@@ -141,7 +145,7 @@ public class TaskPageViewModel : BaseViewModel
 
         ToggleBottomPanelOpenState = new RelayCommand(() => IsBottomPanelOpen = !IsBottomPanelOpen);
 
-        Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+        MediatorOBSOLETE.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
     }
 
     private void SplitLines(TaskViewModel model)
@@ -259,7 +263,9 @@ public class TaskPageViewModel : BaseViewModel
         var result = CommandObject.NotHandled;
         if (commandObject.CommandResult is TaskViewModel task)
         {
-            List<TaskViewModel> taskList = _taskListService.GetActiveTaskItems(ActiveCategory);
+            var activeCategory = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
+
+            List<TaskViewModel> taskList = _taskListService.GetActiveTaskItems(activeCategory.Id);
 
             int pinnedItemCount = taskList.Count(i => i.Pinned);
             int position = task.Pinned ? 0 : pinnedItemCount;
@@ -434,7 +440,9 @@ public class TaskPageViewModel : BaseViewModel
     private void EditCategory()
     {
         IsCategoryInEditMode = true;
-        RenameCategoryContent = _categoryListService.ActiveCategoryName;
+
+        var activeCategory = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
+        RenameCategoryContent = activeCategory.Name;
     }
 
     /// <summary>
@@ -442,7 +450,8 @@ public class TaskPageViewModel : BaseViewModel
     /// </summary>
     private void FinishCategoryEdit()
     {
-        _categoryListService.ActiveCategoryName = RenameCategoryContent;
+        _mediator.Send(new RenameActiveCategoryCommand() { Name = RenameCategoryContent });
+
         IsCategoryInEditMode = false;
     }
 
@@ -457,7 +466,9 @@ public class TaskPageViewModel : BaseViewModel
 
     private void Unpin(TaskViewModel task)
     {
-        var taskList = _taskListService.GetActiveTaskItems(ActiveCategory);
+        var activeCategory = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
+
+        var taskList = _taskListService.GetActiveTaskItems(activeCategory.Id);
         int pinnedItemCount = taskList.Count(i => i.Pinned);
 
         task.Pinned = false;

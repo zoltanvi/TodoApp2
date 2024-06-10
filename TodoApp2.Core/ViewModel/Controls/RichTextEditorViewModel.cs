@@ -2,11 +2,13 @@
 using Modules.Common.DataBinding;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
+using PropertyChanged;
 using System;
 using System.Windows.Input;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class RichTextEditorViewModel : BaseViewModel
 {
     private bool _isEditMode;

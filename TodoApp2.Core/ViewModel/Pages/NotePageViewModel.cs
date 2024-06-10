@@ -1,10 +1,12 @@
 ﻿using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
+using PropertyChanged;
 using System;
 using System.Windows.Threading;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class NotePageViewModel : BaseViewModel
 {
     private AppViewModel _appViewModel;
@@ -26,7 +28,7 @@ public class NotePageViewModel : BaseViewModel
 
         IsNoteExists = _noteListService.ActiveNote != null;
 
-        Mediator.Register(OnNoteChanged, ViewModelMessages.NoteChanged);
+        MediatorOBSOLETE.Register(OnNoteChanged, ViewModelMessages.NoteChanged);
     }
 
     private void OnNoteChanged(object obj)

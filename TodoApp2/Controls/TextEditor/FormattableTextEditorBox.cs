@@ -186,7 +186,7 @@ public class FormattableTextEditorBox : BasicTextEditorBox
 
             if (keyL)
             {
-                Mediator.NotifyClients(ViewModelMessages.NextThemeWithHotkeyRequested);
+                MediatorOBSOLETE.NotifyClients(ViewModelMessages.NextThemeWithHotkeyRequested);
             }
         }
 

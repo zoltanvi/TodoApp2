@@ -3,10 +3,12 @@ using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
 using Modules.Common.Views.Pages;
 using Modules.Settings.Contracts.Models;
+using PropertyChanged;
 using System.Windows.Input;
 
 namespace Modules.Settings.Views.Pages;
 
+[AddINotifyPropertyChangedInterface]
 public class SettingsPageViewModel : BaseViewModel
 {
     private IServiceProvider _serviceProvider;
@@ -17,7 +19,7 @@ public class SettingsPageViewModel : BaseViewModel
 
         GoBackCommand = new RelayCommand(() =>
         {
-            Mediator.NotifyClients(ViewModelMessages.UpdateMainPage);
+            MediatorOBSOLETE.NotifyClients(ViewModelMessages.UpdateMainPage);
         });
 
         SwitchToPageCommand = new RelayParameterizedCommand<object>(SwitchToPage);

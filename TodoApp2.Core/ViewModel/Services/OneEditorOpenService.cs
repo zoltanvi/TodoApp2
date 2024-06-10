@@ -1,8 +1,10 @@
 ﻿using Modules.Common.ViewModel;
+using PropertyChanged;
 using System;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class OneEditorOpenService : BaseViewModel
 {
     private TaskViewModel _editorOpenTask;

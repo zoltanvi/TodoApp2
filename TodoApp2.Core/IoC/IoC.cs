@@ -19,7 +19,6 @@ public static class IoC
     public static ITaskContentSplitterService TaskContentSplitterService { get; set; }
     public static AppViewModel AppViewModel { get; private set; }
     public static OverlayPageService OverlayPageService { get; private set; }
-    public static CategoryListService CategoryListService { get; private set; }
     public static TaskListService TaskListService { get; private set; }
     public static NoteListService NoteListService { get; private set; }
     public static OneEditorOpenService OneEditorOpenService { get; private set; }
@@ -61,7 +60,6 @@ public static class IoC
         // Create default categories + example tasks
         DefaultItemsCreator.CreateDefaults(Context);
 
-        CategoryListService = serviceProvider.GetService<CategoryListService>();
         TaskListService = serviceProvider.GetService<TaskListService>();
         NoteListService = serviceProvider.GetService<NoteListService>();
 

@@ -1,4 +1,5 @@
 ﻿using Modules.Common.ViewModel;
+using PropertyChanged;
 using System;
 using System.Windows;
 using TodoApp2.Core.Extensions;
@@ -6,6 +7,7 @@ using TodoApp2.WindowHandling.Resizing;
 
 namespace TodoApp2.WindowHandling;
 
+[AddINotifyPropertyChangedInterface]
 public class WindowService : BaseViewModel, IWindowService
 {
     private readonly MainWindow _window;

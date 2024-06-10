@@ -8,7 +8,6 @@ public interface INotesRepository
     void DeleteNote(Note note);
     List<Note> GetActiveNotes();
     void RestoreNote(Note note);
-    void UpdateNote(Note updatedNote);
     void UpdateNoteContent(Note updatedNote);
-    void UpdateNoteList(List<Note> notes);
+    void UpdateNoteListOrders(List<Note> notes);
 }

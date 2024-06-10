@@ -1,0 +1,52 @@
+﻿<UserControl
+    x:Class="Modules.Categories.Views.Controls.CategoryListControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Modules.Categories.Views.Controls"
+    mc:Ignorable="d"
+    xmlns:dd="urn:gong-wpf-dragdrop"
+    AutomationProperties.AutomationId="CategoryList"
+    d:DesignHeight="500"
+    d:DesignWidth="380">
+    <Grid Background="Transparent">
+
+        <ListView
+            ItemsSource="{Binding Items}"
+            AutomationProperties.AutomationId="CategoryListListView"
+            x:Name="CategoryListListView"
+            BorderThickness="0"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.DropHandler="{Binding CustomDropHandler, Source={StaticResource CustomDropHandler}}"
+            Background="Transparent"
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.CanContentScroll="False"
+            Template="{DynamicResource TaskListControlTemplate}">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:CategoryListItemControl 
+                        Tag="{Binding DataContext, ElementName=CategoryListListView}"
+                        ActiveCategoryId="{Binding DataContext.ActiveCategory.Id, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

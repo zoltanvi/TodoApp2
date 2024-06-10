@@ -1,20 +1,18 @@
-﻿using Modules.Common.DataModels;
+﻿using Modules.Common;
 using Modules.Common.Navigation;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.Services.Navigation;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
 using Modules.Settings.Services;
+using PropertyChanged;
 using System;
 using System.ComponentModel;
-using TodoApp2.Common;
 using TodoApp2.Persistence;
 
 namespace TodoApp2.Core;
 
-/// <summary>
-/// The application state as a view model
-/// </summary>
+[AddINotifyPropertyChangedInterface]
 public class AppViewModel : BaseViewModel
 {
     private bool _appSettingsLoadedFirstTime;
@@ -53,7 +51,9 @@ public class AppViewModel : BaseViewModel
 
         AppSettings.Instance.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
 
-        Mediator.Register(OnUpdateMainPage, ViewModelMessages.UpdateMainPage);
+        MediatorOBSOLETE.Register(OnUpdateMainPage, ViewModelMessages.UpdateMainPage);
+        MediatorOBSOLETE.Register(OnLoadAppSettings, ViewModelMessages.LoadAppSettings);
+        MediatorOBSOLETE.Register(SaveApplicationSettings, ViewModelMessages.SaveAppSettings);
     }
 
     private SessionSettings SessionSettings => AppSettings.Instance.SessionSettings;
@@ -89,7 +89,7 @@ public class AppViewModel : BaseViewModel
     /// </summary>
     public void UpdateMainPage()
     {
-        if (SessionSettings.ActiveCategoryId == CommonConstants.RecycleBinCategoryId)
+        if (SessionSettings.ActiveCategoryId == Constants.RecycleBinCategoryId)
         {
             _mainPageNavigationService.NavigateTo<IRecycleBinPage>();
         }
@@ -142,6 +142,11 @@ public class AppViewModel : BaseViewModel
         IoC.OverlayPageService.Task = null;
     }
 
+    private void OnLoadAppSettings(object obj)
+    {
+        LoadAppSettingsOnce();
+    }
+
     public void LoadAppSettingsOnce()
     {
         if (!_appSettingsLoadedFirstTime)
@@ -155,7 +160,7 @@ public class AppViewModel : BaseViewModel
         }
     }
 
-    public void SaveApplicationSettings()
+    private void SaveApplicationSettings(object obj)
     {
         _settingsPopulator.UpdateDatabaseFromAppSettings(AppSettings.Instance);
     }

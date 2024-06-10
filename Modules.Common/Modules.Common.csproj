@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Modules.Common.Navigation\Modules.Common.Navigation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

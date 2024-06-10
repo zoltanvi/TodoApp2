@@ -1,8 +1,10 @@
 ﻿using Modules.Common.ViewModel;
+using PropertyChanged;
 using System;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class UIScaler : BaseViewModel, IUIScaler
 {
     private static UIScaler _instance = new UIScaler();
@@ -94,6 +96,7 @@ public class UIScaler : BaseViewModel, IUIScaler
         IoC.MessageService.ShowInfo($"{_scalingPercent} %");
     }
 
+    [AddINotifyPropertyChangedInterface]
     public class FontSizes : BaseViewModel
     {
         private const double OriginalSmallest = 10;

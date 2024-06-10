@@ -72,7 +72,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Modules.Categories.Contracts\Modules.Categories.Contracts.csproj" />
     <ProjectReference Include="..\Modules.Categories.Repositories\Modules.Categories.Repositories.csproj" />
+    <ProjectReference Include="..\Modules.Categories.Services\Modules.Categories.Services.csproj" />
+    <ProjectReference Include="..\Modules.Categories.Views\Modules.Categories.Views.csproj" />
     <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
     <ProjectReference Include="..\Modules.Migrations\Modules.Migrations.csproj" />
     <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
@@ -107,6 +110,7 @@
     <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
     <PackageReference Include="Fody" Version="6.8.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+    <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
       <PrivateAssets>all</PrivateAssets>

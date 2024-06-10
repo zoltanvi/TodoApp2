@@ -35,7 +35,7 @@ public class ReminderNotificationService
         _notificationQueue = new Queue<TaskViewModel>();
         _taskScheduler.ScheduledAction = ShowNotification;
 
-        Mediator.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
+        MediatorOBSOLETE.Register(OnNotificationClosed, ViewModelMessages.NotificationClosed);
 
         var taskList = _context.Tasks
             .Where(x => x.IsReminderOn && !x.Trashed && x.ReminderDate != 0)
@@ -134,7 +134,7 @@ public class ReminderNotificationService
                 _taskListService.UpdateTask(notificationTask);
 
                 IoC.AppViewModel.OpenOverlayPage<ITaskNotificationPage>(notificationTask);
-                Mediator.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
+                MediatorOBSOLETE.NotifyClients(ViewModelMessages.WindowFlashRequested, PlaySound);
             }
         }
     }

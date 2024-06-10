@@ -1,9 +1,11 @@
 ﻿using Modules.Common.DataModels;
 using Modules.Common.ViewModel;
+using PropertyChanged;
 using System;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class MessageService : BaseViewModel
 {
     private const int DefaultDuration = 1500;

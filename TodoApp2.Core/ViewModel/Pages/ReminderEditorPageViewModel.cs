@@ -1,5 +1,6 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.ViewModel;
+using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -9,6 +10,7 @@ using TodoApp2.Persistence;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class ReminderEditorPageViewModel : BaseViewModel
 {
     private bool _closed;

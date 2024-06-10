@@ -14,6 +14,9 @@ public class NotesRepository : INotesRepository
 
     public Note AddNote(Note note)
     {
+        note.CreationDate = DateTime.Now;
+        note.ModificationDate = DateTime.Now;
+
         _context.Notes.Add(note);
         _context.SaveChanges();
 
@@ -26,20 +29,6 @@ public class NotesRepository : INotesRepository
             .Where(x => !x.IsDeleted)
             .OrderBy(x => x.ListOrder)
             .ToList();
-    }
-
-    public void UpdateNote(Note updatedNote)
-    {
-        var dbNote = _context.Notes.Find(updatedNote.Id);
-        ArgumentNullException.ThrowIfNull(dbNote);
-
-        // Attach the updated entity to the context
-        _context.Entry(dbNote).CurrentValues.SetValues(updatedNote);
-
-        // Ensure the Id remains unchanged
-        _context.Entry(dbNote).Property(e => e.Id).IsModified = false;
-
-        _context.SaveChanges();
     }
 
     public void UpdateNoteContent(Note updatedNote)
@@ -73,20 +62,16 @@ public class NotesRepository : INotesRepository
         _context.SaveChanges();
     }
 
-    public void UpdateNoteList(List<Note> notes)
+    public void UpdateNoteListOrders(List<Note> notes)
     {
         foreach (var updatedNote in notes)
         {
-            var existingNote = _context.Notes.Find(updatedNote.Id);
-            ArgumentNullException.ThrowIfNull(existingNote);
+            var dbNote = _context.Notes.Find(updatedNote.Id);
+            ArgumentNullException.ThrowIfNull(dbNote);
 
-            if (existingNote != null)
+            if (dbNote != null)
             {
-                // Attach the updated entity to the context
-                _context.Entry(existingNote).CurrentValues.SetValues(updatedNote);
-
-                // Ensure the Id remains unchanged
-                _context.Entry(existingNote).Property(e => e.Id).IsModified = false;
+                dbNote.ListOrder = updatedNote.ListOrder;
             }
         }
 

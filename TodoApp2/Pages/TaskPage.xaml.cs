@@ -27,7 +27,7 @@ namespace TodoApp2
 
             ViewModel.ScrollIntoViewAction = MyTaskListControl.ScrollToItem;
             IoC.OneEditorOpenService.OnEditModeEnd = FocusBottomTextEditor;
-            Mediator.Register(OnFocusRequested, ViewModelMessages.FocusBottomTextEditor);
+            MediatorOBSOLETE.Register(OnFocusRequested, ViewModelMessages.FocusBottomTextEditor);
         }
 
         private void OnFocusRequested(object obj)

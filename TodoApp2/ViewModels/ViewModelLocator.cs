@@ -11,9 +11,7 @@ public class VML
 
     public static AppViewModel ApplicationViewModel => IoC.AppViewModel;
     public static OverlayPageService OverlayPageService => IoC.OverlayPageService;
-    public static CategoryListService CategoryListService => IoC.CategoryListService;
     public static NoteListService NoteListService => IoC.NoteListService;
     public static TaskListService TaskListService => IoC.TaskListService;
     public static MessageService MessageService => IoC.MessageService;
-    public static CustomDropHandler CustomDropHandler { get; } = new CustomDropHandler();
 }

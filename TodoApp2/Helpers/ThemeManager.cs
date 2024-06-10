@@ -39,7 +39,7 @@ public class ThemeManager
             ChangeTheme(from: DarkTheme, to: LightTheme);
         }
 
-        Mediator.NotifyClients(ViewModelMessages.ThemeChanged);
+        MediatorOBSOLETE.NotifyClients(ViewModelMessages.ThemeChanged);
     }
 
     private void ChangeTheme(string from, string to)

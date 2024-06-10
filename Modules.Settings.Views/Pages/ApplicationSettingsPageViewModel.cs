@@ -1,11 +1,13 @@
 ﻿using Modules.Common.Database;
 using Modules.Common.DataBinding;
 using Modules.Common.ViewModel;
+using PropertyChanged;
 using System.Diagnostics;
 using System.Windows.Input;
 
 namespace Modules.Settings.Views.Pages;
 
+[AddINotifyPropertyChangedInterface]
 public class ApplicationSettingsPageViewModel : BaseViewModel
 {
     public ICommand OpenDbLocationCommand { get; set; }

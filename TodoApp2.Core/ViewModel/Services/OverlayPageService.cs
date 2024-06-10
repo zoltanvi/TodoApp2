@@ -1,11 +1,13 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.ViewModel;
+using PropertyChanged;
 using System;
 using System.Windows.Input;
 using TodoApp2.Persistence;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class OverlayPageService : BaseViewModel, IOverlayPageService
 {
     private readonly AppViewModel _appViewModel;

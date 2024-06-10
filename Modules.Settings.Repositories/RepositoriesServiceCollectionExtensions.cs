@@ -5,7 +5,7 @@ namespace Modules.Settings.Repositories;
 
 public static class RepositoriesServiceCollectionExtensions
 {
-    public static IServiceCollection AddSettingsRepositories(this IServiceCollection services)
+    public static IServiceCollection AddSettingsRepository(this IServiceCollection services)
     {
         services.AddDbContext<SettingDbContext>();
         services.AddScoped<ISettingsRepository, SettingsRepository>();

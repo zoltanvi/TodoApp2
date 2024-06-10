@@ -17,22 +17,15 @@ internal static class DefaultItemsCreator
         _context = context;
 
         CreateDefaultCategoryIfNotExists();
-        CreateRecycleBinCategoryIfNotExists();
     }
 
     private static void CreateDefaultCategoryIfNotExists()
     {
-        if (_context.Categories.IsEmpty)
+        if(_context.Tasks.First(x => x.Id == 1) == null)
         {
-            _context.Categories.AddSimple(new CategoryViewModel
-            {
-                Name = "Today",
-                ListOrder = CommonConstants.DefaultListOrder
-            }.Map());
-
             _context.Tasks.AddSimple(new TaskViewModel
             {
-                CategoryId = _context.Categories.First().Id,
+                CategoryId = 1,
                 Content = CreateContentXml("This is a sample task."),
                 ListOrder = CommonConstants.DefaultListOrder,
                 CreationDate = DateTime.Now.Ticks,
@@ -44,7 +37,7 @@ internal static class DefaultItemsCreator
 
             _context.Tasks.AddSimple(new TaskViewModel
             {
-                CategoryId = _context.Categories.First().Id,
+                CategoryId = 1,
                 Content = CreateContentXml("This is a task that has been finished."),
                 IsDone = true,
                 ListOrder = CommonConstants.DefaultListOrder + CommonConstants.ListOrderInterval,
@@ -54,20 +47,6 @@ internal static class DefaultItemsCreator
                 BorderColor = Constants.ColorName.Transparent,
                 BackgroundColor = Constants.ColorName.Transparent
             }.Map());
-        }
-    }
-
-    private static void CreateRecycleBinCategoryIfNotExists()
-    {
-        if (_context.Categories.Where(x => x.Id == CommonConstants.RecycleBinCategoryId).Count == 0)
-        {
-            _context.Categories.AddSimple(new CategoryViewModel
-            {
-                Id = CommonConstants.RecycleBinCategoryId,
-                Name = CommonConstants.RecycleBinCategoryName,
-                ListOrder = CommonConstants.MaxListOrder
-            }.Map(),
-            writeAllProperties: true);
         }
     }
 

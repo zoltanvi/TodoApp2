@@ -1,9 +1,11 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.ViewModel;
+using PropertyChanged;
 using System.Windows.Input;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class TimePickerViewModel : BaseViewModel
 {
     private int _hour;

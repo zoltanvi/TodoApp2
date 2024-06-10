@@ -3,6 +3,7 @@ using Modules.Common.ViewModel;
 using Modules.Notes.Repositories;
 using Modules.Notes.ViewModels;
 using Modules.Settings.Contracts.ViewModels;
+using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,6 +11,7 @@ using TodoApp2.Core.Mappings;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class NoteListService : BaseViewModel
 {
     private AppViewModel _appViewModel;
@@ -26,7 +28,7 @@ public class NoteListService : BaseViewModel
             SaveNoteContent();
             _activeNote = value;
             AppSettings.Instance.SessionSettings.ActiveNoteId = value?.Id ?? -1;
-            Mediator.NotifyClients(ViewModelMessages.NoteChanged);
+            MediatorOBSOLETE.NotifyClients(ViewModelMessages.NoteChanged);
         }
     }
 

@@ -11,7 +11,7 @@ public class ThemeChangeNotifier
     public ThemeChangeNotifier()
     {
         _recipients = new List<KeyValuePair<IPropertyChangeNotifier, string>>();
-        Mediator.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
+        MediatorOBSOLETE.Register(OnThemeChanged, ViewModelMessages.ThemeChanged);
     }
 
     public void AddRecipient(IPropertyChangeNotifier recipient, string propertyName)

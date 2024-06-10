@@ -1,14 +1,17 @@
-﻿using Modules.Common;
+﻿using MediatR;
+using Modules.Categories.Contracts.Cqrs.Queries;
+using Modules.Categories.Views.Controls;
+using Modules.Common;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
+using PropertyChanged;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using TodoApp2.Common;
 using TodoApp2.Core.Extensions;
 using TodoApp2.Core.Mappings;
 using TodoApp2.Core.Reordering;
@@ -20,17 +23,17 @@ namespace TodoApp2.Core;
 /// Service to hold the task item list.
 /// Because this is a service, it can be accessed from multiple ViewModels.
 /// </summary>
+[AddINotifyPropertyChangedInterface]
 public class TaskListService : BaseViewModel
 {
-    private readonly CategoryListService _categoryListService;
     private readonly AppViewModel _appViewModel;
+    private readonly IMediator _mediator;
     private readonly IAppContext _context;
     private Reorderer _reorderer;
     private bool _categoryChangeInProgress;
     private bool _updateInProgress;
     private int _lastRemovedId = int.MinValue;
 
-    private CategoryViewModel ActiveCategory => _categoryListService.ActiveCategory;
     private TaskPageSettings TaskPageSettings => AppSettings.Instance.TaskPageSettings;
 
     /// <summary>
@@ -46,15 +49,15 @@ public class TaskListService : BaseViewModel
     public int ActiveCategoryFinishedTaskCount { get; set; }
     public int ActiveCategoryItemCount { get; set; }
 
-    public TaskListService(IAppContext context, AppViewModel appViewModel, CategoryListService categoryListService)
+    public TaskListService(IAppContext context, AppViewModel appViewModel, IMediator mediator)
     {
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(appViewModel);
-        ArgumentNullException.ThrowIfNull(categoryListService);
+        ArgumentNullException.ThrowIfNull(mediator);
 
         _context = context;
-        _categoryListService = categoryListService;
         _appViewModel = appViewModel;
+        _mediator = mediator;
 
         _reorderer = new Reorderer();
 
@@ -66,10 +69,10 @@ public class TaskListService : BaseViewModel
         TaskPageItems.CollectionChanged += OnTaskPageItemsChanged;
 
         // Subscribe to the category changed event to filter the list when it happens
-        Mediator.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+        MediatorOBSOLETE.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
         
         // Update recycle bin if a category is deleted
-        Mediator.Register(OnCategoryDeleted, ViewModelMessages.CategoryDeleted);
+        MediatorOBSOLETE.Register(OnCategoryDeleted, ViewModelMessages.CategoryDeleted);
 
         TaskPageSettings.PropertyChanged += TaskPageSettings_PropertyChanged;
 
@@ -81,10 +84,10 @@ public class TaskListService : BaseViewModel
         int insertionIndex = TaskPageSettings.InsertOrderReversed
            ? TaskPageItems.Count
            : TaskPageItems.Count(i => i.Pinned);
+        
+        var activeCategory = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
 
-        int activeCategoryId = _categoryListService.ActiveCategory.Id;
-
-        var task = CreateTask(taskContent, activeCategoryId);
+        var task = CreateTask(taskContent, activeCategory.Id);
         var correctedInsertionIndex = GetReorderIndex(insertionIndex, task, TaskPageItems, true);
 
         // Sets the correct ListOrder on the task
@@ -145,7 +148,9 @@ public class TaskListService : BaseViewModel
     {
         _updateInProgress = true;
 
-        if (task.Trashed || (ActiveCategory != null && task.CategoryId != ActiveCategory.Id))
+        var activeCategory = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
+
+        if (task.Trashed || (task.CategoryId != activeCategory.Id))
         {
             TaskPageItems.Remove(task);
         }
@@ -180,15 +185,17 @@ public class TaskListService : BaseViewModel
     {
         newPosition = newPosition == -1 ? 0 : newPosition;
 
-        if (task != null && ActiveCategory != null)
+        if (task != null)
         {
             if (changeInCollection)
             {
                 var oldIndex = TaskPageItems.IndexOf(task);
                 TaskPageItems.Move(oldIndex, newPosition);
             }
+            
+            var activeCategory = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
 
-            if (task.CategoryId != ActiveCategory.Id) TaskPageItems.Remove(task);
+            if (task.CategoryId != activeCategory.Id) TaskPageItems.Remove(task);
 
             ReorderingHelperTemp.ReorderTask(_context, task, newPosition);
         }
@@ -211,10 +218,10 @@ public class TaskListService : BaseViewModel
         RecalculateProgress();
     }
 
-    public List<TaskViewModel> GetActiveTaskItems(CategoryViewModel category)
+    public List<TaskViewModel> GetActiveTaskItems(int categoryId)
     {
         return _context.Tasks
-        .Where(x => x.CategoryId == category.Id && !x.Trashed)
+        .Where(x => x.CategoryId == categoryId && !x.Trashed)
         .OrderByListOrder()
         .MapList();
     }
@@ -476,10 +483,12 @@ public class TaskListService : BaseViewModel
 
     private List<TaskViewModel> GetActiveTaskItems()
     {
-        if (ActiveCategory?.Id != CommonConstants.RecycleBinCategoryId)
+        var activeCategory = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
+
+        if (activeCategory?.Id != Constants.RecycleBinCategoryId)
         {
             return _context.Tasks
-            .Where(x => x.CategoryId == ActiveCategory.Id && !x.Trashed)
+            .Where(x => x.CategoryId == activeCategory.Id && !x.Trashed)
             .OrderByListOrder()
             .MapList();
         }
@@ -489,7 +498,9 @@ public class TaskListService : BaseViewModel
 
     private List<TaskViewModel> GetRecycleBinItems()
     {
-        if (ActiveCategory?.Id == CommonConstants.RecycleBinCategoryId)
+        var activeCategory = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
+
+        if (activeCategory?.Id == Constants.RecycleBinCategoryId)
         {
             return _context.Tasks
                 .Where(x => x.Trashed)

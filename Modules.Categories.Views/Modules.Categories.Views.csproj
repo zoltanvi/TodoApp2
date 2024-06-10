@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Categories.Contracts\Modules.Categories.Contracts.csproj" />
+    <ProjectReference Include="..\Modules.Common.Navigation\Modules.Common.Navigation.csproj" />
+    <ProjectReference Include="..\Modules.Common.Views\Modules.Common.Views.csproj" />
+    <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
+    <ProjectReference Include="..\Modules.Settings.Contracts\Modules.Settings.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

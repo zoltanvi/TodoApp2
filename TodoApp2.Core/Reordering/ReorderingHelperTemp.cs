@@ -38,29 +38,4 @@ internal static class ReorderingHelperTemp
         void UpdateListOrder(IEnumerable<IReorderable> taskList) =>
             context.Tasks.UpdateRange(taskList.Cast<TaskViewModel>().MapList(), x => x.Id);
     }
-
-    public static void ReorderCategory(IAppContext context, CategoryViewModel category, int newPosition)
-    {
-        var activeCategories = context.Categories
-            .Where(x => !x.Trashed && x.Id != CommonConstants.RecycleBinCategoryId)
-            .OrderByListOrder()
-            .MapList();
-
-        // Get all categories except the reordered one that are not trashed
-        List<IReorderable> orderedCategories =
-            activeCategories.Where(c => c.Id != category.Id).Cast<IReorderable>().ToList();
-
-        IReorderable itemToReorder = category as IReorderable;
-
-        _reorderer.ReorderItem(
-            orderedCategories,
-            itemToReorder,
-            newPosition,
-        UpdateListOrder);
-
-        context.Categories.UpdateFirst(category.Map());
-
-        void UpdateListOrder(IEnumerable<IReorderable> categoryList) =>
-          context.Categories.UpdateRange(categoryList.Cast<CategoryViewModel>().MapList(), x => x.Id);
-    }
 }

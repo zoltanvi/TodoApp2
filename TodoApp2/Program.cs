@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Categories.Repositories;
 using Modules.Common.Database;
 using Modules.Common.Navigation;
 using Modules.Common.Services.Navigation;
@@ -15,6 +16,9 @@ using TodoApp2.DefaultData;
 using TodoApp2.Persistence;
 using TodoApp2.Services;
 using TodoApp2.WindowHandling;
+using MediatR;
+using Modules.Categories.Views.Pages;
+using Modules.Categories.Contracts.Cqrs.Commands;
 
 namespace TodoApp2;
 
@@ -22,6 +26,10 @@ public static class Program
 {
     public static IServiceCollection ConfigureAppServices(this IServiceCollection services)
     {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<App>());
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<RenameActiveCategoryCommandHandler>());
+
+
         services.AddScoped<MainWindow>();
         services.AddScoped<IAppContext, Persistence.AppContext>(provider =>
         {
@@ -52,7 +60,6 @@ public static class Program
         services.AddScoped<ThemeChangeNotifier>();
         services.AddScoped<OverlayPageService>();
 
-        services.AddScoped<CategoryListService>();
         services.AddScoped<TaskListService>();
         services.AddScoped<NoteListService>();
         services.AddScoped<TaskScheduler2>();
@@ -78,8 +85,9 @@ public static class Program
     {
         services.AddScoped<DefaultDataCreator>();
 
-        services.AddSettingsRepositories();
-        services.AddNotesRepositories();
+        services.AddSettingsRepository();
+        services.AddNotesRepository();
+        services.AddCategoriesRepository();
 
         services.AddMigrationsService();
     }

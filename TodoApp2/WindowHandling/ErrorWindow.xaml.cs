@@ -1,4 +1,5 @@
 ﻿using Modules.Common.ViewModel;
+using PropertyChanged;
 using System.Windows;
 
 namespace TodoApp2;
@@ -23,6 +24,7 @@ public partial class ErrorWindow : Window
     }
 }
 
+[AddINotifyPropertyChangedInterface]
 public class ErrorWindowViewModel : BaseViewModel
 {
     public ErrorWindowViewModel(string title, string errorMessage)

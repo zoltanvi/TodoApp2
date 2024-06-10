@@ -1,10 +1,12 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
+using PropertyChanged;
 using System.Windows.Input;
 
 namespace TodoApp2.Core;
 
+[AddINotifyPropertyChangedInterface]
 public class NotificationPageViewModel : BaseViewModel
 {
     private bool _closed;
@@ -35,7 +37,7 @@ public class NotificationPageViewModel : BaseViewModel
 
             IoC.OverlayPageService.ClosePage();
 
-            Mediator.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
+            MediatorOBSOLETE.NotifyClients(ViewModelMessages.NotificationClosed, NotificationTask);
         }
     }
 }

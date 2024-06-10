@@ -19,7 +19,7 @@
             BorderThickness="0"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
-            dd:DragDrop.DropHandler="{Binding CustomDropHandler, Source={x:Static local:VML.Instance}}"
+            dd:DragDrop.DropHandler="{Binding CustomDropHandler, Source={StaticResource CustomDropHandler}}"
             Background="Transparent"
             HorizontalContentAlignment="Stretch"
             ScrollViewer.VerticalScrollBarVisibility="Auto"

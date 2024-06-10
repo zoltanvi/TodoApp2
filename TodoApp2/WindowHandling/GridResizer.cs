@@ -103,8 +103,8 @@ public class GridResizer
         _window.StateChanged += Window_StateChanged;
 
         UIScaler.Instance.Zoomed += Instance_Zoomed;
-        Mediator.Register(OnSideMenuButtonClicked, ViewModelMessages.SideMenuButtonClicked);
-        Mediator.Register(OnSideMenuCloseRequested, ViewModelMessages.SideMenuCloseRequested);
+        MediatorOBSOLETE.Register(OnSideMenuButtonClicked, ViewModelMessages.SideMenuButtonClicked);
+        MediatorOBSOLETE.Register(OnSideMenuCloseRequested, ViewModelMessages.SideMenuCloseRequested);
     }
 
     private void OnDoubleClickTimer(object sender, EventArgs e)

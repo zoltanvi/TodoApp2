@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Modules.Categories.Repositories;
 using Modules.Common;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.Services.Navigation;
@@ -63,7 +64,8 @@ public partial class App : Application
         var dbContextList = new List<DbContext>()
         {
             ServiceProvider.GetService<SettingDbContext>(),
-            ServiceProvider.GetService<NotesDbContext>()
+            ServiceProvider.GetService<NotesDbContext>(),
+            ServiceProvider.GetService<CategoryDbContext>()
         };
 
         migrationService.Run(dbContextList);

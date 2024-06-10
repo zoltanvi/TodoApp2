@@ -1,7 +1,9 @@
 ﻿using Modules.Common.DataBinding;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
+using Modules.Common.Views.DragDrop;
 using Modules.Settings.Contracts.ViewModels;
+using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -15,16 +17,13 @@ using Thickness = System.Windows.Thickness;
 
 namespace TodoApp2;
 
-/// <summary>
-/// The View Model for the custom flat window
-/// </summary>
+[AddINotifyPropertyChangedInterface]
 public class MainWindowViewModel : BaseViewModel
 {
     private IWindowService _windowService;
     private TrayIconModule _trayIconModule;
     private readonly ThemeManager _themeManager;
 
-    private readonly AppViewModel _appViewModel;
     private readonly IAppContext _context;
     private readonly DragDropMediator _dragDropMediator;
     private readonly DispatcherTimer _timer;
@@ -77,14 +76,12 @@ public class MainWindowViewModel : BaseViewModel
 
     #endregion Workaround
 
-    public MainWindowViewModel(AppViewModel applicationViewModel, IAppContext context, IWindowService windowService)
+    public MainWindowViewModel(IAppContext context, IWindowService windowService)
     {
-        ArgumentNullException.ThrowIfNull(applicationViewModel);
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(windowService);
 
         _windowService = windowService;
-        _appViewModel = applicationViewModel;
         _context = context;
         AppSettings.Instance.AppWindowSettings.PropertyChanged += CommonSettings_PropertyChanged;
 
@@ -114,9 +111,9 @@ public class MainWindowViewModel : BaseViewModel
         ToggleSideMenuCommand = new RelayCommand(ToggleSideMenu);
 
         // Listen out for requests to flash the application window
-        Mediator.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
+        MediatorOBSOLETE.Register(OnWindowFlashRequested, ViewModelMessages.WindowFlashRequested);
 
-        _dragDropMediator = new DragDropMediator();
+        //_dragDropMediator = new DragDropMediator();
 
         _timer = new DispatcherTimer(DispatcherPriority.Send) { Interval = new TimeSpan(0, 0, 0, 0, 10) };
         CurrentTime = DateTime.Now.Ticks;
@@ -204,7 +201,7 @@ public class MainWindowViewModel : BaseViewModel
             {
                 // Ctrl + E
                 // Set focus on task page bottom text editor
-                Mediator.NotifyClients(ViewModelMessages.FocusBottomTextEditor);
+                MediatorOBSOLETE.NotifyClients(ViewModelMessages.FocusBottomTextEditor);
             }
 
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
@@ -229,7 +226,7 @@ public class MainWindowViewModel : BaseViewModel
 
     private void ToggleSideMenu()
     {
-        Mediator.NotifyClients(ViewModelMessages.SideMenuButtonClicked);
+        MediatorOBSOLETE.NotifyClients(ViewModelMessages.SideMenuButtonClicked);
     }
 
     private void ZoomOut()
@@ -272,7 +269,7 @@ public class MainWindowViewModel : BaseViewModel
     {
         // When the window finished loading,
         // load the settings from the database
-        _appViewModel.LoadAppSettingsOnce();
+        MediatorOBSOLETE.NotifyClients(ViewModelMessages.LoadAppSettings);
 
         var left = WindowSettings.Left;
         var top = WindowSettings.Top;
@@ -312,6 +309,6 @@ public class MainWindowViewModel : BaseViewModel
             WindowSettings.Height = (int)_windowService.Height;
         }
 
-        _appViewModel.SaveApplicationSettings();
+        MediatorOBSOLETE.NotifyClients(ViewModelMessages.SaveAppSettings);
     }
 }
