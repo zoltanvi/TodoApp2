@@ -1,80 +1,69 @@
 ﻿using MediatR;
+using Modules.Common;
 using Modules.Common.DataBinding;
 using Modules.Common.Navigation;
 using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.Services.Navigation;
 using Modules.Common.ViewModel;
-using Modules.Notes.Contracts.Cqrs.Commands;
+using Modules.Common.Views.Services.Navigation;
 using Modules.Notes.Repositories;
 using Modules.Notes.Repositories.Models;
-using Modules.Notes.ViewModels;
+using Modules.Notes.Views.Controls;
+using Modules.Notes.Views.Mappings;
 using Modules.Settings.Contracts.ViewModels;
 using PropertyChanged;
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Windows.Input;
-using TodoApp2.Common;
-using TodoApp2.Core.Mappings;
 
-namespace TodoApp2.Core;
+namespace Modules.Notes.Views.Pages;
 
 [AddINotifyPropertyChangedInterface]
 public class NoteListPageViewModel : BaseViewModel
 {
     private readonly INotesRepository _notesRepository;
-    private readonly AppViewModel _appViewModel;
-    private readonly OverlayPageService _overlayPageService;
-    private readonly NoteListService _noteListService;
-    private readonly MessageService _messageService;
+    private readonly IMediator _mediator;
+    private NoteViewModel? _activeNote;
     private readonly IMainPageNavigationService _mainPageNavigationService;
     private readonly ISideMenuPageNavigationService _sideMenuPageNavigationService;
-    private readonly IMediator _mediator;
+
     private int _lastRemovedId = int.MinValue;
 
     public NoteListPageViewModel(
-        AppViewModel applicationViewModel,
         INotesRepository notesRepository,
-        OverlayPageService overlayPageService,
-        NoteListService noteListService,
-        MessageService messageService,
         IMainPageNavigationService mainPageNavigationService,
         ISideMenuPageNavigationService sideMenuPageNavigationService,
         IMediator mediator)
     {
-        ArgumentNullException.ThrowIfNull(applicationViewModel);
         ArgumentNullException.ThrowIfNull(notesRepository);
-        ArgumentNullException.ThrowIfNull(overlayPageService);
-        ArgumentNullException.ThrowIfNull(noteListService);
-        ArgumentNullException.ThrowIfNull(messageService);
+        ArgumentNullException.ThrowIfNull(mediator);
 
-        _appViewModel = applicationViewModel;
         _notesRepository = notesRepository;
-        _overlayPageService = overlayPageService;
-        _noteListService = noteListService;
-        _messageService = messageService;
+        _mediator = mediator;
         _mainPageNavigationService = mainPageNavigationService;
         _sideMenuPageNavigationService = sideMenuPageNavigationService;
-        _mediator = mediator;
 
         AddNoteCommand = new RelayCommand(AddNote);
-        DeleteNoteCommand = new RelayParameterizedCommand<NoteViewModel>(TrashNote);
+        DeleteNoteCommand = new RelayParameterizedCommand<NoteViewModel>(DeleteNote);
         OpenNoteCommand = new RelayParameterizedCommand<NoteViewModel>(SetActiveNote);
         OpenSettingsPageCommand = new RelayCommand(OpenSettingsPage);
         OpenCategoryPageCommand = new RelayCommand(OpenCategoryPage);
 
-        // Subscribe to the collection changed event for synchronizing with database
-        _noteListService.Items.CollectionChanged += ItemsOnCollectionChanged;
+        var notes = _notesRepository.GetActiveNotes();
+        Items = new ObservableCollection<NoteViewModel>(notes.MapToViewModelList());
 
         // Load the application settings to update the ActiveNote
-        _appViewModel.LoadAppSettingsOnce();
+        MediatorOBSOLETE.NotifyClients(ViewModelMessages.LoadAppSettings);
+
+        _activeNote = Items.FirstOrDefault(x => x.Id == AppSettings.Instance.SessionSettings.ActiveNoteId);
+
+        Items.CollectionChanged += ItemsOnCollectionChanged;
     }
 
     /// <summary>
     /// The Title of the current note being added
     /// </summary>
-    public string PendingAddNewNoteText { get; set; }
+    public string? PendingAddNewNoteText { get; set; }
 
     public ICommand AddNoteCommand { get; }
     public ICommand DeleteNoteCommand { get; }
@@ -82,60 +71,33 @@ public class NoteListPageViewModel : BaseViewModel
     public ICommand OpenSettingsPageCommand { get; }
     public ICommand OpenCategoryPageCommand { get; }
 
-    private ObservableCollection<NoteViewModel> Items => _noteListService.Items;
+    public ObservableCollection<NoteViewModel> Items { get; set; }
 
-    private NoteViewModel ActiveNote
+    public NoteViewModel? ActiveNote
     {
-        get => _noteListService.ActiveNote;
-        set => _noteListService.ActiveNote = value;
+        get => _activeNote;
+        set
+        {
+            SaveNoteContent();
+            _activeNote = value;
+            AppSettings.Instance.SessionSettings.ActiveNoteId = value?.Id ?? -1;
+            MediatorOBSOLETE.NotifyClients(ViewModelMessages.NoteChanged);
+        }
     }
 
-    private void ItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    private void ItemsOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        switch (e.Action)
+        for (var i = 0; i < Items.Count; i++)
         {
-            case NotifyCollectionChangedAction.Add:
-            {
-                if (e.NewItems.Count > 0)
-                {
-                    var newItem = (NoteViewModel)e.NewItems[0];
-
-                    // If the newly added item is the same as the last deleted one,
-                    // then this was a drag and drop reorder
-                    if (newItem.Id == _lastRemovedId)
-                    {
-                        for (int i = 0; i < _noteListService.Items.Count; i++)
-                        {
-                            _noteListService.Items[i].ListOrder = i;
-                        }
-
-                        var list = _noteListService.Items.MapList();
-                        _notesRepository.UpdateNoteListOrders(list);
-                    }
-
-                    _lastRemovedId = int.MinValue;
-                }
-                break;
-            }
-            case NotifyCollectionChangedAction.Remove:
-            {
-                if (e.OldItems.Count > 0)
-                {
-                    var last = (NoteViewModel)e.OldItems[0];
-
-                    _lastRemovedId = last.Id;
-                }
-                break;
-            }
+            Items[i].ListOrder = i;
         }
+
+        _notesRepository.UpdateNoteListOrders(Items.MapList());
     }
 
     private void AddNote()
     {
-        // Remove trailing and leading whitespaces
-        PendingAddNewNoteText = PendingAddNewNoteText.Trim();
-
-        // If the text is empty or only whitespace, refuse
+        PendingAddNewNoteText = PendingAddNewNoteText?.Trim();
         if (string.IsNullOrWhiteSpace(PendingAddNewNoteText))
         {
             return;
@@ -149,11 +111,16 @@ public class NoteListPageViewModel : BaseViewModel
 
     private void CreateNote()
     {
+        if (string.IsNullOrWhiteSpace(PendingAddNewNoteText))
+        {
+            throw new InvalidOperationException("Cannot add note with empty name");
+        }
+
         var notes = _notesRepository.GetActiveNotes();
 
         var lastListOrder = notes.Any()
             ? notes.Last().ListOrder
-            : CommonConstants.DefaultListOrder;
+            : Constants.DefaultListOrder;
 
         var note = new Note
         {
@@ -166,11 +133,10 @@ public class NoteListPageViewModel : BaseViewModel
         };
 
         note = _notesRepository.AddNote(note);
-
         Items.Add(note.MapToViewModel());
     }
 
-    private void TrashNote(NoteViewModel note)
+    private void DeleteNote(NoteViewModel note)
     {
         _notesRepository.DeleteNote(note.Map());
         Items.Remove(note);
@@ -181,6 +147,11 @@ public class NoteListPageViewModel : BaseViewModel
         }
     }
 
+    /// <summary>
+    /// Sets the current category to the specified one.
+    /// Ensures that always only one IsSelected property is set to true.
+    /// </summary>
+    /// <param name="note"></param>
     private void SetActiveNote(NoteViewModel note)
     {
         if (string.IsNullOrEmpty(note?.Title)) return;
@@ -188,8 +159,6 @@ public class NoteListPageViewModel : BaseViewModel
         if (ActiveNote != note)
         {
             ActiveNote = note;
-            _mediator.Send(new SetActiveNoteCommand() { Id = note.Id });
-
             //IoC.CategoryListService.ActiveCategory = null;
         }
 
@@ -198,24 +167,17 @@ public class NoteListPageViewModel : BaseViewModel
             MediatorOBSOLETE.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
         }
 
-        _overlayPageService.CloseSideMenu();
-
         _mainPageNavigationService.NavigateTo<INoteEditorPage>();
+
+        OnPropertyChanged(nameof(ActiveNote));
     }
 
-    /// <summary>
-    /// Opens the settings page
-    /// </summary>
     private void OpenSettingsPage()
     {
         _mainPageNavigationService.NavigateTo<ISettingsPage>();
-
         MediatorOBSOLETE.NotifyClients(ViewModelMessages.SideMenuCloseRequested);
     }
 
-    /// <summary>
-    /// Opens the note page
-    /// </summary>
     private void OpenCategoryPage()
     {
         _sideMenuPageNavigationService.NavigateTo<ICategoryListPage>();
@@ -223,6 +185,14 @@ public class NoteListPageViewModel : BaseViewModel
 
     protected override void OnDispose()
     {
-        _noteListService.Items.CollectionChanged -= ItemsOnCollectionChanged;
+        Items.CollectionChanged -= ItemsOnCollectionChanged;
+    }
+
+    public void SaveNoteContent()
+    {
+        if (ActiveNote != null)
+        {
+            _notesRepository.UpdateNoteContent(ActiveNote.Map());
+        }
     }
 }

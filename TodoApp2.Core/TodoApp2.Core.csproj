@@ -36,7 +36,6 @@
     <ProjectReference Include="..\Modules.Common.Navigation\Modules.Common.Navigation.csproj" />
     <ProjectReference Include="..\Modules.Notes.Contracts\Modules.Notes.Contracts.csproj" />
     <ProjectReference Include="..\Modules.Notes.Repositories\Modules.Notes.Repositories.csproj" />
-    <ProjectReference Include="..\Modules.Notes.ViewModels\Modules.Notes.ViewModels.csproj" />
     <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
     <ProjectReference Include="..\Modules.Settings.Services\Modules.Settings.Services.csproj" />
     <ProjectReference Include="..\TodoApp2.Common\TodoApp2.Common.csproj" />

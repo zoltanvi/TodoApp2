@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
-    <ProjectReference Include="..\Modules.Notes.ViewModels\Modules.Notes.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

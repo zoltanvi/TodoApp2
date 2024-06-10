@@ -1,7 +1,7 @@
 ﻿using Modules.Common.ViewModel;
 using PropertyChanged;
 
-namespace Modules.Notes.ViewModels;
+namespace Modules.Notes.Views.Controls;
 
 [AddINotifyPropertyChangedInterface]
 public class NoteViewModel : BaseViewModel

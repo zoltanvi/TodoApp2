@@ -78,6 +78,7 @@
     <ProjectReference Include="..\Modules.Categories.Views\Modules.Categories.Views.csproj" />
     <ProjectReference Include="..\Modules.Common\Modules.Common.csproj" />
     <ProjectReference Include="..\Modules.Migrations\Modules.Migrations.csproj" />
+    <ProjectReference Include="..\Modules.Notes.Views\Modules.Notes.Views.csproj" />
     <ProjectReference Include="..\Modules.Settings.Repositories\Modules.Settings.Repositories.csproj" />
     <ProjectReference Include="..\Modules.Settings.Services\Modules.Settings.Services.csproj" />
     <ProjectReference Include="..\Modules.Settings.Views\Modules.Settings.Views.csproj" />

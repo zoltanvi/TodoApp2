@@ -20,7 +20,6 @@ public static class IoC
     public static AppViewModel AppViewModel { get; private set; }
     public static OverlayPageService OverlayPageService { get; private set; }
     public static TaskListService TaskListService { get; private set; }
-    public static NoteListService NoteListService { get; private set; }
     public static OneEditorOpenService OneEditorOpenService { get; private set; }
     public static MessageService MessageService { get; private set; }
     public static UIScaler UIScaler { get; private set; }
@@ -61,7 +60,6 @@ public static class IoC
         DefaultItemsCreator.CreateDefaults(Context);
 
         TaskListService = serviceProvider.GetService<TaskListService>();
-        NoteListService = serviceProvider.GetService<NoteListService>();
 
         ReminderNotificationService = serviceProvider.GetService<ReminderNotificationService>();
 

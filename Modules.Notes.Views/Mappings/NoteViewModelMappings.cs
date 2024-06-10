@@ -1,6 +1,7 @@
 ﻿using Modules.Notes.Repositories.Models;
+using Modules.Notes.Views.Controls;
 
-namespace Modules.Notes.ViewModels;
+namespace Modules.Notes.Views.Mappings;
 
 public static class NoteViewModelMappings
 {

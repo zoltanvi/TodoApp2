@@ -1,11 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Categories.Contracts.Cqrs.Commands;
 using Modules.Categories.Repositories;
+using Modules.Categories.Views.Pages;
 using Modules.Common.Database;
 using Modules.Common.Navigation;
 using Modules.Common.Services.Navigation;
 using Modules.Common.Views.Pages;
 using Modules.Common.Views.Services.Navigation;
 using Modules.Notes.Repositories;
+using Modules.Notes.Views.Pages;
 using Modules.Settings.Contracts.ViewModels;
 using Modules.Settings.Repositories;
 using Modules.Settings.Services;
@@ -16,9 +19,6 @@ using TodoApp2.DefaultData;
 using TodoApp2.Persistence;
 using TodoApp2.Services;
 using TodoApp2.WindowHandling;
-using MediatR;
-using Modules.Categories.Views.Pages;
-using Modules.Categories.Contracts.Cqrs.Commands;
 
 namespace TodoApp2;
 
@@ -61,7 +61,6 @@ public static class Program
         services.AddScoped<OverlayPageService>();
 
         services.AddScoped<TaskListService>();
-        services.AddScoped<NoteListService>();
         services.AddScoped<TaskScheduler2>();
         services.AddScoped<ReminderNotificationService>();
         services.AddScoped<OneEditorOpenService>();

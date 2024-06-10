@@ -1,16 +1,17 @@
 ﻿<commonPages:GenericBasePage
-    x:Class="TodoApp2.NoteListPage"
+    x:Class="Modules.Notes.Views.Pages.NoteListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:core="clr-namespace:TodoApp2.Core;assembly=TodoApp2.Core"
     xmlns:commonPages="clr-namespace:Modules.Common.Views.Pages;assembly=Modules.Common.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:TodoApp2"
+    xmlns:local="clr-namespace:Modules.Notes.Views.Pages"
+    xmlns:localControls="clr-namespace:Modules.Notes.Views.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Page1"
+    d:DataContext="{d:DesignInstance Type=local:NoteListPageViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="400"
-    x:TypeArguments="core:NoteListPageViewModel"
+    x:TypeArguments="local:NoteListPageViewModel"
     mc:Ignorable="d">
 
     <Grid>
@@ -48,16 +49,16 @@
                     <!--  NOTES  -->
                     <Button
                         Grid.Column="0"
+                        Margin="25 5 0 0"
+                        HorizontalAlignment="Left"
                         Command="{Binding OpenCategoryPageCommand}"
-                        Style="{DynamicResource ButtonBaseStyle}"
-                        Foreground="{DynamicResource Primary}"
-                        ToolTip="Click to switch to CATEGORIES"
                         Content="NOTES"
                         Cursor="Hand"
+                        FontFamily="{DynamicResource UIBoldFont}"
                         FontSize="{Binding UIScaler.FontSize.Regular, Source={StaticResource UIScaler}}"
-                        HorizontalAlignment="Left"
-                        Margin="25 5 0 0"
-                        FontFamily="{DynamicResource UIBoldFont}" />
+                        Foreground="{DynamicResource Primary}"
+                        Style="{DynamicResource ButtonBaseStyle}"
+                        ToolTip="Click to switch to CATEGORIES" />
 
 
                     <!--  Settings button  -->
@@ -71,10 +72,12 @@
                 </Grid>
 
                 <!--  Note list  -->
-                <local:NoteListControl
+                <localControls:NoteListControl
                     Grid.Row="1"
                     Grid.Column="0"
-                    Grid.ColumnSpan="2" />
+                    Grid.ColumnSpan="2"
+                    DataContext="{Binding}"
+                    />
             </Grid>
 
         </Border>
@@ -82,8 +85,8 @@
         <!--  ADD NEW NOTE  -->
         <Border
             Grid.Row="1"
-            Background="{DynamicResource Surface1}"
             Margin="0 5 0 0"
+            Background="{DynamicResource Surface1}"
             BorderThickness="0 0 0 0"
             CornerRadius="6">
             <TextBox
