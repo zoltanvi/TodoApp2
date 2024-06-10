@@ -87,7 +87,7 @@
                             FontSize="{Binding AppSettings.PageTitleSettings.FontSize, Source={StaticResource AppSettings}, Converter={StaticResource fontSizeScaler}}"
                             Foreground="{DynamicResource Primary}"
                             Style="{DynamicResource PageTitleTextBlockStyle}"
-                            Text="{Binding CategoryListService.ActiveCategoryName, Source={x:Static local:VML.Instance}}">
+                            Text="{Binding ActiveCategoryName}">
                             <TextBlock.Visibility>
                                 <MultiBinding>
                                     <MultiBinding.Converter>

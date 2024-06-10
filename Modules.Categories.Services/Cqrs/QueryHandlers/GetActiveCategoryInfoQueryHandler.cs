@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using Modules.Categories.Contracts;
+using Modules.Categories.Contracts.Cqrs.Queries;
 using Modules.Categories.Contracts.Models;
 using Modules.Settings.Contracts.ViewModels;
 
-namespace Modules.Categories.Contracts.Cqrs.Queries;
+namespace Modules.Categories.Services.Cqrs.QueryHandlers;
 
 public class GetActiveCategoryInfoQueryHandler : IRequestHandler<GetActiveCategoryInfoQuery, ActiveCategoryInfo>
 {
@@ -19,7 +21,7 @@ public class GetActiveCategoryInfoQueryHandler : IRequestHandler<GetActiveCatego
         Category? activeCategory = _categoriesRepository.GetCategoryById(id);
 
         return Task.FromResult(new ActiveCategoryInfo()
-        { 
+        {
             Id = activeCategory?.Id ?? -1,
             Name = activeCategory?.Name ?? string.Empty
         });

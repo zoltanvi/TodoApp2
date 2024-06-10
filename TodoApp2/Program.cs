@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Modules.Categories.Contracts.Cqrs.Commands;
 using Modules.Categories.Repositories;
+using Modules.Categories.Services.Cqrs.CommandHandlers;
 using Modules.Categories.Views.Pages;
 using Modules.Common.Database;
 using Modules.Common.Navigation;
@@ -15,6 +15,7 @@ using Modules.Settings.Services;
 using Modules.Settings.Views;
 using Modules.Settings.Views.Pages;
 using TodoApp2.Core;
+using TodoApp2.Core.Cqrs.EventHandlers;
 using TodoApp2.DefaultData;
 using TodoApp2.Persistence;
 using TodoApp2.Services;
@@ -28,7 +29,7 @@ public static class Program
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<App>());
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<RenameActiveCategoryCommandHandler>());
-
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ActiveCategoryChangedEventHandler>());
 
         services.AddScoped<MainWindow>();
         services.AddScoped<IAppContext, Persistence.AppContext>(provider =>
@@ -98,7 +99,7 @@ public static class Program
         services.AddScoped<INoteListPage, NoteListPage>();
         services.AddScoped<IRecycleBinPage, RecycleBinPage>();
         services.AddScoped<ISettingsPage, SettingsPage>();
-        services.AddScoped<ITaskPage, TaskPage>();
+        services.AddSingleton<ITaskPage, TaskPage>();
 
         services.AddScoped<IEmptyPage, EmptyPage>();
         services.AddScoped<ITaskNotificationPage, NotificationPage>();

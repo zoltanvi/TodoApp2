@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Modules.Categories.Contracts.Cqrs.Commands;
+using Modules.Categories.Contracts.Cqrs.Events;
 using Modules.Categories.Contracts.Cqrs.Queries;
 using Modules.Categories.Views.Controls;
 using Modules.Common;
 using Modules.Common.DataBinding;
-using Modules.Common.OBSOLETE.Mediator;
 using Modules.Common.ViewModel;
 using Modules.Settings.Contracts.ViewModels;
 using PropertyChanged;
@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using TodoApp2.Common;
+using TodoApp2.Core.Cqrs.EventHandlers;
 
 namespace TodoApp2.Core;
 
@@ -26,6 +27,8 @@ public class TaskPageViewModel : BaseViewModel
     private readonly AppViewModel _applicationViewModel;
     private readonly TaskListService _taskListService;
     private readonly IMediator _mediator;
+
+    public string ActiveCategoryName { get; set; } = "category_name";
 
     private ObservableCollection<TaskViewModel> Items => _taskListService.TaskPageItems;
 
@@ -145,7 +148,21 @@ public class TaskPageViewModel : BaseViewModel
 
         ToggleBottomPanelOpenState = new RelayCommand(() => IsBottomPanelOpen = !IsBottomPanelOpen);
 
-        MediatorOBSOLETE.Register(OnCategoryChanged, ViewModelMessages.CategoryChanged);
+        ActiveCategoryChangedEventHandler.ActiveCategoryChanged += OnActiveCategoryChanged;
+        var activeCategoryInfo = _mediator.Send(new GetActiveCategoryInfoQuery()).Result;
+        SetActiveCategoryName(activeCategoryInfo.Name);
+    }
+
+    private void OnActiveCategoryChanged(ActiveCategoryChangedEvent obj)
+    {
+        SetActiveCategoryName(obj?.NewName);
+        IsCategoryInEditMode = false;
+    }
+
+    private void SetActiveCategoryName(string name)
+    {
+        ActiveCategoryName = name ?? "ActiveCategoryChangedEvent_error";
+        OnPropertyChanged(nameof(ActiveCategoryName));
     }
 
     private void SplitLines(TaskViewModel model)
@@ -487,10 +504,5 @@ public class TaskPageViewModel : BaseViewModel
     {
         int newIndex = _taskListService.GetCorrectReorderIndex(0, task);
         _taskListService.ReorderTask(task, newIndex, true);
-    }
-
-    private void OnCategoryChanged(object obj)
-    {
-        IsCategoryInEditMode = false;
     }
 }

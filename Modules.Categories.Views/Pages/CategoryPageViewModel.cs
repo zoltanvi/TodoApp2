@@ -1,4 +1,6 @@
-﻿using Modules.Categories.Contracts;
+﻿using MediatR;
+using Modules.Categories.Contracts;
+using Modules.Categories.Contracts.Cqrs.Events;
 using Modules.Categories.Contracts.Models;
 using Modules.Categories.Views.Controls;
 using Modules.Categories.Views.Mappings;
@@ -22,21 +24,24 @@ public class CategoryPageViewModel : BaseViewModel
     private readonly ICategoriesRepository _categoriesRepository;
     private readonly IMainPageNavigationService _mainPageNavigationService;
     private readonly ISideMenuPageNavigationService _sideMenuPageNavigationService;
+    private readonly IMediator _mediator;
     private CategoryViewModel _activeCategory;
-    private int _lastRemovedId = int.MinValue;
 
     public CategoryPageViewModel(
         ICategoriesRepository categoriesRepository,
         IMainPageNavigationService mainPageNavigationService,
-        ISideMenuPageNavigationService sideMenuPageNavigationService)
+        ISideMenuPageNavigationService sideMenuPageNavigationService,
+        IMediator mediator)
     {
         ArgumentNullException.ThrowIfNull(categoriesRepository);
         ArgumentNullException.ThrowIfNull(mainPageNavigationService);
         ArgumentNullException.ThrowIfNull(sideMenuPageNavigationService);
+        ArgumentNullException.ThrowIfNull(mediator);
 
         _categoriesRepository = categoriesRepository;
         _mainPageNavigationService = mainPageNavigationService;
         _sideMenuPageNavigationService = sideMenuPageNavigationService;
+        _mediator = mediator;
 
         AddCategoryCommand = new RelayCommand(AddCategory);
         DeleteCategoryCommand = new RelayParameterizedCommand<CategoryViewModel>(DeleteCategory);
@@ -58,7 +63,6 @@ public class CategoryPageViewModel : BaseViewModel
         Items = new ObservableCollection<CategoryViewModel>(activeCategories.MapToViewModelList());
         Items.CollectionChanged += ItemsOnCollectionChanged;
     }
-
 
     public int RecycleBinCategoryId => Constants.RecycleBinCategoryId;
     public string? PendingAddNewCategoryText { get; set; }
@@ -91,10 +95,18 @@ public class CategoryPageViewModel : BaseViewModel
         get => _activeCategory;
         set
         {
+            var oldName = _activeCategory.Name;
+
             _activeCategory = value;
             AppSettings.Instance.SessionSettings.ActiveCategoryId = value?.Id ?? -1;
             MediatorOBSOLETE.NotifyClients(ViewModelMessages.SaveAppSettings);
             OnPropertyChanged(nameof(ActiveCategory));
+
+            _mediator.Publish(new ActiveCategoryChangedEvent()
+            {
+                OldName = oldName,
+                NewName = _activeCategory.Name
+            });
         }
     }
 
