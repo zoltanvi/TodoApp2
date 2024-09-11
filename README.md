@@ -3,6 +3,8 @@ A highly customizable and portable task management application.
  
 100% offline.
 
+**Update**: The reworked version of the app can be found here: [TodoApp](https://github.com/zoltanvi/TodoApp)
+
 ### Screenshots
 ![Preview](TodoApp2/Images/Readme/preview.gif)
 
